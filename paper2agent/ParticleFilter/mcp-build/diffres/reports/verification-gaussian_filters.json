@@ -1,0 +1,133 @@
+{
+ "module": "gaussian_filters",
+ "verifier": "independent verifier (fresh agent, not an implementer), stage 3b",
+ "implementation_run_id": "implement-gaussian-filters-attempt-1",
+ "implementation_report": "reports/implementation-gaussian_filters.json (not modified)",
+ "status": "verified",
+ "tools": {
+  "diffres_run_lgssm_kalman_filter": "verified",
+  "diffres_simulate_lgssm_data": "verified"
+ },
+ "exclusions": [],
+ "production_files": {
+  "src/tools/gaussian_filters.py": {
+   "sha256_at_handoff_from_implementer": "db9c33fe05adf7bf301e3ac8446e3b75bdf0aeb74411f7c2ed80f15b9a4de878",
+   "sha256_tested_final": "780a9dc11a630600c83a87291f4d0887c2e4edd3a2286282c6319633c178d094"
+  }
+ },
+ "read_only_shared_dependencies": {
+  "upstream": "diffres 0.0.1 editable install of repo/diffres @ 767effe3e755067eb8a04422597fbf37eb8ab754 (git HEAD verified; repo sources not modified; an untracked repo/diffres/diffres/__pycache__ created 2026-10-03T01:22:35Z, before this verifier's first JAX run, is not from this verifier)",
+  "runtime": "diffres-env: CPython 3.11.17, jax/jaxlib 0.7.2 CPU, numpy 2.3.3, fastmcp 4.0.3, pytest-asyncio 1.4.0",
+  "executor_references": {
+   "notebooks/lgssm_gradient_demo/data/reference_nsteps16_np8.npz": "19de5274c7b2ee5f9c569ac4e26e04f3e528ed3c61c3812459e36aa4edfc5681",
+   "notebooks/filters_tests/data/filters_tests_inputs.npz": "c01efb288c0d0adc8eb53c7b8461b37e4e086e606c041f1ad2ac4ca0295328d7",
+   "notebooks/filters_tests/outputs/capture_outputs.npz": "bae460b4aa2aa2a9fef51d5013b8b06c399b2f500d7458211501424865b8e983"
+  },
+  "note": "hashes asserted inside the tests; no shared helper module; module is self-contained"
+ },
+ "source_call_review": {
+  "diffres_simulate_lgssm_data": "Single call diffres.tools.simulate_lgssm(key, F, Q, H, R, m0, P0, nsteps) (tools.py L363-385) with the key passed through unchanged (upstream splits internally); outputs saved as data.npz (xs, ys) + verbatim model.json copy. No recomputation. seed -> jax.random.PRNGKey(seed); prng_key (2 uint32) overrides seed per shared contract; key actually used is returned.",
+  "diffres_run_lgssm_kalman_filter": "diffres.gaussian_filters.kf(ys, m0, P0, F, Q, H, R) (L27-39); rts(mfs, vfs, mps, vps, F) (L42-54) when smooth; when compute_gradient, jax.value_and_grad(kf(...)[2], argnums=(F, H), has_aux=True) so kf is evaluated once and forward outputs come from the same pass (verified bitwise equal to a plain kf call). This is exactly the matrix form recorded by executor lgssm_gradient_demo (capture_run.py nll_FH) of demos/gradient_variance2.py loss_kf/value_and_grad. No filter/smoother/likelihood maths re-implemented; only shape/finite/symmetry checks and npz/JSON I/O are added.",
+  "tool_format": "Annotated description on every parameter (checked through the MCP input schema), two-line docstrings, dict return with message/reference/artifacts (absolute paths, fresh uuid subdirectory per call), compact summaries only (nll, log_likelihood, shapes, Frobenius norms). No closed choices needing Literal. seed only on the seedable tool."
+ },
+ "review_of_specific_points": {
+  "symmetry_requirement_Q_R_P0": "Justified as an input check, but the implementer's stated reason was factually wrong. jnp.linalg.cholesky (jax 0.7.2) has symmetrize_input=True by default and uses (A+A^T)/2, i.e. it does NOT read only the lower triangle. The check is still justified: Q, R, P0 are covariances (symmetric by definition) and upstream uses them inconsistently when asymmetric: simulate_lgssm only via Cholesky (=> effectively (Q+Q^T)/2; demonstrated by test_upstream_cholesky_symmetrises_rationale: asymmetric Q equals symmetrised Q to 1e-14 and differs from the lower-triangle reading), while kf adds Q unsymmetrised in F P F^T + Q. Tolerance rtol=1e-10, atol=1e-12 accepts float round-off asymmetry. REPAIRED: error message now states the correct rationale.",
+  "post_hoc_non_finite_checks": "Justified, no recomputation: upstream returns NaN silently (no exception) when a Cholesky fails (non-PD innovation covariance in kf, singular predictive covariance in rts via cho_factor, non-PD Q/R/P0 in simulate_lgssm); demonstrated by direct upstream calls in test_rationale_upstream_silent_failures and test_nonpd_simulation_is_nan_upstream. The checks run after the upstream call on its outputs only. No positive-definiteness pre-check is imposed: a singular P0 (P0=0) and F=0,Q=0 run through kf exactly as upstream (tests), and only the smoother then errors. Minor note (not changed): a non-finite gradient raises an error even if the nll was finite; acceptable because the requested output would be invalid.",
+  "one_d_ys_only_for_dy_1": "Justified. Upstream tests/test_filters.py::test_kf itself passes 1-D ys (101,) with dy=1; the wrapper reshapes to (T+1,1) and results are bitwise equal to the executor capture for both (101,) and (101,1) inputs. For dy>1 a 1-D ys runs upstream without error but broadcasts each scalar observation to all dy components (shown by direct call), which is silently wrong, so rejecting it is correct.",
+  "gradient_definition": "Gradient of the exact KF nll w.r.t. the full matrices F (dx,dx) and H (dy,dx), as in the shared contract. Chain-rule consistency with the demo's scalar parametrisation (F=theta0*I, H=theta1*ones) checked three ways: (1) bitwise equality of grad_F/grad_H with the executor's kf_theta_dF/dH and of sum(grad_F*I), sum(grad_H*ones) with grad_true=[-0.8709261160639918, -5.527063010352865]; (2) a fresh direct value_and_grad of the demo's own params->kf loss (rtol 1e-12); (3) on a non-diagonal dx=3, dy=2 model: sum(grad_F*F), sum(grad_H*H) equal jax.grad of nll(theta0*F, theta1*H) at theta=(1,1) (rtol 1e-10), and central finite differences of the upstream nll match every entry (rtol 1e-5). Q, R, m0, P0 are not differentiated (documented in the parameter description and output names).",
+  "composition_simulate_to_kf": "Checked (a) with inputs from a direct upstream simulate_lgssm call (demo split key, true model): nll == kf_true_nll 29.828975391167102 bitwise; (b) labelled cross-tool test: simulate tool (mv model, seed 21, T=12) -> KF tool on its data.npz and model.json copy, nll and smoothing means bitwise equal to direct upstream simulate_lgssm+kf+rts."
+ },
+ "scientific_comparisons": [
+  "demo theta=(0.2,0.2), T=16: nll 34.829210096507474 == loss_true (bitwise); grad_F, grad_H == kf_theta_dF/dH (bitwise); filtering/predictive/smoothing means and covariances == executor kf_theta_*/rts_theta_* (bitwise)",
+  "demo true parameters: nll 29.828975391167102 == kf_true_nll; kf_true_* arrays bitwise; npz contains only the 5 base arrays when smooth=compute_gradient=False",
+  "tests/test_filters.py OU model (101 obs; ys 1-D and 2-D): nll 141.42165070795778 and all kf/rts arrays bitwise == executor capture; RTS means/variances and nll vs closed-form GP regression within test_kf's assert_allclose rtol 1e-7",
+  "non-diagonal dx=3, dy=2 model (verifier-chosen) for (seed,T) in {(7,20),(1,0),(2,1)}: all filter/smoother arrays, nll, grad_F (3,3), grad_H (2,3) and Frobenius norms vs direct upstream kf/rts/jax.grad (rtol 1e-12; observed agreement within tolerance), forward outputs unchanged by smooth/gradient options (bitwise)",
+  "simulate: demo split key [2482698485, 3875352609], T=16 -> xs, ys bitwise == executor reference and fresh direct upstream call; seeds 0/666/12345 and default seed 0, non-diagonal model with T=20/0/1, prng_key overriding seed: all bitwise == direct simulate_lgssm"
+ ],
+ "changed_input_and_error_checks": {
+  "changed_inputs": "other T (0,1,12,16,20,100), dimensions (dx=1/dy=1 and dx=3/dy=2 non-diagonal), seeds/keys, parameters (theta vs true, OU), option combinations, singular P0, F=0/Q=0",
+  "errors_as_MCP_tool_errors": "simulate: missing key, wrong Q shape, asymmetric Q, asymmetric P0, NaN entry, invalid JSON, missing file, non-PD Q, non-PD R, nsteps=-1, prng_key of length 3, value 2**32, negative value (13 cases, no partial artifacts). KF: npz without ys, wrong dy, NaN in ys, 1-D ys for dy=2, missing npz, missing model, missing key, wrong shape, asymmetric Q (pins the corrected message), asymmetric P0, NaN entry, invalid JSON, non-PD R (nll not finite) (13 cases, no partial artifacts); degenerate F=0,Q=0 with smooth=True -> RTS non-finite error",
+  "isolation": "repeated identical calls give distinct uuid subdirectories, identical contents, earlier files untouched; inputs unchanged (sha256 before/after); default output base PROJECT_ROOT/tmp/outputs/<tool>"
+ },
+ "tests": {
+  "files": {
+   "tests/code/gaussian_filters/test_diffres_run_lgssm_kalman_filter.py": "34f884080ec81987637abaaf86bbe7038a81058c13acdbde432757aa17e701f4",
+   "tests/code/gaussian_filters/test_diffres_simulate_lgssm_data.py": "4e2e3c9c57978a0f23e7868f84595474036b06808ca44a7da9edec64b120dd81",
+   "tests/code/gaussian_filters/make_fixtures.py (numpy-only fixture generator)": "9a6e687fbe65a5ccc6f5a29e5c3a7c3e556f6bd6d5623996307267899f90713a"
+  },
+  "fixtures": "tests/data/gaussian_filters/ (20 files; sha256 in MANIFEST.json, sha256 6ad8d01dfc71e01acb9bd387618dde6910eae5fe048fd2c37cf2da0c1180a193)",
+  "totals_final": {
+   "collected": 58,
+   "passed": 58,
+   "failed": 0,
+   "skipped": 0,
+   "per_tool": {
+    "diffres_run_lgssm_kalman_filter": 31,
+    "diffres_simulate_lgssm_data": 27
+   }
+  },
+  "oracle_policy": "expected values from executor-saved upstream outputs and direct upstream calls in the test process; bitwise where both sides run the same path, rtol 1e-12 for the multivariate comparisons, 1e-7 for the GP closed form (as upstream test), 1e-5 for finite differences"
+ },
+ "commands": [
+  {
+   "n": "1 (interrupted)",
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 650 --timeout 1800 --log tests/logs/gaussian_filters/pytest_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/gaussian_filters -q --junitxml=tests/results/gaussian_filters/junit_attempt1.xml",
+   "exit_status": 143,
+   "note": "SIGTERM from outside after 32 s (not the timeout, no OOM reported); 10 tests had passed; rerun unchanged"
+  },
+  {
+   "n": 1,
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 900 --timeout 1800 --log tests/logs/gaussian_filters/pytest_attempt1b.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/gaussian_filters -q --junitxml=tests/results/gaussian_filters/junit_attempt1.xml",
+   "exit_status": 0,
+   "result": "58 passed (implementer's file db9c33fe...)",
+   "peak_memory_mb": 898
+  },
+  {
+   "n": 2,
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 1800 --log tests/logs/gaussian_filters/pytest_attempt2.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/gaussian_filters -v --junitxml=tests/results/gaussian_filters/junit_attempt2.xml",
+   "exit_status": 0,
+   "result": "58 passed (final file 780a9dc1...)",
+   "peak_memory_mb": 882
+  },
+  {
+   "n": "acceptance dry run",
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 900 --log tests/logs/gaussian_filters/acceptance_dryrun.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python $SKILL_ROOT/scripts/verify_mcp_server.py --server <scratchpad>/gf_server.py (stdio server exposing only gaussian_filters_mcp, imported as tools.gaussian_filters like src/diffres_mcp.py) --expected <scratchpad>/gf_expected.json --cases reports/mcp-acceptance-gaussian_filters.json --require-all-tools --cwd PROJECT_ROOT --report tests/results/gaussian_filters/acceptance_dryrun_report.json",
+   "exit_status": 0,
+   "result": "success: 13/13 cases, inventory exact, fastmcp 4.0.3",
+   "peak_memory_mb": 443
+  }
+ ],
+ "repairs": [
+  {
+   "attempt": 1,
+   "tool": "both (shared _load_model)",
+   "change": "Symmetry error message: replaced the incorrect rationale 'upstream Cholesky reads only its lower triangle' with 'covariance {k} must be symmetric: upstream uses it both directly (e.g. F P F^T + Q in kf) and through jnp.linalg.cholesky, which symmetrises its input, so a non-symmetric matrix would be interpreted inconsistently'. Behaviour unchanged (same check and tolerance).",
+   "reason": "scientific/technical claim not supported by the code (jnp.linalg.cholesky symmetrize_input=True)",
+   "sha256_before": "db9c33fe05adf7bf301e3ac8446e3b75bdf0aeb74411f7c2ed80f15b9a4de878",
+   "sha256_after": "780a9dc11a630600c83a87291f4d0887c2e4edd3a2286282c6319633c178d094",
+   "tests_rerun": "all 58 (attempt 2) passed"
+  }
+ ],
+ "attempts_per_tool": {
+  "diffres_run_lgssm_kalman_filter": 2,
+  "diffres_simulate_lgssm_data": 2
+ },
+ "acceptance_cases": {
+  "path": "reports/mcp-acceptance-gaussian_filters.json",
+  "count": 13,
+  "positive": {
+   "diffres_simulate_lgssm_data": 3,
+   "diffres_run_lgssm_kalman_filter": 3
+  },
+  "errors": 7,
+  "repeated_artifact_calls": 2,
+  "note": "expected_subset holds only integer/shape/bool/key fields; float values (nll, gradients) are covered by the scientific tests. The dry run wrote outputs under tmp/outputs/acceptance; the final runtime run should use fresh outputs."
+ },
+ "limitations": [
+  "The implementation report's statement that jnp.linalg.cholesky 'reads only the lower triangle' is incorrect (immutable report not edited; corrected here and in the production message).",
+  "Gradients are only w.r.t. F and H (shared contract); Q, R, m0, P0 gradients are not offered.",
+  "Default-size demo (nsteps=128) was not run by the executor; references are at nsteps=16 plus the 101-step OU test; multivariate behaviour is checked against direct upstream calls, not against a published result.",
+  "Float equality in tests is bitwise for CPU float64 with jax 0.7.2; other jaxlib builds may differ at round-off level (scientific tests would then need the stated tolerances).",
+  "First pytest launch was terminated externally (exit 143); rerun succeeded unchanged."
+ ]
+}

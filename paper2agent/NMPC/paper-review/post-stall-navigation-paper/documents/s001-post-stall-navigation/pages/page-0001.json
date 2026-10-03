@@ -1,0 +1,210 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page render (130 dpi overlay) and with intro.tex/main.tex. Extractor warning \"possible header/footer p0001-b000\": it is the rotated arXiv margin stamp \"arXiv:2201.01186v1 [cs.RO] 4 Jan 2022\", omitted as page furniture with a reason (identifier goes to the conversion notes). Author superscripts rewritten as $^{1}$ (no <sup>). The \\thanks footnote (affiliation, e-mails, distribution statement; printed at the bottom of the left column) is kept as two text items directly after the author line, the first starting \"Footnote 1:\", because the page must end with the paragraph that continues on page 2 (join on p0002-b000); the space after \"Luca.Scheuer,\" falls on a line break in the PDF and is taken from main.tex. Abstract: IEEE run-in \"Abstract—\" kept as text with bold-italic label; the all-bold wrapper of the abstract body was removed (typography only). Left-column paragraph \"Real-time mapping ...\" continues at the top of the right column below Figure 1: p0001-b012 has join_previous=space and Figure 1 with its caption is placed after that completed paragraph. Figure 1 is one item covering both stacked screenshots (two embedded images at 332.9-520.3 x 145.7-325.4 as clipped; ink extent 350.8-520.5 x 145.5-324.2 measured), bbox checked by crop; caption printed as \"Fig. 1.\" (IEEE style) kept verbatim. Line-wrap hyphens removed (trajectory, navigating, challenges, capable, unknown, optimization, multirotor, avoidance); compound hyphens at wraps kept (fixed-wing, Slower-moving, post-stall, LIDAR-based). Authors' wording kept: \"amendable\", \"(e.g.,[5])\" without space. No mathematics on this page. Verifier check: OK.",
+  "warnings": [
+    "Review possible header/footer: p0001-b000"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "omit",
+      "bbox": [
+        10.0,
+        217.0,
+        39.0,
+        557.0
+      ],
+      "markdown": "",
+      "source_class": "page-header",
+      "reason": "Rotated arXiv margin stamp \"arXiv:2201.01186v1 [cs.RO] 4 Jan 2022\" (page furniture; identifier recorded in the conversion notes by the coordinator)."
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        70.0,
+        74.0,
+        542.0,
+        89.0
+      ],
+      "markdown": "# Post-Stall Navigation with Fixed-Wing UAVs using Onboard Vision",
+      "source_class": "title"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        157.0,
+        107.0,
+        446.0,
+        119.0
+      ],
+      "markdown": "Adam Polevoy$^{1}$, Max Basescu$^{1}$, Luca Scheuer$^{1}$, Joseph Moore$^{1}$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        687.0,
+        299.0,
+        716.0
+      ],
+      "markdown": "Footnote 1: Johns Hopkins University Applied Physics Lab, Laurel, MD, 20723 {Adam.Polevoy,Max.Basescu,Luca.Scheuer, Joseph.Moore}@jhuapl.edu",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0001-b008b",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        716.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "DISTRIBUTION STATEMENT A: Approved for public release; distribution is unlimited.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        151.0,
+        299.0,
+        309.0
+      ],
+      "markdown": "***Abstract***—Recent research has enabled fixed-wing unmanned aerial vehicles (UAVs) to maneuver in constrained spaces through the use of direct nonlinear model predictive control (NMPC) [1]. However, this approach has been limited to a priori known maps and ground truth state measurements. In this paper, we present a direct NMPC approach that leverages NanoMap [2], a light-weight point-cloud mapping framework to generate collision-free trajectories using onboard stereo vision. We first explore our approach in simulation and demonstrate that our algorithm is sufficient to enable vision-based navigation in urban environments. We then demonstrate our approach in hardware using a 42-inch fixed-wing UAV and show that our motion planning algorithm is capable of navigating around a building using a minimalistic set of goal-points. We also show that storing a point-cloud history is important for navigating these types of constrained environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "heading",
+      "bbox": [
+        137.0,
+        319.0,
+        216.0,
+        327.0
+      ],
+      "markdown": "## I. INTRODUCTION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        334.0,
+        299.0,
+        511.0
+      ],
+      "markdown": "Rotary-wing unmanned aerial vehicles (UAVs) are often preferred for navigating in constrained environments. Not only are they capable of near zero turn radii, but many are amendable to differentially flat representations that can greatly reduce computational requirements for online trajectory optimization [3]. By contrast, fixed-wing UAVs offer significant advantages over rotary-wing UAVs in terms of energy efficiency, endurance, and speed. Traditionally fixed-wing UAVs have been hindered by limited maneuverability and restricted to large open spaces. Recent research has shown that aerobatic fixed-wing UAVs are capable of navigating through complex environments by exploiting the full flight envelope [4], [1]. By operating beyond the conventional flight regimes, there is an opportunity to achieve both range and maneuverability in a single vehicle.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        513.0,
+        299.0,
+        619.0
+      ],
+      "markdown": "In [1], the authors demonstrated that a fixed-wing UAV could navigate a narrow corridor by executing post-stall turns via nonlinear model predictive control (NMPC). While this approach proved a promising means to increase fixed-wing maneuverability, it required an a priori map of the environment. For real-world applications, full a priori map information is often not practical. Rather, the vehicle must navigate in an unknown environment and construct a map during runtime for collision avoidance and navigation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        621.0,
+        299.0,
+        679.0
+      ],
+      "markdown": "Real-time mapping poses a number of significant challenges, for aerobatic, fast-moving fixed-wing UAVs. Slower-moving multi-rotor UAVs have long relied on sensors that leverage LIDAR (e.g.,[5]). However, these sensors are often too heavy for small aerobatic fixed-wings, have update rates",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        367.0,
+        559.0,
+        461.0
+      ],
+      "markdown": "too slow for rapid maneuvering, have returns restricted to two-dimensional spaces, or suffer from a significantly sparse set of range measurements. With regards to mapping algorithms, commonly used occupancy-grid based techniques such as [6] have proved to be too slow and computationally intensive for use in fast flight. These challenges are further exacerbated by state and range-sensor uncertainty, which can dramatically impact map accuracy.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "figure",
+      "bbox": [
+        348.5,
+        143.5,
+        522.5,
+        326.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        336.0,
+        559.0,
+        362.0
+      ],
+      "markdown": "Fig. 1. Screenshot of aerobatic fixed-wing executing a post-stall maneuver (top) and corresponding point cloud data (bottom). The global path plan is shown in red and the current trajectory is shown in orange.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        463.0,
+        559.0,
+        604.0
+      ],
+      "markdown": "In this paper, we present an approach that leverages direct NMPC and an existing mapping framework, NanoMap [2], to enable a vision-based fixed-wing navigation system capable of leveraging post-stall flight for aggressive maneuvers. Our receding-horizon controller continually plans into unknown space, using distance information from the NanoMap framework in-the-loop for both nominal low-fidelity global path generation and higher-fidelity real-time trajectory optimization. The use of NanoMap allows us to reason about sensor uncertainty as well as sensor measurement history. We demonstrate our approach in hardware using a 42-inch wingspan UAV with onboard sensing and computation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b014",
+      "kind": "heading",
+      "bbox": [
+        392.0,
+        614.0,
+        479.0,
+        621.0
+      ],
+      "markdown": "## II. RELATED WORK",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        629.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "A majority of the research into UAV navigation and control using onboard sensing has been conducted with multirotor UAVs. Early research in this area focused on LIDAR-based simultaneous localization and mapping (SLAM), and leveraging generated maps for navigation and collision avoidance [7], [8], [5]. As the flight speeds increased, onboard vision emerged as another primary sensing solution [9], [10], [11]. Researchers also began to address the challenges associated with the computational costs of online mapping,",
+      "source_class": "text"
+    }
+  ]
+}

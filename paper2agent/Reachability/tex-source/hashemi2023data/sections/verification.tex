@@ -1,0 +1,174 @@
+% \textcolor{red}{Pick different title for Section III. Also, have this section contain two subsections. Something along the lines of 1. Reach set computation for surrogate models, and 2. Probabilistic reach sets using conformal prediction. }
+
+% The flowpipe of a trajectory, $\traj_{\state_0} = \left[ \state_0^\top, \state_1^\top, \cdots, \state_{\horizon}^\top\right]^\top$, could be defined as a set of different sets, reachable for every trajectory state $\state_\timeid$. In this work, we study a stochastic model for these trajectories, that is a black-box and implies, its states's transition probabilities are unknown. 
+In the setting described in the previous section, we now show how to compute a reach set or a flowpipe $X\subset \mathbb{R}^{n(\horizon+1)}$ using reachability analysis and conformal inference. This flowpipe will contain the trajectory $\traj_{\state_0}$ of $M$ sampled with initial state $\state_0 \stackrel{\mathcal{W}}{\sim} \init$ with the confidence level of $\Delta = 1-\varepsilon$. We hence denote this flowpipe as $\Delta$-confident flowpipe and  define it as follows. 
+% \textcolor{red}{I'm not sure if we really can give conditional guaratnees (see comment before in equation (1)). Double check.}
+
+\begin{definition}[$\Delta$-confident flowpipe] For a given confidence probability $\Delta\in (0,\ 1)$ and  a random trajectory $\traj_{\state_0} \sim \mathcal{S}$ with initial state $\state_{0} \stackrel{\mathcal{W}}{\sim} \init$, we say that $X \subset \mathbb{R}^{n(\horizon+1)}$ is a $\Delta$-confident flowpipe if
+\begin{equation}\label{eq:confreg}
+\Pr[\traj_{\state_0} \in X ] \geq \Delta
+\end{equation}
+    
+\end{definition}
+% \begin{remark}
+% The sampled trajectories in training and test dataset are all originated from the set of initial states $\init$. We also assume the cumulative probability $\Pr[\state_0 \notin \init] =0$.
+% \end{remark}
+In this work, we are interested in computing $X$ while our access to $M$ is limited to the datasets $D_{\text{train}}$ and $D_{\text{test}}$. We will show that we can compute $X$ with valid guarantees by employing reachability analysis on the surrogate model trained from $D_{\text{train}}$ and error analysis of this model by applying conformal prediction on $D_{\text{test}}$. 
+
+\subsection{Computing Reachsets for Surrogate Models}
+\subsubsection{ReLU Surrogate Model}
+We start with training a  neural network surrogate model $\overallf: \mathbb{R}^n \to \mathbb{R}^{n(\horizon+1)}$ over the training dataset $D_{\text{train}}$. The surrogate model is trained to approximate the trajectory $\traj_{\state_{0}} \in \mathbb{R}^{n(\horizon+1)}$ of the stochastic system $M$ sampled with initial state $\state_0 \stackrel{\mathcal{W}}{\sim} \init$. We denote the prediction $\bar{\traj}_{\state_{0}} \in \mathbb{R}^{n(\horizon+1)}$ of $\traj_{\state_{0}}$ as,  
+$$
+\bar{\traj}_{\state_{0}} = \overallf(\state_{0}) = 
+\left[ \state_0^\top ,\ \mathsf{F}^1(\state_0) , \  \cdots ,\ \mathsf{F}^n(\state_0), \  \cdots , \  \mathsf{F}^{(n-1)\horizon}(\state_0) ,\  \cdots ,\  \mathsf{F}^{n\horizon}(\state_0)\right]^\top
+$$
+where $\mathsf{F}^j(\state_0)$ is the $(j+n)$-th component of the vector $\overallf(\state_0)$. 
+
+Recent works in the literature have had great success on obtaining accurate bounds for the reachability analysis of $\relu$ neural networks  using polyhedral sets  \cite{tran2019star,tran2019safety,tran2020nnv}. The accuracy of these techniques motivates us to use $\relu$ activation functions for training neural networks as the surrogate models. These surrogate models will be used for deterministic reachability analysis which provides surrogate flowpipes which we formally define next. 
+
+\begin{definition}[Surrogate flowpipe] 
+The surrogate flowpipe $\bar{X}\subset \mathbb{R}^{n(\horizon+1)}$ contains the image of $\overallf(\init)$. Formally, for all, $\state_0\in \init$ it has to hold that
+$\overallf(\state_0) \in \bar{X}$.   
+% and for exact surrogate reachset we have,
+% $$
+%  \state_\timeid\in \hat{\states}_\timeid  \iff \dynamics(\state_\timeid) \in \bar{\states}_{\timeid+1} 
+% $$   
+\end{definition}
+
+The reachability analysis methodology for $\relu$ neural networks in \cite{tran2020nnv} introduces two different approaches known as the exact-star and approx-star techniques. These are used to compute a surrogate flowpipe $\bar{X}$. The exact-star technique proposes exact reachability analysis using star sets, but can be slower due to its inherent computational complexity. On the other hand, the approx-star technique computes over-approximation of the flowpipe and is thus runtime-efficient, although it may make the surrogate model reachable set estimation conservative. The computational complexity of the exact-star technique and the conservatism of the approx-star technique can both be noticeably reduced using the idea of set partitioning \cite{tran2020nnv}. In this approach, we partition the set of initial conditions $\init$ into $N$ different sub-partitions,
+$$
+\init_i \subset \init , \quad \bigcup_{i=1}^N \init_i =\init, 
+$$
+and perform reachability analysis on every single sub-region with parallel computing. The inclusion of set-partitioning results in noticeable improvement in the computational efficiency and helps us compute more
+accurate $\Delta$-confident flowpipes.
+
+% \subsubsection{Fixed Trajectory Model ($\mathsf{FTM}$)} In this section we propose another model as the benchmark which does not require deterministic reachability since the volume of its deterministic surrogate flowpipe is zero. This model is called $\mathsf{FTM}$ and is the expectation value over all the trajectories in training dataset $D_{\text{train}}$.
+% $$
+% \bar{\traj}_{\state_0} = [\state_0^\top, \mathsf{FTM}(D_{\text{train}})^\top],\  \mathsf{FTM}(D_{\text{train}}) = \frac{1}{\mid D_{\text{train}} \mid}\underset{D_{\text{train}}}{\sum}\left[ \traj_{\state_0} \right]
+% $$
+
+
+\subsection{Computation of a guaranteed $\Delta$-confident flowpipe}
+
+When we train neural network surrogate models, typically we minimize a loss function defined as the difference between the $\horizon$-step trajectory predicted by the surrogate model and the actual trajectory. Depending on the dynamics of the underlying stochastic system $M$ and depending on how well the surrogate model is trained,
+there is potential for error when predicting the trajectory from a previously unseen initial state. To give probabilistic bounds on this error, we 
+utilize conformal prediction. We formally define the notion of the residual error as follows. 
+\begin{definition}[Residual Error]\label{def:residual} 
+Given a realization $(\state_0,\ \traj_{\state_0})$  sampled from the stochastic black-box system $\model$, the residual $R^j \in \mathbb{R}_{>0}$ is the distance between the $(j+n)$-th component of the trajectory and $\mathsf{F}^j(\state_0)$\footnote{Note that we denote the trajectory as a single row vector where component-wise states at each time-stamp are concatenated. Thus, for the $i^{th}$ state variable at time $\timeid$, $j$ will
+be equal to $i\cdot \timeid + n$ (skipping the first $n$ component-wise values corresponding to the initial state $\state_0$).} Formally, we define
+\[
+R^j = \left|e_{j+n}^\top \traj_{\state_0} - \mathsf{F}^j(\state_0)\right|
+\]
+where, $e_j \in \mathbb{R}^{n(\horizon+1)}$ is the $j^{th}$ base vector of $\mathbb{R}^{n(\horizon+1)}$.
+\end{definition}
+We consider the component-wise residual $R^j$ since every single component $e_{j+n}^\top \traj_{\state_0}$ in $\traj_{\state_0}$ may represent a different quantity at a different time. For example, it would not make sense to define a joint error of the position and velocity of a system at some time, which motivates the definition of the component-wise error. 
+Now that we have defined the residual $R^j$ for a component $j$, let us compute this residual for all calibration trajectories from $D_{\text{test}}$, i.e., for $\traj_{\state_{0,i}}, i \in [L]$.
+
+\begin{definition}[Calibration Dataset] 
+For a given test dataset $D_{\text{test}}$, the calibration dataset $\retosiduals$, is a collection of pairs $(\state_{0,i}, R^j_{i}), i\in[L]$, such that
+$$
+\begin{aligned}
+\mathcal{R}_{D_{\text{test}}}^{j} = \Big\{ \left( \state_{0,i}, R^j_i \right) \mid \ &  (\state_{0,i}, \traj_{\state_{0,i}}) \in D_{\text{test}}, \; i\in [L] \Big\}.
+\end{aligned}
+$$
+where $R^j_i = \mid e_{j+n}^\top \traj_{\state_{0,i}} - \mathsf{F}^j(\state_{0,i})\mid $.
+\end{definition}
+
+% \textcolor{red}{Now that we have defined the residual $r^j$ of component $j$, let us compute this residual for all calibration trajectoris $i\in [nK]$. Formally, define $r_i^j= \left|e_{j+n}^\top \traj_{\state_0,i} - \mathsf{F}^j(\state_{0,i})\right|$ where $i\in [L]$. Now define $l=(L+1)*delta$ and set $\epsilon_j=r_l^j$.} 
+
+
+
+
+
+% \begin{definition}[$\stltonn$] 
+% Given the STL formula $\varphi$ and the trajectory $\traj_{\state_0}$, there exists a computation graph in terms of $\relu$ neural network that maps the trajectory to robustness. We call this $\relu$ neural network $\stltonn$ and for a scalar $d \in \mathbb{R}$ it holds that, 
+% $$
+% \rob(\varphi, \traj_{\state_0}, 0) > d \iff \stltonn(\traj_{\state_0})>d
+% $$ 
+% \end{definition}
+% \textcolor{green}{Over the rest of this section, assuming $\state_0 \stackrel{\mathcal{W}}{\sim} \init$, we propose a guaranteed solution for the pair $(\Delta, X)$ through the combination of reachability analysis and conformal inference on a trained neural network model for the trajectory datasets $D_{\text{test}}, D_{\text{train}}$.\\
+% In this study, we are interested in the $\delta$-quantile of residuals.
+% \begin{definition}[$\delta$-quantile]
+% Given a scalar random variable $r \in \mathbb{R}$, the notion of $\delta$-quantile, $\delta_r$, is the inverse of it's cumulative density function, CDF, for a probability $\delta$.
+% $$
+% \Pr[r\leq \delta_r] = \delta
+% $$
+% \end{definition}
+% }
+
+As our access to the underlying system $M$ is limited to a finite number of pre-recorded trajectories, it is not possible to exactly compute the distribution of the residual $R^j, j \in [n\horizon]$. Consequently, we cannot   compute the $\delta$-quantile of $R^j, j \in [n\horizon]$.\footnote{The $\delta$-quantile of a random variable $R^j$ is defined as $\inf\{z\in\mathbb{R} | \text{Pr}[R^j\le z]\ge  \delta\}$ for $\delta \in (0,1)$.}  However, we can utilize the method of conformal prediction \cite{vovk2005algorithmic} to compute  an upper bound on the $\delta$-quantile of $R^j$. Based on the technique introduced in Section~\ref{sec:prelim}, we sort the  residuals $R^j_i$ in non-decreasing order. For simplicity and without loss of generality, let us re-index the values of $R^j_1,\hdots, R^j_L$ so that $R^j_1 \leq R^j_2 \leq \cdots \leq R^j_L$. We can now apply conformal prediction and define $R^{j*} = R^j_\ell$ where $\ell = \lceil (L+1 ) \delta \rceil$. Consequently, we know that
+$$
+\Pr[R^j \leq R^{j*}] \geq \delta.
+$$
+In other words, the $\ell$-th smallest residual $R^{j*}$ is an upper bound for the $\delta$-quantile of the random variable $R^j$.
+
+% As we discussed before a trajectory that is sampled from black-box $M$ where the initial state is sampled with $\state_0 \stackrel{\mathcal{W}}{\sim} \init$ and, $\Pr[\state_0 \in \init]=1$, is called $\traj_{\state_0}$. 
+
+% In addition, we also assumed the initial state $\state_0$ and the feature data of $\retosiduals$ (sampled initial states) are both drawn from the same distribution $\state_0 \stackrel{\mathcal{W}}{\sim} \init$.
+
+
+
+
+Recall that our ultimate goal is to compute a $\Delta$-confident flowpipe  $X$ for trajectories $\traj_{\state_0}$ from $M$ with distribution $\state_0 \stackrel{\mathcal{W}}{\sim} \init$. To that end, we compute the vector of upper bounds for all components of residual's $\delta$-quantile from conformal inference, and we denote it by $R^* = \left[ R^{1*},\cdots,R^{{n\horizon}*} \right]^\top$.
+
+% Next, we apply Exact or Approx star-based reachability analysis \cite{tran2020nnv} for surrogate model $\overallf$ assuming $\init \subset \mathbb{R}^n$ as the set of inputs to compute for surrogate flowpipe $\bar{X}$. Then we inflate this surrogate flowpipe  by vector $R^*$ to capture the inflated bound,
+% \begin{equation}\label{eq:minkowski}
+% X = \bar{X} \oplus \zon(0, \mathbf{diag}([0_{1\times n},\ R^*]))
+% \end{equation}
+% and propose a lower bound on the confidence probability of this region to introduce it as a $\Delta$-confident flowpipe. \footnote{ Here $\zon(b, A)$ denotes a zonotope \cite{kurzhanski2002ellipsoidal} with center $b$ and array of base vectors $A$. }
+
+% In case we plan to employ conformal inference for the reachability analysis, we propose the following lemma:
+
+\begin{theorem}\label{lem:inclusion_conformal}
+Let $\bar{X}$ be a surrogate flowpipe of the surrogate model $\overallf$ for the set of initial conditions $\init$. Let $R^{j*}$ be computed from the calibration dataset $\retosiduals$ with confidence probability $\delta\in (0,1)$ where $\mathcal{R}_{D_\text{test}}^j$ is based on i.i.d. test trajectories in $D_{\text{test}}$ from the stochastic system $M$ with initial state $\state_0 \stackrel{\mathcal{W}}{\sim} \init$.  Define the inflated surrogate flowpipe,
+$$
+X = \bar{X} \oplus \zon(0, \mathbf{diag}([0_{1\times n},\ R^*])),\ 
+R^* = \left[ R^{1*},\cdots,R^{{n\horizon}*} \right].
+$$
+Then, it holds that $X$ is a $\Delta$-confident flowpipe with $\Delta = 1-n\horizon(1-\delta)$ for $\traj_{\state_0}$ from $M$ with initial state $\state_0 \stackrel{\mathcal{W}}{\sim} \init$.
+
+\end{theorem}
+
+\begin{proof}
+Based on the definition of the conformity score, we have $\Pr\left[ R^j \leq R^{j*} \right] \geq \delta$. Therefore, we have that
+$$
+\Pr[R^j > R^{j*}] < 1-\delta.
+$$
+By applying the union bound over probabilities, it follows that
+$$
+\Pr\left[  \bigvee_{j=1}^{n\horizon} \left(R^j > R^{j*} \right) \right] <  n\horizon(1-\delta).
+$$
+The negation of this statement implies that
+\begin{equation}\label{eq:0}
+\Pr\left[  \bigwedge_{j=1}^{n\horizon} \left(R^j \leq R^{j*} \right) \right] \geq  1-n\horizon(1-\delta).
+\end{equation}
+We now denote $\Delta= 1-n\horizon(1-\delta)$ so that we can rephrase the above statement as, 
+$$
+\Pr\left[  \bigwedge_{j=1}^{n\horizon} \left( \mid e_{j+n}^\top \traj_{\state_0} - \mathsf{F}^j(\state_0) \mid \leq  R^{j*}\right) \right] \geq  \Delta.
+$$
+
+Next, we define the interval $C_j(\state_0)$ = $\left[ \mathsf{F}^j(\state_0)  -R^{j*}\ ,\  \mathsf{F}^j(\state_0)  +  R^{j*} \right]$. Accordingly,  we have
+$$
+\Pr\left[  \bigwedge_{j=1}^{n\horizon} \left( e_{j+n}^\top \traj_{\state_0} \in C_j(\state_0) \right) \right]  \geq  \Delta
+$$
+Based on this, we can now see that
+\begin{equation} \label{eq:1}
+\Pr\left[  \traj_{\state_0} \in \zon\left(\overallf(\state_0) , \mathbf{diag}\left([0_{1\times n},\ R^*]\right)\right) \right]\geq \Delta
+\end{equation}
+Since $\state_0 \stackrel{\mathcal{W}}{\sim} \init$ and $\bar{X}$ is a surrogate flowpipe for the surrogate model $\overallf$ on $\init$, i.e., $\state_0 \in \init$ implies $\overallf(s_0) \in \bar{X}$, we can conclude,
+\begin{equation}\label{eq:2}
+\zon\left(\overallf(\state_0) , \mathbf{diag}\left([0_{1\times n},\ R^*]\right)\right)\ 
+ \subset \bar{X} \oplus \zon\left(0 , \mathbf{diag}\left([0_{1\times n},\ R^*]\right)\right) = X
+\end{equation}
+This fact implies that $\Pr[\traj_{\state_0} \in X  ] \geq \Delta$, i.e., $X$ is a $\Delta$-confident flowpipe, which completes the proof.
+% \hspace*{\fill}~$\square$\\
+\end{proof}
+
+Theorem \ref{lem:inclusion_conformal} tells us how to obtain a  $\Delta$-confident flowpipe given the $\horizon$-step datasets $D_{\text{train}}$ and $D_{\text{test}}$. We can now compute a lower bound on the minimum size of the calibration dataset that we need given a confidence probability $\Delta\in (0,1)$. Specifically, we note that $\Delta= 1-n\horizon(1-\delta)$  is equivalent to $\delta= 1- \frac{1-\Delta}{n\horizon}$.  The minimum required size $L$ of the calibration dataset has to satisfy $\lceil (L+1)\delta \rceil \leq L $ which gives us the explicit lower bound $L \geq \lceil \frac{1+\delta}{1-\delta} \rceil$. In this work, we defined the residual component-wise, recall Definition \ref{def:residual}. As observed in the proof of Theorem \ref{lem:inclusion_conformal}, we thus had to apply the union bound over all residuals $R^j$. This may in some cases be conservative, i.e., for large system dimension $n$ or large trajectory horizon $\horizon$. However, there are possible ways to define a residual in a way that removes this conservatism. For example, in our recent work \cite{cleaveland2023conformal} we show how to obtain tight conformal prediction regions for time series. Applying this method will also result in better data efficiency. We intend to explore this method in the context of this paper in future work and refer the reader to \cite{cleaveland2023conformal} for more details.
+
+% The motivation behind introduction of $\mathsf{FTM}$ model is that deterministic reachability over the $\relu$ surrogate model can be conservative. This conservatism is originated in the accuracy of the surrogate model and the approximation in approx-star reachability analysis. We denote the probabilistic flowpipe from this $\relu$ surrogate model and $\mathsf{FTM}$ model with $X_{\relu}$ and $X_{\mathsf{FTM}}$ respectively. On the other hand, it is not required to apply deterministic reahchability over $\mathsf{FTM}(D_{\text{train}})$, but the problem is the probabilistic flowpipe $X_{\mathsf{FTM}}$ from this model is restricted to a hypercube and is not a general star-set. This is a source of conservatism for $X_{\mathsf{FTM}}$. However both flowpipes $X_{\relu}$ and $X_{\mathsf{FTM}}$ are true $\Delta$-confident reachsets, $(\Delta > 1-\varepsilon)$ and we present the intersection of these two sets as a new star-set which is our final solution for this problem.
+
+% $$
+% X = X_{\relu} \bigcap X_{\mathsf{FTM}}
+% $$
+

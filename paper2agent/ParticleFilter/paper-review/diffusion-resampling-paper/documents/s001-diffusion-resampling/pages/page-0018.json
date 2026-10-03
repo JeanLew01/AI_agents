@@ -1,0 +1,203 @@
+{
+  "page": 18,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0018.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and 220-dpi crops of the Gumbel-Softmax and soft-resampling paragraphs. Running header and page number omitted. Page starts a new paragraph (page 17 ends with a complete sentence), no join. Run-in bold titles '**Gumbel-Softmax resampling**' and '**Soft resampling**' kept inside their text items (not headings). Heading '## G. Gaussian mixture resampling'. Formula images converted to LaTeX from main.tex: the unnumbered display X_i^* = sum_j S_{i,j} X_j, the 4-step numbered list of soft resampling (each step a '1.'-'4.' text item with inline LaTeX), equation (34) as one aligned block with \\tag{34}, and the unnumbered Gaussian-mixture posterior block (G_i, Omega-bar_i, Omega_i, M_i, V_i; \\trans expanded to \\mathsf{T}, \\cu{X} to \\mathbf{X}, \\R to \\mathbb{R}). All inline maths rewritten in LaTeX. Transcribed as printed (possible author typos): g_{i,j} = -log log u_{i,j} (the standard Gumbel trick is -log(-log u)); 'The gradient produced by method is thus always biased' (missing word); 'The approach by Karkus et al. (2018) view'. TeX and PDF agree. The page ends with the complete unnumbered display; page 19 starts a new paragraph.",
+  "warnings": [
+    "Review possible header/footer: p0018-b000"
+  ],
+  "items": [
+    {
+      "id": "p0018-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0018-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        70.0,
+        542.0,
+        128.0
+      ],
+      "markdown": "**Gumbel-Softmax resampling** The seminal work by Jang et al. (2017) did not formulate how the Gumbel trick can be applied for resampling. We here make it explicit. The gist is to approximate the discrete indexing of multinomial resampling by a matrix-vector multiplication which is differentiable. Recall our weighted samples $\\{(w_i, X_i)\\}_{i=1}^N$, and define a matrix $\\mathbf{X} \\in\\mathbb{R}^{N \\times d}$ aggregating all the $N$ samples. For each $i$, draw $N$ independent samples $\\{u_{i, j} \\sim \\mathrm{Uniform}[0, 1]\\}_{j=1}^N$ and compute $g_{i, j} = -\\log\\log u_{i, j}$. Then, the $i$-th re-sample is"
+    },
+    {
+      "id": "p0018-b002",
+      "kind": "text",
+      "bbox": [
+        255.0,
+        135.0,
+        342.0,
+        176.0
+      ],
+      "markdown": "$$X^*_i = \\sum_{j=1}^N S_{i, j} \\, X_j,$$"
+    },
+    {
+      "id": "p0018-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        182.0,
+        542.0,
+        221.0
+      ],
+      "markdown": "where $S_i\\in\\mathbb{R}^{1 \\times N}$ is a Softmax vector with elements $S_{i, j} = \\overline{S}_{i, j} \\, / \\, \\sum_{j=1}^N \\overline{S}_{i, j}$, where $\\overline{S}_{i, j} = \\exp((\\log w_j + g_{i, j}) \\, / \\, \\tau)$. This is independently repeated for $i=1,2,\\ldots, N$ to generate the re-samples $\\{X^*_i\\}_{i=1}^N$. Upon the limit $\\tau \\to 0$, this recovers multinomial resampling, but the variance of the gradient estimation will grow too. See also Rosato et al. (2022)."
+    },
+    {
+      "id": "p0018-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        234.0,
+        542.0,
+        294.0
+      ],
+      "markdown": "**Soft resampling** The approach by Karkus et al. (2018) view the samples $\\{(w_i, X_i)\\}_{i=1}^N$ as a discrete distribution with probability given by their normalised weights. Denote this discrete distribution by $\\pi^{\\mathrm{D}}$. Directly sampling from $\\pi^{\\mathrm{D}}$ using weighted random choice will result in undefined gradients. Soft resampling mitigates this issue by introducing another proposal (discrete) distribution $q^{\\mathrm{D}}$ defined by $q^{\\mathrm{D}}(X_i) := \\alpha \\, w_i + (1 - \\alpha) \\, \\frac{1}{N}$ for $i=1,2,\\ldots, N$. Then, sampling from $\\pi^{\\mathrm{D}}$ can be achieved by an importance sampling as follows."
+    },
+    {
+      "id": "p0018-b005",
+      "kind": "text",
+      "bbox": [
+        57.0,
+        303.0,
+        428.0,
+        326.0
+      ],
+      "markdown": "1. Draw $I_i \\sim \\mathrm{Categorical}\\bigl( w^q_1, w^q_2, \\ldots, w^q_N \\bigr)$, where $w^q_i := q^{\\mathrm{D}}(X_i) = \\alpha \\, w_i + (1 - \\alpha) \\, \\frac{1}{N}$."
+    },
+    {
+      "id": "p0018-b006",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        329.0,
+        365.0,
+        341.0
+      ],
+      "markdown": "2. Indexing $X^*_i = X_{I_i}$. Until here, we have sampled from the proposal $q^{\\mathrm{D}}$."
+    },
+    {
+      "id": "p0018-b007",
+      "kind": "text",
+      "bbox": [
+        57.0,
+        345.0,
+        343.0,
+        368.0
+      ],
+      "markdown": "3. Weight $w^*_i = \\pi^{\\mathrm{D}}(X^*_i) \\, / \\, q^{\\mathrm{D}}(X^*_i) = w_{I_i} \\, / \\, w^q_{I_i}$ and then normalise."
+    },
+    {
+      "id": "p0018-b008",
+      "kind": "text",
+      "bbox": [
+        57.0,
+        367.0,
+        174.0,
+        389.0
+      ],
+      "markdown": "4. Return $\\{(w_i^*, X_i^*)\\}_{i=1}^N$."
+    },
+    {
+      "id": "p0018-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        400.0,
+        543.0,
+        458.0
+      ],
+      "markdown": "Clearly, we can see that when $\\alpha=0$, the gradient is fully defined but the resampling and the gradient completely discard information from the weights $\\{w_i\\}_{i=1}^N$, resulting in high variance. The setting $\\alpha=1$ recovers the standard multinomial resampling, but the gradient becomes undefined. The gradient produced by method is thus always biased. Furthermore, we can also see that the soft resampling does not return uniform resampling weights unlike other methods, which to some extents, contradicts the purpose of resampling."
+    },
+    {
+      "id": "p0018-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        466.0,
+        544.0,
+        476.0
+      ],
+      "markdown": "We will compare to the soft resampling and Gumbel-Softmax resampling with different settings of their tuning parameters."
+    },
+    {
+      "id": "p0018-b011",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        493.0,
+        222.0,
+        504.0
+      ],
+      "markdown": "## G. Gaussian mixture resampling"
+    },
+    {
+      "id": "p0018-b012",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        514.0,
+        123.0,
+        521.0
+      ],
+      "markdown": "Recall the model"
+    },
+    {
+      "id": "p0018-b013",
+      "kind": "text",
+      "bbox": [
+        230.0,
+        528.0,
+        548.0,
+        582.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\phi(x) &= \\sum_{i=1}^c \\omega_i \\, \\mathrm{N}(x; m_i, v_i), \\\\\np(y \\mid x) &= \\mathrm{N}(y; H \\, x, \\Xi),\n\\end{aligned} \\tag{34}$$"
+    },
+    {
+      "id": "p0018-b014",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        588.0,
+        542.0,
+        613.0
+      ],
+      "markdown": "where $x\\in\\mathbb{R}^d$, $y \\in\\mathbb{R}$, $d=8$, and the number of components $c=5$. The posterior distribution $\\pi(x) \\propto \\phi(x) \\, p(y \\mid x)$ is also a Gaussian mixture $\\pi(x) = \\sum_{i=1}^c \\Omega_i \\, \\mathrm{N}(x; \\mathcal{M}_i, \\mathcal{V}_i)$ (Zhao, 2025), given by"
+    },
+    {
+      "id": "p0018-b015",
+      "kind": "text",
+      "bbox": [
+        218.0,
+        618.0,
+        379.0,
+        725.0
+      ],
+      "markdown": "$$\\begin{aligned}\nG_i &= H \\, v_i \\, H^{\\mathsf{T}} + \\Xi, \\\\\n\\overline{\\Omega}_i &= \\omega_i \\, \\mathrm{N}(y; H \\, m_i, G_i), \\\\\n\\Omega_i &= \\overline{\\Omega}_i \\, / \\, \\sum_{j=1}^c \\overline{\\Omega}_j, \\\\\n\\mathcal{M}_i &= m_i + v_i \\, H^{\\mathsf{T}} \\, G^{-1}_i \\, (y - H \\, m_i), \\\\\n\\mathcal{V}_i &= v_i - v_i \\, H^{\\mathsf{T}} \\, G^{-1}_i \\, H \\, v_i.\n\\end{aligned}$$"
+    },
+    {
+      "id": "p0018-b016",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "18",
+      "reason": "Printed page number '18' in the footer; page furniture."
+    }
+  ]
+}

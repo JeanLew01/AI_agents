@@ -1,0 +1,172 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview, overlay and all 85 native lines with the items; TeX main.tex (title, authors, \\thanks, abstract) and introduction_v2.tex agree with the page. Structure: title as the only '# ' heading; author line with affiliation superscripts written as $^{1,2}$; the two affiliation/e-mail footnotes (\\thanks block, printed at the bottom of the left column) are placed directly after the author line, not at the end of the page, because the page must end with the Introduction paragraph that continues onto page 3. Abstract kept as one text item with the IEEE run-in 'Abstract—' in bold italics; the bold face of the whole abstract (typography only) was dropped. '1/10th scale': the printed 'th' is a superscript ordinal, written as plain 'th'. Figure 1 (figure-1): bbox [323,155,548,366] checked with a 150-dpi crop and an ink-extent measurement (ink 325.2-545.8 x 157.5-363.2); it contains panel a) (heat-map with LiDAR rays) and photos b), c); caption separate and verbatim. The figure sits at the top of the right column and is emitted between the abstract and the heading 'I. INTRODUCTION', so no sentence is interrupted. Line-wrap hyphens repaired (computational, environments, reactive, implementing, effective, Correct, statistical); real compound hyphens kept (PAC-NMPC, real-world, perception-based, out-of-distribution, cost-to-go). Joins: p0002-b012 (top of right column) has join_previous=space because the sentence 'These global planners, however, often do not utilize the true system dynamics,' continues across the column break; the last item ends mid-sentence ('We then use PAC-NMPC') and is continued by the first item of page 3. No mathematics on this page. Coordinator: title heading p0002-b000 set to omit because the builder emits the generated title (it only de-duplicates titles on PDF page 1).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        71.0,
+        72.0,
+        541.0,
+        109.0
+      ],
+      "markdown": "# Robust Perception-Based Navigation using PAC-NMPC with a Learned Value Function",
+      "source_class": "section-header",
+      "reason": "Paper title on PDF page 2 (page 1 is the IEEE copyright cover sheet); it duplicates the generated document title, which the builder already emits at the top."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        139.0,
+        126.0,
+        469.0,
+        139.0
+      ],
+      "markdown": "Adam Polevoy$^{1,2}$, Mark Gonzales$^{1,2}$, Marin Kobilarov$^{2}$, Joseph Moore$^{1,2}$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        688.0,
+        222.0,
+        716.0
+      ],
+      "markdown": "$^{1}$Johns Hopkins University Applied Physics Lab {Adam.Polevoy,Mark.Gonzales,Joseph.Moore}@jhuapl.edu",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        715.0,
+        257.0,
+        734.0
+      ],
+      "markdown": "$^{2}$Johns Hopkins University Whiting School of Engineering mkobila1@jhu.edu",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        163.0,
+        299.0,
+        409.0
+      ],
+      "markdown": "***Abstract*—**Nonlinear model predictive control (NMPC) is typically restricted to short, finite horizons to limit the computational burden of online optimization. As a result, global planning frameworks are frequently necessary to avoid local minima when using NMPC for navigation in complex environments. By contrast, reinforcement learning (RL) can generate policies that minimize the expected cost over an infinite-horizon and can often avoid local minima, even when operating only on current sensor measurements. However, these learned policies are usually unable to provide performance guarantees (e.g., on collision avoidance), especially when outside of the training distribution. In this paper, we augment Probably Approximately Correct NMPC (PAC-NMPC), a sampling-based stochastic NMPC algorithm capable of providing statistical guarantees of performance and safety, with an approximate perception-based value function trained via RL. We demonstrate in simulation that our algorithm can improve the long-term behavior of PAC-NMPC while outperforming other approaches with regards to safety for both planar car dynamics and more complex, high-dimensional fixed-wing aerial vehicle dynamics. We also demonstrate that, even when our value function is trained in simulation, our algorithm can successfully achieve statistically safe navigation on hardware using a 1/10th scale rally car in cluttered real-world environments using only current sensor information.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "figure",
+      "bbox": [
+        323.0,
+        155.0,
+        548.0,
+        366.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        375.0,
+        559.0,
+        410.0
+      ],
+      "markdown": "Fig. 1. a) Rally car navigating through obstacle field using NMPC with learned value function and LiDAR. b) Timelapse of rally car navigating through barrels using RL trained policy. c) Timelapse of rally car navigating through barrels using PAC-NMPC with learned value function.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        137.0,
+        423.0,
+        216.0,
+        431.0
+      ],
+      "markdown": "## I. INTRODUCTION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        440.0,
+        299.0,
+        629.0
+      ],
+      "markdown": "Nonlinear model predictive control (NMPC) has been an effective approach for perception-based robot navigation (e.g., [1], [2], [3], [4]). In some cases, robust and stochastic NMPC (RNMPC and SNMPC respectively) can provide performance guarantees in the presence of uncertainty [5], [6], [7]. However, NMPC is typically restricted to short, finite horizons to limit the computational burden of online optimization. This often limits controller performance, since the cost accrued over the short horizon is often a poor approximation of the true cost-to-go. In navigation tasks, this limitation can cause the system to get caught in local minima. This is especially true in cluttered environments and in “reactive” control paradigms that only leverage current sensor measurements. Moreover, hand-designing a terminal cost that incorporates perception data and effectively approximates the true cost-to-go can be prohibitively difficult.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        631.0,
+        299.0,
+        677.0
+      ],
+      "markdown": "A common approach to improve the global performance of a receding-horizon controller is to utilize a global planner to generate receding-horizon waypoints. These global planners, however, often do not utilize the true system dynamics,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        423.0,
+        559.0,
+        517.0
+      ],
+      "markdown": "which can be high-dimensional for complex systems. Rather, they tend to leverage simplified approximations with reduced dimensionality to improve computational tractability (e.g., [8], [3], [9]). There are also challenges associated with implementing an effective global planner for perception-based navigation, such as planning for potential hidden obstacles in obscured areas. In these cases, the performance of the overall system can be limited by the global planner.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        520.0,
+        559.0,
+        647.0
+      ],
+      "markdown": "By contrast, reinforcement learning (RL) can train effective control policies which directly use current perception information to avoid local minima that can be observed or inferred in complex environments [10], [11], [12]. However, because these RL algorithms require large amounts of data, they are often trained in simulation (e.g., [13], [14], [15]). This dependence on simulation and the inability of the RL trained policies to guarantee the satisfaction of general state constraints can frequently lead to degraded, and potentially unsafe, performance when the policy is deployed in the real-world or when it is used in out-of-distribution environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        652.0,
+        559.0,
+        732.0
+      ],
+      "markdown": "In this paper, we augment Probably Approximately Correct NMPC (PAC-NMPC) [7] with an RL-trained perception-based value function to achieve navigation with statistical performance guarantees even when the learned value function is approximate and uncertain. Using Monte Carlo dropout to capture network uncertainty, we learn a stochastic model of the value function. We then use PAC-NMPC",
+      "source_class": "text"
+    }
+  ]
+}

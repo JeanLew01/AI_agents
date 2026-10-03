@@ -1,0 +1,23 @@
+Supplementary dense-reward run (ant): NOT ATTEMPTED. No result exists.
+
+Requested by the coordinator after the car2d sweep turned out degenerate:
+  run_mbd.py --env_name ant --algo mbd --mode temp   (single run, no replay, heavy.sh --timeout 3600)
+
+What happened (2026-10-02, UTC):
+- 15:03:15  the driver invoked heavy.sh (started_utc.txt, command.txt).
+- heavy.sh never printed its `start` line: heavy.stderr is empty and stdout_stderr.log was never created.
+  The launcher was therefore still waiting for the workspace lock (or had not passed its memory gate);
+  the upstream Python command was never started. There is no partial log and no exit status.
+- about 15:05  the machine froze (coordinator's statement); the waiting launcher did not survive it.
+  At 15:11:30 no run_mbd.py, run.sh or heavy.sh process existed.
+- The coordinator then cancelled the run: heavy (JAX) jobs are disabled workspace-wide. No retry was made.
+
+Measured just before the launch (free -m, about 15:02): MemAvailable 1303 MB, swap used 849 MB of 2048 MB.
+heavy.sh needs at least 1900 MB available to start a job, so it would have refused with exit status 75 at that level.
+
+Driver: the launch used a temporary extension of run.sh with two optional arguments (environment name, timeout;
+defaults car2d and 1500, SHA-256 932b687c2d465c9f7e301d991c5a9b772d4370e6d383e15406050d6023effaf3), invoked as
+`run.sh ant-supplementary ant 3600`. After the cancellation run.sh was restored to the exact file that produced
+the car2d reference (SHA-256 ff8d8506672c358c5894f3e782291cc6f8e697bee7ed0615fc39f03e9d3a9bd5).
+
+The halfcheetah fallback was not tried either (it applied only if ant could not be constructed, which was never reached).

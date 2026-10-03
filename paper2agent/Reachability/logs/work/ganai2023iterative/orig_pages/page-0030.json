@@ -1,0 +1,139 @@
+{
+  "page": 30,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0030.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0030-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        75.0,
+        246.0,
+        83.0
+      ],
+      "markdown": "# **D.8 Hard and Soft Constraints**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0030-b001",
+      "kind": "figure",
+      "bbox": [
+        104.0,
+        91.0,
+        507.0,
+        309.0
+      ],
+      "markdown": "<!-- Start of picture text -->\nRESPO (ours) PPOLag<br>0.6 70 0.6 80<br>0.4 60 0.4<br>0.2 50 0.2 60<br>0.0 40 0.0<br>40<br>0.2 30 0.2<br>20<br>0.4 0.4 20<br>10<br>0.6 0.6<br>0 0<br>1.5 1.0 0.5 0.0 0.5 1.0 1.5 1.5 1.0 0.5 0.0 0.5 1.0 1.5<br>0.6 RCRL 8070 0.6 FAC 120<br>0.4 60 0.4 100<br>0.2 50 0.2 80<br>0.0 40 0.0 60<br>0.2 30 0.2 40<br>0.40.6 2010 0.40.6 20<br>0 0<br>1.5 1.0 0.5 0.0 0.5 1.0 1.5 1.5 1.0 0.5 0.0 0.5 1.0 1.5<br>Trajectory Step Number Trajectory Step Number<br>Trajectory Step Number Trajectory Step Number<br><!-- End of picture text -->",
+      "source_class": "picture",
+      "label": "Figure on PDF page 30 (2)",
+      "asset_name": "figure-p0030-001"
+    },
+    {
+      "id": "p0030-b002",
+      "kind": "caption",
+      "bbox": [
+        108.0,
+        307.0,
+        506.0,
+        336.0
+      ],
+      "markdown": "Figure 12: Closer look at comparison of RESPO with baselines trajectories in hard & soft Constraints multiDrone control. Starting at gold circles, drones must enter the tunnel one at a time and reach green star while avoiding the wall and satisfying distance constraints. The colors indicate time along the trajectories.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0030-b003",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        351.0,
+        504.0,
+        372.0
+      ],
+      "markdown": "**RESPO** : We manage multiple hard and soft Constraints by extending our framework to optimize the following Lagrangian:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0030-b004",
+      "kind": "formula",
+      "bbox": [
+        113.0,
+        386.0,
+        510.0,
+        459.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 30 (5)",
+      "asset_name": "formula-p0030-004"
+    },
+    {
+      "id": "p0030-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        466.0,
+        505.0,
+        585.0
+      ],
+      "markdown": "The subscripts _hc_ 1 indicates the first hard constraint (i.e. wall avoidance), _hc_ 2 indicates the second hard constraint (i.e. drone cannot be too close), and _sc_ indicates soft constraint (i.e. drone cannot be too far) – they are all based on discounted sum of costs. Recall _V_<sup>_π_</sup> ( _s_ ) is reward returns. We color coded the corresponding parts of the optimization. Notice how we learn a different REF for each hard constraint. Also notice that the feasible set of the first hard constraint _phc_ 1 is placed in a manner so as to ensure prioritization of the first hard constraint. As can be seen in the top left plot of Figure 12, our approach successfully reaches the goals and avoids the walls. To enable mobility of the top drone to pass through the tunnel with wall collision, the second hard constraint is violated temporarily in the blue to cyan time period. Furthermore to allow the bottom drone to pass through the tunnel, the soft constraint is violated during the green to orange time period. Nonetheless, **RESPO** successfully manages the constraints and reward performance via Equation 10 optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0030-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        592.0,
+        465.0,
+        602.0
+      ],
+      "markdown": "**PPOLag, RCRL, FAC** : The optimization formulation for these approaches is as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0030-b007",
+      "kind": "formula",
+      "bbox": [
+        116.0,
+        601.0,
+        510.0,
+        636.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 30 (8)",
+      "asset_name": "formula-p0030-007"
+    },
+    {
+      "id": "p0030-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        636.0,
+        506.0,
+        723.0
+      ],
+      "markdown": "For **PPOLag** and **FAC** , all the constraint value functions are discount sum of cost. For **RCRL** , _Vsc_<sup>_π_(</sup><sup>_s_) is based on discount sum of costs but</sup><sup>_V_</sup> _hc_<sup>_π_</sup> 1<sup>(</sup><sup>_s_) and</sup><sup>_V_</sup> _hc_<sup>_π_</sup> 2<sup>(</sup><sup>_s_) are based on the reachability value</sup> function. Furthermore, in **PPOLag** , all the lagrange multipliers are learnable scalar parameters. In **FAC** and **RCRL** all the lagrange multipliers are NN representations parameterized by state. These formulations are not able to provide a framework for the prioritization of the constraint satisfaction – all the constraints are treated the same, weighted only on the learned lagrange multipliers. As can be seen in the other three images in Figure 12, the algorithms cannot manage the multiple constraints, and invariably collide with the wall.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0030-b009",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "30",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

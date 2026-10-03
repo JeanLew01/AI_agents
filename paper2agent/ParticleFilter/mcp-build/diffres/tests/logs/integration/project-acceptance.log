@@ -1,0 +1,879 @@
+[10/02/26 22:02:56] INFO     Starting MCP server 'diffres' with transport.py:242
+                             transport 'stdio'                                  
+[10/02/26 22:03:10] Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:116 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   113 │   Input is an .npz of samples and (log) weights; │
+                    │       weighted resampled particles and log weights.      │
+                    │   114 │   """                                            │
+                    │   115 │   if not a < 0:                                  │
+                    │ ❱ 116 │   │   raise ValueError("a must be negative (upst │
+                    │       must be negative').")                              │
+                    │   117 │   if not T > 0:                                  │
+                    │   118 │   │   raise ValueError("T must be positive.")    │
+                    │   119 │   if nsteps < 1:                                 │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: a must be negative (upstream: 'The forward      
+                    noising parameter, must be negative').                      
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:125 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   122 │   │   raise ValueError("jitter must be non-negat │
+                    │   123 │   # Upstream raises NotImplementedError for thes │
+                    │       clear message up front.                            │
+                    │   124 │   if integrator == "diffrax" and not ode:        │
+                    │ ❱ 125 │   │   raise ValueError("integrator='diffrax' is  │
+                    │       ode=True.")                                        │
+                    │   126 │   if integrator == "tweedie" and ode:            │
+                    │   127 │   │   raise ValueError("integrator='tweedie' is  │
+                    │       ode=False (SDE).")                                 │
+                    │   128                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: integrator='diffrax' is only implemented        
+                    upstream for ode=True.                                      
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:129 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   126 │   if integrator == "tweedie" and ode:            │
+                    │   127 │   │   raise ValueError("integrator='tweedie' is  │
+                    │       ode=False (SDE).")                                 │
+                    │   128 │                                                  │
+                    │ ❱ 129 │   samples, log_ws, log_normaliser, weight_field  │
+                    │   130 │   key = _resolve_key(seed, prng_key)             │
+                    │   131 │   ts = jnp.linspace(0., T, nsteps + 1)           │
+                    │   132                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:78 in _load_particles │
+                    │                                                          │
+                    │    75 │   │   │   raise ValueError("'log_weights' must n │
+                    │       zero weight).")                                    │
+                    │    76 │   │   log_ws = raw                               │
+                    │    77 │   if not np.any(np.isfinite(log_ws)):            │
+                    │ ❱  78 │   │   raise ValueError("All weights are zero (al │
+                    │    79 │   # Every upstream caller normalises the log wei │
+                    │    80 │   log_ws = jnp.asarray(log_ws)                   │
+                    │    81 │   log_normaliser = jax.scipy.special.logsumexp(l │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: All weights are zero (all log weights are -inf).
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+[10/02/26 22:03:12] Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:139 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   136 │   │   return diffusion_resampling(key_, log_ws_, │
+                    │       integrator=integrator, ode=ode, jitter=jitter)     │
+                    │   137 │                                                  │
+                    │   138 │   log_ws_out, samples_out = resampling(key, log_ │
+                    │ ❱ 139 │   _check_finite_output(log_ws_out, samples_out,  │
+                    │   140 │   │   │   │   │   │    "A dimension with zero we │
+                    │       degenerate; try jitter > 0.")                      │
+                    │   141 │   out_path = _save("diffres_resample_particles_d │
+                    │       samples_out)                                       │
+                    │   142 │   n = int(samples.shape[0])                      │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:96 in                 │
+                    │ _check_finite_output                                     │
+                    │                                                          │
+                    │    93                                                    │
+                    │    94 def _check_finite_output(log_ws_out, samples_out,  │
+                    │    95 │   if not (bool(jnp.all(jnp.isfinite(samples_out) │
+                    │       bool(jnp.any(jnp.isnan(log_ws_out)))):             │
+                    │ ❱  96 │   │   raise ValueError(f"The upstream resampler  │
+                    │    97                                                    │
+                    │    98                                                    │
+                    │    99 @resampling_mcp.tool()                             │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: The upstream resampler returned non-finite      
+                    values. A dimension with zero weighted variance makes the   
+                    reference degenerate; try jitter > 0.                       
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:129 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   126 │   if integrator == "tweedie" and ode:            │
+                    │   127 │   │   raise ValueError("integrator='tweedie' is  │
+                    │       ode=False (SDE).")                                 │
+                    │   128 │                                                  │
+                    │ ❱ 129 │   samples, log_ws, log_normaliser, weight_field  │
+                    │   130 │   key = _resolve_key(seed, prng_key)             │
+                    │   131 │   ts = jnp.linspace(0., T, nsteps + 1)           │
+                    │   132                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:52 in _load_particles │
+                    │                                                          │
+                    │    49 │   """Read samples and (log) weights; return floa │
+                    │       and the log normaliser."""                         │
+                    │    50 │   path = Path(particles_path).expanduser()       │
+                    │    51 │   if not path.is_file():                         │
+                    │ ❱  52 │   │   raise FileNotFoundError(f"particles_path n │
+                    │    53 │   with np.load(path, allow_pickle=False) as data │
+                    │    54 │   │   keys = set(data.files)                     │
+                    │    55 │   │   if "samples" not in keys:                  │
+                    ╰──────────────────────────────────────────────────────────╯
+                    FileNotFoundError: particles_path not found:                
+                    /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/d
+                    iffres/tests/data/resampling/does_not_exist.npz             
+                    Error calling tool 'diffres_resample_particles_diffusion'   
+[10/02/26 22:03:20] Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:178 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   175 │   owner = {"eps": "ensemble_ot", "alpha": "soft" │
+                    │   176 │   wrong = [p for p, v in given.items() if v is n │
+                    │   177 │   if wrong:                                      │
+                    │ ❱ 178 │   │   raise ValueError(f"Parameter(s) {wrong} do │
+                    │   179 │   │   │   │   │   │    f"({', '.join(f'{p} is fo │
+                    │   180 │                                                  │
+                    │   181 │   samples, log_ws, log_normaliser, weight_field  │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: Parameter(s) ['eps'] do not apply to method     
+                    'multinomial' (eps is for ensemble_ot).                     
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:210 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   207 │   │   │   raise ValueError("gumbel_softmax needs │
+                    │   208 │   │   tau = 0.5 if tau is None else tau          │
+                    │   209 │   │   if not tau > 0:                            │
+                    │ ❱ 210 │   │   │   raise ValueError("tau must be positive │
+                    │   211 │   │   kwargs["tau"] = tau                        │
+                    │   212 │   │   settings["tau"] = float(tau)               │
+                    │   213                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: tau must be positive.                           
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:192 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   189 │   │   if eps is not None and not eps > 0:        │
+                    │   190 │   │   │   raise ValueError("eps must be positive │
+                    │   191 │   │   if samples.ndim > 2:                       │
+                    │ ❱ 192 │   │   │   raise ValueError("ensemble_ot needs a  │
+                    │       (N,) or (N, d).")                                  │
+                    │   193 │   │   if samples.ndim == 1:                      │
+                    │   194 │   │   │   data = samples[:, None]  # ott PointCl │
+                    │       (N,) afterwards                                    │
+                    │   195 │   │   kwargs["eps"] = eps                        │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ensemble_ot needs a point cloud: samples must   
+                    have shape (N,) or (N, d).                                  
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:181 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   178 │   │   raise ValueError(f"Parameter(s) {wrong} do │
+                    │   179 │   │   │   │   │   │    f"({', '.join(f'{p} is fo │
+                    │   180 │                                                  │
+                    │ ❱ 181 │   samples, log_ws, log_normaliser, weight_field  │
+                    │   182 │   n = int(samples.shape[0])                      │
+                    │   183 │   key = _resolve_key(seed, prng_key)             │
+                    │   184 │   settings = {"method": method, "jit": True, "x6 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:59 in _load_particles │
+                    │                                                          │
+                    │    56 │   │   │   raise ValueError(f"{path} must contain │
+                    │       {sorted(keys)}.")                                  │
+                    │    57 │   │   has_lw, has_w = "log_weights" in keys, "we │
+                    │    58 │   │   if has_lw == has_w:                        │
+                    │ ❱  59 │   │   │   raise ValueError(f"{path} must contain │
+                    │       'weights'; found {sorted(keys)}.")                 │
+                    │    60 │   │   samples = np.asarray(data["samples"], dtyp │
+                    │    61 │   │   raw = np.asarray(data["log_weights" if has │
+                    │    62 │   if samples.ndim < 1 or samples.shape[0] < 2:   │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError:                                                 
+                    /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/d
+                    iffres/tests/data/resampling/invalid_both_fields.npz must   
+                    contain exactly one of 'log_weights' or 'weights'; found    
+                    ['log_weights', 'samples', 'weights'].                      
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:207 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   204 │   elif method == "gumbel_softmax":               │
+                    │   205 │   │   if samples.ndim > 2:                       │
+                    │   206 │   │   │   # upstream computes softmax(...) @ sam │
+                    │       more than two dimensions                           │
+                    │ ❱ 207 │   │   │   raise ValueError("gumbel_softmax needs │
+                    │   208 │   │   tau = 0.5 if tau is None else tau          │
+                    │   209 │   │   if not tau > 0:                            │
+                    │   210 │   │   │   raise ValueError("tau must be positive │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: gumbel_softmax needs samples of shape (N,) or   
+                    (N, d).                                                     
+                    Error calling tool 'diffres_resample_particles_baseline'    
+[10/02/26 22:03:49] Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:222 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   219 │   """Run a bootstrap particle filter on a linear │
+                    │       diffres resampler.                                 │
+                    │   220 │   LGSSM JSON + observations .npz -> negative log │
+                    │       (.npz), optional gradient and KF comparison.       │
+                    │   221 │   """                                            │
+                    │ ❱ 222 │   model = _load_model(model_path)                │
+                    │   223 │   F, Q, H, R, m0, P0 = (model[k] for k in _MODEL │
+                    │   224 │   dx, dy = F.shape[0], H.shape[0]                │
+                    │   225 │   ys_np = _load_observations(observations_path,  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:70 in _load_model    │
+                    │                                                          │
+                    │    67 │   │   try:                                       │
+                    │    68 │   │   │   np.linalg.cholesky(mat)                │
+                    │    69 │   │   except np.linalg.LinAlgError:              │
+                    │ ❱  70 │   │   │   raise ValueError(f"{name} must be posi │
+                    │    71 │   if m0.shape != (dx,):                          │
+                    │    72 │   │   raise ValueError(f"m0 must have shape ({dx │
+                    │    73 │   return model                                   │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: R must be positive definite                     
+[10/02/26 22:03:50] Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:222 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   219 │   """Run a bootstrap particle filter on a linear │
+                    │       diffres resampler.                                 │
+                    │   220 │   LGSSM JSON + observations .npz -> negative log │
+                    │       (.npz), optional gradient and KF comparison.       │
+                    │   221 │   """                                            │
+                    │ ❱ 222 │   model = _load_model(model_path)                │
+                    │   223 │   F, Q, H, R, m0, P0 = (model[k] for k in _MODEL │
+                    │   224 │   dx, dy = F.shape[0], H.shape[0]                │
+                    │   225 │   ys_np = _load_observations(observations_path,  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:45 in _load_model    │
+                    │                                                          │
+                    │    42 def _load_model(model_path: str) -> dict:          │
+                    │    43 │   path = Path(model_path)                        │
+                    │    44 │   if not path.is_file():                         │
+                    │ ❱  45 │   │   raise FileNotFoundError(f"model_path does  │
+                    │    46 │   spec = json.loads(path.read_text())            │
+                    │    47 │   missing = [k for k in _MODEL_KEYS if k not in  │
+                    │    48 │   if missing:                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    FileNotFoundError: model_path does not exist:               
+                    /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/d
+                    iffres/tests/data/feynman_kac/does_not_exist.json           
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:225 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   222 │   model = _load_model(model_path)                │
+                    │   223 │   F, Q, H, R, m0, P0 = (model[k] for k in _MODEL │
+                    │   224 │   dx, dy = F.shape[0], H.shape[0]                │
+                    │ ❱ 225 │   ys_np = _load_observations(observations_path,  │
+                    │   226 │   nsteps = ys_np.shape[0] - 1                    │
+                    │   227 │   if nparticles < 1:                             │
+                    │   228 │   │   raise ValueError("nparticles must be >= 1" │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:87 in                │
+                    │ _load_observations                                       │
+                    │                                                          │
+                    │    84 │   if ys.ndim == 1 and dy == 1:                   │
+                    │    85 │   │   ys = ys[:, None]  # (T+1,) with dy = 1 is  │
+                    │       unchanged                                          │
+                    │    86 │   if ys.ndim != 2 or ys.shape[1] != dy or ys.sha │
+                    │ ❱  87 │   │   raise ValueError(f"ys must have shape (T+1 │
+                    │       observation, got {ys.shape}")                      │
+                    │    88 │   if not np.all(np.isfinite(ys)):                │
+                    │    89 │   │   raise ValueError("ys contains non-finite v │
+                    │       supported upstream)")                              │
+                    │    90 │   return ys                                      │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ys must have shape (T+1, 1) with ys[0] the      
+                    time-0 observation, got (33, 2)                             
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:232 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   229 │   if not 0 <= resampling_threshold <= 1:         │
+                    │   230 │   │   raise ValueError("resampling_threshold mus │
+                    │   231 │   key = _resolve_key(seed, prng_key)             │
+                    │ ❱ 232 │   resampling, method_settings = _make_resampling │
+                    │   233 │   │   resampling_method, nparticles, diffusion_a │
+                    │       diffusion_integrator,                              │
+                    │   234 │   │   diffusion_ode, diffusion_jitter, ot_eps, o │
+                    │       gumbel_tau)                                        │
+                    │   235                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:119 in               │
+                    │ _make_resampling                                         │
+                    │                                                          │
+                    │   116 │   │   if diffusion_jitter < 0:                   │
+                    │   117 │   │   │   raise ValueError("diffusion_jitter mus │
+                    │   118 │   │   if diffusion_integrator == "tweedie" and d │
+                    │ ❱ 119 │   │   │   raise ValueError("upstream diffusion_r │
+                    │       'tweedie' only with ode=False")                    │
+                    │   120 │   │   if diffusion_integrator == "diffrax" and n │
+                    │   121 │   │   │   raise ValueError("upstream diffusion_r │
+                    │       'diffrax' only with ode=True")                     │
+                    │   122 │   │   ts = jnp.linspace(0., diffusion_T, diffusi │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: upstream diffusion_resampling implements        
+                    integrator 'tweedie' only with ode=False                    
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:231 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   228 │   │   raise ValueError("nparticles must be >= 1" │
+                    │   229 │   if not 0 <= resampling_threshold <= 1:         │
+                    │   230 │   │   raise ValueError("resampling_threshold mus │
+                    │ ❱ 231 │   key = _resolve_key(seed, prng_key)             │
+                    │   232 │   resampling, method_settings = _make_resampling │
+                    │   233 │   │   resampling_method, nparticles, diffusion_a │
+                    │       diffusion_integrator,                              │
+                    │   234 │   │   diffusion_ode, diffusion_jitter, ot_eps, o │
+                    │       gumbel_tau)                                        │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:97 in _resolve_key   │
+                    │                                                          │
+                    │    94 │   if prng_key is None:                           │
+                    │    95 │   │   return jax.random.PRNGKey(seed)            │
+                    │    96 │   if len(prng_key) != 2 or any((not isinstance(v │
+                    │       in prng_key):                                      │
+                    │ ❱  97 │   │   raise ValueError("prng_key must be exactly │
+                    │       jax.random.PRNGKey data)")                         │
+                    │    98 │   return jnp.asarray(prng_key, dtype=jnp.uint32) │
+                    │    99                                                    │
+                    │   100                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: prng_key must be exactly two uint32 integers    
+                    (raw jax.random.PRNGKey data)                               
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:232 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   229 │   if not 0 <= resampling_threshold <= 1:         │
+                    │   230 │   │   raise ValueError("resampling_threshold mus │
+                    │   231 │   key = _resolve_key(seed, prng_key)             │
+                    │ ❱ 232 │   resampling, method_settings = _make_resampling │
+                    │   233 │   │   resampling_method, nparticles, diffusion_a │
+                    │       diffusion_integrator,                              │
+                    │   234 │   │   diffusion_ode, diffusion_jitter, ot_eps, o │
+                    │       gumbel_tau)                                        │
+                    │   235                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:134 in               │
+                    │ _make_resampling                                         │
+                    │                                                          │
+                    │   131 │   │   if ot_eps is not None and not ot_eps > 0:  │
+                    │   132 │   │   │   raise ValueError("ot_eps must be posit │
+                    │       1/log(N))")                                        │
+                    │   133 │   │   if ot_eps is None and nparticles < 2:      │
+                    │ ❱ 134 │   │   │   raise ValueError("the upstream default │
+                    │       2; pass ot_eps explicitly")                        │
+                    │   135 │   │                                              │
+                    │   136 │   │   def resampling(key_, log_ws_, samples_):   │
+                    │   137 │   │   │   return ensemble_ot(key_, log_ws_, samp │
+                    │       implicit_diff=ot_implicit_diff)                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: the upstream default ot_eps = 1/log(N) needs    
+                    nparticles >= 2; pass ot_eps explicitly                     
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:230 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   227 │   if nparticles < 1:                             │
+                    │   228 │   │   raise ValueError("nparticles must be >= 1" │
+                    │   229 │   if not 0 <= resampling_threshold <= 1:         │
+                    │ ❱ 230 │   │   raise ValueError("resampling_threshold mus │
+                    │   231 │   key = _resolve_key(seed, prng_key)             │
+                    │   232 │   resampling, method_settings = _make_resampling │
+                    │   233 │   │   resampling_method, nparticles, diffusion_a │
+                    │       diffusion_integrator,                              │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: resampling_threshold must lie in [0, 1]         
+                    Error calling tool 'diffres_run_lgssm_particle_filter'      
+[10/02/26 22:03:52] Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:196 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   193 │   """                                            │
+                    │   194 │   if isinstance(nsteps, bool) or not isinstance( │
+                    │   195 │   │   raise ValueError(f"nsteps must be a non-ne │
+                    │ ❱ 196 │   model = _load_model(model_path)                │
+                    │   197 │   key = _resolve_key(seed, prng_key)             │
+                    │   198 │   F, Q, H, R, m0, P0 = (jnp.asarray(model[k]) fo │
+                    │   199                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:71 in           │
+                    │ _load_model                                              │
+                    │                                                          │
+                    │    68 │   │   │   │   │   │   │    f"got {model[k].shape │
+                    │    69 │   for k in ("Q", "R", "P0"):                     │
+                    │    70 │   │   if not np.allclose(model[k], model[k].T, r │
+                    │ ❱  71 │   │   │   raise ValueError(f"covariance {k} must │
+                    │       directly (e.g. F P F^T + Q "                       │
+                    │    72 │   │   │   │   │   │   │    f"in kf) and through  │
+                    │       its input, so a "                                  │
+                    │    73 │   │   │   │   │   │   │    f"non-symmetric matri │
+                    │       inconsistently")                                   │
+                    │    74 │   model["dx"], model["dy"] = dx, dy              │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: covariance Q must be symmetric: upstream uses it
+                    both directly (e.g. F P F^T + Q in kf) and through          
+                    jnp.linalg.cholesky, which symmetrises its input, so a      
+                    non-symmetric matrix would be interpreted inconsistently    
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:195 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   192 │   Input is a model JSON, T and a seed/key; outpu │
+                    │       (T+1,dy)) plus a model.json copy.                  │
+                    │   193 │   """                                            │
+                    │   194 │   if isinstance(nsteps, bool) or not isinstance( │
+                    │ ❱ 195 │   │   raise ValueError(f"nsteps must be a non-ne │
+                    │   196 │   model = _load_model(model_path)                │
+                    │   197 │   key = _resolve_key(seed, prng_key)             │
+                    │   198 │   F, Q, H, R, m0, P0 = (jnp.asarray(model[k]) fo │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: nsteps must be a non-negative integer, got -1   
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:203 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   200 │   xs, ys = simulate_lgssm(key, F, Q, H, R, m0, P │
+                    │   201 │   xs, ys = np.asarray(xs), np.asarray(ys)        │
+                    │   202 │   if not (np.all(np.isfinite(xs)) and np.all(np. │
+                    │ ❱ 203 │   │   raise ValueError("simulation produced non- │
+                    │       positive definite "                                │
+                    │   204 │   │   │   │   │   │    "(upstream uses their Cho │
+                    │   205 │                                                  │
+                    │   206 │   out_dir = _fresh_dir(output_dir, "diffres_simu │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: simulation produced non-finite values: Q, R and 
+                    P0 must be positive definite (upstream uses their Cholesky  
+                    factors)                                                    
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+[10/02/26 22:03:57] Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:116 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    │   115 │   if ys.ndim != 2 or ys.shape[1] != dy or ys.sha │
+                    │ ❱ 116 │   │   raise ValueError(f"ys must have shape (T+1 │
+                    │   117 │   if not np.all(np.isfinite(ys)):                │
+                    │   118 │   │   raise ValueError("ys contains non-finite v │
+                    │   119                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ys must have shape (T+1, dy=1), got (17, 2)     
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:116 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    │   115 │   if ys.ndim != 2 or ys.shape[1] != dy or ys.sha │
+                    │ ❱ 116 │   │   raise ValueError(f"ys must have shape (T+1 │
+                    │   117 │   if not np.all(np.isfinite(ys)):                │
+                    │   118 │   │   raise ValueError("ys contains non-finite v │
+                    │   119                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ys must have shape (T+1, dy=2), got (11,)       
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:136 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   133 │                                                  │
+                    │   134 │   nll = float(nll)                               │
+                    │   135 │   if not np.isfinite(nll):                       │
+                    │ ❱ 136 │   │   raise ValueError("Kalman filter nll is not │
+                    │       H^T + R is not positive "                          │
+                    │   137 │   │   │   │   │   │    "definite (Cholesky faile │
+                    │       degenerate")                                       │
+                    │   138 │                                                  │
+                    │   139 │   arrays = {"filtering_means": np.asarray(mfs),  │
+                    │       np.asarray(vfs),                                   │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: Kalman filter nll is not finite: the innovation 
+                    covariance H P H^T + R is not positive definite (Cholesky   
+                    failed) or the model is numerically degenerate              
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:111 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   108 │   │   raise ValueError(f"observations_path does  │
+                    │   109 │   with np.load(obs_path) as data:                │
+                    │   110 │   │   if "ys" not in data.files:                 │
+                    │ ❱ 111 │   │   │   raise ValueError(f"observations .npz m │
+                    │   112 │   │   ys = np.asarray(data["ys"], dtype=np.float │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: observations .npz must contain 'ys'; found ['y']
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+{"success": true, "mode": "calls", "cases_checked": 47, "report": "reports/mcp-project-environment.json"}
+heavy.sh: scope memory.peak=1214MB oom_kills=0

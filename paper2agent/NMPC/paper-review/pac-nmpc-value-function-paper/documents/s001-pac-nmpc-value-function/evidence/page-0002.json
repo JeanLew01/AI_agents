@@ -1,0 +1,1342 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "Robust Perception-Based Navigation using PAC-NMPC with a Learned",
+      "bbox": [
+        71.8239974975586,
+        74.12357330322266,
+        540.1788940429688,
+        88.37411499023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Value Function",
+      "bbox": [
+        256.72100830078125,
+        94.0485610961914,
+        355.27923583984375,
+        108.29910278320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Adam Polevoy1,2, Mark Gonzales1,2, Marin Kobilarov2, Joseph Moore1,2",
+      "bbox": [
+        139.03500366210938,
+        126.748779296875,
+        468.629150390625,
+        138.60516357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract— Nonlinear model predictive control (NMPC) is",
+      "bbox": [
+        63.963043212890625,
+        163.4472198486328,
+        298.8009033203125,
+        171.5080108642578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "typically restricted to short, finite horizons to limit the com-",
+      "bbox": [
+        54.00004577636719,
+        173.4102325439453,
+        298.8006591796875,
+        181.4710235595703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "putational burden of online optimization. As a result, global",
+      "bbox": [
+        54.00004577636719,
+        183.37220764160156,
+        298.8006896972656,
+        191.43299865722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planning frameworks are frequently necessary to avoid local",
+      "bbox": [
+        54.00004577636719,
+        193.33522033691406,
+        298.8006286621094,
+        201.39601135253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "minima when using NMPC for navigation in complex environ-",
+      "bbox": [
+        54.00004577636719,
+        203.2971954345703,
+        298.80072021484375,
+        211.3579864501953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ments. By contrast, reinforcement learning (RL) can generate",
+      "bbox": [
+        54.00004577636719,
+        213.2602081298828,
+        298.8006896972656,
+        221.3209991455078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policies that minimize the expected cost over an infinite-horizon",
+      "bbox": [
+        54.00004577636719,
+        223.2232208251953,
+        298.8006286621094,
+        231.2840118408203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and can often avoid local minima, even when operating only on",
+      "bbox": [
+        54.00004577636719,
+        233.18519592285156,
+        298.8006896972656,
+        241.24598693847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "current sensor measurements. However, these learned policies",
+      "bbox": [
+        54.00004577636719,
+        243.14820861816406,
+        298.8006286621094,
+        251.20899963378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are usually unable to provide performance guarantees (e.g.,",
+      "bbox": [
+        54.00004577636719,
+        253.11122131347656,
+        298.8006896972656,
+        261.1719970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on collision avoidance), especially when outside of the training",
+      "bbox": [
+        54.00004577636719,
+        263.07318115234375,
+        298.80072021484375,
+        271.13397216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distribution. In this paper, we augment Probably Approximately",
+      "bbox": [
+        54.00004577636719,
+        273.03619384765625,
+        298.80072021484375,
+        281.09698486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Correct NMPC (PAC-NMPC), a sampling-based stochastic",
+      "bbox": [
+        54.00004577636719,
+        282.99920654296875,
+        298.8006591796875,
+        291.05999755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NMPC algorithm capable of providing statistical guarantees of",
+      "bbox": [
+        54.00004577636719,
+        292.9612121582031,
+        298.8006896972656,
+        301.02203369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance and safety, with an approximate perception-based",
+      "bbox": [
+        54.00004577636719,
+        302.9242248535156,
+        298.8006286621094,
+        310.98504638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "value function trained via RL. We demonstrate in simulation",
+      "bbox": [
+        54.00004577636719,
+        312.8872375488281,
+        298.8006896972656,
+        320.94805908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that our algorithm can improve the long-term behavior of PAC-",
+      "bbox": [
+        54.00004577636719,
+        322.8492431640625,
+        298.80072021484375,
+        330.9100341796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NMPC while outperforming other approaches with regards",
+      "bbox": [
+        54.00004577636719,
+        332.812255859375,
+        298.8006286621094,
+        340.873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to safety for both planar car dynamics and more complex,",
+      "bbox": [
+        54.00004577636719,
+        342.7742614746094,
+        298.8006896972656,
+        350.8350830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "high-dimensional fixed-wing aerial vehicle dynamics. We also",
+      "bbox": [
+        54.00004577636719,
+        352.7372741699219,
+        298.8006591796875,
+        360.798095703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrate that, even when our value function is trained in",
+      "bbox": [
+        54.00004577636719,
+        362.7002868652344,
+        298.80072021484375,
+        370.7611083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simulation, our algorithm can successfully achieve statistically",
+      "bbox": [
+        54.00004577636719,
+        372.66229248046875,
+        298.8006591796875,
+        380.72308349609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "safe navigation on hardware using a 1/10th scale rally car in",
+      "bbox": [
+        54.00004577636719,
+        378.8163146972656,
+        298.8038024902344,
+        390.68609619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cluttered real-world environments using only current sensor",
+      "bbox": [
+        54.00004577636719,
+        392.58831787109375,
+        298.8006591796875,
+        400.64910888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information.",
+      "bbox": [
+        54.00004577636719,
+        402.5503234863281,
+        101.84475708007812,
+        410.61114501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION",
+      "bbox": [
+        137.5260467529297,
+        423.2825012207031,
+        215.27883911132812,
+        432.1890563964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Nonlinear model predictive control (NMPC) has been",
+      "bbox": [
+        63.963050842285156,
+        440.2254943847656,
+        298.8014831542969,
+        449.1320495605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an effective approach for perception-based robot navigation",
+      "bbox": [
+        54.00004959106445,
+        452.18048095703125,
+        298.8009948730469,
+        461.0870361328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(e.g., [1], [2], [3], [4]). In some cases, robust and stochastic",
+      "bbox": [
+        54.00004959106445,
+        464.1354675292969,
+        298.801025390625,
+        473.0420227050781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NMPC (RNMPC and SNMPC respectively) can provide",
+      "bbox": [
+        54.00004959106445,
+        476.0904541015625,
+        298.801025390625,
+        484.99700927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance guarantees in the presence of uncertainty [5],",
+      "bbox": [
+        54.00004959106445,
+        488.0454406738281,
+        298.801025390625,
+        496.9519958496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[6], [7]. However, NMPC is typically restricted to short,",
+      "bbox": [
+        54.00004959106445,
+        500.0014343261719,
+        298.8010559082031,
+        508.9079895019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "finite horizons to limit the computational burden of online",
+      "bbox": [
+        54.00004959106445,
+        511.9564208984375,
+        298.8009948730469,
+        520.8629760742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimization. This often limits controller performance, since",
+      "bbox": [
+        54.00004959106445,
+        523.911376953125,
+        298.8011169433594,
+        532.8179321289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the cost accrued over the short horizon is often a poor",
+      "bbox": [
+        54.00004959106445,
+        535.8663940429688,
+        298.8009948730469,
+        544.77294921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximation of the true cost-to-go. In navigation tasks, this",
+      "bbox": [
+        54.00004959106445,
+        547.8214111328125,
+        298.801025390625,
+        556.7279663085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "limitation can cause the system to get caught in local minima.",
+      "bbox": [
+        54.00004959106445,
+        559.7764282226562,
+        298.801025390625,
+        568.6829833984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This is especially true in cluttered environments and in “re-",
+      "bbox": [
+        54.00004959106445,
+        571.732421875,
+        298.801025390625,
+        580.6389770507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "active” control paradigms that only leverage current sensor",
+      "bbox": [
+        54.00004959106445,
+        583.6873779296875,
+        298.801025390625,
+        592.5939331054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "measurements. Moreover, hand-designing a terminal cost that",
+      "bbox": [
+        54.00004959106445,
+        595.6423950195312,
+        298.80096435546875,
+        604.5489501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "incorporates perception data and effectively approximates the",
+      "bbox": [
+        54.00004959106445,
+        607.597412109375,
+        298.80108642578125,
+        616.5039672851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "true cost-to-go can be prohibitively difficult.",
+      "bbox": [
+        54.00004959106445,
+        619.5524291992188,
+        235.4289093017578,
+        628.458984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A common approach to improve the global performance of",
+      "bbox": [
+        63.963050842285156,
+        631.81640625,
+        298.8014221191406,
+        640.7229614257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a receding-horizon controller is to utilize a global planner to",
+      "bbox": [
+        54.00004959106445,
+        643.7714233398438,
+        298.801025390625,
+        652.677978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generate receding-horizon waypoints. These global planners,",
+      "bbox": [
+        54.00004959106445,
+        655.7264404296875,
+        298.80096435546875,
+        664.6329956054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "however, often do not utilize the true system dynamics,",
+      "bbox": [
+        54.00004959106445,
+        667.681396484375,
+        298.8011169433594,
+        676.5879516601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Johns Hopkins University Applied Physics Lab",
+      "bbox": [
+        62.468048095703125,
+        688.7006225585938,
+        221.45413208007812,
+        697.3826293945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{Adam.Polevoy,Mark.Gonzales,",
+      "bbox": [
+        69.54204559326172,
+        697.9032592773438,
+        219.40464782714844,
+        706.3675537109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Joseph.Moore}@jhuapl.edu",
+      "bbox": [
+        73.7260513305664,
+        706.8692626953125,
+        202.0702667236328,
+        715.3335571289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2Johns Hopkins University Whiting School of Engineering",
+      "bbox": [
+        63.16606140136719,
+        715.599609375,
+        256.4155578613281,
+        724.2825927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mkobila1@jhu.edu",
+      "bbox": [
+        69.54206085205078,
+        725.9230346679688,
+        155.6194610595703,
+        732.8450927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 1.",
+      "bbox": [
+        313.20001220703125,
+        375.7942810058594,
+        334.9105529785156,
+        382.9195251464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a) Rally car navigating through obstacle field using NMPC with",
+      "bbox": [
+        344.2435302734375,
+        375.7942810058594,
+        558.0017700195312,
+        382.9195251464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "learned value function and LiDAR. b) Timelapse of rally car navigating",
+      "bbox": [
+        313.20001220703125,
+        384.7602844238281,
+        558.001708984375,
+        391.8855285644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "through barrels using RL trained policy. c) Timelapse of rally car navigating",
+      "bbox": [
+        313.20001220703125,
+        393.7262878417969,
+        558.001708984375,
+        400.8515319824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "through barrels using PAC-NMPC with learned value function.",
+      "bbox": [
+        313.20001220703125,
+        402.69329833984375,
+        519.41845703125,
+        409.81854248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which can be high-dimensional for complex systems. Rather,",
+      "bbox": [
+        313.20001220703125,
+        423.5403747558594,
+        558.0009765625,
+        432.4469299316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "they tend to leverage simplified approximations with reduced",
+      "bbox": [
+        313.20001220703125,
+        435.495361328125,
+        558.0009765625,
+        444.40191650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dimensionality to improve computational tractability (e.g.,",
+      "bbox": [
+        313.20001220703125,
+        447.4503479003906,
+        558.0009155273438,
+        456.3569030761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[8], [3], [9]). There are also challenges associated with im-",
+      "bbox": [
+        313.20001220703125,
+        459.40533447265625,
+        558.0009765625,
+        468.3118896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "plementing an effective global planner for perception-based",
+      "bbox": [
+        313.20001220703125,
+        471.3603210449219,
+        558.0009765625,
+        480.2668762207031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "navigation, such as planning for potential hidden obstacles in",
+      "bbox": [
+        313.20001220703125,
+        483.3153076171875,
+        558.0007934570312,
+        492.22186279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "obscured areas. In these cases, the performance of the overall",
+      "bbox": [
+        313.20001220703125,
+        495.27130126953125,
+        558.001220703125,
+        504.1778564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system can be limited by the global planner.",
+      "bbox": [
+        313.20001220703125,
+        507.226318359375,
+        495.6151123046875,
+        516.1328735351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "By contrast, reinforcement learning (RL) can train effec-",
+      "bbox": [
+        323.16302490234375,
+        520.3572998046875,
+        558.0014038085938,
+        529.2638549804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tive control policies which directly use current perception",
+      "bbox": [
+        313.20001220703125,
+        532.3132934570312,
+        558.0009155273438,
+        541.2198486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information to avoid local minima that can be observed or",
+      "bbox": [
+        313.20001220703125,
+        544.268310546875,
+        558.0010986328125,
+        553.1748657226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inferred in complex environments [10], [11], [12]. However,",
+      "bbox": [
+        313.20001220703125,
+        556.2232666015625,
+        558.0009155273438,
+        565.1298217773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "because these RL algorithms require large amounts of data,",
+      "bbox": [
+        313.20001220703125,
+        568.1782836914062,
+        558.0010375976562,
+        577.0848388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "they are often trained in simulation (e.g., [13], [14], [15]).",
+      "bbox": [
+        313.20001220703125,
+        580.13330078125,
+        558.0010986328125,
+        589.0398559570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This dependence on simulation and the inability of the RL",
+      "bbox": [
+        313.20001220703125,
+        592.0883178710938,
+        558.0010375976562,
+        600.994873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trained policies to guarantee the satisfaction of general state",
+      "bbox": [
+        313.20001220703125,
+        604.0443115234375,
+        558.0008544921875,
+        612.9508666992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "constraints can frequently lead to degraded, and potentially",
+      "bbox": [
+        313.20001220703125,
+        615.999267578125,
+        558.0009765625,
+        624.9058227539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "unsafe, performance when the policy is deployed in the real-",
+      "bbox": [
+        313.20001220703125,
+        627.9542846679688,
+        558.0009765625,
+        636.86083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "world or when it is used in out-of-distribution environments.",
+      "bbox": [
+        313.20001220703125,
+        639.9093017578125,
+        558.0008544921875,
+        648.8158569335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we augment Probably Approximately Cor-",
+      "bbox": [
+        323.16302490234375,
+        653.0413208007812,
+        558.0013427734375,
+        661.9478759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rect NMPC (PAC-NMPC) [7] with an RL-trained perception-",
+      "bbox": [
+        313.20001220703125,
+        664.996337890625,
+        558.0010986328125,
+        673.9028930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "based value function to achieve navigation with statisti-",
+      "bbox": [
+        313.20001220703125,
+        676.9512939453125,
+        558.0008544921875,
+        685.8578491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cal performance guarantees even when the learned value",
+      "bbox": [
+        313.20001220703125,
+        688.9063110351562,
+        558.0010986328125,
+        697.8128662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "function is approximate and uncertain. Using Monte Carlo",
+      "bbox": [
+        313.20001220703125,
+        700.8623046875,
+        558.0009765625,
+        709.7688598632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dropout to capture network uncertainty, we learn a stochastic",
+      "bbox": [
+        313.20001220703125,
+        712.8173217773438,
+        558.0007934570312,
+        721.723876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model of the value function. We then use PAC-NMPC",
+      "bbox": [
+        313.20001220703125,
+        724.7723388671875,
+        558.0009155273438,
+        733.6788940429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "",
+      "modDate": "D:20250611133058Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/pac-nmpc-value-function-paper/documents/.pdf-skill-scan-s2ls9o79/review/source.pdf",
+      "page_count": 9,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "section-header",
+        "bbox": [
+          71,
+          74,
+          541,
+          106
+        ],
+        "pos": [
+          0,
+          84
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          139,
+          126,
+          469,
+          139
+        ],
+        "pos": [
+          84,
+          241
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          54,
+          163,
+          299,
+          409
+        ],
+        "pos": [
+          241,
+          1733
+        ]
+      },
+      {
+        "index": 3,
+        "class": "picture",
+        "bbox": [
+          325,
+          157,
+          546,
+          364
+        ],
+        "pos": [
+          1733,
+          1735
+        ]
+      },
+      {
+        "index": 4,
+        "class": "caption",
+        "bbox": [
+          313,
+          375,
+          559,
+          410
+        ],
+        "pos": [
+          1735,
+          2017
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          137,
+          423,
+          216,
+          431
+        ],
+        "pos": [
+          2017,
+          2038
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          54,
+          440,
+          299,
+          629
+        ],
+        "pos": [
+          2038,
+          2976
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          54,
+          631,
+          299,
+          677
+        ],
+        "pos": [
+          2976,
+          3213
+        ]
+      },
+      {
+        "index": 8,
+        "class": "footnote",
+        "bbox": [
+          62,
+          688,
+          222,
+          698
+        ],
+        "pos": [
+          3213,
+          3263
+        ]
+      },
+      {
+        "index": 9,
+        "class": "footnote",
+        "bbox": [
+          69,
+          697,
+          220,
+          707
+        ],
+        "pos": [
+          3263,
+          3299
+        ]
+      },
+      {
+        "index": 10,
+        "class": "footnote",
+        "bbox": [
+          73,
+          706,
+          203,
+          716
+        ],
+        "pos": [
+          3299,
+          3332
+        ]
+      },
+      {
+        "index": 11,
+        "class": "footnote",
+        "bbox": [
+          63,
+          715,
+          257,
+          734
+        ],
+        "pos": [
+          3332,
+          3409
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          423,
+          559,
+          517
+        ],
+        "pos": [
+          3409,
+          3882
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          313,
+          520,
+          559,
+          647
+        ],
+        "pos": [
+          3882,
+          4544
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          313,
+          652,
+          559,
+          732
+        ],
+        "pos": [
+          4544,
+          4932
+        ]
+      }
+    ],
+    "text": "# Robust Perception-Based Navigation using PAC-NMPC with a Learned Value Function \n\nAdam Polevoy<sup>1</sup><sup>_,_2</sup> , Mark Gonzales<sup>1</sup><sup>_,_2</sup> , Marin Kobilarov<sup>2</sup> , Joseph Moore<sup>1</sup><sup>_,_2</sup> \n\n**_Abstract_ — Nonlinear model predictive control (NMPC) is typically restricted to short, finite horizons to limit the computational burden of online optimization. As a result, global planning frameworks are frequently necessary to avoid local minima when using NMPC for navigation in complex environments. By contrast, reinforcement learning (RL) can generate policies that minimize the expected cost over an infinite-horizon and can often avoid local minima, even when operating only on current sensor measurements. However, these learned policies are usually unable to provide performance guarantees (e.g., on collision avoidance), especially when outside of the training distribution. In this paper, we augment Probably Approximately Correct NMPC (PAC-NMPC), a sampling-based stochastic NMPC algorithm capable of providing statistical guarantees of performance and safety, with an approximate perception-based value function trained via RL. We demonstrate in simulation that our algorithm can improve the long-term behavior of PACNMPC while outperforming other approaches with regards to safety for both planar car dynamics and more complex, high-dimensional fixed-wing aerial vehicle dynamics. We also demonstrate that, even when our value function is trained in simulation, our algorithm can successfully achieve statistically safe navigation on hardware using a 1/10**<sup>**th**</sup> **scale rally car in cluttered real-world environments using only current sensor information.** \n\n\n\nFig. 1. a) Rally car navigating through obstacle field using NMPC with learned value function and LiDAR. b) Timelapse of rally car navigating through barrels using RL trained policy. c) Timelapse of rally car navigating through barrels using PAC-NMPC with learned value function. \n\n## I. INTRODUCTION \n\nNonlinear model predictive control (NMPC) has been an effective approach for perception-based robot navigation (e.g., [1], [2], [3], [4]). In some cases, robust and stochastic NMPC (RNMPC and SNMPC respectively) can provide performance guarantees in the presence of uncertainty [5], [6], [7]. However, NMPC is typically restricted to short, finite horizons to limit the computational burden of online optimization. This often limits controller performance, since the cost accrued over the short horizon is often a poor approximation of the true cost-to-go. In navigation tasks, this limitation can cause the system to get caught in local minima. This is especially true in cluttered environments and in “reactive” control paradigms that only leverage current sensor measurements. Moreover, hand-designing a terminal cost that incorporates perception data and effectively approximates the true cost-to-go can be prohibitively difficult. \n\nA common approach to improve the global performance of a receding-horizon controller is to utilize a global planner to generate receding-horizon waypoints. These global planners, however, often do not utilize the true system dynamics, \n\n> 1Johns Hopkins University Applied Physics Lab \n\n> _{_ Adam.Polevoy,Mark.Gonzales, \n\n> Joseph.Moore _}_ @jhuapl.edu \n\n> 2Johns Hopkins University Whiting School of Engineering mkobila1@jhu.edu \n\nwhich can be high-dimensional for complex systems. Rather, they tend to leverage simplified approximations with reduced dimensionality to improve computational tractability (e.g., [8], [3], [9]). There are also challenges associated with implementing an effective global planner for perception-based navigation, such as planning for potential hidden obstacles in obscured areas. In these cases, the performance of the overall system can be limited by the global planner. \n\nBy contrast, reinforcement learning (RL) can train effective control policies which directly use current perception information to avoid local minima that can be observed or inferred in complex environments [10], [11], [12]. However, because these RL algorithms require large amounts of data, they are often trained in simulation (e.g., [13], [14], [15]). This dependence on simulation and the inability of the RL trained policies to guarantee the satisfaction of general state constraints can frequently lead to degraded, and potentially unsafe, performance when the policy is deployed in the realworld or when it is used in out-of-distribution environments. \n\nIn this paper, we augment Probably Approximately Correct NMPC (PAC-NMPC) [7] with an RL-trained perceptionbased value function to achieve navigation with statistical performance guarantees even when the learned value function is approximate and uncertain. Using Monte Carlo dropout to capture network uncertainty, we learn a stochastic model of the value function. We then use PAC-NMPC \n\n"
+  }
+}

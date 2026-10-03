@@ -1,0 +1,48 @@
+from pagelib import *
+
+items = [
+    header(7),
+    text("p0007-b001", [90.0, 94.0, 523.0, 172.0],
+         r"does not grow substantially with $N$. Thus, with more simulation effort, significantly larger volumes can be attained *for a desired safety strength $\epsilon$* as shown in Figure 2. Incrementing $N$ in the iterative method, on the other hand, will only correspond to verifying *smaller* volumes at a *stronger* $\epsilon$. It cannot verify larger volumes for a fixed $\epsilon$, because empirical safety violations will be introduced. Figure 2 shows how the robust method (curves) adds a new degree of freedom for computing safety assurances compared to the iterative method (grey points).",
+         join_previous="space"),
+    heading("p0007-b002", [90.0, 194.0, 369.0, 206.0], "## 5. Conformal Probabilistic Safety Verification Method"),
+    text("p0007-b003", [90.0, 211.0, 523.0, 262.0],
+         "We now propose a *conformal* probabilistic safety verification method for neural reachable tubes which is intended to be the direct analogue of the *robust scenario-based* method in Section 4. The method is a straightforward application of split conformal prediction, a widely used method in the machine learning community for uncertainty quantification (Angelopoulos and Bates, 2023)."),
+    text("p0007-b004", [90.0, 265.0, 523.0, 303.0],
+         r"Using the same procedures as described in Section 4, split conformal prediction can be used instead of robust scenario optimization to provide a probabilistic guarantee on the safety of the neural reachable tube and its complement, the neural safe set $\mathcal{S}$:"),
+    text("p0007-b005", [90.0, 317.0, 522.0, 341.0],
+         r"**Theorem 3 (Conformal Probabilistic Safety Verification)** Let the number of outliers $k$ and the number of samples $N$ be as defined in the procedures in Section 4, then:"),
+    text("p0007-b006", [207.0, 350.0, 528.0, 377.0],
+         display(PS + r" \left( " + J + r"(x,0) > 0 \right) \sim \mathrm{Beta}(N-k, k + 1)", 4)),
+    text("p0007-b007", [90.0, 385.0, 533.0, 478.0],
+         r"Theorem 3 can be established via a straightforward application of conformal prediction with $-" + J + r"(x,0)$ as the scoring function. The proof is in the Appendix of the extended version of this article" + FN + r". The above theorem states that the fraction of $\mathcal{S}$ that is safe is distributed according to the Beta distribution with shape parameters $N-k$ and $k + 1$. Intuitively, the mass in the distribution shifts towards $0$ as $k$ increases for a fixed $N$, implying that it is more likely that a smaller fraction of $\mathcal{S}$ is safe, as expected. For a fixed ratio $N:k$, $N$ controls how concentrated the mass is around the mean; i.e., for larger sample sizes $N$, we can more confidently determine the fraction of $\mathcal{S}$ that is safe."),
+    text("p0007-b008", [90.0, 479.0, 523.0, 523.0],
+         r"To better understand Theorem 3, we show in Figure 3 the Beta distribution of $" + PS + r" \left( " + J + r"(x,0) > 0 \right)$ for a solution learned by DeepReach on the multi-vehicle collision avoidance running example in Section 2, for which $k=731$ outliers are found from $N=3684118$ samples."),
+    figure("p0007-b009", [85.0, 530.0, 195.0, 635.0], "Figure 3", "figure-3"),
+    caption("p0007-b010", [203.0, 542.0, 520.0, 612.0],
+            r"Figure 3: The Beta distribution of $" + PS + r" \left( " + J + r"(x,0) > 0 \right)$ when $k=731$ outliers are found from $N=3684118$ samples. (Dashed black line) For an example choice of confidence $1-\beta=0.9$ (shaded blue), we can lower-bound the fraction of $\mathcal{S}$ which is safe with at least $1-\epsilon=0.99979$ (99.979%) confidence."),
+    text("p0007-b011", [89.0, 646.0, 523.0, 706.0],
+         r"**Remark 4** The mean of the Beta distribution in Equation (4) is given as $\frac{N-k}{N+1}$, which is roughly the fraction of the empirically safe samples. One can immediately derive that the safety probability of $\mathcal{S}$, marginalized over the sampled “calibration” states, is given as: $" + PJ + r" \left( " + J + r"(x,0) > 0 \right) \ge \frac{N-k}{N+1}$, which precisely resembles the most commonly used **coverage property** of split conformal prediction."),
+    pageno(7, "p0007-b012", [303.0, 726.0, 309.0, 733.0]),
+]
+
+save(7, items, r"""
+Compared the whole page with the 130 dpi render, with 200-220 dpi crops of the Theorem 3 region, of Figure 3 (with a
+margin, to check the crop edges) and of Remark 4, and with sections/scenario-based_method.tex and
+sections/conformal_method.tex. The first item continues the last sentence of page 6 (join_previous 'space'). All
+mathematics was rewritten in LaTeX from the TeX source (macros expanded: \costFunction -> J_{\tilde{\pi}}, \safeset ->
+\mathcal{S}) and checked on the crops; TeX and PDF agree. The extractor 'formula' image of equation (4) was replaced by a
+$$ block with \tag{4}: P_{x in S}(J_{\tilde{\pi}}(x,0) > 0) ~ Beta(N-k, k+1), with the induced cost J_{\tilde{\pi}} (not
+V) and the strict inequality '> 0', as printed. 'Theorem 3 (Conformal Probabilistic Safety Verification)' and 'Remark 4'
+are printed in bold without punctuation; the theorem body (italic) ends with display (4) and the remark is the single
+paragraph ending '... of split conformal prediction.' (ends taken from the TeX environments). In Remark 4 the probability
+is taken over '(x_{1:N}, x) in S' (calibration states and test state), the bound is '>= (N-k)/(N+1)', and 'coverage
+property' is printed in bold. The paragraph 'To better understand Theorem 3 ...' had been split by the extractor into two
+items and is merged; it prints N = 3684118 without separators and k = 731. The footnote mark 1 after 'the extended
+version of this article' refers again to footnote 1, which is printed only on page 5 (given in Section 4); the sentence
+is kept verbatim although this arXiv version contains the appendix. Figure 3 is one small image left of its caption; its
+box contains the title 'N = ~3.7M, k = 731', the axis labels and tick labels (0.999775, 0.999800, 0.999825) and the
+in-plot annotations ('1-eps = ~0.99979', 'beta', '1-beta = 0.9'). Caption transcribed from the TeX source, 99.979% written
+as plain text. Heading 5 is level 2. Line-wrap hyphens removed (distribu-tion); real hyphens kept (scenario-based,
+multi-vehicle, lower-bound). Omitted: running header and page number. LaTeX source spacing only: sums such as 'k + 1' and 'N + 1' are typed with spaces where the PDF text layer has spaces (text and display size) and without spaces inside small inline fractions, so that the tool's number tokens agree; this does not change the formulas.
+""")

@@ -1,0 +1,318 @@
+{
+  "page": 12,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0012.png",
+  "reviewed": true,
+  "review_notes": "[v2] Re-examined from the preview, four 200-dpi column crops and an exact crop of Fig. 10; structure of the earlier v1 review reused. Printed page number '11' omitted as running header; no arXiv margin stamp on this page. Order: the page starts with 'sufficient for navigation ... in radius.' (join_previous=space, end of the paragraph begun on PDF page 11), then the full-width float Fig. 10 with caption, then the left column. Table V and its caption sit between the complete paragraphs 'The fully connected network ...' and 'The U-Net architecture ...'; 'image channels. We found ...' (right column, below the table) is joined (space) to '... which increases the number of'. Last item ('... has a limited field') continues on PDF page 13. Headings '### C. Sensor Prediction', '### D. Simulation Experiments'. The run-in subsubsection title '1) Controller Configuration:' (italic in print) is kept inside its text item in bold. Fig. 10 (asset figure-10): one box with the five depth-image panels and their printed sub-captions (a)-(e); the caption item repeats the sub-caption line and then the verbatim 'Fig. 10: ...' caption. Table V (asset table-5, 7 columns x 5 rows) compared cell by cell with the 200-dpi crop and with the TeX tabular; header cells are written '$\\delta_1$', '$\\delta_2$', '$\\delta_3$'. Its caption maths is taken from TeX: '$\\max(\\frac{\\hat d}{d},\\frac{d}{\\hat d})<1.25^i$'. Mathematics converted to LaTeX from main.tex (lines 1036-1096), macros expanded (\\sensorpredict -> \\hat{\\mathbf{y}}, \\horizon -> N_T, \\sensorpredictfunc -> \\mathbf{h}^\\eta, \\goalstate -> \\mathbf{x_G}, \\sensorhist -> N_y, \\costfunc -> \\ell, \\constraintfunc -> c); \\cite/\\ref resolved to the printed [76], [77], [78], 'Section V', 'Table V', 'Fig. 10'. Equation (32) (three lines: stage cost, Q, R; the printed number is on the last line) is now one aligned text item with \\tag{32}; the 17 diagonal entries of Q and the 4 of R were counted against the crop. The speed bound is printed with a stacked unit fraction and is written '$\\|\\mathbf{v}\\| < 7.0 \\mathrm{\\frac{m}{s}}$' as in TeX. No formula kept as image; no TeX-versus-PDF disagreement found. check: 101/116 lines, no number differences; the 15 unmatched lines are all inline or display mathematics.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0012-b000",
+      "kind": "omit",
+      "bbox": [
+        556.0,
+        26.0,
+        564.0,
+        32.0
+      ],
+      "markdown": "11",
+      "source_class": "page-header",
+      "reason": "Running header: printed page number 11 (top right)."
+    },
+    {
+      "id": "p0012-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        195.0,
+        301.0,
+        215.0
+      ],
+      "markdown": "sufficient for navigation in our targeted environments, where obstacles are $0.2$ to $0.4$ meters in radius.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0012-b001",
+      "kind": "figure",
+      "bbox": [
+        47.0,
+        54.0,
+        565.0,
+        146.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 10",
+      "asset_name": "figure-10"
+    },
+    {
+      "id": "p0012-b006",
+      "kind": "caption",
+      "bbox": [
+        48.0,
+        147.5,
+        564.0,
+        171.0
+      ],
+      "markdown": "(a) Current Input (b) Future Target (c) Geometric Prediction (d) Fully Connected (e) U-Net\n\nFig. 10: Image prediction on decimated RealSense D450 depth image collected during fixed-wing flight. Depth is visualized as blue (near) to yellow (far).",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0012-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        219.0,
+        301.0,
+        288.0
+      ],
+      "markdown": "To aid in efficient learning, the observations were preprocessed for the networks. The network inputs consisted of the z position, flattened rotation matrix, control surface angles, body-frame linear and angular velocities, range to goal, cosine and sine of the azimuth and elevation angles to the goal, and flattened depth image. These inputs were all normalized.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b009",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        307.0,
+        136.0,
+        315.0
+      ],
+      "markdown": "### C. Sensor Prediction",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0012-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        323.0,
+        301.0,
+        404.0
+      ],
+      "markdown": "As discussed in Section V, estimates of future sensor measurements, $\\hat{\\mathbf{y}}_t$, must be obtained to warm-start PAC-NMPC with the actor policy and to evaluate the value function at the terminal states of sampled trajectories. We first evaluated image prediction through geometric projection of current measurements to future states, as was done for LiDAR measurement prediction for the rally car platform.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        406.0,
+        301.0,
+        499.0
+      ],
+      "markdown": "First, the depth image was projected into 3D space, then assigned to pixels in the camera view at the future state. We evaluated both nearest pixel assignment and bilinear splatting. We found that this approach did not yield consistently accurate predictions and often left many pixels unassigned, making it unsuitable for evaluating the actor and critic at future states along sampled trajectories. Thus, we propose training a model to predict future state measurements with supervised learning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b012",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        501.0,
+        301.0,
+        606.0
+      ],
+      "markdown": "We generated a training dataset entirely from simulation using the RL actor policy. The actor policy controlled the system through randomly sampled environments, yielding a sequence of states, ($\\mathbf{x}_0$, $\\mathbf{x}_1$, $\\cdots$), and sensor measurements ($\\mathbf{y}_0$, $\\mathbf{y}_1$, $\\cdots$). For each timestep $t$ in each of these environments, we added to the dataset the model inputs ($\\mathbf{x}_t, \\mathbf{y}_t,\\mathbf{x}_{t+k}$) and targets ($\\mathbf{y}_{t+k}$) for all $k \\in [0, \\cdots, N_T]$. This produced a dataset that was well suited to predicting future sensor measurements along the entire trajectory horizon.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b013",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        608.0,
+        301.0,
+        665.0
+      ],
+      "markdown": "We then trained and evaluated fully connected and U-Net convolutional [76] networks and found that the U-Net architecture yielded superior results (Table V, Fig. 10). These networks were trained on a smooth L1 loss plus an SSIM Loss [77] and were evaluated on a 10% held-out validation set.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b014",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        667.0,
+        301.0,
+        712.0
+      ],
+      "markdown": "The fully connected network had two hidden layers, 4096 neurons per layer, SiLU activation functions, and 20% dropout. This had a similar computational complexity, measured in FLOPs, as the U-Net architecture that we evaluated.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b016",
+      "kind": "table",
+      "bbox": [
+        311.0,
+        188.5,
+        561.5,
+        243.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table V",
+      "asset_name": "table-5",
+      "rows": [
+        [
+          "Model",
+          "FLOPs (M)",
+          "$\\delta_1$",
+          "$\\delta_2$",
+          "$\\delta_3$",
+          "REL",
+          "RMSE"
+        ],
+        [
+          "Geometric (Nearest)",
+          "N/A",
+          "0.133",
+          "0.217",
+          "0.306",
+          "2.838",
+          "0.634"
+        ],
+        [
+          "Geometric (Splat)",
+          "N/A",
+          "0.186",
+          "0.309",
+          "0.419",
+          "2.240",
+          "0.548"
+        ],
+        [
+          "Fully Connected",
+          "36.798",
+          "0.848",
+          "0.935",
+          "0.963",
+          "0.170",
+          "0.081"
+        ],
+        [
+          "U-Net",
+          "42.283",
+          "0.923",
+          "0.965",
+          "0.983",
+          "0.087",
+          "0.058"
+        ]
+      ]
+    },
+    {
+      "id": "p0012-b017",
+      "kind": "caption",
+      "bbox": [
+        311.0,
+        251.0,
+        564.0,
+        309.0
+      ],
+      "markdown": "TABLE V: Performance of depth image prediction models on simulated data. $\\delta_i$ is the percentage of pixels satisfying $\\max(\\frac{\\hat d}{d},\\frac{d}{\\hat d})<1.25^i$ where $\\hat d$ and $d$ are predicted and ground-truth depths. REL and RMSE are the mean absolute relative error and root mean squared error respectively.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b015",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "The U-Net architecture had 3 encoder-decoder stages. The input depth image, $\\mathbf{y}_t$, was normalized and passed through an initial convolutional layer which increases the number of",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        323.0,
+        564.0,
+        392.0
+      ],
+      "markdown": "image channels. We found 16 initial channels to produce adequate performance while allowing us to inference the network fast enough. Each stage consists of a convolutional layer, an RMS norm, a SiLU activation function, and 20% dropout. The number of image channels is doubled and the resolution is halved with each stage.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0012-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        394.0,
+        564.0,
+        522.0
+      ],
+      "markdown": "The initial and future states $\\mathbf{x}_t$, $\\mathbf{x}_{t+k}$ enter through the bottleneck of the network. First, the $SE(3)$ transform from the initial to future state, represented as a translation vector and rotation matrix, is computed and flattened. This transform is passed through a fully connected network with two hidden layers, 256 neurons, and SiLU activation functions. The resulting features are used to scale and shift the intermediate feature maps at the bottleneck of the network [78], thus conditioning the image prediction on the state transform. As is done with the actor and critic networks, we implement $\\mathbf{h}^\\eta$ as a stochastic model using MC dropout.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b020",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        540.0,
+        424.0,
+        550.0
+      ],
+      "markdown": "### D. Simulation Experiments",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0012-b021",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        555.0,
+        564.0,
+        624.0
+      ],
+      "markdown": "The following experiments evaluated AC-PAC-NMPC on the fixed-wing aerial vehicle with a depth camera in challenging simulation environments. We compared our proposed approach against several baselines, performed an ablation study of the major novel algorithmic contributions, and evaluated our approach outside of the RL training distribution.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b022",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        626.0,
+        564.0,
+        636.0
+      ],
+      "markdown": "**1) Controller Configuration:** We used a quadratic stage cost",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b023",
+      "kind": "text",
+      "bbox": [
+        327.0,
+        637.5,
+        565.0,
+        685.5
+      ],
+      "markdown": "$$\\begin{aligned}\n\\ell&(\\mathbf{x}_t, \\mathbf{u}_t) = (\\mathbf{x}_t-\\mathbf{x_G})^T\\mathbf{Q}(\\mathbf{x}_t-\\mathbf{x_G}) + \\mathbf{u}_t^T\\mathbf{R}\\mathbf{u}_t \\\\\n\\mathbf{Q} &= 0.1 \\cdot \\mathrm{diag}( [1\\ 1\\ 1\\ 0\\ 0\\ 0\\ 0\\ 1\\ 1\\ 1\\ 0\\ 0\\ 0\\ 1\\ 1\\ 1\\ 0]) \\\\\n\\mathbf{R} &= 0.01 \\cdot \\mathrm{diag}([1\\ 1\\ 1\\ 1]).\n\\end{aligned} \\tag{32}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0012-b024",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        691.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "The stage constraint, $c(\\mathbf{x}_t,\\mathbf{u}_t,\\mathbf{y}_{(t-N_y): t})\\le0$, enforced bounds on the speed, $\\|\\mathbf{v}\\| < 7.0 \\mathrm{\\frac{m}{s}}$, the z position, $r_z \\in [1.25, 3.25]$ and required the vehicle to maintain a minimum distance of $0.6 \\mathrm{m}$ from all observed obstacle points from the latest depth images. Since the depth camera has a limited field",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "success": true,
+  "mode": "calls",
+  "require_all_tools": true,
+  "server": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/resampling_only_server.py",
+  "cwd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres",
+  "python": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python",
+  "python_version": "3.11.17",
+  "fastmcp": "4.0.3",
+  "expected": [
+    "diffres_resample_particles_baseline",
+    "diffres_resample_particles_diffusion"
+  ],
+  "actual": [
+    "diffres_resample_particles_baseline",
+    "diffres_resample_particles_diffusion"
+  ],
+  "missing": [],
+  "unexpected": [],
+  "schemas": {
+    "diffres_resample_particles_diffusion": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "particles_path": {
+            "description": ".npz with 'samples' (N, ...) float and exactly one of 'log_weights' (N,) or 'weights' (N,); weights are normalised before resampling; memory grows as N^2 x (sample size) float64 per integration step, so keep N to a few thousand",
+            "type": "string"
+          },
+          "a": {
+            "default": -2.0,
+            "description": "Mean-reverting coefficient of the Ornstein-Uhlenbeck reference process; must be negative (more negative = faster mixing towards the empirical Gaussian reference); default -2 from demos/gaussian_mixture.ipynb (gms experiments use -1)",
+            "type": "number"
+          },
+          "T": {
+            "default": 1.0,
+            "description": "Terminal diffusion time T > 0; ts = linspace(0, T, nsteps + 1) as in every upstream caller; default 1.0 from the demo notebook",
+            "type": "number"
+          },
+          "nsteps": {
+            "default": 32,
+            "description": "Number of integration steps K >= 1; default 32 from the demo notebook",
+            "type": "integer"
+          },
+          "integrator": {
+            "default": "euler",
+            "description": "Integrator of the reverse dynamics; 'diffrax' (diffrax Euler solver) requires ode=True and 'tweedie' requires ode=False; default 'euler' from the upstream signature (the demo notebook uses 'jentzen_and_kloeden')",
+            "enum": [
+              "euler",
+              "lord_and_rougemont",
+              "jentzen_and_kloeden",
+              "diffrax",
+              "tweedie"
+            ],
+            "type": "string"
+          },
+          "ode": {
+            "default": true,
+            "description": "True: probability-flow ODE (deterministic given the initial reference draw); False: reverse SDE; default True from the upstream signature",
+            "type": "boolean"
+          },
+          "jitter": {
+            "default": 0.0,
+            "description": "Non-negative value added to the reference variances for numerical stability (e.g. a dimension with zero weighted variance); upstream default 0",
+            "type": "number"
+          },
+          "seed": {
+            "default": 0,
+            "description": "Seed for jax.random.PRNGKey(seed); ignored when prng_key is given",
+            "type": "integer"
+          },
+          "prng_key": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional raw PRNG key (two uint32 values) used instead of seed, e.g. to reproduce a run with a split key"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Base output directory; a fresh unique subdirectory is created per call (default <project>/tmp/outputs/<tool>)"
+          }
+        },
+        "required": [
+          "particles_path"
+        ]
+      },
+      "output": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    },
+    "diffres_resample_particles_baseline": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "particles_path": {
+            "description": ".npz with 'samples' (N, ...) float ((N,) or (N, d) for ensemble_ot and gumbel_softmax) and exactly one of 'log_weights' (N,) or 'weights' (N,); weights are normalised before resampling; ensemble_ot and gumbel_softmax build N x N arrays, so keep N to a few thousand",
+            "type": "string"
+          },
+          "method": {
+            "default": "multinomial",
+            "description": "Baseline resampler from diffres.resampling (soft = soft_resampling)",
+            "enum": [
+              "multinomial",
+              "stratified",
+              "systematic",
+              "multinomial_stopped",
+              "ensemble_ot",
+              "soft",
+              "gumbel_softmax"
+            ],
+            "type": "string"
+          },
+          "eps": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "ensemble_ot only: entropic regularisation > 0; None uses the upstream default 1/log(N)"
+          },
+          "alpha": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "soft only: softening parameter in [0, 1] (1 = multinomial); None uses 0.5, the experiments/gms/soft.py default (the paper's Gaussian-mixture table reports alpha = 0.9)"
+          },
+          "tau": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "gumbel_softmax only: temperature > 0 (-> 0 approaches multinomial); None uses 0.5, the experiments/gms/gumbel.py default (the paper's Gaussian-mixture table reports tau = 0.1)"
+          },
+          "seed": {
+            "default": 0,
+            "description": "Seed for jax.random.PRNGKey(seed); ignored when prng_key is given",
+            "type": "integer"
+          },
+          "prng_key": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional raw PRNG key (two uint32 values) used instead of seed, e.g. to reproduce a run with a split key"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Base output directory; a fresh unique subdirectory is created per call (default <project>/tmp/outputs/<tool>)"
+          }
+        },
+        "required": [
+          "particles_path"
+        ]
+      },
+      "output": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "resampling-diffusion-defaults-1d-unnormalised",
+      "tool": "diffres_resample_particles_diffusion",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "resampling-diffusion-error-positive-a",
+      "tool": "diffres_resample_particles_diffusion",
+      "success": true
+    },
+    {
+      "name": "resampling-baseline-systematic-1d",
+      "tool": "diffres_resample_particles_baseline",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "resampling-baseline-systematic-1d-repeat",
+      "tool": "diffres_resample_particles_baseline",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "resampling-baseline-error-gumbel-3d",
+      "tool": "diffres_resample_particles_baseline",
+      "success": true
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        125.0
+      ],
+      "markdown": "In this work, we are interested in computing X while our access to M is limited to the datasets Dtrain and Dtest. We will show that we can compute X with valid guarantees by employing reachability analysis on the surrogate model trained from Dtrain and error analysis of this model by applying conformal prediction on Dtest.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        142.0,
+        360.0,
+        154.0
+      ],
+      "markdown": "# **3.1 Computing Reachsets for Surrogate Models**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        163.0,
+        239.0,
+        174.0
+      ],
+      "markdown": "## **3.1.1 ReLU Surrogate Model**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        181.0,
+        540.0,
+        238.0
+      ],
+      "markdown": "We start with training a neural network surrogate model F : R<sup>n</sup> → R<sup>n(K+1)</sup> over the training dataset Dtrain. The surrogate model is trained to approximate the trajectory σs0 ∈ R<sup>n(K+1)</sup> of the stochastic system M sampled with initial state s0 W∼I. We denote the prediction σ¯s0 ∈ Rn(K+1) of σs0 as,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "formula",
+      "bbox": [
+        121.0,
+        233.0,
+        491.0,
+        266.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (5)",
+      "asset_name": "formula-p0005-004"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        267.0,
+        366.0,
+        280.0
+      ],
+      "markdown": "where F<sup>j</sup> (s0) is the (j + n)-th component of the vector F(s0).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        281.0,
+        540.0,
+        345.0
+      ],
+      "markdown": "Recent works in the literature have had great success on obtaining accurate bounds for the reachability analysis of ReLU neural networks using polyhedral sets [21, 34, 35]. The accuracy of these techniques motivates us to use ReLU activation functions for training neural networks as the surrogate models. These surrogate models will be used for deterministic reachability analysis which provides surrogate flowpipes which we formally define next.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        354.0,
+        540.0,
+        381.0
+      ],
+      "markdown": "**Definition 2** (Surrogate flowpipe) **.** The surrogate flowpipe X<sup>¯</sup> ⊂ R<sup>n(K+1)</sup> contains the image of F(I). Formally, for all, s0 ∈I it has to hold that F(s0) ∈ X<sup>¯</sup> .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        391.0,
+        540.0,
+        507.0
+      ],
+      "markdown": "The reachability analysis methodology for ReLU neural networks in [21] introduces two different approaches known as the exact-star and approx-star techniques. These are used to compute a surrogate flowpipe X<sup>¯</sup> . The exact-star technique proposes exact reachability analysis using star sets, but can be slower due to its inherent computational complexity. On the other hand, the approx-star technique computes over-approximation of the flowpipe and is thus runtime-efficient, although it may make the surrogate model reachable set estimation conservative. The computational complexity of the exact-star technique and the conservatism of the approx-star technique can both be noticeably reduced using the idea of set partitioning [21]. In this approach, we partition the set of initial conditions I into N different sub-partitions,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "formula",
+      "bbox": [
+        253.0,
+        514.0,
+        359.0,
+        557.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (10)",
+      "asset_name": "formula-p0005-009"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        564.0,
+        540.0,
+        601.0
+      ],
+      "markdown": "and perform reachability analysis on every single sub-region with parallel computing. The inclusion of set-partitioning results in noticeable improvement in the computational efficiency and helps us compute more accurate ∆-confident flowpipes.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        618.0,
+        402.0,
+        630.0
+      ],
+      "markdown": "# **3.2 Computation of a guaranteed** ∆ **-confident flowpipe**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        639.0,
+        540.0,
+        689.0
+      ],
+      "markdown": "When we train neural network surrogate models, typically we minimize a loss function defined as the difference between the K-step trajectory predicted by the surrogate model and the actual trajectory. Depending on the dynamics of the underlying stochastic system M and depending on how well the surrogate model is trained, there is potential for error when predicting the trajectory",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        721.0
+      ],
+      "markdown": "5",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

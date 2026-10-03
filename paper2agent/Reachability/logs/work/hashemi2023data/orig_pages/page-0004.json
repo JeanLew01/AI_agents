@@ -1,0 +1,177 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        151.0
+      ],
+      "markdown": "predictive model can be difficult, especially when the dynamics are nonlinear. Hence, in practice, we train models that take as input trajectory fragments to predict future trajectory fragments and then sequentially compose such models to obtain a longer predicted trajectory. We remark that this does not affect the probabilistic reasoning that we perform later in the paper as the entire predictive model can still be treated as a deterministic map that takes as input the initial state s0 and outputs a K-step predicted trajectory.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        153.0,
+        541.0,
+        257.0
+      ],
+      "markdown": "**Conformal Inference.** Conformal inference [22,23,29] is a statistical tool for uncertainty quantification that has recently been used for analysing the uncertainty in the predictions performed by complex machine learning models [30–32]. Conformal inference/prediction performs error quantification without making any assumption on the underlying data-generating distribution or the machine learning model. Consider a regression model µ and the random variables z1, z2, ..., zm+1 where zi = (xi, yi) ∈ R<sup>n</sup> × R with i ∈ [m + 1] which are all independently sampled from the same distribution. Given a miscoverage level α ∈ (0, 1), conformal inference enables us to compute a prediction interval C(xm+1) = [µ(xm+1) − R<sup>∗</sup> , µ(xm+1) + R<sup>∗</sup> ] ⊂ R from z1, z2, ..., zm such that,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "formula",
+      "bbox": [
+        230.0,
+        264.0,
+        382.0,
+        286.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (3)",
+      "asset_name": "formula-p0004-002"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        293.0,
+        540.0,
+        370.0
+      ],
+      "markdown": "More formally, define the residual Ri =| yi − µ(xi) | for all zi with i ∈ [m + 1]. Since the random variables z1, z2, ..., zm+1 are independent and identically distributed, the same applies to the residual R1, . . . , Rm+1. Under the assumption that m satisfies ℓ = ⌈(m+1)(1−α)⌉≤ m, it holds that R<sup>∗</sup> can be chosen to be the ℓ-th smallest residual [33, Lemma 1]. Without loss of generality, if R1, . . . , Rm are sorted in non-decreasing order, then R<sup>∗</sup> = Rℓ and it holds that Pr[Rm+1 ≤ R<sup>∗</sup> ] ≥ (1 − α). By the choice of the residual, it hence holds that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "formula",
+      "bbox": [
+        174.0,
+        375.0,
+        438.0,
+        406.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (5)",
+      "asset_name": "formula-p0004-004"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        411.0,
+        339.0,
+        422.0
+      ],
+      "markdown": "We also refer to δ = 1 − α as the confidence probability.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        425.0,
+        541.0,
+        491.0
+      ],
+      "markdown": "**Problem Definition.** Our probabilistic reachability analysis can be formally stated as follows. Given the stochastic dynamical system M with initial state s0 W∼I and trajectory distribution S, training and test datasets Dtrain and Dtest consisting of K-step trajectories independently sampled from M , and a user provided failure probability threshold ε ∈ (0, 1), compute a probabilistic reach set (also called flowpipe) X such that:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "formula",
+      "bbox": [
+        252.0,
+        498.0,
+        545.0,
+        520.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (8)",
+      "asset_name": "formula-p0004-007"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        535.0,
+        335.0,
+        549.0
+      ],
+      "markdown": "# **3 Scalable Data-Driven Reachability**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        562.0,
+        540.0,
+        614.0
+      ],
+      "markdown": "In the setting described in the previous section, we now show how to compute a reach set or a flowpipe X ⊂ R<sup>n(K+1)</sup> using reachability analysis and conformal inference. This flowpipe will contain the trajectory σs0 of M sampled with initial state s0 W∼I with the confidence level of ∆= 1 − ε. We hence denote this flowpipe as ∆-confident flowpipe and define it as follows.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        625.0,
+        540.0,
+        654.0
+      ],
+      "markdown": "**Definition 1** (∆-confident flowpipe) **.** For a given confidence probability ∆ ∈ (0, 1) and a random trajectory σs0 ∼S with initial state s0 W∼I, we say that X ⊂ Rn(K+1) is a ∆-confident flowpipe if",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "formula",
+      "bbox": [
+        261.0,
+        660.0,
+        545.0,
+        682.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (12)",
+      "asset_name": "formula-p0004-011"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        720.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

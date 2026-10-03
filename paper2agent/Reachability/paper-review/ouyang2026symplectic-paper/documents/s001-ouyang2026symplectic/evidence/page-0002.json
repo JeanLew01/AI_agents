@@ -1,0 +1,1800 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "as energy variation and ergodic structure—rather than the",
+      "bbox": [
+        54.0,
+        55.282344818115234,
+        298.8009948730469,
+        64.18891143798828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ambient state dimension.",
+      "bbox": [
+        54.0,
+        67.23834228515625,
+        155.3395233154297,
+        76.14490509033203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The remainder of the paper is organized as follows.",
+      "bbox": [
+        63.9630012512207,
+        79.849365234375,
+        298.8014221191406,
+        88.75592803955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Section II introduces the Hamiltonian system model and for-",
+      "bbox": [
+        54.0,
+        91.80438232421875,
+        298.8009948730469,
+        100.71094512939453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mulates the target reachability problem. Section III presents",
+      "bbox": [
+        54.0,
+        103.7593994140625,
+        298.8009948730469,
+        112.66596221923828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the main theoretical results, including reachability guaran-",
+      "bbox": [
+        54.0,
+        115.71441650390625,
+        298.8009948730469,
+        124.62097930908203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tees and sample complexity bounds under chain policies.",
+      "bbox": [
+        54.0,
+        127.66943359375,
+        298.8009338378906,
+        136.57598876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Section IV provides numerical validation on representative",
+      "bbox": [
+        54.0,
+        139.62542724609375,
+        298.8009948730469,
+        148.531982421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "systems, and Section V concludes with a discussion of future",
+      "bbox": [
+        54.0,
+        151.5804443359375,
+        298.8009338378906,
+        160.48699951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "directions.",
+      "bbox": [
+        54.0,
+        163.53546142578125,
+        95.78313446044922,
+        172.4420166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Notation: We denote by ∥·∥the Euclidean norm. For x ∈Rn",
+      "bbox": [
+        54.0,
+        178.92929077148438,
+        298.3005065917969,
+        189.5360107421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and r > 0, let Br(x) := {w ∈Rn | ∥x −w∥≤r} be",
+      "bbox": [
+        54.00001525878906,
+        188.25216674804688,
+        298.81463623046875,
+        202.18702697753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the closed ball of radius r centered at x. For a compact",
+      "bbox": [
+        54.00001525878906,
+        204.3810577392578,
+        298.801025390625,
+        213.447021484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set S ⊆Rn, let DS",
+      "bbox": [
+        54.00001525878906,
+        214.79428100585938,
+        149.7186279296875,
+        226.09706115722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ":= supx,y∈S ∥x −y∥denote its",
+      "bbox": [
+        157.78302001953125,
+        215.77816772460938,
+        298.8063659667969,
+        227.61785888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diameter, S its closure, ∂S its boundary, and int(S) its",
+      "bbox": [
+        54.000030517578125,
+        228.9269561767578,
+        298.8090515136719,
+        237.9930419921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "interior. For ∀x ∈Rn, the distance from x to set S is",
+      "bbox": [
+        54.0,
+        239.34121704101562,
+        298.8044128417969,
+        249.94793701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "d(x, S) := infy∈S ∥x −y∥. ⌈·⌉and ⌊·⌋denote the ceiling",
+      "bbox": [
+        54.0,
+        252.28005981445312,
+        298.7956237792969,
+        263.17877197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and floor operators, respectively.",
+      "bbox": [
+        53.99999237060547,
+        264.952392578125,
+        186.81141662597656,
+        273.85894775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "II. PRELIMINARIES AND PROBLEM FORMULATIONS",
+      "bbox": [
+        66.5679931640625,
+        289.2084045410156,
+        286.24169921875,
+        298.1149597167969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. Hamiltonian System",
+      "bbox": [
+        53.99999237060547,
+        308.3270568847656,
+        149.0830535888672,
+        316.9148254394531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we firstly review mathematical formulation",
+      "bbox": [
+        63.96299362182617,
+        325.62640380859375,
+        298.8013916015625,
+        334.532958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of Hamiltonian System.",
+      "bbox": [
+        53.99999237060547,
+        337.46282958984375,
+        156.1465301513672,
+        346.48895263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Definition 1 (Hamiltonian System). A Hamiltonian system",
+      "bbox": [
+        53.99999237060547,
+        356.05084228515625,
+        298.8009948730469,
+        365.07696533203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "without energy dissipation is a dynamical system of the form",
+      "bbox": [
+        53.99999237060547,
+        368.216064453125,
+        298.8009948730469,
+        376.8038330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˙x = f(x, u) = J(x)∇H(x) + G(x)u,",
+      "bbox": [
+        99.17249298095703,
+        386.0881042480469,
+        253.69247436523438,
+        395.4927978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        287.2365417480469,
+        386.805419921875,
+        298.8529052734375,
+        395.71197509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where x ∈X ⊂Rn is the state defined on a compact set X,",
+      "bbox": [
+        53.99999237060547,
+        401.9600830078125,
+        298.7979431152344,
+        414.17279052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "H : Rn →R is the Hamiltonian function, J(x) ∈Rn×n is",
+      "bbox": [
+        53.99998474121094,
+        413.10809326171875,
+        298.800048828125,
+        426.1287841796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "skew-symmetric, and u ∈U ⊂Rm is the input of the system",
+      "bbox": [
+        54.0,
+        425.87005615234375,
+        298.8047180175781,
+        438.0837707519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "defined on a compact U.",
+      "bbox": [
+        54.0,
+        441.4410400390625,
+        154.85137939453125,
+        450.02880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Physically, H(x) describes the energy of system (1), i.e.,",
+      "bbox": [
+        63.9630012512207,
+        459.7809753417969,
+        298.8014831542969,
+        468.846923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sum of kinetic and potential energy in mechanical system,",
+      "bbox": [
+        54.0,
+        471.8953552246094,
+        298.801025390625,
+        480.8019104003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "while the skew-symmetric matrix J(x) encodes the intrinsic",
+      "bbox": [
+        54.0,
+        483.6909484863281,
+        298.8109436035156,
+        492.75689697265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "power-conserving structure. In particular, J(x) determines",
+      "bbox": [
+        54.0,
+        495.64593505859375,
+        298.81103515625,
+        504.7118835449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "how energy flows between state variables without creating",
+      "bbox": [
+        54.0,
+        507.76031494140625,
+        298.801025390625,
+        516.6668701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "or dissipating energy. We make the following assumptions",
+      "bbox": [
+        54.0,
+        519.71533203125,
+        298.80096435546875,
+        528.6218872070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "about system (1).",
+      "bbox": [
+        54.0,
+        531.6712646484375,
+        124.89383697509766,
+        540.5778198242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Assumption 1 (Bounded Hamiltonian Gradient). The Hamil-",
+      "bbox": [
+        54.0,
+        550.1397094726562,
+        298.8009338378906,
+        559.1658325195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tonian function H is continuously differentiable on X and",
+      "bbox": [
+        54.0,
+        561.4979858398438,
+        298.791015625,
+        570.9026489257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "there exists an upper bound LH > 0 such that ∀x ∈",
+      "bbox": [
+        54.0,
+        573.4530029296875,
+        298.81829833984375,
+        584.3516845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X, ∥∇H(x)∥≤LH.",
+      "bbox": [
+        54.0,
+        585.4080200195312,
+        137.9016571044922,
+        595.726806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Assumption 2 (Lipschitz Continuity of the Dynamics). The",
+      "bbox": [
+        54.00000762939453,
+        604.5947265625,
+        298.801025390625,
+        613.620849609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics f(x, u) in (1) are Lipschitz continuous w.r.t. x in",
+      "bbox": [
+        54.00000762939453,
+        616.5098876953125,
+        298.82098388671875,
+        625.5758666992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "both the state and the input. Namely, for any u ∈U, there",
+      "bbox": [
+        54.00000762939453,
+        627.906982421875,
+        298.8109436035156,
+        637.3116455078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "exist constants L > 0 such that",
+      "bbox": [
+        54.00000762939453,
+        640.4198608398438,
+        182.30828857421875,
+        649.2666625976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∥f(x1, u) −f(x2, u)∥≤L∥x1 −x2∥, ∀x1, x2 ∈X.",
+      "bbox": [
+        70.96000671386719,
+        658.5419921875,
+        281.8410949707031,
+        669.441650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Remark 1 (Bounded Vector Field). Since X and U are",
+      "bbox": [
+        54.0,
+        677.8779907226562,
+        298.80096435546875,
+        687.5018310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "compact, and f is continuous by Assumption 2, there exists",
+      "bbox": [
+        54.0,
+        690.390869140625,
+        298.8009948730469,
+        699.2376708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a constant Cf > 0 such that",
+      "bbox": [
+        54.0,
+        702.3458862304688,
+        170.86041259765625,
+        712.6876831054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∥f(x, u)∥≤Cf, ∀x ∈X, ∀u ∈U.",
+      "bbox": [
+        105.23500061035156,
+        720.468017578125,
+        247.5988006591797,
+        730.787841796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2)",
+      "bbox": [
+        287.2100830078125,
+        721.185302734375,
+        298.8264465332031,
+        730.0918579101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Since the Hamiltonian H(·) is conserved along the zero-",
+      "bbox": [
+        323.1629943847656,
+        54.56497573852539,
+        558.0015258789062,
+        64.18885040283203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "input dynamics, it is natural to partition the state space into",
+      "bbox": [
+        313.1999816894531,
+        67.23828125,
+        558.0007934570312,
+        76.14484405517578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "invariant energy layers.",
+      "bbox": [
+        313.1999816894531,
+        79.19329833984375,
+        408.1534729003906,
+        88.09986114501953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Definition 2 (Energy Layer). For each energy value E ∈",
+      "bbox": [
+        313.1999816894531,
+        96.18399810791016,
+        558.0010375976562,
+        105.80786895751953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "H(X), the corresponding energy layer is defined as",
+      "bbox": [
+        313.1999816894531,
+        108.1399917602539,
+        526.90771484375,
+        117.54468536376953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ΣE := {x ∈X : H(x) = E}.",
+      "bbox": [
+        375.0049743652344,
+        126.81900787353516,
+        496.2155456542969,
+        137.71868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ΣE is called an invariant energy layer because, under the",
+      "bbox": [
+        323.1629638671875,
+        145.83290100097656,
+        557.9993896484375,
+        156.39385986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "zero-input, every trajectory starting in ΣE remains in ΣE for",
+      "bbox": [
+        313.199951171875,
+        157.7879180908203,
+        558.0004272460938,
+        168.348876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "all future times.",
+      "bbox": [
+        313.199951171875,
+        169.9033203125,
+        378.0066223144531,
+        178.80987548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Target Reachability Problem",
+      "bbox": [
+        313.199951171875,
+        187.3280029296875,
+        442.9926452636719,
+        195.91575622558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We now formalize the control objective considered in this",
+      "bbox": [
+        323.1629638671875,
+        202.10736083984375,
+        558.0013427734375,
+        211.013916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "paper. Given the Hamiltonian structure introduced above, our",
+      "bbox": [
+        313.199951171875,
+        214.0623779296875,
+        558.0010986328125,
+        222.96893310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "goal is to design control inputs that steer the system from a",
+      "bbox": [
+        313.199951171875,
+        226.01739501953125,
+        558.0009765625,
+        234.9239501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set of admissible initial conditions to a desired target set.",
+      "bbox": [
+        313.199951171875,
+        237.972412109375,
+        548.3470458984375,
+        246.87896728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Let U(0,t] denote the set of admissible control signals on",
+      "bbox": [
+        323.1629638671875,
+        246.08843994140625,
+        558.00048828125,
+        258.6099853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(0, t], where each u : (0, t] →U is piecewise continuous",
+      "bbox": [
+        313.199951171875,
+        260.9421081542969,
+        558.0208740234375,
+        270.56597900390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(and measurable); we also use U := U(0,∞). Further, given",
+      "bbox": [
+        313.199951171875,
+        271.522705078125,
+        558.0027465820312,
+        282.5209655761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "any initial condition x ∈X and control input u ∈U(0,t], we",
+      "bbox": [
+        313.199951171875,
+        283.8692321777344,
+        558.0029296875,
+        294.4759521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "use ϕ(t, x, u) to denote the state of system (1) at time t.",
+      "bbox": [
+        313.1999816894531,
+        297.364990234375,
+        545.717041015625,
+        306.4309387207031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Let S0 ⊆X be a compact set of admissible initial states,",
+      "bbox": [
+        323.1629943847656,
+        308.5380554199219,
+        557.99462890625,
+        319.437744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and let Stgt ⊆X be the prescribed target set.",
+      "bbox": [
+        313.1999816894531,
+        320.4930419921875,
+        499.74566650390625,
+        331.3927307128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem 1 (Target Reachability). Given system (1), an initial",
+      "bbox": [
+        313.1999816894531,
+        338.7998046875,
+        558.0010375976562,
+        347.825927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state x0 ∈S0, and a target set Stgt, determine a control",
+      "bbox": [
+        313.1999816894531,
+        350.15704345703125,
+        557.997802734375,
+        361.05572509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "signal u ∈U(0,t] and a time t > 0 such that",
+      "bbox": [
+        313.1999816894531,
+        359.30401611328125,
+        494.846923828125,
+        371.5167236328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϕ(t, x0, u) ∈Stgt.",
+      "bbox": [
+        398.72296142578125,
+        380.7920227050781,
+        472.4785461425781,
+        391.1108703613281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C. Recurrence on Energy Layers",
+      "bbox": [
+        313.199951171875,
+        400.05499267578125,
+        448.7112731933594,
+        408.64276123046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We next recall the recurrence structure of the zero-input",
+      "bbox": [
+        323.1629638671875,
+        414.8343200683594,
+        558.00146484375,
+        423.7408752441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics associated with (1). Since the system is lossless,",
+      "bbox": [
+        313.199951171875,
+        426.789306640625,
+        558.0007934570312,
+        435.69586181640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the Hamiltonian is conserved along zero-input trajectories.",
+      "bbox": [
+        313.199951171875,
+        438.7442932128906,
+        558.0009155273438,
+        447.6508483886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Hence, for each energy value E ∈H(X), the energy layer",
+      "bbox": [
+        313.199951171875,
+        449.98297119140625,
+        558.0010986328125,
+        459.6068420410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ΣE := {x ∈X : H(x) = E} is invariant under the",
+      "bbox": [
+        313.199951171875,
+        461.9379577636719,
+        558.01904296875,
+        472.8366394042969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "zero-input flow ϕ(t, x, 0). Our interest is in how trajecto-",
+      "bbox": [
+        313.199951171875,
+        474.45086669921875,
+        558.0107421875,
+        483.5168151855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ries repeatedly revisit dynamically relevant regions on each",
+      "bbox": [
+        313.199951171875,
+        486.56524658203125,
+        558.0010375976562,
+        495.4718017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "compact invariant energy layer. We first introduce invariant",
+      "bbox": [
+        313.199951171875,
+        498.5202331542969,
+        558.0009155273438,
+        507.4267883300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "measures, which describe measures preserved by the zero-",
+      "bbox": [
+        313.199951171875,
+        510.4752197265625,
+        558.0010986328125,
+        519.3817749023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "input flow.",
+      "bbox": [
+        313.199951171875,
+        522.4312133789062,
+        356.4774475097656,
+        531.3377685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Definition 3 (Invariant Measure). A probability measure µ",
+      "bbox": [
+        313.199951171875,
+        539.9797973632812,
+        558.0008544921875,
+        549.0457763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on M is said to be invariant under the flow ϕ if for any",
+      "bbox": [
+        313.199951171875,
+        551.934814453125,
+        558.0009765625,
+        560.7816162109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "measurable set A ⊆M and any t ≥0, µ(ϕ(t, A)) = µ(A).",
+      "bbox": [
+        313.199951171875,
+        563.3329467773438,
+        556.9447631835938,
+        572.7376098632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To further characterize whether trajectories explore the",
+      "bbox": [
+        323.1629638671875,
+        581.7581787109375,
+        558.0013427734375,
+        590.6647338867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "whole invariant set or remain confined to smaller invariant",
+      "bbox": [
+        313.199951171875,
+        593.7131958007812,
+        558.0009155273438,
+        602.6197509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "subsets, we next introduce ergodicity.",
+      "bbox": [
+        313.199951171875,
+        605.668212890625,
+        466.73345947265625,
+        614.5747680664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Definition 4 (Ergodic Measure). Let µ be an invariant",
+      "bbox": [
+        313.199951171875,
+        623.2177734375,
+        558.0009765625,
+        632.2837524414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "probability measure on a set M. The measure µ is said to be",
+      "bbox": [
+        313.199951171875,
+        635.1727905273438,
+        558.0010375976562,
+        644.0195922851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ergodic if for any measurable set A ⊆M that is invariant",
+      "bbox": [
+        313.199951171875,
+        646.5699462890625,
+        558.0008544921875,
+        655.974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "under the flow, i.e., ϕ(t, A, 0) ⊆A for all t ≥0, it holds",
+      "bbox": [
+        313.199951171875,
+        658.5259399414062,
+        558.010986328125,
+        667.9306030273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that µ(A) ∈{0, 1}.",
+      "bbox": [
+        313.199951171875,
+        670.48095703125,
+        392.4424133300781,
+        679.8856201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Intuitively, ergodicity means that trajectories are not con-",
+      "bbox": [
+        323.1629638671875,
+        688.90625,
+        558.0014038085938,
+        697.8128051757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fined to smaller invariant subsets, but instead propagate",
+      "bbox": [
+        313.199951171875,
+        700.8622436523438,
+        558.0009765625,
+        709.768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "throughout M. In particular, for almost every initial con-",
+      "bbox": [
+        313.199951171875,
+        712.6577758789062,
+        558.0009155273438,
+        721.7237548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dition, trajectories are dense in the support of µ. The next",
+      "bbox": [
+        313.199951171875,
+        724.61279296875,
+        558.0008544921875,
+        733.6787719726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Symplectic Inductive Bias for Data-Driven Target Reachability in Hamiltonian Systems",
+      "author": "Zhuo Ouyang; Jixian Liu; Enrique Mallada",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:a6404ea)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/ouyang2026symplectic-paper/documents/.pdf-skill-scan-ud9qt1xq/review/source.pdf",
+      "page_count": 10,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          54,
+          55,
+          299,
+          75
+        ],
+        "pos": [
+          0,
+          85
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          54,
+          79,
+          299,
+          171
+        ],
+        "pos": [
+          85,
+          506
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          53,
+          179,
+          299,
+          274
+        ],
+        "pos": [
+          506,
+          1038
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          66,
+          289,
+          287,
+          297
+        ],
+        "pos": [
+          1038,
+          1083
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          53,
+          308,
+          150,
+          318
+        ],
+        "pos": [
+          1083,
+          1111
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          53,
+          325,
+          299,
+          347
+        ],
+        "pos": [
+          1111,
+          1199
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          53,
+          356,
+          299,
+          377
+        ],
+        "pos": [
+          1199,
+          1329
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          99,
+          386,
+          299,
+          397
+        ],
+        "pos": [
+          1329,
+          1331
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          53,
+          405,
+          299,
+          451
+        ],
+        "pos": [
+          1331,
+          1599
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          54,
+          459,
+          299,
+          541
+        ],
+        "pos": [
+          1599,
+          1990
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          54,
+          550,
+          299,
+          596
+        ],
+        "pos": [
+          1990,
+          2193
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          54,
+          604,
+          299,
+          648
+        ],
+        "pos": [
+          2193,
+          2427
+        ]
+      },
+      {
+        "index": 12,
+        "class": "formula",
+        "bbox": [
+          70,
+          658,
+          282,
+          669
+        ],
+        "pos": [
+          2427,
+          2429
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          54,
+          678,
+          299,
+          713
+        ],
+        "pos": [
+          2429,
+          2582
+        ]
+      },
+      {
+        "index": 14,
+        "class": "formula",
+        "bbox": [
+          105,
+          720,
+          299,
+          731
+        ],
+        "pos": [
+          2582,
+          2584
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          313,
+          54,
+          559,
+          89
+        ],
+        "pos": [
+          2584,
+          2736
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          313,
+          96,
+          559,
+          119
+        ],
+        "pos": [
+          2736,
+          2863
+        ]
+      },
+      {
+        "index": 17,
+        "class": "formula",
+        "bbox": [
+          375,
+          126,
+          497,
+          137
+        ],
+        "pos": [
+          2863,
+          2865
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          313,
+          145,
+          559,
+          177
+        ],
+        "pos": [
+          2865,
+          3014
+        ]
+      },
+      {
+        "index": 19,
+        "class": "section-header",
+        "bbox": [
+          313,
+          187,
+          443,
+          197
+        ],
+        "pos": [
+          3014,
+          3051
+        ]
+      },
+      {
+        "index": 20,
+        "class": "text",
+        "bbox": [
+          313,
+          202,
+          559,
+          247
+        ],
+        "pos": [
+          3051,
+          3296
+        ]
+      },
+      {
+        "index": 21,
+        "class": "text",
+        "bbox": [
+          313,
+          247,
+          559,
+          307
+        ],
+        "pos": [
+          3296,
+          3698
+        ]
+      },
+      {
+        "index": 22,
+        "class": "text",
+        "bbox": [
+          313,
+          308,
+          558,
+          331
+        ],
+        "pos": [
+          3698,
+          3813
+        ]
+      },
+      {
+        "index": 23,
+        "class": "text",
+        "bbox": [
+          313,
+          338,
+          559,
+          372
+        ],
+        "pos": [
+          3813,
+          4032
+        ]
+      },
+      {
+        "index": 24,
+        "class": "formula",
+        "bbox": [
+          398,
+          380,
+          473,
+          392
+        ],
+        "pos": [
+          4032,
+          4034
+        ]
+      },
+      {
+        "index": 25,
+        "class": "section-header",
+        "bbox": [
+          313,
+          400,
+          449,
+          409
+        ],
+        "pos": [
+          4034,
+          4071
+        ]
+      },
+      {
+        "index": 26,
+        "class": "text",
+        "bbox": [
+          313,
+          414,
+          559,
+          532
+        ],
+        "pos": [
+          4071,
+          4629
+        ]
+      },
+      {
+        "index": 27,
+        "class": "text",
+        "bbox": [
+          313,
+          540,
+          559,
+          574
+        ],
+        "pos": [
+          4629,
+          4834
+        ]
+      },
+      {
+        "index": 28,
+        "class": "text",
+        "bbox": [
+          313,
+          581,
+          559,
+          615
+        ],
+        "pos": [
+          4834,
+          4992
+        ]
+      },
+      {
+        "index": 29,
+        "class": "text",
+        "bbox": [
+          313,
+          623,
+          559,
+          681
+        ],
+        "pos": [
+          4992,
+          5281
+        ]
+      },
+      {
+        "index": 30,
+        "class": "text",
+        "bbox": [
+          313,
+          688,
+          559,
+          734
+        ],
+        "pos": [
+          5281,
+          5524
+        ]
+      }
+    ],
+    "text": "as energy variation and ergodic structure—rather than the ambient state dimension. \n\nThe remainder of the paper is organized as follows. Section II introduces the Hamiltonian system model and formulates the target reachability problem. Section III presents the main theoretical results, including reachability guarantees and sample complexity bounds under chain policies. Section IV provides numerical validation on representative systems, and Section V concludes with a discussion of future directions. \n\n_Notation:_ We denote by _∥·∥_ the Euclidean norm. For _x ∈_ R<sup>_n_</sup> and _r >_ 0, let _Br_ ( _x_ ) := _{w ∈_ R<sup>_n_</sup> _| ∥x − w∥≤ r}_ be the closed ball of radius _r_ centered at _x_ . For a compact set _S ⊆_ R<sup>_n_</sup> , let _DS_ := sup _x,y∈S ∥x − y∥_ denote its diameter, _S_ its closure, _∂S_ its boundary, and int( _S_ ) its interior. For _∀x ∈_ R<sup>_n_</sup> , the distance from _x_ to set _S_ is d( _x, S_ ) := inf _y∈S ∥x − y∥_ . _⌈·⌉_ and _⌊·⌋_ denote the ceiling and floor operators, respectively. \n\nII. PRELIMINARIES AND PROBLEM FORMULATIONS \n\n# _A. Hamiltonian System_ \n\nIn this paper, we firstly review mathematical formulation of **Hamiltonian System** . \n\n**Definition 1** (Hamiltonian System) **.** _A Hamiltonian system without energy dissipation is a dynamical system of the form_ \n\n\n\n_where x ∈X ⊂_ R<sup>_n_</sup> _is the state defined on a compact set X , H_ : R<sup>_n_</sup> _→_ R _is the Hamiltonian function, J_ ( _x_ ) _∈_ R<sup>_n×n_</sup> _is skew-symmetric, and u ∈ U ⊂_ R<sup>_m_</sup> _is the input of the system defined on a compact U._ \n\nPhysically, _H_ ( _x_ ) describes the energy of system (1), i.e., sum of kinetic and potential energy in mechanical system, while the skew-symmetric matrix _J_ ( _x_ ) encodes the intrinsic power-conserving structure. In particular, _J_ ( _x_ ) determines how energy flows between state variables without creating or dissipating energy. We make the following assumptions about system (1). \n\n**Assumption 1** (Bounded Hamiltonian Gradient) **.** _The Hamiltonian function H is continuously differentiable on X and there exists an upper bound LH >_ 0 _such that ∀x ∈ X , ∥∇H_ ( _x_ ) _∥≤ LH ._ \n\n**Assumption 2** (Lipschitz Continuity of the Dynamics) **.** _The dynamics f_ ( _x, u_ ) _in_ (1) _are Lipschitz continuous w.r.t. x in both the state and the input. Namely, for any u ∈ U , there exist constants L >_ 0 _such that_ \n\n\n\n**Remark 1** (Bounded Vector Field) **.** _Since X and U are compact, and f is continuous by Assumption 2, there exists a constant Cf >_ 0 _such that_ \n\n\n\nSince the Hamiltonian _H_ ( _·_ ) is conserved along the zeroinput dynamics, it is natural to partition the state space into invariant energy layers. \n\n**Definition 2** (Energy Layer) **.** _For each energy value E ∈ H_ ( _X_ ) _, the corresponding energy layer is defined as_ \n\n\n\nΣ _E_ is called an invariant energy layer because, under the zero-input, every trajectory starting in Σ _E_ remains in Σ _E_ for all future times. \n\n# _B. Target Reachability Problem_ \n\nWe now formalize the control objective considered in this paper. Given the Hamiltonian structure introduced above, our goal is to design control inputs that steer the system from a set of admissible initial conditions to a desired target set. \n\nLet _U_<sup>(0</sup><sup>_,t_]</sup> denote the set of admissible control signals on (0 _, t_ ], where each _u_ : (0 _, t_ ] _→ U_ is piecewise continuous (and measurable); we also use _U_ := _U_<sup>(0</sup><sup>_,∞_)</sup> . Further, given any initial condition _x ∈X_ and control input _u ∈U_<sup>(0</sup><sup>_,t_]</sup> , we use _ϕ_ ( _t, x, u_ ) to denote the state of system (1) at time _t_ . \n\nLet _S_ 0 _⊆X_ be a compact set of admissible initial states, and let _S_ tgt _⊆X_ be the prescribed target set. \n\n**Problem 1** (Target Reachability) **.** _Given system_ (1) _, an initial state x_ 0 _∈ S_ 0 _, and a target set S_ tgt _, determine a control signal u ∈U_<sup>(0</sup><sup>_,t_]</sup> _and a time t >_ 0 _such that_ \n\n\n\n# _C. Recurrence on Energy Layers_ \n\nWe next recall the recurrence structure of the zero-input dynamics associated with (1). Since the system is lossless, the Hamiltonian is conserved along zero-input trajectories. Hence, for each energy value _E ∈ H_ ( _X_ ), the energy layer Σ _E_ := _{x ∈X_ : _H_ ( _x_ ) = _E}_ is invariant under the zero-input flow _ϕ_ ( _t, x,_ 0). Our interest is in how trajectories repeatedly revisit dynamically relevant regions on each compact invariant energy layer. We first introduce invariant measures, which describe measures preserved by the zeroinput flow. \n\n**Definition 3** (Invariant Measure) **.** _A probability measure µ on M is said to be invariant under the flow ϕ if for any measurable set A ⊆ M and any t ≥_ 0 _, µ_ ( _ϕ_ ( _t, A_ )) = _µ_ ( _A_ ) _._ \n\nTo further characterize whether trajectories explore the whole invariant set or remain confined to smaller invariant subsets, we next introduce ergodicity. \n\n**Definition 4** (Ergodic Measure) **.** _Let µ be an invariant probability measure on a set M . The measure µ is said to be ergodic if for any measurable set A ⊆ M that is invariant under the flow, i.e., ϕ_ ( _t, A,_ 0) _⊆ A for all t ≥_ 0 _, it holds that µ_ ( _A_ ) _∈{_ 0 _,_ 1 _}._ \n\nIntuitively, ergodicity means that trajectories are not confined to smaller invariant subsets, but instead propagate throughout _M_ . In particular, for almost every initial condition, trajectories are dense in the support of _µ_ . The next \n\n"
+  }
+}

@@ -1,0 +1,464 @@
+\documentclass[10pt]{article}\usepackage[margin=2cm]{geometry}\usepackage{amsmath,amssymb}\begin{document}
+\section*{Displays}
+\noindent D1:
+\[
+\boldsymbol{x}_{k+1} = \boldsymbol{f}(\boldsymbol{x}_k, \boldsymbol{u}_k, \boldsymbol{\theta}, \boldsymbol{w}_k), \tag{1}
+\]
+\noindent D2:
+\[
+\mathcal{X}_k = \bigg\{ \boldsymbol{x}_k = \boldsymbol{f}(\cdot, \boldsymbol{u}_{k-1}, \boldsymbol{\theta}, \boldsymbol{w}_{k-1})\circ\dots\circ\boldsymbol{f}(\boldsymbol{x}_0, \boldsymbol{u}_0, \boldsymbol{\theta}, \boldsymbol{w}_0) \ \bigg| \begin{array}{l} \boldsymbol{x}_0\in\mathcal{X}_0, \, \boldsymbol{u}_i\in\mathcal{U}_i, \, \boldsymbol{w}_i\in\mathbb{W} \\ \boldsymbol{\theta}\in\Theta, \quad \ \ i=1,\ldots,k-1 \end{array} \bigg\}. \tag{2}
+\]
+\noindent D3:
+\[
+\tilde{\mathcal{X}}_{k+1}=\{ \boldsymbol{x}_{k+1} \ | \ \boldsymbol{x}_{k+1} = \boldsymbol{f}(\boldsymbol{x}_k, \boldsymbol{u}_k, \boldsymbol{\theta}, \boldsymbol{w}_k), \ \boldsymbol{x}_k\in\tilde{\mathcal{X}}_k, \ \boldsymbol{u}_k\in\mathcal{U}_k, \ \boldsymbol{\theta}\in\Theta, \ \boldsymbol{w}_k\in\mathbb{W} \}, \ \tilde{\mathcal{X}}_0 =\mathcal{X}_0,
+\]
+\noindent D4:
+\[
+\mathcal{X}\cap K = \emptyset \implies \mathbb{P}(\mathcal{X}^m\cap K \neq \emptyset \ \ \text{infinitely often}) = 0. \tag{3}
+\]
+\noindent D5:
+\[
+\mathcal{X}\cap G \neq \emptyset \implies \mathbb{P}(\mathcal{X}^m\cap G = \emptyset \ \ \text{infinitely often}) = 0. \tag{4}
+\]
+\noindent D6:
+\[
+\mathcal{L}^M(\boldsymbol{z}) = \frac{1}{N}\sum_{k=1}^N \|\boldsymbol{x}_k(\boldsymbol{z})-\boldsymbol{c}_k^M \|_{\boldsymbol{Q}_k^M}^2, \ \text{with}\ \boldsymbol{Q}_k^M=\Big(\frac{1}{M-1}\sum_{j=1}^M \big(\boldsymbol{x}_k^j-\boldsymbol{c}_k^M\big)\big(\boldsymbol{x}_k^j-\boldsymbol{c}_k^M\big)^T \Big)^{-1}, \tag{5}
+\]
+\noindent D7:
+\[
+\mathbb{P} (\boldsymbol{x}^j\in G \ \ i.o.) \leq \mathbb{P}\bigg(\bigcup_{m=1}^\infty\boldsymbol{x}^m\in G\bigg) \implies \mathbb{P}\bigg(\bigcup_{m=1}^\infty\boldsymbol{x}^m\in G\bigg) = 1. \tag{6}
+\]
+\noindent D8:
+\[
+\mathbb{P}(\mathcal{X}^m\cap G = \emptyset \ \ i.o.) = \mathbb{P}\bigg(\bigcap_{n=1}^\infty\bigcup_{m=n}^\infty \mathcal{X}^m\cap G = \emptyset\bigg) = 1 - \mathbb{P}\bigg(\bigcup_{n=1}^\infty\bigcap_{m=n}^\infty \mathcal{X}^m\cap G \neq \emptyset\bigg).
+\]
+\noindent D9:
+\[
+\mathbb{P}\bigg(\bigcup_{n=1}^\infty\bigcap_{m=n}^\infty \mathcal{X}^m\cap G \neq \emptyset\bigg)=\mathbb{P}\bigg(\bigcup_{n=1}^\infty\mathcal{X}^n\cap G \neq \emptyset\bigg).
+\]
+\noindent D10:
+\[
+\mathbb{P}(\mathcal{X}^m\cap G = \emptyset \ \ i.o.) = 0 \iff \mathbb{P}\bigg(\bigcup_{n=1}^\infty\mathcal{X}^n\cap G \neq \emptyset\bigg) = 1. \tag{7}
+\]
+\noindent D11:
+\[
+\bigcup_{j=1}^\infty\{\omega \,|\, \boldsymbol{x}^j(\omega) \in G\} \subseteq \bigcup_{j=1}^\infty\{\omega \,|\, \mathcal{X}^j(\omega) \cap G \neq \emptyset\}.
+\]
+\noindent D12:
+\[
+\mathbb{P}\bigg(\bigcup_{n=1}^\infty\mathcal{X}^n\cap G \neq \emptyset\bigg) = 1. \tag{8}
+\]
+\noindent D13:
+\[
+\boldsymbol{x}_{k+1} = \boldsymbol{f}(\boldsymbol{x}_k) = \boldsymbol{h}(\boldsymbol{x}_k) + \boldsymbol{g}(\boldsymbol{x}_k), \quad \boldsymbol{x}_k\in\mathbb{R}^n. \tag{9}
+\]
+\noindent D14:
+\[
+|g_i(\boldsymbol{x})-g_i(\boldsymbol{\mu})| \leq L_{g_i} \|\boldsymbol{x}-\boldsymbol{\mu} \|_2, \quad i=1,\ldots,n. \tag{10}
+\]
+\noindent D15:
+\[
+\mathcal{B}(\boldsymbol{\mu} , \boldsymbol{Q}) := \left\{ \boldsymbol{x} \mid (\boldsymbol{x}-\boldsymbol{\mu})^T \boldsymbol{Q}^{-1} (\boldsymbol{x}-\boldsymbol{\mu}) \leq 1 \right\}. \tag{11}
+\]
+\noindent D16:
+\[
+\boldsymbol{\mu}_{k+1} = \boldsymbol{f}(\boldsymbol{\mu}_k). \tag{12}
+\]
+\noindent D17:
+\[
+\begin{aligned} \boldsymbol{x}_{k+1}-\boldsymbol{\mu}_{k+1} &= \boldsymbol{h}(\boldsymbol{x}_k)-\boldsymbol{h}(\boldsymbol{\mu}_k)+\boldsymbol{g}(\boldsymbol{x}_k)-\boldsymbol{g}(\boldsymbol{\mu}_k) \\ &= \nabla \boldsymbol{h} \cdot (\boldsymbol{x}_k-\boldsymbol{\mu}_k)+\boldsymbol{g}(\boldsymbol{x}_k)-\boldsymbol{g}(\boldsymbol{\mu}_k). \end{aligned}
+\]
+\noindent D18:
+\[
+|g_i(\boldsymbol{x}_k)-g_i(\boldsymbol{\mu}_k)|\leq L_{g_i} \|\boldsymbol{x}_k-\boldsymbol{\mu}_k\|_2\leq L_{g_i} \lambda_{\max}(\boldsymbol{Q}_k), \tag{13}
+\]
+\noindent D19:
+\[
+\boldsymbol{g}(\boldsymbol{x}_k)-\boldsymbol{g}(\boldsymbol{\mu}_k)\in\mathcal{B}(\mathbf{0},\boldsymbol{Q}_{\boldsymbol{g}_k}), \quad \text{where} \ \ \boldsymbol{Q}_{\boldsymbol{g}_k}=n\cdot\mathrm{diag}\big((L_{g_i}\lambda_{\max}(\boldsymbol{Q}_k)^2), \ i=1,\ldots,n \big), \tag{14}
+\]
+\noindent D20:
+\[
+\boldsymbol{x}_{k+1}-\boldsymbol{\mu}_{k+1} \in \mathcal{B}(\mathbf{0},\boldsymbol{Q}_{\mathrm{nom},k}) \oplus \mathcal{B}(\mathbf{0},\boldsymbol{Q}_{\boldsymbol{g}_k}) \subset \mathcal{B}(\mathbf{0},\boldsymbol{Q}_{k+1}), \tag{15}
+\]
+\noindent D21:
+\[
+\boldsymbol{x}_{k+1} \in \mathcal{B}(\boldsymbol{\mu}_{k+1},\boldsymbol{Q}_{k+1}). \tag{16}
+\]
+\noindent D22:
+\[
+\mathrm{Vol}(\mathcal{B}(\boldsymbol{\mu},\boldsymbol{Q})) = \frac{\pi^{n/2}}{\Gamma(n/2 + 2)}\frac{1}{\sqrt{\mathrm{det}(\boldsymbol{Q}^{-1})}}, \tag{17}
+\]
+\noindent D23:
+\[
+\boldsymbol{\mu}_{k+1}=\boldsymbol{f}(\boldsymbol{\mu}_k,\boldsymbol{u}_k,\bar{\boldsymbol{\theta}},\bar{\boldsymbol{w}}_k), \quad \bar{\boldsymbol{\theta}}\in\Theta, \ \ \bar{\boldsymbol{w}}_k\in\mathbb{W}, \tag{18}
+\]
+\noindent D24:
+\[
+\min_{\boldsymbol{u}_{0:N-1}} \qquad \sum_{k=0}^{N-1} l(\boldsymbol{\mu}_k, \boldsymbol{u}_k) + l_f(\boldsymbol{\mu}_N) \tag{19a}
+\]
+\noindent D25:
+\[
+\text{subject to}\qquad \boldsymbol{x}_{k+1} = \boldsymbol{f}(\boldsymbol{x}_k,\boldsymbol{u}_k,\boldsymbol{\theta},\boldsymbol{w}_k), \quad \boldsymbol{w}_k\in\mathbb{W}, \ \ \boldsymbol{\theta}\in\Theta, \quad k=0, \ldots,N-1, \tag{19b}
+\]
+\noindent D26:
+\[
+\bigwedge_{k=1}^N\big(\boldsymbol{x}_{k} \in \mathcal{X}_{\text{free}}\big) \ \cap \ \bigwedge_{k=0}^{N-1}\big(\boldsymbol{u}_{k} \in \mathcal{U}\big) \ \cap \ \big(\boldsymbol{x}_{N} \in \mathcal{X}_{\text{goal}}\big) \ \cap \ \big(\boldsymbol{x}_{0} \in \mathcal{X}_0\big). \tag{19c}
+\]
+\noindent D27:
+\[
+\min_{\boldsymbol{u}_{0:N-1}} \ \ \sum_{k=0}^{N-1} l(\boldsymbol{\mu}_k, \boldsymbol{u}_k)+l_f(\boldsymbol{\mu}_N) \quad \text{s.t.} \ \ \bigwedge_{k=1}^N \mathcal{X}_{k} \subset \mathcal{X}_{\text{free}}, \ \ \ \bigwedge_{k=0}^{N-1}\boldsymbol{u}_{k} \in \mathcal{U}, \ \ \ \mathcal{X}_{N} \subset \mathcal{X}_{\text{goal}}, \tag{20}
+\]
+\noindent D28:
+\[
+\boldsymbol{x}_{\min,i}\leq\boldsymbol{x}_{k,i}(\boldsymbol{u})\leq\boldsymbol{x}_{\max,i}, \ \ \ \forall (\boldsymbol{x}_0,\boldsymbol{\theta},\boldsymbol{w}_{0:k-1}) \in \mathcal{X}_0\times\Theta\times\mathbb{W}^k, \tag{21}
+\]
+\noindent D29:
+\[
+\boldsymbol{x}_{\min,i}+\delta_{k,i}(\boldsymbol{u})\leq\boldsymbol{\mu}_{k,i}(\boldsymbol{u})\leq\boldsymbol{x}_{\max,i}-\delta_{k,i}(\boldsymbol{u}). \tag{22}
+\]
+\section*{Inline}\raggedright
+\noindent I1: $^1$\par
+\noindent I2: $k$\par
+\noindent I3: $\mathcal{X}_k^M(\omega)$\par
+\noindent I4: $\mathcal{X}_k$\par
+\noindent I5: $M\rightarrow\infty$\par
+\noindent I6: $^2$\par
+\noindent I7: $\mathbb{N}$\par
+\noindent I8: $\mathbb{R}$\par
+\noindent I9: $\sigma$\par
+\noindent I10: $\mathbb{R}^n$\par
+\noindent I11: $\mathcal{B}(\mathbb{R}^n)$\par
+\noindent I12: $\mathcal{F}$\par
+\noindent I13: $\mathcal{G}$\par
+\noindent I14: $\mathcal{K}$\par
+\noindent I15: $\mathcal{S}^N := \mathcal{S}\times\ldots\times\mathcal{S}$\par
+\noindent I16: $N$\par
+\noindent I17: $\mathcal{S}$\par
+\noindent I18: $\|\boldsymbol{x}\|^2_{\boldsymbol{Q}} = \boldsymbol{x}^T\boldsymbol{Q}\boldsymbol{x}$\par
+\noindent I19: $\boldsymbol{Q}$\par
+\noindent I20: $\circ$\par
+\noindent I21: $\mathcal{X}^M = \{\boldsymbol{x}^j\}_{j=1}^M$\par
+\noindent I22: $\mathrm{Co}(\mathcal{X}^M)$\par
+\noindent I23: $\boldsymbol{x}_k \in \mathbb{R}^n$\par
+\noindent I24: $\boldsymbol{u}_k \in \mathcal{U}_k$\par
+\noindent I25: $\boldsymbol{\theta} \in \Theta$\par
+\noindent I26: $\boldsymbol{w}_k \in \mathbb{W}$\par
+\noindent I27: $\boldsymbol{x}_0 \in \mathcal{X}_0$\par
+\noindent I28: $\mathcal{U}_k \subset \mathbb{R}^m$\par
+\noindent I29: $\Theta \subset \mathbb{R}^p$\par
+\noindent I30: $\mathbb{W} \subset \mathbb{R}^q$\par
+\noindent I31: $\mathcal{X}_0 \subset \mathbb{R}^n$\par
+\noindent I32: $\boldsymbol{f}(\cdot)$\par
+\noindent I33: $N\in\mathbb{N}$\par
+\noindent I34: $\mathcal{X}_1,\dots,\mathcal{X}_N$\par
+\noindent I35: $k=1,\dots,N$\par
+\noindent I36: $\boldsymbol{u} = \boldsymbol{\kappa}(\boldsymbol{x})$\par
+\noindent I37: $\boldsymbol{f}(\boldsymbol{x}_k, \boldsymbol{\kappa}(\boldsymbol{x}_k), \boldsymbol{\theta}, \boldsymbol{w}_k)$\par
+\noindent I38: $(\boldsymbol{u}_0,\ldots,\boldsymbol{u}_{N-1})$\par
+\noindent I39: $\mathcal{U}_i = \{\boldsymbol{u}_i\}$\par
+\noindent I40: $\boldsymbol{f}$\par
+\noindent I41: $\mathcal{X}_0$\par
+\noindent I42: $\mathcal{U}_i$\par
+\noindent I43: $\Theta$\par
+\noindent I44: $\mathbb{W}$\par
+\noindent I45: $\boldsymbol{\theta}$\par
+\noindent I46: $\boldsymbol{x}_{k+1}=\boldsymbol{\theta}\boldsymbol{x}_k$\par
+\noindent I47: $\boldsymbol{\theta}\in\{1,2\}$\par
+\noindent I48: $\mathcal{X}_0=\{1\}$\par
+\noindent I49: $\mathcal{X}_2=\{1,4\}$\par
+\noindent I50: $\tilde{\mathcal{X}}_2=\{1,2,4\}$\par
+\noindent I51: $n,m,p,q$\par
+\noindent I52: $(\boldsymbol{x}_0,\boldsymbol{u},\boldsymbol{\theta},\boldsymbol{w})\in\mathcal{X}_0\times\mathcal{U}^{k-1}\times\Theta\times\mathbb{W}^{k-1}$\par
+\noindent I53: $\boldsymbol{x}_k$\par
+\noindent I54: $\mathcal{X}_0,\mathcal{U},\Theta$\par
+\noindent I55: $M$\par
+\noindent I56: $\boldsymbol{x}_0^j$\par
+\noindent I57: $\boldsymbol{u}^j$\par
+\noindent I58: $\boldsymbol{\theta}^j$\par
+\noindent I59: $\boldsymbol{w}^j$\par
+\noindent I60: $\boldsymbol{x}_k^j$\par
+\noindent I61: $\{\boldsymbol{x}_k^j\}_{j=1}^M$\par
+\noindent I62: $\{\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j\}_{j=1}^M$\par
+\noindent I63: $\boldsymbol{x}^j$\par
+\noindent I64: $(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)$\par
+\noindent I65: $K\subset\mathbb{R}^n$\par
+\noindent I66: $\mathcal{X} : \Omega \rightarrow \mathcal{F}$\par
+\noindent I67: $(\Omega,\mathcal{A},\mathbb{P})$\par
+\noindent I68: $\{\omega \mid \mathcal{X}(\omega) \cap \mathcal{K} \neq \emptyset\} \in \mathcal{A}$\par
+\noindent I69: $K \subset \mathbb{R}^n$\par
+\noindent I70: $(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)\in\mathcal{X}_0\times\mathcal{U}^{N}\times\Theta\times\mathbb{W}^{N-1}$\par
+\noindent I71: $\mathcal{U}$\par
+\noindent I72: $\alpha = \beta \ll 1$\par
+\noindent I73: $\mathcal{X}_k^M$\par
+\noindent I74: $\quad j=1,\ldots,M$\par
+\noindent I75: $\boldsymbol{x}^j_{1:N}\gets \mathrm{Propagate}(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)$\par
+\noindent I76: $\mathcal{X}_k^M = \mathrm{Co}(\{\boldsymbol{x}_k^j\}_{j=1}^M)$\par
+\noindent I77: $\quad k=1,\ldots,N$\par
+\noindent I78: $\{\mathcal{X}_k^M\}_{k=1}^N$\par
+\noindent I79: $\boldsymbol{f}\in\mathcal{C}^1$\par
+\noindent I80: $\{\mathcal{X}^m\}_{m=1}^\infty$\par
+\noindent I81: $\mathcal{X}$\par
+\noindent I82: $K\in\mathcal{K}$\par
+\noindent I83: $G\in\mathcal{G}$\par
+\noindent I84: $\{(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)\}_{j=1}^m$\par
+\noindent I85: $\mathcal{X}_0\times\mathcal{U}^{k-1}\times\Theta\times\mathbb{W}^{k-1}$\par
+\noindent I86: $\mathcal{X}_k^m = \mathrm{Co}(\{\boldsymbol{x}_k^j\}_{j=1}^m)$\par
+\noindent I87: $\mathbb{P}(\boldsymbol{x}_k^j \in G_k) > 0$\par
+\noindent I88: $G_k$\par
+\noindent I89: $\mathcal{X}_k \cap G_k \neq \emptyset$\par
+\noindent I90: $m\rightarrow\infty$\par
+\noindent I91: $\mathcal{X}_k^m$\par
+\noindent I92: $\mathrm{Co}(\mathcal{X}_k)$\par
+\noindent I93: $\mathcal{X}^m$\par
+\noindent I94: $\epsilon$\par
+\noindent I95: $^3$\par
+\noindent I96: $\boldsymbol{z}^j=(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)$\par
+\noindent I97: $\boldsymbol{z}^{M+1}$\par
+\noindent I98: $\boldsymbol{x}_k^{M+1}\in\mathcal{X}_k^M$\par
+\noindent I99: $\mathcal{X}_k^{M+1}=\mathcal{X}_k^M$\par
+\noindent I100: $\boldsymbol{x}_k^{M+1}\notin\mathcal{X}_k^M$\par
+\noindent I101: $\boldsymbol{z}^j$\par
+\noindent I102: $\boldsymbol{z}$\par
+\noindent I103: $\boldsymbol{c}_k^M$\par
+\noindent I104: $\boldsymbol{Q}_k^M$\par
+\noindent I105: $\boldsymbol{x}_k(\boldsymbol{z})=\boldsymbol{f}(\cdot, \boldsymbol{u}_{k-1}, \boldsymbol{\theta}, \boldsymbol{w}_{k-1})\circ\dots\circ\boldsymbol{f}(\boldsymbol{x}_0, \boldsymbol{u}_0, \boldsymbol{\theta}, \boldsymbol{w}_0))$\par
+\noindent I106: $\mathcal{Z}=\mathcal{X}_0\times\mathcal{U}^{k}\times\Theta\times\mathbb{W}^{k-1}$\par
+\noindent I107: $\{\boldsymbol{z}^j\}_{j=1}^M=(\boldsymbol{x}_0^j,\boldsymbol{u}^j,\boldsymbol{\theta}^j,\boldsymbol{w}^j)_{j=1}^M$\par
+\noindent I108: $\boldsymbol{\eta}$\par
+\noindent I109: $n_{\mathrm{adv}}$\par
+\noindent I110: $\mathcal{X}_N^{n_{\mathrm{adv}}}=\{\boldsymbol{x}^j\}_{j=1}^{M\cdot n_{\mathrm{adv}}}$\par
+\noindent I111: $\boldsymbol{x}^j_{1:N}\gets \mathrm{Propagate}(\boldsymbol{z}^j)$\par
+\noindent I112: $\mathcal{X}_N^0=\{\boldsymbol{x}^j_{1:N}\}_{j=1}^M$\par
+\noindent I113: $i=1,\dots,n_{\mathrm{adv}}$\par
+\noindent I114: $\boldsymbol{z}^j \gets \boldsymbol{z}^j + \boldsymbol{\eta}\, \nabla_{\boldsymbol{z}} \mathcal{L}^M(\boldsymbol{x}^j_{1:N})$\par
+\noindent I115: $\boldsymbol{z}^j \gets \mathrm{Proj}_{\mathcal{Z}}(\boldsymbol{z}^j)$\par
+\noindent I116: $\mathcal{X}_N^i\gets\mathcal{X}_N^{i-1}\cup\{\boldsymbol{x}^j_{1:N}\}_{j=1}^M$\par
+\noindent I117: $\mathrm{Co}\big(\mathcal{X}_N^{n_{\mathrm{adv}}}\big)$\par
+\noindent I118: $\boldsymbol{x}_0$\par
+\noindent I119: $\boldsymbol{u}$\par
+\noindent I120: $\boldsymbol{w}$\par
+\noindent I121: $\mathcal{L}(\cdot)$\par
+\noindent I122: $(1-\epsilon)$\par
+\noindent I123: $\boldsymbol{x}_1 = \boldsymbol{x}_0 + \boldsymbol{u}_0, \ \boldsymbol{x}_1 \in \mathbb{R}^n, \boldsymbol{x}_0 \in [-1,1]^n$\par
+\noindent I124: $\boldsymbol{u}_0 \in [-\bar{u},\bar{u}]^n$\par
+\noindent I125: $\eta = 1$\par
+\noindent I126: $n_{\mathrm{adv}} = 1$\par
+\noindent I127: $\mathcal{X}_0 \times \mathcal{U}_0$\par
+\noindent I128: $\delta$\par
+\noindent I129: $\bar{u}$\par
+\noindent I130: $\bar{u} \in \{0.5,1,2\}$\par
+\noindent I131: $n \in \{3,4\}$\par
+\noindent I132: $3\sigma$\par
+\noindent I133: $\boldsymbol{x}_k = (\boldsymbol{p}_k,\boldsymbol{v}_k) \in \mathbb{R}^4$\par
+\noindent I134: $\boldsymbol{u}_k \in \mathbb{R}^2$\par
+\noindent I135: $\boldsymbol{p}_{k+1} = \boldsymbol{p}_k + \boldsymbol{v}_k$\par
+\noindent I136: $\boldsymbol{v}_{k+1} = \boldsymbol{v}_k + \boldsymbol{u}_k$\par
+\noindent I137: $(128, 128)$\par
+\noindent I138: $\tanh(\cdot)$\par
+\noindent I139: $\mathcal{L}_2$\par
+\noindent I140: $\mathcal{X}_0 \times \mathcal{U}_k^N$\par
+\noindent I141: $N=10$\par
+\noindent I142: $\mathcal{U}_k = \{\boldsymbol{u}_k\}$\par
+\noindent I143: $10^{-7}$\par
+\noindent I144: $\pm 2$\par
+\noindent I145: $\mathcal{X}_1$\par
+\noindent I146: $\mathcal{X}_2$\par
+\noindent I147: $\mathcal{X}_4$\par
+\noindent I148: $\mathcal{X}_5$\par
+\noindent I149: $^{M=3\mathrm{k}}$\par
+\noindent I150: $^{M=2\mathrm{k}}_{n_{\mathrm{adv}}=1}$\par
+\noindent I151: $^4$\par
+\noindent I152: $\boldsymbol{x}=[\mathbf{p},\mathbf{v},\mathbf{q},\boldsymbol{\omega}]\in\mathbb{R}^{13}$\par
+\noindent I153: $\boldsymbol{u}=[\mathbf{F},\mathbf{M}]\in\mathbb{R}^{6}$\par
+\noindent I154: $\dot{\mathbf{p}} = \mathbf{v}$\par
+\noindent I155: $m\dot{\mathbf{v}} = \mathbf{F}$\par
+\noindent I156: $\dot{\mathbf{q}} = \frac{1}{2}\boldsymbol{\Omega}(\boldsymbol{\omega})\mathbf{q}$\par
+\noindent I157: $\mathbf{J}\dot{\boldsymbol{\omega}} = \mathbf{M} - \mathbf{S}(\boldsymbol{\omega})\mathbf{J}\boldsymbol{\omega}$\par
+\noindent I158: $J = \mathrm{diag}([J_x,J_y,J_z])$\par
+\noindent I159: $\Delta t = 5\mathrm{s}$\par
+\noindent I160: $\boldsymbol{w}_k$\par
+\noindent I161: $\boldsymbol{x}_{k+1} = \boldsymbol{f}(\boldsymbol{x}_k,\boldsymbol{u}_k,\boldsymbol{\theta}_k) + \boldsymbol{w}_k$\par
+\noindent I162: $m \in [7.1,7.3]$\par
+\noindent I163: $J_i \in [0.065,0.075]$\par
+\noindent I164: $|w_{ki}| \leq 10^{-4}$\par
+\noindent I165: $i=1,\ldots,13$\par
+\noindent I166: $|w_{ki}| \leq 5\times10^{-4}$\par
+\noindent I167: $i=4,5,6$\par
+\noindent I168: $M = 100$\par
+\noindent I169: $N=21$\par
+\noindent I170: $875\mathrm{ms}$\par
+\noindent I171: $(\boldsymbol{x}^j,\mathcal{X}^m,\mathcal{X}) = (\boldsymbol{x}^j_k,\mathcal{X}^m_k,\mathrm{Co}(\mathcal{X}_k))$\par
+\noindent I172: $\boldsymbol{z}=(\boldsymbol{x}_0,\boldsymbol{u},\boldsymbol{\theta},\boldsymbol{w})\in\mathbb{R}^z$\par
+\noindent I173: $\boldsymbol{f}(\boldsymbol{z})=\boldsymbol{f}(\boldsymbol{\cdot},\boldsymbol{u}_{k-1},\boldsymbol{\theta},\boldsymbol{w}_{k-1})\circ\dots\circ\boldsymbol{f}(\boldsymbol{x}_0,\boldsymbol{u}_0,\boldsymbol{\theta},\boldsymbol{w}_{0})$\par
+\noindent I174: $(\Omega,\mathcal{A}, \mathbb{P})$\par
+\noindent I175: $\mathcal{X}^m:\Omega\rightarrow\mathcal{F}$\par
+\noindent I176: $\mathcal{X}^m(\omega) = \mathrm{Co}(\{\boldsymbol{x}^j\}_{j=1}^m)$\par
+\noindent I177: $\{\mathcal{X}^m(\omega), m\geq 1\}$\par
+\noindent I178: $\mathcal{X}^1(\omega)\subseteq \mathcal{X}^2(\omega) \subseteq \dots$\par
+\noindent I179: $j=1,\dots,m$\par
+\noindent I180: $\{\boldsymbol{x}^j\}$\par
+\noindent I181: $\mathcal{X}^m=\mathrm{Co}(\{\boldsymbol{x}^j\}_{j=1}^m)$\par
+\noindent I182: $\mathcal{X}^m(\omega)$\par
+\noindent I183: $\mathcal{Z}$\par
+\noindent I184: $\mathcal{X}^m \subseteq\mathcal{X}^{m+1}$\par
+\noindent I185: $m$\par
+\noindent I186: $K\in \mathcal{K}$\par
+\noindent I187: $\mathcal{X}\cap K = \emptyset$\par
+\noindent I188: $\boldsymbol{x}^j(\omega)\in\mathcal{X}$\par
+\noindent I189: $j$\par
+\noindent I190: $\mathcal{X}^m\subset\mathrm{Co}(\mathcal{X})$\par
+\noindent I191: $\mathcal{X}^m\cap K=\emptyset$\par
+\noindent I192: $\mathbb{P}(\mathcal{X}^m\cap K\neq\emptyset)=0$\par
+\noindent I193: $\sum_{m=1}^\infty \mathbb{P}(\mathcal{X}^m\cap K\neq\emptyset)=0$\par
+\noindent I194: $\mathbb{P}(\mathcal{X}^m\cap K \neq \emptyset \ \ i.o.) = 0$\par
+\noindent I195: $G\in \mathcal{G}$\par
+\noindent I196: $\mathcal{X}\cap G \neq \emptyset$\par
+\noindent I197: $\mathbb{P}(\mathcal{X}^m\cap G = \emptyset \ \ i.o.) = 0$\par
+\noindent I198: $G$\par
+\noindent I199: $\mathcal{X}^m\subseteq\mathcal{X}^{m+1}$\par
+\noindent I200: $\mathbb{P} (\boldsymbol{x}^j\in G \ \ i.o.) = 1$\par
+\noindent I201: $\{\omega \,|\, \boldsymbol{x}^j\in G\} = \{\omega \,|\, \boldsymbol{z}^j \ \text{s.t.} \ \boldsymbol{f}(\boldsymbol{z}^j) \in G\}$\par
+\noindent I202: $\{\omega\,|\,\boldsymbol{x}^j\in G\}$\par
+\noindent I203: $j=1,\ldots,m$\par
+\noindent I204: $\mathcal{Z}_G\subset\mathbb{R}^z$\par
+\noindent I205: $\boldsymbol{z}\in\mathcal{Z}_G$\par
+\noindent I206: $\boldsymbol{f}(\boldsymbol{z})\in G$\par
+\noindent I207: $\mathcal{Z}_G$\par
+\noindent I208: $\mathbb{P}(\boldsymbol{x}^j\in G) = \mathbb{P}(\boldsymbol{z}^j\in\mathcal{Z}_G)=\alpha_G >0$\par
+\noindent I209: $\alpha_G$\par
+\noindent I210: $(\boldsymbol{x}_0,\boldsymbol{u},\boldsymbol{\theta},\boldsymbol{w})$\par
+\noindent I211: $\sum_{j=1}^\infty\mathbb{P}(\boldsymbol{x}^j\in G)=\infty$\par
+\noindent I212: $\mathbb{P} (\boldsymbol{x}^j\in G \ \ i.o.) = \mathbb{P}\big(\cup_{n=1}^\infty\cap_{m=n}^\infty \boldsymbol{x}^j\in G\big) = 1$\par
+\noindent I213: $\cap_{n=1}^\infty A_n \subseteq A_1$\par
+\noindent I214: $\mathcal{X}^m\subseteq\mathcal{X}^{m+1}, \forall m$\par
+\noindent I215: $\{\omega \, |\, \bigcap_{m=n}^\infty \mathcal{X}^m\cap G \neq \emptyset\}=\{\omega \, |\, \mathcal{X}^n\cap G \neq \emptyset\}$\par
+\noindent I216: $\boldsymbol{x}^j\in\mathcal{X}^j$\par
+\noindent I217: $\{\omega \,|\, \boldsymbol{x}^j(\omega) \in G\} \subseteq \{\omega \,|\, \mathcal{X}^j(\omega) \cap G \neq \emptyset\}$\par
+\noindent I218: $\{\mathcal{X}^m(\omega),m\geq 1\}$\par
+\noindent I219: $\square$\par
+\noindent I220: $n_{\mathrm{adv}}\geq 1$\par
+\noindent I221: $n_{\mathrm{adv}} \in \{1,\ldots,5\}$\par
+\noindent I222: $M=100$\par
+\noindent I223: $n_{\mathrm{adv}}=1$\par
+\noindent I224: $\boldsymbol{x}_{0}$\par
+\noindent I225: $(M,n_{\mathrm{adv}})$\par
+\noindent I226: $(100,1)$\par
+\noindent I227: $x,y$\par
+\noindent I228: $N = 20$\par
+\noindent I229: $M\in\{50, 100, 200\}$\par
+\noindent I230: $\{83, 173, 304\}$\par
+\noindent I231: $M = 200$\par
+\noindent I232: $n_{\mathrm{adv}}\in\{1,2,5\}$\par
+\noindent I233: $k=12$\par
+\noindent I234: $k=8,14$\par
+\noindent I235: $\boldsymbol{w}_k^j$\par
+\noindent I236: $(m^j,J_i^j) = (7.1,0.075)$\par
+\noindent I237: $k = 8$\par
+\noindent I238: $(7.3,0.065)$\par
+\noindent I239: $k = 14$\par
+\noindent I240: $\boldsymbol{w}_{k}^j$\par
+\noindent I241: $\boldsymbol{u}_k$\par
+\noindent I242: $\boldsymbol{h}$\par
+\noindent I243: $\boldsymbol{g}$\par
+\noindent I244: $\boldsymbol{x},\boldsymbol{\mu}\in\mathbb{R}^n$\par
+\noindent I245: $\mathcal{B}(\boldsymbol{\mu}, \boldsymbol{Q})$\par
+\noindent I246: $\boldsymbol{\mu}\in\mathbb{R}^n,\boldsymbol{Q}\in\mathbb{R}^{n\times n}, \boldsymbol{Q}\succ 0$\par
+\noindent I247: $\boldsymbol{x}_k\in\mathcal{B}(\boldsymbol{\mu}_k,\boldsymbol{Q}_k)$\par
+\noindent I248: $\boldsymbol{\mu}_{k+1}, \boldsymbol{Q}_{k+1}$\par
+\noindent I249: $\boldsymbol{x}_{k+1}\in\mathcal{B}(\boldsymbol{\mu}_{k+1},\boldsymbol{Q}_{k+1})$\par
+\noindent I250: $\boldsymbol{f}(\boldsymbol{x}_k)$\par
+\noindent I251: $\boldsymbol{x}$\par
+\noindent I252: $\nabla \boldsymbol{h} \cdot (\boldsymbol{x}_k-\boldsymbol{\mu}_k)\in\mathcal{B}(\mathbf{0},\boldsymbol{Q}_{\mathrm{nom},k})$\par
+\noindent I253: $\boldsymbol{Q}_{\mathrm{nom},k}=\boldsymbol{h}\boldsymbol{Q}_k\boldsymbol{h}^T$\par
+\noindent I254: $\lambda_{\max}(\boldsymbol{Q}_k)$\par
+\noindent I255: $\boldsymbol{Q}_k$\par
+\noindent I256: $\boldsymbol{g}(\boldsymbol{x}_k)-\boldsymbol{g}(\boldsymbol{\mu}_k)$\par
+\noindent I257: $\mathrm{diag}(\ldots)$\par
+\noindent I258: $(\ldots)$\par
+\noindent I259: $\boldsymbol{Q}_{k+1}=\frac{c+1}{c}\boldsymbol{Q}_{\mathrm{nom},k} + (1+c)\boldsymbol{Q}_{\boldsymbol{g}_k}$\par
+\noindent I260: $c=\sqrt{\mathrm{Tr}(\boldsymbol{Q}_{\mathrm{nom},k}/\mathrm{Tr}(\boldsymbol{Q}_{\boldsymbol{g}_k})}$\par
+\noindent I261: $\mathrm{Tr}(\cdot)$\par
+\noindent I262: $\boldsymbol{x}_0\in\mathcal{B}(\boldsymbol{\mu}_0,\boldsymbol{Q}_0)$\par
+\noindent I263: $k=0,\ldots, N-1$\par
+\noindent I264: $\boldsymbol{x}_{k+1}=\boldsymbol{f}(\boldsymbol{x}_k,\boldsymbol{u}_k)=\boldsymbol{h}(\boldsymbol{x}_k)+\boldsymbol{g}(\boldsymbol{x}_k,\boldsymbol{u}_k)$\par
+\noindent I265: $\boldsymbol{h}(\boldsymbol{x}_k)=\boldsymbol{x}_k$\par
+\noindent I266: $2$\par
+\noindent I267: $128$\par
+\noindent I268: $\{(\boldsymbol{x}_k,\boldsymbol{u}_k,\boldsymbol{x}_{k+1})^b\}_{b=1}^B$\par
+\noindent I269: $\sum_{b=1}^B \|\boldsymbol{x}_{k+1}^b-\boldsymbol{g}(\boldsymbol{x}_k^b,\boldsymbol{u}_k^b)\|_2^2$\par
+\noindent I270: $B=20$\par
+\noindent I271: $L_2$\par
+\noindent I272: $10^{-6}$\par
+\noindent I273: $0.02$\par
+\noindent I274: $(1-10^{-6})$\par
+\noindent I275: $B = 100$\par
+\noindent I276: $\boldsymbol{x}_0^b \in \mathcal{X}_0 = \mathcal{B}(\boldsymbol{\mu}_0,\boldsymbol{Q}_0)$\par
+\noindent I277: $\boldsymbol{u}^b = (\boldsymbol{u}_0^b,\ldots,\boldsymbol{u}_{N-1}^b)$\par
+\noindent I278: $b = 1,\ldots,B$\par
+\noindent I279: $\boldsymbol{\mu}_0^b = (\mathbf{p}_0^b,\mathbf{v}_0^b)$\par
+\noindent I280: $\mathbf{p}_{0,i}^b\sim\mathrm{Unif}(-5,5)$\par
+\noindent I281: $\mathbf{v}_{0,i}^b\sim\mathrm{Unif}(-1,1)$\par
+\noindent I282: $\boldsymbol{Q}_0^b=10^{-3}\mathrm{diag}([10,10,2,2])$\par
+\noindent I283: $\boldsymbol{u}_k^b=\bar{\boldsymbol{u}}^b+\delta\boldsymbol{u}_k^b$\par
+\noindent I284: $\bar{\boldsymbol{u}}^b_i\sim\mathrm{Unif}(-0.4,0.4)$\par
+\noindent I285: $\delta\boldsymbol{u}_{k,i}^b\sim\mathrm{Unif}(-0.02,0.02)$\par
+\noindent I286: $\bar{\boldsymbol{u}}^b_i\sim\mathrm{Unif}(-0.1,0.1)$\par
+\noindent I287: $\delta\boldsymbol{u}_{k,i}^b\sim\mathrm{Unif}(-0.005,0.005)$\par
+\noindent I288: $^{1\mathrm{k}}$\par
+\noindent I289: $\cdot$\par
+\noindent I290: $^{3\mathrm{k}}$\par
+\noindent I291: $^{10\mathrm{k}}$\par
+\noindent I292: $^{1\mathrm{k}}_{1}$\par
+\noindent I293: $\boldsymbol{h}(\boldsymbol{x})=\boldsymbol{x}$\par
+\noindent I294: $\boldsymbol{g}(\boldsymbol{x},\boldsymbol{u})$\par
+\noindent I295: $L_{g_i}=1$\par
+\noindent I296: $i=1,2$\par
+\noindent I297: $L_{g_i}=0$\par
+\noindent I298: $i=3,4$\par
+\noindent I299: $\mathcal{B}(\boldsymbol{\mu},\boldsymbol{Q})$\par
+\noindent I300: $\Gamma(\cdot)$\par
+\noindent I301: $(\boldsymbol{x}_{0:N},\boldsymbol{u}_{0:N-1})$\par
+\noindent I302: $(\boldsymbol{x}_k\in\mathcal{X}_{\text{free}},\boldsymbol{u}_k\in\mathcal{U})$\par
+\noindent I303: $\boldsymbol{\theta}\in\Theta$\par
+\noindent I304: $\boldsymbol{w}_k\in\mathbb{W}$\par
+\noindent I305: $\boldsymbol{x}_N$\par
+\noindent I306: $\mathcal{X}_{\text{goal}}$\par
+\noindent I307: $l:\mathcal{X}\times\mathcal{U}\rightarrow\mathbb{R}, \ l_f:\mathcal{X}\rightarrow\mathbb{R}$\par
+\noindent I308: $\boldsymbol{u} = (\boldsymbol{u}_0,\ldots,\boldsymbol{u}_{N-1})$\par
+\noindent I309: $\boldsymbol{\mu} = (\boldsymbol{\mu}_0,\ldots,\boldsymbol{\mu}_N)$\par
+\noindent I310: $\boldsymbol{\mu}_0 \in \mathcal{X}_0$\par
+\noindent I311: $\bar{\boldsymbol{\theta}}$\par
+\noindent I312: $\bar{\boldsymbol{w}}_k$\par
+\noindent I313: $\sum_{k=0}^{N-1} l(\boldsymbol{\mu}_k, \boldsymbol{u}_k)+l_f(\boldsymbol{\mu}_N)$\par
+\noindent I314: $\{\mathcal{X}_k\}_{k=0}^N$\par
+\noindent I315: $\boldsymbol{u}_{0:N-1}$\par
+\noindent I316: $\mathcal{X}_{0}$\par
+\noindent I317: $(i+1)$\par
+\noindent I318: $(\boldsymbol{\mu}^i,\boldsymbol{u}^i)$\par
+\noindent I319: $(\boldsymbol{\mu}^{i+1},\boldsymbol{u}^{i+1})$\par
+\noindent I320: $\|\boldsymbol{\mu}^{i+1}-\boldsymbol{\mu}^i\|+\|\boldsymbol{u}^{i+1}-\boldsymbol{u}^i\|$\par
+\noindent I321: $^5$\par
+\noindent I322: $i\in\{1,\ldots,n\}$\par
+\noindent I323: $\boldsymbol{x}_k\in\mathcal{X}_{\text{free}}$\par
+\noindent I324: $\mathcal{X}_k(\boldsymbol{u})$\par
+\noindent I325: $\boldsymbol{\mu}$\par
+\noindent I326: $\Delta_k(\boldsymbol{u})$\par
+\noindent I327: $\Delta_k=\{\boldsymbol{x}_k \,| \, |\boldsymbol{x}_{k,i}-\boldsymbol{\mu}_{k,i}|\leq \delta_{k,i}\}$\par
+\noindent I328: $\delta_{k,i}=\max_{j}|\boldsymbol{x}_{k,i}^j-\boldsymbol{\mu}_{k,i}|$\par
+\noindent I329: $\mathbf{a} \cdot \boldsymbol{x}_{k,1:s} \leq b$\par
+\noindent I330: $s$\par
+\noindent I331: $\mathbf{a}\in\mathbb{R}^s,b\in\mathbb{R}$\par
+\noindent I332: $\mathcal{B}^s(\boldsymbol{\mu}_k , \boldsymbol{Q}_k) = \left\{ \boldsymbol{x} \mid (\boldsymbol{x}-\boldsymbol{\mu}_{k,1:s})^T \boldsymbol{Q}_k^{-1} (\boldsymbol{x}-\boldsymbol{\mu}_{k,1:s}) \leq 1 \right\}$\par
+\noindent I333: $\boldsymbol{Q}_k = s \cdot \mathrm{diag}(\delta_i^2, \, i = 1,\ldots,s)$\par
+\noindent I334: $\mathcal{B}^s$\par
+\noindent I335: $\mathbf{a}^T\boldsymbol{\mu}_{k,1:s}+(\mathbf{a}^T\boldsymbol{Q}_k\mathbf{a})^{1/2} \leq b$\par
+\noindent I336: $K$\par
+\noindent I337: $\mathcal{X}_0\times\mathcal{U}^{N}\times\Theta\times\mathbb{W}^{N-1}$\par
+\noindent I338: $i=1,\ldots,k-1$\par
+\noindent I339: $\boldsymbol{u}_0,\boldsymbol{w}_0$\par
+\noindent I340: $\boldsymbol{x}_k(\boldsymbol{z})$\par
+\noindent I341: $\mathcal{X}_0,\mathcal{X}_1,\mathcal{X}_2,\mathcal{X}_4,\mathcal{X}_5$\par
+\noindent I342: $\boldsymbol{\theta}_k$\par
+\noindent I343: $c$\par
+\noindent I344: $\Gamma(n/2+2)$\par
+\end{document}

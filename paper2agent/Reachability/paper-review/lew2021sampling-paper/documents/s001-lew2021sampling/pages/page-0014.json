@@ -1,0 +1,288 @@
+{
+  "page": 14,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0014.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 130 dpi render, two 230 dpi zooms covering the whole text block, and the TeX source. Headings \"## C Additional Experimental Details\" and \"### C.1 Uncertainty Propagation using Lipschitz Continuity\". All eight extractor formula images are replaced by LaTeX display items with the printed tags (9)-(16) plus the unnumbered two-line decomposition of the error to the mean; macros expanded (\\h -> \\boldsymbol{h}, \\g -> \\boldsymbol{g}, \\bmu -> \\boldsymbol{\\mu}, \\bQ -> \\boldsymbol{Q}, \\B -> \\mathcal{B}). Definition 2 (bold label with the printed title) consists of its sentence and equation (11) (end of the definition taken from the TeX environment). Paragraph structure restored (\"First, given ...\", \"Second, we use ...\", \"where diag(...) ...\", \"Finally, the two terms ...\" are separate lines in print). Printed formulas kept exactly, including the authors' apparent slips, which are NOT corrected: $\\boldsymbol{Q}_{nom,k}=\\boldsymbol{h}\\boldsymbol{Q}_k\\boldsymbol{h}^T$ (written with $\\boldsymbol{h}$, not $\\nabla\\boldsymbol{h}$); bound (13) $\\leq L_{g_i}\\lambda_{\\max}(\\boldsymbol{Q}_k)$; in (14) the square sits inside the inner parenthesis as $(L_{g_i}\\lambda_{\\max}(\\boldsymbol{Q}_k)^2)$; and $c=\\sqrt{\\mathrm{Tr}(\\boldsymbol{Q}_{nom,k}/\\mathrm{Tr}(\\boldsymbol{Q}_{g_k})}$ has an unmatched opening parenthesis under the root, exactly as printed and as in the TeX.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0014-b000",
+      "kind": "heading",
+      "bbox": [
+        108,
+        73,
+        294,
+        85
+      ],
+      "markdown": "## C Additional Experimental Details"
+    },
+    {
+      "id": "p0014-b001",
+      "kind": "heading",
+      "bbox": [
+        108,
+        98,
+        354,
+        108
+      ],
+      "markdown": "### C.1 Uncertainty Propagation using Lipschitz Continuity"
+    },
+    {
+      "id": "p0014-b002",
+      "kind": "text",
+      "bbox": [
+        108,
+        118,
+        505,
+        139
+      ],
+      "markdown": "In this section, we detail our implementation of the Lipschitz-based uncertainty propagation method which we compare with in Section 6. For these experiments, consider the dynamical system"
+    },
+    {
+      "id": "p0014-b003",
+      "kind": "text",
+      "bbox": [
+        205,
+        141,
+        510,
+        162
+      ],
+      "markdown": "$$\\boldsymbol{x}_{k+1} = \\boldsymbol{f}(\\boldsymbol{x}_k) = \\boldsymbol{h}(\\boldsymbol{x}_k) + \\boldsymbol{g}(\\boldsymbol{x}_k), \\quad \\boldsymbol{x}_k\\in\\mathbb{R}^n. \\tag{9}$$"
+    },
+    {
+      "id": "p0014-b004",
+      "kind": "text",
+      "bbox": [
+        108,
+        164,
+        504,
+        196
+      ],
+      "markdown": "Note that we drop the dependence on the control input $\\boldsymbol{u}_k$ for conciseness, and since our comparisons concern a sequence of known open-loop controls. For simplicity, we assume $\\boldsymbol{h}$ is an affine map, and $\\boldsymbol{g}$ is Lipschitz continuous, such that for all $\\boldsymbol{x},\\boldsymbol{\\mu}\\in\\mathbb{R}^n$,"
+    },
+    {
+      "id": "p0014-b005",
+      "kind": "text",
+      "bbox": [
+        203,
+        198,
+        509,
+        220
+      ],
+      "markdown": "$$|g_i(\\boldsymbol{x})-g_i(\\boldsymbol{\\mu})| \\leq L_{g_i} \\|\\boldsymbol{x}-\\boldsymbol{\\mu} \\|_2, \\quad i=1,\\ldots,n. \\tag{10}$$"
+    },
+    {
+      "id": "p0014-b006",
+      "kind": "text",
+      "bbox": [
+        108,
+        227,
+        385,
+        237
+      ],
+      "markdown": "The method presented in [13] consists of propagating ellipsoidal sets:"
+    },
+    {
+      "id": "p0014-b007",
+      "kind": "text",
+      "bbox": [
+        108,
+        242,
+        495,
+        253
+      ],
+      "markdown": "**Definition 2 (Ellipsoidal Set).** A set $\\mathcal{B}(\\boldsymbol{\\mu}, \\boldsymbol{Q})$, $\\boldsymbol{\\mu}\\in\\mathbb{R}^n,\\boldsymbol{Q}\\in\\mathbb{R}^{n\\times n}, \\boldsymbol{Q}\\succ 0$, is an ellipsoidal set if"
+    },
+    {
+      "id": "p0014-b008",
+      "kind": "text",
+      "bbox": [
+        204,
+        255,
+        509,
+        278
+      ],
+      "markdown": "$$\\mathcal{B}(\\boldsymbol{\\mu} , \\boldsymbol{Q}) := \\left\\{ \\boldsymbol{x} \\mid (\\boldsymbol{x}-\\boldsymbol{\\mu})^T \\boldsymbol{Q}^{-1} (\\boldsymbol{x}-\\boldsymbol{\\mu}) \\leq 1 \\right\\}. \\tag{11}$$"
+    },
+    {
+      "id": "p0014-b009",
+      "kind": "text",
+      "bbox": [
+        107,
+        285,
+        505,
+        338
+      ],
+      "markdown": "Assume that $\\boldsymbol{x}_k\\in\\mathcal{B}(\\boldsymbol{\\mu}_k,\\boldsymbol{Q}_k)$. The problem consists of computing $\\boldsymbol{\\mu}_{k+1}, \\boldsymbol{Q}_{k+1}$ such that $\\boldsymbol{x}_{k+1}\\in\\mathcal{B}(\\boldsymbol{\\mu}_{k+1},\\boldsymbol{Q}_{k+1})$. Generally, the reachable set of $\\boldsymbol{f}(\\boldsymbol{x}_k)$ given that $\\boldsymbol{x}_k$ lies in an ellipsoidal set will not be an ellipsoidal set. However, an outer-approximation is sufficient for control applications where constraints satisfaction needs to be guaranteed. First, we compute the center of the ellipsoid as"
+    },
+    {
+      "id": "p0014-b010",
+      "kind": "text",
+      "bbox": [
+        268,
+        335,
+        509,
+        356
+      ],
+      "markdown": "$$\\boldsymbol{\\mu}_{k+1} = \\boldsymbol{f}(\\boldsymbol{\\mu}_k). \\tag{12}$$"
+    },
+    {
+      "id": "p0014-b011",
+      "kind": "text",
+      "bbox": [
+        107,
+        355,
+        500,
+        366
+      ],
+      "markdown": "Since $\\boldsymbol{h}$ is affine, its Jacobian does not depend on $\\boldsymbol{x}$. Thus, we decompose the error to the mean as"
+    },
+    {
+      "id": "p0014-b012",
+      "kind": "text",
+      "bbox": [
+        195,
+        368,
+        417,
+        403
+      ],
+      "markdown": "$$\\begin{aligned} \\boldsymbol{x}_{k+1}-\\boldsymbol{\\mu}_{k+1} &= \\boldsymbol{h}(\\boldsymbol{x}_k)-\\boldsymbol{h}(\\boldsymbol{\\mu}_k)+\\boldsymbol{g}(\\boldsymbol{x}_k)-\\boldsymbol{g}(\\boldsymbol{\\mu}_k) \\\\ &= \\nabla \\boldsymbol{h} \\cdot (\\boldsymbol{x}_k-\\boldsymbol{\\mu}_k)+\\boldsymbol{g}(\\boldsymbol{x}_k)-\\boldsymbol{g}(\\boldsymbol{\\mu}_k). \\end{aligned}$$"
+    },
+    {
+      "id": "p0014-b013",
+      "kind": "text",
+      "bbox": [
+        108,
+        411,
+        496,
+        424
+      ],
+      "markdown": "First, given $\\boldsymbol{x}_k\\in\\mathcal{B}(\\boldsymbol{\\mu}_k,\\boldsymbol{Q}_k)$, we have $\\nabla \\boldsymbol{h} \\cdot (\\boldsymbol{x}_k-\\boldsymbol{\\mu}_k)\\in\\mathcal{B}(\\mathbf{0},\\boldsymbol{Q}_{\\mathrm{nom},k})$, with $\\boldsymbol{Q}_{\\mathrm{nom},k}=\\boldsymbol{h}\\boldsymbol{Q}_k\\boldsymbol{h}^T$."
+    },
+    {
+      "id": "p0014-n01",
+      "kind": "text",
+      "bbox": [
+        108,
+        427,
+        496,
+        439
+      ],
+      "markdown": "Second, we use the Lipschitz property of $\\boldsymbol{g}$ to bound the approximation error component-wise as"
+    },
+    {
+      "id": "p0014-b014",
+      "kind": "text",
+      "bbox": [
+        189,
+        441,
+        509,
+        462
+      ],
+      "markdown": "$$|g_i(\\boldsymbol{x}_k)-g_i(\\boldsymbol{\\mu}_k)|\\leq L_{g_i} \\|\\boldsymbol{x}_k-\\boldsymbol{\\mu}_k\\|_2\\leq L_{g_i} \\lambda_{\\max}(\\boldsymbol{Q}_k), \\tag{13}$$"
+    },
+    {
+      "id": "p0014-b015",
+      "kind": "text",
+      "bbox": [
+        107,
+        464,
+        505,
+        496
+      ],
+      "markdown": "where $\\lambda_{\\max}(\\boldsymbol{Q}_k)$ denotes the largest eigenvalue of $\\boldsymbol{Q}_k$, and since $\\boldsymbol{x}_k\\in\\mathcal{B}(\\boldsymbol{\\mu}_k,\\boldsymbol{Q}_k)$. This defines a rectangular set in which $\\boldsymbol{g}(\\boldsymbol{x}_k)-\\boldsymbol{g}(\\boldsymbol{\\mu}_k)$ is guaranteed to lie, which can be outer-approximated by an ellipsoid as"
+    },
+    {
+      "id": "p0014-b016",
+      "kind": "text",
+      "bbox": [
+        107,
+        502,
+        504,
+        520
+      ],
+      "markdown": "$$\\boldsymbol{g}(\\boldsymbol{x}_k)-\\boldsymbol{g}(\\boldsymbol{\\mu}_k)\\in\\mathcal{B}(\\mathbf{0},\\boldsymbol{Q}_{\\boldsymbol{g}_k}), \\quad \\text{where} \\ \\ \\boldsymbol{Q}_{\\boldsymbol{g}_k}=n\\cdot\\mathrm{diag}\\big((L_{g_i}\\lambda_{\\max}(\\boldsymbol{Q}_k)^2), \\ i=1,\\ldots,n \\big), \\tag{14}$$"
+    },
+    {
+      "id": "p0014-n02",
+      "kind": "text",
+      "bbox": [
+        107,
+        522,
+        504,
+        534
+      ],
+      "markdown": "where $\\mathrm{diag}(\\ldots)$ denotes the diagonal matrix with diagonal components $(\\ldots)$."
+    },
+    {
+      "id": "p0014-n03",
+      "kind": "text",
+      "bbox": [
+        107,
+        538,
+        504,
+        550
+      ],
+      "markdown": "Finally, the two terms can be combined as"
+    },
+    {
+      "id": "p0014-b017",
+      "kind": "text",
+      "bbox": [
+        180,
+        552,
+        509,
+        573
+      ],
+      "markdown": "$$\\boldsymbol{x}_{k+1}-\\boldsymbol{\\mu}_{k+1} \\in \\mathcal{B}(\\mathbf{0},\\boldsymbol{Q}_{\\mathrm{nom},k}) \\oplus \\mathcal{B}(\\mathbf{0},\\boldsymbol{Q}_{\\boldsymbol{g}_k}) \\subset \\mathcal{B}(\\mathbf{0},\\boldsymbol{Q}_{k+1}), \\tag{15}$$"
+    },
+    {
+      "id": "p0014-b018",
+      "kind": "text",
+      "bbox": [
+        107,
+        576,
+        505,
+        598
+      ],
+      "markdown": "where $\\boldsymbol{Q}_{k+1}=\\frac{c+1}{c}\\boldsymbol{Q}_{\\mathrm{nom},k} + (1+c)\\boldsymbol{Q}_{\\boldsymbol{g}_k}$, with $c=\\sqrt{\\mathrm{Tr}(\\boldsymbol{Q}_{\\mathrm{nom},k}/\\mathrm{Tr}(\\boldsymbol{Q}_{\\boldsymbol{g}_k})}$, and $\\mathrm{Tr}(\\cdot)$ denotes the trace operator. Finally, combining the terms above and by linearity,"
+    },
+    {
+      "id": "p0014-b019",
+      "kind": "text",
+      "bbox": [
+        250,
+        601,
+        509,
+        622
+      ],
+      "markdown": "$$\\boldsymbol{x}_{k+1} \\in \\mathcal{B}(\\boldsymbol{\\mu}_{k+1},\\boldsymbol{Q}_{k+1}). \\tag{16}$$"
+    },
+    {
+      "id": "p0014-b020",
+      "kind": "text",
+      "bbox": [
+        107,
+        629,
+        505,
+        661
+      ],
+      "markdown": "Starting from $\\boldsymbol{x}_0\\in\\mathcal{B}(\\boldsymbol{\\mu}_0,\\boldsymbol{Q}_0)$, and applying this recursion for all $k=0,\\ldots, N-1$, this method enables the computation of sequence of sets which outer approximate the true reachable sets of the nonlinear system, given known upper-bounds for the Lipschitz constant of the dynamics."
+    },
+    {
+      "id": "p0014-b021",
+      "kind": "omit",
+      "bbox": [
+        296,
+        740,
+        316,
+        753
+      ],
+      "markdown": "",
+      "reason": "Page number \"14\" in the footer."
+    }
+  ]
+}

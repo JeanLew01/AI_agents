@@ -1,0 +1,372 @@
+{
+ "run_mbd_temp_car2d": {
+  "execution_id": "run_mbd_temp_car2d",
+  "status": "succeeded",
+  "status_note": "The upstream command ran to completion twice (exit 0) and the replay is bitwise identical. The scientific content of the result is degenerate on car2d: all eight rewards are equal to the lowest reward the environment can return, so best_temp carries no information (see `degeneracy`). The coordinator decided to keep car2d as the fast reference and asked for one supplementary run on a dense-reward environment (ant); that run was not attempted (see `supplementary_dense_reward_run`), so no reference exists that shows a dependence on the temperature.",
+  "executed_utc": "2026-10-02",
+  "source": {
+   "path": "mbd/scripts/run_mbd.py",
+   "project_path": "repo/model-based-diffusion/mbd/scripts/run_mbd.py",
+   "commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+   "source_url": "https://github.com/LeCAR-Lab/model-based-diffusion/blob/c1eb913783f1713f7a1ebb657b34e0188d52cd8b/mbd/scripts/run_mbd.py",
+   "repository_url": "https://github.com/LeCAR-Lab/model-based-diffusion.git",
+   "repository_url_basis": "`git remote -v` of the pinned checkout",
+   "sha256_run_mbd_py": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+   "sha256_matches_scanner_sha256_at_scan": true,
+   "private_copy": {
+    "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source",
+    "created_with": "git -C repo/model-based-diffusion archive c1eb913783f1713f7a1ebb657b34e0188d52cd8b | tar -x -C notebooks/run_mbd_temp_car2d/source",
+    "identity_check": "File list of the copy equals `git ls-tree -r --name-only <commit>` (34 files, diff empty); for each of the 34 files the SHA-256 of `git cat-file blob <commit>:<file>` equals the SHA-256 of the file in the copy (34 compared, 0 mismatches). Done before the first run.",
+    "identity_evidence": [
+     "notebooks/run_mbd_temp_car2d/logs/tracked_files.txt",
+     "notebooks/run_mbd_temp_car2d/logs/copy_files.txt",
+     "notebooks/run_mbd_temp_car2d/logs/source_copy_sha256.txt"
+    ],
+    "files_added_by_the_runs": "Only Python `__pycache__` directories. The list of all other files in the copy is identical before and after each run (outputs/run*/copy_files_diff.exit = 0); no `results/` directory was created.",
+    "sha256_of_files_that_run": {
+     "mbd/scripts/run_mbd.py": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+     "mbd/planners/mbd_planner.py": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+     "mbd/envs/car2d.py": "0156d9dba306d8c5423e8fdea0beca1ccd35b328b4a845f94976229b5bb38208",
+     "mbd/envs/__init__.py": "f74fb0f2d2c1f4d0341ed26d4560850f08af6559c5d9257837d0a36fb74e4e20",
+     "mbd/utils.py": "3ea0dabe674266988a463d2d6e2fe311813697e835a2955abd6b2023a4ceed75"
+    }
+   },
+   "pinned_checkout_untouched": "`git -C repo/model-based-diffusion status --porcelain --ignored` after all runs lists only the three ignored `__pycache__` directories that were there before this executor started."
+  },
+  "how_the_planner_is_imported": {
+   "finding": "run_mbd.py does not touch sys.path. It does `import mbd` (line 6) and reaches the planner as `mbd.planners.mbd_planner` (lines 52-59); `mbd/__init__.py` imports `utils, envs, planners` and `mbd/planners/__init__.py` imports `mbd_planner, path_integral`.",
+   "risk": "The project environment contains an editable install of `mbd` (site-packages/__editable__.mbd-0.0.1.pth -> repo/model-based-diffusion). Without PYTHONPATH, `import mbd` would resolve to the pinned checkout, not to the private copy (the script's own directory mbd/scripts is sys.path[0] but does not contain the package).",
+   "resolution": "Every run sets PYTHONPATH to the private copy, which precedes site-packages.",
+   "proof": {
+    "command": "heavy.sh --timeout 300 --log logs/import_check.log -- env PYTHONPATH=<copy> $PROJECT_PYTHON -c \"import mbd, mbd.planners.mbd_planner, mbd.envs.car2d, mbd.utils; print(__file__ of each) ...\" (cwd <copy>/mbd/scripts; exact text in run.sh, label import_check)",
+    "exit_status": 0,
+    "resolved": {
+     "mbd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source/mbd/__init__.py",
+     "mbd.planners.mbd_planner": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source/mbd/planners/mbd_planner.py",
+     "mbd.envs.car2d": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source/mbd/envs/car2d.py",
+     "mbd.utils": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source/mbd/utils.py"
+    },
+    "log": "notebooks/run_mbd_temp_car2d/logs/import_check.log"
+   }
+  },
+  "execution_mode": "native-command",
+  "execution_path": "notebooks/run_mbd_temp_car2d/run.sh",
+  "execution_path_sha256": "ff8d8506672c358c5894f3e782291cc6f8e697bee7ed0615fc39f03e9d3a9bd5",
+  "working_directory": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_temp_car2d/source/mbd/scripts",
+  "documented_command": "$PROJECT_PYTHON run_mbd.py --env_name car2d --algo mbd --mode temp",
+  "commands": [
+   {
+    "label": "import_check",
+    "invocation": "notebooks/run_mbd_temp_car2d/run.sh import_check",
+    "exit_status": 0,
+    "launcher_lines": "heavy.sh: start 2026-10-02T14:49:57Z MemAvailable=2270MB MemoryMax=1570MB timeout=300s gpu_used_before=1347MiB | heavy.sh: scope memory.peak=223MB oom_kills=0 | heavy.sh: end 2026-10-02T14:50:05Z exit=0 gpu_used_after=1262MiB MemAvailable=2183MB",
+    "log": "notebooks/run_mbd_temp_car2d/logs/import_check.log"
+   },
+   {
+    "label": "run1",
+    "invocation": "notebooks/run_mbd_temp_car2d/run.sh run1",
+    "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log <evidence>/outputs/run1/stdout_stderr.log -- env PYTHONPATH=<evidence>/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python run_mbd.py --env_name car2d --algo mbd --mode temp",
+    "exit_status": 0,
+    "command_wall_seconds_from_launcher_timestamps": 50,
+    "wall_seconds_including_wait_for_workspace_lock": 81.73,
+    "scope_peak_memory_mb": 473,
+    "launcher_lines": "heavy.sh: start 2026-10-02T14:50:42Z MemAvailable=2449MB MemoryMax=1749MB timeout=1500s gpu_used_before=1243MiB | heavy.sh: scope memory.peak=473MB oom_kills=0 | heavy.sh: end 2026-10-02T14:51:32Z exit=0 gpu_used_after=1333MiB MemAvailable=2411MB",
+    "log": "notebooks/run_mbd_temp_car2d/outputs/run1/stdout_stderr.log",
+    "log_sha256": "72aa963173a9c2e85e9bbfc20b92bb8ce881735eb3572aeafc723e4de8a71802"
+   },
+   {
+    "label": "run2 (replay, identical arguments)",
+    "invocation": "notebooks/run_mbd_temp_car2d/run.sh run2",
+    "command": "same as run1 with outputs/run2",
+    "exit_status": 0,
+    "command_wall_seconds_from_launcher_timestamps": 37,
+    "wall_seconds_including_wait_for_workspace_lock": 135.89,
+    "scope_peak_memory_mb": 504,
+    "launcher_lines": "heavy.sh: start 2026-10-02T14:53:24Z MemAvailable=2352MB MemoryMax=1652MB timeout=1500s gpu_used_before=1330MiB | heavy.sh: scope memory.peak=504MB oom_kills=0 | heavy.sh: end 2026-10-02T14:54:01Z exit=0 gpu_used_after=1308MiB MemAvailable=2353MB",
+    "log": "notebooks/run_mbd_temp_car2d/outputs/run2/stdout_stderr.log",
+    "log_sha256": "fd77771f002f67de24af6eede9cc1180f81500eea19b8463a4f7fbeb8d69206f"
+   },
+   {
+    "label": "compare",
+    "invocation": "env -u PYTHONPATH $PROJECT_PYTHON notebooks/run_mbd_temp_car2d/compare_runs.py (numpy only, parses the two logs)",
+    "exit_status": 0,
+    "output": "notebooks/run_mbd_temp_car2d/replay_comparison.json",
+    "output_sha256": "6b2f1d02d812b722d1e42994d2cf7924966c00f6f52e871fcca13ce39f15a480"
+   },
+   {
+    "label": "reward_floor_check (supplementary diagnostic, not a reference run)",
+    "invocation": "heavy.sh --timeout 300 --log diagnostics/reward_floor_check.log -- env PYTHONPATH=<evidence>/source $PROJECT_PYTHON diagnostics/reward_floor_check.py (cwd = evidence directory)",
+    "exit_status": 0,
+    "launcher_lines": "heavy.sh: start 2026-10-02T14:59:39Z MemAvailable=2431MB MemoryMax=1731MB timeout=300s gpu_used_before=1302MiB | heavy.sh: scope memory.peak=407MB oom_kills=0 | heavy.sh: end 2026-10-02T14:59:53Z exit=0 gpu_used_after=1297MiB MemAvailable=2218MB",
+    "log": "notebooks/run_mbd_temp_car2d/diagnostics/reward_floor_check.log"
+   },
+   {
+    "label": "ant-supplementary (not started)",
+    "invocation": "notebooks/run_mbd_temp_car2d/run.sh ant-supplementary ant 3600 (temporary driver extension, see supplementary_dense_reward_run.driver_note)",
+    "exit_status": null,
+    "note": "Launcher invoked at 2026-10-02T15:03:15Z and still waiting when the machine froze at about 15:05Z; the upstream command never started. Not a failure of the upstream script and not counted as an execution attempt."
+   }
+  ],
+  "runtime": {
+   "interpreter": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+   "python_version": "3.11.17 (main, Oct  1 2026, 20:58:47) [Clang 22.1.3 ]",
+   "packages_printed_by_import_check": {
+    "jax": "0.4.30",
+    "numpy": "1.26.4",
+    "brax": "0.10.5",
+    "tyro": "0.8.5"
+   },
+   "packages_from_reports_environment_requirements_txt": {
+    "jaxlib": "0.4.30",
+    "jax-cuda12-plugin": "0.4.30",
+    "jax-cuda12-pjrt": "0.4.30",
+    "flax": "0.8.5",
+    "tqdm": "4.66.4",
+    "matplotlib": "3.9.0",
+    "mujoco": "3.1.6",
+    "mujoco-mjx": "3.1.6",
+    "nvidia-cudnn-cu12": "9.2.0.82",
+    "nvidia-cuda-runtime-cu12": "12.5.82"
+   },
+   "device": "cuda:0",
+   "device_evidence": "`jax.devices()` = [cuda(id=0)], `jax.default_backend()` = gpu (logs/import_check.log); diagnostics/reward_floor_check.log prints device cuda:0",
+   "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, driver 581.04",
+   "jax_enable_x64": false,
+   "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+   "environment_variables_set_by_launcher": {
+    "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+    "MPLBACKEND": "Agg",
+    "PYTHONPATH": "<private copy> (login-shell value removed first)"
+   }
+  },
+  "effective_parameters": {
+   "basis": "read from the source that ran (run_mbd.py:42-64, mbd_planner.py:18-35, 64-69)",
+   "env_name": "car2d",
+   "algo": "mbd",
+   "mode": "temp",
+   "temp_sample_grid": [
+    0.01,
+    0.03,
+    0.06,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8
+   ],
+   "seed": 0,
+   "disable_recommended_params": true,
+   "not_render": true,
+   "Nsample": 2048,
+   "Hsample": 50,
+   "Ndiffuse": 100,
+   "beta0": 0.0001,
+   "betaT": 0.01,
+   "enable_demo": false,
+   "confirmation_in_log": "Eight `init sigma = 6.30e-01` lines, eight completed progress bars of 99/99 steps, and no `override temp_sample` line (that line is printed only when the recommended-parameter override is active)."
+  },
+  "seed_and_data_provenance": {
+   "seed": "Fixed in the source: seed=0 for every one of the eight planner runs (run_mbd.py:53) -> jax.random.PRNGKey(0) (mbd_planner.py:40). The CLI of run_mbd.py exposes no seed argument in this mode.",
+   "data": "No external data. The car2d environment is defined in code (mbd/envs/car2d.py). Its constructor loads the repository file mbd/assets/car2d_xref.npy (reference path for the demonstration option), which is not used in the computation because enable_demo=False.",
+   "inputs": [
+    {
+     "path": "notebooks/run_mbd_temp_car2d/source/mbd/assets/car2d_xref.npy",
+     "sha256": "8b671a267aae37d662d5b06f51bf829b11f8503e0bb05f9153bac08662bf5187",
+     "role": "loaded by Car2d.__init__, unused with enable_demo=False"
+    }
+   ]
+  },
+  "outputs": {
+   "files_written_by_upstream": [],
+   "files_written_by_upstream_evidence": "File list of the private copy (excluding __pycache__) is identical before and after each run: outputs/run1/copy_files_diff.exit = 0, outputs/run2/copy_files_diff.exit = 0; `<copy>/results` does not exist. This agrees with the source (not_render=True skips the block that writes results/<env>/mu_0ts.npy and rollout.png).",
+   "stdout_stderr_logs": [
+    {
+     "path": "notebooks/run_mbd_temp_car2d/outputs/run1/stdout_stderr.log",
+     "sha256": "72aa963173a9c2e85e9bbfc20b92bb8ce881735eb3572aeafc723e4de8a71802",
+     "bytes": 70799
+    },
+    {
+     "path": "notebooks/run_mbd_temp_car2d/outputs/run2/stdout_stderr.log",
+     "sha256": "fd77771f002f67de24af6eede9cc1180f81500eea19b8463a4f7fbeb8d69206f"
+    }
+   ],
+   "per_run_manifests": [
+    {
+     "path": "notebooks/run_mbd_temp_car2d/outputs/run1/SHA256SUMS",
+     "sha256": "123361941b69539830de95b5848a3db6ab1a48a934254906db7dc4a9c978eeb0"
+    },
+    {
+     "path": "notebooks/run_mbd_temp_car2d/outputs/run2/SHA256SUMS",
+     "sha256": "9bb5d360eeb92a996d41bfbba7345e2e92fb46c56ad6e79352a0567268b0fde6"
+    }
+   ]
+  },
+  "reference_values": {
+   "stdout_format": "`rews: [` eight float32 values in numpy print format, wrapped over two lines `]`, then `best_temp: 0.01` (two decimals)",
+   "rews_printed_block": "rews: [-1.1920929e-07 -1.1920929e-07 -1.1920929e-07 -1.1920929e-07\n -1.1920929e-07 -1.1920929e-07 -1.1920929e-07 -1.1920929e-07]",
+   "temperatures": [
+    0.01,
+    0.03,
+    0.06,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8
+   ],
+   "rewards": [
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07,
+    -1.1920929e-07
+   ],
+   "rewards_dtype": "float32 (numpy array built from eight JAX float32 scalars; x64 disabled)",
+   "best_temp": 0.01,
+   "best_temp_printed": "best_temp: 0.01",
+   "init_sigma_lines": [
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01"
+   ],
+   "progress_bars": "8 completed bars, each 99/99 steps; every `rew=` value displayed by tqdm is 0.00e+00 (854 displayed lines in run 1, 850 in run 2; tqdm shows a subset of refreshes)"
+  },
+  "replay_comparison": {
+   "method": "Second execution of the identical command (run2); both logs parsed by compare_runs.py.",
+   "rews_shape": [
+    8
+   ],
+   "rews_tokens_identical": true,
+   "numpy_array_equal": true,
+   "max_abs_diff": 0.0,
+   "best_temp_identical": true,
+   "init_sigma_lines_identical": true,
+   "exit_status_both": 0,
+   "whole_log_bytes_identical": false,
+   "whole_log_note": "Expected: the logs contain tqdm timing text (elapsed time, iterations per second).",
+   "tolerance_recommendation": "Exact equality held on this device. For the MCP test on the same device, exact comparison of the parsed values is justified by this replay; because the value is a float32 rounding residue of a reward that is zero in exact arithmetic (see degeneracy), an absolute tolerance of 1e-6 is the safer choice if the test may run on another device or XLA build.",
+   "details": "notebooks/run_mbd_temp_car2d/replay_comparison.json"
+  },
+  "degeneracy": {
+   "is_degenerate": true,
+   "summary": "All eight rewards are identical (-1.1920929e-07 = minus float32 machine epsilon). best_temp = 0.01 is only the first grid value: numpy.argmax returns index 0 on a tie (run_mbd.py:62). The sweep therefore says nothing about the temperature on car2d, and a test built on these values checks exit status, count, format and the tie rule, not a temperature dependence.",
+   "why_from_source": "car2d reward = 1 - (clip(|xy - goal|, 0, 0.2)/0.2)^2 (car2d.py:89-93): it is zero for every state farther than 0.2 from the goal. Start (-0.5, 0) and goal (0.5, 0) are separated by a U-shaped obstacle, and enable_demo=False.",
+   "measured_supporting_evidence": {
+    "script": "notebooks/run_mbd_temp_car2d/diagnostics/reward_floor_check.py (calls only upstream functions; evaluates rewards the way mbd_planner.py:179-180 does)",
+    "log": "notebooks/run_mbd_temp_car2d/diagnostics/reward_floor_check.log",
+    "exit_status": 0,
+    "get_reward_at_start_state": "-1.1920929e-07",
+    "get_reward_far_from_goal": "-1.1920929e-07",
+    "get_reward_at_goal": "1.0",
+    "mean_reward_of_a_car_that_never_moves_50_zero_actions": "-1.1920929e-07",
+    "conclusion": "The value returned for all eight temperatures is exactly the reward of a trajectory that never comes within 0.2 of the goal, that is the lowest value this environment returns. It is the same value the coordinator's feasibility probe printed for the single run (final reward = -1.19e-07)."
+   },
+   "inference_not_measured": "In mbd_planner.py:110-114, when all sample rewards are equal the standard deviation is replaced by 1 and logp0 is zero for every sample, so the weights are uniform and temp_sample does not enter the update. All displayed sample-mean rewards are 0.00e+00, which is consistent with this having happened at every step for every temperature (the eight runs would then be the same computation). Not verified step by step: tqdm displays a subset of steps, and the trajectories are not saved in this mode.",
+   "observation": "The progress bar shows the sample-mean reward as 0.00e+00 while the final evaluation prints -1.19e-07 for a reward that is zero in exact arithmetic. The two are computed by differently compiled functions (vmapped inside reverse_once vs. a single rollout). The cause of the one-epsilon difference was not investigated."
+  },
+  "figures": null,
+  "figures_note": "The command is run by upstream with not_render=True; it produces no figure.",
+  "limitations": [
+   "Degenerate sweep on car2d (see `degeneracy`): the reference values cannot show that a wrapper passes the temperature or the environment through correctly. The supplementary dense-reward run that was meant to close this gap was not attempted (see `supplementary_dense_reward_run`).",
+   "Only car2d with algo mbd was executed. No other environment produced a result.",
+   "The reference is for device cuda:0 with jax 0.4.30 in float32. The printed value is a rounding residue and may differ by about 1e-7 on another device or build.",
+   "The upstream command does not save the trajectories in this mode, so nothing beyond the eight scalars can be compared.",
+   "Scanner note confirmed by reading, not by running: an unknown --algo value is not rejected in temp mode (run_mbd.py:46-60). Not executed."
+  ],
+  "attempts": [
+   {
+    "n": 1,
+    "label": "run1",
+    "exit_status": 0,
+    "changes": "none (documented arguments, script defaults)"
+   },
+   {
+    "n": 2,
+    "label": "run2",
+    "exit_status": 0,
+    "changes": "none (replay)"
+   }
+  ],
+  "attempts_used": 2,
+  "attempts_allowed": 5,
+  "evidence_files": {
+   "driver": "notebooks/run_mbd_temp_car2d/run.sh",
+   "readme": "notebooks/run_mbd_temp_car2d/README.md",
+   "compare_script": {
+    "path": "notebooks/run_mbd_temp_car2d/compare_runs.py",
+    "sha256": "fde0b37d0c4c09042fb10c038545bc38f25275aac926b1bcfa4ba19054ef7760"
+   },
+   "diagnostic_script": {
+    "path": "notebooks/run_mbd_temp_car2d/diagnostics/reward_floor_check.py",
+    "sha256": "0ee54c75484bc38edd696054aa955f87359e70897bc67ea23ff83922530c52ad"
+   },
+   "diagnostic_log": {
+    "path": "notebooks/run_mbd_temp_car2d/diagnostics/reward_floor_check.log",
+    "sha256": "4686b97c45a90433454c87dd4fd82f6971d7712f25d2b8518fe6e5f688115ace"
+   },
+   "import_check_log": {
+    "path": "notebooks/run_mbd_temp_car2d/logs/import_check.log",
+    "sha256": "36049cb438f1ebe79f633560f2d1264f2c507c1da6427781044ad3a7f9d1a37b"
+   },
+   "source_copy_hash_list": {
+    "path": "notebooks/run_mbd_temp_car2d/logs/source_copy_sha256.txt",
+    "sha256": "9515f99e7cd86b5037cef4f83459fc23cc867aa67cbb9cebbdc77ee32865c132"
+   },
+   "supplementary_status": {
+    "path": "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/STATUS.txt",
+    "sha256": "018b33522cdc66d631606651af519ce9503d9458e9ac998f8f6e0d7ec59f8761"
+   }
+  },
+  "for_the_coordinator": [
+   "The car2d reference stands as reported (two runs, exit 0, bitwise identical, degenerate sweep).",
+   "The dense-reward supplementary run (ant) was not attempted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z. If heavy jobs are allowed again, it is still open: one run of `run_mbd.py --env_name ant --algo mbd --mode temp` from this private copy; its memory need and whether ant constructs with brax 0.10.5 are unknown.",
+   "Until then, tests of mbd_sweep_temperature can only check exit status, the count and format of the eight values, the car2d floor value and the tie rule; they cannot show a temperature dependence. The tool documentation should say so, and that best_temp is the first grid value when rewards tie.",
+   "For the test on car2d: compare the eight rewards exactly on the same device, or with an absolute tolerance of 1e-6 elsewhere."
+  ],
+  "supplementary_dense_reward_run": {
+   "status": "not attempted",
+   "reason": "heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z",
+   "requested_by": "coordinator, after the degenerate car2d sweep was reported (same assignment; single run, no replay)",
+   "requested_command": "$PROJECT_PYTHON run_mbd.py --env_name ant --algo mbd --mode temp (cwd <copy>/mbd/scripts, PYTHONPATH=<copy>, heavy.sh --timeout 3600)",
+   "what_happened": [
+    "2026-10-02T15:03:15Z: the driver invoked heavy.sh (outputs/ant-supplementary/started_utc.txt, command.txt).",
+    "heavy.sh never printed its `start` line: outputs/ant-supplementary/heavy.stderr is empty and stdout_stderr.log was never created. The launcher was still waiting for the workspace lock (or had not passed its memory gate); the upstream Python command was never started.",
+    "About 15:05Z the machine froze (coordinator's statement). At 15:11:30Z no run_mbd.py, run.sh or heavy.sh process existed.",
+    "The coordinator cancelled the run: heavy.sh now exits 75 workspace-wide. No retry was made."
+   ],
+   "partial_log_exists": false,
+   "exit_status": null,
+   "exit_status_note": "No exit status was recorded: the driver was killed with the machine before the launcher returned.",
+   "parsed_rewards": null,
+   "best_temp": null,
+   "values_note": "No value was produced. Nothing is to be read into this section as a result.",
+   "memory_before_launch": "free -m at about 15:02Z: MemAvailable 1303 MB, swap used 849 of 2048 MB. heavy.sh needs at least 1900 MB available (limit >= 1200 MB plus 700 MB), so at that level it would have refused with exit status 75.",
+   "halfcheetah_fallback": "not tried (it applied only if ant could not be constructed, which was never reached)",
+   "driver_note": "The launch used a temporary extension of run.sh with two optional arguments (environment name, timeout; defaults car2d and 1500), SHA-256 932b687c2d465c9f7e301d991c5a9b772d4370e6d383e15406050d6023effaf3, invoked as `run.sh ant-supplementary ant 3600`. After the cancellation run.sh was restored byte for byte to the file that produced the car2d reference (SHA-256 ff8d8506672c358c5894f3e782291cc6f8e697bee7ed0615fc39f03e9d3a9bd5, equal to `execution_path_sha256`).",
+   "files": {
+    "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/STATUS.txt": "018b33522cdc66d631606651af519ce9503d9458e9ac998f8f6e0d7ec59f8761",
+    "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/command.txt": "6e7792d02efae0db53a742fa84586a2803c766ebca20bf09d2e7ae9e0bec1497",
+    "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/started_utc.txt": "47ee2d2a78ecf3f2c89e78b7200d6d6fe316c501e931c384b9c86e891af77c31",
+    "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/copy_files_before.txt": "33a4e2672fbe36aea0e0ea2a62f02798e6b6718208d3499a7e2fa006a920eb37",
+    "notebooks/run_mbd_temp_car2d/outputs/ant-supplementary/heavy.stderr": "empty file (0 bytes)"
+   },
+   "ant_environment_from_source": "mbd/envs/__init__.py:30-31 builds ant with brax_envs.get_environment(env_name='ant', backend='positional'). Whether this works with brax 0.10.5 is not known from this execution."
+  },
+  "integrity_after_freeze": {
+   "checked_utc": "2026-10-02T15:11Z onwards, without starting any heavy job",
+   "outputs_run1": "sha256sum -c outputs/run1/SHA256SUMS: all files OK",
+   "outputs_run2": "sha256sum -c outputs/run2/SHA256SUMS: all files OK",
+   "private_copy": "sha256sum -c logs/source_copy_sha256.txt inside source/: all 34 files OK; no results/ directory",
+   "driver": "run.sh SHA-256 ff8d8506672c358c5894f3e782291cc6f8e697bee7ed0615fc39f03e9d3a9bd5",
+   "pinned_checkout": "git status --porcelain --ignored lists only the three ignored __pycache__ directories"
+  }
+ }
+}

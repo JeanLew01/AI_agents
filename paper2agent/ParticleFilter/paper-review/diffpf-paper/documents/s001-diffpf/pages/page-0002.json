@@ -1,0 +1,245 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and overlay; text checked against TeX (main.tex lines 766-804). Omitted running header and page number. First item 'nates the need ...' continues the word 'elimi-nates' from page 1 (join_previous=none; hyphen removed from page 1's last item); split off 'Our main contributions are summarized as follows:' as its own paragraph (new item p0002-b002a), as printed (indented new paragraph). Headings fixed: '## II. RELATED WORKS', '### A. Particle filter', '### B. Differentiable Particle Filters', '### C. Diffusion Models for Probabilistic Modeling', '## III. METHOD' (extractor had '#' and italics). Restored compound hyphens lost at line wraps: 'real-world', 'state-of-the-art', 'Sampling-Importance-Resampling'. Rewrote the inline maths of the first Method paragraph in LaTeX from TeX ($\\text{post}(\\boldsymbol{x}_t) := p(\\boldsymbol{x}_t \\mid \\boldsymbol{o}_{1:t}, \\boldsymbol{a}_{1:t})$, $\\boldsymbol{\\chi}_{t}:=\\{\\boldsymbol{x}_{t}^{(i)}\\}_{i=1}^N$; \\bm expanded to \\boldsymbol), removing <sup> damage. No floats on this page; page ends with a complete paragraph.",
+  "warnings": [
+    "Review possible header/footer: p0002-b000"
+  ],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        252.0,
+        26.0,
+        564.0,
+        33.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED JANUARY, 2026",
+      "source_class": "page-header",
+      "reason": "IEEE running header (journal name, preprint version), page furniture"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        26.0,
+        53.0,
+        32.0
+      ],
+      "markdown": "2",
+      "source_class": "page-header",
+      "reason": "Page number 2 in running header"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        80.0
+      ],
+      "markdown": "nates the need for the non-differentiable resampling step, while supporting multimodal and high-dimensional distributions.",
+      "source_class": "text",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0002-b002a",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        81.0,
+        301.0,
+        89.0
+      ],
+      "markdown": "Our main contributions are summarized as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        95.0,
+        301.0,
+        140.0
+      ],
+      "markdown": "- We introduce a differentiable filtering framework that employs diffusion models for latent states estimation. To the best of our knowledge, this is the first application of diffusion models in differentiable particle filtering.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        142.0,
+        301.0,
+        212.0
+      ],
+      "markdown": "- Our method enables high-quality, weight-free inference by implicitly modeling and sampling from the posterior distribution. This eliminates particle degeneracy and removes the need for manually designed proposals, while supporting high-dimensional, multimodal posteriors in a fully differentiable and end-to-end trainable paradigm.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        214.0,
+        301.0,
+        272.0
+      ],
+      "markdown": "- We evaluate DiffPF across a range of synthetic and real-world scenarios, covering both unimodal and multimodal distributions. Across these benchmarks, our approach achieves significant improvements over existing state-of-the-art differentiable filtering methods.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "heading",
+      "bbox": [
+        129.0,
+        286.0,
+        220.0,
+        293.0
+      ],
+      "markdown": "## II. RELATED WORKS",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        300.0,
+        117.0,
+        310.0
+      ],
+      "markdown": "### A. Particle filter",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        315.0,
+        301.0,
+        481.0
+      ],
+      "markdown": "Particle filters (PFs) are a class of sequential Monte Carlo methods widely used for recursive state estimation in nonlinear and non-Gaussian systems [8]. Classical variants, such as the Bootstrap Filter [2], follow the Sampling-Importance-Resampling framework [9], which approximates the filtering distribution with weighted particles. While theoretically general, traditional PFs often suffer from particle degeneracy—where most weights collapse to near zero—and from the difficulty of designing effective proposal distributions, especially in high-dimensional or perceptually complex environments. Various extensions [9] have been developed to mitigate these issues by improving sampling efficiency, yet they typically remain limited by the same challenges of weight collapse and proposal design in complex state spaces.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        497.0,
+        183.0,
+        506.0
+      ],
+      "markdown": "### B. Differentiable Particle Filters",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        512.0,
+        301.0,
+        579.0
+      ],
+      "markdown": "The aforementioned traditional methods often assume known system dynamics or observation models, which often do not hold in real-world scenarios [10]. Differentiable particle filters [5]–[7], [11]–[15] address this by integrating neural networks into the filtering process, enabling end-to-end learning from data.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        583.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Most DPFs model transition dynamics by mapping previous states to the next latent state using either fully connected networks [6], [7], recurrent architectures such as LSTMs and GRUs [12], [15], or fixed parametric forms with learnable noise parameters [14]. Observation models are typically implemented as neural networks that either output the parameters of a predefined distribution (e.g., the mean and variance of a Gaussian) [15] or produce unnormalized scores interpreted as pseudo-likelihoods [11]. While effective in simple scenarios, these designs are often restricted to specific distribution families and struggle to represent complex or multimodal posteriors, limiting the expressiveness of the resulting filtering distributions and motivating the need for a more flexible and general framework.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        57.0,
+        564.0,
+        306.0
+      ],
+      "markdown": "The proposal distribution, which guides particle sampling, is typically handcrafted [16], [17] or implemented as a neural network conditioned on the current observation and possibly past states. In many DPFs, the transition model is reused as the proposal, and particles are often generated deterministically via regression rather than sampling, which leads to particle degeneracy [18], reduces particle quality, and constrains the representational capacity of the filtering distribution. Although [10] proposes using normalizing flows to sample from the proposal distribution, the method remains confined to the importance sampling framework and suffers from accumulated estimation errors due to sampling from multiple distributions simultaneously. To enable gradient-based learning, DPFs must address the non-differentiability of traditional resampling operations. Several methods replace hard resampling with differentiable approximations [19], such as soft-resampling [7] and entropy-regularized optimal transport solvers [11]. While these approximations allow gradients to flow through resampling steps, they often introduce additional computational complexity or require task-specific tuning, and particle degeneracy can still persist.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        318.0,
+        508.0,
+        328.0
+      ],
+      "markdown": "### C. Diffusion Models for Probabilistic Modeling",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        333.0,
+        564.0,
+        415.0
+      ],
+      "markdown": "Generative modeling has gained increasing attention across diverse domains [20], [21]. Recent advances in generative modeling have highlighted diffusion models as effective tools for capturing intricate, multimodal distributions across a range of data types. These models operate by progressively denoising latent variables [22], [23], making them particularly adept at representing uncertainty and complex data structures.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        416.0,
+        564.0,
+        570.0
+      ],
+      "markdown": "In the domain of robotics, such approaches as Diffusion Policy [24] and NoMaD [25] have demonstrated the effectiveness of conditional diffusion models in generating action sequences by capturing the inherently multi-modal nature of action distributions [26]. Meanwhile, diffusion models have gained significant attention for their effectiveness in trajectory generation [27], [28]. Building on the success of these tasks, we explore their potential in state estimation. Existing attempts include introducing diffusion models into Kalman filters [29]. We further develop a novel sample-based framework that integrates diffusion models into differentiable particle filtering, and propose end-to-end efficient training algorithms to facilitate the filter design.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "heading",
+      "bbox": [
+        408.0,
+        580.0,
+        467.0,
+        587.0
+      ],
+      "markdown": "## III. METHOD",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        594.0,
+        564.0,
+        747.0
+      ],
+      "markdown": "In sequential inference, a Bayesian filter aims to recursively estimate the current state $\\boldsymbol{x}_t$ via the posterior distribution $\\text{post}(\\boldsymbol{x}_t) := p(\\boldsymbol{x}_t \\mid \\boldsymbol{o}_{1:t}, \\boldsymbol{a}_{1:t})$. Under the Markov assumption, all relevant information from past observations $\\boldsymbol{o}_{1:t}$ and actions $\\boldsymbol{a}_{1:t}$ is captured by the current posterior $\\text{post}(\\boldsymbol{x}_t)$. By exploiting the conditional independence of observations and actions given the latent state, the inference proceeds recursively in two steps—prediction and update step [6], [30]. As illustrated in Figure 2, our method follows this two-step Bayesian filtering procedure and represents the posterior $\\text{post}(\\boldsymbol{x}_t)$ using a set of equally weighted particles $\\boldsymbol{\\chi}_{t}:=\\{\\boldsymbol{x}_{t}^{(i)}\\}_{i=1}^N$. The remainder of this section details each component of the proposed framework.",
+      "source_class": "text"
+    }
+  ]
+}

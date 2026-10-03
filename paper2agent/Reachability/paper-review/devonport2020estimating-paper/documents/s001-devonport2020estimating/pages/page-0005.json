@@ -1,0 +1,192 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170-dpi render and two 260-dpi crops (top half to eq. (7); Theorem 2 and proof). Headings: '4. Scenario-Based Reachability with Norm Balls' ##, '4.1. Unconstrained Norm Balls' ###. Equations (6), (7), (9), (10) converted from extractor formula images to LaTeX displays with \\tag; all symbols legible, none kept as an image. Equation (8) is not on this page: it is printed inside Algorithm 1 on page 6, so the numbering here goes (6), (7), (9), (10). AUTHORS' TYPO KEPT AS PRINTED: the chance constraint of (7) is printed 'P_Z(||AZ - b||_p - 1 <= 0) <= 1 - epsilon' (outer relation '<='), confirmed in the image and in the native text layer; the intended relation is evidently '>=' (cf. (2), (3), (9)), but it was not changed. Theorem 2: the sample size inside the statement was glyph soup in the extraction and was retyped from the 260-dpi crop as N = ceil( (1/eps) (e/(e-1)) (log(1/delta) + n(n+1)/2 + n) ); checked numerically against page 7 (n = 6, eps = 0.05, delta = 1e-9 gives 1510). Theorem and proof labels in bold with the printed punctuation, i.e. none ('Theorem 2 Let ...', 'Proof If ...'); the theorem statement is printed in italics (it runs from 'Let' to display (10); the italics were not reproduced). End-of-proof square written as \\blacksquare. Grammar kept as printed ('the A and b that minimize (8) is a feasible solution'). Norm delimiters printed as '||' on this page, written \\|. X_0, U, D (italic) are the random variables and calligraphic X_0, U, D the sets, as printed.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        93.0,
+        339.0,
+        105.0
+      ],
+      "markdown": "## 4. Scenario-Based Reachability with Norm Balls",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        115.0,
+        523.0,
+        137.0
+      ],
+      "markdown": "The method presented here uses trajectory data to approximate the reachable set with a *$p$-norm ball*, that is a set of the form",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        217.0,
+        134.0,
+        527.0,
+        159.0
+      ],
+      "markdown": "$$\n\\hat{R}_{[t_0,t_1]}(A, b) = \\{x : \\|Ax - b\\|_p \\le 1\\} \\tag{6}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        161.0,
+        523.0,
+        210.0
+      ],
+      "markdown": "where $x, b \\in \\mathbb{R}^n$, $A \\in \\mathbb{R}^{n \\times n}$, and $p$ may be either any real $\\ge 1$ or $\\infty$. The class of $p$-norm balls encompasses several types of sets that are popular in reachability analysis. For instance, choosing $p = 2$ leads to the class of ellipsoids, and choosing $p = \\infty$ and restricting $A$ to be diagonal leads to the class of multidimensional intervals.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        229.0,
+        237.0,
+        238.0
+      ],
+      "markdown": "### 4.1. Unconstrained Norm Balls",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        248.0,
+        523.0,
+        312.0
+      ],
+      "markdown": "We first consider the general case, where $A$ may be any symmetric matrix. We use $-\\log\\det A$ as a proxy for the volume of $\\hat{R}_{[t_0,t_1]}(A, b)$. The value $-\\log\\det(A)$ is directly proportional to the volume of a 2-norm ball; by the equivalence of norms, it is a suitable proxy for the volume of other $p$-norm balls as well. Using this proxy, the minimum-volume $\\epsilon$-accurate reachable set problem (2) becomes",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        197.0,
+        308.0,
+        528.0,
+        354.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\arg\\min_{A,b} \\quad & -\\log\\det A \\\\\n\\text{s.t.} \\quad & P_Z(\\|AZ - b\\|_p - 1 \\le 0) \\le 1 - \\epsilon,\n\\end{aligned} \\tag{7}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        355.0,
+        523.0,
+        394.0
+      ],
+      "markdown": "where $Z$ is a random variable whose support is $R_{[t_0,t_1]}$. Since $-\\log\\det A$ and $\\|AZ - b\\|_p - 1$ are convex in $A$ and $b$, (7) is a convex chance-constrained optimization problem, meaning that it can be solved using scenario optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        397.0,
+        523.0,
+        435.0
+      ],
+      "markdown": "We use the transition function $\\Phi$ to construct a suitable $Z$. Specifically, let $X_0$, $U$, and $D$ be given random variables whose supports are the initial set, input set, and disturbance set. Then the support of the random variable $Z = \\Phi(t_1; t_0, X_0, U, D)$ is exactly the reachable set.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        437.0,
+        523.0,
+        475.0
+      ],
+      "markdown": "The approach is outlined in Algorithm 1. The output is a matrix $A$ and vector $b$ for a norm ball reachable set estimate that is $\\epsilon$-accurate with high probability with respect to $Z$. This is the probabilistic guarantee of correctness, which we formally present with Theorem 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        485.0,
+        523.0,
+        556.0
+      ],
+      "markdown": "**Theorem 2** Let $\\epsilon, \\delta \\in (0, 1)$, and let $X_0$, $U$, and $D$ be random variables over $\\mathcal{X}_0$, $\\mathcal{U}$, and $\\mathcal{D}$ respectively, and let $Z = \\Phi(t_1; t_0, X_0, U, D)$. Denote by $P_S$ the probability measure corresponding to the multisample of $N = \\left\\lceil \\frac{1}{\\epsilon} \\frac{e}{e-1} \\left( \\log\\frac{1}{\\delta} + n(n+1)/2 + n \\right) \\right\\rceil$ points taken from $X_0$, $U$, and $D$, and by $P_Z$ the probability measure corresponding to $Z$. Then the output $(A, b)$ of Algorithm 1 satisfies the following probability inequality:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        211.0,
+        561.0,
+        528.0,
+        587.0
+      ],
+      "markdown": "$$\nP_S(P_Z(\\hat{R}_{[t_0,t_1]}(A, b)) \\ge 1 - \\epsilon) \\ge 1 - \\delta; \\tag{9}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        592.0,
+        170.0,
+        602.0
+      ],
+      "markdown": "or, in other words,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        173.0,
+        608.0,
+        528.0,
+        633.0
+      ],
+      "markdown": "$$\nP_S(\\hat{R}_{[t_0,t_1]}(A, b) \\text{ is } \\epsilon\\text{-accurate with respect to } Z) \\ge 1 - \\delta. \\tag{10}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        638.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "**Proof** If $(A, b)$ is a feasible solution to (7), then $\\hat{R}_{[t_0,t_1]}(A, b)$ is by construction an $\\epsilon$-accurate estimate. Algorithm 1 finds a solution to (8), which is the scenario problem corresponding to (7). The decision variables of (7) are a symmetric $n \\times n$ real matrix and a real $n$-vector, so $n_\\theta = n(n+1)/2 + n$. The $N$ chosen in Algorithm 1 satisfies the sample bound in Theorem 1 for this $n_\\theta$. Therefore, the $A$ and $b$ that minimize (8) is a feasible solution to (7) with probability $1 - \\delta$. $\\blacksquare$",
+      "source_class": "text"
+    }
+  ]
+}

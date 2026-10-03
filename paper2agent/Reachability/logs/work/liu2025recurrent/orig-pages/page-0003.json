@@ -1,0 +1,384 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        89.0
+      ],
+      "markdown": "**Definition 4** (Extended Class _K_ Function) **.** _A function κ_ : R _→_ R _is an extended class K function if it is continuous, strictly increasing, and satisfies κ_ (0) = 0 _._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        97.0,
+        258.0,
+        107.0
+      ],
+      "markdown": "We are now ready to formally introduce CBFs.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        115.0,
+        299.0,
+        149.0
+      ],
+      "markdown": "**Definition 5** (Control Barrier Function [2]) **.** _A continuously differentiable function h_ ( _x_ ) _is a CBF for the system_ (1) _if there exists an extended class K function κ such that,_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "formula",
+      "bbox": [
+        112.0,
+        152.0,
+        304.0,
+        178.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (4)",
+      "asset_name": "formula-p0003-003"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        180.0,
+        299.0,
+        204.0
+      ],
+      "markdown": "_for all x ∈X , and where LF h_ ( _x_ ) =<sup>_<u>∂h</u>_</sup> _∂x ⊤F_ ( _x, u_ ) _, are firstorder Lie derivatives._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        214.0,
+        299.0,
+        237.0
+      ],
+      "markdown": "**Theorem 1** ( [2]) **.** _An immediate consequence of Definition 5 is that any Lipschitz-continuous controller k_ ( _x_ ) _satisfying_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "formula",
+      "bbox": [
+        84.0,
+        240.0,
+        269.0,
+        261.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (7)",
+      "asset_name": "formula-p0003-006"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        264.0,
+        299.0,
+        287.0
+      ],
+      "markdown": "_renders the set h≥_ 0 := _{x_ : _h_ ( _x_ ) _≥_ 0 _} invariant. Thus, h≥_ 0 _is, by definition, control invariant._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        294.0,
+        299.0,
+        353.0
+      ],
+      "markdown": "Thus, if such a CBF _h_ exists and _h≥_ 0 _∩Xu_ = _∅_ , all states in _h≥_ 0 can find a control signal _u ∈U_ , whose signal at any moment is in the set of _k_ ( _x_ ). That is to say for any intial state _x ∈ h≥_ 0, there exists _u ∈U_ such that _ϕ_ ( _t, x, u_ ) _∈ h≥_ 0 _, ∀t >_ 0 _,_ which means the states in _h≥_ 0 are safe [2].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        355.0,
+        299.0,
+        425.0
+      ],
+      "markdown": "Sum-of-Squares (SOS) programming is widely used to synthesize/verify polynomial CBFs, but its cost grows rapidly with system dimension [14], [15], and polynomials may poorly capture complex safety sets. Neural network CBFs improve expressivity [16], [17], [18], yet their validity is harder to certify due to limited interpretability [18].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "heading",
+      "bbox": [
+        73.0,
+        434.0,
+        280.0,
+        442.0
+      ],
+      "markdown": "# III. RECURRENT CONTROL BARRIER FUNCTION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        450.0,
+        299.0,
+        532.0
+      ],
+      "markdown": "The core idea behind ensuring safety using traditional CBFs is to construct a scalar function that makes _h≥_ 0 control invariant. Such sets can be as computationally expensive as a BRT, making CBF synthesis difficult. Leveraging recurrence, we show this explicit invariant set is unnecessary: valid RCBFs can be built from **control recurrent sets** , which relax invariance while keeping safety guarantees.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        542.0,
+        161.0,
+        550.0
+      ],
+      "markdown": "# _A. Control Recurrent Sets_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        557.0,
+        299.0,
+        603.0
+      ],
+      "markdown": "In this section, we briefly cover the definition of recurrent sets in a control systems setting, which broadly allow trajectories to leave a set, provided they come back to it. The presentation follows [10], [11], [12], particularly [12].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        611.0,
+        299.0,
+        645.0
+      ],
+      "markdown": "**Definition 6** (Control Recurrent Sets) **.** _A compact set S ⊆_ R<sup>_n_</sup> _is called_ **_control recurrent_** _w.r.t._ (1) _if, for all x ∈ S, ∃ u ∈U , such that for any t ≥_ 0 _,_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "formula",
+      "bbox": [
+        111.0,
+        648.0,
+        304.0,
+        670.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (16)",
+      "asset_name": "formula-p0003-015"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        674.0,
+        299.0,
+        696.0
+      ],
+      "markdown": "_Likewise, a set S ⊆_ R<sup>_n_</sup> _is called_ **_control_** _τ -_ **_recurrent_** _(τ >_ 0 _) w.r.t._ (1) _if, for all x ∈ S, ∃ u ∈U, such that for any t ≥_ 0 _,_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        704.0,
+        299.0,
+        735.0
+      ],
+      "markdown": "_∃ t_<sup>_′_</sup> _> t ,_ with _t_<sup>_′_</sup> _− t ∈_ (0 _, τ_ ] _,_ and _ϕ_ ( _t_<sup>_′_</sup> _, x, u_ ) _∈ S ._ (4) _We refer to such ϕ_ ( _t, x, u_ ) _as a (τ -)recurrent trajectory._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "figure",
+      "bbox": [
+        320.0,
+        45.0,
+        551.0,
+        201.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure on PDF page 3 (19)",
+      "asset_name": "figure-p0003-018"
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        202.0,
+        559.0,
+        222.0
+      ],
+      "markdown": "Fig. 1: Illustration of Recurrent Sets and Recurrent Trajectories",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0003-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        240.0,
+        559.0,
+        382.0
+      ],
+      "markdown": "As Figure 1 shows, although a _τ_ -recurrent set is not necessarily invariant, it ensures that trajectories starting in _S_ will revisit it within at most _τ_ -time units infinite times. Notably, based on the Definition 6, an invariant set is always _τ_ -recurrent for any _τ >_ 0. Additionally, a 0-recurrent set is equivalent to an invariant set. Thus, Definition 6 generalizes invariance by allowing the trajectory _ϕ_ ( _t, x, u_ ) to leave the set _S_ before returning [10]. Compared with the invariant sets, recurrent sets show a more flexible shape; it does not need the region to be connected, and it does not require the system (1) to point inwards (or at least not outwards) on all the boundary _∂S_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b021",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        391.0,
+        474.0,
+        399.0
+      ],
+      "markdown": "# _B. Recurrent Control Barrier Function_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b022",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        407.0,
+        559.0,
+        465.0
+      ],
+      "markdown": "We now move towards introducing the proposed Recurrent Control Barrier Functions. In fact, similar to [10], simply requiring trajectories to return to the set within a finite time, infinitely many times can guarantee the safety for the dynamical system.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b023",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        473.0,
+        559.0,
+        519.0
+      ],
+      "markdown": "**Definition 7** (Recurrent Control Barrier Function) **.** _Consider the control system_ (1) _. A continuous function h_ : R<sup>_n_</sup> _→_ R _is a_ **_Recurrent Control Barrier Function (RCBF)_** _if for all x ∈ D_ 0 := _h≥−c, with c >_ 0 _, ∃ u ∈U_<sup>(0</sup><sup>_,τ_]</sup> _s.t._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "formula",
+      "bbox": [
+        344.0,
+        520.0,
+        564.0,
+        549.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (25)",
+      "asset_name": "formula-p0003-024"
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        551.0,
+        450.0,
+        561.0
+      ],
+      "markdown": "_where the function γ_ : R _→_ R _>_ 0 _._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        569.0,
+        559.0,
+        627.0
+      ],
+      "markdown": "In (5) we follow the standard convention that when the sup is not achieved within the set (0 _, τ_ ] the max is _−∞_ . Thus, for the max to be lower bounded, it implies that it is achieved within (0 _, τ_ ]. A particular choice of _γ_ that will be of use throughout this paper is",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b027",
+      "kind": "formula",
+      "bbox": [
+        322.0,
+        628.0,
+        564.0,
+        657.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (28)",
+      "asset_name": "formula-p0003-027"
+    },
+    {
+      "id": "p0003-b028",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        658.0,
+        559.0,
+        704.0
+      ],
+      "markdown": "where _α_ and _β_ are positive parameters. This will be particularly useful in our converse results in Section III-C. The following theorem describes how to use RCBFs to assess safety.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b029",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        712.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "**Theorem 2** (Safety Assessment via RCBFs) **.** _Let h be an RCBF as in Definition 7. Then:_",
+      "source_class": "text"
+    }
+  ]
+}

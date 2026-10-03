@@ -1,0 +1,265 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the page render (140 dpi overlay; 280 dpi crops of the left-column maths block and of the noise paragraph) and with approach.tex/simulation.tex; prose additionally diffed with punctuation against the native text lines (only line-wrap hyphens differ). Equations (4) and (5): former formula image items changed to text items with $$...$$ LaTeX from approach.tex (macro \\vect -> \\mathbf expanded), checked symbol by symbol against the crop, numbered with \\tag{4} and \\tag{5}. TeX and PDF agree; \\vect{\\lambda} prints as a non-bold lambda and is written \\lambda. Printed forms kept unchanged: the exponent (r+s)^{2^{n/2+k}} and the transpose placed on (2\\lambda)^{-k} in the last line of (5). Inline maths rewritten in LaTeX: $n=3$, $\\mathbf{\\Sigma}$, $p_i(\\mathbf{x})$, $\\mathbf{\\Sigma}^{-\\frac{1}{2}}$, $\\lambda$, $\\mathcal{N}(diag(0, 0, 0),\\,diag(0.1, 0.1, 0.1))$, $\\mathcal{N}(0,\\,0.316)$ (\"diag\" is printed in maths italic). \"d and c parameters\" is upright text in the PDF and stays text. First item \"where $n=3$ ...\" continues the sentence after display equation (3) at the end of page 3; no join_previous is set because the preceding item is a $$ block (a join would put prose on the equation line). Join: p0004-b006 (\"1.2 meters. ...\") continues the last left-column paragraph across the column break (space). Headings: \"## IV. REAL-TIME SIMULATION STUDY\", \"### A. Simulation Setup\", \"### B. Experiment 1: Use of NanoMap History\", \"### C. Experiment 3: Noise\" (the PDF really prints \"Experiment 3\" for the second experiment; kept). Line-wrap hyphens removed: programming, experiment, controller, trajectory (twice), Positional, injected, estimation, inflation. Authors' wording kept: \"the summing a maximum of 75 terms\", \"128x85\", \"87x58\", \"30Hz\". All printed numbers in prose (100, 30Hz, 128x85, 87x58, 20, 90, 1.2, 50, 91, 15.4%, 58, 57.4%, 80, 22.5%, 0.316, 0.5, 99, 17.2%, 95, 1%, 100) checked against the page. No figures or tables on this page (Figures 2-4 are on page 5). Remaining verifier diagnostics are notation-only; see adjudication-notes/page-0004.json.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        101.0
+      ],
+      "markdown": "where $n=3$ is the number of spatial dimensions and $\\mathbf{\\Sigma}$ is the sum of the covariance of the query point and of the nearest neighbor. The probability of collision between a query point and all nearest neighbors is calculated as in [2]:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        126.5,
+        105.5,
+        300.5,
+        139.5
+      ],
+      "markdown": "$$\np(\\mathbf{x}) = 1 - \\prod_{i=1}^{K}\\left[1-p_i \\right]\n\\tag{4}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        144.0,
+        260.0,
+        154.0
+      ],
+      "markdown": "The gradient for this constraint is calculated as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        87.0,
+        158.5,
+        300.5,
+        302.5
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\nabla p(\\mathbf{x}) &= (1 - p(\\mathbf{x}))\\sum_{i=1}^{K}\\left[\\frac{\\nabla p_i(\\mathbf{x})}{1-p_i(\\mathbf{x})}\\right] \\\\\n\\nabla p_i(\\mathbf{x}) &= \\sum_{k=0}^{\\infty}\\left[(-1)^k\\nabla c_k\\frac{(r+s)^{2^{\\frac{n}{2}+k}}}{\\Gamma(\\frac{n}{2}+k+1)}\\right] \\\\\n\\nabla c_0 &= c_0\\cdot\\mathbf{\\Sigma}^{-\\frac{1}{2}}\\mathbf{b_i} \\\\\n\\nabla c_k &= \\frac{1}{k}\\sum_{j=0}^{k-1}\\left[d_{k-j}\\cdot\\nabla c_{j}+\\nabla d_{k-j}\\cdot c_{j}\\right] \\\\\n\\nabla d_k &= -\\frac{1}{2}k{(2\\lambda)^{-k}}^{T}\\mathbf{\\Sigma}^{-\\frac{1}{2}}\\mathbf{b_i}\n\\end{aligned}\n\\tag{5}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        305.0,
+        299.0,
+        389.0
+      ],
+      "markdown": "We significantly sped up these probability estimation calculations through the use of bottom up dynamic programming for the d and c parameters for each query. We found that the summing a maximum of 75 terms for $p_i(\\mathbf{x})$ was sufficient. Additionally, the assumption of a diagonal covariance matrix significantly speeds up the calculation of $\\mathbf{\\Sigma}^{-\\frac{1}{2}}$ and $\\lambda$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "heading",
+      "bbox": [
+        97.0,
+        397.0,
+        256.0,
+        405.0
+      ],
+      "markdown": "## IV. REAL-TIME SIMULATION STUDY",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        412.0,
+        137.0,
+        422.0
+      ],
+      "markdown": "### A. Simulation Setup",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        427.0,
+        299.0,
+        483.0
+      ],
+      "markdown": "We evaluated the effectiveness of our approach in an unknown map through simulation experiments. Each experiment consisted of 100 trials. A trial was considered successful if the fixed-wing navigated around the hallway without collision.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        487.0,
+        299.0,
+        581.0
+      ],
+      "markdown": "The dynamics simulator and the controller consist of custom C++ ROS nodes. The depth camera is simulated using Gazebo at 30Hz with a resolution of 128x85, field of view of 87x58 degrees, and a 20 meter sensing range. The dynamics simulator provides the Gazebo simulation with state information for the camera and generates the simulated point cloud data input to the controller. The camera is rigidly attached to the fixed-wing behind the propeller.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        583.0,
+        299.0,
+        638.0
+      ],
+      "markdown": "The map is a tight hallway with two 90 degree turns, which showcases the aerobatic post-stall maneuvers the system is required to make around buildings in urban environments. Additionally, the 90 degree turns obstruct the camera field of view.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        649.0,
+        233.0,
+        659.0
+      ],
+      "markdown": "### B. Experiment 1: Use of NanoMap History",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        664.0,
+        299.0,
+        732.0
+      ],
+      "markdown": "The first set of simulation experiments showcases the necessity of reasoning about field-of-view history. The controller was run in simulation without any prior knowledge of the map, but with perfect state information and noiseless depth data. The controller was run using the distance to obstacles constraint with a minimum distance constraint of",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        77.0
+      ],
+      "markdown": "1.2 meters. In this experiment, a cost was placed on the final state of the trajectories in lieu of a hard constraint.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        79.0,
+        559.0,
+        125.0
+      ],
+      "markdown": "NanoMap with a history of 50 point clouds was used. The system was successful in navigation to goal for 91 trials, of which only 15.4% broke the obstacle constraint, as shown in Figure 2a.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        127.0,
+        559.0,
+        254.0
+      ],
+      "markdown": "To highlight the trajectory optimizer’s use of the NanoMap measurement history in these trials, we tracked the number of queries that occurred at a point cloud history depth for each iteration during the trial. Figure 3 shows the NanoMap search depth during direct transcription across all trajectory generation iterations. Figure 4 shows the NanoMap search depth during one iteration as the fixed-wing turns a corner. For these data, it is clear that the optimizer makes use of NanoMap’s point cloud history as it performs aerobatic maneuvers that require the fixed-wing to quickly turn outside of its field of view.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        258.0,
+        559.0,
+        328.0
+      ],
+      "markdown": "Next, we performed the same simulation using only the most recent point cloud measurement instead of NanoMap’s history. When doing so, the system was only successful 58 times, of which 57.4% broke the obstacle constraint (Figure 2c). The failure case for the majority of these trials was due to the RRT global path planning failure.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        330.0,
+        559.0,
+        411.0
+      ],
+      "markdown": "Thus, to evaluate the effect of using NanoMap on trajectory generation in particular, we allowed the RRT planner to access NanoMap, but restricted the direct transcription trajectory generator to the most recent point cloud. The system was only successful in reaching the goal without collision 80 times, of which 22.5% broke the obstacle constraint (Figure 2b).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        422.0,
+        412.0,
+        431.0
+      ],
+      "markdown": "### C. Experiment 3: Noise",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        437.0,
+        559.0,
+        531.0
+      ],
+      "markdown": "The second set of simulation experiments showcases the importance of compensating for sensor uncertainty. Positional noise, $\\mathcal{N}(diag(0, 0, 0),\\,diag(0.1, 0.1, 0.1))$, was injected into the fixed-wing state to simulate state estimation noise. Noise was also injected into the depth images, $\\mathcal{N}(0,\\,0.316)$, to simulate depth camera noise. To evaluate the effects of noise only on trajectory generation, a global path to goal is provided in lieu of the RRT planner.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        533.0,
+        559.0,
+        624.0
+      ],
+      "markdown": "Three different constraints were evaluated; distance to obstacles, distance to obstacles with standard deviation inflation, and probability of collision. For the probability of collision constraint, we set a max probability of collision of 0.5 and a robot radius of 1.2 meters. For the distance to obstacles with standard deviation inflation constraint, we inflate the collision radius using the standard deviation values.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        629.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "The distance to obstacle constraint had 99 successful trials, of which only 17.2% broke the obstacle constraint (Figure 2d). The distance to obstacles with standard deviation inflation trials had 95 successful trials, of which only 1% broke the obstacle constraint (Figure 2e). The probability of collision constraint had 100 successful trials, of which only 1% broke the obstacle constraint (Figure 2f). Thus, we can conclude that explicitly taking the covariance of our state and noise into account benefits planning.",
+      "source_class": "text"
+    }
+  ]
+}

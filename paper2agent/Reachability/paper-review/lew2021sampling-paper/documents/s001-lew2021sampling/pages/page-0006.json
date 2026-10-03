@@ -1,0 +1,151 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 130 dpi render, 260 dpi zooms of the first paragraph and of equation (5) with the paragraph below it, a 200 dpi crop of Algorithm 2 / Figure 3, and the TeX source. Inline math rewritten in LaTeX from TeX and checked ($\\boldsymbol{x}_k^{M+1}\\in\\mathcal{X}_k^M$, $\\notin$, $\\mathcal{X}_k^{M+1}=\\mathcal{X}_k^M$). Equation (5) is LaTeX with the printed tag; the outer brackets, the factor $1/(M-1)$, the transpose and the inverse were checked on the zoom. As printed, the definition of $\\boldsymbol{x}_k(\\boldsymbol{z})$ below (5) ends with an unmatched extra closing parenthesis \"))\" - kept. As printed, the projection set is $\\mathcal{Z}=\\mathcal{X}_0\\times\\mathcal{U}^{k}\\times\\Theta\\times\\mathbb{W}^{k-1}$ (exponent $k$ on $\\mathcal{U}$, unlike Theorem 2) - kept. The extractor had classified the Algorithm 2 box as a heading plus an image-only table; it is now an image crop (algorithm-2, bbox [104,478,347,644], title rule to bottom rule) followed by a line-by-line LaTeX transcription (one paragraph per printed line) with the printed line numbers 1-8; lines 4-7 are the indented body of the for-loop (the printed pseudocode has no \"end for\"; indentation is rendered with &emsp;&emsp;). Printed details kept: Output is \"Particles $\\mathcal{X}_N^{n_{adv}}=\\{\\boldsymbol{x}^j\\}_{j=1}^{M\\cdot n_{adv}}$\", line 4 uses the gradient of $\\mathcal{L}^M$ evaluated at $\\boldsymbol{x}^j_{1:N}$, stepsize is bold $\\boldsymbol{\\eta}$. Figure 3 crop [362,474,501,558] checked (both labels (randUP) and (robUP!) inside). Restored the hyphen in \"learning-based\" dropped at a line wrap. The Section 5 paragraph continues on page 7.",
+  "warnings": [
+    "Table p0006-b006 needs cell review; image fallback is available."
+  ],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "heading",
+      "bbox": [
+        108,
+        73,
+        425,
+        85
+      ],
+      "markdown": "## 4 Adversarial Sampling for Robust Uncertainty Propagation"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        107,
+        97,
+        505,
+        282
+      ],
+      "markdown": "The accuracy of the reachable set approximation depends on the realization of the sampled parameters $\\boldsymbol{z}^j=(\\boldsymbol{x}_0^j,\\boldsymbol{u}^j,\\boldsymbol{\\theta}^j,\\boldsymbol{w}^j)$. For instance, a sample $\\boldsymbol{z}^{M+1}$ for which $\\boldsymbol{x}_k^{M+1}\\in\\mathcal{X}_k^M$ results in the same convex hull $\\mathcal{X}_k^{M+1}=\\mathcal{X}_k^M$ and is not informative. This motivates choosing new parameters for which $\\boldsymbol{x}_k^{M+1}\\notin\\mathcal{X}_k^M$. This parallels robust classification and adversarial attacks of neural networks [34, 35, 36]. Indeed, the approximate reachable set $\\mathcal{X}_k^M$ can be interpreted as a classifier of the reachable states, and new samples satisfying $\\boldsymbol{x}_k^{M+1}\\notin\\mathcal{X}_k^M$ as adversarial examples. The objective then consists of obtaining a robust classifier of the reachable set. Adversarial examples for deep neural network classifiers are often found by slightly perturbing inputs to cause drastic changes in the associated predictions. For such parametric models, the training loss explicitly depends on the possibly perturbed input. In contrast, our decision boundary is implicitly defined as a polytope around the sampled points $\\boldsymbol{x}^j$, instead of as a parametric function of $\\boldsymbol{z}^j$. Thus, even if a loss function was available for our problem, computing its gradient at any $\\boldsymbol{z}$ to find adversarial examples is challenging. Moreover, defining a loss function is not trivial; the Hausdorff distance between the approximate and the true reachable sets would be difficult to evaluate since no ground truth of the reachable set is available. In computer vision, the Chamfer distance [37] or local signed distance functions [38, 39, 40] are used for 3D set reconstruction, but such methods typically discretize the state space and thus do not scale well to high-dimensional systems."
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "text",
+      "bbox": [
+        107,
+        288,
+        505,
+        320
+      ],
+      "markdown": "With these analogies and challenges in mind, we propose an algorithm which consists of incrementally sampling new parameters $\\boldsymbol{z}$ for which the resulting states lie outside the convex hull of the previous samples. Specifically, we search for new parameters which maximize the metric"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "text",
+      "bbox": [
+        110,
+        321,
+        510,
+        362
+      ],
+      "markdown": "$$\\mathcal{L}^M(\\boldsymbol{z}) = \\frac{1}{N}\\sum_{k=1}^N \\|\\boldsymbol{x}_k(\\boldsymbol{z})-\\boldsymbol{c}_k^M \\|_{\\boldsymbol{Q}_k^M}^2, \\ \\text{with}\\ \\boldsymbol{Q}_k^M=\\Big(\\frac{1}{M-1}\\sum_{j=1}^M \\big(\\boldsymbol{x}_k^j-\\boldsymbol{c}_k^M\\big)\\big(\\boldsymbol{x}_k^j-\\boldsymbol{c}_k^M\\big)^T \\Big)^{-1}, \\tag{5}$$"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        107,
+        362,
+        505,
+        473
+      ],
+      "markdown": "where $\\boldsymbol{c}_k^M$ is the geometric center of $\\mathcal{X}_k^M$ computed previously with $\\{\\boldsymbol{x}_k^j\\}_{j=1}^M$, $\\boldsymbol{Q}_k^M$ are positive definite matrices, and $\\boldsymbol{x}_k(\\boldsymbol{z})=\\boldsymbol{f}(\\cdot, \\boldsymbol{u}_{k-1}, \\boldsymbol{\\theta}, \\boldsymbol{w}_{k-1})\\circ\\dots\\circ\\boldsymbol{f}(\\boldsymbol{x}_0, \\boldsymbol{u}_0, \\boldsymbol{\\theta}, \\boldsymbol{w}_0))$. Although we take the mean over multiple time steps, it is also possible to assign different time steps for different samples, but this yields minimal differences in practice. We propose to maximize (5) using Projected Gradient Ascent (PGA), and outline the algorithm in Algorithm 2. As the speed of convergence of PGA depends on the condition number of the Hessian of the objective function [41], we choose $\\boldsymbol{Q}_k^M$ as the inverse of the covariance matrix of $\\{\\boldsymbol{x}_k^j\\}_{j=1}^M$, which also provides a simple method to weigh the different dimensions of the state trajectory. The projection step of the parameters onto $\\mathcal{Z}=\\mathcal{X}_0\\times\\mathcal{U}^{k}\\times\\Theta\\times\\mathbb{W}^{k-1}$ can be efficiently computed for common compact sets used for learning-based control applications (e.g., rectangular and ellipsoidal sets [42])."
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "figure",
+      "bbox": [
+        104,
+        478,
+        347,
+        644
+      ],
+      "markdown": "",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        108,
+        484,
+        337,
+        494
+      ],
+      "markdown": "**Alg. 2. Robust UP using Adversarial Sampling (robUP!)**\n\n**Input**: Sampled parameters $\\{\\boldsymbol{z}^j\\}_{j=1}^M=(\\boldsymbol{x}_0^j,\\boldsymbol{u}^j,\\boldsymbol{\\theta}^j,\\boldsymbol{w}^j)_{j=1}^M$\n\n**Parameters**: Stepsize $\\boldsymbol{\\eta}$, nb. iters. $n_{\\mathrm{adv}}$\n\n**Output**: Particles $\\mathcal{X}_N^{n_{\\mathrm{adv}}}=\\{\\boldsymbol{x}^j\\}_{j=1}^{M\\cdot n_{\\mathrm{adv}}}$\n\n1: $\\boldsymbol{x}^j_{1:N}\\gets \\mathrm{Propagate}(\\boldsymbol{z}^j)$, $\\quad j=1,\\ldots,M$\n\n2: $\\mathcal{X}_N^0=\\{\\boldsymbol{x}^j_{1:N}\\}_{j=1}^M$\n\n3: **for** $i=1,\\dots,n_{\\mathrm{adv}}$ **do**\n\n4: &emsp;&emsp; $\\boldsymbol{z}^j \\gets \\boldsymbol{z}^j + \\boldsymbol{\\eta}\\, \\nabla_{\\boldsymbol{z}} \\mathcal{L}^M(\\boldsymbol{x}^j_{1:N})$, $\\quad j=1,\\ldots,M$\n\n5: &emsp;&emsp; $\\boldsymbol{z}^j \\gets \\mathrm{Proj}_{\\mathcal{Z}}(\\boldsymbol{z}^j)$, $\\quad j=1,\\ldots,M$\n\n6: &emsp;&emsp; $\\boldsymbol{x}^j_{1:N}\\gets \\mathrm{Propagate}(\\boldsymbol{z}^j)$, $\\quad j=1,\\ldots,M$\n\n7: &emsp;&emsp; $\\mathcal{X}_N^i\\gets\\mathcal{X}_N^{i-1}\\cup\\{\\boldsymbol{x}^j_{1:N}\\}_{j=1}^M$\n\n8: **return** $\\mathrm{Co}\\big(\\mathcal{X}_N^{n_{\\mathrm{adv}}}\\big)$"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "figure",
+      "bbox": [
+        362,
+        474,
+        501,
+        558
+      ],
+      "markdown": "",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "caption",
+      "bbox": [
+        357,
+        559,
+        508,
+        638
+      ],
+      "markdown": "**Figure 3:** By varying $\\boldsymbol{x}_0$, $\\boldsymbol{u}$, $\\boldsymbol{\\theta}$, and $\\boldsymbol{w}$ along the gradient of $\\mathcal{L}(\\cdot)$ using projected gradient ascent, (**robUP!**) provides a simple and efficient sampling scheme which robustifies (**randUP**) by finding adversarial parameter samples. This figure shows the effect of a single adversarial step on a uncertain system subject to disturbances."
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "heading",
+      "bbox": [
+        107,
+        650,
+        412,
+        662
+      ],
+      "markdown": "## 5 Leveraging System-Specific Properties and Applications"
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "text",
+      "bbox": [
+        107,
+        669,
+        505,
+        723
+      ],
+      "markdown": "Despite minimal assumptions about the system, we derived an asymptotic convergence guarantee for our method in Theorem 2 using random set theory. Stronger guarantees can be derived with additional assumptions. Firstly, if the reachable sets are convex, our method is guaranteed to always provide inner approximations for any finite number of samples, and our tool can be immediately used for falsification [43]. This is the case for any convex dynamical system and uncertainty sets, e.g., for"
+    },
+    {
+      "id": "p0006-b011",
+      "kind": "omit",
+      "bbox": [
+        296,
+        740,
+        316,
+        753
+      ],
+      "markdown": "",
+      "reason": "Page number \"6\" in the footer."
+    }
+  ]
+}

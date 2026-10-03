@@ -1,0 +1,167 @@
+{
+  "page": 15,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0015.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 130 dpi render, two 230 dpi zooms covering the whole text block, and the TeX source. Headings \"### C.2 Neural network experiment and comparisons\" and \"## D Robust Trajectory Optimization with Sampling-based Convex Hulls\"; the run-in paragraph titles (Neural network training, Randomization, Computation time, Lipschitz method, Volume computation, Problem formulation) are bold run-in labels as printed. The Randomization paragraph was glyph soup in the extraction and is rebuilt from TeX; every number was checked on the zoom: $B=100$, Unif(-5,5), Unif(-1,1), $10^{-3}\\mathrm{diag}([10,10,2,2])$, Unif(-0.4,0.4), Unif(-0.02,0.02), Unif(-0.1,0.1), Unif(-0.005,0.005); upright bold p, v there versus bold-italic p, v in the Lipschitz-method paragraph, as printed. Training numbers checked: 2 hidden layers of width 128, $B=20$, weight $10^{-6}$, learning rate 0.02, decay $(1-10^{-6})$, 10k steps, loss $10^{-7}$, 20 timesteps. Computation time: the method labels with superscripts 1k, 3k, 10k and (robUP!) with superscript 1k and subscript 1, times (9,28,120,648) ms. Equations (17) and (18) are LaTeX with printed tags; (17) is transcribed as printed with $\\Gamma(n/2+2)$ in the denominator (also in the TeX; the standard ellipsoid-volume formula has $\\Gamma(n/2+1)$ - not corrected). \"(see C)\" and \"In average\" as printed. \"Volume computation ... in closed form as\" was missing from the extraction (hidden under a formula image) and is restored. The extractor merged the two paragraphs of \"Problem formulation\"; split as printed. The last sentence continues on page 16.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0015-b000",
+      "kind": "heading",
+      "bbox": [
+        108,
+        75,
+        326,
+        85
+      ],
+      "markdown": "### C.2 Neural network experiment and comparisons"
+    },
+    {
+      "id": "p0015-b001",
+      "kind": "text",
+      "bbox": [
+        108,
+        95,
+        505,
+        246
+      ],
+      "markdown": "**Neural network training** To simplify training, aid generalization, and simplify comparisons with the Lipschitz-based method (see C), we decompose the dynamics as $\\boldsymbol{x}_{k+1}=\\boldsymbol{f}(\\boldsymbol{x}_k,\\boldsymbol{u}_k)=\\boldsymbol{h}(\\boldsymbol{x}_k)+\\boldsymbol{g}(\\boldsymbol{x}_k,\\boldsymbol{u}_k)$, where $\\boldsymbol{h}(\\boldsymbol{x}_k)=\\boldsymbol{x}_k$ is a known nominal term which captures prior knowledge about the system, and $\\boldsymbol{g}$ is unknown and needs to be learned by the neural network. We opt for a feed-forward network architecture with $2$ hidden layers of width $128$ each, with $\\tanh(\\cdot)$ activation functions. To train the neural network, we re-sample states and controls at each training step as described in the next section, giving rise to the tuples $\\{(\\boldsymbol{x}_k,\\boldsymbol{u}_k,\\boldsymbol{x}_{k+1})^b\\}_{b=1}^B$. We use a single-step quadratic loss $\\sum_{b=1}^B \\|\\boldsymbol{x}_{k+1}^b-\\boldsymbol{g}(\\boldsymbol{x}_k^b,\\boldsymbol{u}_k^b)\\|_2^2$, a batch size $B=20$, and include standard $L_2$-regularization with weight $10^{-6}$. All code is written using PyTorch [46], and the model is trained using *Adam* [48], with an initial learning rate of $0.02$, and a decay factor of $(1-10^{-6})$ every gradient descent step. After 10k training steps, the model achieves a loss of around $10^{-7}$ on the validation dataset. We perform further validation through multi-steps rollouts of the system (over 20 timesteps). By adopting a model architecture which leads to minimal error, we are able to compare the reachable sets of the true linear system with those of the neural network, and evaluate volume coverage."
+    },
+    {
+      "id": "p0015-b002",
+      "kind": "text",
+      "bbox": [
+        107,
+        259,
+        505,
+        332
+      ],
+      "markdown": "**Randomization** To provide comparisons of volume coverage, we perform $B = 100$ experiments where we randomize initial states $\\boldsymbol{x}_0^b \\in \\mathcal{X}_0 = \\mathcal{B}(\\boldsymbol{\\mu}_0,\\boldsymbol{Q}_0)$ and open-loop control trajectories $\\boldsymbol{u}^b = (\\boldsymbol{u}_0^b,\\ldots,\\boldsymbol{u}_{N-1}^b)$, $b = 1,\\ldots,B$. We sample $\\boldsymbol{\\mu}_0^b = (\\mathbf{p}_0^b,\\mathbf{v}_0^b)$ with $\\mathbf{p}_{0,i}^b\\sim\\mathrm{Unif}(-5,5)$, $\\mathbf{v}_{0,i}^b\\sim\\mathrm{Unif}(-1,1)$, and constant $\\boldsymbol{Q}_0^b=10^{-3}\\mathrm{diag}([10,10,2,2])$. We sample controls as $\\boldsymbol{u}_k^b=\\bar{\\boldsymbol{u}}^b+\\delta\\boldsymbol{u}_k^b$ with $\\bar{\\boldsymbol{u}}^b_i\\sim\\mathrm{Unif}(-0.4,0.4)$ and $\\delta\\boldsymbol{u}_{k,i}^b\\sim\\mathrm{Unif}(-0.02,0.02)$ for neural network training, and with $\\bar{\\boldsymbol{u}}^b_i\\sim\\mathrm{Unif}(-0.1,0.1)$ and $\\delta\\boldsymbol{u}_{k,i}^b\\sim\\mathrm{Unif}(-0.005,0.005)$ for evaluation in Figure 5."
+    },
+    {
+      "id": "p0015-b003",
+      "kind": "text",
+      "bbox": [
+        107,
+        344,
+        505,
+        386
+      ],
+      "markdown": "**Computation time** In average, for this neural network, ( (**randUP**)$^{1\\mathrm{k}}$, ($\\cdot$)$^{3\\mathrm{k}}$, ($\\cdot$)$^{10\\mathrm{k}}$, (**robUP!**)$^{1\\mathrm{k}}_{1}$ ) require (9,28,120,648) ms on a laptop with an i7-6700 CPU (2.60GHz) and 8GB of RAM. We did not optimize our implementation. Performing operations in parallel and using a GPU would further accelerate both methods."
+    },
+    {
+      "id": "p0015-b004",
+      "kind": "text",
+      "bbox": [
+        107,
+        401,
+        505,
+        445
+      ],
+      "markdown": "**Lipschitz method** In our experiments, we use $\\boldsymbol{h}(\\boldsymbol{x})=\\boldsymbol{x}$, and train a neural network to represent $\\boldsymbol{g}(\\boldsymbol{x},\\boldsymbol{u})$. To reduce conservatism in our comparisons, we use the Lipschitz constant of the true linear system $\\boldsymbol{x}_k = (\\boldsymbol{p}_k,\\boldsymbol{v}_k) \\in \\mathbb{R}^4$, $\\boldsymbol{u}_k \\in \\mathbb{R}^2$, $\\boldsymbol{p}_{k+1} = \\boldsymbol{p}_k + \\boldsymbol{v}_k$, and $\\boldsymbol{v}_{k+1} = \\boldsymbol{v}_k + \\boldsymbol{u}_k$, which are given as $L_{g_i}=1$ for $i=1,2$, and $L_{g_i}=0$ for $i=3,4$."
+    },
+    {
+      "id": "p0015-n01",
+      "kind": "text",
+      "bbox": [
+        108,
+        457,
+        505,
+        480
+      ],
+      "markdown": "**Volume computation** Finally, the volume of the ellipsoidal sets $\\mathcal{B}(\\boldsymbol{\\mu},\\boldsymbol{Q})$ are computed in closed form as"
+    },
+    {
+      "id": "p0015-b005",
+      "kind": "text",
+      "bbox": [
+        230,
+        470,
+        510,
+        500
+      ],
+      "markdown": "$$\\mathrm{Vol}(\\mathcal{B}(\\boldsymbol{\\mu},\\boldsymbol{Q})) = \\frac{\\pi^{n/2}}{\\Gamma(n/2 + 2)}\\frac{1}{\\sqrt{\\mathrm{det}(\\boldsymbol{Q}^{-1})}}, \\tag{17}$$"
+    },
+    {
+      "id": "p0015-b006",
+      "kind": "text",
+      "bbox": [
+        108,
+        502,
+        347,
+        513
+      ],
+      "markdown": "where $\\Gamma(\\cdot)$ is the standard gamma function of calculus [49]."
+    },
+    {
+      "id": "p0015-b007",
+      "kind": "heading",
+      "bbox": [
+        108,
+        529,
+        475,
+        541
+      ],
+      "markdown": "## D Robust Trajectory Optimization with Sampling-based Convex Hulls"
+    },
+    {
+      "id": "p0015-b008",
+      "kind": "text",
+      "bbox": [
+        108,
+        553,
+        505,
+        585
+      ],
+      "markdown": "**Problem formulation** This section proposes a method to perform (approximately) robust trajectory optimization using sampling-based reachability analysis, and sequential convex programming (SCP). Specifically, we extend the method presented in [8] to leverage sampling-based convex hulls."
+    },
+    {
+      "id": "p0015-n02",
+      "kind": "text",
+      "bbox": [
+        108,
+        590,
+        505,
+        678
+      ],
+      "markdown": "In the following, we use the same assumptions and notations outlined in Section 2. The goal consists of computing an open-loop trajectory $(\\boldsymbol{x}_{0:N},\\boldsymbol{u}_{0:N-1})$ which satisfies all constraints $(\\boldsymbol{x}_k\\in\\mathcal{X}_{\\text{free}},\\boldsymbol{u}_k\\in\\mathcal{U})$, for any bounded uncertain parameter $\\boldsymbol{\\theta}\\in\\Theta$ and disturbances $\\boldsymbol{w}_k\\in\\mathbb{W}$. The initial state $\\boldsymbol{x}_0$ is uncertain and lies within a known initial bounded set $\\mathcal{X}_0$, and the final state $\\boldsymbol{x}_N$ should lie within the final goal region $\\mathcal{X}_{\\text{goal}}$. The trajectory should minimize the step and final cost functions $l:\\mathcal{X}\\times\\mathcal{U}\\rightarrow\\mathbb{R}, \\ l_f:\\mathcal{X}\\rightarrow\\mathbb{R}$ (e.g., fuel consumption, and final velocity). To make this problem tractable, given a sequence of control inputs $\\boldsymbol{u} = (\\boldsymbol{u}_0,\\ldots,\\boldsymbol{u}_{N-1})$, we define the nominal trajectory $\\boldsymbol{\\mu} = (\\boldsymbol{\\mu}_0,\\ldots,\\boldsymbol{\\mu}_N)$, from a fixed $\\boldsymbol{\\mu}_0 \\in \\mathcal{X}_0$, as"
+    },
+    {
+      "id": "p0015-b009",
+      "kind": "text",
+      "bbox": [
+        204,
+        678,
+        509,
+        700
+      ],
+      "markdown": "$$\\boldsymbol{\\mu}_{k+1}=\\boldsymbol{f}(\\boldsymbol{\\mu}_k,\\boldsymbol{u}_k,\\bar{\\boldsymbol{\\theta}},\\bar{\\boldsymbol{w}}_k), \\quad \\bar{\\boldsymbol{\\theta}}\\in\\Theta, \\ \\ \\bar{\\boldsymbol{w}}_k\\in\\mathbb{W}, \\tag{18}$$"
+    },
+    {
+      "id": "p0015-b010",
+      "kind": "text",
+      "bbox": [
+        108,
+        700,
+        505,
+        724
+      ],
+      "markdown": "where $\\bar{\\boldsymbol{\\theta}}$ and $\\bar{\\boldsymbol{w}}_k$ are fixed nominal parameters and disturbances. Given this nominal trajectory, we aim to minimize the cost of the nominal trajectory $\\sum_{k=0}^{N-1} l(\\boldsymbol{\\mu}_k, \\boldsymbol{u}_k)+l_f(\\boldsymbol{\\mu}_N)$, subject to all"
+    },
+    {
+      "id": "p0015-b011",
+      "kind": "omit",
+      "bbox": [
+        296,
+        740,
+        316,
+        753
+      ],
+      "markdown": "",
+      "reason": "Page number \"15\" in the footer."
+    }
+  ]
+}

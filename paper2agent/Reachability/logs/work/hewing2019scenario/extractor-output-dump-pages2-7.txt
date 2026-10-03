@@ -1,0 +1,338 @@
+=== PAGE 2
+p0002-b000 heading [51, 60, 561, 93] section-header 
+    # **Scenario-based Probabilistic Reachable Sets for Recursively Feasible Stochastic Model Predictive Control**
+p0002-b001 text [222, 107, 390, 118] text 
+    Lukas Hewing, Melanie N. Zeilinger
+p0002-b002 text [48, 153, 301, 282] text 
+    **_Abstract_ —This paper presents a stochastic model predictive control approach (MPC) for linear discrete-time systems subject to unbounded and correlated additive disturbance sequences, which makes use of the** **_scenario approach_ for offline computation of probabilistic reachable sets. These sets are used in a tubebased MPC formulation, resulting in low computational requirements. Using a recently proposed MPC initialization scheme and nonlinear tube controllers, we provide recursive feasibility and closed-loop chance constraint satisfaction, as well as** **_hard_ input constraint guarantees, which are typically challenging in tube-based formulations with unbounded noise. The approach is demonstrated in simulation for the control of an overhead crane system.**
+p0002-b003 text [48, 289, 301, 308] text 
+    **_Index Terms_ —Predictive control for linear systems; Constrained control; Stochastic optimal control**
+p0002-b004 heading [135, 328, 214, 336] section-header 
+    ## I. INTRODUCTION
+p0002-b005 text [48, 344, 301, 665] text 
+    Stochastic MPC techniques can be broadly classified into _analytic approximation_ , and _randomized_ formulations [1]. _Analytic approximation_ formulations rely on distributional information, e.g. disturbance mean and variance, to formulate a (conservative) approximation of the chance constrained optimal control problem. Many closed-loop properties such as convergence, recursive feasibility and closed-loop chance constraint satisfaction can be established with these approaches for linear systems, both for bounded (e.g. [2], [3], [4]) and unbounded additive disturbances (e.g. [5], [6], [7]). They typically rely on specific disturbance distributions, in particular the Gaussian distribution, or are subject to considerable conservatism, e.g. by making use of Chebyshev-type bounds. The treatment of _hard_ input constraints presents a challenge under unbounded noise, since the methods usually rely on linear tube controllers to reduce uncertainty in the prediction. _Randomized_ approaches, on the other hand, rely on disturbance samples or _scenarios_ and make use of guarantees from scenario optimization [8], [9]. This offers great flexibility and applicability to a wide class of problems, with the additional benefit that no disturbance distribution has to be known, provided that samples can be obtained. The approaches are, however, typically computationally intensive and closed-loop properties are not well-established. In particular, recursive feasibility guarantees are often not provided [10], [11], [12], or established for soft constraints [13], compromising closedloop chance constraint satisfaction guarantees.
+p0002-b006 text [48, 667, 301, 701] text 
+    This paper presents a stochastic MPC scheme that combines properties of both _analytic approximation_ and _randomized_ approaches, by using scenarios for offline computation of
+p0002-b007 text [48, 713, 301, 730] text 
+    This work was supported by the Swiss National Science Foundation under grant no. PP00P2 157601 / 1.
+p0002-b008 text [48, 731, 301, 748] text 
+    The authors are members of the Institute for Dynamic Systems and Control, ETH Zurich. [lhewing|mzeilinger]@ethz.ch
+p0002-b009 text [311, 153, 564, 376] text 
+    probabilistic reachable sets (PRS). These take a similar role to error tubes in tube-based MPC, keeping the online computational complexity of the approach comparable to nominal MPC. For the case of bounded independent and identically distributed (i.i.d.) multiplicative uncertainty, a related approach was presented in [14], which similarly samples scenarios offline and guarantees feasibility through a first step constraint and computation of a control invariant set. In contrast, we guarantee recursive feasibility and closed-loop chance constraint satisfaction based on an MPC initialization introduced in [7], enabling the treatment of unbounded non-i.i.d. additive disturbances. Compared to _analytic approximation_ methods, the proposed approach facilitates handling a wide variety of disturbance classes by requiring only access to samples of the disturbance sequence. In addition, the scenario-based tube computation allows for the use of nonlinear tube controllers, in particular controllers with limited control authority, enabling the treatment of hard input constraints also under unbounded disturbances.
+p0002-b010 text [311, 380, 564, 484] text 
+    The paper is organized as follows: In Section II we present the problem formulation and state definitions for PRS, as well as results from scenario optimization. Using the PRS definitions, we present the resulting recursively feasible stochastic MPC approach in Section III. The specific scenario-based computation of PRS is shown in Section IV, enabling the treatment of hard input constraints. We demonstrate the approach in simulation on an overhead crane in Section V and conclude in Section VI.
+p0002-b011 heading [396, 506, 480, 514] section-header 
+    ## II. PRELIMINARIES
+p0002-b012 heading [311, 524, 413, 532] section-header 
+    ## _A. Problem Formulation_
+p0002-b013 text [321, 541, 497, 551] text 
+    We consider a linear time-invariant system
+p0002-b014 formula [343, 556, 569, 577] formula {'label': 'Formula on PDF page 2 (15)', 'asset_name': 'formula-p0002-014'}
+    
+p0002-b015 text [311, 582, 564, 653] text 
+    with state _x_ ( _k_ ) _∈_ R<sup>_n_</sup> and input _u_ ( _k_ ) _∈_ R<sup>_nu_</sup> . The system is subject to additive disturbances taking values in R<sup>_n_</sup> , which we split into a known part in a compact set _w_ ¯( _k_ ) _∈ W_<sup>¯</sup> (e.g. a known mean) and a stochastic component _w_ ( _k_ ). Introducing this distinction facilitates the design of tube controllers, which can be carried out with respect to _w_ ( _k_ ).
+p0002-b016 text [311, 655, 564, 749] text 
+    The goal is to control this system for large, but finite, run times _N_<sup>¯</sup> , where we assume the stochastic disturbance sequence to be distributed according to _W_ = [ _w_ (0)<sup>T</sup> _, . . . , w_ ( _N_<sup>¯</sup> )<sup>T</sup> ]<sup>T</sup> _∼ Q_ . We consider general non-i.i.d. disturbance sequences with potentially unbounded support, such that at each time step _w_ ( _k_ ) can take values in all of R<sup>_n_</sup> . While the distribution does not need to be known, we assume access to samples of the (conditional) disturbance sequence. The system is subject to
+=== PAGE 3
+p0003-b000 text [48, 57, 301, 79] text 
+    a collection of _nc_ chance constraints on the states and hard constraints on the inputs
+p0003-b001 formula [78, 81, 306, 103] formula {'label': 'Formula on PDF page 3 (2)', 'asset_name': 'formula-p0003-001'}
+    
+p0003-b002 formula [93, 97, 306, 118] formula {'label': 'Formula on PDF page 3 (3)', 'asset_name': 'formula-p0003-002'}
+    
+p0003-b003 text [48, 120, 301, 179] text 
+    where _X_<sup>_j_</sup> _⊆_ R<sup>_n_</sup> and _U ⊆_ R<sup>_nu_</sup> and the probabilities are with respect to a known initial state _x_ (0). We consider the objective of minimizing the expected value of a general timevarying cost function _lk_ ( _x_ ( _k_ ) _, u_ ( _k_ )) resulting in a finite-time stochastic optimal control problem.
+p0003-b004 text [48, 183, 301, 266] text 
+    _Remark_ 1 _._ The assumption of finite _N_<sup>¯</sup> is particularly relevant for open-loop unstable systems in the context of constraint (2a), which cannot be satisfied under unbounded disturbances with _any_ bounded control law as _N_<sup>¯</sup> _→∞_ [15]. In practice, _U_ is often large w.r.t. likely disturbance realizations, and the problem is well defined with finite _N_<sup>¯</sup> also for unstable systems.
+p0003-b005 text [48, 271, 301, 376] text 
+    In this paper, we present an MPC approach to approximate the solution of the optimal control problem by repeatedly solving a simplified problem over a smaller horizon _N ≪ N_<sup>¯</sup> in such a way that the closed-loop system satisfies constraints (2). To this end, we split the system dynamics (1) into a nominal part _z_ ( _k_ ) and error _e_ ( _k_ ) such that _x_ ( _k_ ) = _z_ ( _k_ ) + _e_ ( _k_ ). Correspondingly, the input is divided into a nominal input _v_ ( _k_ ) and a tube controller _π_ tube with _u_ ( _k_ ) = _v_ ( _k_ ) + _π_ tube( _e_ ( _k_ )), resulting in the decoupled dynamics
+p0003-b006 formula [85, 379, 306, 400] formula {'label': 'Formula on PDF page 3 (7)', 'asset_name': 'formula-p0003-006'}
+    
+p0003-b007 formula [86, 394, 306, 415] formula {'label': 'Formula on PDF page 3 (8)', 'asset_name': 'formula-p0003-007'}
+    
+p0003-b008 text [48, 418, 301, 500] text 
+    with initial condition _z_ (0) = _x_ (0), _e_ (0) = 0. Differently to many other tube-based methods, we formulate the MPC problem such that (3) remains valid also in closed-loop under the MPC control law, as detailed in Section III. For constraint tightening, we therefore make use of the concept of probabilistic reachable sets (PRS) for the error system (3b), as outlined in the following.
+p0003-b009 heading [48, 518, 180, 526] section-header 
+    # _B. Probabilistic Reachable Sets_
+p0003-b010 heading [58, 533, 258, 543] section-header 
+    # We recall the definitions of PRS as given in [7].
+p0003-b011 text [48, 549, 301, 585] text 
+    **Definition 1** ( _k_ -step PRS) **.** A set _Rk_ with 0 _≤ k ≤ N_<sup>¯</sup> is a _k_ -step probabilistic reachable set ( _k_ -step PRS) of probability level _p_ for system (3b) initialized at _e_ (0) if
+p0003-b012 formula [116, 588, 233, 609] formula {'label': 'Formula on PDF page 3 (13)', 'asset_name': 'formula-p0003-012'}
+    
+p0003-b013 text [48, 612, 301, 644] text 
+    **Definition 2** (PRS) **.** A set _R_ is a probabilistic reachable set (PRS) of probability level _p_ for system (3b) initialized at _e_ (0) if
+p0003-b014 formula [88, 642, 261, 663] formula {'label': 'Formula on PDF page 3 (15)', 'asset_name': 'formula-p0003-014'}
+    
+p0003-b015 text [48, 667, 301, 749] text 
+    Note that the probability bound in the definition of a PRS holds at all time steps individually, i.e. it guarantees _e_ ( _k_ ) to lie in _R_ with probability _p_ at each time step _k_ , but makes no statement about the probability of being contained in _R_ for all time steps jointly, which would require much more restrictive sets. Assuming knowledge of the distribution of the disturbance sequence _W_ , or at least the first two moments,
+p0003-b016 text [311, 57, 564, 115] text 
+    techniques for analytically computing PRS for (3b) have been presented in [6], [7]. In this paper, we instead compute PRS relying on samples of _W_ and simulation of the error system (see Section IV), by making use of results from scenario optimization, which are outlined in the following section.
+p0003-b017 heading [311, 130, 418, 140] section-header 
+    # _C. Scenario Optimization_
+p0003-b018 text [311, 145, 564, 167] text 
+    Scenario optimization [8], [9] considers chance constrained optimization problems of the form
+p0003-b019 formula [375, 168, 569, 196] formula {'label': 'Formula on PDF page 3 (20)', 'asset_name': 'formula-p0003-019'}
+    
+p0003-b020 formula [392, 190, 569, 211] formula {'label': 'Formula on PDF page 3 (21)', 'asset_name': 'formula-p0003-020'}
+    
+p0003-b021 text [311, 214, 564, 283] text 
+    where _Xδ_ are convex and closed sets for each realization of a random variable _δ_ , and _d_ is the dimension of the decision variable _x_ . Problem (4) is approximated by considering _Ns_ samples of the random variable _δ_ , and enforcing the constraint for a selection of these samples _i ∈Is_ . The sampled optimization problem results in
+p0003-b022 formula [375, 284, 569, 313] formula {'label': 'Formula on PDF page 3 (23)', 'asset_name': 'formula-p0003-022'}
+    
+p0003-b023 formula [392, 307, 569, 327] formula {'label': 'Formula on PDF page 3 (24)', 'asset_name': 'formula-p0003-023'}
+    
+p0003-b024 text [311, 329, 564, 365] text 
+    in which _δ_<sup>(</sup><sup>_i_)</sup> denotes a sample of _δ_ , and the considered subset of samples has cardinality _|Is|_ = _Ns − Nk_ , which is found by discarding _Nk_ samples from the original set.
+p0003-b025 text [311, 372, 564, 407] text 
+    **Assumption 1** ([9]) **.** Constraints are discarded such that the optimal solution _x_<sup>_∗_</sup> of (5) violates all the discarded constraints _Xδ_ ( _j_ ) with _j ∈{_ 1 _, . . . , Ns} \ Is_ .
+p0003-b026 text [311, 414, 564, 508] text 
+    This technical assumption is required to make use of established results from scenario optimization and can in general be satisfied, e.g. by successive optimization while greedily removing samples [9]. By discarding samples it is therefore possible to improve the objective function in (5), while maintaining probabilistic guarantees of the solution with regard to the chance constraint optimization problem (4), which is formalized in the following theorem.
+p0003-b027 text [311, 515, 481, 525] text 
+    **Theorem 1** ([9]) **.** _Let Ns and Nk satisfy_
+p0003-b028 formula [324, 526, 569, 567] formula {'label': 'Formula on PDF page 3 (29)', 'asset_name': 'formula-p0003-028'}
+    
+p0003-b029 text [311, 568, 564, 590] text 
+    _The optimal solution x_<sup>_∗_</sup> _of_ (5) _is a feasible solution for optimization problem_ (4) _with probability_ 1 _− β._
+p0003-b030 text [311, 597, 564, 631] text 
+    The bound in Theorem 1 is often unwieldy for practical computations and can be approximated. For instance, a sufficient condition for (6) is given by
+p0003-b031 formula [306, 632, 569, 681] formula {'label': 'Formula on PDF page 3 (32)', 'asset_name': 'formula-p0003-031'}
+    
+p0003-b032 text [311, 679, 564, 724] text 
+    and provides a practical way of assessing how many samples _Nk_ to discard while providing guarantees with respect to _p_ and _β_ given a number of sampled scenarios _Ns_ (see [9]. Without removing constraint samples, i.e. for _Nk_ = 0, one can obtain
+p0003-b033 formula [356, 724, 569, 757] formula {'label': 'Formula on PDF page 3 (34)', 'asset_name': 'formula-p0003-033'}
+    
+=== PAGE 4
+p0004-b000 text [48, 57, 301, 79] text 
+    to estimate the required number of samples to guarantee probability level _p_ with probability 1 _− β_ (see [8]).
+p0004-b001 heading [75, 97, 274, 117] section-header 
+    # III. STOCHASTIC MPC USING PROBABILISTIC REACHABLE SETS
+p0004-b002 text [48, 126, 301, 208] text 
+    In the following, we recount a recursively feasible stochastic MPC approach recently proposed in [7] and show how it can be modified to be wholly reliant on samples, before discussing the scenario-based computation of PRS in Section IV. In order to differentiate quantities in prediction from the closed-loop system (1), we make use of the index _i_ for an _i_ -step ahead prediction. The predictive dynamics are
+p0004-b003 formula [105, 213, 306, 234] formula {'label': 'Formula on PDF page 4 (4)', 'asset_name': 'formula-p0004-003'}
+    
+p0004-b004 formula [106, 228, 306, 248] formula {'label': 'Formula on PDF page 4 (5)', 'asset_name': 'formula-p0004-004'}
+    
+p0004-b005 formula [106, 243, 306, 264] formula {'label': 'Formula on PDF page 4 (6)', 'asset_name': 'formula-p0004-005'}
+    
+p0004-b006 text [48, 269, 301, 437] text 
+    which are initialized at every time step at the currently measured state _x_ 0 = _x_ ( _k_ ), _z_ 0 = _z_ ( _k_ ), _e_ 0 = _e_ ( _k_ ), and the known disturbance part is _w_ ¯ _i_ = _w_ ¯( _k_ + _i_ ). The _predictive_ disturbance sequence _Wk_ , i.e. _wi_ and resulting _predictive_ error _ei_ are exclusively used to optimize the MPC cost, making use of all information about the disturbance sequence available at that time. The sequence _Wk_ = [ _w_ 0 _, . . . , wN_ ] is therefore obtained by conditioning _W_ on all past disturbances, such that _p_ ( _Wk_ )= _p_ [ _w_ ( _k_ )<sup>T</sup> _, . . . , w_ ( _k_ + _N_ )<sup>T</sup> ] _,_ where � T<sup>�</sup> ��[ _w_ (0)T _, . . . , w_ ( _k−_ 1)T]T<sup>�</sup> we assume for notational convenience that the distributions allow a density, as well as access to samples of _Wk_ . Closedloop constraint satisfaction, on the other hand, is established with regard to the _closed-loop_ error _e_ ( _k_ ) and disturbance sequence _W_ .
+p0004-b007 heading [48, 458, 152, 468] section-header 
+    # _A. Constraint Tightening_
+p0004-b008 text [48, 474, 301, 520] text 
+    In order to guarantee satisfaction of constraints (2) on state _x_ and input _u_ we consider tightened constraints on the nominal state _z_ and input _v_ . Hard input constraints are realized by imposing a limited control authority on _π_ tube.
+p0004-b009 text [48, 528, 267, 538] text 
+    **Assumption 2.** The tube controller _π_ tube is such that
+p0004-b010 formula [110, 543, 239, 564] formula {'label': 'Formula on PDF page 4 (11)', 'asset_name': 'formula-p0004-010'}
+    
+p0004-b011 text [48, 569, 301, 651] text 
+    This can be ensured by designing _π_ tube e.g. as an input constrained (explicit) MPC, or a saturated linear controller [16]. Each chance constraint _j_ in (2a) is treated based on the idea of keeping the error _e_ ( _k_ ) within a respective time-varying PRS _R_<sup>_j_</sup> _k_<sup>,thescenario-basedcomputationofwhichwediscussin</sup> Section IV. This results in the following tightened constraints on the nominal system (9b)
+p0004-b012 formula [108, 654, 306, 694] formula {'label': 'Formula on PDF page 4 (13)', 'asset_name': 'formula-p0004-012'}
+    
+p0004-b013 formula [107, 688, 306, 708] formula {'label': 'Formula on PDF page 4 (14)', 'asset_name': 'formula-p0004-013'}
+    
+p0004-b014 text [48, 712, 301, 749] text 
+    **Assumption 3.** The tightening set _R_<sup>_j_</sup> _k_ + _i_<sup>in(10a)ischosenas</sup> a _k_ + _i_ -step PRS of probability _pj_ for system (3b) initialized at _e_ (0) = 0.
+p0004-b015 heading [311, 57, 488, 65] section-header 
+    # _B. Stochastic MPC with Indirect Feedback_
+p0004-b016 text [311, 73, 564, 107] text 
+    In the MPC problem, we introduce a terminal constraint _Zf_ and terminal cost _lf_ to approximate the remainder of the horizon, resulting in the cost function
+p0004-b017 formula [358, 110, 517, 151] formula {'label': 'Formula on PDF page 4 (18)', 'asset_name': 'formula-p0004-017'}
+    
+p0004-b018 text [311, 153, 564, 187] text 
+    We follow a sampling-based approach to approximate this cost based on _Ns_<sup>MPC</sup> samples of the predicted disturbance sequence _Wk_ and formulate the MPC problem as
+p0004-b019 formula [329, 189, 569, 284] formula {'label': 'Formula on PDF page 4 (20)', 'asset_name': 'formula-p0004-019'}
+    
+p0004-b020 formula [356, 278, 569, 298] formula {'label': 'Formula on PDF page 4 (21)', 'asset_name': 'formula-p0004-020'}
+    
+p0004-b021 formula [356, 293, 569, 314] formula {'label': 'Formula on PDF page 4 (22)', 'asset_name': 'formula-p0004-021'}
+    
+p0004-b022 formula [356, 306, 569, 330] formula {'label': 'Formula on PDF page 4 (23)', 'asset_name': 'formula-p0004-022'}
+    
+p0004-b023 text [311, 333, 564, 394] text 
+    for all _i ∈{_ 0 _, . . . , N −_ 1 _}_ . Note that _e_<sup>(</sup> _i_<sup>_l_),</sup><sup>_π_tube(</sup><sup>_e_(</sup> _i_<sup>_l_))arenot</sup> affected by the decision variables _{vi}_ and can therefore be precomputed. The resulting control input applied to system (1) is obtained by setting _v_ ( _k_ ) = _v_ 0<sup>_∗_, where</sup><sup>_v_</sup> 0<sup>_∗_is the first element</sup> of the minimizer in (11), i.e.
+p0004-b024 formula [382, 399, 569, 420] formula {'label': 'Formula on PDF page 4 (25)', 'asset_name': 'formula-p0004-024'}
+    
+p0004-b025 text [311, 424, 564, 470] text 
+    _Remark_ 2 _._ Since _z_ 0 = _z_ ( _k_ ) at each time-step, the closed-loop error _e_ ( _k_ ) evolves autonomously according to (3b). Feedback from _x_ ( _k_ ) on the nominal trajectory _z_ ( _k_ ) is nevertheless introduced through the cost in (11), see also [7].
+p0004-b026 heading [311, 490, 526, 500] section-header 
+    # _C. Recursive Feasibility and Constraint Satisfaction_
+p0004-b027 text [311, 506, 564, 538] text 
+    In order to ensure recursive feasibility, we require an invariance assumption on the terminal set _Zf_ , taking into account the known disturbance _w_ ¯ _∈ W_<sup>¯</sup> .
+p0004-b028 text [311, 548, 564, 583] text 
+    **Assumption 4.** The terminal set _Zf_ is robust invariant with respect to _w_ ¯ _∈ W_<sup>¯</sup> under the local controller _πf_ ( _z_ ) _∈V ∀z ∈ Zf_ , i.e.
+p0004-b029 formula [306, 579, 515, 622] formula {'label': 'Formula on PDF page 4 (30)', 'asset_name': 'formula-p0004-029'}
+    
+p0004-b030 text [311, 623, 564, 718] text 
+    _Remark_ 3 _._ For the choice of _W_ ¯ = _{_ 0 _}_ and time-invariant _Rk_ = _R,_ for 0 _≤ k ≤ N_<sup>¯</sup> , Assumption 4 requires a nominal invariant set within the tightened constraints, which is a standard assumption in robust tube MPC. Here we allow more flexibility to deal with correlated time-varying disturbances, requiring that in the terminal set a control input exists which keeps the nominal state within _every_ tightened constraint set _Zk_ from _k_ = 0 _, . . . , N_<sup>¯</sup> .
+p0004-b031 text [311, 727, 564, 748] text 
+    **Theorem 2.** _Consider system_ (1) _under control law_ (12) _resulting from_ (11) _satisfying Assumptions 2 & 4. If optimization_
+=== PAGE 5
+p0005-b000 text [48, 56, 301, 79] text 
+    _problem_ (11) _is feasible for x_ (0) = _z_ (0) _, then it is feasible for all times_ 0 _≤ k ≤ N_<sup>¯</sup> _− N , i.e. it is recursively feasible._
+p0005-b001 text [48, 87, 301, 253] text 
+    _Proof._ The proof follows from standard arguments in MPC by showing feasibility of a candidate solution. Let _V_<sup>_∗_</sup> = _{v_ 0<sup>_∗, . . . v_</sup> _N_<sup>_∗_</sup> _−_ 1<sup>_}_betheminimizerof(11)attimestep</sup><sup>_k_with</sup> resulting _Z_<sup>_∗_</sup> = _{z_ 0<sup>_∗, . . . , z_</sup> _N_<sup>_∗}_.Applyingcontrolinput(12)</sup> results in state _x_ ( _k_ + 1) and _z_ ( _k_ + 1) = _z_ 1<sup>_∗_,forwhichwe</sup> consider the candidate solution _V_<sup>¯</sup> = _{v_ 1<sup>_∗, . . . , v_</sup> _N_<sup>_∗_</sup> _−_ 1<sup>_, πf_(</sup><sup>_z_</sup> _N_<sup>_∗_)</sup><sup>_}_</sup> resulting in _Z_<sup>¯</sup> = _{z_ 1<sup>_∗, . . . , z_</sup> _N_<sup>_∗, Az_</sup> _N_<sup>_∗_+</sup><sup>_Bπf_(</sup><sup>_z_</sup> _N_<sup>_∗_)+ ¯</sup><sup>_w_(</sup><sup>_k_+</sup><sup>_N_+1)</sup><sup>_}_.</sup> Since _vi_<sup>_∗∈V_forall1</sup><sup>_≤i≤N_and</sup><sup>_πf_(</sup><sup>_z_</sup> _N_<sup>_∗_)</sup><sup>_∈V_wehave</sup> that _V_<sup>¯</sup> satisfies input constraints (11f). Similarly, we have that _zi_<sup>_∗∈Zi_(</sup><sup>_k_) =</sup><sup>_Zi−_1(</sup><sup>_k_+1)definedin(10a)forall1</sup><sup>_≤i ≤N_,</sup> where we use notation _Zi_ ( _k_ ) to indicate the state constraint at _i_ -th prediction step for optimization problem (11) at time step _k_ . We finally have _AzN_<sup>_∗_+</sup><sup>_Bπf_(</sup><sup>_z_</sup> _N_<sup>_∗_) +</sup><sup>_w_¯(</sup><sup>_k_+</sup><sup>_N_+1)</sup><sup>_∈Zf_</sup> due to Assumption 4.
+p0005-b002 text [48, 264, 301, 310] text 
+    Recursive feasibility and Definition 1 of the PRS used in constraint tightening (10a) can directly be used to establish satisfaction of hard constraints on the inputs (2b) and chance constraints on the state (2a) for the closed-loop system.
+p0005-b003 text [48, 318, 301, 364] text 
+    **Theorem 3.** _Consider system_ (1) _under control law_ (12) _resulting from_ (11) _satisfying Assumptions 2, 3 & 4. The resulting state x_ ( _k_ ) _and input u_ ( _k_ ) _satisfy constraints_ (2a) _and_ (2b) _, respectively._
+p0005-b004 text [48, 373, 301, 471] text 
+    _Proof._ From recursive feasibility, control law (12) and definition of the input constraint tightening (10b) we immediately have _u_ ( _k_ ) _∈U_ , since _π_ tube( _e_ ) _∈Eu_ for all _e ∈_ R<sup>_n_</sup> from Assumption 2. From Assumption 3 we furthermore have that Pr( _e_ ( _k_ ) _∈R_<sup>_j_</sup> _k_<sup>)</sup><sup>_≥pj_.Giventhat</sup><sup>_z_(</sup><sup>_k_)</sup><sup>_∈Z_0(</sup><sup>_k_)duetore-</sup> cursive feasibility and _Z_ 0( _k_ ) =<sup>�</sup><sup>_n_</sup> _j_ =1<sup>_c_</sup> � _X_<sup>_j_</sup> _⊖R_<sup>_j_</sup> _k_ � according to (10a), we therefore have Pr( _x_ ( _k_ ) _∈X_<sup>_j_</sup> ) _≥ pj_ for all _j_ = 1 _, . . . , nc_ .
+p0005-b005 heading [54, 491, 295, 511] section-header 
+    # IV. PROBABILISTIC REACHABLE SETS USING SCENARIO OPTIMIZATION
+p0005-b006 text [48, 521, 301, 749] text 
+    In the following, we describe a sampling-based design procedure for _k_ -step PRS computation. The inputs to this procedure are a number of disturbance scenarios over the run¯ time sampled from _W_ , i.e. _W_<sup>(</sup><sup>_i_)</sup> = [ _w_ 0<sup>(</sup><sup>_i_)</sup><sup>_, . . . , w_</sup> _N_<sup>(</sup><sup>_i_)</sup> _−_ 1<sup>]T</sup><sup>_∼W_,</sup> _i ∈{_ 1 _, . . . , Ns}_ , resulting in trajectories of the error sys¯ tem (3b) _E_<sup>(</sup><sup>_i_)</sup> = [ _e_ 0<sup>(</sup><sup>_i_)</sup><sup>_, . . . , e_(</sup> _N_<sup>_i_)]T, initialized at</sup><sup>_e_</sup> 0<sup>(</sup><sup>_i_)</sup> = _e_ (0) = 0. The general idea is to generate sets that cover given error state realizations, i.e. _e_<sup>(</sup> _k_<sup>_i_)</sup> _∈Rk, i ∈Is_ and apply the result of Theorem 1 to establish that _Rk_ is a _k_ -step PRS with high probability. For this, we formulate chance constraint optimization problems similar to (4) to find sets _Rk_ , which are used to tighten constraints (10a). In general, it is desirable to generate sets _Rk_ which result in the smallest possible tightening, for instance by aligning the PRS with the considered constraint _X_<sup>_j_</sup> , e.g. for half-spaces or simple polytopic constraints. For general constraint sets, a useful heuristic is to minimize the size of _Rk_ , e.g. by finding the minimum volume ellipsoid covering the required number of samples. We discuss selected options in the following sections.
+p0005-b007 text [311, 57, 564, 115] text 
+    _Remark_ 4 _._ Scenario-based guarantees along Theorem 1 are given with confidence 1 _− β_ . For the MPC, this implies that Assumption 3 and the resulting closed-loop constraint satisfaction property (Theorem 3) hold with probability 1 _− β_ when using a scenario-based construction of the PRS.
+p0005-b008 heading [311, 134, 416, 144] section-header 
+    # _A. Scaling of Convex Set_
+p0005-b009 text [311, 149, 564, 207] text 
+    We first consider the scaling of an arbitrary closed convex set _R_<sup>˜</sup> containing the origin such that _R_ = _αR_<sup>˜</sup> is a _k_ -step PRS for random variable _e_ ( _k_ ) with given probability _p_ . This can be stated as the following chance constrained optimization problem:
+p0005-b010 formula [375, 212, 420, 236] formula {'label': 'Formula on PDF page 5 (11)', 'asset_name': 'formula-p0005-010'}
+    
+p0005-b011 formula [377, 229, 500, 252] formula {'label': 'Formula on PDF page 5 (12)', 'asset_name': 'formula-p0005-011'}
+    
+p0005-b012 text [311, 256, 564, 302] text 
+    The relation to (4) is obtained by noting that _α_ corresponds to _x_ and _Xδ_ := _{α | e_ ( _k_ ) _∈ αR}_<sup>˜</sup> . This set is convex in _α_ and closed for each realization of _e_ ( _k_ ) since _R_<sup>˜</sup> is convex and closed. The sampled version is
+p0005-b013 formula [381, 306, 569, 330] formula {'label': 'Formula on PDF page 5 (14)', 'asset_name': 'formula-p0005-013'}
+    
+p0005-b014 formula [382, 323, 569, 348] formula {'label': 'Formula on PDF page 5 (15)', 'asset_name': 'formula-p0005-014'}
+    
+p0005-b015 text [311, 350, 564, 447] text 
+    where _e_<sup>(</sup> _k_<sup>_i_)</sup> stem from the _Ns_ sampled realizations of the random disturbance sequence _W_ . From this set of samples, _Nk_ scenarios are discarded resulting in the index set _Is_ . Note that in this case the index set _Is_ satisfying Assumption (1) can be obtained by repeatedly solving (13) starting with all samples and successively removing samples corresponding to active constraints. The PRS property of the resulting set is directly obtained from Theorem 1.
+p0005-b016 text [311, 455, 564, 501] text 
+    **Corollary 1.** _Let α_<sup>_∗_</sup> _be the solution to optimization problem_ (13) _and let Ns, Nk satisfy_ (6) _with d_ = 1 _. With probability_ 1 _−β the set α_<sup>_∗_</sup> _R_<sup>˜</sup> _is a k-step PRS of probability p for process_ (3b) _initialized at e_ (0) = 0 _._
+p0005-b017 text [311, 509, 564, 559] text 
+    _Remark_ 5 (Half-space PRS) _._ An important special case is given by a half-space _R_<sup>˜</sup> = � _e_ �� _h_ T _e ≤_ 1�. We can discard the _k_ samples of _e_<sup>(</sup> _k_<sup>_i_)</sup> with highest value _h_<sup>T</sup> _e_<sup>(</sup> _k_<sup>_i_)</sup> and then find _α_<sup>_∗_</sup> = max _i∈Is h_<sup>T</sup> _e_<sup>(</sup> _k_<sup>_i_).</sup>
+p0005-b018 heading [311, 577, 384, 587] section-header 
+    # _B. Polytopic PRS_
+p0005-b019 text [311, 593, 564, 651] text 
+    Next we address the case of polytopic PRS containing the origin, with a predefined shape _R_<sup>˜</sup> = _{e | He ≤_ **1** _}_ in which _H ∈_ R<sup>_nhs×n_</sup> and **1** _∈_ R<sup>_nhs_</sup> is the one-vector. The goal is to optimize the level of each half-space constraint, which is formulated as the scenario problem
+p0005-b020 formula [381, 654, 569, 680] formula {'label': 'Formula on PDF page 5 (21)', 'asset_name': 'formula-p0005-020'}
+    
+p0005-b021 formula [382, 673, 569, 697] formula {'label': 'Formula on PDF page 5 (22)', 'asset_name': 'formula-p0005-021'}
+    
+p0005-b022 text [311, 701, 564, 749] text 
+    Similar to half-space constraints (Remark 5) constraint removal can easily be carried out greedily by successively removing _Nk_ samples of _e_<sup>(</sup> _k_<sup>_i_)</sup> with the largest violation _∥He_<sup>(</sup> _k_<sup>_i_)</sup><sup>_∥∞_.Notethatthroughthechoiceofmatrix</sup><sup>_H_an</sup>
+=== PAGE 6
+p0006-b000 figure [64, 51, 292, 153] picture {'label': 'Figure on PDF page 6 (1)', 'asset_name': 'figure-p0006-000'}
+    <!-- Start of picture text -->
+u<br>p<br>θ<br>p 0 w p 1<br><!-- End of picture text -->
+p0006-b001 caption [48, 160, 212, 168] caption 
+    Fig. 1. Illustration of the overhead crane system.
+p0006-b002 text [48, 191, 301, 212] text 
+    importance weighting can be carried out for each individual half space defining the polytope.
+p0006-b003 text [48, 220, 301, 267] text 
+    **Corollary 2.** _Let b_<sup>_∗_</sup> _be the solution to optimization problem_ (14) _and let Ns, Nk satisfy_ (6) _with d_ = _nhs. With probability_ 1 _− β the set {e | He ≤ b_<sup>_∗_</sup> _} is a k-step PRS of probability p for process_ (3b) _initialized at e_ (0) = 0 _._
+p0006-b004 text [311, 56, 564, 79] text 
+    is restricted to _|u| ≤ u_ max = 4 and we consider the sliders position and velocity to be subject to physical limitations
+p0006-b005 formula [355, 81, 569, 103] formula {'label': 'Formula on PDF page 6 (6)', 'asset_name': 'formula-p0006-005'}
+    
+p0006-b006 text [311, 107, 564, 141] text 
+    which we want to enforce with highest possible probability. We additionally consider chance constraints on the load angle for safety reasons
+p0006-b007 formula [377, 145, 569, 166] formula {'label': 'Formula on PDF page 6 (8)', 'asset_name': 'formula-p0006-007'}
+    
+p0006-b008 formula [377, 160, 569, 180] formula {'label': 'Formula on PDF page 6 (9)', 'asset_name': 'formula-p0006-008'}
+    
+p0006-b009 text [311, 184, 547, 195] text 
+    Starting from _x_ (0) = 0, the goal is to track the reference
+p0006-b010 formula [365, 196, 509, 237] formula {'label': 'Formula on PDF page 6 (11)', 'asset_name': 'formula-p0006-010'}
+    
+p0006-b011 text [311, 238, 493, 248] text 
+    as closely as possible, given the constraints.
+p0006-b012 heading [311, 266, 395, 276] section-header 
+    # _A. Simulation Setup_
+p0006-b013 heading [48, 283, 128, 293] section-header 
+    # _C. Ellipsoidal PRS_
+p0006-b014 text [48, 298, 301, 332] text 
+    As a third possibility consider the minimum volume ellipsoidal set covering the error _e_ ( _k_ ) with specified probability _p_ . The sampled version can be expressed as
+p0006-b015 formula [65, 336, 306, 362] formula {'label': 'Formula on PDF page 6 (16)', 'asset_name': 'formula-p0006-015'}
+    
+p0006-b016 formula [76, 355, 306, 379] formula {'label': 'Formula on PDF page 6 (17)', 'asset_name': 'formula-p0006-016'}
+    
+p0006-b017 text [48, 380, 301, 453] text 
+    where _d_ =<sup>_<u>n</u>_2</sup> 2<sup><u>+</u></sup><sup>_<u>n</u>_</sup> + _n_ is given by the number of unique entries in the symmetric shape matrix _P_ and vector _ec_ . Ensuring Assumption 1 in the construction of _Is_ is again possible by sequential removal of active constraint samples. Additional information on suitable constraint removal strategies can be found in [9].
+p0006-b018 text [48, 461, 301, 520] text 
+    **Corollary 3.** _Let P_<sup>_∗_</sup> _, e_<sup>_∗_</sup> _c_<sup>_bethesolutiontooptimization_</sup> _problem_ (15) _and let Ns, Nk satisfy_ (6) _with d_ =<sup>_<u>n</u>_2</sup> 2<sup><u>+</u></sup><sup>_<u>n</u>_</sup> + _n. With probability_ 1 _−β the set_ � _e_ �� ( _e − ec∗_<sup>)T</sup><sup>_P ∗−_1(</sup><sup>_e −e∗_</sup> _c_<sup>)</sup><sup>_≤_1</sup> � _is a k-step PRS of probability p for process_ (3b) _initialized at e_ (0) = 0 _._
+p0006-b019 text [48, 528, 301, 551] text 
+    _Remark_ 6 _._ When fixing the ellipsoid center, e.g. _ec_ = 0, Corollary 3 holds with _d_ =<sup>_<u>n</u>_2</sup> 2<sup><u>+</u></sup><sup>_<u>n</u>_</sup> .
+p0006-b020 text [48, 555, 301, 589] text 
+    _Remark_ 7 _._ It is possible to speed up constraint removal by initializing _I_ dis heuristically, e.g. by discarding samples based on the empirical variance of the sample set.
+p0006-b021 heading [73, 604, 276, 612] section-header 
+    # V. SIMULATION EXAMPLE: OVERHEAD CRANE
+p0006-b022 text [48, 619, 301, 749] text 
+    As an illustrative example we consider an overhead crane maneuvering a load in windy conditions. The system is depicted in Figure (1) with states _x_ = [ _p, v, θ, r_ ]<sup>T</sup> , where _p_ , _v_ are the position and velocity of the slider, and _θ_ , _r_ the load angle and angular velocity, respectively. The system equations are given in the appendix. The input to the system is a force applied to the slider _u_ and the run-time is _N_<sup>¯</sup> = 200. The load is subject to a disturbance force _w_ , representing heavy winds, distributed according to _W ∼N_ (0 _,_ Σ<sup>_w_</sup> ), which is zero mean and strongly correlated in time. The system is subject to a number of physical and safety constraints. First, the input
+p0006-b023 text [311, 280, 564, 471] text 
+    Using the cost function ( _xi − x_<sup>ref</sup> _k_ + _i_<sup>)T</sup><sup>_Q_(</sup><sup>_xi −x_ref</sup> _k_ + _i_<sup>) +</sup><sup>_u_T</sup><sup>_Ru_</sup> with _Q_ = _I_ , _R_ = 10<sup>_−_4</sup> , we compute the expected cost (11a) based on _Ns_<sup>MPC</sup> = 10 samples and consider a prediction horizon of _N_ = 30. We design the tube controller _π_ tube as an LQR controller with the same weights, which we saturate at _±_ 0 _._ 4 to enable hard input constraints. We compute suitable half-space and box constraints aligned with the respective state constraints in order to obtain a constraint tightening with little conservatism. Using _Ns_ = 10000 scenario samples, we compute PRS _Rk_<sup>_|p|,|v|_</sup> as minimum-size boxes containing all sampled error positions and velocities in each time step according to Corollary 2. To enforce the constraint with maximum probability, we remove no constraint samples, and find according to (8) that the probability of satisfying (16) in each time step is at least _p_ 1 = 99 _._ 6% with probability 1 _− β ≈_ 1 _−_ 10<sup>_−_7</sup> . For chance constraints (17) we use
+p0006-b024 figure [318, 490, 557, 711] picture {'label': 'Figure on PDF page 6 (25)', 'asset_name': 'figure-p0006-024'}
+    <!-- Start of picture text -->
+0 . 5<br>0<br>− 0 . 5<br>1<br>0<br>− 1<br>0 . 1<br>0<br>− 0 . 1<br>2<br>0<br>− 2<br>0 50 100 150 200<br>k<br>() kw<br>() kp<br>() θk<br>() ku<br><!-- End of picture text -->
+p0006-b025 caption [311, 720, 564, 746] caption 
+    Fig. 2. Overhead crane system with reference _pref_ = 1 for _k ≤_ 100 and _pref_ = _−_ 1 for _k >_ 100. The plot depicts 10000 simulations, highlighting one realization. Dashed lines show chance and hard input constraints.
+=== PAGE 7
+p0007-b000 caption [159, 59, 190, 65] caption 
+    TABLE I
+p0007-b001 text [87, 68, 262, 74] text 
+    CLOSED-LOOP CHANCE CONSTRAINT EVALUATION
+p0007-b002 table [56, 83, 293, 149] table {'label': 'Table on PDF page 7 (3)', 'asset_name': 'table-p0007-002', 'rows': None}
+    |Const|raint|Guaranteed Probability|Empirical Probability|
+|---|---|---|---|
+|�<br>_|p|_<br>_|v|_<br>�<br>_≤_<br>|�<br>_p_max<br>_v_max<br>�|99_._6%|99_._98%|
+|_θ ≤_|_θ_max|90%|91_._2%|
+|_θ ≥−_|_θ_max|90%|94_._33%|
+p0007-b003 text [48, 171, 301, 312] text 
+    Corollary 1 with Remark 5 and find using (7) that we can remove _k_ = 820 samples to determine _R_<sup>_θ_</sup> _k_<sup>max</sup> and _R_<sup>_θ_</sup> _k_<sup>min</sup> satisfying the probability level _p_ 2 = 90% with _β_ = 10<sup>_−_7</sup> . This results in _nc_ = 3 time-varying PRS used for tightening in (10a). All offline computations, consisting of sampling, simulations and PRS computations were carried out within a few seconds on standard hardware. Note that the use of half-space and box PRS are computationally cheap, whereas the use of e.g. ellipsoidal constraints (Section IV-C) can require increased offline computation. The MPC optimization problem (11) results in a quadratic program, which is reliably solved in around 20 ms in each time step.
+p0007-b004 heading [48, 340, 92, 348] section-header 
+    # _B. Results_
+p0007-b005 text [48, 360, 301, 537] text 
+    We carried out 10000 simulations of the system with different noise realizations, the results of which are shown in Figure 2 and Table I. It can be seen that the system approaches the reference position, keeping a safety distance to enable satisfaction of constraint (16) which is achieved for almost all of the 10000 realizations. The minimum empirical constraint satisfaction rate over all time steps of 91 _._ 2% is close to the one specified in the case of the maximum load angle, and somewhat conservative with 94 _._ 33% for the minimum load angle. This conservatism is likely due to the fact that in the latter case constraints on _z_ are not simultaneously active for all simulated noise realizations in the same time-step. Finally, it can be observed in Figure 2 that the applied input satisfies the given hard input constraints while dealing with Gaussian, and therefore possibly unbounded disturbance sequences.
+p0007-b006 heading [136, 563, 213, 571] section-header 
+    # VI. CONCLUSION
+p0007-b007 text [48, 585, 301, 679] text 
+    This paper presented a stochastic model predictive control approach for additive correlated disturbance sequences making use of the scenario approach for offline computation of probabilistic reachable sets for constraint tightening. This enabled us to show recursive feasibility and closed-loop chance satisfaction for systems under unbounded noise and hard input constraints. The effectiveness of the approach was demonstrated in a simulation example of an overhead crane.
+p0007-b008 heading [128, 704, 221, 712] section-header 
+    # ACKNOWLEDGMENTS
+p0007-b009 heading [415, 57, 460, 65] section-header 
+    # APPENDIX
+p0007-b010 text [321, 72, 524, 82] text 
+    We consider a damped cart-pole system given by
+p0007-b011 formula [327, 83, 548, 152] formula {'label': 'Formula on PDF page 7 (12)', 'asset_name': 'formula-p0007-011'}
+    
+p0007-b012 text [311, 152, 564, 235] text 
+    with slider mass _m_ = 1 and damping _dm_ = 10, payload mass _M_ = 1 and damping _dM_ = 1 and _l_ = 1, _g_ = 9 _._ 81. Linearization around the origin and discretization with sampling time _Ts_ = 0 _._ 1 yields the employed linear system with eigenvalues _λ_ = [1 _,_ 0 _._ 3672 _,_ 0 _._ 8617 _±_ 0 _._ 2788 _i_ ]<sup>T</sup> . The distribution of the disturbance is zero mean Gaussian _W ∼N_ (0 _, K_ ) with _Ki,j_ = 0 _._ 02<sup>2</sup> + 0 _._ 2<sup>2</sup> exp( _−_ 2<sup><u>1</u>(</sup><sup>_i −j_)2</sup><sup>_/_102),</sup><sup>_i, j∈{_1</sup><sup>_, . . . ,N_¯</sup><sup>_}_.</sup>
+p0007-b013 heading [409, 250, 466, 258] section-header 
+    # REFERENCES
+p0007-b014 text [315, 266, 564, 292] list-item 
+    - [1] M. Farina, L. Giulioni, and R. Scattolini, “Stochastic Linear Model Predictive Control with Chance Constraints - A Review,” _J. Process Control_ , vol. 44, pp. 53–67, 2016.
+p0007-b015 text [315, 293, 564, 319] list-item 
+    - [2] M. Cannon, B. Kouvaritakis, and X. Wu, “Model Predictive Control for Systems with Stochastic Multiplicative Uncertainty and Probabilistic Constraints,” _Automatica_ , vol. 45, no. 1, pp. 167–172, 2009.
+p0007-b016 text [315, 320, 564, 346] list-item 
+    - [3] M. Cannon, B. Kouvaritakis, and D. Ng, “Probabilistic Tubes in Linear Stochastic Model Predictive Control,” _Systems & Control Letters_ , vol. 58, no. 10-11, pp. 747–753, 2009.
+p0007-b017 text [315, 346, 564, 373] list-item 
+    - [4] M. Lorenzen, F. Dabbene, R. Tempo, and F. Allg¨ower, “ConstraintTightening and Stability in Stochastic Model Predictive Control,” _IEEE Transactions on Automatic Control_ , vol. 62, no. 7, pp. 3165–3177, 2017.
+p0007-b018 text [315, 373, 564, 399] list-item 
+    - [5] M. Farina, L. Giulioni, L. Magni, and R. Scattolini, “A Probabilistic Approach to Model Predictive Control,” _Conf. Decision and Control_ , pp. 7734–7739, 2013.
+p0007-b019 text [315, 400, 564, 426] list-item 
+    - [6] L. Hewing and M. N. Zeilinger, “Stochastic Model Predictive Control for Linear Systems using Probabilistic Reachable Sets,” _Conf. Decision and Control_ , 2018.
+p0007-b020 text [315, 427, 564, 453] list-item 
+    - [7] L. Hewing, K. P. Wabersich, and M. N. Zeilinger, “Recursively Feasible Stochastic Model Predictive Control using Indirect Feedback,” _arXiv:1812.06860_ , 2018.
+p0007-b021 text [315, 454, 564, 480] list-item 
+    - [8] G. Calafiore and M. C. Campi, “Uncertain Convex Programs: Randomized Solutions and Confidence Levels,” _Mathematical Programming_ , vol. 102, no. 1, pp. 25–46, Jan 2005.
+p0007-b022 text [315, 481, 564, 514] list-item 
+    - [9] M. C. Campi and S. Garatti, “A Sampling-and-discarding Approach to Chance-constrained Optimization: Feasibility and Optimality,” _Journal of Optimization Theory and Applications_ , vol. 148, no. 2, pp. 257–280, Feb 2011.
+p0007-b023 text [311, 517, 564, 543] list-item 
+    - [10] M. Prandini, S. Garatti, and J. Lygeros, “A randomized approach to Stochastic Model Predictive Control,” in _Conf. Decision and Control_ , Dec 2012, pp. 7315–7320.
+p0007-b024 text [311, 544, 564, 577] list-item 
+    - [11] X. Zhang, K. Margellos, P. Goulart, and J. Lygeros, “Stochastic Model Predictive Control Using a Combination of Randomized and Robust Optimization,” in _Conf. Decision and Control_ , Dec 2013, pp. 7740– 7745.
+p0007-b025 text [311, 580, 564, 614] list-item 
+    - [12] G. Schildbach, L. Fagiano, C. Frei, and M. Morari, “The Scenario Approach for Stochastic Model Predictive Control with Bounds on Closed-loop Constraint Violations,” _Automatica_ , vol. 50, no. 12, pp. 3009 – 3018, 2014.
+p0007-b026 text [311, 615, 564, 642] list-item 
+    - [13] G. C. Calafiore and L. Fagiano, “Stochastic Model Predictive Control of LPV Systems Via Scenario Optimization,” _Automatica_ , vol. 49, no. 6, pp. 1861 – 1866, 2013.
+p0007-b027 text [311, 642, 564, 667] list-item 
+    - [14] M. Lorenzen, F. Dabbene, R. Tempo, and F. Allg¨ower, “Stochastic MPC with Offline Uncertainty Sampling,” _Automatica_ , vol. 81, pp. 176 – 183, 2017.
+p0007-b028 text [311, 669, 564, 695] list-item 
+    - [15] A. Stoorvogel, S. Weiland, and A. Saberi, “On stabilization of linear systems with stochastic disturbances and input saturation,” in _Conf. Decision and Control_ , vol. 3, 2004, pp. 3007–3012 Vol.3.
+p0007-b029 text [311, 696, 564, 722] list-item 
+    - [16] T. Hu, Z. Lin, and B. M. Chen, “Analysis and Design for Discretetime Linear Systems Subject to Actuator Saturation,” _Systems & Control Letters_ , vol. 45, no. 2, pp. 97 – 112, 2002.
+p0007-b030 text [48, 727, 301, 749] text 
+    The authors would like to thank Simone Garatti and Marco Campi for the helpful discussion of the scenario approach.

@@ -1,0 +1,232 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the page render (140 dpi overlay; 260-300 dpi crops of Algorithm 1, equations (1)-(3) and the three inline-maths paragraphs) and with approach.tex. Joins: p0003-b000 continues the last paragraph of page 2 (space); p0003-b010 continues \"While the base direct trajectory optimization problem ...\" across the column break (space). Algorithm 1 (floating box in the left column between complete paragraphs): kept as image crop p0003-b003 (asset algorithm-1, bbox 52-301 x 304-532 including both rules and the title line) followed by a transcription p0003-b004 with the printed title in bold; the algorithm has no printed line numbers, block nesting printed as vertical rules is rendered as nested list items; keywords for/do/if/then bold as printed, italics of the if-conditions dropped. Authors' pseudocode errors preserved as printed: \"IS_FRONTIER_NODE()$x_{new}$, map)\" (misplaced parenthesis) and \"$xgoal$.FIND_CLOSEST($f$)\" (missing subscript). Equations (1), (2), (3): former formula image items changed to text items with $$...$$ LaTeX taken from approach.tex (macros \\vect -> \\mathbf, \\vectg -> \\boldsymbol, \\norm -> \\|.\\| expanded) and checked symbol by symbol against the crops; printed numbers kept with \\tag{1}, \\tag{2}, \\tag{3}. TeX and PDF agree. \\mathbf{\\lambda} of the source prints as a non-bold lambda and is written \\lambda. Printed peculiarities kept unchanged: in (1) the initial-state bound is printed with x_N (\"x_i - delta_i <= x_N <= x_i + delta_i\"), the sum runs to N while the terminal term uses x_{N+1}, and the cost is typeset with bold subscripts; in (3) the exponent is printed as (r+s)^{2^{n/2+k}} and \"exp\", \"eigenvalues\" are in maths italic. Inline maths of the three paragraphs after (2) rewritten in LaTeX; the gradient sentence ends without a full stop in the PDF. Units \"0.001s\", \"0.2s\" are printed in maths italic and kept inside the maths. Heading \"### C. Direct Trajectory Optimization\" (extractor class list-item) kept as subsection heading. Authors' wording kept: \"a reduced the computational burden\", \"Octomap\" (versus \"OctoMap\" on page 2). The sentence after (3) continues on page 4 (\"where $n=3$ ...\"). Remaining verifier diagnostics are notation-only; see adjudication-notes/page-0003.json.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        77.0
+      ],
+      "markdown": "smoothed path as the smoothed RRT path, and it is used to select a receding horizon point for trajectory generation.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        79.0,
+        299.0,
+        160.0
+      ],
+      "markdown": "This strategy poses a problem for planning in unknown environments; the horizon point may be in or behind an unobserved obstacle. This is undesirable since the direct trajectory optimization problem is warm started with the previously generated trajectory. If a previously generated trajectory becomes intersected by newly obtained map data, the optimizer will often be unable to find a feasible solution.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        162.0,
+        299.0,
+        292.0
+      ],
+      "markdown": "To avoid this, the RRT path is constrained to known regions of the map using a method similar to that proposed in [28]. Our method is outlined in Algorithm 1. As the tree expands, a list of frontier nodes (which exist in unknown space and connect to nodes in known space) is maintained. A node is in a known region of the map if the NanoMap query returns a field of view status indicating that the query point is in free space. If the goal point is not connected to the tree, or if the goal point is in an unknown region of the map, then the frontier node closest to the goal position is used as the goal instead.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        304.0,
+        301.0,
+        532.0
+      ],
+      "markdown": "",
+      "source_class": "section-header",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        306.0,
+        299.0,
+        530.0
+      ],
+      "markdown": "**Algorithm 1:** RRT($x_{init}$, $x_{goal}$, $\\Delta x$, map, $K$, $\\Delta t$)\n\n- $\\tau$.init($x_{init}$), $f \\leftarrow []$\n- **for** $k = 1$ to $K$ **do**\n    - $x_{rand} \\leftarrow$ RANDOM\\_STATE()\n    - $x_{near} \\leftarrow$ NEAREST\\_NEIGHBOR($x_{rand}$, $\\tau$)\n    - $u \\leftarrow$ SELECT\\_INPUT($x_{rand}$, $x_{near}$)\n    - $x_{new} \\leftarrow$ NEW\\_STATE($x_{near}$,$u$,$\\Delta t$)\n    - **if** PATH\\_OBST\\_FREE($x_{near}$,$x_{new}$, map) **then**\n        - $\\tau$.add\\_vertex($x_{new}$)\n        - $\\tau$.add\\_edge($x_{near}$,$x_{new}$,$u$)\n        - **if** DISTANCE($x_{new}$, $x_{goal}$) $\\leq \\Delta x$ **then**\n            - $x_{goal} \\leftarrow x_{new}$\n            - break\n        - **if** IS\\_FRONTIER\\_NODE()$x_{new}$, map) **then**\n            - $f$.add($x_{new}$)\n- **if** $x_{goal}$ not in $\\tau$ or IN\\_UNKNOWN($x_{goal}$, map) **then**\n    - $x_{goal} \\leftarrow x_f \\leftarrow xgoal$.FIND\\_CLOSEST($f$)\n- Return $\\tau$, $x_{goal}$",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        547.0,
+        299.0,
+        629.0
+      ],
+      "markdown": "At each control iteration, a truncated version of the prior RRT path is used to initialize the RRT. This truncation takes into consideration both the updated vehicle state and any newly detected obstacles. The beginning of the RRT path is truncated to minimize the distance between the start of the path and the vehicle state; the end is truncated to ensure that the path does not intersect with obstacles.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        631.0,
+        299.0,
+        689.0
+      ],
+      "markdown": "Reuse of the prior path reduces RRT computation time and also provides a more gradual evolution of the RRT path. This leads to a more incremental update of the receding horizon goal point and a reduced the computational burden for the warm-started trajectory optimization routine.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        697.0,
+        194.0,
+        707.0
+      ],
+      "markdown": "### C. Direct Trajectory Optimization",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        712.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "While the base direct trajectory optimization problem is the same as in [1], NanoMap queries are used to calculate",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        538.0,
+        65.0
+      ],
+      "markdown": "the obstacle avoidance constraints instead of Octomap.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        66.0,
+        503.0,
+        76.0
+      ],
+      "markdown": "Our optimization problem can be written as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        88.5,
+        559.5,
+        234.5
+      ],
+      "markdown": "$$\n\\begin{aligned}\n& \\underset{\\mathbf{x}_k, \\mathbf{u}_k, h}{\\text{min}}\n& & \\sum_{k=0}^{N}\\left[\\mathbf{{x_k}^T}\\mathbf{Q}\\mathbf{x_k}\\right]+\\mathbf{{x_{N+1}}^T}\\mathbf{Q_f}\\mathbf{x_{N+1}} \\\\\n& \\text{s.t.}\n& & \\forall k \\in [0,\\ldots,N] \\text{ and }\\\\\n&\n& & \\mathbf{x}_{k} - \\mathbf{x}_{k+1} + \\frac{h}{6.0}(\\mathbf{\\dot{x}}_{k} + 4 \\mathbf{\\dot{x}}_{c,k} + \\mathbf{\\dot{x}}_{k+1})= 0\\\\\n&\n& & \\mathbf{x}_f - \\boldsymbol{\\delta}_f \\le \\mathbf{x}_{N} \\le \\mathbf{x}_f + \\boldsymbol{\\delta}_f\\\\\n&\n& & \\mathbf{x}_i - \\boldsymbol{\\delta}_i \\le \\mathbf{x}_{N} \\le \\mathbf{x}_i + \\boldsymbol{\\delta}_i\\\\\n&\n& & \\mathbf{x}_{min} \\le \\mathbf{x}_{k} \\le \\mathbf{x}_{max},~~ \\mathbf{u}_{min} \\le \\mathbf{u}_{k} \\le \\mathbf{u}_{max}\\\\\n&\n& & c(\\mathbf{x}) \\geq 0 \\\\\n&\n& & h_{min} \\le h \\le h_{max}\n\\end{aligned}\n\\tag{1}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        239.0,
+        338.0,
+        247.0
+      ],
+      "markdown": "where",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        338.5,
+        253.0,
+        559.5,
+        312.5
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathbf{\\dot{x}}_{k} &= \\mathbf{f}(t, \\mathbf{x}_{k}, \\mathbf{u}_{k}),~~\n\\mathbf{\\dot{x}}_{k+1} = \\mathbf{f}(t, \\mathbf{x}_{k+1}, \\mathbf{u}_{k+1})\\\\\n\\mathbf{u}_{c,k} &= (\\mathbf{u}_{k} + \\mathbf{u}_{k+1}) / 2\\\\\n\\mathbf{x}_{c,k} &= (\\mathbf{x}_{k} + \\mathbf{x}_{k+1}) / 2 + h (\\mathbf{\\dot{x}}_{k} - \\mathbf{\\dot{x}}_{k+1}) / 8\\\\\n\\mathbf{\\dot{x}}_{c,k} &= \\mathbf{f}(t, \\mathbf{x}_{c,k}, \\mathbf{u}_{c,k}).\n\\end{aligned}\n\\tag{2}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        315.5,
+        559.0,
+        386.5
+      ],
+      "markdown": "Here, $\\mathbf{x}$ signifies the system state, $\\mathbf{u}$ is the control actions, and $\\mathbf{f}(t, \\mathbf{x}_{k+1}, \\mathbf{u}_{k+1})$ is the dynamical model. $h$ is the time step bounded from $h_{min}=0.001s$ to $h_{max}=0.2s$, $\\boldsymbol{\\delta}_f$ and $\\boldsymbol{\\delta}_i$ represent the bounds on the desired final and initial states ($\\mathbf{x}_f$, $\\mathbf{x}_i$), respectively. $N$ is the number of knot points, and $c(\\mathbf{x})$ represents the collision constraint.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        386.5,
+        559.0,
+        487.5
+      ],
+      "markdown": "The first constraint that we evaluated was $c(\\mathbf{x}) = d(\\mathbf{x}) - r$, or the distance to obstacles, where $r$ is the obstacle radius. Given the query, $\\mathbf{x}$, and the $K=10$ nearest neighbors $\\mathbf{a}_i$, the distance to each nearest neighbor is calculated as $d(\\mathbf{x})_i = \\|\\mathbf{x}-\\mathbf{a}_i\\|$. The distance to obstacle constraint is calculated as the average distance to the nearest neighbors $d(\\mathbf{x}) = \\frac{1}{K}\\sum_{i=1}^{K}\\left(d(\\mathbf{x})_i\\right)$. Similarly, the gradient for this constraint is calculated as $\\nabla d(\\mathbf{x}) = \\frac{1}{K}\\sum_{i=1}^{K}\\left(\\frac{\\mathbf{x}-\\mathbf{a}_i}{\\|\\mathbf{x}-\\mathbf{a}_i\\|}\\right)$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        487.5,
+        559.0,
+        557.5
+      ],
+      "markdown": "The second constraint we evaluated was the probability of collision; we replaced $d(\\mathbf{x}) \\geq r$ with $p(\\mathbf{x}) \\leq s$, where $s$ is the maximum probability of collision. Probability of collision is calculated using the formulation presented in [29]. Specifically, the probability between a query point and a nearest neighbor is calculated as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        351.5,
+        559.0,
+        559.5,
+        732.5
+      ],
+      "markdown": "$$\n\\begin{aligned}\np_i(\\mathbf{x}) &= \\sum_{k=0}^{\\infty}(-1)^k c_k\\frac{(r+s)^{2^{\\frac{n}{2}+k}}}{\\Gamma(\\frac{n}{2}+k+1)} \\\\\nc_0 &= exp\\left(-\\frac{1}{2}\\sum_{j=1}^n{{b_i}_j}^2\\right)\\prod_{j=1}^n(2\\lambda_j)^{\\frac{1}{2}} \\\\\nc_k &= \\frac{1}{k}\\sum_{j=0}^{k-1}d_{(k-j)}c_j \\\\\nd_k &= \\frac{1}{2}\\sum_{j=1}^n\\left(1-k{b_i}_j^2\\right)(2\\lambda_j)^{-k} \\\\\n\\mathbf{b_i} &= \\mathbf{\\Sigma}^{-\\frac{1}{2}}(\\mathbf{x}-\\mathbf{a}_i) \\\\\n\\lambda &= eigenvalues(\\mathbf{\\Sigma})\n\\end{aligned}\n\\tag{3}\n$$",
+      "source_class": "formula"
+    }
+  ]
+}

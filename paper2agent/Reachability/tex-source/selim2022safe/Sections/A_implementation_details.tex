@@ -1,0 +1,86 @@
+\section{Implementation Details}
+
+\subsection{Data Collection and Processing}
+\subsubsection{Data Collection}
+The data was collected by letting the agent choose random actions in an empty environment in both cases for $500$ time steps. Then, this data was saved and used again while running the agents in both the training and testing environments.
+
+\subsubsection{Data Processing and Warping}~
+BRSL heavily depends on data-driven reachability analysis.
+Getting the most suitable data that covers the whole space has a crucial effect on how conservative BRSL's forward reachability analysis is.
+This conservatism worsens when we calculate the forward reachable sets for many timesteps; that is, each time step makes the reachable set zonotopes much larger.
+
+To mitigate this problem, we apply a small trick to reduce the reachability zonotopes' volume.
+First, we note that the state-space can be warped in the collected data such that an upper and a lower limit is imposed without loss of generality (WLOG).
+We can enforce the position of a robot, for example, to be confined only within $[0, 1]$ WLOG.
+In our examples, the robot's dynamics are position-invariant.
+This means that we can confine the offline collected data to be within this range. 
+We find empirically that this strategy significantly reduces BRSL's conservatism without impeding safety guarantees.
+% For the Turtlebot example, 500 data points were more than enough to get our framework running. 
+
+%\subsection{Environment Mimic}
+
+%\subsubsection{Architecture}
+
+%\subsubsection{Training}
+%The loss function used for training is...
+
+
+
+%\subsection{RTS Implementation}
+
+%\subsubsection{Turtlebot}
+%The Turtlebot's high-fidelity model is...
+
+%We use the following planning model...
+
+
+%\subsubsection{Quadrotor}
+%The high-fidelity model is...
+
+%The wind is modeled as...
+
+%We use the following planning model...
+
+
+\subsubsection{Approximating the Lipschitz Constant}
+
+Determining a Lipschitz constant $L^\star$ and covering radius $\delta$ is, in general, difficult.
+In this work, we apply the method from \cite[Remark 9]{alanwar2020data}.
+Assume that the data $\statedata_-$ and $\actiondata$ (as in \eqref{eq:data}) are evenly distributed in $\statespace\times\actionspace$ (which are assumed to be compact).
+Let $Z = (\statedata_-, \actiondata)$.
+Then we approximate upper bounds for $L^\star$ and $\delta$ as
+\begin{align}
+    \hat{L}^\star &= \max_{\vc{z}_i, \vc{z}_j \in Z, j \neq i} \frac{\norm{\dyn(\vc{z}_i) - \dyn(\vc{z}_j)}_2}{\norm{\vc{z}_i - \vc{z}_j}_2},\ \regtext{and} \\
+    \hat{\delta} &= \max_{\vc{z}_i \in Z} \min_{\vc{z}_j \in Z, j \neq i} \norm{\vc{z}_i - \vc{z}_j}_2,
+\end{align}
+where $\vc{z}_i \in Z$ is a minor abuse of notation to denote choosing $\vc{z}_i$ as a state/action pair from the data matrices in $Z$.
+
+
+
+\subsection{Experiments}
+
+\subsubsection{RL Agent Choice}
+To select an RL agent for our experiments, we run a preliminary evaluation of three different agents for both robots: TD3 \cite{conf:TD3}, SAC \cite{conf:SAC}, and DDPG \cite{conf:DDPG}.
+The agents are trained in randomized environments for $10^5$ time steps.
+We choose TD3 for subsequent simulations as it outperforms SAC and DDPG in terms of maximum cumulative reward for both robots.
+
+
+\subsubsection{Environment Mimic Sampling Details}
+\TODO{explain how to do sampling from the stochastic model}
+
+
+
+\subsubsection{Turtlebot Details}
+
+The Turtlebot's control inputs are longitudinal and angular velocities.
+Its maximum longitudinal velocity is $0.25$ m/s, and its angular velocity lies within $[-0.5, 0.5]$ rad/s.
+The Turtlebot is equipped with wheel encoders and with a planar lidar that generates $18$ noisy distance measurements evenly spaced in a $180^\circ$ arc in front of the robot.
+The Turtlebot requires a maximum of  $\nbrk = 3$ time steps to execute a failsafe braking maneuver, so we set $\nplan = 4$.
+
+
+\subsubsection{Quadcopter Details}
+
+The quadcopter control input at each time is a commanded velocity in each spatial direction.
+The quadcopter's maximum speed is $5$ m/s (in any direction).
+It is equipped with an IMU and a 16-channel lidar which generates noisy point cloud data in a $50^\circ$ vertical FOV and a $360^\circ$ horizontal FOV (a $360^\circ$-arc around the robot). 
+The robot requires $\nbrk = 5$ time steps (i.e., 1 s at our discretization of 5 Hz) to come to a stop from its maximum speed, so we set $\nplan = 5$.

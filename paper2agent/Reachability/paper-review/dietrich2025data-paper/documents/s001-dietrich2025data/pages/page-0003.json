@@ -1,0 +1,245 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared the 220 dpi renders of all four quadrants with the text; prose and math taken from the authors' TeX and checked on the render. Theorem 1 is given with its printed attribution \"(Adapted from [28, Thm. 3.3])\" and display (9); the hypotheses were checked symbol by symbol (beta in the open interval (0, 1) here, versus (0, 1] in Definition 1 on page 2). Formula images converted to LaTeX: (9), (10), the unnumbered tower-property display (printed without a number), (11), (12). Inline math rewritten as LaTeX, including the bound Bin-bar(0, M, beta) <= log(1/beta)/M with its citation [28, Corollary 3.4], and the square-root volume proxy, whose extraction contained replacement characters. The \"Zero violation reachable sets.\" paragraph split by the column break was merged. The heading \"IV. APPLICATIONS\", which the extractor had lost, was restored. Figure 1 is the full-width schematic at the top of the page: crop [76, 46, 536, 152] pt checked on a 200 dpi render (all three boxes, both arrows and the three small plots complete; caption excluded). Reading order: the figure, its caption and a transcription of the text and formulas inside the figure (from reachable_fig.tex, checked on the render) are placed after Theorem 1 and the paragraph that follows it, so that \"We formulate this in the following theorem:\" (end of page 2) is followed directly by the theorem. Authors' notation kept as printed: \"Bin(k, M, e)\" with k without a hat in the Computation paragraph; the objective of (11) is the sum of sigma_i^2 while the volume proxy below (12) is its square root; (11) and (12) write (delta^{(j)} - mu_i)^2 and (x - mu_i)^2 for vector arguments. The last paragraph continues on page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-r001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        207.0,
+        299.0,
+        253.0
+      ],
+      "markdown": "**Theorem 1.** (Adapted from [28, Thm. 3.3]) Given any $\\beta \\in (0, 1)$, empirical count of boundary violations $\\hat{k}$, and size of test set $M$, the following probability bound holds for the reachable set estimate $\\hat{R}(\\theta)$:"
+    },
+    {
+      "id": "p0003-r002",
+      "kind": "text",
+      "bbox": [
+        104.0,
+        256.0,
+        299.0,
+        278.0
+      ],
+      "markdown": "$$\n\\mathbf{P} \\{ V(\\hat{R}(\\theta)) > \\overline{\\text{Bin}}(\\hat{k}, M, \\beta) \\} \\leq \\beta. \\tag{9}\n$$"
+    },
+    {
+      "id": "p0003-r003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        283.0,
+        299.0,
+        365.0
+      ],
+      "markdown": "It is important to note that the probability above is taken with respect to the $M$ holdout samples $\\delta_s^{(1)}, \\dots, \\delta_s^{(M)}$, with the estimated reachable set $\\hat{R}(\\theta)$ held fixed. This bound is, virtually, perfectly tight; the bound on the true error of our reachable set is violated exactly a $\\beta$ portion of the time [28]. In Section IV, we will demonstrate the efficiency of this method when collecting samples is computationally cheap."
+    },
+    {
+      "id": "p0003-r004",
+      "kind": "figure",
+      "bbox": [
+        76.0,
+        46.0,
+        536.0,
+        152.0
+      ],
+      "markdown": "",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0003-r005",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        155.0,
+        559.0,
+        183.0
+      ],
+      "markdown": "Fig. 1. Using nonconvex scenario reachability analysis, we calculate reachable set estimates, $\\hat{R}(\\theta)$, in the form of a constrained optimization problem. Specifically, we construct $\\hat{R}(\\theta)$ from a finite set of radial basis functions. We illustrate the output of this method through reach sets of a single time instance and reach tubes. Finally, we utilize the holdout method, and a binomial tail inversion, to calculate probabilistic bounds for $\\hat{R}(\\theta)$."
+    },
+    {
+      "id": "p0003-r006",
+      "kind": "text",
+      "bbox": [
+        76.0,
+        184.0,
+        536.0,
+        200.0
+      ],
+      "markdown": "Text inside Figure 1 (transcribed from the figure image; three boxes connected left to right by arrows). Left box, titled \"Nonconvex Scenario Reachability\": $\\underset{\\theta}{\\text{minimize}} \\;\\; \\text{Vol}(\\theta)$ subject to $\\theta \\in \\underset{i = 1, ..., N}{\\bigcap} \\{\\theta_i : g(\\delta^{(i)}, \\theta_i) \\leq 0\\}$. Middle box, titled \"Reachable Set Estimate\": two small plots labelled \"Time Instance:\" and \"Tube:\". Right box, titled \"Holdout Method\": $\\mathbf{P} \\{ V(\\hat{R}(\\theta)) > \\epsilon\\} \\leq \\beta$ and $\\epsilon := \\overline{\\text{Bin}}(\\hat{k}, M, \\beta)$, above a small plot of a bell-shaped curve with its left tail shaded."
+    },
+    {
+      "id": "p0003-r007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        367.0,
+        299.0,
+        485.0
+      ],
+      "markdown": "**Computation.** To calculate the binomial tail inversion (cf. Definition 1), we use the SciPy Python library to solve an optimization problem with the sequence’s cumulative distribution function (CDF) as a constraint, as seen in (7). Since the binomial tail inversion reduces to inverting a one-dimensional function, it can be computed efficiently using standard optimization routines, such as Quasi-Newton methods. Additionally, one can exploit the monotonically decreasing property of the function $e \\mapsto \\mathrm{Bin}(k, M, e)$ on the interval $[0, 1]$ and utilize a simple bisection method."
+    },
+    {
+      "id": "p0003-r008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        487.0,
+        299.0,
+        608.0
+      ],
+      "markdown": "**Order-wise scaling of binomial tail inversion.** In general, $\\overline{\\text{Bin}}(\\hat{k}, M, \\beta)$ does not have a closed-form solution. However, we can obtain an order-wise scaling to illustrate the dependence on $\\hat{k}$, $M$, and $\\beta$. First, suppose that no violations were observed on our holdout dataset ($\\hat{k} = 0$). Then, we have the following bound $\\overline{\\text{Bin}}(0, M, \\beta) \\leq \\frac{\\log(1/\\beta)}{M}$ [28, Corollary 3.4]. This illustrates a $1/M$ dependence (known as a “fast-rate” in statistics) in the number of holdout samples $M$, in addition to a logarithmic dependence, $\\log(\\frac{1}{\\beta})$, on the failure probability $\\beta$. In the general case, when $\\hat{k} > 0$, we have the looser scaling"
+    },
+    {
+      "id": "p0003-r009",
+      "kind": "text",
+      "bbox": [
+        98.0,
+        610.0,
+        299.0,
+        651.0
+      ],
+      "markdown": "$$\n\\overline{\\text{Bin}}(\\hat{k}, M, \\beta) \\leq \\frac{\\hat{k}}{M} + O\\Bigl(\\sqrt{\\frac{\\log(\\frac{1}{\\beta})}{M}}\\Bigr), \\tag{10}\n$$"
+    },
+    {
+      "id": "p0003-r010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        652.0,
+        299.0,
+        672.0
+      ],
+      "markdown": "which is the typical scaling in $M$ predicted by the Central Limit Theorem."
+    },
+    {
+      "id": "p0003-r011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        676.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "**Zero violation reachable sets.** The holdout method, compared to approaches, such as wait-and-judge (which do not require a separate holdout dataset), is not able to guarantee zero violations on the complete dataset. However, we show in Section IV, that while the wait-and-judge method computes a reachable set estimate with zero dataset violations, the final violation probability, $V(\\hat{R}(\\theta))$, is substantially more conservative than the holdout method."
+    },
+    {
+      "id": "p0003-r012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        243.0,
+        559.0,
+        350.0
+      ],
+      "markdown": "**Marginal probability over training and holdout data.** Theorem 1 provides a bound over the probability of the $M$ holdout samples $\\{\\delta_s^{(i)}\\}_{i=1}^{M}$. On the other hand, the reachable set $\\hat{R}(\\theta)$ is calculated as a function of the $N$ training samples $\\{\\delta^{(i)}\\}_{i=1}^{N}$. It is also possible to obtain a bound which holds over the probability of all $N+M$ data points, which is more comparable to the guarantees provided by scenario optimization. In fact, the same bound from Theorem 1 holds by the tower property:"
+    },
+    {
+      "id": "p0003-r013",
+      "kind": "text",
+      "bbox": [
+        330.0,
+        352.0,
+        541.0,
+        394.0
+      ],
+      "markdown": "$$\n\\mathbf{P}_{(\\{\\delta^{(i)}\\}_{i=1}^{N},\\{\\delta_s^{(i)}\\}_{i=1}^{M})}\\{ V(\\hat{R}(\\theta)) > \\overline{\\text{Bin}}(\\hat{k}, M, \\beta) \\} \\leq \\beta.\n$$"
+    },
+    {
+      "id": "p0003-r014",
+      "kind": "heading",
+      "bbox": [
+        380.0,
+        384.0,
+        492.0,
+        394.0
+      ],
+      "markdown": "## IV. Applications"
+    },
+    {
+      "id": "p0003-r015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        397.0,
+        559.0,
+        503.0
+      ],
+      "markdown": "We present numerical examples to demonstrate that the probabilistic bounds that arise from the holdout method are substantially sharper and require fewer samples than existing methods for data-driven reachability. Specifically, we compare the proposed method to the *wait-and-judge* technique presented in [19] to illustrate this improvement. Further, we extend scenario-based reachable sets to reachable tubes, an application now amenable to scenario techniques given our improved computational complexity."
+    },
+    {
+      "id": "p0003-r016",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        512.0,
+        389.0,
+        520.0
+      ],
+      "markdown": "### A. Reachable Sets"
+    },
+    {
+      "id": "p0003-r017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        528.0,
+        559.0,
+        550.0
+      ],
+      "markdown": "We calculate reachable sets, using the sum of radial basis functions, posed as a constrained optimization problem [19]:"
+    },
+    {
+      "id": "p0003-r018",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        552.0,
+        559.0,
+        636.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n& \\underset{\\mu, \\sigma}{\\text{minimize}} & & \\sum_{i=1}^{m} \\sigma_i^2 \\\\\n& \\text{subject to} & & \\sum_{i=1}^{m} e^{-\\frac{1}{2}\\frac{(\\delta^{(j)} - \\mu_i)^2}{\\sigma_i^2}} - \\gamma \\geq 0, \\quad j = 1, \\dots, N, \\\\\n& & & \\sigma \\in [0, \\infty)^m\n\\end{aligned} \\tag{11}\n$$"
+    },
+    {
+      "id": "p0003-r019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        638.0,
+        546.0,
+        648.0
+      ],
+      "markdown": "Observe that (11) corresponds to the program (6), where"
+    },
+    {
+      "id": "p0003-r020",
+      "kind": "text",
+      "bbox": [
+        377.0,
+        650.0,
+        559.0,
+        690.0
+      ],
+      "markdown": "$$\ng(x, \\theta) = \\sum_{i=1}^{m} e^{-\\frac{1}{2}\\frac{(x - \\mu_i)^2}{\\sigma_i^2}} - \\gamma \\tag{12}\n$$"
+    },
+    {
+      "id": "p0003-r021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        692.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Further, we let $\\mathrm{Vol}(\\hat{R}(\\theta)) = \\sqrt{\\sum_{i=1}^{m} \\sigma_i^2}$ be a proxy for the volume of $\\hat{R}(\\theta)$. To solve (11), we first set the initial centers, $\\mu_i$, of the RBFs to be close to optimal using a $k$-means"
+    }
+  ]
+}

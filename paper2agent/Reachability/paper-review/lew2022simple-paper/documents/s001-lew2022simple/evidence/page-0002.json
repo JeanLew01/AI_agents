@@ -1,0 +1,782 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "SAMPLING-BASED REACHABILITY ANALYSIS",
+      "bbox": [
+        210.07200622558594,
+        41.200374603271484,
+        399.2085876464844,
+        50.106937408447266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guarantees have been developed. However, these methods often sacriﬁce simplicity and generality",
+      "bbox": [
+        90.0,
+        94.42467498779297,
+        522.0,
+        104.17741394042969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for their power, motivating the development of algorithms that avoid such restrictions.",
+      "bbox": [
+        90.0,
+        107.97368621826172,
+        465.1092224121094,
+        117.72642517089844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this work, we analyze a simple yet efﬁcient sampling-based algorithm for general-purpose",
+      "bbox": [
+        106.93600463867188,
+        121.52269744873047,
+        522.0052490234375,
+        131.2754364013672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability analysis. As depicted in Figure 1, it consists of 1) sampling inputs, 2) propagating these",
+      "bbox": [
+        90.0,
+        135.07171630859375,
+        522.0003051757812,
+        144.82444763183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inputs, and 3) taking the padded convex hull of these output samples. We refer to this RANDomized",
+      "bbox": [
+        90.0,
+        148.6207275390625,
+        522.0003662109375,
+        158.3734588623047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Uncertainty Propagation algorithm as ϵ-RANDUP: it is simple to implement, beneﬁts from statisti-",
+      "bbox": [
+        90.27301025390625,
+        161.99615478515625,
+        521.9991455078125,
+        171.92344665527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cal accuracy guarantees, and applies to a wide range of problems including reachability analysis of",
+      "bbox": [
+        89.99996948242188,
+        175.7197265625,
+        522.000244140625,
+        185.4724578857422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "uncertain dynamical systems with neural network controllers. Importantly, ϵ-RANDUP fulﬁlls key",
+      "bbox": [
+        89.99996948242188,
+        189.09417724609375,
+        522.0021362304688,
+        199.02146911621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "desiderata that a general-purpose reachability analysis algorithm should satisfy:",
+      "bbox": [
+        89.99996948242188,
+        202.8177490234375,
+        437.2146911621094,
+        212.5704803466797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• it works with any choice of possibly nonlinear reachability maps and non-convex input sets,",
+      "bbox": [
+        94.89997100830078,
+        221.71075439453125,
+        504.90740966796875,
+        231.46348571777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• its estimate of the reachable set is conservative with high probability and tighter than prior work,",
+      "bbox": [
+        94.89997100830078,
+        239.58477783203125,
+        522.0020751953125,
+        249.33750915527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• it is efﬁcient and does not require precomputations, which is a key advantage for learning-based",
+      "bbox": [
+        94.89997100830078,
+        257.45977783203125,
+        522.0018920898438,
+        267.2124938964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control applications where uncertainty bounds and models are updated in real-time.",
+      "bbox": [
+        104.1729736328125,
+        271.0087890625,
+        468.04583740234375,
+        280.7615051269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our main contribution is a thorough analysis of the statistical properties of ϵ-RANDUP. Speciﬁcally:",
+      "bbox": [
+        89.99996948242188,
+        292.56121826171875,
+        521.9984741210938,
+        302.4884948730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. We prove that the set estimator converges to the ϵ-padded convex hull of the true reachable set",
+      "bbox": [
+        90.5369873046875,
+        311.4542236328125,
+        521.9960327148438,
+        321.3815002441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as the number of samples increases. Our assumption about the sampling distribution is weaker",
+      "bbox": [
+        104.17300415039062,
+        325.17779541015625,
+        522.00244140625,
+        334.9305114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "than in related work and implies that sampling the boundary of the input set is sufﬁcient. This",
+      "bbox": [
+        104.17300415039062,
+        338.726806640625,
+        522.002197265625,
+        348.4795227050781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "asymptotic result justiﬁes using ϵ-RANDUP as a thrustworthy baseline for ofﬂine validation",
+      "bbox": [
+        104.17300415039062,
+        352.10125732421875,
+        521.995361328125,
+        362.0285339355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "whenever the reachability map and the input set are complex and no tractable algorithm exists.",
+      "bbox": [
+        104.1729736328125,
+        365.8248291015625,
+        516.3621215820312,
+        375.5775451660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. We derive a ﬁnite-sample bound for the Hausdorff distance between the output of ϵ-RANDUP",
+      "bbox": [
+        90.53697204589844,
+        383.5252685546875,
+        521.7272338867188,
+        393.4525451660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and the convex hull of the true reachable set, assuming that the reachability map is Lipschitz",
+      "bbox": [
+        104.17300415039062,
+        397.24884033203125,
+        522.0022583007812,
+        407.0015563964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous. This result informs algorithmic design (e.g., how to choose the number of samples",
+      "bbox": [
+        104.17300415039062,
+        410.7978515625,
+        522.0023803710938,
+        420.5505676269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to obtain an ϵ-accurate approximation with high probability), sheds insights into which problems",
+      "bbox": [
+        104.17300415039062,
+        424.17327880859375,
+        522.0048217773438,
+        434.1005554199219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are most challenging, and motivates using this simple algorithm in safety-critical applications.",
+      "bbox": [
+        104.17300415039062,
+        437.8968505859375,
+        514.81298828125,
+        447.6495666503906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We demonstrate ϵ-RANDUP on a neural network controller veriﬁcation task and show that it is",
+      "bbox": [
+        90.0,
+        456.6142883300781,
+        521.998291015625,
+        466.54156494140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "highly competitive with prior work. We also embed this algorithm within a robust model predictive",
+      "bbox": [
+        89.99998474121094,
+        470.3378601074219,
+        522.000244140625,
+        480.090576171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "controller and present hardware results demonstrating the reliability of the approach.",
+      "bbox": [
+        89.99998474121094,
+        483.8878479003906,
+        459.2073669433594,
+        493.64056396484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. Related work",
+      "bbox": [
+        89.99998474121094,
+        511.27313232421875,
+        173.55487060546875,
+        522.0208740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Reachability analysis has found a wide range of applications ranging from model predictive control",
+      "bbox": [
+        89.99998474121094,
+        532.8748779296875,
+        522.0001220703125,
+        542.6276245117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Sch¨urmann et al., 2018), robotics (Shao et al., 2021; Lew et al., 2022), neural network veriﬁca-",
+      "bbox": [
+        89.99998474121094,
+        546.369873046875,
+        521.9998168945312,
+        556.1765747070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion (Tran et al., 2019; Hu et al., 2020), to orbital mechanics (Wittig et al., 2015). Reachability",
+      "bbox": [
+        89.9999771118164,
+        559.973876953125,
+        522.0,
+        569.7266235351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "analysis is particularly relevant in safety-critical applications which require the strict satisfaction of",
+      "bbox": [
+        89.9999771118164,
+        573.5228271484375,
+        521.9999389648438,
+        583.2755737304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "speciﬁcations. For instance, a drone transporting a package should never collide with obstacles and",
+      "bbox": [
+        89.9999771118164,
+        587.0718383789062,
+        522.0001831054688,
+        596.8245849609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "respect velocity bounds for any payload mass in a bounded input set. In contrast to stochastic prob-",
+      "bbox": [
+        89.9999771118164,
+        600.620849609375,
+        522.0003051757812,
+        610.3735961914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lem formulations which typically consider the inputs as random variables with known probability",
+      "bbox": [
+        89.9999771118164,
+        614.1697998046875,
+        522.0001831054688,
+        623.9225463867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distributions (Webb et al., 2019; Sinha et al., 2020; Devonport and Arcak, 2020), we consider robust",
+      "bbox": [
+        89.9999771118164,
+        627.7198486328125,
+        522.000244140625,
+        637.4725952148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formulations which are of interest whenever minimal information about the inputs is available.",
+      "bbox": [
+        89.9999771118164,
+        641.268798828125,
+        502.6582336425781,
+        651.0215454101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Deterministic algorithms are often tailored to the particular parameterization of the reachability",
+      "bbox": [
+        106.93597412109375,
+        654.8178100585938,
+        522.0050048828125,
+        664.570556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "map and to the shape of the input set. For instance, one ﬁnds methods that are particularly designed",
+      "bbox": [
+        89.99996948242188,
+        668.3668212890625,
+        522.0001220703125,
+        678.1195678710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for neural networks (Tran et al., 2019; Ivanov et al., 2019; Hu et al., 2020), nonlinear hybrid systems",
+      "bbox": [
+        89.99996948242188,
+        681.9158325195312,
+        522.0004272460938,
+        691.6685791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Chen et al., 2013; Kong et al., 2015), linear dynamical systems with zonotopic (Girard, 2005) and",
+      "bbox": [
+        89.99996948242188,
+        695.4658203125,
+        522.000244140625,
+        705.2185668945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        303.50897216796875,
+        725.9945678710938,
+        308.4902648925781,
+        734.901123046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20220415011442Z",
+      "modDate": "D:20220415011442Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/lew2022simple-paper/documents/.pdf-skill-scan-twl5kvid/review/source.pdf",
+      "page_count": 25,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          210,
+          41,
+          400,
+          49
+        ],
+        "pos": [
+          0,
+          39
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          90,
+          94,
+          522,
+          118
+        ],
+        "pos": [
+          39,
+          226
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          89,
+          121,
+          523,
+          213
+        ],
+        "pos": [
+          226,
+          903
+        ]
+      },
+      {
+        "index": 3,
+        "class": "list-item",
+        "bbox": [
+          94,
+          221,
+          505,
+          232
+        ],
+        "pos": [
+          903,
+          999
+        ]
+      },
+      {
+        "index": 4,
+        "class": "list-item",
+        "bbox": [
+          94,
+          239,
+          523,
+          250
+        ],
+        "pos": [
+          999,
+          1104
+        ]
+      },
+      {
+        "index": 5,
+        "class": "list-item",
+        "bbox": [
+          94,
+          257,
+          523,
+          281
+        ],
+        "pos": [
+          1104,
+          1289
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          89,
+          292,
+          522,
+          303
+        ],
+        "pos": [
+          1289,
+          1396
+        ]
+      },
+      {
+        "index": 7,
+        "class": "list-item",
+        "bbox": [
+          90,
+          311,
+          523,
+          376
+        ],
+        "pos": [
+          1396,
+          1881
+        ]
+      },
+      {
+        "index": 8,
+        "class": "list-item",
+        "bbox": [
+          90,
+          383,
+          523,
+          448
+        ],
+        "pos": [
+          1881,
+          2365
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          89,
+          456,
+          523,
+          494
+        ],
+        "pos": [
+          2365,
+          2648
+        ]
+      },
+      {
+        "index": 10,
+        "class": "section-header",
+        "bbox": [
+          89,
+          511,
+          174,
+          520
+        ],
+        "pos": [
+          2648,
+          2672
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          89,
+          532,
+          523,
+          652
+        ],
+        "pos": [
+          2672,
+          3570
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          89,
+          654,
+          523,
+          706
+        ],
+        "pos": [
+          3570,
+          3976
+        ]
+      },
+      {
+        "index": 13,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          726,
+          309,
+          733
+        ],
+        "pos": [
+          3976,
+          3980
+        ]
+      }
+    ],
+    "text": "SAMPLING-BASED REACHABILITY ANALYSIS \n\nguarantees have been developed. However, these methods often sacrifice simplicity and generality for their power, motivating the development of algorithms that avoid such restrictions. \n\nIn this work, we analyze a simple yet efficient sampling-based algorithm for general-purpose reachability analysis. As depicted in Figure 1, it consists of 1) sampling inputs, 2) propagating these inputs, and 3) taking the padded convex hull of these output samples. We refer to this RANDomized Uncertainty Propagation algorithm as _ϵ_ -RANDUP: it is simple to implement, benefits from statistical accuracy guarantees, and applies to a wide range of problems including reachability analysis of uncertain dynamical systems with neural network controllers. Importantly, _ϵ_ -RANDUP fulfills key desiderata that a general-purpose reachability analysis algorithm should satisfy: \n\n- it works with any choice of possibly nonlinear reachability maps and non-convex input sets, \n\n- its estimate of the reachable set is conservative with high probability and tighter than prior work, \n\n- it is efficient and does not require precomputations, which is a key advantage for learning-based control applications where uncertainty bounds and models are updated in real-time. \n\nOur main contribution is a thorough analysis of the statistical properties of _ϵ_ -RANDUP. Specifically: \n\n1. We prove that the set estimator converges to the _ϵ_ -padded convex hull of the true reachable set as the number of samples increases. Our assumption about the sampling distribution is weaker than in related work and implies that sampling the boundary of the input set is sufficient. This asymptotic result justifies using _ϵ_ -RANDUP as a thrustworthy baseline for offline validation whenever the reachability map and the input set are complex and no tractable algorithm exists. \n\n2. We derive a finite-sample bound for the Hausdorff distance between the output of _ϵ_ -RANDUP and the convex hull of the true reachable set, assuming that the reachability map is Lipschitz continuous. This result informs algorithmic design (e.g., how to choose the number of samples to obtain an _ϵ_ -accurate approximation with high probability), sheds insights into which problems are most challenging, and motivates using this simple algorithm in safety-critical applications. \n\nWe demonstrate _ϵ_ -RANDUP on a neural network controller verification task and show that it is highly competitive with prior work. We also embed this algorithm within a robust model predictive controller and present hardware results demonstrating the reliability of the approach. \n\n# **2. Related work** \n\nReachability analysis has found a wide range of applications ranging from model predictive control (Sch¨urmann et al., 2018), robotics (Shao et al., 2021; Lew et al., 2022), neural network verification (Tran et al., 2019; Hu et al., 2020), to orbital mechanics (Wittig et al., 2015). Reachability analysis is particularly relevant in safety-critical applications which require the strict satisfaction of specifications. For instance, a drone transporting a package should never collide with obstacles and respect velocity bounds for any payload mass in a bounded input set. In contrast to stochastic problem formulations which typically consider the inputs as random variables with known probability distributions (Webb et al., 2019; Sinha et al., 2020; Devonport and Arcak, 2020), we consider robust formulations which are of interest whenever minimal information about the inputs is available. \n\nDeterministic algorithms are often tailored to the particular parameterization of the reachability map and to the shape of the input set. For instance, one finds methods that are particularly designed for neural networks (Tran et al., 2019; Ivanov et al., 2019; Hu et al., 2020), nonlinear hybrid systems (Chen et al., 2013; Kong et al., 2015), linear dynamical systems with zonotopic (Girard, 2005) and \n\n2 \n\n"
+  }
+}

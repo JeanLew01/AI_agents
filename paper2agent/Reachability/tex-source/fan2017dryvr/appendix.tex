@@ -1,0 +1,202 @@
+\section{Appendix}
+\label{app:A}
+
+\subsection{ADAS and autonomous vehicle venchmarks}
+\label{app:adas}
+We provide more details for the different scenarios used for testing ADAS and Autonomous driving control systems.
+%
+
+Recall, that each vehicle model in \Simulink\ has several continuous variables including the  $x, y$-coordinates of the vehicle on the road, its velocity, heading, steering angle, etc. 
+The vehicle can be controlled by two input signals, namely the throttle (acceleration or brake) and the steering speed.
+%
+By choosing appropriate values of these input signals, we have defined the following  modes for each vehicle
+\begin{inparaenum}[(a)]
+	\item \Lmode{cruise}: move forward at constant speed, 
+	\Lmode{speedup}: constant acceleration,
+	\Lmode{brake}: constant (slow) deceleration,
+	\Lmode{em\_brake}: constant (hard).
+\end{inparaenum}
+We have designed lane switching modes \Lmode{ch\_left} and \Lmode{ch\_right} in which the acceleration and steering are controlled in such a manner that the vehicle switches to its left (resp. right) lane in a certain amount of time. 
+
+For each vehicle, we mainly analyze four variables: absolute position
+($sx$) and velocity $vx$ orthogonal to the road direction ($x$-axis),
+and absolute position ($sy$) and velocity $vy$ along the road
+direction ($x$-axis). The throttle and steering information can be
+expressed using the four variables. We will use subscripts to
+distinguish between different vehicles.  The following scenarios are
+constructed by defining appropriate sets of initial states and
+transitions graphs labeled by the modes of two or more vehicles.
+%
+\begin{description} 
+	\item[$\auto{MergeBehind}$:] 
+	Initial condition:  Vehicle A is in left and  vehicle B is in the right lane; initial positions and speeds are in some range;  A is in \Lmode{cruise} mode, and B is in \Lmode{cruise} or \Lmode{speedup}.
+	%
+	Transition graph:  Vehicle A  goes through the mode sequence \Lmode{speedup}, \Lmode{ch\_right}, \Lmode{cruise} with specified intervals of time to transit from mode to another mode. 
+	%
+	Requirement: A merges behind B within a time bound and maintains at least a given safe separation.
+	%%
+	%%%%
+	%%%%
+	%%
+	\item[$\auto{MergeAhead}$:] 
+	Initial condition: Same as  $\auto{MergeBehind}$ with 
+	except that B is in \Lmode{cruise} or \Lmode{brake} mode.
+	Transition graph: Same structure as  $\auto{MergeBehind}$ with different  timing parameters.
+	%
+	Requirement: A merges ahead of B and maintains at least a given safe separation. 
+	%%
+	%%%%
+	%%%%
+	%%
+	\item[$\auto{AutoPassing}$:]
+	Initial condition: Vehicle A behind  B in the same lane, with A in \Lmode{speedup} and B in \Lmode{cruise}; initial positions and speeds are in some range.
+	Transition graph:  A goes through the mode sequence \Lmode{ch\_left}, \Lmode{speedup}, \Lmode{brake}, and  \Lmode{ch\_right}, \Lmode{cruise} with specified time intervals in each mode to complete the overtake maneuver. If B switches to
+	\Lmode{speedup} before A enters \Lmode{speedup} then
+	A aborts and changes back to right lane. If B switches to \Lmode{brake} before A enters \Lmode{ch\_left}, then A should adjust the time to switch to \Lmode{ch\_left} to avoid collision.
+	%
+	%Car 2 is ahead in right lane and if it is in modes \Lmode{cruise} or \Lmode{brake} the Car 1 proceeds with the maneuver, otherwise if Car 2 accelerates then Car 1 aborts and  goes to  \Lmode{ch\_right} to stay in the right lane.
+	Requirement: Vehicle A overtakes B while maintaining minimal safe separation.
+	
+	\item[$\auto{AEB}$:]
+	(Emergency brakes) 
+	Initial condition: Vehicle A behind  B in the same lane with A in \Lmode{cruise}, B is stopped (in \Lmode{cruise} mode with velocity $0$). Initial positions and speeds are in some range;
+	Transition graph: A transits from \Lmode{cruise} to \Lmode{em\_brake}  over a given interval of time or several disjoint intervals of time.
+	Requirement: Vehicle A stops behind B and maintains at least a given safe separation.
+	
+	\item[$\auto{MergeBetween}$:]
+	Initial condition: Vehicle A, B, C are all in the same lane, with A behind B, B behind C, and in the \Lmode{cruise} mode, initial positions and speeds are in some range.
+	Transition graph: A goes through the mode sequence \Lmode{ch\_left}, \Lmode{speedup}, \Lmode{brake}, and  \Lmode{ch\_right}, \Lmode{cruise} with specified time intervals in each mode to overtake B. C transits from \Lmode{cruise} to \Lmode{speedup} then transits back to \Lmode{cruise}, so C is always ahead of A.
+	Requirement: Vehicle A merges between B and C and any two vehicles maintain at least a given safe separation.
+\end{description}
+
+
+
+\subsection{Automatic transmission control}
+\label{ssec:gear}
+We provide some details about the Automatic transmission control benchmark that we have modeled as a hybrid system that combine white-box and black-box components and we have verified using \toolname's safety verification algorithm.
+
+This is a slightly modified version of the Automatic Transmission model provided by \Mathworks\ as a \Simulink\ demo \cite{Matlab_trans}. 
+It is a model of an automatic transmission controller that exhibits both continuous and discrete behavior.
+The model has  been previously  used by  S-taliro~\cite{S-Taliro} for falsifying certain requirements. We are not aware of any verification results for this system.
+% cite all relevant papers by others; Jyo? Sanjit?
+
+For our experiments, we made some minor modifications to  the \Simulink\ model to create the hybrid system  $\auto{ATS}$. 
+This allows us to simulate the vehicle from any one of the four modes, namely,  \Lmode{gear1}, \Lmode{gear2}, \Lmode{gear3} and \Lmode{gear4}.
+%
+Although the system has many variables, we are primarily  interested in the car Speed ($v$), engine RPM (Erpm), impeller torque ($T_i$), output torque ($T_o$), and transmission RPM (Trpm), and therefore, use simulations that record these. 
+%
+Transition graph of  $\auto{ATS}$ encodes 
+transition sequences and intervals for
+shifting from \Lmode{gear1} through to \Lmode{gear4}.
+Requirement of interest is that the engine RPM is less than a specified maximum value, which in turn is important for limiting the thermal and mechanical stresses on the cylinders and camshafts. Typical unsafe set $\U_t$ could be  Erpm $>4000$.
+%
+%In the safety verification experiments reported in Section~\ref{sec:reachexp}, we use several different initial sets the initial set  
+%$v=0, T_i = 394.05, T_o = 52.92,$ Trpm $= 0$ and 
+%Erpm to be within the specified.
+
+%\subsection{Proof for \propref{linear-sep-learn}}
+%\label{sec:proof}
+%\propref{linear-sep-learn}. Let $\epsilon, \delta \in \plreals$. If
+%$k \geq \frac{1}{\epsilon}\ln\frac{1}{\delta}$ then, with probability
+%$\geq 1-\delta$, the above algorithm finds $(a,b)$ such that
+%$\mathsf{err}_{{\cal D}}(a,b) < \epsilon$.
+%
+%%
+%\begin{proof}
+%The result follows from the PAC-learnability of concepts with low
+%VC-dimension~\cite{KearnsVazirani}. However, since the proof is very
+%simple in this case, we reproduce it here for completeness. Let $k$ be
+%as in the statement of the proposition, and suppose the pair $(a,b)$
+%identified by the algorithm has error $> \epsilon$. We will bound the
+%probability of this happening.
+%
+%Let $B = \{(x,y)\: |\: x > ay+b\}$. We know that ${\cal D}(B) >
+%\epsilon$. The algorithm chose $(a,b)$ only because no element from
+%$B$ was sampled in Step~\ref{alg:linsep1}. The probability that this
+%happens is $\leq (1-\epsilon)^k$. Observing that $(1-s) \leq e^{-s}$
+%for any $s$, we get $(1-\epsilon)^k \leq e^{-\epsilon k} \leq e^{-\ln
+%  \frac{1}{\delta}} = \delta$.  This gives us the desired result.
+%\end{proof}
+
+\subsection{Safety verification algorithm}
+\label{appendix:safetyveri}
+
+The safety verification algorithm is shown in~\ref{alg:safetyveri}. It proceeds along the line of the simulation-based verification algorithms presented in~\cite{DMV:EMSOFT2013, FanMitra:2015df, DuggiralaMV:2015c2e2}.
+
+\begin{algorithm}
+	\caption{$\mathit{VerifySafety}(\H,\U)$ verifies safety of hybrid system $\H$ with respect to unsafe set $\U$.}
+	\label{alg:safetyveri}
+	\SetKwInOut{Input}{input}
+	\SetKwInOut{Initially}{initially}
+	%\Input {$\H = \langle \L,\Theta, G, \TL\rangle, \U$}
+	\Initially{$\I.push(Partition(\Theta))$}
+	\While {$\I \neq \emptyset$}
+	{	
+		$S \gets \I.pop()$\;
+		$RS \gets \GraphReach(\H)$ \;
+		\uIf {$RS \cap \U = \emptyset$}
+		{ continue\;}
+		\uElseIf {$\exists (x,l,t) \in RT$ s.t. $\langle RT,v \rangle \in RS$ and $(x,l,t) \subseteq \U $}
+		{\Return UNSAFE, $\langle RT,v \rangle$}
+		\Else
+		{
+			{$I.push (Partition(S))$ \;}	
+			{Or, $G \gets RefineGraph(G)$ \;}
+		}
+	}
+	\Return SAFE
+	%\Return $\R$ \;
+\end{algorithm}
+
+%\subsection {Proof for \propref{prop:check-sim}}
+%\label{sec:proof2}
+%\propref{prop:check-sim}. 
+%Given graphs $G_1$ and $G_2$, and mode map $\modemap$, checking if
+%there is a forward simulation from $G_1$ to $G_2$ is in polynomial
+%time.
+%
+%\begin{proof}
+%The result can be seen to follow from the algorithm for checking timed
+%simulations between timed automata~\cite{cerans} and the
+%correspondence between one-clock timed automata; the fact that the
+%automata have only one clock ensures that the region construction is
+%poly-sized as opposed to exponential-sized. However, in the special
+%case of transition graphs there is a more direct algorithm which does
+%not involve region construction that we describe here.
+%
+%Observe that if $\{R_i\}_{i\in I}$ is a family of forward simulations
+%between $G_1$ and $G_2$ then $\cup_{i \in I} R_i$ is also a forward
+%simulation. Thus, like classical simulations, there is a unique
+%largest forward simulation between two graphs that is the greatest
+%fixpoint of a functional on relations over states of the transition
+%graph. Therefore, starting from the relation $\V_1 \times \V_2$, one
+%can progressively remove pairs $(v,u)$ such that $v$ is not simulated
+%by $u$, until a fixpoint is reached. Moreover, in this case, since
+%$G_1$ is a DAG, one can guarantee that the fixpoint will be reached in
+%$|\V_1|$ iterations.
+%\end{proof}
+
+
+%\subsection{Graphs and reachtubes for graph simulation}
+%\label{appendix:figure_aed}
+%
+%\begin{figure}[ht]
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/brake_2_modes.png}
+%        \caption{\small Transition graph $G_1$.}
+%        \label{fig: em_brake_graphsA}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.3\textwidth}
+%        \includegraphics[width=\textwidth]{Figures/brake_3_modes.png}
+%        \caption{Transition graph $G_2$.}
+%        \label{fig: em_brake_graphsB}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.35\textwidth}
+%	\includegraphics[width=\textwidth]{Figures/Abstraction_reachTube.eps}
+%	\caption{$\auto{AEB}$ Reachtubes.}
+%	%\caption{Reachtubes of graphs in Figure \ref{fig: em_brake_graphs}. Red tubes corresponds to Figure \ref{fig: em_brake_graphsA}, blue and gray tubes corresonds to Figure \ref{fig: em_brake_graphsB}}
+%	\label{fig:abstraction}
+%    \end{subfigure}
+%\caption{\small Graphs and reachtubes for the Automatic Emergency Braking $\auto{AEB}$ system.}
+%\label{fig: em_brake_graphs}
+%\end{figure}

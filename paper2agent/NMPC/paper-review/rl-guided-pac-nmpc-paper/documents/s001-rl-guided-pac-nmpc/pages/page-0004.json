@@ -1,0 +1,319 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Re-examined from the preview, a 200-dpi crop of Table I and the TeX source (Sections II-B to II-E). No display equations or inline mathematics in the prose of this page. First item continues from PDF page 3 (join_previous=space); the left column ends mid-sentence ('... because nonlinearities must') and continues in the right column below the table ('be modeled as disturbances ...'), joined with join_previous=space on p0004-b012. Headings C, D, E are '### ' ('D. NMPC & RL Hybrids' as printed). Table I (table-1): all 9 rows x 6 columns compared cell by cell with the crop and with the TeX tabular; check marks/crosses written as ✓/✗, perception dimensions as '✓ (5×a)*', '✓ (12×2)', '✓ (16, 84×84×9)', '✓ (16×12)' (the asterisk is the printed footnote marker); cells printed on two lines are written on one line; 'AC-PAC-/NMPC (Ours)' is 'AC-PAC-NMPC (Ours)'. No merged header cells. The float (table, its printed table footnote written 'Footnote *: DiffStack uses ...', then the caption 'TABLE I: ...', in printed order) is placed after the paragraph that cites Table I, i.e. at the end of Section II-D, so it does not interrupt the sentence broken by the column change. v2 change: the table footnote, printed with a superscript asterisk directly under the table, starts with 'Footnote *:' (printed marker) instead of a <sup> tag; the marker in the cell stays '*'; table cells given a space before the parenthesis. The table row cites 'AC-MPC[46]' while the prose cites 'Actor Critic MPC [45]': this is as printed and matches the TeX source, which cites two different bibliography keys (the ICRA paper in the prose, the T-RO article in the table); not an extraction error. Line-end hyphens resolved with the TeX source: real compounds kept ('diffusion-based', 'action-value', 'RL-NMPC', 'Actor-Critic', 'vision-based', 'angles-of-attack'); 'Diff-/Stack' is 'DiffStack', 'plat-/forms', 'pol-/icy', 'lin-/ear', 'applica-/bility', 'compu-/tational', 'per-/formance' are ordinary breaks. Printed wording 'provides safety guarantees of form in Def. III.6' kept. Last item ('... real-time trajectory optimization') continues on PDF page 5 (join set there). Omitted only the printed page number '3'. check: OK, 122/122 lines, no number differences.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        557.0,
+        24.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "3",
+      "source_class": "page-header",
+      "reason": "Running page number (3) in the top-right corner."
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        79.0
+      ],
+      "markdown": "a set of constraint-informed merit functions for training, thus making feasibility the target of the warm start [23].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        81.0,
+        301.0,
+        197.0
+      ],
+      "markdown": "Researchers have also begun to explore using more advanced generative models for learned warm-starting. For instance, in [24], researchers used a transformer-based architecture to learn a terminal cost for long horizon guidance. In [25], the authors use Motion Transformer to generate multi-modal warm-starts for escaping local minima in fast-changing traffic scenarios. TransformerMPC [26] improved optimization solve time by training a transformer to select only active constraints in the MPC problem. In [27], authors proposed a diffusion-based approach conditioned on object-centric perception data.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        200.0,
+        301.0,
+        257.0
+      ],
+      "markdown": "While learned warm-starting has been applied to many diverse and challenging problems such as bipedal locomotion [28], self-driving cars [25], and free-flying space robotic platforms [29], few of these approaches have considered planning with local perception in unknown environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        276.0,
+        193.0,
+        286.0
+      ],
+      "markdown": "### C. NMPC with Learned Waypoints",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        291.0,
+        301.0,
+        455.0
+      ],
+      "markdown": "In addition to learned warm-starting, researchers have utilized learned waypoints to improve the long-range navigation capabilities of finite-horizon NMPC. In some cases, researchers have used reinforcement learning to generate these waypoints for navigation in unknown environments [30], quadrotor navigation in environments with dead-end corridors [31], and navigation in dynamic environments with other agents [32]. In other cases, supervised learning has been combined with offline perception-based kinodynamic planning to enable drone racing [33] and navigation in real-world cluttered environments [34]. These approaches often assume a separation of the high-level and low-level planning problems and are often unable to reason about the cases where planning and perception are highly coupled during dynamic maneuvers.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        474.0,
+        154.0,
+        484.0
+      ],
+      "markdown": "### D. NMPC & RL Hybrids",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        490.0,
+        301.0,
+        713.0
+      ],
+      "markdown": "Researchers have also explored NMPC-RL hybrid methods to overcome the limitations inherent to either NMPC or RL alone in scenarios where high and low-level planning are not easily decoupled. In these architectures, the RL policy often improves the long-horizon behavior, while the NMPC approach improves runtime policy performance, and in some cases, improves convergence during RL training. Many of these approaches utilize NMPC controllers as the RL policy itself. PETS [35] and POLO [36] use NMPC policies to learn a probabilistic dynamics model and a probabilistic value function, respectively. MQP [37] integrates the action-value function into an information-theoretic NMPC objective. Related approaches, such as DMPC [38], which incorporates the value function into the stage cost, and CACTO [39], which leverages NMPC warm-starting in the training loop, demonstrate further convergence improvements. While several of these approaches can be applied to systems with stochastic dynamics [35], [36], [37] and in some cases a stochastic value function [36], they do not provide safety guarantees.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        748.0
+      ],
+      "markdown": "Safe RL-MPC [40] provides safety guarantees of form in Def. III.6 by learning the parameters of a robust linear MPC controller. However, because nonlinearities must",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        252.0,
+        564.0,
+        321.0
+      ],
+      "markdown": "be modeled as disturbances, generated control policies are likely to be overly conservative. Another method, predictive safety filters [41] modifies unsafe learned policy inputs using robust constraint-tightening NMPC, which can also lead to conservative policies [2]. Neither approach has been applied to systems with perception.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        323.0,
+        564.0,
+        416.0
+      ],
+      "markdown": "LOOP [42] learns both an observation dynamics model and a value function, and TD-MPC [43] learns an observation dynamics model in latent space to improve sample efficiency. However, neither approach provides safety guarantees. DiffStack [44] and Actor Critic MPC [45] embed differentiable MPC controllers directly into a learned policy. While both of these approaches can accommodate perception inputs, they do not consider stochastic dynamics or provide safety guarantees.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        419.0,
+        564.0,
+        511.0
+      ],
+      "markdown": "Table I provides a comparison of the aforementioned RL-NMPC hybrid approaches. Not only does our approach (Actor-Critic PAC-NMPC) reason about both stochastic dynamics and a stochastic value function, but it also provides probabilistic safety guarantees and can accommodate sizable perception input spaces. In addition, we evaluate our approach through hardware experiments and demonstrate the method’s applicability to a challenging planning and control task.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "table",
+      "bbox": [
+        311.5,
+        50.5,
+        563.5,
+        212.5
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table I",
+      "asset_name": "table-1",
+      "rows": [
+        [
+          "Approach",
+          "Stochastic MPC",
+          "Stochastic Value Func.",
+          "Safety Guarantees",
+          "Perception (max dim)",
+          "Hardware Demo"
+        ],
+        [
+          "DMPC[38], CACTO[39]",
+          "✗",
+          "✗",
+          "✗",
+          "✗",
+          "✗"
+        ],
+        [
+          "PETS[35], MQP[37]",
+          "✓",
+          "✗",
+          "✗",
+          "✗",
+          "✗"
+        ],
+        [
+          "DiffStack[44]",
+          "✗",
+          "✗",
+          "✗",
+          "✓ (5×a)*",
+          "✗"
+        ],
+        [
+          "AC-MPC[46]",
+          "✗",
+          "✗",
+          "✗",
+          "✓ (12×2)",
+          "✓"
+        ],
+        [
+          "POLO[36]",
+          "✓",
+          "✓",
+          "✗",
+          "✗",
+          "✗"
+        ],
+        [
+          "LOOP[42], TD-MPC[43]",
+          "✓",
+          "✗",
+          "✗",
+          "✓ (16, 84×84×9)",
+          "✗"
+        ],
+        [
+          "Safe RL-MPC [40], PSF[41]",
+          "✓",
+          "✗",
+          "✓",
+          "✗",
+          "✗"
+        ],
+        [
+          "AC-PAC-NMPC (Ours)",
+          "✓",
+          "✓",
+          "✓",
+          "✓ (16×12)",
+          "✓"
+        ]
+      ]
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        212.5,
+        549.0,
+        222.5
+      ],
+      "markdown": "Footnote *: DiffStack uses a 4-D observation and ego indicator for each agent in the scene.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "caption",
+      "bbox": [
+        319.0,
+        228.0,
+        556.0,
+        238.0
+      ],
+      "markdown": "TABLE I: Comparison of MPC & RL hybrid approaches.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        532.0,
+        479.0,
+        542.0
+      ],
+      "markdown": "### E. Vision-based Agile Fixed-Wing Flight",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        548.0,
+        564.0,
+        606.0
+      ],
+      "markdown": "To evaluate our approach on a highly dynamic system with local perception and complex dynamics, we consider vision-based navigation through an unknown obstacle field with an agile fixed-wing aerial vehicle. Here, we briefly review some of the prior approaches explored to address this problem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        608.0,
+        564.0,
+        701.0
+      ],
+      "markdown": "Trajectory libraries have been one method for planning and control of fixed-wing robots [47], [48], [49]. Because these libraries are constructed offline, many of the computational challenges associated with generating trajectories for aerial robots, especially across the full flight envelope can be avoided. These approaches have also been more tightly integrated with motion planning approaches to improve performance and enable long-range planning [50], [51], [52].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        703.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "Online trajectory optimization and NMPC are another class of methods for controlling fixed-wing robots. At low angles-of-attack, a number of researchers have leveraged differentially flat representations to achieve real-time trajectory optimization",
+      "source_class": "text"
+    }
+  ]
+}

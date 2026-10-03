@@ -1,0 +1,723 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "face two significant challenges for system verification: (1) assuming access to an underlying",
+      "bbox": [
+        90.0,
+        94.30461120605469,
+        521.8682250976562,
+        103.93734741210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model for the system is often prohibitive, and (2) the presence of noise and uncertainty results",
+      "bbox": [
+        90.0,
+        107.85362243652344,
+        521.870361328125,
+        117.48635864257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in stochastic systems, requiring us to perform statistical verification to obtain probabilistic",
+      "bbox": [
+        90.0,
+        121.40263366699219,
+        521.8643798828125,
+        131.03536987304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "safety certificates. Data-driven statistical reachability analysis is a well-established tool",
+      "bbox": [
+        90.0,
+        134.95164489746094,
+        521.8722534179688,
+        144.58438110351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for statistical verification, and has been applied to safety-critical problems across various",
+      "bbox": [
+        90.0,
+        148.5006561279297,
+        521.8611450195312,
+        158.13339233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "domains, including, autonomy, medical imaging and CPS. Devonport et al. (2021); Fisac",
+      "bbox": [
+        90.0,
+        162.05064392089844,
+        521.8045043945312,
+        171.68338012695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al. (2018); Fan et al. (2017); Hashemi et al. (2024b).",
+      "bbox": [
+        90.0,
+        175.5996551513672,
+        351.39300537109375,
+        185.23239135742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In the context of data-driven statistical reachability analysis, given a user-specified",
+      "bbox": [
+        106.93599700927734,
+        189.1486053466797,
+        521.8948364257812,
+        198.78134155273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "threshold δ ∈(0, 1), the goal is to produce a set that ensures that any trajectory during",
+      "bbox": [
+        90.0,
+        202.03216552734375,
+        521.9261474609375,
+        212.33035278320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "deployment lies within this set with a probability of no less than δ. As explained in the",
+      "bbox": [
+        90.0,
+        216.19207763671875,
+        521.9517822265625,
+        225.87936401367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\"Related Work\" section, our work is motivated by the method proposed in Hashemi et al.",
+      "bbox": [
+        88.37300109863281,
+        229.79661560058594,
+        523.9981689453125,
+        239.42935180664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2024b). This methodology involves three main steps: (1) learning a deterministic surrogate",
+      "bbox": [
+        88.73100280761719,
+        243.3456268310547,
+        521.8594970703125,
+        252.97836303710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model from sampled trajectories, (2) performing reachability analysis on the surrogate model,",
+      "bbox": [
+        90.0,
+        256.8946533203125,
+        523.3670654296875,
+        266.5273742675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and (3) using robust conformal inference Cauchois et al. (2024) to calculate an inflating",
+      "bbox": [
+        90.0,
+        270.44366455078125,
+        521.8611450195312,
+        280.0763854980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hypercube. This inflating hypercube quantifies the necessary expansion of the surrogate",
+      "bbox": [
+        90.0,
+        283.9926452636719,
+        521.8834838867188,
+        293.6253662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model’s reachable set to provide provable probabilistic guarantees on the flowpipe that is",
+      "bbox": [
+        90.0,
+        297.5426330566406,
+        521.8612060546875,
+        307.17535400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "obtained for the black-box oracle.",
+      "bbox": [
+        90.0,
+        311.0916442871094,
+        249.67652893066406,
+        320.724365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Nonetheless, the utilized technique in Hashemi et al. (2024b) to integrate robust conformal",
+      "bbox": [
+        106.93599700927734,
+        324.6406555175781,
+        521.8611450195312,
+        334.27337646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inference, can be adjusted to reduce the level of conservatism. Our first contribution in",
+      "bbox": [
+        90.0,
+        338.18963623046875,
+        521.88330078125,
+        347.8223571777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this paper is to address this issue, by combining robust conformal inference with Principal",
+      "bbox": [
+        90.0,
+        351.7386474609375,
+        521.8274536132812,
+        361.3713684082031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Component Analysis (PCA), and we show this adjustment results in tighter inflating hy-",
+      "bbox": [
+        90.0,
+        365.28863525390625,
+        523.6748046875,
+        374.9213562011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "percubes and probabilistic reachable sets. In Hashemi et al. (2024b), the authors assume",
+      "bbox": [
+        90.0,
+        378.837646484375,
+        521.8388671875,
+        388.4703674316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a single model that maps the initial state to the entire trajectory1. However, this results",
+      "bbox": [
+        90.0,
+        390.4526062011719,
+        521.9744262695312,
+        402.0193786621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in a large model, which limits the scalability of reachability analysis for extended horizons.",
+      "bbox": [
+        90.0,
+        405.9356384277344,
+        523.947509765625,
+        415.568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Training such a large model becomes inefficient. Furthermore, the model’s large size makes",
+      "bbox": [
+        89.60900115966797,
+        419.4846496582031,
+        521.8602905273438,
+        429.11737060546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "accurate methods for surrogate reachability infeasible, necessitating the use of conservative",
+      "bbox": [
+        90.0,
+        433.0346374511719,
+        521.8804321289062,
+        442.6673583984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "over approximation techniques. In response, our second contribution here is to address these",
+      "bbox": [
+        90.0,
+        446.5836486816406,
+        521.8595581054688,
+        456.21636962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "challenges by presenting a new training strategy that effectively resolves for all of these listed",
+      "bbox": [
+        90.0,
+        460.13262939453125,
+        521.8807983398438,
+        469.7653503417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scalability issues. We propose training a set of independent small models, each mapping the",
+      "bbox": [
+        90.0,
+        473.681640625,
+        521.8145751953125,
+        483.3143615722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial state to a separate sub-partition of the trajectory. This approach eliminates the need",
+      "bbox": [
+        90.0,
+        487.23065185546875,
+        521.8768310546875,
+        496.8633728027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for iterating a model over time while maintaining smaller models that are more suitable for",
+      "bbox": [
+        90.0,
+        500.7806396484375,
+        522.0653076171875,
+        510.4133605957031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "efficient training and efficient surrogate reachability analysis.",
+      "bbox": [
+        90.0,
+        514.3296508789062,
+        378.78564453125,
+        523.96240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Related Work. In the context of data-driven reachability analysis, typically, to obtain the",
+      "bbox": [
+        90.0,
+        531.1217041015625,
+        521.8984375,
+        540.765380859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable set, a dataset of system trajectories needs to be available, e.g., from a black box",
+      "bbox": [
+        90.0,
+        544.681640625,
+        522.1661376953125,
+        554.3143920898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simulator. In Devonport et al. (2021), the authors use Christoffel functions2 to learn the",
+      "bbox": [
+        90.0,
+        554.2726440429688,
+        521.9844970703125,
+        567.8643798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model of the system from such a dataset and generate probabilistic reachable sets. This",
+      "bbox": [
+        90.0,
+        571.7806396484375,
+        521.861083984375,
+        581.4133911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methodology has been extended in Tebjou et al. (2023) by incorporating conformal inference",
+      "bbox": [
+        90.0,
+        585.3296508789062,
+        521.870361328125,
+        594.96240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Vovk (2012) to improve its data efficiency. In Devonport and Arcak (2020a), a Gaussian",
+      "bbox": [
+        89.5989990234375,
+        598.878662109375,
+        521.8941040039062,
+        608.5114135742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "process-based classifier is employed to learn a model that distinguishes between reachable",
+      "bbox": [
+        90.0,
+        612.4276123046875,
+        521.8521118164062,
+        622.0603637695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and unreachable states to approximate the reachable set. In Devonport and Arcak (2020b);",
+      "bbox": [
+        90.0,
+        625.9776611328125,
+        523.3906860351562,
+        635.6104125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Dietrich et al. (2024) scenario optimization is used to generate probabilistic reachable sets.",
+      "bbox": [
+        90.0,
+        639.526611328125,
+        523.971923828125,
+        649.1593627929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The method in Fisac et al. (2018) assumes partial knowledge of the system and leverages",
+      "bbox": [
+        89.60900115966797,
+        653.0756225585938,
+        521.8707275390625,
+        662.7083740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. This approach is motivated by the fact that training a one-step model and iterating it over time leads to",
+      "bbox": [
+        93.68299865722656,
+        674.76611328125,
+        522.0525512695312,
+        682.6834716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the well-known issue of cumulative errors",
+      "bbox": [
+        104.94400024414062,
+        685.7251586914062,
+        271.26171875,
+        693.6425170898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. See Lasserre and Pauwels (2019); Marx et al. (2021) for more details about the Christoffel functions.",
+      "bbox": [
+        93.68299865722656,
+        696.6841430664062,
+        511.32891845703125,
+        704.6015014648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        303.2879943847656,
+        725.233642578125,
+        308.7098083496094,
+        734.8663940429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250522002041Z",
+      "modDate": "D:20250522002041Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hashemi2025pca-paper/documents/.pdf-skill-scan-gvm1je_t/review/source.pdf",
+      "page_count": 16,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          90,
+          93,
+          522,
+          186
+        ],
+        "pos": [
+          0,
+          621
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          88,
+          188,
+          524,
+          319
+        ],
+        "pos": [
+          621,
+          1481
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          89,
+          323,
+          524,
+          525
+        ],
+        "pos": [
+          1481,
+          2852
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          89,
+          530,
+          524,
+          664
+        ],
+        "pos": [
+          2852,
+          3776
+        ]
+      },
+      {
+        "index": 4,
+        "class": "footnote",
+        "bbox": [
+          93,
+          674,
+          523,
+          692
+        ],
+        "pos": [
+          3776,
+          3931
+        ]
+      },
+      {
+        "index": 5,
+        "class": "footnote",
+        "bbox": [
+          93,
+          696,
+          512,
+          706
+        ],
+        "pos": [
+          3931,
+          4040
+        ]
+      },
+      {
+        "index": 6,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          725,
+          309,
+          733
+        ],
+        "pos": [
+          4040,
+          4044
+        ]
+      }
+    ],
+    "text": "face two significant challenges for system verification: (1) assuming access to an underlying model for the system is often prohibitive, and (2) the presence of noise and uncertainty results in stochastic systems, requiring us to perform statistical verification to obtain probabilistic safety certificates. Data-driven statistical reachability analysis is a well-established tool for statistical verification, and has been applied to safety-critical problems across various domains, including, autonomy, medical imaging and CPS. Devonport et al. (2021); Fisac et al. (2018); Fan et al. (2017); Hashemi et al. (2024b). \n\nIn the context of data-driven statistical reachability analysis, given a user-specified threshold _δ ∈_ (0 _,_ 1), the goal is to produce a set that ensures that any trajectory during deployment lies within this set with a probability of no less than _δ_ . As explained in the \" _Related Work_ \" section, our work is motivated by the method proposed in Hashemi et al. (2024b). This methodology involves three main steps: (1) learning a deterministic surrogate model from sampled trajectories, (2) performing reachability analysis on the surrogate model, and (3) using robust conformal inference Cauchois et al. (2024) to calculate an inflating hypercube. This inflating hypercube quantifies the necessary expansion of the surrogate model’s reachable set to provide provable probabilistic guarantees on the flowpipe that is obtained for the black-box oracle. \n\nNonetheless, the utilized technique in Hashemi et al. (2024b) to integrate robust conformal inference, can be adjusted to reduce the level of conservatism. Our first contribution in this paper is to address this issue, by combining robust conformal inference with Principal Component Analysis (PCA), and we show this adjustment results in tighter inflating hypercubes and probabilistic reachable sets. In Hashemi et al. (2024b), the authors assume a single model that maps the initial state to the entire trajectory<sup>1</sup> . However, this results in a large model, which limits the scalability of reachability analysis for extended horizons. Training such a large model becomes inefficient. Furthermore, the model’s large size makes accurate methods for surrogate reachability infeasible, necessitating the use of conservative over approximation techniques. In response, our second contribution here is to address these challenges by presenting a new training strategy that effectively resolves for all of these listed scalability issues. We propose training a set of independent small models, each mapping the initial state to a separate sub-partition of the trajectory. This approach eliminates the need for iterating a model over time while maintaining smaller models that are more suitable for efficient training and efficient surrogate reachability analysis. \n\n**Related Work** . In the context of data-driven reachability analysis, typically, to obtain the reachable set, a dataset of system trajectories needs to be available, e.g., from a black box simulator. In Devonport et al. (2021), the authors use Christoffel functions<sup>2</sup> to learn the model of the system from such a dataset and generate probabilistic reachable sets. This methodology has been extended in Tebjou et al. (2023) by incorporating conformal inference Vovk (2012) to improve its data efficiency. In Devonport and Arcak (2020a), a Gaussian process-based classifier is employed to learn a model that distinguishes between reachable and unreachable states to approximate the reachable set. In Devonport and Arcak (2020b); Dietrich et al. (2024) scenario optimization is used to generate probabilistic reachable sets. The method in Fisac et al. (2018) assumes partial knowledge of the system and leverages \n\n> 1. This approach is motivated by the fact that training a one-step model and iterating it over time leads to the well-known issue of cumulative errors \n\n> 2. See Lasserre and Pauwels (2019); Marx et al. (2021) for more details about the Christoffel functions. \n\n2 \n\n"
+  }
+}

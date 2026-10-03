@@ -1,0 +1,40 @@
+{
+ "cli_args": {
+  "id_l": 0,
+  "id_u": 0,
+  "nsteps": 32,
+  "nparticles": 16,
+  "a": -1.0,
+  "T": 1.0,
+  "dsteps": 4,
+  "integrator": "jentzen_and_kloeden",
+  "sde": true
+ },
+ "mc_id": 0,
+ "rnd_keys_row": 0,
+ "key_derivation": "key_simulation, key_pf = jax.random.split(rnd_keys[mc_id])",
+ "model": {
+  "p1": 0.5,
+  "p2": 1.0,
+  "sig": 1.0,
+  "xi": 0.5,
+  "v0_": 1.0,
+  "dx": 1,
+  "dy": 1
+ },
+ "resampling": {
+  "fn": "diffres.resampling.diffusion_resampling",
+  "a": -1.0,
+  "ts": "linspace(0, T, dsteps+1)",
+  "integrator": "jentzen_and_kloeden",
+  "ode": false,
+  "jitter": 0.0,
+  "einsum": false
+ },
+ "smc": {
+  "fn": "diffres.feynman_kac.smc_feynman_kac",
+  "resampling_threshold": 1.0,
+  "nparticles": 16,
+  "nsteps": 32
+ }
+}

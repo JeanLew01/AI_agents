@@ -1,0 +1,39 @@
+\begin{algorithm}[t]
+\caption{Adjusting Unsafe Actions}
+\label{alg:adjust}
+
+\KwInput{plan $\plan_k = (\action_j)_{j=k}^{\nplan}$, obstacles $\statespace\obs$, initial reachable set $\reachapprox_k$, step size $\gamma$, time limit $t\lbl{max}$, time steps required to stop $n\brk$} 
+// note $\plan_k$ has failsafe $\action\brk$ for all $j > k+\nplan$
+
+$\plan\safe \leftarrow \plan_k$ // initialize with given plan
+
+\For{$j = k:(k+\nplan + n\brk)$\label{ln:adjust:for_loop}}{
+    \While{time limit not exceeded\label{ln:adjust:while_loop}}{
+        $(\reachapprox_j)_{j=k}^{k+\nplan} \leftarrow \reachfunc{\reachapprox_j,\plan\safe}$ // use Alg. \ref{alg:LipReachability} \label{ln:adjust:reach}
+    
+        $v\opt \leftarrow $ collision check $\reachapprox_j \cap \statespace\obs$ using \eqref{prog:collision_check} \label{ln:adjust:collision_check}
+        
+        \uIf{$v\opt \leq 1$ (i.e., in collision)}{        
+            $\action_j \leftarrow \proj_{\actionspace_j}\left(\action_j + \gamma \nabla_{\action_j} v\opt\right)$ // using \eqref{eq:collision_chain_rule} \label{ln:adjust:get_gradient_and_step}
+            
+            %$\action_j \leftarrow \proj_{\actionspace_j}(\action_j)$ \label{ln:adjust:project}
+            
+            %$\plan\safe\idx{j} \leftarrow \action_j$ // update current action \label{ln:adjust:update_action}
+        }
+        % \uElseIf{$\vcstate_n$ is not stopped}{
+        %     $\action_j \leftarrow \tfrac{n-j}{n}\action_j + \tfrac{j}{n}\action\brk$ // add failsafe \label{ln:adjust:add_failsafe}
+        % }
+        \Else{
+            \textbf{break} and restart inner while loop \label{ln:adjust:break_while_loop}
+        }
+    }
+}
+
+\eIf{all $\reachapprox_j \cap \statespace\obs = \emptyset$ and $\vcstate_n$ is stopped\label{ln:adjust:check_if_safe}}{
+    % $p \leftarrow \sum_{k=0}^n \norm{\plan\idx{k} - \plan\safe\idx{k}}_2$ // compute penalty
+    
+    \textbf{return} $\plan\safe = (\action_j)_{j=k}^{\nplan}$ // found new safe plan% and $p$
+}{
+    \textbf{return} error ``unsafe'' // failed to find safe plan\label{ln:adjust:return_unsafe}
+}
+\end{algorithm}

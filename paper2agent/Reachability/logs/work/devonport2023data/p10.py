@@ -1,0 +1,43 @@
+from pagelib import *
+
+items = [
+    running_header(10),
+    text("p0010-b001", [72.0, 99.0, 442.0, 169.0],
+         r"In addition to verifying the validity of the terminal output of Algorithm 3.2, Theorem 3.6 justifies the use of Algorithm 3.2 in an “any time algorithm” fashion, that is as an algorithm whose output is verified even if execution is stopped prematurely. The execution of Algorithm 3.2 will terminate as long as the growth of $D_{KL}(\mathcal{N}\left(0, (\sigma_0^{-1}I + K^{-1})^{-1}\right)||\mathcal{N}\left(0,K\right))$ is $o(N)$: determining the conditions under which this growth condition holds is a topic for future research."),
+    text("p0010-b002", [72.0, 171.0, 442.0, 192.0],
+         "We now develop the constructions used in the proof, starting with the prior and posterior stochastic estimators for the kernel case. We take"),
+    text("p0010-b003", [67.0, 197.0, 362.0, 220.0],
+         r"$$C_{P} = \{x : g_p(x)^2 \le \eta\}, \qquad C_{Q} = \{x : g_q(x)^2 \le \eta\}, \tag{3.3}$$"),
+    text("p0010-b004", [71.0, 226.0, 442.0, 285.0],
+         r"where $g_p$ and $g_q$ are the prior and posterior of a general Gaussian process regression model with prior kernel $k$, conditioned on the observations $x_1,\dotsc,x_N$, $y_1=\dotso=y_N=0$ with observation noise level $\sigma_0^2$. The corresponding concept class is the class of $\eta$-sublevel sets of functions in the support of $g_p$, which depends on the choice of kernel. According to (A.1), $g_q$ has posterior mean $m_q=0$ and variance"),
+    text("p0010-b005", [66.0, 289.0, 392.0, 314.0],
+         r"$$\text{Var}_{g_q}\left(x\right)= k(x,x) - k(X,x)^\top{\left(\sigma^2 I_N + K(X,X)\right)}^{-1} k(X,x). \tag{3.4}$$"),
+    text("p0010-b006", [71.0, 319.0, 442.0, 355.0],
+         r"We take the posterior central concept to be $\bar{c}_Q=\{x : \mathbb{E}\left[g_q(x)^2\right] \le\eta\}$. Since $\mathbb{E}\left[g_q(x)\right]=m_q(x)=0$ for all $x\in\mathcal{X}$, we know $\mathbb{E}\left[g_q(x)^2\right]=\text{Var}_{g_q}\left(x\right)$. This means that the posterior central concept is"),
+    text("p0010-b007", [72.0, 356.0, 431.0, 383.0],
+         r"$$\bar{c}_{Q} = \{x : k(x,x) - k(X,x)^\top{\left(\sigma^2 I_N + K(X,X)\right)}^{-1} k(X,x) \le \eta \} = \{x : \kappa^{-1}(x) \le \eta\} \tag{3.5}$$"),
+    text("p0010-b008", [71.0, 392.0, 118.0, 400.0], "as desired."),
+    text("p0010-b009", [71.0, 404.0, 442.0, 427.0],
+         r"Next, we construct the sequence of bounds, starting with the formula for the empirical stochastic risk of $C_Q$ in terms of known data."),
+    text("p0010-b010", [71.0, 432.0, 442.0, 455.0],
+         r"**Lemma 3.7.** For the zero-one membership loss $\ell(c,x)=\mathbb{1}\{x\notin c\}$, the empirical stochastic risk of the posterior stochastic estimators $C_Q$ defined in (3.3) is"),
+    text("p0010-b011", [66.0, 461.0, 331.0, 501.0],
+         r"$$\hat{r}_Q = \frac{1}{N}\sum_{i=1}^N 1-F_1\left(\frac{\eta}{\kappa^{-1}(x_i)}\right), \tag{3.6}$$"),
+    text("p0010-b012", [71.0, 507.0, 442.0, 517.0],
+         r"where $F_1$ is the CDF of the chi-square distribution with one degree of freedom, that is"),
+    text("p0010-b013", [66.0, 522.0, 351.0, 545.0],
+         r"$$F_1(x)=\mathbb{P}\left(Z^2 \le x\right) \text{ where } Z\sim\mathcal{N}\left(0,1\right). \tag{3.7}$$"),
+    text("p0010-b014", [71.0, 550.0, 442.0, 573.0],
+         r"Next, we use the PAC-Bayes theorem to bound the stochastic risk $r_Q$ by the empirical stochastic risk $\hat{r}_Q$."),
+    text("p0010-b015", [71.0, 578.0, 441.0, 610.0],
+         r"**Lemma 3.8.** Let $x_1,\dotsc,x_N\overset{\textrm{i.i.d.}}{\sim} X$ denote a set of observations used to construct $C_{Q}$ from $C_{P}$ in (3.3). The stochastic risk $r_Q$ is bounded by $\overline{r}\in(0,1)$, where"),
+    text("p0010-b016", [72.0, 611.0, 441.0, 652.0],
+         r"$$\overline{r}=\sup \left\{ \beta : D_{\text{ber}}(\hat{r}_Q || \beta) \le \frac{D_{KL}(\mathcal{N}\left(0,(K^{-1}+\sigma_0^{-2}I)^{-1}\right) || \mathcal{N}\left(0,K\right)) + \log\frac{N+1}{\delta} }{N}\right\}, \tag{3.8}$$"),
+    text("p0010-b017", [72.0, 656.0, 167.0, 666.0], r"with confidence $1-\delta$."),
+    text("p0010-b018", [71.0, 672.0, 442.0, 695.0],
+         r"Since $D_{ber}(q||p)$ is convex in $(q,p)$ and equal to zero for $q=p$, the set in (3.8) is an interval containing $\hat{r}_Q$. Once $\hat{r}_Q$ and the right-hand side of the inequality in (3.8) are"),
+]
+
+save(10, items, r"""
+Compared with the 130-dpi render line by line. Displays (3.3)-(3.8) taken from the authors' TeX with macros expanded (\Norm -> \mathcal{N}(..), \Var[g_q]{x} -> \text{Var}_{g_q}(x), \Ex, \Pr -> \mathbb{P}(..), \ind, \esrisk, \srisk, \avgion) and checked symbol by symbol against the page; all five extractor formula images and two glyph-soup text displays replaced by LaTeX with \tag. Lemma 3.7 and Lemma 3.8 are printed in italics with small-caps labels; written with bold labels, each statement split into prose items and display items in the printed order (Lemma 3.7: statement, (3.6), 'where F_1 ...', (3.7); Lemma 3.8: statement, (3.8), 'with confidence 1-delta.'). Source peculiarities kept as printed: the termination remark prints $\sigma_0^{-1}I$ (exponent -1) inside the KL divergence, whereas (3.8) has $\sigma_0^{-2}I$; (3.4) and (3.5) print $\sigma^2 I_N$ without the subscript 0 and use $k(X,x)$, $K(X,X)$ instead of $k_D(x)$, $K$; (3.6) prints the summand as '1 - F_1(...)' without brackets around it; (3.3) is printed on one line with one number (written with \qquad). 'According to (A.1)' refers to the appendix equation. References resolved to printed values: Algorithm 3.2 (three times), Theorem 3.6, (A.1), (3.3) (twice), (3.8) (twice). Line-wrap hyphens removed (pre-maturely). The last item is the beginning of a sentence that continues on page 11 (join there). Omitted: running header (page number 10 and author short list).
+""")

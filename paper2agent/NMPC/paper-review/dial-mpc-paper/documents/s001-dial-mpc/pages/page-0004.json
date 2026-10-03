@@ -1,0 +1,257 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and with 200-230 dpi crops of Fig. 4, Algorithm 1, the \"Dual-loop annealing\" paragraph, and equations (4), (5), (6); maths taken from 30algo.tex and checked against the crops (TeX and PDF agree). Equations (4), (5), (6) were formula images and are now text items with $$ blocks and \\tag. Fig. 4: box [52,159.3,300.8,256.5] (three panels with titles \"MPPI w/ large σ\", \"MPPI w/ small σ\", \"DIAL-MPC\", tick labels, \"u\" axis labels and the two-row legend; checked by crop), caption separate. Algorithm 1: the extractor had scattered it into three damaged text items; it is now an image crop (kind figure, label \"Algorithm 1\", asset algorithm-1, box [311,48.5,560,214] from the top rule to the bottom rule) followed by a line-by-line transcription with the printed line numbers 1-11 and LaTeX maths (indentation of nested lines shown with spaces). The pseudocode is kept as printed: the inner loop runs \"for i = 1 to N\" although the text and (4), (5) describe annealing from i = N down to 1; line 4 cites (7), line 7 cites (3), line 8 cites (2). Reading order: the paragraph \"Combining MPPI with multi-stage annealing ... two annealing procedures:\" at the foot of the left column continues below Algorithm 1 in the right column (\"an outer-loop trajectory-level annealing ... detail below.\", new item p0004-b013a with join_previous=space, split off from the extractor item that had merged it with the next paragraph); Algorithm 1 and its transcription are placed after that paragraph and before \"Dual-loop annealing.\". \"C. Diffusion-Inspired Annealing for Sampling-Based MPC\" was a list item and is now a ### heading. The \"Dual-loop annealing\" paragraph was rebuilt from TeX because the extractor had scrambled the $\\Sigma^N_H$-type sub/superscripts; the kernel lists are printed exactly as \"$\\Sigma^N_{H} \\dots, \\Sigma^1_{H}$\" (no comma after the first element), \"$\\Sigma^N_{H-1}, \\dots, \\Sigma^1_{H-1}$\" and \"$\\Sigma^N_{0} \\dots, \\Sigma^1_{0}$\". First item continues the last paragraph of page 3 (join_previous=space); the last item (\"... increases with time as $h$\") continues on page 5. Line-wrap compounds restored: sampling-based, trajectory-level. Cross-references kept as printed (\"section III-C\", \"(algorithm 1)\", \"fig. 1\"). No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        77.0
+      ],
+      "markdown": "is crucial to unlocking the potential of MPPI in real-world legged locomotion tasks.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        79.0,
+        299.0,
+        149.0
+      ],
+      "markdown": "Fortunately, diffusion processes, known for their powerful sampling capabilities from complex distributions, offer a way to balance coverage and convergence through an annealing strategy. This strategy involves sampling iteratively at decreasing noise levels, effectively reversing the forward corruption process.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        159.3,
+        300.8,
+        256.5
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 4",
+      "asset_name": "figure-4"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        262.0,
+        299.0,
+        331.0
+      ],
+      "markdown": "Fig. 4: Coverage and convergence trade-off in sampling-based methods. Given the target distribution $p_0(U)$ and the same number of samples, MPPI either over-explores or over-exploits the solution, while our method balances the exploration and exploitation to converge to optima following a diffusion-inspired annealing process.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        348.0,
+        299.0,
+        514.0
+      ],
+      "markdown": "**Annealing in diffusion process.** Instead of sampling solely from $p_1(\\cdot)$, the forward process in diffusion defines a sequence of distributions with increasing noise levels: $p_1(\\cdot), \\ldots, p_{N-1}(\\cdot), p_N(\\cdot)$, where $N$ is the total number of diffusion stages. Each density is defined as $p_i(\\cdot) = (p_0 \\ast \\phi_i)(\\cdot)$ with $\\phi_i(\\cdot) \\sim \\mathcal{N}(0, \\Sigma^i)$. Sampling proceeds in reverse order. Starting from a higher noise level $\\Sigma^N$, the sampling distribution $p_N(\\cdot)$ is highly spread out, ensuring good global exploration. As the noise level decreases, the sampling distributions $p_i(U)$ become more concentrated, refining the search towards the target distribution $p_0(U)$ and improving convergence to the optimal solution. We adopt an exponential schedule for the noise levels, inspired by diffusion processes, to design the sampling kernels:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        516.0,
+        299.0,
+        551.0
+      ],
+      "markdown": "$$\n\\det\\left(\\Sigma^{i}\\right) = \\exp\\left(-\\frac{N-i}{\\beta N} d\\right),\\quad \\forall i \\in \\{N, \\ldots, 1\\}, \\tag{4}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        553.0,
+        299.0,
+        588.0
+      ],
+      "markdown": "where $\\beta$ is the temperature parameter for the annealing process, and $N$ is the number of iterations for the annealing process, $d$ is the dimension of the sampling space.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        590.0,
+        299.0,
+        660.0
+      ],
+      "markdown": "Given that MPPI corresponds to a single-stage diffusion process, we can naturally incorporate this multi-stage annealed diffusion approach to design an improved sampling strategy for MPPI. In section III-C, we discuss how to implement this diffusion-inspired annealing process within the MPPI framework in a receding horizon manner.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        672.0,
+        295.0,
+        682.0
+      ],
+      "markdown": "### C. Diffusion-Inspired Annealing for Sampling-Based MPC",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        688.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Combining MPPI with multi-stage annealing, we propose DIAL-MPC (algorithm 1) that leverages the receding horizon structure of MPC and introduces a dual-loop covariance design. This design comprises two annealing procedures:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013a",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        238.0,
+        559.0,
+        260.0
+      ],
+      "markdown": "an outer-loop trajectory-level annealing and an inner-loop action-level annealing, which we detail below.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        48.5,
+        560.0,
+        214.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        52.0,
+        559.0,
+        210.0
+      ],
+      "markdown": "**Algorithm 1** Diffusion-Inspired Annealing for Legged MPC\n\n1: Initialize $u_{0:H} \\leftarrow \\mathbf{0}$  \n2: **for** $t=0$ to $T$ **do**  \n3:     **for** $i = 1$ to $N$ **do**  \n4:         Get diffusion noise kernel $\\Sigma^i_{t:t+H}$ with (7).  \n5:         Sample $[W]_{1:N_W} \\sim \\mathcal{N}(0, \\Sigma^{i}_{t:t+H})$.  \n6:         Rollout $u_{t:t+H} + [W]_{1:N_W}$ and evaluate the cost function $J(u_{t:t+H} + [W]_{1:N_W})$.  \n7:         Estimate Score $\\nabla \\log p_i(\\cdot)$ with (3).  \n8:         Update $u_{t:t+H}^{(i)}$ with (2).  \n9:     **end for**  \n10:     Receding horizon $u_{t+1:t+H+1} \\leftarrow \\texttt{shift}(u_{t:t+H})$  \n11: **end for**",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        262.0,
+        559.0,
+        511.0
+      ],
+      "markdown": "**Dual-loop annealing.** In a receding horizon MPC framework with a horizon length $H$ and $N$ update iterations for each control sequence at each timestep $t$, $u_{H}$ (the last element of $u_{0:H}$) is first updated at time $0$ by $N$ times using convolution kernel $\\Sigma^N_{H} \\dots, \\Sigma^1_{H}$. After $u_0$ is applied to the system, the control sequence shifts forward. At the next time step $t=1$, $u_{H}$ is updated again $N$ times, now with kernel $\\Sigma^N_{H-1}, \\dots, \\Sigma^1_{H-1}$ as $u_H$ becomes the second-to-last element of the updated control sequence $u_{1:H+1}$. This procedure continues, and by the time $u_H$ is applied to the system at $t = H$, it will have undergone $N H$ updates with convolution kernels: $\\Sigma^N_{H} \\dots, \\Sigma^1_{H} ; \\Sigma^N_{H-1}, \\dots, \\Sigma^1_{H-1}; \\dots; \\Sigma^N_{0} \\dots, \\Sigma^1_{0}$ as shown in the last graph of fig. 1. Essentially, each control action $u_h$ is updated in a dual-loop manner before being applied to the system. This motivates the design of two annealing procedures: the outer loop is a trajectory-level annealing schedule for all the control sequence at a certain stage $i$ (i.e. designing the overall size of $\\Sigma^i_{t:t+H}$ for a given $i$) and the inner loop is an action-level annealing schedule for different control at different horizons (i.e. the size of $\\Sigma^i_{t+h}$ for $h=0,\\ldots,H$).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        514.0,
+        558.0,
+        536.0
+      ],
+      "markdown": "**Trajectory-level annealing.** For the outer-loop trajectory-level annealing, we define the schedule as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        538.0,
+        559.0,
+        583.0
+      ],
+      "markdown": "$$\n\\det\\left(\\Sigma^i_{t:t+H}\\right) \\propto \\exp\\left(-\\frac{N-i}{\\beta_1 N} H d_u \\right), \\quad \\forall i \\in \\{N, \\ldots, 1\\}, \\tag{5}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        587.0,
+        559.0,
+        645.0
+      ],
+      "markdown": "where $\\beta_1$ is the temperature parameter for the trajectory-level annealing, and $d_u$ is the dimension of a single control. The covariance matrix decreases over time as $i$ decreases, progressively narrowing the sampling distribution towards the target distribution $p_0$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        647.0,
+        559.0,
+        669.0
+      ],
+      "markdown": "**Action-level annealing.** For the inner-loop action-level annealing, the schedule is given by:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        671.0,
+        559.0,
+        712.0
+      ],
+      "markdown": "$$\n\\det\\left(\\Sigma^i_{t+h}\\right) \\propto \\exp\\left(-\\frac{H-h}{\\beta_2 H} d_u \\right), \\quad \\forall h \\in \\{0, \\ldots, H\\}, \\tag{6}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        712.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "where $\\beta_2$ is the temperature parameter for action-level annealing. The covariance matrix increases with time as $h$",
+      "source_class": "text"
+    }
+  ]
+}

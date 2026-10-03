@@ -1,0 +1,260 @@
+{
+  "page": 9,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was still raw extraction. Compared preview and four crops (Table 2 and Table 3 at 280 dpi, the prose at 230 dpi, Figure 4 at 200-250 dpi) with the rebuilt items; prose compared with 40experiments.tex. Reading order: Tables 2 and 3 are printed as top floats above the continuation of the page-8 paragraph; items now start with that continuation ('tasks includes hopper, ...', join_previous=space), then the second paragraph, then Table 2, Table 3 and Figure 4 with their captions. Table 2 (asset table-2, 8x6 cells): every value checked against the 280-dpi crop and the native text lines; split decimals ('1_._12') repaired; the MBD column is bold in print (styling dropped); the header 'RL*' keeps its asterisk, which the caption explains; negative entries use the printed minus sign U+2212 ('−0.13 ± 0.09', '−0.63 ± 0.16'). The caption is one caption item including the '*RL requires offline training ...' remark (written $^*$RL). Table 3 (asset table-3, 8x6 cells): times copied as printed with units ('17 m 45.63 s', '4 m 29 s', '10 m 40.0 s'); checked against the crop. No merged headers in either table. Figure 4 (asset figure-4): single raster figure with panels (a) and (b); bbox tightened to [107,580,505,669] and checked on a crop (both rounded frames complete, in-figure labels 'W/ data', 'W/o data', 'RRT path', 'Car path' inside). In the caption the words 'data augmentation' are printed in green (colour not representable). TeX vs PDF: the sentences 'Please note RL is only used for performance reference not as there is no existing TO method ... The difference between RL and MBD is further discussed in Appendix A.8 and A.6.' replace the arXiv sentence about open-loop replay; transcribed from the crop, including the authors' wording 'reference not as there is' and 'tasks includes'. Text repair: 'CMAES' -> 'CMA-ES' (the hyphen at the line end is part of the name). Printed references: 'Tables 2 and 3', 'Fig. 3', 'Appendix A.5.3'. The page ends with the Figure 4 caption; page 10 starts with a section heading, so no join. Page number 9 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0009-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        321.0,
+        505.0,
+        364.0
+      ],
+      "markdown": "tasks includes hopper, half-cheetah, ant, walker2d, humanoid-standup, and humanoid-running. The selected manipulation task, pushT [15], presents its own challenges due to the complexity introduced by contact dynamics and the long-horizon nature of the task. These tasks are widely considered difficult due to their hybrid nature and high dimensionality.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        370.0,
+        506.0,
+        566.0
+      ],
+      "markdown": "MBD is compared with the state-of-the-art zeroth-order optimization methods, including CMA-ES [7], CEM [11], and MPPI [59], as well as reinforcement learning (RL) algorithms (e.g., PPO [47] and SAC [22]) on these tasks. Please note RL is only used for performance reference not as there is no existing TO method that can solve such high-dimensional discontinuous tasks as we have shown in the experiments. Model-free RL, especially PPO/SAC, is widely used in such tasks and is considered the SOTA method. The difference between RL and MBD is further discussed in Appendix A.8 and A.6. The RL implementation follows the high-performance parallelized framework from Google Brax [20] elaborated in Appendix A.5.3. For the zeroth-order optimizer, we match the iteration and sample number with the MBD. All the experiments were conducted on a single NVIDIA RTX 4070 Ti GPU. Quantitative metrics including the average step reward and the computational time tested over 50 steps repeated for 8 seeds are reported in Tables 2 and 3. MBD substantially outperforms zeroth-order optimization methods and even outperforms RL in most tasks. Specifically, for the pushT task, MBD achieves a significantly higher reward than the RL algorithm thanks to its iterative refinement process, which effectively explores the full control space while keeping fine-grained control to precisely push the object. Compared with the computationally heavy RL algorithms, MBD only requires one-tenth of time, which is similar to other zeroth-order optimization methods. The optimization process of MBD is visualized in Fig. 3, where the iterative refinement process with the model plays a crucial role in optimizing high-dimensional tasks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b000",
+      "kind": "table",
+      "bbox": [
+        122.0,
+        67.0,
+        488.0,
+        155.5
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 2",
+      "asset_name": "table-2",
+      "rows": [
+        [
+          "Task",
+          "CMA-ES",
+          "CEM",
+          "MPPI",
+          "RL*",
+          "MBD"
+        ],
+        [
+          "Hopper",
+          "1.12 ± 0.10",
+          "0.65 ± 0.12",
+          "0.91 ± 0.15",
+          "1.40 ± 0.04",
+          "1.53 ± 0.03"
+        ],
+        [
+          "Half Cheetah",
+          "0.44 ± 0.10",
+          "0.22 ± 0.15",
+          "0.20 ± 0.14",
+          "1.59 ± 0.05",
+          "2.31 ± 0.19"
+        ],
+        [
+          "Ant",
+          "1.18 ± 0.52",
+          "0.85 ± 0.17",
+          "0.33 ± 0.45",
+          "3.26 ± 1.61",
+          "3.80 ± 0.35"
+        ],
+        [
+          "Walker2D",
+          "0.83 ± 0.04",
+          "1.06 ± 0.04",
+          "0.90 ± 0.05",
+          "1.09 ± 0.28",
+          "2.63 ± 0.23"
+        ],
+        [
+          "Humanoid Standup",
+          "0.58 ± 0.01",
+          "0.47 ± 0.01",
+          "0.53 ± 0.05",
+          "0.83 ± 0.02",
+          "0.99 ± 0.07"
+        ],
+        [
+          "Humanoid Running",
+          "0.60 ± 0.11",
+          "0.41 ± 0.16",
+          "0.59 ± 0.14",
+          "1.80 ± 0.03",
+          "2.92 ± 0.26"
+        ],
+        [
+          "Push T",
+          "0.39 ± 0.07",
+          "0.25 ± 0.09",
+          "−0.13 ± 0.09",
+          "−0.63 ± 0.16",
+          "0.67 ± 0.10"
+        ]
+      ]
+    },
+    {
+      "id": "p0009-b001",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        156.0,
+        504.0,
+        177.0
+      ],
+      "markdown": "Table 2: Reward of different methods on non-continuous tasks. $^*$RL requires offline training and generate a closed-loop policy so it is not an apple-to-apple baseline.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b002",
+      "kind": "table",
+      "bbox": [
+        131.0,
+        193.0,
+        478.0,
+        280.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 3",
+      "asset_name": "table-3",
+      "rows": [
+        [
+          "Task",
+          "CMA-ES",
+          "CEM",
+          "MPPI",
+          "RL",
+          "MBD"
+        ],
+        [
+          "Hopper",
+          "29.3 s",
+          "26.5 s",
+          "26.4 s",
+          "17 m 45.63 s",
+          "26.5 s"
+        ],
+        [
+          "Half Cheetah",
+          "29.5 s",
+          "26.4 s",
+          "26.7 s",
+          "4 m 18.8 s",
+          "26.8 s"
+        ],
+        [
+          "Ant",
+          "18.4 s",
+          "16.1 s",
+          "16.0 s",
+          "2 m 46.8 s",
+          "16.2 s"
+        ],
+        [
+          "Walker2D",
+          "37.5 s",
+          "34.5 s",
+          "34.7 s",
+          "5 m 1.5 s",
+          "34.6 s"
+        ],
+        [
+          "Humanoid Standup",
+          "20.8 s",
+          "17.6 s",
+          "17.7 s",
+          "4 m 29 s",
+          "17.7 s"
+        ],
+        [
+          "Humanoid Running",
+          "30.8 s",
+          "29.7 s",
+          "29.6 s",
+          "3 m 34.7 s",
+          "30.0 s"
+        ],
+        [
+          "Push T",
+          "10 m 40.0 s",
+          "10 m 32.0 s",
+          "10 m 32.3 s",
+          "67 m 25.6 s",
+          "10 m 32.8 s"
+        ]
+      ]
+    },
+    {
+      "id": "p0009-b003",
+      "kind": "caption",
+      "bbox": [
+        155.0,
+        280.0,
+        457.0,
+        290.0
+      ],
+      "markdown": "Table 3: Computational time of different methods on non-continuous tasks.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0009-b006",
+      "kind": "figure",
+      "bbox": [
+        107.0,
+        580.0,
+        505.0,
+        669.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 4",
+      "asset_name": "figure-4"
+    },
+    {
+      "id": "p0009-b007",
+      "kind": "caption",
+      "bbox": [
+        108.0,
+        689.0,
+        505.0,
+        721.0
+      ],
+      "markdown": "Figure 4: MBD optimized trajectory with data augmentation on the (a) Humanoid Jogging and (b) Car UMaze Navigation tasks. With data augmentation, the trajectory is regularized and refined to achieve the desired objective.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0009-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "9",
+      "source_class": "page-footer",
+      "reason": "Page number 9 in the footer (verified on the preview)."
+    }
+  ]
+}

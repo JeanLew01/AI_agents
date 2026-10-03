@@ -1,0 +1,196 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 1, the native text lines and main.tex (title block, abstract, first five Introduction paragraphs). Title made a level-1 heading '# Diffusion differentiable resampling' (printed between two rules; the extractor had bold text tagged page-header). Author line rewritten with LaTeX superscript affiliation markers ($^{1}$, $^{2}$) instead of <sup> tags; the affiliation/correspondence footnote (with the Chinese name 趙正 and e-mail) and the 'Proceedings of the 43rd International Conference on Machine Learning, Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s).' notice (kept, substantive) are placed directly after the author line. 'Abstract' and '1. Introduction' are level-2 headings. Abstract compared sentence by sentence (unchanged). Equation (1) (the weak unbiasedness definition of resampling, two aligned lines, single printed number) converted from a formula image to a $$...$$ block with \\tag{1}, taken from main.tex with \\expecbigg expanded to \\mathbb{E}\\biggl[...\\biggr] and \\lbrace/\\rbrace written as \\{ \\}; checked against the page. Inline maths of the first paragraph, the 'for any bounded ...' continuation, the multinomial-resampling sentence ($I_i \\sim \\mathrm{Categorical}(w_1, \\ldots, w_N)$, $X^*_i \\coloneqq X_{I_i}$, $X^\\theta_i$, $\\partial X_i^{\\theta,*}/\\partial\\theta$) and the expectation derivative $\\partial \\mathbb{E}[X_i^{\\theta,*}]/\\partial\\theta$ rewritten in LaTeX from main.tex (extractor glyph soup and <sup> tags removed). Repaired 'Ścibior' (extractor had '´' as a separate superscript). The paragraph 'Resampling is a key component ... (SSMs, Chopin' runs from the bottom of the left column to the top of the right column ('& Papaspiliopoulos, 2020). ...'): joined with join_previous=space; equation (1) and its continuation are joined to the preceding sentence with space. Authors' typos kept verbatim: 'combing Fisher's score' (combining) and 'reparapemtrisation'. Omitted: rotated arXiv stamp (box widened to the native stamp line [10.9,211.6,37.6,580.4]) and page number 1. The page ends with a complete paragraph ('... (Finke et al., 2026).'); page 2 starts a new paragraph.",
+  "warnings": [
+    "Review possible header/footer: p0001-b000",
+    "Review possible header/footer: p0001-b001"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "heading",
+      "bbox": [
+        191.0,
+        91.0,
+        406.0,
+        104.0
+      ],
+      "markdown": "# Diffusion differentiable resampling"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        205.0,
+        142.0,
+        390.0,
+        153.0
+      ],
+      "markdown": "**Jennifer Rosina Andersson**$^{1}$ **Zheng Zhao**$^{2}$"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        637.0,
+        291.0,
+        678.0
+      ],
+      "markdown": "$^{1}$Department of Information Technology, Uppsala University, Sweden $^{2}$Division of Statistics and Machine Learning, Linköping University, Sweden. Correspondence to: Zheng Zhao (趙正) <zheng.zhao@liu.se>."
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        687.0,
+        290.0,
+        718.0
+      ],
+      "markdown": "*Proceedings of the 43rd International Conference on Machine Learning*, Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s)."
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "heading",
+      "bbox": [
+        150.0,
+        176.0,
+        195.0,
+        186.0
+      ],
+      "markdown": "## Abstract"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "text",
+      "bbox": [
+        75.0,
+        193.0,
+        272.0,
+        382.0
+      ],
+      "markdown": "This paper is concerned with differentiable resampling in the context of sequential Monte Carlo (e.g., particle filtering). Drawing on reparametrisation, we propose a new resampling method that is informative and instantly differentiable, based on a training-free diffusion model surrogate. We theoretically prove that our diffusion resampling method provides a consistent resampling distribution, and we show empirically that it outperforms the state-of-the-art differentiable resampling methods on multiple filtering and parameter estimation benchmarks. Finally, we show that it achieves competitive end-to-end performance when used in learning a complex dynamics-decoder model with high-dimensional image observations."
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        405.0,
+        133.0,
+        415.0
+      ],
+      "markdown": "## 1. Introduction"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        426.0,
+        292.0,
+        508.0
+      ],
+      "markdown": "Consider a distribution $\\pi$ and a population of weighted samples $\\{ (w_i, X_i) \\}_{i=1}^N \\sim \\pi$, where $\\{ X_i \\}_{i=1}^N$ are often identically and independently drawn from another proposal distribution, calibrated by the weights. The goal of *resampling* is to transform these weighted samples into an un-weighted set while preserving the original distribution $\\pi$. In the weak sense, unbiased resampling is defined as a mapping"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        75.0,
+        509.0,
+        296.0,
+        575.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\{ (w_i, X_i) \\}_{i=1}^N &\\mapsto \\Bigl\\{ \\Bigl(\\frac{1}{N}, X_i^*\\Bigr)\\Bigr\\}_{i=1}^N, \\\\\n\\text{s.t.} \\quad \\mathbb{E}\\biggl[\\frac{1}{N}\\sum_{i=1}^N\\psi(X_i^*)\\biggr] &= \\mathbb{E}[\\psi(X)]\n\\end{aligned}\n\\tag{1}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        577.0,
+        290.0,
+        600.0
+      ],
+      "markdown": "for any bounded and continuous test function $\\psi$, where $\\{ X_i^* \\}_{i=1}^N$ stands for the re-samples, and $X\\sim \\pi$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        607.0,
+        290.0,
+        629.0
+      ],
+      "markdown": "Resampling is a key component in sequential Monte Carlo (SMC) samplers for state-space models (SSMs, Chopin"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        178.0,
+        544.0,
+        355.0
+      ],
+      "markdown": "& Papaspiliopoulos, 2020). It not only mitigates particle degeneracy in practice, but has also been shown to represent a jump Markov process in a continuous-time limit (Chopin et al., 2022). However, resampling typically hinders (gradient-based) parameter estimation of SSMs due to discrete randomness. For instance, with the commonly used multinomial resampling, one draws indices $I_i \\sim \\mathrm{Categorical}(w_1, w_2, \\ldots, w_N)$ independently for $i=1,2,\\ldots, N$, and then defines the resampling mapping by indexing $X^*_i \\coloneqq X_{I_i}$. If the sample $X^\\theta_i$ (and weight) depend on some unknown parameters $\\theta$, the pathwise derivative of the re-sample, $\\partial X_i^{\\theta, *} / \\, \\partial \\theta$, is not defined. Moreover, most automatic differentiation libraries (e.g., JAX) will typically drop the undefined derivatives, resulting in erroneous gradient estimates (see, e.g., Naesseth et al., 2018).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        363.0,
+        544.0,
+        505.0
+      ],
+      "markdown": "Various methods have thus been proposed to make the resampling step differentiable in the context of SMC and SSMs (see recent surveys in Chen & Li, 2025; Brady et al., 2025). One line of work focuses on the expectation derivative $\\partial \\mathbb{E}\\bigl[X_i^{\\theta, *}\\bigr] / \\, \\partial \\theta$, which is often well defined, rather than the pathwise derivative. This can be achieved by combing Fisher’s score (Poyiadjis et al., 2011) and stochastic derivatives (Arya et al., 2022), resulting in, for example, the stop-gradient based method by Ścibior & Wood (2021). However, these REINFORCE-based methods often suffer from high variance and may consequently require a large sample size $N$."
+    },
+    {
+      "id": "p0001-b014",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        513.0,
+        544.0,
+        713.0
+      ],
+      "markdown": "Another line of work focuses on developing new resampling methods that naturally come with well-defined pathwise derivatives (i.e., reparapemtrisation). Notable examples include soft (Karkus et al., 2018) and Gumbel-Softmax resampling (Jang et al., 2017). Both methods essentially form an interpolation between multinomial resampling (which has no gradient) and uninformative resampling (which has a gradient) via a calibration parameter. Although they have been empirically shown to work well for certain models, they are fundamentally biased. Crucially, one has to decide on a trade-off between the gradient bias and the statistical performance of the forward resampling mapping. In addition, Zhu et al. (2020) propose to parametrise the resampling with a neural network, which adds both training complexity and additional sources of bias. Kviman et al. (2024) introduce a deterministic resampling, which also comes with irreducible biases (Finke et al., 2026)."
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "omit",
+      "bbox": [
+        10.0,
+        210.0,
+        38.5,
+        582.0
+      ],
+      "markdown": "arXiv:2512.10401v3 [stat.ML] 28 May 2026",
+      "reason": "Rotated arXiv identifier stamp in the left margin ('arXiv:2512.10401v3 [stat.ML] 28 May 2026'); page furniture added by arXiv."
+    },
+    {
+      "id": "p0001-b015",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        740.0
+      ],
+      "markdown": "1",
+      "reason": "Printed page number '1' at the bottom centre; page furniture."
+    }
+  ]
+}

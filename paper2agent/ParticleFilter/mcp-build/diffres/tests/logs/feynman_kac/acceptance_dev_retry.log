@@ -1,0 +1,42 @@
+[10/02/26 21:58:23] INFO     Starting MCP server 'feynman_kac'  transport.py:242
+                             with transport 'stdio'                             
+[10/02/26 21:58:30] Error calling tool 'diffres_run_lgssm_particle_filter'      
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:222 in               │
+                    │ diffres_run_lgssm_particle_filter                        │
+                    │                                                          │
+                    │   219 │   """Run a bootstrap particle filter on a linear │
+                    │       diffres resampler.                                 │
+                    │   220 │   LGSSM JSON + observations .npz -> negative log │
+                    │       (.npz), optional gradient and KF comparison.       │
+                    │   221 │   """                                            │
+                    │ ❱ 222 │   model = _load_model(model_path)                │
+                    │   223 │   F, Q, H, R, m0, P0 = (model[k] for k in _MODEL │
+                    │   224 │   dx, dy = F.shape[0], H.shape[0]                │
+                    │   225 │   ys_np = _load_observations(observations_path,  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/feynman_kac.py:70 in _load_model    │
+                    │                                                          │
+                    │    67 │   │   try:                                       │
+                    │    68 │   │   │   np.linalg.cholesky(mat)                │
+                    │    69 │   │   except np.linalg.LinAlgError:              │
+                    │ ❱  70 │   │   │   raise ValueError(f"{name} must be posi │
+                    │    71 │   if m0.shape != (dx,):                          │
+                    │    72 │   │   raise ValueError(f"m0 must have shape ({dx │
+                    │    73 │   return model                                   │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: R must be positive definite                     
+{"success": true, "mode": "calls", "cases_checked": 3, "report": "tests/results/feynman_kac/acceptance_dev_report.json"}
+heavy.sh: scope memory.peak=738MB oom_kills=0

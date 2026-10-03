@@ -1,0 +1,268 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and with 200-240 dpi crops of the left column (equations (1), (2), (3a)-(3f)), of Fig. 2 and of the wrapped Fig. 3 region; maths taken from 30algo.tex and checked symbol by symbol against the crops (TeX and PDF agree). Equations (1), (2) and the aligned group (3a)-(3f) were formula images and are now text items with $$ blocks and \\tag; (3a)-(3f) are one item with one $$ block per printed sub-number (the extractor had split the group into two images between (3d) and (3e)). Proposition 1 and its proof start with the printed labels in bold (\"Proposition 1 (Adopted from [43]):\", \"Proof:\"; both are italic in print); the printed end-of-proof square is written as $\\blacksquare$ at the end of the paragraph after (3f). Inline maths of all paragraphs rewritten in LaTeX; the extractor had destroyed the inline fraction in $p_0(U) \\propto \\exp(-J(U)/\\lambda)$. First item continues the last paragraph of page 2 (join_previous=space). \"B. Diffusion-Inspired Annealing\" was a text item and is now a ### heading. Reading order: the paragraph \"Given that MPPI is a single-stage diffusion ... $(p_0 \\ast \\phi)(\\cdot)$\" runs from the foot of the left column to below Fig. 2 in the right column (\"(proposition 1), a natural question arises ...\", join_previous=space); Fig. 2 (top of right column, box [311,48,560,130] checked by crop, includes panel titles, tick labels and both \"u\" axis labels) and its caption are therefore placed before the heading of subsection B. The extractor's large \"figure\" over the wrapped Fig. 3 swallowed the paragraph \"Coverage and convergence trade-off. ...\" and mixed plot labels and the caption into the next paragraph; that region is now (i) the text paragraph, (ii) Figure 3 with box [475.4,471.2,560,559.8] (title \"Forward Density p_i(u)\", legend p_0 ... p_4, ticks -2..2 and axis label \"u\" inside; checked by crop) and (iii) its caption, followed by the paragraph \"This trade-off becomes more pronounced ... small convolution kernel.\" (two extractor items merged, \"asym-\" + \"metric\" rejoined). Footnote 1 is placed before the last paragraph because that paragraph (\"By fixing the sampling kernel size ...\") continues on page 4. Cross-references kept as printed (\"fig. 2\", \"fig. 4\", \"(proposition 1)\", \"Figure 3\", \"section III-A\"). Authors' wording kept as printed: \"convolusion\", \"kernal\", \"robot need to jump\", \"optimality(i.e., convergence)\" without a space. Line-wrap compound restored: score-based. No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        139.0,
+        65.0
+      ],
+      "markdown": "using temperature $\\lambda$:",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        66.0,
+        299.0,
+        116.0
+      ],
+      "markdown": "$$\nU^+ = U + \\frac{\\sum_{i=1}^{N_W} \\exp\\left(-\\frac{J(U + [W]_i)}{\\lambda}\\right) [W]_i}{\\sum_{j=1}^{N_W} \\exp\\left(-\\frac{J(U + [W]_j)}{\\lambda}\\right)}, \\tag{1}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        117.0,
+        299.0,
+        227.0
+      ],
+      "markdown": "**MPPI as a single-stage Diffusion.** The optimization problem can be reframed in a sampling context. Define the target distribution $p_0(U) \\propto \\exp\\left(-\\frac{J(U)}{\\lambda}\\right)$. As $\\lambda \\to 0$, samples from $p_0(U)$ concentrate around the optimal control sequence $U^*$ as illustrated in fig. 2. However, directly sampling from $p_0(U)$ is impractical due to its narrow support. To facilitate the sampling, we convolve $p_0(U)$ with a Gaussian noise kernel $\\phi(\\cdot)$, i.e., the density of $\\mathcal{N}(0, \\Sigma)$ to get the corrupted distribution $p_1(\\cdot) \\propto (p_0 \\ast \\phi)(\\cdot)$ as depicted in fig. 4.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        228.0,
+        299.0,
+        263.0
+      ],
+      "markdown": "**Proposition 1 (Adopted from [43]):** The MPPI update (1) can be viewed as a one-step ascent with the score function $\\nabla \\log p_1(U)$ with a learning rate $\\Sigma$:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        265.0,
+        299.0,
+        283.0
+      ],
+      "markdown": "$$\nU^+ = U + \\Sigma \\cdot \\nabla \\log p_1(U). \\tag{2}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        283.0,
+        299.0,
+        317.0
+      ],
+      "markdown": "**Proof:** The diffused distribution $p_1$ is defined as $p_1(\\cdot) \\propto (p_0 \\ast \\phi)(\\cdot)$ as in fig. 4. The score function $\\nabla \\log p_1(U)$ can be calculated in the following way:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        322.0,
+        299.0,
+        497.0
+      ],
+      "markdown": "$$\n\\nabla \\log p_1(U) = \\frac{\\nabla p_1(U)}{p_1(U)} = \\frac{\\nabla \\left(p_0(U) \\ast \\phi(U) \\right)}{p_1(U)} \\tag{3a}\n$$\n\n$$\n= \\frac{p_0(U) \\ast \\nabla \\phi(U)}{p_1(U)} = -\\frac{p_0(U) \\ast (\\phi(U) \\Sigma^{-1}U)}{p_1(U)} \\tag{3b}\n$$\n\n$$\n= - \\Sigma^{-1} \\frac{\\int p_0(U-W) \\phi(W) W dW}{\\int p_0(U-W) \\phi(W) dW} \\tag{3c}\n$$\n\n$$\n= - \\Sigma^{-1} \\frac{\\mathbb{E}_{W\\sim\\phi(\\cdot)} \\left[ p_0(U-W) W \\right]}{\\mathbb{E}_{W\\sim\\phi(\\cdot)} \\left[ p_0(U-W) \\right]} \\tag{3d}\n$$\n\n$$\n= \\Sigma^{-1} \\frac{\\mathbb{E}_{W\\sim\\phi(\\cdot)} \\left[ p_0(U+W) W \\right]}{\\mathbb{E}_{W\\sim\\phi(\\cdot)} \\left[ p_0(U+W) \\right]} \\tag{3e}\n$$\n\n$$\n\\approx \\Sigma^{-1} \\frac{\\sum_{i=1}^{N_W} \\exp\\left(-\\frac{J(U + [W]_i)}{\\lambda}\\right) [W]_i}{\\sum_{j=1}^{N_W} \\exp\\left(-\\frac{J(U + [W]_j)}{\\lambda}\\right)}. \\tag{3f}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        503.0,
+        299.0,
+        585.0
+      ],
+      "markdown": "From (3a) to (3b), we move the gradient into the convolusion. In (3b), the gradient of Gaussian kernal $\\phi(W)$ is calculated. From (3b) to (3c), we use the definition of convolution. In (3d), we rewrite the integral as an expectation. In (3e), we flip the sign of $W$ to match the form of MPPI since the Gaussian distribution is symmetric. From (3e) to (3f), Monte Carlo approximation is applied. $\\blacksquare$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        599.0,
+        299.0,
+        657.0
+      ],
+      "markdown": "In other words, MPPI performs a “denoising” step with the score function $\\nabla \\log p_1(U)$ conditioned on a *fixed* noise level $\\mathcal{N}(0,\\Sigma)$ [44]. The key difference is that the score-based diffusion model [44] iteratively refines samples using different noise levels, which motivates our annealing design$^{1}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        48.0,
+        560.0,
+        130.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        134.0,
+        559.0,
+        193.0
+      ],
+      "markdown": "Fig. 2: Cost function $J(U)$ and target distribution $p_0(U)$ for a task where robot need to jump over a wall. The cost function could be highly non-convex and non-smooth due to the contact constraint. The resulting distribution $p_0(U)$ is also non-convex and sparse, which is hard to sample from.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        667.0,
+        186.0,
+        677.0
+      ],
+      "markdown": "### B. Diffusion-Inspired Annealing",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        682.0,
+        299.0,
+        705.0
+      ],
+      "markdown": "Given that MPPI is a single-stage diffusion that moves particles toward the stationary point of $p_1(\\cdot) = (p_0 \\ast \\phi)(\\cdot)$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        220.0,
+        559.0,
+        254.0
+      ],
+      "markdown": "(proposition 1), a natural question arises: What are the pros and cons of optimizing $p_1$ compared to directly solving for the optimum of $p_0$?",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        256.0,
+        559.0,
+        398.0
+      ],
+      "markdown": "Figure 3 illustrates that the convexity of the distribution increases with progressively larger kernels. Each successive density function from $p_1$ to $p_4$ is obtained by convolving the original distribution $p_0$ with a progressively larger kernel. As discussed in section III-A, MPPI performs score ascent on $p_i$. Therefore, the primary **advantage** of conducting score ascent on $p_3$ and $p_4$ is that MPPI can more easily converge to the global optimum. The main **disadvantage** of optimizing a corrupted distribution is also clear from fig. 3. The optimum progressively shifts from $U^*$ to a distorted optimum under a larger kernel, thereby compromising the optimality of the original problem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        398.0,
+        559.0,
+        530.0
+      ],
+      "markdown": "**Coverage and convergence trade-off.** The advantages and disadvantages highlight a fundamental trade-off between exploration and exploitation in MPPI: a larger $\\det{\\Sigma}$ promotes greater exploration (i.e., coverage) by widening the sampling distribution, which helps to avoid suboptimal local minima. However, a larger $\\det{\\Sigma}$ may compromise optimality(i.e., convergence) as it will introduce a larger optimality gap. In contrast, a smaller $\\det{\\Sigma}$ improves local optimality at the risk of getting trapped in local minima.",
+      "source_class": "picture"
+    },
+    {
+      "id": "p0003-fig3",
+      "kind": "figure",
+      "bbox": [
+        475.4,
+        471.2,
+        560.0,
+        559.8
+      ],
+      "markdown": "",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0003-cap3",
+      "kind": "caption",
+      "bbox": [
+        477.0,
+        564.0,
+        558.0,
+        599.0
+      ],
+      "markdown": "Fig. 3: Forward density function in diffusion process."
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        532.0,
+        559.0,
+        660.0
+      ],
+      "markdown": "This trade-off becomes more pronounced in contact-rich tasks such as legged locomotion, where the optimization landscape is non-smooth, non-convex, and high-dimensional. The cost function $J$ and the distribution $p_0$ often have sharp and asymmetric peaks. In such cases, even a small increase in $\\det{\\Sigma}$ can degrade performance, and global optimality cannot be guaranteed through score ascent on $p_1(U)$ due to the small convolution kernel.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        715.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Footnote 1: There are some other differences between (2) and diffusion models: (2) does not have scaling factor or extra noise. See more discussion in [43].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        664.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "By fixing the sampling kernel size, MPPI may either over-explore or over-exploit, failing to balance exploration and convergence effectively. This concern is illustrated in fig. 4, which shows how different kernel sizes affect the performance of MPPI. Therefore, designing an effective sampling strategy that balances coverage and convergence",
+      "source_class": "text"
+    }
+  ]
+}

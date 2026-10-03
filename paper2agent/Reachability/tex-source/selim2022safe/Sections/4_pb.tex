@@ -1,0 +1,127 @@
+
+
+\section{Preliminaries and Problem Formulation} \label{sec:pb}
+
+
+This section presents the notation, set representations, system dynamics, and reachable set definitions used in this work. We then pose our safe RL problem.
+
+\subsection{Notation and Set Representations}\label{subsec:notation}
+%\textbf{Notation and Set Representations.}
+The $n$-dimensional real numbers are $\R^n$, the natural numbers are $\N$, and the integers from $n$ to $m$ are $n{:}m$.
+% Scalars are lowercase italic and sets are uppercase italic.
+% Vectors are lowercase bold and matrices are uppercase bold.
+% Set-valued functions are in uppercase script.
+% For vectors, we denote the element $i$ of vector $\vc{v}$ by $\vc{v}\arridx{i}$. 
+% We denote the element at row $i$ and column $j$ of matrix $A$ by $A\arridx{i,j}$.
+% We denote column $j$ of $A$ by $A\arridx{\cdot,j}$.
+We denote the element at row $i$ and column $j$ of matrix $\vc{A}$ by %$\arridx{\vc{A}}{i,j}$.
+$(\vc{A})_{i,j}$, column $j$ of $\vc{A}$ by $\arridx{\vc{A}}{:\,,j}$, and the element $i$ of vector $\vc{a}$ by $\arridx{\vc{a}}{i}$.
+An $n\times m$ matrix of ones is $\ones_{n\times m}$.
+For $\vc{A} \in \R^{n\times m}$ and $\vc{x} \in \R^n$, we use the shorthand $\vc{A} - \vc{x} = \vc{A} - \vc{x}\ones_{1\times m}$.
+The $\diag{\cdot}$ operator places its arguments block-diagonally in a matrix of zeros.
+% The Kronecker product is denoted $\otimes$.
+For a pair of sets $A$ and $B$, the Minkowski sum is $A + B = \{\vc{a}+\vc{b}\ |\ \vc{a} \in A, \vc{b} \in B\}$, and the Cartesian product is $A \times B = \{(\vc{a},\vc{b})\ |\ \vc{a} \in A, \vc{b} \in B\}$.
+%The $i$\ts{th} element of $A$ is $a\idxi \in A$. 
+
+
+
+% \subsection{Set Representations}
+We represent sets using constrained zonotopes, zonotopes, and intervals, because they enable efficient Minkowski sum computation (a key part of reachability analysis) \cite{althoffphdthesis} and collision checking via linear programming (critical to safe motion planning) \cite{conf:const_zono}.
+A \emph{constrained zonotope} \cite{conf:const_zono} is a convex set parameterized by a center $\ctr \in \R^n$, generator matrix $\Gen \in \R^{n \times \ngen}$, constraint matrix $\Acon \in $ $\R^{\ncon \times \ngen}$, and constraint vector $\bcon \in \R^{\ncon}$ as
+\begin{equation}\label{eq:conszono}
+    \zono{\ctr,\Gen,\Acon,\bcon} = \big\{
+        \ctr + \Gen\coef\ |\ \Acon\coef = \bcon,\ \norm{\coef}_\infty \leq 1
+    \big\}.
+\end{equation}
+By \cite[Thm. 1]{conf:const_zono}, every convex, compact polytope is a constrained zonotope and vice-versa.
+For polytopes represented as an intersection of halfplanes, we convert them to constrained zonotopes by finding a bounding box, then applying the halfspace intersection property in \cite{raghuraman2020set_ops_conzono}.
+
+A zonotope is a special case of a constrained zonotope without equality constraints (but with $\norm{\coef}_\infty \leq 1$), which we denote $\zono{\ctr,\Gen}$.
+For $Z = \zono{\ctr,\Gen} \subset \R^n$ and a linear map $L$, we have $LZ  = \zono{L\ctr, L\Gen}$; we denote $-Z = -1Z$.
+The Minkowski sum of two zonotopes $Z_1 = \zono{\ctr_1,\Gen_1}$ and $Z_2 = \zono{\ctr_2,\Gen_2}$ is given by $Z_1 + Z_2 = \zono{\ctr_1+\ctr_2,[\Gen_1,\Gen_2]}$ \cite{althoffphdthesis}.
+For an $n$-dimensional interval with lower (resp. upper) bounds $\lb \in \R^n$ (resp. $\ub$), we abuse notation to represent it as a zonotope $Z = \zono{\lb,\ub} \subset \R^n$, with center $\tfrac{1}{2}(\lb+\ub)$ and generator matrix $\diag{\tfrac{1}{2}(\ub - \lb)}$.
+
+
+
+\subsection{Robot and Environment}
+%\textbf{Robot and Environment.}
+We assume the robot can be described as a discrete-time, nonlinear control system with state $\vcstate_{k} \in \statespace \subset \R^n$ at time $k \in \N$.
+We assume the state space $\statespace$ is compact.
+The input $\action_{k}$ is drawn from a zonotope $\actionspace_k \subseteq \actionspace$ at each time $k$, where $\actionspace \subset \R^m$ is a zonotope of all possible actions.
+We denote process noise by $\noise_{k} \in \noisespace \subset \R^n$, where $\noisespace$ is specified later in Assumption \ref{assumption:noise_zonotope}.
+Finally, we denote the black box (i.e., unknown) dynamics $\dyn: \statespace\times\actionspace\times\noisespace \to \statespace$, for which
+\begin{align}\label{eq:sys}
+        \vcstate_{k+1} &=  \dyn(\vcstate_{k}, \action_{k}) + \noise_{k}.
+\end{align}
+We further assume that $\dyn$ is twice differentiable and Lipschitz continuous, meaning there exists a \emph{Lipschitz constant} $L^\star$ such that, if $\forall$ $\vc{z}_1, \vc{z}_2 \in \R^{n+m}$ with $\vc{z}_j= (\vcstate_j,\action_j)$, then $\norm{\dyn(\vc{z}_1) - \dyn(\vc{z}_2)} \leq L^\star \norm{\vcstate_1 - \vcstate_2}$.
+We denote the initial state of the system as $\vcstate_{0}$, drawn from a compact set $\statespace_{0} \subset \R^n$.
+Note that this formulation leads to an MDP.
+
+To enable safety guarantees, we leverage the notion of failsafe maneuvers from mobile robotics \cite{kousik2020bridging,magdici2016fail}. % as follows:
+\begin{assumption}\label{assumption:stop}
+We assume the dynamics $\dyn$ are invariant to translation in position, and the robot can brake to a stop in $\nbrk \in \N$ time steps and stay stopped indefinitely.
+That is, there exists $\action\brk \in \actionspace$ such that, if the robot is stopped at state $\vcstate_k$, and if $\vcstate_{k+1} = \dyn(\vcstate_k,\action\brk)$, then $\vcstate_{k+1} = \vcstate_k$.
+\end{assumption}
+\noindent Note, many real robots have a braking safety controller available, similar to the notion of an invariant set \cite{LewEtAl2021,conf:modelBasedReachRL}.
+Also, failsafe maneuvers exist even when a robot cannot remain stationary, such loiter circles for aircraft \cite{fridovich2019safely,althoff2015online}.
+% Since the dynamics $\dyn$ are Lipschitz, and $\statespace$ is compact (velocity is bounded), there exists a finite \emph{braking distance}, denoted $d\brk > 0$.
+%We investigate the impact of this assumption on our method's performance with a hexacopter in wind numerical example in Section \ref{sec:eval}.
+
+We require that process noise obeys the following assumption for numerical tractability and robustness guarantees.
+
+\begin{assumption}\label{assumption:noise_zonotope}
+Each $\noise_{k}$ is drawn uniformly from a \emph{noise zonotope} $\noisespace = \zono{\ctr_\noise,\Gen_\noise}$ with $\nnoisegen$ generators.% (which is not time-varying).
+\end{assumption}
+\noindent This formulation does not handle discontinuous changes in noise.
+However, there exist zonotope-based techniques to identify a change in $\noisespace$ \cite{shetty2020predicting}, after which one can compute the system's reachable set as in the present work.
+We leave measurement noise and perception uncertainty to future work.
+We also note, in the case of Gaussian or unbounded noise, one can overapproximate a confidence level set of a probability distribution using a zonotope \cite{althoffphdthesis,shetty2020predicting}.
+% Indeed, safe navigation with measurement noise or inexact state information is an active area of research that we leave to future work.
+
+We denote unsafe regions of state space, or \emph{obstacles}, as $\statespace\obs \subset \statespace$.
+We assume obstacles are static but different in each episode, as the focus of this work is not on predicting other agents' motion.
+Furthermore, reachability-based frameworks exist to handle other agents' motion \cite{leung2020infusing,vaskov2019not}, so the present work can extend to dynamic environments.
+
+We further assume the robot can instantaneously sense all obstacles (that is, $\statespace\obs$) and represent them as a union of constrained zonotopes.
+%We also note that common obstacle representations, such as occupancy grids, are polygonal, so they can be represented as constrained zonotopes.
+In the case of sensing limits, one can determine a minimum distance within which obstacles must be detected to ensure safety, given a robot's maximum speed and braking distance \cite[Section 5]{kousik2020bridging}.
+
+
+
+
+
+\subsection{Reachable Sets}\label{subsec:reachable_sets_defn}
+%\textbf{Reachable Sets.}
+We ensure safety by computing our robot's forward reachable set (FRS) for a given motion plan, then adjusting the plan so that the FRS lies outside of obstacles.
+We define the FRS, henceforth called the reachable set, as follows:
+\begin{definition} 
+The reachable set $\reachset_{k}$ at time step $k$, subject to a sequence of inputs $\action_{j} \in \actionspace_{j} \subset \mathbb{R}^m$, noise $\noise_{j} \in \noisespace$ $\forall\ j \in \{ 0, \dots, k-1\}$, and initial set $\statespace_{0} \in  \mathbb{R}^n$, is the set
+\begin{align}\begin{split}\label{eq:reachable_set_k}
+        \reachset_{k} = \big\{&\vcstate_{k} \in \mathbb{R}^n \, \big|\ 
+            \vcstate_{j+1} = \dyn(\vcstate_{j}, \action_{j}) + \noise_{j},\ \vcstate_{0} \in \statespace_{0},\\ &\action_{j} \in \actionspace_{j},\ \regtext{and}\ \noise_{j} \in \noisespace,\  \forall\ j = 0,\cdots,k-1\big\}.
+\end{split}\end{align}
+\end{definition}
+
+Recall that we treat the dynamics $\dyn$ as a black box (e.g., a simulator), which could be nonlinear and difficult to model, but we still seek to conservatively approximate (that is, overapproximate) the reachable set $\reachset_k$.
+% Doing so requires conservatively estimating the Lipschitz constant of the dynamics, as is done in the literature \cite{koller2018learning,alanwar2020data_conf}.
+
+% By computing a conservative reachable set, we can conservatively approximate the Lipschitz constant of the dynamics.
+% Consider the set $F = \cup_{j=0}^{k} (\reachset_{j} \times \actionspace_{j})$.
+% We can approximate $L^\star \geq 0$ such that $\| \dyn(\vc{y}_1) - \dyn(\vc{y}_2) \|_2 \leq L^\star \| \vc{y}_1 - \vc{y}_2\|_2$ holds for all $\vc{y}_1, \vc{y}_2 \in F$.
+
+
+
+\subsection{Safe RL Problem Formulation}
+%\textbf{Problem Formulation.}
+We denote the state of the RL agent at time $k$ by  $\RLstate_{k} \in \R^\nrl$, which contains the state $\vcstate_k$ of the robot plus information such as sensor measurements and previous actions.
+At each time $k$, the RL agent chooses $\RLaction_{k}$.
+Recall that $\statespace\obs \subset \R^n$ denotes obstacles.
+For a given task, we construct a reward function $\rewfunc: (\RLstate_{k},\action_k) \mapsto \rew_{k} \in \R$ (examples of $\rewfunc$ are given in Section \ref{sec:eval}).
+At time $k$, let $\plan_k = (\action_j)_{j=k}^\nplan$ denote a \emph{plan}, or sequence of actions, of duration $\nplan \in \N$.
+
+Then, our safe RL problem is as follows.
+We seek to learn a policy $\policy_\theta: \RLstate_{k} \mapsto \action_{k}$, represented by a neural network with parameters $\theta$, that maximizes expected cumulative reward.
+Note that the policy can be deterministic or stochastic.
+Since rolling out the policy na\"ively may lead to collisions, we also seek to create a safety layer between the policy and the robot (that is, to ensure $\reachset_j \cap \statespace\obs = \emptyset$ for all $j \geq k$).
+
+% Next, we detail our proposed safe RL method.

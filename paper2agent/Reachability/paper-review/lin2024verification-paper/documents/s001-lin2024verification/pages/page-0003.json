@@ -1,0 +1,170 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared the whole page with the 130 dpi render, with 200 dpi crops of the two mathematical regions (Problem Setup and Section 3.1) and with sections/problem_setup.tex and sections/background.tex. All inline mathematics and display (1) were rewritten in LaTeX from the TeX source with the authors' macros expanded (\\state -> x, \\ctrl -> u, \\cset -> \\mathcal{U}, \\dyn -> f, \\horizon -> T, \\trajstandard -> \\xi_{x,t}^{u}, \\trajinittime -> \\xi_{x,0}^{u}, \\tdummy -> \\tau, \\tvar -> t, \\cfunc -> u(\\cdot), \\targetset -> \\mathcal{L}, \\targetfunc -> l, \\veh -> Q, \\safeset -> \\mathcal{S}, \\costfunctional -> J, \\vfunc -> V, \\R -> \\mathbb{R}) and checked symbol by symbol against the crops; TeX and PDF agree. The extractor's 'formula' image for equation (1) was replaced by a $$ block with \\tag{1}. The authors' macro \\BRT prints the upright word 'BRT'; it is written as plain text in prose and as \\text{BRT} inside formulas. The time intervals are written '[t, T]' and '[0, T]' with a space after the comma as printed. The extractor had merged the first two paragraphs and overlapped the next two; they are now four items (opening paragraph, the run-in bold-italic paragraph 'Running example: Multi-Vehicle Collision Avoidance.', 'In this setting ...', 'The above 9D system ...'). Headings: Section 2 and Section 3 are level 2 (the extractor had level 1), 3.1 is level 3. The cross-reference 'Section 2' and the citation 'Bansal et al. (2017)' are as printed. The last sentence of the page ends inside an inline formula that is split by the page break: the page prints 'BRT = {x : x ∈' and page 4 starts with 'X, V(x, 0) ≤ 0}.'. To keep the formula one LaTeX expression, the glyphs 'X, V(x,0) ≤ 0}' printed at the top of page 4 are transcribed here, and the first item of page 4 starts with the full stop and has join_previous 'none'. Printed values checked: v=0.6, u_min=-1.1, u_max=1.1, R=0.25, '9D', '3 independent Dubins3D cars'. Omitted: running header and page number.",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        204.0,
+        41.0,
+        406.0,
+        49.0
+      ],
+      "markdown": "VERIFICATION OF NEURAL REACHABLE TUBES",
+      "reason": "Running header of an odd page (short title 'VERIFICATION OF NEURAL REACHABLE TUBES' in small capitals); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        93.0,
+        181.0,
+        105.0
+      ],
+      "markdown": "## 2. Problem Setup"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        109.0,
+        523.0,
+        161.0
+      ],
+      "markdown": "Consider a dynamical system with state $x \\in X \\subseteq \\mathbb{R}^n$, control $u \\in \\mathcal{U}$, and dynamics $\\dot{x} = f(x, u)$ governing how $x$ evolves over time until a final time $T$. Let $\\xi_{x,t}^{u}(\\tau)$ denote the state achieved at time $\\tau \\in [t, T]$ by starting at initial state $x$ and time $t$ and applying control $u(\\cdot)$ over $[t,\\tau]$. Let $\\mathcal{L}$ represent a target set that the agent wants to either reach (e.g. goal states) or avoid (e.g. obstacles)."
+    },
+    {
+      "id": "p0003-b002b",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        164.0,
+        523.0,
+        245.0
+      ],
+      "markdown": "***Running example: Multi-Vehicle Collision Avoidance.*** Consider a 9D multi-vehicle collision avoidance system with 3 independent Dubins3D cars: $Q_1, Q_2, Q_3$. $Q_i$ has position $(p_{xi}, p_{yi})$, heading $\\theta_i$, constant velocity $v$, and steering control $u_i \\in [u_{\\min}, u_{\\max}]$. The dynamics of $Q_i$ are: $\\dot{p}_{xi} = v\\cos{\\theta_i}, \\quad \\dot{p}_{yi} = v\\sin{\\theta_i}, \\quad \\dot{\\theta_i} = u_i$. $\\mathcal{L}$ is the set of states where any of the vehicle pairs is in collision: $\\mathcal{L} = \\{x: \\min\\{d(Q_1, Q_2), d(Q_1, Q_3), d(Q_2, Q_3)\\} \\le R\\}$, where $d(Q_i, Q_j)$ is the distance between $Q_i$ and $Q_j$. We set: $v=0.6, \\quad u_{\\min}=-1.1, \\quad u_{\\max}=1.1, \\quad R=0.25$."
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        247.0,
+        523.0,
+        340.0
+      ],
+      "markdown": "In this setting, we are interested in computing the system’s initial-time Backward Reachable Tube, which we denote as BRT. We define BRT as the set of all initial states in $X$ from which the agent will eventually reach $\\mathcal{L}$ within the time horizon $[0, T]$, despite best control efforts: $\\text{BRT} = \\{x: x\\in X, \\forall u(\\cdot), \\exists \\tau \\in [0, T], \\xi_{x,0}^{u}(\\tau) \\in \\mathcal{L}\\}$. When $\\mathcal{L}$ represents unsafe states for the system, as it does in our running example, staying outside of BRT is desirable. When $\\mathcal{L}$ instead represents the states that the agent wants to reach, BRT is defined as the set of all initial states in $X$ from which the agent, acting optimally, can eventually reach $\\mathcal{L}$ within $[0, T]$. Thus, staying within BRT is desirable."
+    },
+    {
+      "id": "p0003-b003b",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        341.0,
+        523.0,
+        405.0
+      ],
+      "markdown": "The above 9D system is intractable for traditional grid-based methods, motivating the use of DeepReach to learn a neural BRT. Our goal in this work is to recover an approximation of the safe set with probabilistic guarantees. Specifically, we want to find $\\mathcal{S}$ such that $\\underset{x \\in \\mathcal{S}}{\\mathbb{P}} ( x \\in \\text{BRT} ) \\le \\epsilon$ for some violation parameter $\\epsilon \\in (0, 1)$. When $\\mathcal{L}$ represents goal states, we want $\\underset{x \\in \\mathcal{S}}{\\mathbb{P}} ( x \\in \\text{BRT}^C ) \\le \\epsilon$."
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        418.0,
+        514.0,
+        429.0
+      ],
+      "markdown": "## 3. Background: Hamilton-Jacobi Reachability, DeepReach, and Safety Verification"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        434.0,
+        522.0,
+        472.0
+      ],
+      "markdown": "Here, we provide a quick overview of Hamilton-Jacobi reachability analysis, a specific toolbox, DeepReach, to compute high-dimensional neural reachable tubes, and an iterative scenario-based method for recovering probabilistically safe tubes from learning-based methods like DeepReach."
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        484.0,
+        276.0,
+        495.0
+      ],
+      "markdown": "### 3.1. Hamilton-Jacobi (HJ) Reachability"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        499.0,
+        522.0,
+        536.0
+      ],
+      "markdown": "In HJ reachability, computing BRT is formulated as an optimal control problem. We will explain it in the context of $\\mathcal{L}$ being a set of undesirable states. In the end, we will comment on when $\\mathcal{L}$ is a set of desirable states and refer interested readers to Bansal et al. (2017) for other cases."
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        539.0,
+        523.0,
+        620.0
+      ],
+      "markdown": "We first define a target function $l(x)$ such that the sub-zero level of $l(x)$ yields $\\mathcal{L}$: $\\mathcal{L} = \\{x: l(x) \\le 0\\}$. $l(x)$ is commonly a signed distance function to $\\mathcal{L}$. For example, we can choose $l(x) = \\min\\{d(Q_1, Q_2), d(Q_1, Q_3), d(Q_2, Q_3)\\}-R$ for our running example in Section 2. Next, we define the cost function of a state corresponding to some policy $u(\\cdot)$ to be the minimum of $l(x)$ over its trajectory: $J_{u(\\cdot)}(x,t) = \\min_{\\tau \\in [t, T]} l(\\xi_{x,t}^{u}(\\tau))$. Since the system wants to avoid $\\mathcal{L}$, our goal is to maximize $J_{u(\\cdot)}(x,t)$. Thus, the value function corresponding to this optimal control problem is:"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        246.0,
+        621.0,
+        527.0,
+        652.0
+      ],
+      "markdown": "$$\nV(x,t) = \\sup_{u(\\cdot)} J_{u(\\cdot)}(x,t) \\tag{1}\n$$"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        654.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "By defining our optimal control problem in this way, we can recover BRT using the value function. In particular, the value function being sub-zero implies that the target function is sub-zero somewhere along the optimal trajectory, or in other words, that the system has reached $\\mathcal{L}$. Thus, BRT is given as the sub-zero level set of the value function at the initial time: $\\text{BRT} = \\{x: x\\in X, V(x,0) \\le 0 \\}$"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "3",
+      "reason": "Page number 3 at the foot of the page; page furniture."
+    }
+  ]
+}

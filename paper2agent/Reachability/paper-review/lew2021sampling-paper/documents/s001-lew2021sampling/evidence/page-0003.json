@@ -1,0 +1,1095 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "and disturbances. For this reason, these methods typically discretize the state space and thus suffer",
+      "bbox": [
+        108.0,
+        75.2083740234375,
+        504.0032958984375,
+        84.11493682861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from the curse of dimensionality [21]. Further, these methods leverage the principle of dynamic",
+      "bbox": [
+        108.0,
+        86.11737060546875,
+        504.0032653808594,
+        95.02393341064453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "programming to compute solutions, and thus cannot handle parameter uncertainty which introduces",
+      "bbox": [
+        108.0,
+        97.0263671875,
+        504.00311279296875,
+        105.93292999267578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time correlations along the trajectory (see Section 2). Other approaches include using surrogate",
+      "bbox": [
+        108.0,
+        107.93536376953125,
+        504.0032958984375,
+        116.84192657470703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "models to directly parameterize reachable sets [23, 24], and formal veriﬁcation tools for dynamical",
+      "bbox": [
+        108.0,
+        118.8443603515625,
+        504.0032958984375,
+        127.75092315673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "systems [25] and neural networks [26]. As these methods typically perform all computation ofﬂine2,",
+      "bbox": [
+        108.0,
+        128.16476440429688,
+        503.9996337890625,
+        138.659912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "they may not be adequate for applications where bounds on model parameters are updated over time.",
+      "bbox": [
+        107.99996948242188,
+        140.662353515625,
+        504.0033264160156,
+        149.56890869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Unlike prior work, our method treats the general problem of performing real-time multi-steps reach-",
+      "bbox": [
+        107.99996948242188,
+        157.05133056640625,
+        504.00323486328125,
+        165.9578857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ability analysis for arbitrary systems. Speciﬁcally, we only assume that the dynamics are continu-",
+      "bbox": [
+        107.99996948242188,
+        167.9603271484375,
+        504.00323486328125,
+        176.86688232421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ously differentiable, and that the uncertainty is bounded. To do so, we leverage random set theory",
+      "bbox": [
+        107.99996948242188,
+        178.86932373046875,
+        504.0032653808594,
+        187.77587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to provide asymptotic convergence guarantees to the convex hull of the reachable sets. Our pro-",
+      "bbox": [
+        107.99996948242188,
+        189.7783203125,
+        504.003173828125,
+        198.68487548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "posed method is suitable to various applications where approximations are sufﬁcient in practice, and",
+      "bbox": [
+        107.99996948242188,
+        200.68731689453125,
+        504.00323486328125,
+        209.5938720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stronger guarantees can be derived given further system-speciﬁc assumptions (see Section 5).",
+      "bbox": [
+        107.99996948242188,
+        211.5963134765625,
+        479.61492919921875,
+        220.50286865234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Notation",
+      "bbox": [
+        107.99996948242188,
+        228.2727813720703,
+        145.0807647705078,
+        237.22915649414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We denote the sets of natural and real numbers by N and R, respectively, and the Borel σ-algebra in",
+      "bbox": [
+        154.04696655273438,
+        228.92428588867188,
+        504.0,
+        237.08370971679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rn by B(Rn). We use F, G, and K to denote the families of closed, open, and compact sets in Rn, respectively.",
+      "bbox": [
+        108.0,
+        236.167724609375,
+        503.9999084472656,
+        247.99270629882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We write SN:= S×...×S (N times) for any set S, and ∥x∥2",
+      "bbox": [
+        108.00003051757812,
+        249.0074920654297,
+        330.1233215332031,
+        258.9017028808594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Q = xT Qx with positive-deﬁnite matrix Q. The",
+      "bbox": [
+        326.47100830078125,
+        246.93319702148438,
+        503.995849609375,
+        260.5104064941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "function composition operator is denoted as ◦, and the convex hull of a discrete set X M={xj}M",
+      "bbox": [
+        108.00003051757812,
+        259.9164123535156,
+        450.7350158691406,
+        269.8106384277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1 as Co(X M).",
+      "bbox": [
+        443.7890319824219,
+        259.9163513183594,
+        503.9996643066406,
+        271.4765930175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        108.00006103515625,
+        288.0447692871094,
+        113.9776611328125,
+        298.79248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem Formulation",
+      "bbox": [
+        125.932861328125,
+        288.0447692871094,
+        236.66192626953125,
+        298.79248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We consider general discrete-time dynamical systems of the form",
+      "bbox": [
+        108.00006103515625,
+        312.668212890625,
+        368.9405517578125,
+        321.57476806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xk+1 = f(xk, uk, θ, wk),",
+      "bbox": [
+        252.17405700683594,
+        330.41583251953125,
+        359.8276672363281,
+        340.756591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        492.38409423828125,
+        330.5752258300781,
+        504.0004577636719,
+        339.4817810058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with state xk ∈Rn, control input uk ∈Uk, uncertain parameters θ ∈Θ, external disturbance",
+      "bbox": [
+        108.00009155273438,
+        346.78106689453125,
+        504.00469970703125,
+        358.6636047363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "wk ∈W, and initial state x0 ∈X0, where Uk ⊂Rm, Θ ⊂Rp, W ⊂Rq, and X0 ⊂Rn are",
+      "bbox": [
+        108.0001220703125,
+        355.7752380371094,
+        504.0005187988281,
+        369.5726013183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "known compact sets. We only assume of the dynamics f(·) to be continuously differentiable, which",
+      "bbox": [
+        108.00018310546875,
+        369.5819091796875,
+        504.0042724609375,
+        379.2057800292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "includes neural network approximators and common systems in robotic applications.",
+      "bbox": [
+        108.00016784667969,
+        381.2082214355469,
+        446.0411376953125,
+        390.1147766113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Let N ∈N, a ﬁnite time horizon. The goal of this paper consists of performing reachability analysis",
+      "bbox": [
+        108.00016784667969,
+        396.8799133300781,
+        503.9986267089844,
+        406.5037841796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for (1), by computing reachable sets X1, . . . , XN in which the state trajectory is guaranteed to lie.",
+      "bbox": [
+        108.00016784667969,
+        407.7889099121094,
+        503.999267578125,
+        418.9067687988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Formally, the reachable set Xk at each time k = 1, . . . , N can be expressed as",
+      "bbox": [
+        108.00015258789062,
+        418.6979064941406,
+        418.3489074707031,
+        429.8167724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk =",
+      "bbox": [
+        108.86119079589844,
+        443.2948913574219,
+        131.38710021972656,
+        454.1935729980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u001a",
+      "bbox": [
+        134.15219116210938,
+        436.3203430175781,
+        141.6241455078125,
+        442.6964111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xk = f(·, uk−1, θ, wk−1) ◦· · · ◦f(x0, u0, θ, w0)",
+      "bbox": [
+        141.6241912841797,
+        443.2948913574219,
+        347.30865478515625,
+        454.1935729980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x0 ∈X0, ui ∈Ui, wi ∈W",
+      "bbox": [
+        358.1001892089844,
+        437.5308532714844,
+        470.6337890625,
+        448.4305419921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "θ ∈Θ,",
+      "bbox": [
+        358.1002197265625,
+        448.4398498535156,
+        386.7108154296875,
+        457.84454345703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i = 1, ..., k −1",
+      "bbox": [
+        403.3122253417969,
+        449.18701171875,
+        461.45196533203125,
+        457.8485412597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u001b",
+      "bbox": [
+        475.615234375,
+        436.3203125,
+        483.0871887207031,
+        442.6963806152344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ". (2)",
+      "bbox": [
+        483.08721923828125,
+        443.852783203125,
+        504.0005798339844,
+        452.9187316894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Speciﬁcally, Xk describes the set of all possible reachable states at time k, using control inputs re-",
+      "bbox": [
+        108.00021362304688,
+        467.6708679199219,
+        504.00396728515625,
+        478.78973388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "specting actuator constraints, and for any possible model parameter and external disturbance. This",
+      "bbox": [
+        108.00021362304688,
+        479.2981872558594,
+        504.0035095214844,
+        488.2047424316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "problem formulation also allows the veriﬁcation of a given feedback controller u = κ(x), by com-",
+      "bbox": [
+        108.00021362304688,
+        490.04779052734375,
+        504.00482177734375,
+        499.1137390136719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "puting the reachable set of the system f(xk, κ(xk), θ, wk). Also, evaluating the reachable set for",
+      "bbox": [
+        108.00021362304688,
+        500.956787109375,
+        504.00433349609375,
+        510.71771240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a given sequence of open-loop control inputs (u0, ..., uN−1) is a speciﬁc instance of this problem,",
+      "bbox": [
+        108.00025939941406,
+        511.8657531738281,
+        504.0028991699219,
+        521.626708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with Ui = {ui}. By continuity of f and compactness of X0, Ui, Θ and W, all reachable sets are",
+      "bbox": [
+        108.00028991699219,
+        522.2169189453125,
+        504.0015563964844,
+        533.1155395507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guaranteed to be compact. We note that (2) is different than deﬁning the following recursion [28]",
+      "bbox": [
+        108.000244140625,
+        533.8431396484375,
+        494.6585388183594,
+        542.7496948242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˜",
+      "bbox": [
+        116.60523986816406,
+        549.07177734375,
+        121.58654022216797,
+        557.9185791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk+1 = {xk+1 | xk+1 = f(xk, uk, θ, wk), xk ∈˜",
+      "bbox": [
+        113.43023681640625,
+        549.07177734375,
+        326.6975402832031,
+        561.9315185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk, uk ∈Uk, θ ∈Θ, wk ∈W}, ˜",
+      "bbox": [
+        318.5402526855469,
+        549.07177734375,
+        467.52557373046875,
+        561.9315185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X0 = X0,",
+      "bbox": [
+        459.3682861328125,
+        551.0328979492188,
+        498.5728454589844,
+        561.9315185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which neglects the time dependency of the trajectory on θ. For instance, consider xk+1 = θxk, with",
+      "bbox": [
+        108.000244140625,
+        569.4967651367188,
+        504.0013122558594,
+        579.8385620117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "θ ∈{1, 2}, and X0 = {1}. Then, X2 = {1, 4}. However, ˜",
+      "bbox": [
+        108.00021362304688,
+        577.8877563476562,
+        348.093505859375,
+        590.74755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X2 = {1, 2, 4}, which is artiﬁcially more",
+      "bbox": [
+        339.9372253417969,
+        579.847900390625,
+        503.997314453125,
+        590.74755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conservative than using (2). This is an issue which many uncertainty propagation methods suffer",
+      "bbox": [
+        108.00018310546875,
+        591.4741821289062,
+        504.0033874511719,
+        600.3807373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from [13, 24, 8], as it can cause additional conservatism or innacuracies [29] when considering",
+      "bbox": [
+        108.00018310546875,
+        602.3831787109375,
+        504.00335693359375,
+        611.2897338867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "uncertainty over model parameters.",
+      "bbox": [
+        108.00018310546875,
+        613.2921752929688,
+        248.80162048339844,
+        622.19873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Before proposing an algorithm designed to perform reachability analysis, we recall the three main",
+      "bbox": [
+        108.00018310546875,
+        629.68115234375,
+        504.0034484863281,
+        638.5877075195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "difﬁculties of this problem: a) minimal assumptions are made about the dynamics (1); b) reachable",
+      "bbox": [
+        108.00018310546875,
+        640.5901489257812,
+        504.0035400390625,
+        649.4967041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sets should be computed as fast as possible, to enable data-driven applications where model parame-",
+      "bbox": [
+        108.00018310546875,
+        651.4991455078125,
+        504.00347900390625,
+        660.4057006835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ters are updated online, and to embed this reachability tool within control feedback loops for robotic",
+      "bbox": [
+        108.00018310546875,
+        662.4081420898438,
+        504.0032958984375,
+        671.314697265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applications; c) The method should scale to relatively high dimensions n, m, p, q. In the following",
+      "bbox": [
+        108.00018310546875,
+        673.15771484375,
+        503.9999084472656,
+        682.2236938476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "section, we present a sampling-based methodology which addresses these challenges.",
+      "bbox": [
+        108.00021362304688,
+        684.2261352539062,
+        448.6015930175781,
+        693.1326904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2Although recent work enables warm-starting HJ reachability analysis [27], such methods still require a few",
+      "bbox": [
+        120.65299987792969,
+        702.1752319335938,
+        504.0013427734375,
+        711.9737548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "seconds for a 3D linear system, and more than an hour for a 10D quadrotor.",
+      "bbox": [
+        108.0,
+        713.9207763671875,
+        378.92877197265625,
+        721.936767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        303.5090026855469,
+        743.1333618164062,
+        308.49029541015625,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "Anonymous Submission",
+      "subject": "Proceedings of the 4th Conference on Robot Learning (CoRL 2020)",
+      "keywords": "Reachability analysis, robust planning and control, neural networks",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20201110035150Z",
+      "modDate": "D:20201110035150Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/lew2021sampling-paper/documents/.pdf-skill-scan-4n1qbbtq/review/source.pdf",
+      "page_count": 16,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          107,
+          75,
+          505,
+          150
+        ],
+        "pos": [
+          0,
+          704
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          107,
+          157,
+          505,
+          221
+        ],
+        "pos": [
+          704,
+          1291
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          107,
+          228,
+          504,
+          271
+        ],
+        "pos": [
+          1291,
+          1994
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          108,
+          288,
+          237,
+          297
+        ],
+        "pos": [
+          1994,
+          2024
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          108,
+          312,
+          369,
+          322
+        ],
+        "pos": [
+          2024,
+          2090
+        ]
+      },
+      {
+        "index": 5,
+        "class": "formula",
+        "bbox": [
+          252,
+          329,
+          505,
+          340
+        ],
+        "pos": [
+          2090,
+          2092
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          108,
+          348,
+          505,
+          391
+        ],
+        "pos": [
+          2092,
+          2582
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          108,
+          397,
+          504,
+          429
+        ],
+        "pos": [
+          2582,
+          2886
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          108,
+          436,
+          505,
+          461
+        ],
+        "pos": [
+          2886,
+          2888
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          108,
+          468,
+          505,
+          543
+        ],
+        "pos": [
+          2888,
+          3715
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          113,
+          549,
+          499,
+          561
+        ],
+        "pos": [
+          3715,
+          3955
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          108,
+          569,
+          505,
+          623
+        ],
+        "pos": [
+          3955,
+          4473
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          108,
+          629,
+          505,
+          694
+        ],
+        "pos": [
+          4473,
+          5059
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          108,
+          702,
+          505,
+          722
+        ],
+        "pos": [
+          5059,
+          5244
+        ]
+      },
+      {
+        "index": 14,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          751
+        ],
+        "pos": [
+          5244,
+          5248
+        ]
+      }
+    ],
+    "text": "and disturbances. For this reason, these methods typically discretize the state space and thus suffer from the curse of dimensionality [21]. Further, these methods leverage the principle of dynamic programming to compute solutions, and thus cannot handle parameter uncertainty which introduces time correlations along the trajectory (see Section 2). Other approaches include using surrogate models to directly parameterize reachable sets [23, 24], and formal verification tools for dynamical systems [25] and neural networks [26]. As these methods typically perform all computation offline<sup>2</sup> , they may not be adequate for applications where bounds on model parameters are updated over time. \n\nUnlike prior work, our method treats the general problem of performing real-time multi-steps reachability analysis for arbitrary systems. Specifically, we only assume that the dynamics are continuously differentiable, and that the uncertainty is bounded. To do so, we leverage random set theory to provide asymptotic convergence guarantees to the convex hull of the reachable sets. Our proposed method is suitable to various applications where approximations are sufficient in practice, and stronger guarantees can be derived given further system-specific assumptions (see Section 5). \n\n**Notation** We denote the sets of natural and real numbers by N and R, respectively, and the Borel _σ_ -algebra in R<sup>_n_</sup> by _B_ (R<sup>_n_</sup> ). We use _F_ , _G_ , and _K_ to denote the families of closed, open, and compact sets in R<sup>_n_</sup> , respectively. We write _S_<sup>_N_</sup> := _S×_ ... _×S_ ( _N_ times) for any set _S_ , and _∥_ **_x_** _∥_<sup>2</sup> **_Q_**<sup>=</sup><sup>**_x_**</sup><sup>_T_</sup><sup>**_Qx_**with positive-definite matrix</sup><sup>**_Q_**.The</sup> function composition operator is denoted as _◦_ , and the convex hull of a discrete set _X_<sup>_M_</sup> = _{_ **_x_**<sup>_j_</sup> _}_<sup>_M_</sup> _j_ =1<sup>as Co(</sup><sup>_X M_).</sup> \n\n# **2 Problem Formulation** \n\nWe consider general discrete-time dynamical systems of the form \n\n\n\nwith state **_x_** _k ∈_ R<sup>_n_</sup> , control input **_u_** _k ∈Uk_ , uncertain parameters **_θ_** _∈_ Θ, external disturbance **_w_** _k ∈_ W, and initial state **_x_** 0 _∈X_ 0, where _Uk ⊂_ R<sup>_m_</sup> , Θ _⊂_ R<sup>_p_</sup> , W _⊂_ R<sup>_q_</sup> , and _X_ 0 _⊂_ R<sup>_n_</sup> are known compact sets. We only assume of the dynamics **_f_** ( _·_ ) to be continuously differentiable, which includes neural network approximators and common systems in robotic applications. \n\nLet _N ∈_ N, a finite time horizon. The goal of this paper consists of performing reachability analysis for (1), by computing reachable sets _X_ 1 _, . . . , XN_ in which the state trajectory is guaranteed to lie. Formally, the reachable set _Xk_ at each time _k_ = 1 _, . . . , N_ can be expressed as \n\n\n\nSpecifically, _Xk_ describes the set of all possible reachable states at time _k_ , using control inputs respecting actuator constraints, and for any possible model parameter and external disturbance. This problem formulation also allows the verification of a given feedback controller **_u_** = **_κ_** ( **_x_** ), by computing the reachable set of the system **_f_** ( **_x_** _k,_ **_κ_** ( **_x_** _k_ ) _,_ **_θ_** _,_ **_w_** _k_ ). Also, evaluating the reachable set for a given sequence of open-loop control inputs ( **_u_** 0 _,_ ... _,_ **_u_** _N −_ 1) is a specific instance of this problem, with _Ui_ = _{_ **_u_** _i}_ . By continuity of **_f_** and compactness of _X_ 0, _Ui_ , Θ and W, all reachable sets are guaranteed to be compact. We note that (2) is different than defining the following recursion [28] \n\n_X_ ˜ _k_ +1 = _{_ **_x_** _k_ +1 _|_ **_x_** _k_ +1 = **_f_** ( **_x_** _k,_ **_u_** _k,_ **_θ_** _,_ **_w_** _k_ ) _,_ **_x_** _k ∈ X_<sup>˜</sup> _k,_ **_u_** _k ∈Uk,_ **_θ_** _∈_ Θ _,_ **_w_** _k ∈_ W _}, X_<sup>˜</sup> 0 = _X_ 0 _,_ \n\nwhich neglects the time dependency of the trajectory on **_θ_** . For instance, consider **_x_** _k_ +1 = **_θx_** _k_ , with **_θ_** _∈{_ 1 _,_ 2 _}_ , and _X_ 0 = _{_ 1 _}_ . Then, _X_ 2 = _{_ 1 _,_ 4 _}_ . However, _X_<sup>˜</sup> 2 = _{_ 1 _,_ 2 _,_ 4 _}_ , which is artificially more conservative than using (2). This is an issue which many uncertainty propagation methods suffer from [13, 24, 8], as it can cause additional conservatism or innacuracies [29] when considering uncertainty over model parameters. \n\nBefore proposing an algorithm designed to perform reachability analysis, we recall the three main difficulties of this problem: a) minimal assumptions are made about the dynamics (1); b) reachable sets should be computed as fast as possible, to enable data-driven applications where model parameters are updated online, and to embed this reachability tool within control feedback loops for robotic applications; c) The method should scale to relatively high dimensions _n, m, p, q_ . In the following section, we present a sampling-based methodology which addresses these challenges. \n\n2Although recent work enables warm-starting HJ reachability analysis [27], such methods still require a few seconds for a 3D linear system, and more than an hour for a 10D quadrotor. \n\n3 \n\n"
+  }
+}

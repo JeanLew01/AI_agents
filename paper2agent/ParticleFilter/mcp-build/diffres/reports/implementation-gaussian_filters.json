@@ -1,0 +1,91 @@
+{
+ "module": "gaussian_filters",
+ "production_file": "src/tools/gaussian_filters.py",
+ "production_file_sha256": "db9c33fe05adf7bf301e3ac8446e3b75bdf0aeb74411f7c2ed80f15b9a4de878",
+ "fastmcp_instance": "gaussian_filters_mcp = FastMCP(name=\"gaussian_filters\") (fastmcp 4.0.3)",
+ "upstream": "diffres 0.0.1 editable install of repo/diffres @ 767effe3e755067eb8a04422597fbf37eb8ab754 (repo not modified)",
+ "import_time_setup": "jax.config.update('jax_enable_x64', True) (as upstream tests/demos); CPU only via heavy.sh; no GPU selection",
+ "tools": {
+  "diffres_run_lgssm_kalman_filter": {
+   "upstream_calls": [
+    "diffres.gaussian_filters.kf(ys, m0, v0=P0, semigroup=F, trans_cov=Q, obs_op=H, obs_cov=R) -> (mfs, vfs, nll, mps, vps)  [diffres/gaussian_filters.py L27-L39]",
+    "diffres.gaussian_filters.rts(mfs, vfs, mps, vps, F) when smooth=True  [L42-L54]",
+    "jax.value_and_grad(lambda F, H: kf(...)[2] with aux (mfs, vfs, mps, vps), argnums=(0, 1), has_aux=True)(F, H) when compute_gradient=True: the matrix form of demos/gradient_variance2.py loss_kf/value_and_grad (and of executor lgssm_gradient_demo capture_run.py nll_FH); kf is then evaluated once (forward outputs taken from the same pass, bitwise equal to a plain kf call in the smoke checks)"
+   ],
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/gaussian_filters.py#L27-L54",
+   "parameters": {
+    "model_path": "required; JSON keys F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx); extra keys ignored",
+    "observations_path": "required; .npz with ys (T+1, dy), ys[0] = time-0 observation (kf updates on it)",
+    "smooth": "bool, default False",
+    "compute_gradient": "bool, default False",
+    "output_dir": "optional base; default <PROJECT_ROOT>/tmp/outputs/diffres_run_lgssm_kalman_filter; a fresh uuid4 subdirectory per call"
+   },
+   "outputs": {
+    "artifact": "kalman_results.npz: filtering_means (T+1,dx), filtering_covariances (T+1,dx,dx), predictive_means (T,dx), predictive_covariances (T,dx,dx), nll (); + smoothing_means/smoothing_covariances (T+1,...) if smooth; + grad_F (dx,dx), grad_H (dy,dx) if compute_gradient",
+    "return": "message, reference, artifacts, nll (exact, includes the time-0 update), log_likelihood=-nll, num_observations, nsteps, dx, dy, smooth, compute_gradient, grad_F_frobenius_norm/grad_H_frobenius_norm (if gradient)"
+   }
+  },
+  "diffres_simulate_lgssm_data": {
+   "upstream_calls": [
+    "diffres.tools.simulate_lgssm(key, F, Q, H, R, m0, P0, nsteps) -> (xs (T+1,dx), ys (T+1,dy))  [diffres/tools.py L363-L385]; the key is passed through unchanged (upstream splits it internally)"
+   ],
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/tools.py#L363-L385",
+   "parameters": {
+    "model_path": "required; same JSON as above",
+    "nsteps": "required int >= 0 (T); nsteps=0 returns the single time-0 state/observation (upstream scan of length 0)",
+    "seed": "int, default 0 -> jax.random.PRNGKey(seed)",
+    "prng_key": "optional list of two uint32 (raw PRNGKey data), used instead of seed (e.g. the demo's split key [2482698485, 3875352609])",
+    "output_dir": "optional base; default <PROJECT_ROOT>/tmp/outputs/diffres_simulate_lgssm_data; fresh uuid4 subdirectory per call"
+   },
+   "outputs": {
+    "artifacts": "data.npz (xs (T+1,dx), ys (T+1,dy)) and model.json (verbatim copy of model_path), directly usable by diffres_run_lgssm_kalman_filter and the particle-filter tool",
+    "return": "message, reference, artifacts, nsteps, dx, dy, xs_shape, ys_shape, prng_key_used, seed (null if prng_key given)"
+   }
+  }
+ },
+ "io_adaptations_and_checks": [
+  "Model matrices read from JSON (shared LGSSM contract), converted to float64 jnp arrays; upstream names semigroup/trans_cov/obs_op/obs_cov/m0/v0 = F/Q/H/R/m0/P0.",
+  "Shape checks derived from H (dy, dx); finiteness of all inputs; symmetry of Q, R, P0 (rtol 1e-10, atol 1e-12) because jnp.linalg.cholesky reads only the lower triangle and would silently use an asymmetric matrix.",
+  "ys of shape (T+1,) is accepted only when dy == 1 and reshaped to (T+1, 1); the upstream test_kf itself passes 1-D ys for dy=1 and both forms gave bitwise-identical results in the smoke check.",
+  "Post-call guards (no recomputation): non-finite KF nll -> error (H P H^T + R not PD; upstream Cholesky returns NaN silently); non-finite RTS output or gradient -> error; non-finite simulation -> error (Q, R, P0 must be PD). No PD check is done before calling upstream.",
+  "No scientific transformation added. Gradient is w.r.t. the full matrices F and H (general case of the demo's scalar parametrisation; chain rule sum(dF*I), sum(dH*ones) reproduces the demo's grad_true bitwise). Only Frobenius norms of gradients are returned; full arrays go to the npz."
+ ],
+ "smoke_checks": {
+  "attempts": [
+   {
+    "n": 1,
+    "script": "tmp/impl-gaussian_filters/smoke.py (sha256 a6e917e15c173f806343447061bc57c0773e2052f881d222433c3dccb9465524)",
+    "command": "heavy.sh --limit-mb 1200 --timeout 1200 --log tmp/impl-gaussian_filters/smoke_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python tmp/impl-gaussian_filters/smoke.py",
+    "exit_status": 0,
+    "peak_memory_mb": 365,
+    "result": "52/52 passed (tmp/impl-gaussian_filters/smoke_results.json)",
+    "covered": [
+     "fastmcp Client(gaussian_filters_mcp) inventory: exactly the 2 tools",
+     "simulate with prng_key=[2482698485, 3875352609], nsteps=16, demo model (F=0.5,Q=1,H=1,R=1,m0=0,P0=1): xs, ys bitwise equal to lgssm_gradient_demo reference_nsteps16_np8.npz; model.json copy identical",
+     "seed=666 -> key [0,666]; repeated call -> distinct directories, identical data; nsteps=0 -> shape (1,1)",
+     "KF at theta=(0.2,0.2) (F=0.2, H=0.2) on demo ys with smooth+gradient: nll 34.829210096507474 bitwise = loss_true; grad_F -0.8709261160639918, grad_H -5.527063010352865 bitwise = kf_theta_dF/dH and grad_true via chain rule; mfs/vfs/mps/vps/mss/vss bitwise = captured kf_theta_*/rts_theta_*",
+     "composition simulate -> KF (true params, no smooth/grad): nll 29.828975391167102 bitwise = kf_true_nll; npz has only the 5 base arrays",
+     "filters_tests OU model (from filters_tests_inputs.npz), ys as (101,) and (101,1): nll 141.42165070795778 exactly; all kf/rts arrays bitwise equal to capture_outputs.npz; RTS vs closed-form GP mean/var and nll vs gp_nll within test_kf rtol 1e-7",
+     "10 input-error cases raise ToolError with clear messages: missing model keys, wrong Q shape, asymmetric Q, npz without ys, ys wrong dy, missing observations file, non-PD innovation (R=-5), bad prng_key length, negative nsteps, non-PD R in simulation"
+    ]
+   },
+   {
+    "n": 2,
+    "script": "tmp/impl-gaussian_filters/smoke_multidim.py (sha256 7c4a964d551c9ff2fb6d6203b8eaeb3d648e04c68c8cd4a577a8581a9d268484)",
+    "command": "heavy.sh --limit-mb 1200 --timeout 1200 --log tmp/impl-gaussian_filters/smoke_multidim_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python tmp/impl-gaussian_filters/smoke_multidim.py",
+    "exit_status": 0,
+    "peak_memory_mb": 393,
+    "result": "12/12 passed (tmp/impl-gaussian_filters/smoke_multidim_results.json)",
+    "covered": "dx=2, dy=3 non-diagonal model (fixture tmp/impl-gaussian_filters/fixtures/model_2x3.json), seed=3, nsteps=25: simulate output and KF nll/mfs/vfs/mps/vps/mss/vss/grad_F (2,2)/grad_H (3,2) bitwise equal to direct upstream simulate_lgssm/kf/rts/jax.grad calls; nll 99.4140227831069"
+   }
+  ],
+  "production_edits_between_attempts": "none (both attempts ran on the final file; no failed attempts)",
+  "not_a_substitute_for": "independent verification; no tests written under tests/code/"
+ },
+ "deviations": "none from upstream computation; documented input checks above are the only additions",
+ "files_owned": [
+  "src/tools/gaussian_filters.py",
+  "tmp/impl-gaussian_filters/ (smoke.py, smoke_multidim.py, fixtures/, outputs/, logs, results json)",
+  "reports/implementation-gaussian_filters.json"
+ ]
+}

@@ -1,0 +1,187 @@
+[10/02/26 22:13:45] INFO     Starting MCP server 'diffres' with transport.py:242
+                             transport 'stdio'                                  
+/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py:66: FastMCPDeprecationWarning: Accessing `Tool.inputSchema` is deprecated; MCP SDK v2 renamed this field to `input_schema`. Update your code to read `.input_schema` instead.
+  report["tool_schemas"] = {t.name: t.inputSchema for t in tools}
+gms fixture keys ['samples', 'log_weights'] {'samples': (1000, 8), 'log_weights': (1000,)}
+{
+ "python": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/bin/python",
+ "python_version": "3.11.17",
+ "cwd": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp",
+ "diffusion_call": {
+  "is_error": false,
+  "data": {
+   "message": "Diffusion-resampled 300 particles (lord_and_rougemont, ODE, a=-1.5, T=2.0, nsteps=16).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py",
+   "artifacts": [
+    {
+     "description": "resampled particles: 'samples' (N, ...) and 'log_weights' (N,) = -log N",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/e41ed7b277f6411a87aed34fdca3dfe6/resampled.npz"
+    }
+   ],
+   "n_particles": 300,
+   "sample_shape": [
+    8
+   ],
+   "input_weight_field": "log_weights",
+   "input_log_normaliser": -1.3136992606490283,
+   "ess_input": 36.05889781868299,
+   "ess_output": 299.99999999999994,
+   "settings": {
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "jitter": 0.0,
+    "ts": "linspace(0, T, nsteps + 1)",
+    "jit": true,
+    "x64": true
+   },
+   "prng_key": [
+    0,
+    4242
+   ]
+  }
+ },
+ "diffusion_call_repeat": {
+  "is_error": false,
+  "data": {
+   "message": "Diffusion-resampled 300 particles (lord_and_rougemont, ODE, a=-1.5, T=2.0, nsteps=16).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py",
+   "artifacts": [
+    {
+     "description": "resampled particles: 'samples' (N, ...) and 'log_weights' (N,) = -log N",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/3b7fa0a0908e43a4b888b05e63a14a11/resampled.npz"
+    }
+   ],
+   "n_particles": 300,
+   "sample_shape": [
+    8
+   ],
+   "input_weight_field": "log_weights",
+   "input_log_normaliser": -1.3136992606490283,
+   "ess_input": 36.05889781868299,
+   "ess_output": 299.99999999999994,
+   "settings": {
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "jitter": 0.0,
+    "ts": "linspace(0, T, nsteps + 1)",
+    "jit": true,
+    "x64": true
+   },
+   "prng_key": [
+    0,
+    4242
+   ]
+  }
+ },
+ "pf_call": {
+  "is_error": false,
+  "data": {
+   "message": "Bootstrap PF with multinomial resampling: N=64, T=100, nll=137.288 (nll + log N = 141.447).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/feynman_kac.py",
+   "artifacts": [
+    {
+     "description": "particle filter results (.npz): final-step 'samples' (N, dx) and normalised 'log_weights' (N,) [usable as particles_path of the resampling tools], 'ess' (T+1,), weighted 'filtering_means' (T+1, dx) and 'filtering_covs' (T+1, dx, dx), nll, nll_plus_log_n, prng_key",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/d588bb715f9a459eb558c750ec69aa3b/particle_filter.npz"
+    }
+   ],
+   "nll": 137.28838350917536,
+   "nll_plus_log_n": 141.44726659253504,
+   "nll_note": "nll is the raw upstream smc_feynman_kac value; it omits +log(N) in the time-0 term (feynman_kac.py lines 82-85), so nll_plus_log_n = nll + log(N) estimates the exact negative log-likelihood (comparable to the Kalman filter nll)",
+   "ess": {
+    "final": 61.1823372755821,
+    "min": 38.78761015640708,
+    "mean": 56.93072319804621,
+    "resampling_steps": 100,
+    "nsteps": 100
+   },
+   "final_filtering_mean": [
+    0.8000434800213267
+   ],
+   "nparticles": 64,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "observation_density": "sum of univariate normals (diagonal R)",
+   "resampling_method": "multinomial",
+   "resampling_settings": {},
+   "resampling_threshold": 1.0,
+   "prng_key": [
+    0,
+    2026
+   ]
+  }
+ },
+ "kf_call": {
+  "is_error": false,
+  "data": {
+   "message": "Kalman filter on 101 observations (dx=1, dy=1): nll=141.4216507",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/gaussian_filters.py#L27-L54",
+   "artifacts": [
+    {
+     "description": "Kalman filter results: filtering_means (T+1,dx), filtering_covariances (T+1,dx,dx), predictive_means (T,dx), predictive_covariances (T,dx,dx), nll ()",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/595db60d01d44a20b8f5aa529e9d7fe4/kalman_results.npz"
+    }
+   ],
+   "nll": 141.42165070795778,
+   "log_likelihood": -141.42165070795778,
+   "num_observations": 101,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "smooth": false,
+   "compute_gradient": false
+  }
+ },
+ "server_processes": [
+  {
+   "pid": 8881,
+   "exe": "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+   "cwd": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp",
+   "n_mapped_files": 13,
+   "mapped_files_under_workspace": [],
+   "jaxlib_so_sample": []
+  }
+ ],
+ "checks": {
+  "diffusion_changed_input": {
+   "tool_args": {
+    "particles_path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/inputs/resampling/delivery_gms_first300.npz",
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "seed": 4242,
+    "output_dir": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input"
+   },
+   "N": 300,
+   "fixture_weight_field": "log_weights",
+   "artifact": "/tmp/claude-
+origins: {
+ "diffres_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/diffres/__init__.py",
+ "fastmcp_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/fastmcp/__init__.py",
+ "jax_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/jax/__init__.py",
+ "server_module_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/diffres_mcp.py",
+ "tools_modules": {
+  "tools.feynman_kac": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/feynman_kac.py",
+  "tools.gaussian_filters": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/gaussian_filters.py",
+  "tools.resampling": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/resampling.py"
+ },
+ "n_loaded_module_files": 3047,
+ "module_files_in_workspace_outside_extracted": [
+  "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py",
+  "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py"
+ ],
+ "module_files_outside_extracted_and_uv_python": [
+  "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py",
+  "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py"
+ ]
+}
+FAILURE
+heavy.sh: scope memory.peak=564MB oom_kills=0

@@ -1,0 +1,155 @@
+% !TEX root = main2.tex
+
+\section{Introduction}
+\label{sec:intro}
+
+The starting point of existing hybrid system verification approaches
+is the availability of nice mathematical models describing the
+transitions and trajectories. This central conceit severely restricts
+the applicability of the resulting approaches. Real world control
+system ``models'' are typically a heterogeneous mix of simulation
+code, differential equations, block diagrams, and hand-crafted look-up
+tables. Extracting clean mathematical models from these descriptions
+is usually infeasible.
+%
+At the same time, rapid developments in Advanced Driving Assist Systems (ADAS), autonomous vehicles, robotics, and drones now make the need  for effective and sound verification algorithms stronger than ever before. 
+%
+The \toolname\ framework  presented in this paper aims to narrow the gap between sound  and practical verification for control systems.
+\vspace{-10pt}
+\paragraph{Model assumptions}
+ Consider an ADAS feature like automatic emergency braking system (AEB). The high-level logic deciding the timing of when and for how long the brakes are engaged after an obstacle is detected by sensors is implemented in a relatively clean piece of code and this logical module can be seen as a {\em white-box\/}. In contrast, the dynamics of vehicle itself, with  hundreds of parameters, is more naturally viewed as a {\em black-box\/}. That is, it can be simulated or tested with different initial conditions and  inputs, but it is nearly impossible to write down a nice mathematical model.
+ %
+ 
+ The empirical observation motivating this work is that many  control systems, and especially automotive systems, share this  combination of  white  and  black boxes (see other examples in Sections~\ref{ex:powertrain}, \ref{ssec:adas}, and \ref{ssec:gear}).
+ %\mitras{Maybe add somethign about continuity of black boxes}
+ In this paper, we view hybrid systems as a combination of a white-box that specifies the mode switches and a black-box that can  simulate the continuous evolution in each mode. 
+ Suppose the system has a set of modes $\L$ and $n$ continuous variables. The mode switches are defined by a {\em transition graph} $G$ which is a directed acyclic graph (DAG) whose vertices and edges define the allowed mode switches and the switching times. The black-box is a set of trajectories $\TL$ in $\reals^n$ for each mode in $\L$. 
+ %\mitras{The trajectories are assumed to depend continuous on their initial states}. 
+ We do not have a closed form description of $\TL$, but instead, we have a {\em simulator\/}, that can generate sampled data points on individual trajectories for a given initial state and mode.  
+%
+Combining a transition graph $G$, a set of trajectories $\TL$, and a
+set of initial states in $\reals^n$, we obtain a hybrid system for
+which executions, reachability, and trace containment can be defined
+naturally.
+
+ 
+We have studied a suite of automotive systems such as powertrain
+control~\cite{jin2014powertrain}, automatic transmission
+control~\cite{Matlab_trans}, and ADAS features like automatic
+emergency braking (AEB), lane-change, and auto-passing, that
+are naturally represented in the above style. In verifying a lane
+change or merge controller, once the maneuver is activated, the mode
+transitions occur within certain time intervals. In testing a
+powertrain control system, the mode transitions are brought about by
+the driver and it is standard to describe typical driver classes using
+time-triggered signals. Similar observations hold in other examples.
+ 
+
+ 
+
+
+\vspace{-10pt}
+\paragraph{Safety verification algorithm}
+With black-box modules in our hybrid systems, we address the  challenge of providing guaranteed verification. Our approach is based on the idea of simulation-driven reachability analysis~\cite{fan2016automatic,DMV:EMSOFT2013,DuggiralaMV:2015c2e2}. For a given mode $\ell \in \L$, finitely many simulations of the trajectories of $\ell$ and a {\em discrepancy function\/} bounding the sensitivity of these trajectories, is used to over-approximate the reachable states.
+For the key step of computing  discrepancy for modes that are now represented by  black-boxes, we introduce a probabilistic algorithm that learns the parameters of exponential discrepancy functions from simulation data. The algorithm transforms the problem of learning the parameters of the discrepancy function to the problem of learning a linear separator for a set of points in $\reals^2$ that are obtained from transforming the simulation data. 
+%
+A classical result in PAC learning, ensures that any such discrepancy function works with high probability for all trajectories. We performed dozens of experiments with a variety of black-box simulators and observed that 15-20 simulation traces typically give a discrepancy function that works for nearly 100\% of all simulations.
+%
+The reachability algorithm  for the hybrid system proceeds along the vertices of the transition graph in a topologically sorted order and this gives a sound bounded time verification algorithm, provided the learned discrepancy function is correct. 
+%For each vertex, first the discrepancy function is computed for the set of initial states and then the reach set is obtained from simulations and the discrepancy. Finally, the time intervals of the outgoing transition edges are used to compute the initial states for the next vertex.
+%The overall safety verification algorithm is similar to the one in~\cite{DMV:EMSOFT2013, FanMitra:2015df, DuggiralaMV:2015c2e2}, except that if the over-approximation is inadequate for inferring safety (or unsafety), the refinement step also splits the switching time intervals of the transition graph into smaller intervals.
+
+
+%We have .... summary of experiments. Chuchu does first draft. . Statement about experimental results.}
+
+%%% old part
+
+
+\vspace{-10pt}
+\paragraph{Reasoning}
+White-box transition graphs in our modelling, identify the switching
+sequences under which the black-box modules are exercised.  Complex
+systems have involved transition graphs that describe subtle sequences
+in which the black-box modules are executed. To enable the analysis of
+such systems, we identify reasoning principles that establish the
+safety of system under a complex transition graph based on its safety
+under a simpler transition graph. We define a notion of forward
+simulation between transition graphs that provides a sufficient
+condition of when one transition graph ``subsumes'' another --- if
+$G_1$ is simulated by $G_2$ then the reachable states of a hybrid
+system under $G_1$ are contained in the reachable states of the system
+under $G_2$. Thus the safety of the system under $G_2$ implies the
+safety under $G_1$. Moreover, we give a simple polynomial time
+algorithm that can check if one transition graph is simulated by
+another.
+
+Our transition graphs are acyclic with transitions having bounded
+switching times. Therefore, the executions of the systems we analyze
+are over a bounded time, and have a bounded number of mode
+switches. An important question to investigate is whether establishing
+the safety for bounded time, enables one can conclude the safety of
+the system for an arbitrarily long time and for arbitrarily many mode
+switches. With this in mind, we define a notion of sequential
+composition of transition graphs $G_1$ and $G_2$, such that switching
+sequences allowed by the composed graph are the concatenation of the
+sequences allowed by $G_1$ with those allowed by $G_2$. Then we prove
+a sufficient condition on a transition graph $G$ such that safety of a
+system under $G$ implies the safety of the system under arbitrarily
+many compositions of $G$ with itself.
+
+\vspace{-10pt}
+\paragraph{Automotive applications}
+We have implemented these ideas to create the {\bf D}ata-d{\bf r}iven
+S{\bf y}stem for {\bf V}erification and {\bf R}easoning (\toolname).
+The tool is able to automatically verify or find counter-examples in a
+few minutes, for all the benchmark scenarios mentioned above.
+Reachability analysis combined with compositional reasoning, enabled
+us to infer safety of systems with respect to arbitrary transitions
+and duration.
+% of have also conducted two experiments to illustrate the properties of graph simulation and sequential composition.}
+%-- Abstraction
+%--- Example
+%
+%-- Sequential composition
+%--- Example 
+%
+%-- Unbounded time analysis?
+
+%Summary of contributions.
+%The four main contributions to this end are: 
+% quick summary
+%\begin{inparaenum}[(a)]
+%	\item \toolname\ uses a new type of hybrid system description that combines a ``blackbox model'' for the continuous trajectories with a ``white box'' model for the discrete transitions. 
+%	%
+%	\item \toolname\ has a probabilistic algorithm for learning the sensitivity of the continuous trajectories only using the simulation data from the blackboxes. 
+%	\toolname\ has a verification algorithm uses the learned sensitivity and the transition graph, to perform reachability-based  safety verification.
+%	\item The \toolname\ framework has  abstraction and sequential composition theorems that provide powerful reasoning techniques for complex control systems.
+%	\item 	We illustrate the utility and effectiveness of \toolname\ by modeling and analyzing a set of  automotive benchmarks including power-train control~\cite{jin2014powertrain}, automatic transmission controller~\cite{Matlab_trans}, and autonomous and ADAS features like automatic emergency braking systems (AEBS), lane-change controllers, and auto-passing controller.
+%\end{inparaenum}
+
+\vspace{-10pt}
+\paragraph{Related work}
+Most automated verification tools for hybrid systems rely on analyzing
+a white-box mathematical model of the systems. They include tools
+based on decidablity
+results~\cite{doty95,hh95,ck99,adm02,Dutertre04timedsystems,fre05},
+semi-decision procedures that over-approximate the reachable set of
+states through symbolic
+computation~\cite{gm99,mt00,bt00,kv00,st00,Frehse:cav11,ariadne,flow},
+using
+abstractions~\cite{adi03,efhkost03-1,efhkost03-2,Henzinger_refinement,seg07,07-HSolver,dkl07,JKWB:HSCC:2007,HareFMSD,14-sttt,14-AGAR,15-PLC-CEGAR,HareTACAS16},
+and using approximate decision procedures for fragments of first-order
+logic~\cite{dreach}.
+%
+More recently, there has been interest in developing simulation-based
+verification
+tools~\cite{Julius:2007:RTG:1760804.1760833,SensitivityDM,donze2010breach,Kanade09,staliro-tool-paper,Fainekos:2009:RTL:1609208.1609591,DRJqest13,DuggiralaMV:2015c2e2}. Even though
+these are simulation based tools, they often rely on being to analyze
+a mathematical model of the system. The type of analysis that they
+rely on include instrumentation to extract a symbolic trace from a
+simulation~\cite{Kanade09}, stochastic optimization to search for
+counter-examples~\cite{staliro-tool-paper,Fainekos:2009:RTL:1609208.1609591},
+and sensitivity
+analysis~\cite{SensitivityDM,donze2010breach,DRJqest13,DuggiralaMV:2015c2e2}. Some
+of the simulation based techniques only work for systems with linear
+dynamics~\cite{Sim2Veri,ILABS}.  Recent work on the APEX tool~\cite{o2016apex} for verifying trajectory planning and tracking in autonomous vehicles is related our approach in that it targets the same application domain.

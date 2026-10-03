@@ -1,0 +1,102 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render, a 240 dpi crop of the region from the end of A.2 to the end of the page, and the TeX source (sections/Appendix.tex). First item is the end of the A.1 paragraph begun on page 14 (join_previous 'space'; page 15 has only floats, which plan.json 'reading_order' places after the sections that cite them, so the join is to the last text item of page 14). The extractor formula image was replaced by the LaTeX display (18), $\\mathcal{F}_{10i+j} = (1-0.1j)\\mathcal{F}_{10i} + 0.1j\\mathcal{F}_{10(i+1)}$, from the TeX source and checked on the crop. Headings as printed: 'A.2 Experiment 2: [Sequential Goal Reaching Task]' and 'A.3 Experiment 3: [Reachability with Distribution shift]' (###, with the printed square brackets and the lower-case 'shift'). Numbers checked on the render/crop: $N=100$, $T_q=1$, structure $[12, 24, 12]$ (twice; written with spaces after the commas), '1 KHz', '5-second horizon', '5000 time steps', 'time steps 500 through 5000', $\\delta$ = 99.99%, $N=5000$, '$i\\in 50, 51, \\ldots, 500$' (printed without braces), $j\\in[10]$; A.3: '20% larger than $\\Sigma_v$', $\\tau = 0.04$, $\\delta$ = 95%, 'first 8 components'. Percent signs are written outside the math so the numbers stay searchable. 'goal-reaching' is broken at a line end after 'goal-' (real hyphen, as in the TeX). Consistency check: Table 1 lists 451 trained models and 4501 surrogate-reachability runs for Experiment 2, which equals the number of indices $i\\in 50,\\ldots,500$ (451) and the number of time steps 500 through 5000 (4501). Section A.3 states without derivation that $\\tau=0.04$ 'is a valid upper-bound' for the total variation when the covariance of the deployment process noise is 20% larger. 'ReLU' is printed upright and written as plain text. The page ends the paper; the lower half is blank. Omitted: page number 16.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        93.0,
+        522.0,
+        145.0
+      ],
+      "markdown": "setting of $N=100$, $T_q=1$, for $q\\in[N]$, with ReLU neural network surrogate models structured as $[12, 24, 12]$. Figure 3 shows the projection of the flowpipe on each state in comparison with the results of Hashemi et al. (2024b), and Table 1 shows the detail of the experiment.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        162.0,
+        375.0,
+        174.0
+      ],
+      "markdown": "### A.2 Experiment 2: [Sequential Goal Reaching Task]"
+    },
+    {
+      "id": "p0016-b002",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        181.0,
+        525.0,
+        328.0
+      ],
+      "markdown": "In this example, we consider the quadcopter scenario described in Hashemi et al. (2024a), where a controller is designed to ensure that the machine accomplishes a sequential goal-reaching task. We also include the previously mentioned process noise in the simulator to include stochasticity. Given the quadcopter’s tendency for unpredictable behavior, we significantly reduce the sampling time in this instance. The trajectories are sampled at a frequency of 1 KHz over a 5-second horizon, resulting in 5000 time steps. Our objective is to perform reachability analysis for time steps 500 through 5000 with the level of confidence $\\delta =$ 99.99%. We propose a trajectory division setting of $N=5000$ with $T_q = 1$ for $q \\in [N]$. To reduce the runtime for model training, we employ analytical interpolation. Specifically, we select every tenth time step for model training, and for $i \\in 50, 51, \\ldots, 500$, and $j \\in [10]$, we regenerate all the ReLU neural network surrogate models using the following formula:"
+    },
+    {
+      "id": "p0016-b003",
+      "kind": "text",
+      "bbox": [
+        210.0,
+        336.0,
+        529.0,
+        359.0
+      ],
+      "markdown": "$$\\mathcal{F}_{10i+j} = (1-0.1j)\\mathcal{F}_{10i} + 0.1j\\mathcal{F}_{10(i+1)} \\tag{18}$$"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        366.0,
+        523.0,
+        418.0
+      ],
+      "markdown": "where the models $\\mathcal{F}_{10i}$ have a structure of $[12, 24, 12]$. We then utilize these regenerated ReLU neural network surrogate models for surrogate reachability through exact star reachability analysis, as well as error analysis using PCA-based conformal inference. Figure 4 shows the resulting flowpipe and Table 1 shows the detail of the experiment."
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        434.0,
+        401.0,
+        446.0
+      ],
+      "markdown": "### A.3 Experiment 3: [Reachability with Distribution shift]"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        452.0,
+        523.0,
+        521.0
+      ],
+      "markdown": "Let’s assume the real world trajectories $\\sigma^{\\mathsf{real}}_{s_0} \\sim \\mathcal{D}_{S,\\mathrm{K}}^{\\mathsf{real}}$ are such that its covariance of process noise is 20% larger than $\\Sigma_v$. In this case, the threshold $\\tau = 0.04$ is a valid upper-bound for $\\mathsf{TV}(\\mathcal{J}_{S,\\mathrm{K}}^{\\mathsf{sim}}, \\mathcal{J}_{S,\\mathrm{K}}^{\\mathsf{real}})$. In this experiment, given the threshold, $\\tau$ we generate a $\\delta$-confident flowpipe for $\\sigma^{\\mathsf{real}}_{s_0}$ with $\\delta =$ 95%. Figure 5 shows the projection of our computed flowpipe on the first $8$ components of states, and Table 1 shows the detail of the experiment."
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        725.0,
+        312.0,
+        733.0
+      ],
+      "markdown": "16",
+      "reason": "Printed page number 16 centred at the foot of the page; page furniture, checked on the 170 dpi render."
+    }
+  ]
+}

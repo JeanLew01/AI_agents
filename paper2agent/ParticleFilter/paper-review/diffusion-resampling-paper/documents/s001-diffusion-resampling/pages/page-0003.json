@@ -1,0 +1,225 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 3, a 220-dpi crop of Algorithm 1, the native text lines and main.tex (Section 2 up to equation (8)). Reading order rebuilt: left column (continuation 'Kolmogorov forward equation...' joined with space to page 2, eq. (5), 'where the transition...', eq. (6), 'where $\\alpha_i$...', 'Therefore, ...', 'We summarise ... Algorithm 1 ...'), then Algorithm 1 (top of the right column, placed after the paragraph that introduces it and before Remark 1 so it interrupts no sentence), then Remark 1 (starts at the bottom of the left column, eq. (7), continues at the right column 'where $h_i(x,t)$ ... See Appendix D for elaboration.'), '### 2.1. Differentiable sequential Monte Carlo', its paragraph, eq. (8), and 'where $M^\\theta_j$ ... Take an SSM with state tran' (word 'tran-sition' split across the page: line-wrap hyphen removed here, page 4 joins with join_previous=none). Equations (5), (6), (7), (8) converted from formula images to $$...$$ blocks with \\tag{}; maths taken from main.tex (\\grad -> \\nabla, \\cond -> \\mid, \\diff -> \\mathrm{d}, \\refmeasure -> \\pi_{\\mathrm{ref}}) and checked against the page. The extractor's formula box for (5) spanned the algorithm; corrected to [62,167,296,254]. Algorithm 1 (new items p0003-alg1, figure crop [297,66,546,261] checked with crop: top rule, title, Inputs/Outputs, line numbers 1-9 and bottom rule inside; asset algorithm-1) followed by a line-by-line transcription (p0003-alg1-text) with the printed line numbers, indentation via &emsp;, the '// parallel' comment and line 6 written in LaTeX as printed. Remark 1 starts with '**Remark 1.**'; its statement is printed in italics, transcribed in upright text with LaTeX maths (the extractor's italic markers and <sup> soup removed). Citation 'Zhao et al., 2025' is as printed (TeX key Zhao2024rsta). Authors' wording kept ('choose for a suitable', 'reparameterisable'). Omitted: running header, page number 3.",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        70.0,
+        292.0,
+        163.0
+      ],
+      "markdown": "Kolmogorov forward equation. Resampling can thus be achieved by sampling from this reversal at $T$. The challenge is that the score function $\\nabla \\log p_t$ is intractable, and in the context of generative diffusion models the score is usually learnt from samples of $\\pi$, introducing demanding computations (Zhao et al., 2025). However, given that we have access to $\\{ (w_i, X_i) \\}_{i=1}^N \\sim \\pi$, we can approximate the score (Bao et al., 2024) without training according to",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        167.0,
+        296.0,
+        254.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n&\\nabla \\log p_t(x_t) \\\\\n&\\quad= \\frac{\\int \\nabla \\log p_{t|0}(x_t \\mid x_0) \\, p_{t|0}(x_t \\mid x_0)\\, \\pi(x_0) \\, \\mathrm{d} x_0}{\\int p_{t|0}(x_t \\mid x_0) \\, \\pi(x_0) \\, \\mathrm{d} x_0} \\\\\n&\\quad\\approx \\frac{\\sum_{i=1}^N w_i \\nabla \\log p_{t|0}(x_t \\mid X_i) \\, p_{t|0}(x_t \\mid X_i)}{\\sum_{j=1}^N w_j \\, p_{t|0}(x_t \\mid X_j)},\n\\end{aligned}\n\\tag{5}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        252.0,
+        290.0,
+        286.0
+      ],
+      "markdown": "where the transition $p_{t|0}$ is analytically tractable for many useful choices of the reference $\\pi_{\\mathrm{ref}}$. For later analysis, we define the score approximation by",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        76.0,
+        287.0,
+        296.0,
+        343.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\nabla\\log p_t(x) &\\approx s_N(x, t) \\\\\n&\\coloneqq \\sum_{i=1}^N \\alpha_i(x, t) \\nabla\\log p_{t|0}(x \\mid X_i),\n\\end{aligned}\n\\tag{6}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        345.0,
+        292.0,
+        466.0
+      ],
+      "markdown": "where $\\alpha_i(x, t) \\coloneqq w_i \\, p_{t|0}(x \\mid X_i) \\, / \\sum_{j=1}^N w_j \\, p_{t|0}(x \\mid X_j)$ stands for the normalised weight. This approximation exactly functions as importance sampling, where $\\pi(x_0)$ and $p_{t|0}(\\cdot \\mid x_0)$ stand for the prior/proposal and likelihood, respectively. As such, the established $N\\to\\infty$ consistency properties of importance sampling apply (Chopin & Papaspiliopoulos, 2020) at least pointwise for $(x, t) \\mapsto s_N(x, t)$. Evaluation of the function $s$ has an $O(N)$ computational cost if implemented naïvely, and a logarithmic cost if implemented in parallel (Lee et al., 2010).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        473.0,
+        290.0,
+        591.0
+      ],
+      "markdown": "Therefore, the resampling can be approximately achieved by simulating the reverse SDE (4) using the ensemble score $s_N$ in Equation (6) until a terminal time $T$. Similar to Corenflos et al. (2021), this diffusion process too defines an optimal transportation but in the sense of Jordan–Kinderlehrer–Otto scheme (Jordan et al., 1998). The key distinction is that this map is *given by construction*, and does not need to be *computed* like in OT with Sinkhorn. Although the diffusion also assumes $T\\to\\infty$, we show in Section 3 that $T$ scales better than the entropy parameter $1\\,/\\,\\varepsilon$ as a function of $N$."
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        599.0,
+        292.0,
+        657.0
+      ],
+      "markdown": "We summarise the diffusion resampling in Algorithm 1 using a simple Euler–Maruyama discretisation for pedagogy. It is immediate by construction that this function is differentiable, since the only source of randomness is Gaussian which is reparameterisable."
+    },
+    {
+      "id": "p0003-alg1",
+      "kind": "figure",
+      "bbox": [
+        297.0,
+        66.0,
+        546.0,
+        261.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0003-alg1-text",
+      "kind": "text",
+      "bbox": [
+        297.0,
+        66.0,
+        546.0,
+        261.0
+      ],
+      "markdown": "**Algorithm 1: Diffusion resampling `diffres`**\n\n**Inputs:** Weighted samples $\\{ (w_i, X_i) \\}_{i=1}^N$, reference distribution $\\pi_{\\mathrm{ref}}$, time grid $0=t_0 < t_1 < \\cdots < t_K=T$, and $b$.\n\n**Outputs:** Differentiable re-samples $\\{ (\\frac{1}{N}, X^{*}_i) \\}_{i=1}^N$\n\n**1**&ensp;**for** $i=1,2,\\ldots, N$ **do** &emsp;&emsp; `// parallel`\n\n**2**&ensp;&emsp;&emsp; $U_{i, 0} \\sim \\pi_{\\mathrm{ref}}$\n\n**3**&ensp;&emsp;&emsp; **for** $k=1, 2, \\ldots, K$ **do**\n\n**4**&ensp;&emsp;&emsp;&emsp;&emsp; $\\Delta_k = t_k - t_{k-1}$\n\n**5**&ensp;&emsp;&emsp;&emsp;&emsp; Draw $\\xi_k^i \\sim \\mathrm{N}(0, 2 \\, b^2 \\, \\Delta_k \\, I_d)$\n\n**6**&ensp;&emsp;&emsp;&emsp;&emsp; $U_{i, t_{k}} = U_{i, t_{k-1}} - b^2 \\bigl[\\nabla \\log \\pi_{\\mathrm{ref}}(U_{i, t_{k-1}}) - 2 \\, s_N(U_{i, t_{k-1}}, T - t_{k-1}) \\bigr]\\, \\Delta_k + \\xi_k^i$\n\n**7**&ensp;&emsp;&emsp; **end**\n\n**8**&ensp;&emsp;&emsp; $X^*_i \\gets U_{i, T}$\n\n**9**&ensp;**end**"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        661.0,
+        292.0,
+        683.0
+      ],
+      "markdown": "**Remark 1.** The ensemble score in Equation (6) characterises a Doob’s $h$-function:"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        685.0,
+        296.0,
+        725.0
+      ],
+      "markdown": "$$\ns_N(x, t) = \\nabla \\log \\sum_{i=1}^N h_i(x, t),\n\\tag{7}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        284.0,
+        544.0,
+        454.0
+      ],
+      "markdown": "where $h_i(x, t) \\coloneqq w_i \\, p_{t | 0}(x \\mid X_i)$ verifies the martingale (harmonic) property, that is, $\\sum_{i=1}^N h_i$ is a valid $h$-function under SDE (3). As a result, the diffusion resampling process at the terminal time will obtain $\\sum_{i=1}^N \\gamma_i \\, \\delta_{X_i}$ for weights $\\{ \\gamma_i \\}_{i=1}^N$ that depend on the spatial location, akin to the OT approach. When setting $p_T(x)=\\sum_{i=1}^N h_i(x, T)$, we obtain a special case $\\{ \\gamma_i=w_i \\colon i=1,\\ldots, N \\}$, and diffusion resampling may thus be viewed as a continuous and differentiable reparametrisation of discrete multinomial resampling. However, the key advantage here is that the diffusion resampling can leverage the additional information from $\\pi_{\\mathrm{ref}}$ (which implicitly defines a transportation cost and a Rao–Blackwellisation condition) achieving better statistical properties (e.g., variance). See Appendix D for elaboration.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "heading",
+      "bbox": [
+        307.0,
+        472.0,
+        487.0,
+        482.0
+      ],
+      "markdown": "### 2.1. Differentiable sequential Monte Carlo"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        491.0,
+        544.0,
+        633.0
+      ],
+      "markdown": "The diffusion resampling in Algorithm 1 is particularly useful for SMC and SSMs for two reasons. First, the resampling method is pathwise-differentiable by construction. Moreover, recent advances provide methods for propagating gradients through SDE solvers (see, e.g., Bartosh et al., 2025; Li et al., 2020; Kidger et al., 2021) and these methods have been well implemented in common automatic differentiation libraries (Kidger, 2021). Secondly, we can fully leverage the sequential structure of SMC to adaptively choose for a suitable reference distribution $\\pi_{\\mathrm{ref}}$ based on any previous SMC marginal distribution. To see these aspects, let us begin by considering a parametrised Feynman–Kac model"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        308.0,
+        637.0,
+        548.0,
+        678.0
+      ],
+      "markdown": "$$\nQ^\\theta_{0:J}(z_{0:J}) = \\frac{1}{L(\\theta)} \\prod_{j=0}^J M_{j}^\\theta(z_j \\mid z_{j-1}) \\, G_j^\\theta(z_j, z_{j-1}),\n\\tag{8}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        682.0,
+        544.0,
+        716.0
+      ],
+      "markdown": "where $M^\\theta_j$ and $G_j^\\theta$ are Markov transition and potential functions, respectively, and $L(\\theta)$ is the marginal likelihood that we often aim to maximise. Take an SSM with state tran",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header (paper title) at the top of the page; page furniture."
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        741.0
+      ],
+      "markdown": "3",
+      "reason": "Printed page number '3' at the bottom centre; page furniture."
+    }
+  ]
+}

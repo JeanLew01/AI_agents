@@ -1,0 +1,231 @@
+[10/02/26 21:34:42] INFO     Starting MCP server                transport.py:242
+                             'gaussian_filters' with transport                  
+                             'stdio'                                            
+[10/02/26 21:34:46] Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 9 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:196 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   193 │   """                                            │
+                    │   194 │   if isinstance(nsteps, bool) or not isinstance( │
+                    │   195 │   │   raise ValueError(f"nsteps must be a non-ne │
+                    │ ❱ 196 │   model = _load_model(model_path)                │
+                    │   197 │   key = _resolve_key(seed, prng_key)             │
+                    │   198 │   F, Q, H, R, m0, P0 = (jnp.asarray(model[k]) fo │
+                    │   199                                                    │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:71 in           │
+                    │ _load_model                                              │
+                    │                                                          │
+                    │    68 │   │   │   │   │   │   │    f"got {model[k].shape │
+                    │    69 │   for k in ("Q", "R", "P0"):                     │
+                    │    70 │   │   if not np.allclose(model[k], model[k].T, r │
+                    │ ❱  71 │   │   │   raise ValueError(f"covariance {k} must │
+                    │       directly (e.g. F P F^T + Q "                       │
+                    │    72 │   │   │   │   │   │   │    f"in kf) and through  │
+                    │       its input, so a "                                  │
+                    │    73 │   │   │   │   │   │   │    f"non-symmetric matri │
+                    │       inconsistently")                                   │
+                    │    74 │   model["dx"], model["dy"] = dx, dy              │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: covariance Q must be symmetric: upstream uses it
+                    both directly (e.g. F P F^T + Q in kf) and through          
+                    jnp.linalg.cholesky, which symmetrises its input, so a      
+                    non-symmetric matrix would be interpreted inconsistently    
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:195 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   192 │   Input is a model JSON, T and a seed/key; outpu │
+                    │       (T+1,dy)) plus a model.json copy.                  │
+                    │   193 │   """                                            │
+                    │   194 │   if isinstance(nsteps, bool) or not isinstance( │
+                    │ ❱ 195 │   │   raise ValueError(f"nsteps must be a non-ne │
+                    │   196 │   model = _load_model(model_path)                │
+                    │   197 │   key = _resolve_key(seed, prng_key)             │
+                    │   198 │   F, Q, H, R, m0, P0 = (jnp.asarray(model[k]) fo │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: nsteps must be a non-negative integer, got -1   
+                    Error calling tool 'diffres_simulate_lgssm_data'            
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:203 in          │
+                    │ diffres_simulate_lgssm_data                              │
+                    │                                                          │
+                    │   200 │   xs, ys = simulate_lgssm(key, F, Q, H, R, m0, P │
+                    │   201 │   xs, ys = np.asarray(xs), np.asarray(ys)        │
+                    │   202 │   if not (np.all(np.isfinite(xs)) and np.all(np. │
+                    │ ❱ 203 │   │   raise ValueError("simulation produced non- │
+                    │       positive definite "                                │
+                    │   204 │   │   │   │   │   │    "(upstream uses their Cho │
+                    │   205 │                                                  │
+                    │   206 │   out_dir = _fresh_dir(output_dir, "diffres_simu │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: simulation produced non-finite values: Q, R and 
+                    P0 must be positive definite (upstream uses their Cholesky  
+                    factors)                                                    
+[10/02/26 21:34:52] Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:116 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    │   115 │   if ys.ndim != 2 or ys.shape[1] != dy or ys.sha │
+                    │ ❱ 116 │   │   raise ValueError(f"ys must have shape (T+1 │
+                    │   117 │   if not np.all(np.isfinite(ys)):                │
+                    │   118 │   │   raise ValueError("ys contains non-finite v │
+                    │   119                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ys must have shape (T+1, dy=1), got (17, 2)     
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:116 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    │   115 │   if ys.ndim != 2 or ys.shape[1] != dy or ys.sha │
+                    │ ❱ 116 │   │   raise ValueError(f"ys must have shape (T+1 │
+                    │   117 │   if not np.all(np.isfinite(ys)):                │
+                    │   118 │   │   raise ValueError("ys contains non-finite v │
+                    │   119                                                    │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: ys must have shape (T+1, dy=2), got (11,)       
+[10/02/26 21:34:53] Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:136 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   133 │                                                  │
+                    │   134 │   nll = float(nll)                               │
+                    │   135 │   if not np.isfinite(nll):                       │
+                    │ ❱ 136 │   │   raise ValueError("Kalman filter nll is not │
+                    │       H^T + R is not positive "                          │
+                    │   137 │   │   │   │   │   │    "definite (Cholesky faile │
+                    │       degenerate")                                       │
+                    │   138 │                                                  │
+                    │   139 │   arrays = {"filtering_means": np.asarray(mfs),  │
+                    │       np.asarray(vfs),                                   │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: Kalman filter nll is not finite: the innovation 
+                    covariance H P H^T + R is not positive definite (Cholesky   
+                    failed) or the model is numerically degenerate              
+                    Error calling tool 'diffres_run_lgssm_kalman_filter'        
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/gaussian_filters.py:111 in          │
+                    │ diffres_run_lgssm_kalman_filter                          │
+                    │                                                          │
+                    │   108 │   │   raise ValueError(f"observations_path does  │
+                    │   109 │   with np.load(obs_path) as data:                │
+                    │   110 │   │   if "ys" not in data.files:                 │
+                    │ ❱ 111 │   │   │   raise ValueError(f"observations .npz m │
+                    │   112 │   │   ys = np.asarray(data["ys"], dtype=np.float │
+                    │   113 │   if ys.ndim == 1 and dy == 1:                   │
+                    │   114 │   │   ys = ys[:, None]                           │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: observations .npz must contain 'ys'; found ['y']
+{"success": true, "mode": "calls", "cases_checked": 13, "report": "tests/results/gaussian_filters/acceptance_dryrun_report.json"}
+heavy.sh: scope memory.peak=443MB oom_kills=0

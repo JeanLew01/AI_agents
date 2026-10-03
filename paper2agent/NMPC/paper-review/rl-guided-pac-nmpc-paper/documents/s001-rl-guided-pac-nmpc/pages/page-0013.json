@@ -1,0 +1,279 @@
+{
+  "page": 13,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0013.png",
+  "reviewed": true,
+  "review_notes": "[v2] Re-examined from four 200-dpi column crops and an exact crop of Fig. 11; structure of the earlier v1 review reused. Printed page number '12' omitted as running header; no arXiv margin stamp on this page. Order: the page starts with 'of view, recently observed obstacles ...' (join_previous=space, continues PDF page 12), then Fig. 11 with caption, then the left column; the left column ends mid-sentence ('... unknown space penalties against') and 'uncertainty-aware RL augmentation.' at the top of the right column is joined (space); Table VI and its caption follow that completed paragraph. Last item ('... This baseline') continues on PDF page 14. Run-in subsubsection titles '2) Environments:' and '3) Baseline Comparison:' (italic in print) are kept inside their text items in bold; no heading invented. Table VI (asset table-6): the printed table has a row-spanning cell 'PAC-NMPC' for five variants under a two-column 'Approach' header; in the 4-column CSV the header 'Approach' spans two columns and is repeated in both header cells; 'RL Actor Network' spans both approach columns (second cell left empty); the multirow label 'PAC-NMPC' is repeated on each of its rows (same convention as Tables II and III on PDF pages 9-10). Bold in print (not kept in cells): Cost 468.1 (RL Actor Network) and Success 90% (Actor-Critic (ours)). All values compared with the 200-dpi crop and the TeX tabular; '718.14' is printed with two decimals. Mathematics converted to LaTeX from main.tex (lines 1096-1171) with macros expanded (\\costfunc -> \\ell, \\state -> \\mathbf{x}, \\goalstate -> \\mathbf{x_G}, \\sensorhist -> N_y) and \\cite/\\ref resolved to the printed [72], [57], 'Figure 11'. Equations (33) (six printed lines: l_f in three lines, d_t / eta_G / v_G, Q, Q_eta / Q_v) and (34) (five printed lines) are now aligned text items with \\tag{33}, \\tag{34} (the printed number is on the last line of each); the authors' \\hphantom alignment is kept. The 17 diagonal entries of each Q were counted against the crop: (33) [1 1 1 0 0 0 0 1 1 1 0 0 0 0.1 0.1 0.1 0], (34) [10 10 10 0 0 0 0 1 1 1 0 0 0 0.1 0.1 0.1 0]; Q_v = 0.1 diag([1 1 1]) in (33) and diag([1 1 1]) in (34). No formula kept as image; no TeX-versus-PDF disagreement found. Stacked unit fractions are written as in TeX ('$6\\mathrm{\\frac{m}{s}}$'); apostrophes are typographic as printed. The source typo 'using the the widely adopted' is kept as printed. Fig. 11 (asset figure-11) checked on an exact crop: whole room, goal sphere and the three aircraft trails are inside; caption excluded. check: 88/114 lines, no number differences; the 26 unmatched lines are all inline or display mathematics.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0013-b000",
+      "kind": "omit",
+      "bbox": [
+        556.0,
+        26.0,
+        564.0,
+        32.0
+      ],
+      "markdown": "12",
+      "source_class": "page-header",
+      "reason": "Running header: printed page number 12 (top right)."
+    },
+    {
+      "id": "p0013-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        241.0,
+        301.0,
+        322.0
+      ],
+      "markdown": "of view, recently observed obstacles may leave the image as the aerial vehicle performs aerobatic maneuvers. To account for this, the obstacle constraint utilizes a history of depth images. If the queried state lies outside of the latest depth image field of view, an image from $0.1$ sec prior is queried. This continues for a history of up to $N_y =10$ prior depth images.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0013-b001",
+      "kind": "figure",
+      "bbox": [
+        47.0,
+        54.0,
+        302.0,
+        191.5
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 11",
+      "asset_name": "figure-11"
+    },
+    {
+      "id": "p0013-b002",
+      "kind": "caption",
+      "bbox": [
+        48.0,
+        194.0,
+        301.0,
+        226.0
+      ],
+      "markdown": "Fig. 11: Simulation environment example. Ceiling/floor not shown. RL actor in yellow, PAC-NMPC with global planner in red, AC-PAC-NMPC in blue.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0013-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        324.0,
+        301.0,
+        452.0
+      ],
+      "markdown": "We optimized feedback policies over 11 timestep trajectories with $\\Delta t=0.1$ sec at a replanning period of $H=0.1$ sec. In contrast to the rally car’s configuration, we replan at every integration timestep. We found that this increased replanning rate allowed for improved reactivity to obscured obstacles given the increased vehicle speed and limited camera field of view. The optimization used $L=1$ prior policies, $M=1024$ trajectory samples per prior, and $\\delta=0.05$. The trajectory costs were normalized before optimization to achieve tighter PAC bounds. The constraint violation bound penalty was set to $\\gamma=2$ and the allowable threshold to $\\epsilon_c = 0.1$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        454.0,
+        301.0,
+        654.0
+      ],
+      "markdown": "**2) Environments:** We generated a distribution of environments consisting of randomly placed cylindrical obstacles in a rectangular room. The room width, length, and height were uniformly sampled between [10, 30], [20, 30], and [4, 5] meters, respectively. These obstacles were arranged in randomly placed semi-circle arrangements that create concave traps. These traps create challenging environments for the fixed-wing aerial vehicle, which is unable to reliably stop and turn around when caught in the traps. Consequently, successful navigation often requires long-range reasoning beyond the finite MPC horizon. The number of semi-circle traps was randomly sampled between 0 and 6, and were oriented towards the initial position of the plane, $\\pm \\frac{\\pi}{2}$. The obstacle radii were sampled between 0.2 and 0.4 meters. Obstacles were not allowed to overlap. The simulated depth camera included observations of the cylindrical obstacles, walls, ceiling, and floor. An example environment is shown in Figure 11.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        656.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "**3) Baseline Comparison:** We compared our approach against several baselines in these simulated environments. First, we compared against the RL actor policy itself, which was trained on this distribution of environments. Then, we compare against a sequence of increasingly complex variations of PAC-NMPC, each introducing an additional capability. These baselines isolate and compare the contributions of mapping, global planning, and unknown space penalties against",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b009",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        154.0,
+        461.0,
+        164.0
+      ],
+      "markdown": "uncertainty-aware RL augmentation.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0013-b007",
+      "kind": "table",
+      "bbox": [
+        330.0,
+        51.0,
+        542.0,
+        122.5
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table VI",
+      "asset_name": "table-6",
+      "rows": [
+        [
+          "Approach",
+          "Approach",
+          "Success",
+          "Cost"
+        ],
+        [
+          "RL Actor Network",
+          "",
+          "81%",
+          "468.1"
+        ],
+        [
+          "PAC-NMPC",
+          "Depth Image History",
+          "52%",
+          "757.7"
+        ],
+        [
+          "PAC-NMPC",
+          "Map",
+          "63%",
+          "810.2"
+        ],
+        [
+          "PAC-NMPC",
+          "Map & A*",
+          "74%",
+          "738.8"
+        ],
+        [
+          "PAC-NMPC",
+          "Map & A* Unknown",
+          "85%",
+          "718.14"
+        ],
+        [
+          "PAC-NMPC",
+          "Actor-Critic (ours)",
+          "90%",
+          "513.3"
+        ]
+      ]
+    },
+    {
+      "id": "p0013-b008",
+      "kind": "caption",
+      "bbox": [
+        352.0,
+        131.0,
+        523.0,
+        141.0
+      ],
+      "markdown": "TABLE VI: Baseline Comparison Results",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0013-b010",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        166.0,
+        564.0,
+        187.0
+      ],
+      "markdown": "First, we evaluated PAC-NMPC using a history of depth images for its constraint and a quadratic terminal cost:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b011",
+      "kind": "text",
+      "bbox": [
+        318.5,
+        189.0,
+        565.0,
+        284.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\ell_f&(\\mathbf{x}_t, \\mathbf{u}_t) =(\\mathbf{x}_t-\\mathbf{x_G})^T\\mathbf{Q}(\\mathbf{x}_t-\\mathbf{x_G}) \\\\\n&\\hphantom{(\\mathbf{x}_t, \\mathbf{u}_t)}+ (\\boldsymbol{\\eta}_t-\\boldsymbol{\\eta}_G)^T\\mathbf{Q}_\\eta(\\boldsymbol{\\eta}_t-\\boldsymbol{\\eta}_G) \\\\\n&\\hphantom{(\\mathbf{x}_t, \\mathbf{u}_t)}+ (\\mathbf{v}_t-\\mathbf{v}_G)^T\\mathbf{Q}_v(\\mathbf{v}_t-\\mathbf{v}_G), \\\\\n\\mathbf{d}_t &= \\mathbf{r}_G - \\mathbf{r}_t, \\quad \\boldsymbol{\\eta}_G = \\mathrm{eul}\\left(\\mathbf{d}_t\\right), \\quad \\mathbf{v}_G = v_G\\cdot\\mathbf{d}_t/\\|\\mathbf{d}_t\\|, \\\\\n\\mathbf{Q} &=\\mathrm{diag}([1\\ 1\\ 1\\ 0\\ 0\\ 0\\ 0\\ 1\\ 1\\ 1\\ 0\\ 0\\ 0\\ 0.1\\ 0.1\\ 0.1\\ 0]), \\\\\n\\mathbf{Q}_\\eta &= 10 \\cdot \\mathrm{diag}([1\\ 1\\ 1]), \\quad \\mathbf{Q}_v = 0.1 \\cdot \\mathrm{diag}([1\\ 1\\ 1]).\n\\end{aligned} \\tag{33}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0013-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        288.0,
+        564.0,
+        335.0
+      ],
+      "markdown": "Here, $\\boldsymbol{\\eta}_t$, $\\mathbf{v}_t$ are the Euler angles and linear world velocity of the aerial vehicle at state $\\mathbf{x}_t$. The desired Euler angles, $\\boldsymbol{\\eta}_G$, and velocity, $\\mathbf{v}_G$, are constructed from the vector between the robot and the goal, $\\mathbf{d}_t$, where the target speed is set to $v_G = 6\\mathrm{\\frac{m}{s}}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        335.0,
+        564.0,
+        414.0
+      ],
+      "markdown": "To improve awareness of previously observed obstacles, the next baseline maintains a map of the environment. We maintained an occupancy voxel grid, which was constructed and maintained using the the widely adopted Nav2 framework [72]. The voxel grid had a resolution of $0.1\\mathrm{m} \\times0.1\\mathrm{m}\\times0.1\\mathrm{m}$ and was used in place of the depth image history for the obstacle constraint function.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        418.0,
+        564.0,
+        570.0
+      ],
+      "markdown": "To improve the robot’s ability to avoid local traps in the environment, we incorporated a global planner into the next baseline. We implemented a 3-dimensional A* global planner. Each planning iteration, the A* search algorithm was run on the voxel grid to find the shortest path to the goal. These paths were pruned, smoothed, and parameterized by velocity, as was done in [57]. Target velocity along the path is decreased as the path curvature increases: straight segments were assigned $6\\mathrm{\\frac{m}{s}}$ and segments with the maximum curvature were assigned $3\\mathrm{\\frac{m}{s}}$. This encourages the aerial vehicle to slow down, resulting in a tighter turning radius, as the curvature of the path increases. A receding horizon goal, $\\mathbf{x}_{A^*}$ was selected at a time horizon of $1$ sec along the path to form a quadratic terminal cost,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b017",
+      "kind": "text",
+      "bbox": [
+        314.5,
+        571.5,
+        565.0,
+        652.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\ell_f&(\\mathbf{x}_t, \\mathbf{u}_t) =(\\mathbf{x}_t-\\mathbf{x}_{A^*})^T\\mathbf{Q}(\\mathbf{x}_t-\\mathbf{x}_{A^*}) \\\\\n&\\hphantom{(\\mathbf{x}_t, \\mathbf{u}_t)}+(\\boldsymbol{\\eta}_t-\\boldsymbol{\\eta}_{A^*})^T\\mathbf{Q}_\\eta(\\boldsymbol{\\eta}_t-\\boldsymbol{\\eta}_{A^*}) \\\\\n&\\hphantom{(\\mathbf{x}_t, \\mathbf{u}_t)}+ (\\mathbf{v}_t-\\mathbf{v}_{A^*})^T\\mathbf{Q}_v(\\mathbf{v}_t-\\mathbf{v}_{A^*}), \\\\\n\\mathbf{Q} &= \\mathrm{diag}( [10\\ 10\\ 10\\ 0\\ 0\\ 0\\ 0\\ 1\\ 1\\ 1\\ 0\\ 0\\ 0\\ 0.1\\ 0.1\\ 0.1\\ 0]), \\\\\n\\mathbf{Q}_\\eta &= 10 \\cdot \\mathrm{diag}([1\\ 1\\ 1]), \\quad \\mathbf{Q}_v = \\mathrm{diag}([1\\ 1\\ 1]),\n\\end{aligned} \\tag{34}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0013-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        656.0,
+        564.0,
+        689.0
+      ],
+      "markdown": "where $\\boldsymbol{\\eta}_{A^*}$ and $\\mathbf{v}_{A^*}$ are the Euler angles and linear world velocity of the receding horizon goal as parameterized by the smoothed A* global path.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0013-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        691.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "To improve the robot’s ability to avoid obscured obstacles in the environment, the last baseline applies an unknown-space penalty to the A* planner. Each cell in the voxel grid is assigned as either occupied, unoccupied, or unobserved based on ray casting from the depth camera poses. This baseline",
+      "source_class": "text"
+    }
+  ]
+}

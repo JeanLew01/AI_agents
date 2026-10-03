@@ -1,0 +1,62 @@
+
+
+
+
+
+
+\subsection{Related Work} \label{sec:related}
+%\textbf{Related Work.}
+%Safety has long been of interest in RL research. %Unlike traditional RL, 
+Safe RL aims to learn policies that maximize expected reward on a task while respecting safety constraints during both learning and deployment \cite{garcia2015comprehensive}. 
+Existing methods can be roughly classified as \emph{objective-based} or \emph{exploration-based}, depending on how safety is formulated.
+We first discuss these categories, then the specific case of mobile robot navigation, which we use to evaluate our proposed method.
+
+Objective-based methods encourage safety by penalizing constraint violations in the objective.
+This can be done by relating cumulative reward to the system's risk, such as the probability of visiting error states \cite{geibel2005risk}.
+In practice, this results in an RL agent attempting to minimize an empirical risk measure (that is, an approximation of the probability of entering a dangerous or undesired state).
+Similarly, one can penalize the probability of losing reward (by visiting an unsafe state) for a given action \cite{mihatsch2002risk}, in which case the agent minimizes temporal differences in the reward and thus also minimizes risk.
+Another approach is to restrict policies to be ergodic with high probability, meaning any state can eventually be reached from any other state \cite{moldovan2012safe}.
+This is a more general problem, which comes at a cost: feasible safe policies do not always exist, and the algorithms are far more complex. 
+While these methods can make an agent prefer safe actions, they cannot guarantee safety during training or deployment.
+Another group of objective-based algorithms aims to modify the Markov Decision Process (MDP) that the RL agent tries to optimize.
+Some model safe optimization problems as maximizing an unknown expected reward function \cite{pmlr-v37-sui15}.
+However, they exploit regularity assumptions on the function wherein similar decisions are associated with similar rewards.
+They also assume the bandit setting, where decisions do not cause state transitions.
+% Others utilize constrained MDPs to enforce safety \cite{altman1999constrained}.
+% These can be broadly classified as either offline or online approaches.
+% Offline approaches \cite{achiam2017constrained,bharadhwaj2021conservative} collect data first, then perform the optimization.
+% These methods can be quite conservative and hard to scale.
+% Online methods \cite{BORKAR2005207,chow2017riskconstrained,bohez2019value}, on the other hand, couple both the data collection and optimization.
+% However, they do not guarantee safety in training.
+Others utilize constrained MDPs \cite{altman1999constrained} to enforce safety in various RL settings, either online or offline.
+Online methods learn by coupling the iteration of numerical optimization algorithms (such as primal-dual gradient updates) with data collection \cite{BORKAR2005207,chow2017riskconstrained,tessler2018reward,bohez2019value}.
+These algorithms have also been studied in exploration-based settings \cite{ding2020provably,efroni2020explorationexploitation}.
+However, they provide no guarantees on safety during training.
+On the other hand, offline schemes separate optimization and data collection \cite{achiam2017constrained,bharadhwaj2021conservative}.
+They conservatively enforce safety constraints on every policy iteration but are more challenging to scale up.
+
+
+Exploration-based methods modify the agent's exploration process instead of its optimization criterion.
+Exploration is the process of learning about unexplored states by trying random actions or actions that are not expected to yield maximum reward (for example, an $\epsilon$-greedy strategy).
+However, visiting unexplored states na\"ively can harm a robot or its environment.
+To avoid this, one can aim to guarantee safety during both exploration and exploitation, in both training and testing, by modifying the exploration strategy to incorporate risk metrics \cite{riskmetricsRL}.
+One can also use prior knowledge as an inductive bias for the exploration process \cite{garcia2015comprehensive,neuroevolutionaryinproceedings}; for example, one can provide a finite set of demonstrations as guidance on the task \cite{abbeel2005exploration}.
+\tb{
+Other approaches use control theory to guide or constrain the RL agent's actions.
+Most of these approaches use system models with Lyapunov or control barrier functions (CBFs) to guarantee safety (or stability) of the system \cite{molnar2021model, liu2022robot, chow2018lyapunov}.
+One can also combine data-driven approaches with model-free barrier or intervention functions \cite{cheng2019end, modelfreecbfsIVM, wagener2021safe}, or use robust CBFs to model uncertain parts of a system \cite{robustCBFarticle, cbfforunmodeleddynamics}.
+Although these approaches can provide strong guarantees, most assume the system is control-affine, and need prior knowledge on some or all of the system model \cite{saferlforchanginglanes,conf:modelBasedReachRL,LewEtAl2021}, which may not always be feasible.
+Finally, our method is most similar to \cite{dalal2018safe}, which learns a safety signal from data offline, then uses it to adjust an RL agent's controls at runtime.
+This method uses a first-order safety approximation for fast adjustment, but (as we show) can be conservative.
+}
+ 
+%\subsection{Robot Navigation using Safe RL }
+\tb{
+Safe navigation is a fundamental challenge in robotics, because robots typically have uncertain, nonlinear dynamics.
+Classical techniques such as A$^*$ or RRT \cite[Ch. 5]{lavalle2006planning} have been proposed to solve the navigation problem without learning.
+With these methods, safety has been enforced at different levels of the planning hierarchy, such as trajectory planning \cite{kousik2020bridging}, or low-level control \cite{leung2020infusing}.
+More recently, however, learning-based methods have been proposed \cite{saferlforchanginglanes,conf:modelBasedReachRL,LewEtAl2021}.
+Some safe RL navigation approaches depend on learning a value function of the expected time that an agent takes to reach the desired goal \cite{chen2016decentralized, chen2018socially}.
+Other approaches depend on learning the actions of the robot in an end-to-end manner \cite{long2018optimally, e2efirst, tai2018socially}, meaning that the agent attempts to convert raw sensor inputs (e.g., camera or LIDAR) into actuator commands.
+The key advantage of RL over traditional planners is in accelerating computation time and solution quality. %by learning from past experience.
+}

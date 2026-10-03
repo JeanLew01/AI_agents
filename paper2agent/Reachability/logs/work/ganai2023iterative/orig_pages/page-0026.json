@@ -1,0 +1,87 @@
+{
+  "page": 26,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0026.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0026-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        75.0,
+        210.0,
+        85.0
+      ],
+      "markdown": "# **D.4 Double Integrator**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0026-b001",
+      "kind": "figure",
+      "bbox": [
+        182.0,
+        94.0,
+        430.0,
+        322.0
+      ],
+      "markdown": "<!-- Start of picture text -->\n10.0<br>RESPO (ours)<br>RCRL<br>7.5<br>Safe set boundry<br>5.0<br>Start<br>2.5<br>Feasible Set<br>0.0<br>2.5<br>5.0<br>7.5 Infeasible Set<br>10.0<br>10.0 7.5 5.0 2.5 0.0 2.5 5.0 7.5 10.0<br><!-- End of picture text -->",
+      "source_class": "picture",
+      "label": "Figure on PDF page 26 (2)",
+      "asset_name": "figure-p0026-001"
+    },
+    {
+      "id": "p0026-b002",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        317.0,
+        505.0,
+        366.0
+      ],
+      "markdown": "Figure 8: Comparison of the trajectories in the Double Integrator Environment of an agent controlled by policies obtained by RCRL (in red) and our proposed algorithm RESPO (in green) when starting from the infeasible set (but still within the safe set). Notice how our approach actively enters the feasible set (blue region), while RCRL fails to do so. The level set demarcating the feasible/infeasible set boundary is in black. The safe set (i.e. the set of states that have no violations) is the region within the dashed purple square. The infeasible set is in yellow.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0026-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        380.0,
+        506.0,
+        444.0
+      ],
+      "markdown": "We use the Double Integrator environment as a motivating example to demonstrate how performing constrained optimization using solely reachability-based value functions as in **RCRL** can produce nonoptimal behavior when the agent is outside the feasiblity set. Double Integrator has a 2 dimensional observation space [ _x_ 1 _, x_ 2], 1 dimension action space _a ∈_ [ _−_ 0 _._ 5 _,_ 0 _._ 5], system dynamics is _s_ ˙ = [ _x_ 2 _, a_ ], and constraint as _||s||∞ ≤_ 5. Particularly, we make the cost as 1 if _||s||∞ >_ 5, and 0 otherwise to emphasize the importance of capturing the frequency of violation during training.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0026-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        450.0,
+        505.0,
+        548.0
+      ],
+      "markdown": "We train an **RCRL** controller and **RESPO** controller in this environment, and the results are visualized in Figure 8. The color scheme indicates the learned reachability value across the state space while the black line demarcates the border of the zero level set. We present the behavior of the trajectories of **RCRL** and **RESPO** . Because the **RCRL** optimizes for reachability value function when outside the feasible set, it simply minimizes the maximum violation, which as can be seen does not result in the agent reentering the feasible set since it is uniformly equal to or near 1 in the infeasible set. This is since it permits many violations of magnitude same or less than that of the maximum violation. On the other hand, **RESPO** optimizes for cumulative damage by considering total sum of costs, thereby re-entering the feasible set.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0026-b005",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "26",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

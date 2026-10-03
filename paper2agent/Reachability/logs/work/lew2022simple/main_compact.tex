@@ -1,0 +1,1650 @@
+2: \documentclass[12pt]{l4dc2022} % Arxiv
+
+6: \title[Sampling-based reachability analysis]{A Simple and Efficient Sampling-based Algorithm\\ for General Reachability Analysis}% 
+
+9: \usepackage{times}
+
+13: \input{preamble.tex}
+
+33: \author{% 
+34:  \Name{Thomas Lew}$^1$ \Email{thomas.lew@stanford.edu}
+35:  \AND
+36:  \Name{Lucas Janson}$^2$ \Email{ljanson@fas.harvard.edu}
+37:  \AND
+38:  \Name{Riccardo Bonalli}$^3$ \Email{riccardo.bonalli@l2s.centralesupelec.fr}
+39:  \AND
+40:  \Name{Marco Pavone}$^1$ \Email{pavone@stanford.edu}\\[1mm]
+41:  \addr $^1$Department of Aeronautics and Astronautics, Stanford University\\
+42:  \addr $^2$Department of Statistics, Harvard University\\
+43:  \addr $^3$Laboratory of Signals and Systems, University of Paris-Saclay, CNRS, CentraleSupélec% 
+44: \vspace{-2mm}
+45: }
+
+47: \begin{document}
+
+49: \maketitle
+
+51: \vspace{-1mm}
+
+53: \begin{abstract}
+54: In this work, we analyze an efficient sampling-based algorithm for general-purpose reachability analysis, which remains a notoriously challenging problem with applications ranging from neural network verification to safety analysis of dynamical systems. 
+55: By sampling inputs, evaluating their images in the true reachable set, and taking their $\epsilon$-padded convex hull as a set estimator, this algorithm applies to general problem settings and is simple to implement. 
+56: Our main contribution is the derivation of asymptotic and finite-sample accuracy guarantees using random set theory. 
+57: This analysis informs algorithmic design to obtain an $\epsilon$-close reachable set approximation with high probability, 
+58: provides insights into which reachability problems are most challenging, 
+59: and motivates safety-critical applications of the technique. % 
+60: On a neural network verification task, we show that % 
+61: this approach is more accurate and significantly faster than prior work. 
+62: Informed by our analysis, we also design a robust model predictive controller that we demonstrate in hardware experiments.
+63: \end{abstract}
+
+65: \begin{keywords}% 
+66: reachability analysis, random set theory, robust control, neural network verification.
+70: \end{keywords}
+
+75: \section{Introduction}\label{sec:intro}
+
+78: \begin{wrapfigure}{!R}{0.44\linewidth}
+79: 	\begin{minipage}{0.95\linewidth}
+80: 	\vspace{-12.5mm}
+81: \includegraphics[width=1\linewidth,trim=0 0 0 120, clip]{figs/RandUP4.png}
+82:     \vspace{-5mm}
+83: 	\caption{$\epsilon$-\randup consists of three simple steps: 1) sampling $M$ inputs $x_i$ in $\X$, 2) propagating these inputs through the reachability map $f$, and 3) taking the $\epsilon$-padded convex hull $\hat\Y_\epsilon^M$ to approximate the reachable set $\Y$. % 
+84: 	}\label{fig:randup}
+85: 	\vspace{-5mm}
+86: 	\end{minipage}% 
+87: 	\end{wrapfigure}
+
+90: Forward reachability analysis entails characterizing the reachable set of outputs of a given function corresponding to a set of inputs.
+91: This type of analysis underpins a plethora of applications in model predictive control, neural network verification, and safety analysis of dynamical systems. 
+92: Sampling-based reachability analysis techniques are a particularly simple class of methods to implement; however, conventional wisdom suggests that if insufficient representative samples % 
+93: are considered, these methods may not be robust in that they cannot rule out edge cases missed by the sampling procedure. 
+95: Alternatively, by leveraging structure in specific problem formulations or computational methods designed for exhaustivity (e.g., branch and bound), a large range of algorithms with deterministic accuracy and performance guarantees have been developed. However, these methods often sacrifice simplicity and generality for their power, motivating the development of algorithms that avoid such restrictions.
+
+99: In this work, we analyze a simple yet efficient sampling-based algorithm for general-purpose reachability analysis. 
+106: As depicted in Figure \ref{fig:randup}, it consists of 1) sampling inputs, 2) propagating these inputs, and 3) taking the padded convex hull of these output samples.   
+109: We refer to this \textsc{Rand}omized \textsc{U}ncertainty \textsc{P}ropagation algorithm as $\epsilon$-\randup: it is simple to implement, 
+110: benefits from statistical accuracy guarantees, 
+111: and
+112: applies to a wide range of problems including reachability analysis of uncertain dynamical systems with neural network controllers. 
+113: Importantly, $\epsilon$-\randup fulfills key desiderata that a general-purpose reachability analysis algorithm should satisfy:
+115: \begin{itemize}[leftmargin=5mm]
+116: \setlength\itemsep{0mm}
+117: \vspace{-1mm}
+118: \item it works with any choice of possibly nonlinear reachability maps and non-convex input sets,
+119: \item its estimate of the reachable set is conservative with high probability and tighter than prior work,
+120: \item it is efficient and does not require precomputations, which is a key advantage for learning-based control applications where uncertainty bounds and models are updated in real-time. 
+121: \end{itemize}
+122: Our main contribution is a thorough analysis of the statistical properties of $\epsilon$-\randup. 
+123: Specifically:
+124: \begin{enumerate}[leftmargin=5mm]
+125: \setlength\itemsep{0mm}
+126: \vspace{-1mm}
+127: \item % 
+128: We prove that the % 
+129: set estimator converges to the $\epsilon$-padded convex hull of the true reachable set as the number of samples increases. % 
+130: Our assumption about the sampling distribution is weaker than in related work and implies that sampling the boundary of the input set is sufficient. % 
+132: This asymptotic result justifies using % 
+133: $\epsilon$-\randup % 
+134: as a thrustworthy baseline for offline validation whenever the reachability map and the input set are complex and no tractable algorithm % 
+135: exists. 
+
+137: \item % 
+138: We derive a finite-sample bound for the Hausdorff distance between the output of $\epsilon$-\randup and the convex hull of the true reachable set, % 
+139: assuming that the reachability map is Lipschitz continuous. 
+140: This result informs algorithmic design (e.g., how to choose the number of samples to obtain an $\epsilon$-accurate approximation with high probability), 
+141: sheds insights into % 
+142: which % 
+143: problems are most challenging, 
+144: and motivates using this simple algorithm in safety-critical applications. 
+145: \end{enumerate}
+148: \vspace{-1mm}
+150: We demonstrate $\epsilon$-\randup on a neural network controller verification task and show that it is highly competitive with prior work. We also embed this algorithm within a robust model predictive controller and present hardware results demonstrating the reliability of the approach. 
+
+182: \vspace{-1mm}
+
+184: \section{Related work}\label{sec:related_work}
+
+188: Reachability analysis has found a wide range of applications ranging from model predictive control \citep{Schurmann2018}, 
+189: robotics \citep{Shao2021,LewEtAl2022}, 
+190: neural network verification \citep{Tran2019,Hu2020},  
+191: to orbital mechanics \citep{Wittig2015}. 
+193: Reachability analysis is particularly relevant in safety-critical applications which require the strict satisfaction of specifications. 
+194: For instance, 
+195: a drone transporting a package should never collide with obstacles and respect velocity bounds for any payload mass in a bounded input set. % 
+200: In contrast to stochastic problem formulations which typically consider the inputs as random variables with known probability distributions \citep{Webb2019,Sinha2020,DevonportL4DC2020}, 
+202: we consider robust formulations which are of % 
+203: interest whenever minimal information about the inputs is available. 
+
+211: Deterministic % 
+212: algorithms are often tailored to the particular parameterization of the reachability map and to the shape of the input set. For instance, one finds methods that are particularly designed for neural networks \citep{Tran2019,IvanovVerisig2019,Hu2020}, 
+213: nonlinear hybrid systems \citep{Chen2013,Kong2015}, 
+214: linear dynamical systems with zonotopic \citep{Girard2005} and ellipsoidal \citep{Kurzhanski2000} parameter sets, 
+215: etc.  
+216: We refer to \citep{Liu2021} and \citep{Althoff2021} for recent comprehensive surveys. 
+217: Such algorithms % 
+218: have deterministic accuracy guarantees but require problem-specific structure that restricts the class of systems 
+219: they apply to. 
+221: Given the wide range of applications of reachability analysis, there is a pressing need for the development and analysis of simple algorithms that can be applied to general problem formulations. % 
+
+229: On the other hand, sampling-based algorithms reconstruct the reachable set % 
+230: from sampled outputs. % 
+231: The stochasticity is typically controlled by the engineer, who selects the number of samples and their distribution. 
+232: A key strength of this methodology is the possible use of black-box models % 
+233: with arbitrary input sets, % 
+234: which allows using complex simulators of the system. 
+240: For instance, kernel-based methods \citep{DeVito2014,Rudi2017,ThorpeL4DC2021} have been proposed as a strong approach for data-driven reachability analysis. Kernel-based methods are highly expressive, as selecting a completely separating kernel \citep{DeVito2014} enables reconstructing any closed set % 
+241: to arbitrary precision given enough samples. 
+244: Their main drawback % 
+245: is the potentially expensive evaluation of % 
+246: the estimator for a large number of samples. % 
+247: Its implicit representation % 
+248: as a level set is also not particularly convenient for downstream applications. % 
+
+259: Sampling-based reachable set estimators with pre-specified shapes have been proposed to simplify computations and downstream applications. 
+263: Recently, \citep{LewPavone2020} proposed to approximate % 
+264: reachable sets % 
+265: with the convex hull of the samples,  
+266: but this approach is not guaranteed to return a conservative approximation. % 
+272: Ellipsoidal and rectangular sets are computed in \citep{DevonportL4DC2020} using the scenario approach, but this work tackles a different problem formulation with inputs that are random variables with known distribution.  
+279: To tackle the robust reachability analyis problem setting, % 
+280: \citep{Gruenbacher2021} use a ball estimator % 
+281: that bounds the samples. % 
+282: The statistical analysis is restricted to ball-parameterized input sets, % 
+283: uniform sampling distributions, and smooth diffeomorphic reachability maps % 
+284: that represent the solution of a neural ordinary differential equation \citep{Chen2018} from the input set. % 
+285: In practice, using an outer-bounding ball % 
+286: is more conservative than taking the convex hull of the samples, see % 
+287: Section \ref{sec:results}. 
+
+319: In this work, we slightly modify \randup \citep{LewPavone2020} with an additional $\epsilon$-padding step to yield finite-sample outer-approximation guarantees,  % 
+324: Our analysis leverages  
+325: random set theory \citep{Matheron1975,Molchanov_BookTheoryOfRandomSets2017}, which provides a natural mathematical framework to analyze the reachable set estimator. % 
+326: We characterize its accuracy using the Hausdorff distance to the convex hull of the true reachable set, which provides an intuitive error measure % 
+327: that can be directly used for downstream control applications. 
+331: Our analysis draws inspiration from the vast literature on statistical geometric inference, which proposes different % 
+332: set estimators including  
+333: union of balls \citep{Devroye1980,Baillo2001}, 
+334: convex hulls \citep{RipleyPoissonForest1977,Schneider1988,Dumbgen1996}, 
+335: $r$-convex hulls \citep{Rodriguez2016,RodriguezCasal2019,AriasCastro2019},
+336: Delaunay complexes \citep{Boissonnat2013,AamariPhD2017,Aamari2018}, 
+337: and kernel-based estimators \citep{DeVito2014,Rudi2017}. 
+358: This research typically makes assumptions about the set to be reconstructed % 
+359: (e.g., % 
+360: it is convex \citep{Dumbgen1996} or has bounded reach \citep{Cuevas2009}) and considers points that are directly sampled from this set. 
+361: In this work, we derive similar results for reachable sets 
+362: given known properties of the 
+363: input set,  
+364: reachability map, and 
+365: chosen input sampling distribution. 
+
+368: \vspace{-1mm}
+369: \section{Problem definition}\label{sec:formal_setting}
+370: \vspace{-1mm}
+371: In this section, we introduce our notations and  problem formulation. % 
+372: Due to space constraints, we leave measure-theoretic details to Appendix \ref{apdx:random_set_theory}.  
+374: We denote 
+376: $\lambda(\cdot)$ for the Lebesgue measure over $\R^p$, 
+377: $\Gamma(\cdot)$ for the % 
+378: gamma function, 
+379: $\hull(A)$ for the convex hull of a subset $A\subset\R^n$, $A^\comp=\R^n\setminus A$ for its complement, 
+380: $\partial A$ for its boundary, 
+381: $\oplus$ for the Minkowski sum, 
+382: $B(x,r)\,{:=}\,\{y\,{\in}\,\R^n{:}\, 
+383:  \|y\,{-}\,x\|\,{\leq}\, r
+384: \}$ for the closed ball of center $x\in\R^n$ and radius $r\geq 0$, 
+385: and $\mathring{B}(x,r)$ for the open ball. 
+389: The family of nonempty compact subsets of $\R^n$ is denoted as $\K$.  
+391: For any $A\in\K$ and $d>0$, $D(A, d)\,{:=}\,\min\{n\,{\in}\,\mathbb{N} : 
+392: \exists \{a_1,{\mydots},a_n\}\,{\subset}\,\R^n, \ 
+393: A\,{\subset}\, B(a_1,d)\,{\cup}\,{\mydots}\,{\cup}\, B(a_n,d)
+394: \}$ denotes the $d$-covering number of $A$. 
+
+399: Let $\X\subset\R^p$ be a compact nonempty set of inputs and  
+400: $f:\R^p\rightarrow\R^n$ be a continuous function. 
+402: In this work, we tackle the general problem of reachability analysis, i.e., % 
+404: characterizing the set of reachable outputs $y=f(x)$ for all possible inputs $x\in\X$. 
+405: This problem is also often referred to as uncertainty propagation. % 
+406: Mathematically, the objective consists of efficiently computing an accurate approximation of the reachable set $\Y\subset\R^n$, which is defined as 
+407: \begin{align}
+408: \label{eq:reach_set}
+409: \Y = f(\X) =
+410: \{ 
+411: 	f(x) \, :\, x\in\X
+412: \}
+413: .
+414: \end{align}
+419: To tackle this problem, 
+420: $\epsilon$-\randup relies on the choice of three parameters: 
+421: a number of samples $M\in\mathbb{N}$, 
+422: a padding constant $\epsilon>0$, 
+423: and 
+424: a sampling distribution $\Prob_\X$ on measurable subsets of $\R^{p}$. 
+426: As depicted in Figure \ref{fig:randup}, % 
+427: $\epsilon$-\randup consists of sampling $M$ independent identically-distributed inputs $x_i$ in $\X$ according to $\Prob_\X$, 
+428: of evaluating each output $y_i=f(x_i)$, % 
+429: and 
+430: of computing the $\epsilon$-padded convex hull 
+431: \begin{equation}\label{eq:estimator_eps}
+432: \hat\Y_\epsilon^M:=\hull\left(\{y_i\}_{i{=}1}^M\right)\oplus B(0,\epsilon).
+433: \end{equation}
+437: Our analysis hinges on the observation that the reachable set estimator $\hat\Y_\epsilon^M$ is a \textit{random compact set}, i.e., $\hat\Y_\epsilon^M$ is a random variable taking values in the family of nonempty compact sets $\K$.  
+438: We refer to Appendix \ref{apdx:random_set_theory} for rigorous definitions using random set theory. 
+439: Intuitively, different input samples $x_i$ in $\X$ induce different output samples $y_i$ in $\Y$, resulting in  different approximated reachable sets $\hat\Y_\epsilon^M$.  
+441: To characterize the accuracy of
+442: the estimator,
+443: we use the \textit{Hausdorff metric}, which is defined as 
+444: \begin{equation}\label{eq:metric:Hausdorf}
+445: d_\textrm{H}(A,B)
+446: :=
+447: \max\big(
+448: \sup_{x\in B}
+449: \Inf_{y\in A}
+450: \|x-y\|, \
+451: \sup_{x\in A}
+452: \Inf_{y\in B}
+453: \|x-y\|
+454: \big)
+455: \quad
+456: \text{for any $A,B\in\K$.}
+457: \end{equation}
+458: This metric induces a topology and an associated $\sigma$-algebra, which enables 
+459: rigorously defining random compact sets as random variables and  describing their convergence; see Appendix \ref{apdx:random_set_theory}. 
+461: Interestingly, the distribution of a random compact set is characterized by the probability that it intersects any given compact set. 
+462: We use this fact in Sections \ref{sec:asymptotic} and \ref{sec:finite_sample}, where we % 
+463: characterize the probability that the set estimator $\hat\Y_\epsilon^M$ intersects well-chosen sets along the boundary of the true reachable set. 
+471: By analyzing the distribution of $\hat\Y_\epsilon^M$, 
+473: this approach allows bounding the Hausdorff distance between $\hat\Y_\epsilon^M$ and the convex hull of the true reachable set $\hull(\Y)$ with high probability.
+
+485: \vspace{-1mm}
+
+492: \section{Asymptotic analysis}\label{sec:asymptotic}
+
+494: In this section, we provide an asymptotic analysis under minimal assumptions about the input set and the reachability map (namely, that $\X$ is compact and $f$ is continuous). % 
+495: To enable the reconstruction of the true convex hull $\hull(\Y)$ using the sampling-based set estimator $\hat\Y_\epsilon^M$, we make one assumption about the sampling distribution $\Prob_\X$ for the inputs $x_i$. Note that by definition, $\Prob_\X(\X)=1$.
+
+500: \begin{myassumption}\label{assum:XBoundary:posMeasure} 
+504: $\Prob_\X(\{x\in\X: f(x)\in\mathring{B}(y,r)\})>0$  
+505: for all $y\in\partial\Y$ and all $r>0$.
+512: \end{myassumption}
+513: This assumption states that the probability of sampling an output arbitrarily close to any point on the boundary of the true reachable set is strictly positive. 
+515: In other words, the boundary of the reachable set should be contained in the support of the distribution of the output samples $y_i$.  
+517: Assumption \ref{assum:XBoundary:posMeasure} is weaker than the associated assumption in \citep[Theorem 2]{LewPavone2020}, which can be restated as ``\textit{$\Prob_\X(f^{-1}(A))>0$ for any open set $A\subset\R^n$ such that $\Y\cap A\neq \emptyset$}''. 
+518: Indeed, Assumption \ref{assum:XBoundary:posMeasure} only considers open neighborhoods of the boundary $\partial\Y$, as opposed to all open sets intersecting $\Y$. 
+525: Selecting a sampling distribution $\Prob_\X$ that satisfies Assumption \ref{assum:XBoundary:posMeasure} is easy. For instance, if $\X$ has a smooth boundary (see Assumption \ref{assum:Theta:r_convex}), then the uniform distribution over $\X$ satisfies Assumption \ref{assum:XBoundary:posMeasure}. 
+
+529: Assumption \ref{assum:XBoundary:posMeasure} is sufficient to prove that the random set estimator $\hat\Y_\epsilon^M$ converges to the $\epsilon$-padded convex hull of $\Y$ as the number of samples $M$ increases. 
+530: Below, we prove a more general result which allows for variations of the padding radius $\epsilon$ as the number of samples increases. 
+
+534: \begin{thm}[Asymptotic Convergence]\label{thm:asymptotic_convergence}
+535: Let $\bar{\epsilon}\geq 0$ and 
+536: $(\epsilon_M)_{M\in\mathbb{N}}$ be a sequence of padding radii such that $\epsilon_M\geq 0$ for all $M\in\mathbb{N}$ and $\epsilon_M\rightarrow \bar{\epsilon}$ as $M\rightarrow\infty$. 
+537: For any $\epsilon\geq 0$, define the estimator $\hat\Y^M_{\epsilon}=\hull\left(\{y_i\}_{i{=}1}^M\right)\oplus B(0,\epsilon)$.  
+538: Then, under Assumption \ref{assum:XBoundary:posMeasure}, 
+539: almost surely, 
+540: as $M\rightarrow\infty$, 
+541: $$
+542: d_H(
+543: \hat\Y_{\epsilon_M}^M, 
+544: \hull(\Y)\oplus B(0,\bar{\epsilon})
+545: )
+546: \mathop{\longrightarrow} 0.
+547: $$
+548: \end{thm}
+
+550: \begin{proof}
+551: We refer to Appendix \ref{apdx:proof:thm:asymptotic_convergence}. 
+552: We leverage \citep[Proposition 1.7.23]{Molchanov_BookTheoryOfRandomSets2017} which states sufficient conditions for the convergence of random compact sets % 
+553: and use properties of the convex hull to relax the corresponding assumption in \citep{LewPavone2020} with Assumption  \ref{assum:XBoundary:posMeasure}. 
+554: \end{proof}
+555: \vspace{-3mm}
+557: Practically, Theorem \ref{thm:asymptotic_convergence} justifies using $\epsilon$-\randup for general continuous maps $f$ and compact sets $\X$. 
+558: This consistency result implies that choosing any converging sequence of padding radii (e.g., $\epsilon_M=1/M$) guarantees the convergence of the random set estimator $\hat\Y_{\epsilon_M}^M$  to the $\bar{\epsilon}$-padded convex hull of the true reachable set. 
+559: As a particular case, selecting a constant padding radius $\epsilon$ (which yields $\epsilon$-\randup) guarantees that $\Y_{\epsilon}^M$ converges to the $\epsilon$-padded convex hull $\hull(\Y)\oplus B(0,\epsilon)$.  
+
+562: Compared to \citep[Theorem 2]{LewPavone2020}, which only treats the case with constant zero padding radii $\epsilon_M=\bar\epsilon=0$ (i.e., without $\epsilon$-padding the convex hull of the output samples), Theorem \ref{thm:asymptotic_convergence} allows for variations of the padding radii $\epsilon_M$ and is proved under weaker assumptions. 
+563: Instead of relying on % 
+564: $\epsilon$-covering arguments (e.g., see Corollary 1 in \citep{Dumbgen1996} which % 
+565: assumes that $\Y$ is convex), we use \citep[Proposition 1.7.23]{Molchanov_BookTheoryOfRandomSets2017}  to conclude asymptotic convergence. 
+566: This proof technique allows deriving a general result that does not depend on the exact sampling density along the boundary $\partial\Y$ and uses a sequence of padding radii $\epsilon_M$ converging arbitrarily slowly to some constant $\bar{\epsilon}\geq 0$. 
+
+583: \section{Finite-sample analysis}\label{sec:finite_sample}
+
+585: Theorem \ref{thm:asymptotic_convergence} provides asymptotic convergence guarantees that support the application of $\epsilon$-\randup in general scenarios (e.g., as a baseline for offline validation in complex problem settings), but does not provide finite-sample guarantees which are of practical interest in safety-critical applications. 
+586: Deriving stronger statistical guarantees requires leveraging more information about the structure of the problem. We derive finite-sample rates under general assumptions in Section \ref{sec:finite_sample:general} and analyze a particular case in Section \ref{sec:finite_sample:rconvex}. 
+587: We discuss practical implications of our results in Section \ref{sec:finite_sample:insights}.
+
+590: \subsection{General finite-sample statistical guarantees}\label{sec:finite_sample:general} 
+
+592: To derive convergence rates and outer-approximation guarantees given a finite number of samples $M$, 
+593: we first make an assumption   
+594: about the smoothness of the reachability map $f$.
+
+597: \begin{myassumption}\label{assum:f:lipschitz}
+598: The reachability map $f:\R^p\rightarrow\R^n$ is $L$-Lipschitz: for some constant $L\geq 0$, 
+600: $\|f(x_1)-f(x_2)\|
+601: \leq
+602: L\,\|x_1-x_2\|\  \
+603: \text{for all }\ x_1,x_2\in\X$.
+605: \end{myassumption}
+606: Next, we make an assumption about the sampling distribution $\Prob_\X$ along the input set boundary $\partial\X$.
+
+610: \begin{myassumption}\label{assum:sampling_density}
+613: Given $\epsilon,L\,{>}\,0$, there exists $\Lambda_{\epsilon}^{L}\,{>}\,0$ such that $\Prob_\X\left(B\left(x,\frac{\epsilon}{2L}\right)\right)\,{\geq}\, \Lambda_{\epsilon}^{L}$ for all  
+614: 	$x\in\partial\X$.
+615: \end{myassumption}
+616: Given any boundary input $x\in\partial\X$, 
+617: the constant $\Lambda_{\epsilon}^{L}$ characterizes the probability of sampling an input $x_i$ that is $\epsilon/(2L)$-close to $x$. 
+618: Selecting a sampling distribution that satisfies Assumption \ref{assum:sampling_density} is simple; we provide examples in Sections \ref{sec:finite_sample:rconvex} and \ref{sec:results}. 
+619: As we show next, these two assumptions are sufficient to derive finite-sample convergence rates for $\epsilon$-\randup. 
+620: Recall that $D(\partial\X, d)$ denotes the $d$-packing number of $\partial\X$, which is necessarily finite by the compactness of $\X$. 
+
+624: \begin{thm}[Finite-Sample Bound] \label{thm:conservative_finite_sample} 
+625: Define the estimator $\hat\Y^M=\hull\left(\{y_i\}_{i{=}1}^M\right)$ and the probability threshold
+626: $
+627: \delta_M= 
+628: D(\partial\X,\epsilon/(2L))(1 -
+629: 	\Lambda_{\epsilon}^{L}
+630: )^M
+631: $.
+633: Then, under Assumptions \ref{assum:f:lipschitz} and \ref{assum:sampling_density} 
+634: \rev{and assuming that $\partial\Y\subseteq f(\partial\X)$}, with probability at least $1-\delta_M$, 
+635: $$
+637: d_H(
+638: \hat\Y^M, 
+639: \hull(\Y)
+640: )\leq \epsilon
+642: \quad\text{and}\quad
+644: \Y\subseteq\hat\Y_\epsilon^M. 
+646: $$
+647: \end{thm}
+648: \begin{proof}
+649: We refer to Appendix \ref{apdx:proof:thm:conservative_finite_sample} for a complete proof.
+650: \end{proof}
+655: Using a similar analysis, 
+656: one could derive convergence rates for the $\epsilon$-padded union of balls estimator % 
+657: \citep{Devroye1980,Baillo2001} that would depend on the $\epsilon$-covering number of the entire input set $D(\X,\epsilon)$. 
+658: In the general case, % 
+659: $D(\partial\X,\epsilon)\leq D(\X,\epsilon)$: % 
+661: Theorem \ref{thm:conservative_finite_sample} indicates that 
+662: using a convex hull is more sample-efficient than a union of balls \rev{(assuming that $\partial\Y\subseteq f(\partial\X)$, see Appendix \ref{apdx:proof:thm:conservative_finite_sample} for further details)}. It is better suited if $\Y$ is convex or if an approximation of $\hull(\Y)$ is sufficient for the downstream application, as is usual in control applications which typically use convex reachable set approximations, see \citep{LewPavone2020}.  
+
+664: \subsection{Analysis of a particular setting: smooth input set and continuous distribution}\label{sec:finite_sample:rconvex}
+
+666: 	\begin{wrapfigure}{R}{0.33\linewidth}
+667: 	\begin{minipage}{0.95\linewidth}
+668:     \centering
+669:     \vspace{-1mm}
+670:  \includegraphics[width=0.95\linewidth,trim=0 40 0 0, clip]{figs/rconvex/Xrconvex11.png}
+671:  \centering
+672:  \includegraphics[width=0.95\linewidth,trim=0 70 0 0, clip]{figs/rconvex/Xrconvex22.png}
+673: 	\caption{% 
+674:   \textbf{Top}: sets $\X$ satisfying Assumption \ref{assum:Theta:r_convex} can be non-convex, have holes, and be disconnected. 
+675:   \textbf{Bottom}: if $\X^\comp$ is not $r$-convex, it is still possible to find a conservative approximation that is $r$-convex.}\label{fig:rconvex}
+676: 	\vspace{-10mm}
+677: 	\end{minipage}% 
+678: 	\end{wrapfigure}
+
+680: In many applications, the boundary of the input set is smooth (e.g., $\X$ is a $2$-norm ball). 
+681: In this setting, we can apply Theorem \ref{thm:conservative_finite_sample} to derive finite-sample guarantees for general continuous sampling distributions. We state this smoothness assumption below.
+
+703: \begin{myassumption}\label{assum:Theta:r_convex} 
+704: $\X^\comp$ is $r$-convex for some $r>0$. Equivalently, 
+705: for any $x\in\partial\X$, 
+706:  there exists $\tilde{x}\in\X$ such that 
+707:  $x\in B(\tilde{x},r)\subseteq \X$.
+708: \end{myassumption}
+710: Assumption \ref{assum:Theta:r_convex} guarantees that for any parameter $x$ on the boundary $\partial\X$, one can find a ball of radius $r$ contained in $\X$ that also contains $x$, see Figure \ref{fig:rconvex}. 
+712: This assumption corresponds to a general inwards-curvature condition of the boundary $\partial\X$. 
+714: It is a common assumption in the literature \citep{Walther1997,Rodriguez2016,RodriguezCasal2019,AriasCastro2019} and is related to the notion of reach \citep{Federer1959,Cuevas2009,AamariPhD2017} that bounds the curvature of the boundary $\partial\X$. 
+716: To guarantee its satisfaction, 
+717: one can replace $\X$ with $\X\oplus B(0,r)$ \citep{Walther1997} before performing reachability analysis, which would yield a more conservative estimate of $\Y$. % 
+735: Next, we state an assumption about the sampling distribution $\Prob_\X$.
+
+738:  \begin{myassumption}\label{assum:sampling_density:cor}
+740: $\Prob_\X(A)\geq p_0\lambda(A)$ for all  
+741:  	measurable sets $A\subset\X$ for some constant $p_0>0$.
+742:  \end{myassumption}
+743: This assumption states that the sampling distribution % 
+744: admits a lower-bounded continuous density. 
+747:  Specifically, there exists a density function $p_\X:\R^p\rightarrow\R_+$ such that $ 
+748: \Prob_\X(A)
+749: =
+750: \int_{A} p_{\X}(x)\dd x\geq p_0\int_{A} \dd x=p_0\lambda(A)$ for any measurable subset $A\subset\X$. 
+758: For instance, the uniform distribution over $\X$ satisfies this assumption. 
+759: Similarly to Assumption \ref{assum:sampling_density}, this density assumption % 
+760: can be relaxed to neighborhoods % 
+761: of $\partial\X$; we leave this extension for future work.  
+762: We obtain the following corollary.
+
+768: \begin{cor}% 
+769: \label{cor:conservative_finite_sample} 
+770:  Define the estimator $\hat\Y^M=\hull\left(\{y_i\}_{i{=}1}^M\right)$, 
+771:  the offset vector 
+772:  $\vec{r}=(r,0,\dots,0)\in\R^p$, 
+773:  the volume $\Lambda_{\epsilon}^{r,L}=\lambda\big(
+774:  B(0,\epsilon/(2L)) 
+775:  \cap B(\vec{r},r)
+776:  \big)$, 
+777:  and the threshold
+778:  $
+779:  \delta_M= 
+780:  D(\partial\X,\epsilon/(2L))\smash{(1 -
+781:  	p_0 \Lambda_{\epsilon}^{r,L}
+782:  )^M}
+783:  $.
+785: Then, under Assumptions \ref{assum:f:lipschitz},  \ref{assum:Theta:r_convex} and \ref{assum:sampling_density:cor} 
+786: \rev{and assuming that $\partial\Y\subseteq f(\partial\X)$,}  
+787: with probability at least $ 1-\delta_M$,
+788: $$
+790: d_H(
+791: \hat\Y^M, 
+792: \hull(\Y)
+793: )\leq \epsilon
+795: \quad \text{ and }\quad\ 
+797: \Y\subseteq\hat\Y_\epsilon^M.
+799: $$
+800: \end{cor}
+801: \begin{proof}
+802: We refer to Appendix \ref{apdx:proof:cor:conservative_finite_sample}.
+803: We first prove that Assumptions \ref{assum:Theta:r_convex} and \ref{assum:sampling_density:cor} imply that Assumption \ref{assum:sampling_density} holds with $\Lambda_{\epsilon}^{L}=p_0\Lambda_{\epsilon}^{r,L}$. 
+804: The finite-sample bound then follows by applying Theorem \ref{thm:conservative_finite_sample}. 
+805: \end{proof}
+
+807: The constant $\Lambda_{\epsilon}^{r,L}$ corresponds to the $p$-dimensional Lebesgue volume of two hyperspherical caps and can be computed analytically, see \citep{Li2011,Petitjean2013} and Appendix \ref{appendix:spherical_caps}.
+
+837: \subsection{Insights: the difficulty of reachability analysis and  algorithmic design}\label{sec:finite_sample:insights}
+838: Theorem \ref{thm:conservative_finite_sample} reveals which characteristics of the problem make reachability analysis challenging: 
+839: \begin{itemize}[leftmargin=4.5mm]
+840:   \setlength\itemsep{0.0mm}% 
+
+842:     \item \textbf{Assuming the smoothness of $f$ is necessary:} % 
+843:     given an input set $\X$ and a sampling distribution $\Prob_{\X}$, % 
+844:     one can construct problems for which sampling-based reachability analysis algorithms require arbitrarily many samples to compute an $\epsilon$-accurate approximation of $\Y$, see Section \ref{sec:results:sensitivity}. To derive finite-sample rates, assuming that the reachability map $f$ is $L$-Lipschitz (Assumption \ref{assum:f:lipschitz}) is necessary if only  assumptions on input coverage density (Assumption \ref{assum:sampling_density}) are available.
+
+846:     \item \textbf{The smoother the easier}: 
+847: a smaller Lipschitz constant $L$ 
+849: and a larger radius parameter $r$ 
+851: induce 
+852: tighter bounds in Theorem \ref{thm:conservative_finite_sample}, requiring a smaller number of samples $M$ to obtain a desired accuracy with high probability $1-\delta_M$. 
+855: Indeed, such conditions guarantee a lower bound on the probability of sampling outputs $y_i=f(x_i)\in\Y$ that are close to the boundary $\partial\Y$, which is necessary to accurately reconstruct the true convex hull of the reachable set from samples.
+
+863:     \item \textbf{Scalability}: by Theorem \ref{thm:conservative_finite_sample}, the number of required samples to reach a desired  $\epsilon$-accuracy with high probability depends on the covering number. This constant characterizes the size of the parameter space 
+864:     in terms of dimensionality 
+865:     (the number of different parameters) and volume (variations of each parameter). 
+866:     Given any $\X\,{\in}\,\K$ and $d\,{=}\,\sup_{x\in\partial\X}\|x\|$, a simple and general bound for the covering number is  
+867:     $
+868:     D(\partial\X,\epsilon)
+869:     \,{\leq}\,
+870:     \left(
+871:     2d\sqrt{n}/\epsilon
+872:     \right)^n
+873:     $ \citep{ShalevShwartz2009}.
+
+875: \end{itemize}
+
+893: \section{Results and applications}\label{sec:results}
+
+901: We perform a sensitivity analysis in Section \ref{sec:results:sensitivity} to illustrate the insights from Theorem \ref{thm:conservative_finite_sample}. % 
+902: In Section \ref{sec:results:verif_closed_nn}, we compute the reachable sets of a dynamical system with a simple neural network policy and compare with prior work. 
+903: Finally, in Section \ref{sec:results:mpc}, we embed  $\epsilon$-\randup in a model predictive control (MPC) framework to reliably control a robotic platform.  % 
+907:  Our code and hardware results are available at {\scriptsize \url{https://github.com/StanfordASL/RandUP}} and {\scriptsize \url{https://youtu.be/sDkblTwPuEg}}. 
+908: All computation times are measured on a computer with a 3.70GHz Intel Core i7-8700K CPU.
+
+962: \newpage
+963: \phantom{asdf}
+
+965: \vspace{-14mm}
+
+967: \subsection{Sensitivity analysis}\label{sec:results:sensitivity}
+
+971: 	\begin{wrapfigure}{R}{0.40\linewidth}
+972: 	\begin{minipage}{0.95\linewidth}
+973: 	\vspace{-11mm}
+975:     \centering
+976: 	\includegraphics[width=1\linewidth]{figs/results/sensitivity/alpha_lip.png}
+977: 	\caption{Results for the sensitivity analysis in Section \ref{sec:results:sensitivity}. Experimental results are shown with continuous lines, theorical upper bounds with dashed lines.}\label{fig:sensitivity}
+978: 	\vspace{-3mm}
+979: 	\end{minipage}% 
+980: 	\end{wrapfigure}
+
+982: 	We analyze the sensitivity of $\epsilon$-\randup  to the sampling distribution and the smoothness of the reachability map. 
+983: 	We consider a $2$-dimensional input ball $\X=B(0,1)$ and the map $f(x)=(Lx_1,x_2)$ with $L\geq 1$. Clearly, $\X^\comp$ is $1$-convex and $f$ is $L$-Lipschitz continuous, so % 
+985: 	Corollary \ref{cor:conservative_finite_sample} applies for any sampling distribution satisfying Assumption \ref{assum:sampling_density:cor}. 
+986: We consider a distribution $\Prob_\X^\alpha$ that depends on a parameter $\alpha\geq 1$, such that $\Prob_\X^\alpha$ varies from a uniform distribution over $\X$ for $\alpha=1$ to a uniform distribution over the boundary $\partial\X$ as $\alpha\rightarrow\infty$. Given $\delta_M=10^{-3}$, we determine the minimum padding $\epsilon$ guaranteeing $\Prob(
+987: d_H(
+988: \hat\Y^M, 
+989: \Y
+990: )\leq \epsilon
+991: )\geq 1-\delta_M$ using Corollary \ref{cor:conservative_finite_sample}, see Appendix \ref{apdx:sensitivity}. 
+992: We take $M=1000$ samples and present results in Figure \ref{fig:sensitivity}. 
+993: We observe better performance than the predicted finite-sample bounds 
+995: and that distributions with a higher probability of sampling close to the boundary % 
+996: (i.e., larger values of $\alpha$) perform better, corresponding to lower Hausdorff distance errors. 
+997: Also, $\epsilon$-\randup performs better on problems with smoother reachability maps, % 
+998: as is visible from our empirical evaluation and theoretical bounds on the Hausdorff distance.  This validates the discussion in Section \ref{sec:finite_sample:insights}.
+
+1004: \vspace{-2mm}
+
+1006: \subsection{Verification of neural network controllers}\label{sec:results:verif_closed_nn}
+
+1009:  \begin{figure}[htb!]
+1028:  \vspace{-3mm}
+1029:  \centering
+1030:   \includegraphics[width=0.95\linewidth]{figs/results/nn_controller/combined_nn_fig3.png}
+1031:  \vspace{-3mm}
+1032:   \caption{Reachable sets computed in  Section \ref{sec:results:verif_closed_nn} for a total prediction horizon $N=9$. Sets from the formal method \reachlp are shown in green, dashed sets correspond to no input splitting, straight-lines correspond to splitting $\X_0$ into $16$ components.  
+1033:   We use $M=10^3$ samples for all sampling-based methods and $\epsilon=0.02$. 
+1038: }
+1039:  \label{fig:nn_controller:all}
+1040:  \vspace{-3mm}
+1041:  \end{figure}
+1042: Next, we consider the verification of a neural network controller $u_t=\pi_{\textrm{nn}}(x_t)$ for a known linear dynamical system $x_{t+1}=Ax_t+Bu_t$, where $t\in\mathbb{N}$ denotes a time index, and $x_t\in\R^2$ and $u_t\in\R$ denote the state and control input. % 
+1043: Given a rectangular set of initial states $\X_0\subset\R^2$, 
+1044: the problem consists of estimating the reachable set at time $t\in\mathbb{N}$ defined as
+1045: $
+1046: \X_t=\{(A(\cdot)+B\pinn(\cdot))\circ\dots\circ 
+1047: (Ax_0+B\pi_{\textrm{nn}}(x_0)): x_0\in\X_0\}$. 
+1048: Defining $(\X,\Y)=(\X_0,\X_t)$ and $f(x)=(A(\cdot)+B\pinn(\cdot))\circ\dots\circ 
+1049: (Ax+B\pi_{\textrm{nn}}(x))$, we see that this problem fits the mathematical form described in Section \ref{sec:intro}. 
+1051: We use a ReLU network $\pinn$ from \citep{Everett21_journal} with two layers of $5$ neurons each. 
+1059: 	\begin{wrapfigure}{R}{0.40\linewidth}
+1060: 	\begin{minipage}{0.95\linewidth}
+1061: 	\vspace{-2.5mm}
+1062:     \centering	\includegraphics[width=1\linewidth,trim=0 30 0 0, clip]{figs/results/nn_controller/exp_2021_12_06__18_07_54_dH.png}	
+1063: \includegraphics[width=1\linewidth]{figs/results/nn_controller/exp_2021_12_06__18_07_54_comp_time.png}
+1064: \vspace{-8mm}
+1065: 	\caption{Neural network verification analysis in Section \ref{sec:results:verif_closed_nn}: we report the computation time of each algorithm and their averaged Hausdorff distance error (with $\epsilon{=}0$ for $\epsilon$-\randup and \gotube) over $100$ tries when estimating $\Y=\X_4$.}\label{fig:nn_controller:M_vs_dH_time}
+1066: 	\vspace{-4mm}
+1067: 	\end{minipage}% 
+1068: 	\end{wrapfigure}
+1072: We compare $\epsilon$-\randup with the formal method \reachlp \citep{Everett21_journal}\footnote{Comparisons with \reachsdp \citep{Hu2020}, which is more conservative than \reachlp, show a similar trend.} % 
+1074: and with two recently-derived sampling-based approaches: the kernel method proposed in \citep{ThorpeL4DC2021} and \gotube \citep{Gruenbacher2021}. We implement \gotube using the $\epsilon$-\randup algorithm where we replace the last convex hull bounding step with an outer-bounding ball. 
+1075: As ground-truth, we use the reachable sets from $\epsilon$-\randup with $\epsilon\,{=}\,0$ and $M\,{=}\,10^6$, which is motivated by the asymptotic results from Theorem \ref{thm:asymptotic_convergence} and was previously done in \citep{Everett21_journal}. 
+1083:  We refer to Appendix \ref{apdx:exps:nn} for details and present results in Figures \ref{fig:nn_controller:all} and \ref{fig:nn_controller:M_vs_dH_time}.
+
+1085: \textbf{Formal methods} that explicitly bound the output of each layer of the neural network can guarantee that % 
+1086: their reachable set approximations are always conservative. % 
+1087: However, obtaining tight approximations with \reachlp requires splitting the input set: a computationally expensive procedure (Fig.\,\ref{fig:nn_controller:M_vs_dH_time}, bottom). 
+1088: Figures \ref{fig:nn_controller:all}  and \ref{fig:nn_controller:M_vs_dH_time} show that \reachlp is more conservative than $\epsilon$-\randup even when considering polytopic outputs with eight facets. % 
+1089: As shown in Figure \ref{fig:nn_controller:all} (right),  % 
+1090: the conservatism of these methods increases over time. This shows that even when considering small neural networks, verifying safety specifications over long horizons remains an open challenge. 
+
+1094: \textbf{Sampling-based} approaches % 
+1095: do not suffer from the long-horizon conservatism of formal methods. 
+1096: This comes at the expense of probabilistic guarantees (that rely on knowledge of the Lipschitz constant of the model), as opposed to deterministic conservatism guarantees. % 
+1099: $\epsilon$-\randup and \gotube have comparable computation time\footnote{% 
+1100: Plotting the kernel-based level set estimator in \citep{ThorpeL4DC2021} from $M$ samples requires classifying a dense grid of points. To evaluate the computation time of this method, we only account for the time to classify $M$ new samples.}  and are significantly faster than other approaches. % 
+1102: $\epsilon$-\randup is significantly more accurate than prior work, especially for larger values of $M$. 
+1105: Also, the results from Theorem \ref{thm:conservative_finite_sample} allow for principled hyperparameter selection for $\epsilon$-\randup: given $\epsilon=0.02$, %10^{-2}$, 
+1106: sampling $1400$ %$3000$ 
+1107: uniformly-distributed inputs on $\partial\X$ is sufficient for the output sets to be conservative with probability at least $1-10^{-4}$ (for $L=1$, see Section \ref{apdx:exps:nn}). 
+
+1111: These experiments show that for short-horizon problems ($5$ steps) with relatively simple network architectures, both \reachlp and $\epsilon$-\randup return accurate reachable set approximations. 
+1112: For longer-horizon problems ($9$ steps) with networks of moderate dimensions (which allows using existing methods to pre-compute a Lipschitz constant, see \citep{Fazlyab2019} and Section \ref{appendix:lipschitz_relu}), $\epsilon$-\randup is guaranteed to  efficiently return non-overly-conservative reachable set approximations with high probability. % 
+1113: Finally, though we do not present such results here, 
+1114: the generality of $\epsilon$-\randup allows it to tackle complex model architectures (see \citep{LewEtAl2022} for experiments with longer horizons and more complex networks with uncertain weights) for which no alternative methods exist, albeit without finite-sample accuracy guarantees. 
+
+1201: \vspace{-1mm}
+
+1203: \subsection{Application to robust model predictive control}\label{sec:results:mpc}
+
+1206: Finally, we show that $\epsilon$-\randup can be embedded in a robust MPC formulation to reliably control a planar spacecraft system actuated by cold-gas thrusters. Its state at time $t\geq 0$ is denoted as 
+1208: $x_t\in\R^6$ and its control inputs are given as $u_t\in\R^3$. 
+1209: We use an auxiliary linear feedback controller \citep{LewEtAl2022} and an uncertain linear model $x_{t+1}=f(x_t,u_t,m,F)$ that depends on an uncertain mass $m\in[10,18] \,\textrm{kg}$ (depending on the payload transported by the robot and the current weight of the gas tanks) and an unknown force $F=(F_x,F_y)\in[-0.015,0.015]^2 \,\textrm{N}$ that accounts for the tilt of the table. 
+1211: To control the system from an initial state $x_0\in\R^n$ to a goal region $\Xgoal\subset\R^n$ while 
+1212: minimizing fuel consumption and 
+1213: remaining in a feasible set $\Xsafe$ (i.e., avoiding obstacles and respecting velocity bounds), we consider the following MPC formulation:
+1214: \begin{subequations}
+1215: \label{eq:full_problem}
+1216: \begin{align}
+1217: \mathop{\text{min}}_{(\mu,\nu)}
+1218: \quad &
+1219: \scalebox{0.95}{$\sum_{t=1}^{N}$} (\mu_t-x_{\textrm{goal}})^\top Q(\mu_t-x_{\textrm{goal}})
+1220: +
+1221: \scalebox{0.95}{$\sum_{t=1}^{N}$}
+1222: \nu_t^\top R \nu_t,
+1223: \quad 
+1224: \textrm{s.t.}
+1225: \quad\,
+1226: \mu_0=x_0, 
+1227: \label{eq:cost:measure}
+1228: \\[-1mm]
+1229: \textrm{ }
+1230: \quad
+1231: & 
+1232: \mu_{t+1} = f(\mu_t,\nu_t, \bar{m}, \bar{F}),
+1233: \ \ 
+1234: \nu_t\in\U, 
+1235: \ \  
+1236: \X_t(\nu) \subset \Xsafe,
+1237: \ \ 
+1238: \X_N(\nu) \subset \Xgoal,
+1239: \ \  
+1240: \ {\tiny t\,{=}\,0, \mydots,N\,{-}\,1}
+1241: .
+1242: \label{eq:robust_constraints_orig}
+1243: \end{align}
+1244: \end{subequations} 
+1245: where $\mu=(\mu_0,\dots,\mu_N)$ % 
+1246: and $\nu=(\nu_0,\dots,\nu_{N-1})$ % 
+1247: are optimization variables representing the nominal state and control trajectories, $(\bar{m},\bar{F}_x, \bar{F}_y)=(14,0,0)$ are nominal parameter values, $x_{\textrm{goal}}\in\Xgoal$ is the center of the goal set, and the reachable sets $\X_t(\nu)\subset\R^n$ are defined as
+1249: $\X_t(\nu) = % 
+1250: \{
+1251: x_t=f(\cdot,\nu_{t-1},m,F)
+1252: \circ\dots\circ
+1253: f(x_0,\nu_0,m,F):
+1254: \
+1255: (m,F)\in[10,18]\times[-0.015,0.015]
+1257: \}$.
+1260: The numerical implementation % 
+1261: is described in \citep{LewPavone2020}. 
+1264: With a Python implementation, $\epsilon=0.03$, and $M=10^3$, our MPC controller runs at $10$\textrm{Hz} % 
+1265: which is sufficient for this platform and could be improved, e.g., by parallelizing computations on a GPU. 
+1266: We compare with a MPC baseline that does not consider uncertainty over the parameters (i.e., assumes $(m,F)\in\{14\}{\times}\{(0,0)\}$).  As shown in Figure \ref{fig:results:hardware} and in the attached video, this baseline is unsafe and collides with an obstacle. 
+1270: In contrast, our reachability-aware controller is recursively feasible, satisfies all constraints, and allows safely reaching the goal. 
+1271: These experiments motivate the development of efficient reachability algorithms that can be embedded in generic control frameworks to account for uncertain parameters. % 
+
+1276:  \begin{figure}[t]
+1279:  \begin{minipage}{.32\linewidth}
+1280:  \centering
+1281:  \vspace{-7mm}
+1282:  \includegraphics[width=1\linewidth]{figs/results/mpc/ff_problem.png}
+1283:  \end{minipage}
+1285:  \hspace{1mm}
+1287:  \begin{minipage}{.26\linewidth}
+1288:  \centering
+1291:  \vspace{-5mm}
+1292:  \includegraphics[width=1\linewidth]{figs/results/mpc/randup_vs_baseline_mpc_plan.png}
+1293:  \end{minipage}
+1297:  \begin{minipage}{.4\linewidth}
+1298:  \centering
+1299:  \vspace{-5mm}
+1300:  \includegraphics[width=0.95\linewidth]{figs/results/mpc/controls_3.png}
+1301:  \end{minipage}
+1302:  \vspace{-3mm}
+1303:   \caption{Application of $\epsilon$-\randup to safely control a free-flyer robot in a cluttered environment (left). Using a model predictive controller that does not account for the uncertain dynamics (middle) leads to unsafe behavior, colliding with an obstacle and causing the optimization problem to be infeasible at run-time (right).
+1304: }
+1305:  \label{fig:results:hardware}
+1306:  \vspace{-6mm}
+1307:  \end{figure}
+
+1322: \section{Conclusion}
+1324: We derived new asymptotic and finite-sample statistical guarantees for $\epsilon$-\randup, a simple yet efficient algorithm for reachability analysis of general systems. We demonstrated its efficacy for a neural network verification task and its applicability to robust model predictive control. 
+1332: In future work, we will investigate tighter finite-sample bounds by leveraging further information about the smoothness of the input set boundary $\partial\X$. 
+1333: Of practical interest is investigating which sampling distributions enable better sample efficiency, interfacing $\epsilon$-\randup with Lipschitz constant computation methods (e.g., \citep{Fazlyab2019} for neural networks), 
+1334: exploring  methods to scale to high-dimensional input spaces, and applying the technique to safety-aware reinforcement learning.
+
+1353: \acks{The authors thank Robin Brown for her helpful feedback and insightful discussions about neural network verification, 
+1354: Edward Schmerling for his helpful comments and suggestions, and Adam Thorpe for helpful discussions about kernel methods.  
+1355: The NASA University Leadership Initiative (grant \#80NSSC20M0163) provided funds to assist the authors with their research, but this article solely reflects the opinions and conclusions of its authors and not any NASA entity. NVIDIA provided funds to assist the authors with their research. L.J. was supported by the National Science Foundation via grant CBET-2112085.}
+
+1358: \bibliography{ASL_papers,main}
+
+1365: \newpage
+1366: \appendix
+1367: \section{Formal definitions and random set theory}\label{apdx:random_set_theory}
+
+1369: As a complement to Section \ref{sec:formal_setting}, this section provides a formal description of $\epsilon$-\randup using random set theory. 
+1370: Since the set estimator $\hat\Y^M_{\epsilon}$ in \eqref{eq:estimator_eps} is a random variable, describing its measurability properties is important to formally analyze its convergence properties (in an appropriate topology, which we define using the Hausdorff distance). 
+1371: In particular, random set theory provides a rigorous framework to characterize the probability distribution of $\hat\Y^M_{\epsilon}$ in Theorems \ref{thm:asymptotic_convergence} and \ref{thm:conservative_finite_sample}. 
+
+1377: We denote 
+1378:  $\K$ for the family of nonempty compact subsets of $\R^n$, 
+1379: $\B(\R^n)$ for the Borel $\sigma$-algebra for the Euclidean topology on $\R^n$ associated to the usual Euclidean norm $\|\cdot\|$, 
+1380: $\lambda(\cdot)$ for the Lebesgue measure over $\R^p$, 
+1383: $\hull(A)$ for the convex hull of a subset $A\subset\R^n$, 
+1384: $\oplus$ for the Minkowski sum, 
+1385: $B(x,r)=\{y\in\R^n: \|y-x\|\leq r\}$ for the closed ball of center $x\in\R^n$ and radius $r\geq 0$, 
+1386: $\mathring{B}(x,r)$ for the open ball,  
+1387: and 
+1388: $\partial A$ for the boundary of any $A\subset\R^n$. 
+
+1390: \subsection{Random set theory}
+
+1392: Our analysis hinges on the observation that the set estimator $\hat\Y_\epsilon^M$ is a random compact set, i.e., $\hat\Y_\epsilon^M$ is a random variable taking values in the family of nonempty compact sets $\K$.  
+1394: To characterize the accuracy of
+1395: our estimator,
+1396: we use the \textit{Hausdorff metric}, which is defined for any $A,B\in\K$  in \eqref{eq:metric:Hausdorf} as 
+1397: \begin{equation}% 
+1398: d_\textrm{H}(A,B)
+1399: =
+1400: \max\big(
+1401: \sup_{x\in B}
+1402: \Inf_{y\in A}
+1403: \|x-y\|, \
+1404: \sup_{x\in A}
+1405: \Inf_{y\in B}
+1406: \|x-y\|
+1407: \big).
+1408: \end{equation}
+1410: This metric induces the \textit{myopic topology} on $\K$ \citep{Molchanov_BookTheoryOfRandomSets2017} with its associated generated Borel $\sigma$-algebra $\B(\K)$. 
+1411: $(\K,\B(\K))$ is a measurable space, which motivates the following definition:
+
+1414: \begin{definition}[Random compact set]\label{def:random_compact_set}
+1415: Let $(\Omega,\G,\Prob)$ be a probability space. A map $\hat\Y:\Omega\rightarrow\K$ is a random compact set if $\{\omega\in\Omega : \hat\Y(\omega)\in\mathscr{Y}\}\in\G$ for any $\mathscr{Y}\in\B(\K)$.
+1416: \end{definition}
+1417: Since a random compact set $\hat\Y$ is a random variable with values in $\K$, 
+1418: its distribution is characterized by the probability $\Prob(\hat\Y\in\mathscr{Y})$ that it takes values in a measurable subset of compact sets  $\mathscr{Y}\in\B(\K)$. % 
+1421: Equivalently \citep{Molchanov_BookTheoryOfRandomSets2017}, % 
+1422: the law of $\hat\Y$ is % 
+1423: characterized by the capacity functional $T_{\hat\Y}:\K\rightarrow[0,1]$, defined for any $K\in\K$ as 
+1424: $
+1425: T_{\hat\Y}(K)=
+1426: \Prob(\hat\Y \cap K\neq \emptyset)
+1427: $. 
+1428: This % 
+1429: functional describes the probability that $\hat\Y$ intersects any compact set $K$. We will analyze this functional to prove the convergence of our set estimator in Theorems \ref{thm:asymptotic_convergence} and \ref{thm:conservative_finite_sample}. 
+
+1431: Our asymptotic convergence result in Theorem \ref{thm:asymptotic_convergence} relies on \citep[Proposition 1.7.23]{Molchanov_BookTheoryOfRandomSets2017}, which provides sufficient conditions for the convergence of random closed sets. 
+1432: We restate this result in the particular case of a sequence of random compact sets.
+
+1434:  \begin{thm}[Convergence of Random Sets to a Deterministic Limit \citep{Molchanov_BookTheoryOfRandomSets2017}]\label{thm:conv_randSets_detLim}
+1435:  \\
+1436: Let $\Y\in\K$ and let $\{\hat\Y^M\}_{M=1}^\infty$ be a sequence of random compact sets. Assume that 
+1437: \begin{itemize}[leftmargin=5.5mm]
+1438: \item 
+1439: For any $K\in\mathcal{K}$ such that $\Y\cap K=\emptyset$,
+1440: \begin{equation}\tag{{C1}}\label{eq:C1}
+1441: \hspace{-2mm}
+1442: \Prob(\hat\Y^M\cap K \neq \emptyset \ \textrm{infinitely often}) 
+1443: = 
+1444: \Prob\left(\bigcap_{N=1}^\infty\bigcup_{M=N}^\infty
+1445: \{\hat\Y^M\cap K \neq \emptyset\}\right) 
+1446: =
+1447: 0.
+1448: \end{equation}
+1449: \item
+1450: For any open subset $G\subset\R^n$ such that $\Y\cap G \neq \emptyset$,
+1451: \begin{equation}\tag{{C2}}\label{eq:C2}
+1452: \hspace{-2mm}
+1453: \Prob(\hat\Y^M\cap G = \emptyset \ \textrm{infinitely often}) 
+1454: = 
+1455: \Prob\left(\bigcap_{N=1}^\infty\bigcup_{M=N}^\infty
+1456: \{\hat\Y^M\cap G = \emptyset\}\right) 
+1457: = 
+1458: 0.
+1459: \end{equation}
+1460: \end{itemize}
+1461: Then, the sequence of random compact sets $\{\Y^M\}_{M=1}^\infty$ 
+1462: almost surely converges to $\Y$ (in the myopic topology), i.e., almost surely,
+1463: $
+1464: d_H(\Y^M,\Y)\rightarrow 0
+1465: $ 
+1466:  as $M\rightarrow\infty$.
+1467: \end{thm}
+
+1470: \subsection{Sampling-based reachability analysis}
+
+1472: As discussed in Section  \ref{sec:formal_setting}, 
+1473: $\epsilon$-\randup relies on the choice of three parameters: 
+1474: \begin{itemize}\setlength\itemsep{0.5mm}
+1475: \item a number of samples $M\in\mathbb{N}$, 
+1476: \item a padding constant $\epsilon>0$, 
+1477: \item a probability measure $\Prob_\X$ on $(\R^{p},\B(\R^{p}))$ such that $\Prob_\X(\X)=1$. 
+1478: \end{itemize}
+1480: This algorithm consists of sampling $M$ independent identically-distributed inputs $x_i$ according to $\Prob_\X$, 
+1481: of evaluating each output sample $y_i=f(x_i)$, % 
+1482: and 
+1483: of computing the reachable set estimator $\hat\Y_\epsilon^M=\hull\left(\{y_i\}_{i{=}1}^M\right)\oplus B(0,\epsilon)$ as in \eqref{eq:estimator_eps}. 
+
+1485: Formally, let $(\Omega,\G,\Prob)$ be a probability space such that the $x_i$'s are $\G$-measurable independent random variables which laws $\Prob_\X$ satisfy  $\Prob_\X(A)=\Prob(x_i\in A)$ for any $A\in\B(\R^p)$\footnote{For a canonical construction, 
+1486: let $
+1487: \Omega=\R^p\times\mydots\times\R^p$ ($M$ times), 
+1488: $\G=\B(\R^p)\otimes\mydots\otimes\B(\R^p)$,  
+1489: $\Prob=\Prob_\X\otimes\mydots\otimes\Prob_\X$ the product measure, and % 
+1491: $x=(x_1,\mydots,x_M): \Omega\rightarrow\Omega:  \omega\mapsto\omega$. Then, the $x_i$ are independent and have the law $\Prob_\X$.}. % 
+1494: Then, the $y_i$'s are independent random variables which laws $\Prob_{\Y}$ satisfy % 
+1495: $\Prob_{\Y}(B)=\Prob(y_i\in B)=\Prob_\X(f^{-1}(B))$ for any $B\in\B(\R^n)$. 
+1497: It follows that  
+1498: $\hat\Y_\epsilon^M:\Omega\rightarrow\K$ is a random compact set satisfying Definition \ref{def:random_compact_set}\footnote{Compactness of $\X$ and continuity of $f$ guarantee that both $\Y$ and $\hat\Y_\epsilon^M(\omega)$ are compact for any $\omega\in\Omega$. 
+1499: We refer to \citep{Molchanov_BookTheoryOfRandomSets2017} and \citep{LewPavone2020} for a proof of measurability of $\hat\Y_\epsilon^M$.}. 
+1502: Intuitively, different input samples $x_i(\omega)$  induce different output samples $y_i(\omega)$, resulting in  different approximated compact reachable sets $\hat\Y_\epsilon^M(\omega)\in\K$, where  $\omega\in\Omega$.  
+
+1508: \section{Proofs}\label{appendix:proofs}
+1509: \subsection{Proof of Theorem \ref{thm:asymptotic_convergence}}\label{apdx:proof:thm:asymptotic_convergence}
+
+1512: We first restate Assumption \ref{assum:XBoundary:posMeasure} and Theorem \ref{thm:asymptotic_convergence} from Section \ref{sec:asymptotic}. 
+1513: \\[2mm]
+1515: \textbf{Assumption \ref{assum:XBoundary:posMeasure}} $\Prob_\X(\{x\in\X: f(x)\in\mathring{B}(y,r)\})>0$  
+1516: for all $y\in\partial\Y$ and all $r>0$.
+1519: \\[2mm]
+1520: \textbf{Theorem \ref{thm:asymptotic_convergence}}
+1522: Let $\bar{\epsilon}\geq 0$ and 
+1523: $(\epsilon_M)_{M\in\mathbb{N}}$ be a sequence of padding radii such that $\epsilon_M\geq 0$ for all $M\in\mathbb{N}$ and $\epsilon_M\rightarrow \bar{\epsilon}$ as $M\rightarrow\infty$. 
+1524: For any $\epsilon\geq 0$, define the estimator $\hat\Y^M_{\epsilon}=\hull\left(\{y_i\}_{i{=}1}^M\right)\oplus B(0,\epsilon)$.  
+1525: Then, under Assumption \ref{assum:XBoundary:posMeasure}, $\Prob$-almost surely, 
+1526: as $M\rightarrow\infty$, 
+1527: $$
+1528: d_H(
+1529: \hat\Y_{\epsilon_M}^M, 
+1530: \hull(\Y)\oplus B(0,\bar{\epsilon})
+1531: )
+1532: \mathop{\longrightarrow} 0.
+1533: $$
+1538: \begin{proof} 
+1539: Denote $\hat\Y^M=\hull(\{y_i\}_{i=1}^M)$, so that  $\hat\Y^M_{\epsilon_M}=\hull(\{y_i\}_{i=1}^M)\oplus B(0,\epsilon_M)$. 
+
+1541: To prove that almost surely, the sequence of random compact sets $\{\hat\Y^M_{\epsilon_M}(\omega), M\geq 1\}$ converges to $\hull(\Y)\oplus B(0,\bar{\epsilon})$
+1542:  as $M\rightarrow\infty$, we verify the conditions \eqref{eq:C1} and \eqref{eq:C2} of Theorem \ref{thm:conv_randSets_detLim}. 
+
+1549: \vspace{2mm}
+
+1552: \textbf{\eqref{eq:C1}}: Let $K\in \mathcal{K}$ satisfy $(\hull(\Y)\oplus B(0,\bar{\epsilon}))\cap K = \emptyset$. 
+1553: Then, % 
+1556: since $K$ and $\hull(\Y)\oplus B(0,\bar{\epsilon})$ are both closed, there exists some $\epsilon>0$ such that $(\hull(\Y)\oplus B(0,\bar{\epsilon}+\epsilon))\cap K = \emptyset$\footnote{More generally, given $A,B\in\K$, then  
+1557: $A\cap B=\emptyset$ implies that $A\cap(B\oplus B(0,\epsilon))=\emptyset \text{ for some $\epsilon>0$.}$}. 
+
+1559:  Next, since $\epsilon_M\rightarrow\bar{\epsilon}$ as $M\rightarrow\infty$, we have that $\bar{\epsilon}-\epsilon<\epsilon_M<\bar{\epsilon}+\epsilon$ for all $M\geq M_{\epsilon}$. 
+
+1561: Since $y_i(\omega)\in\Y$ almost surely for all $i$, $\hat\Y^M\subseteq\hull(\Y)$ almost surely for all $M\geq M_{\epsilon}$. 
+1562: Thus, for any $M\geq M_{\epsilon}$, 
+1563: $(\hat\Y^M\oplus B(0,\epsilon_M))
+1564: \subseteq
+1565: (\hull(\Y)\oplus B(0,\epsilon_M))
+1566: \subset
+1567: (\hull(\Y)\oplus B(0,\bar{\epsilon}+\epsilon))$. 
+
+1569: Combined with $(\hull(\Y)\oplus B(0,\bar{\epsilon}+\epsilon))\cap K = \emptyset$, this implies that $(\hat\Y^M\oplus B(0,\epsilon_M))\cap K=\emptyset$ almost surely for all $M\geq M_{\epsilon}$. 
+
+1571: 	Thus, $\Prob(\hat\Y^M\oplus B(0,\epsilon_M)\cap K\neq\emptyset)=0$ for all $M\geq M_{\epsilon}$. 
+
+1573: 	Therefore, $\sum_{M=1}^\infty \Prob(\hat\Y^M\oplus B(0,\epsilon_M)\cap K\neq\emptyset)<\infty$. By the first Borel-Cantelli lemma, we obtain that $\Prob(\hat\Y^M\oplus B(0,\epsilon_M)\cap K \neq \emptyset \ \ i.o.) = 0$. This concludes \eqref{eq:C1}. 
+
+1575: \vspace{2mm}
+
+1578: \textbf{\eqref{eq:C2}}: Let $G\subset\R^n$ be an open set satisfying $(\hull(\Y)\oplus B(0,\bar{\epsilon}))\cap G \neq \emptyset$. Equivalently, let $G\subset\R^n$ satisfy $\hull(\Y)\cap (G \oplus B(0,\bar{\epsilon}))\neq \emptyset$. We wish to prove that $\Prob(\hat\Y^M_{\epsilon_M}\cap G  = \emptyset \ i.o.) = 0$. 
+
+1581: Let $G_\partial^1,G_\partial^2\subset\R^n$ be two arbitrary boundary-intersecting open sets such that $\partial\Y\cap (G_\partial^1\oplus B(0,\bar{\epsilon})) \neq \emptyset$ and $\partial\Y\cap (G_\partial^2\oplus B(0,\bar{\epsilon})) \neq \emptyset$. We will select specific sets $G_\partial^j$ as a function of $G$ later in the proof. 
+
+1584:  \begin{figure}[t]
+1586:     \centering
+1587: 	\includegraphics[width=0.25\linewidth]{figs/proofs/Gdelta.png}
+1588: 	\caption{Particular case with $\bar\epsilon=0$: for any set $G\subset\R^n$ that intersects $\hull(\Y)$ (i.e.,  $\hull(\Y)\cap G \neq \emptyset$), there exists two boundary-intersecting sets $G_\partial^1,G_\partial^2\subset\R^n$ (i.e. $\partial\hull(\Y)\cap G_\partial^j \neq \emptyset$) such that the convex hull of two points $y_1\in G_\partial^1$ and $y_2\in G_\partial^2$ intersects $G$ (i.e., $\hull(\{y_1,y_2\})\cap G\neq \emptyset$). With this fact, we quantify the probability that $\hat\Y^M$ has at least one vertex in $G_\partial^1$ and one in $G_\partial^2$, which guarantees that $\hat\Y^M$ intersects $G$.}\label{fig:proof:Gdelta}
+1589: 	\end{figure}
+
+1592: To prove \eqref{eq:C2}, we proceed in three steps: 
+1593: (C2.1) we show that sampling outputs $y_i$ within the boundary sets $G_\partial^j$ occurs infinitely often (i.o.); 
+1594: (C2.2) we derive a sufficient conditions for \eqref{eq:C2} using the growth property $\hat\Y^M_\epsilon\subseteq\hat\Y^{M+1}_\epsilon$ for any fixed $\epsilon\geq 0$; 
+1595: (C2.3) we relate the probability of sampling $y_i$ within two well-chosen boundary-intersecting sets $G_\partial^1,G_\partial^2\subset\R^n$ with the probability of $\hat\Y^M_{\epsilon_M}$ to intersect $G\oplus B(0,\bar{\epsilon})$.
+
+1599: \textbf{(C2.1) }
+1600: Consider the events $A_{2i}=\{\omega\in\Omega\,|\,
+1601: y_{2i+1}\in (G_\partial^1\oplus B(0,\bar{\epsilon})),
+1602: y_{2(i+1)}\in (G_\partial^2\oplus B(0,\bar{\epsilon}))\}$, where $i\in\mathbb{N}$.
+1603: \\
+1604: Since the inputs $x_i$ are sampled independently, the outputs $y_i$ are independent. Thus, 
+1605: the events $\{A_{2i}\}_{i=0}^\infty$ 
+1606: are independent and  
+1607: $\Prob(A_{2i})=
+1608: \Prob(y_{2i+1}\in (G_\partial^1\oplus B(0,\bar{\epsilon})))
+1609: \Prob(y_{2i+2}\in (G_\partial^2\oplus B(0,\bar{\epsilon})))$. 
+1610: Since $\partial\Y\cap (G_\partial^1\oplus B(0,\bar{\epsilon})) \neq \emptyset$ for $j=1,2$, we use Assumption \ref{assum:XBoundary:posMeasure} to obtain that $\Prob(A_{2i}) \geq \delta$ for some $\delta>0$ that depends on the choice of $\Prob_\X$, $G_\partial^j$, and $\bar\epsilon$. 
+1611: Thus, 
+1612: $\sum_{i=0}^\infty\Prob(A_{2i})=\infty$. Therefore, we apply the second Borel-Cantelli lemma and obtain that 
+1613: $
+1614: \Prob\big(\bigcup_{N=0}^\infty\bigcap_{M=N}^\infty A_{2M}\big) = 1$.
+1616: \\
+1618: Next, since $\bigcap_{N=0}^\infty A_n \subseteq A_0$ for any events $A_i$, 
+1619: $\Prob\big(\bigcup_{N=0}^\infty\bigcap_{M=N}^\infty A_{2M}\big) 
+1620:  \leq 
+1621:  \Prob\big(\bigcup_{M=0}^\infty A_{2M}\big) $. 
+1622:  Combining the last two results, 
+1623: \begin{equation}\label{eq:prob_union_xm_in_G_equals_1}
+1624: \Prob
+1625: \bigg(
+1626: 	\bigcup_{M=0}^\infty 
+1627: (y_{2M+1}\in (G_\partial^1\oplus B(0,\bar{\epsilon})))
+1628: \cap 
+1629: (y_{2M+2}\in (G_\partial^2\oplus B(0,\bar{\epsilon})))
+1630: \bigg) = 1.
+1631: \end{equation}
+1635: (C2.2) To proceed with this step, we first observe the following. 
+1636: \\
+1637: $G$ satisfies 
+1638: $\hull(\Y)\cap (G\oplus B(0,\bar{\epsilon}))\neq \emptyset$. Therefore, since $\hull(\Y)$ is compact and $G$ is open, there exists some $\epsilon>0$ such that  
+1639: $\hull(\Y)\cap (G\oplus B(0,\bar{\epsilon}-\epsilon))\neq \emptyset$.\footnote{More generally, given $A\subset\K$ and $B\subset\R^n$ an open set, then 
+1640: $
+1641: A\cap B \neq\emptyset\implies A\cap(B\ominus B(0,\epsilon))\neq\emptyset \text{ for some $\epsilon>0$.}$}
+1642: \\
+1643: Since $\epsilon\rightarrow\bar{\epsilon}$ as $M\rightarrow\infty$, 
+1644: there exists some $M_\epsilon\in\mathbb{N}$ such that $\bar{\epsilon}-\epsilon<\epsilon_M<\bar{\epsilon}+\epsilon$ for all $M\geq M_\epsilon$. 
+1645: \\
+1646: Second, we rewrite \eqref{eq:C2} as
+1647: \begin{align}
+1648: \Prob(\hat\Y^M_{\epsilon_M}\cap G = \emptyset \ \ i.o.)
+1649: =
+1650: \Prob\bigg(\bigcap_{N=1}^\infty\bigcup_{M=N}^\infty \hat\Y^M_{\epsilon_M}\cap G = \emptyset\bigg)
+1651: \nonumber
+1652: =
+1653: 1 - \Prob\bigg(\bigcup_{N=1}^\infty\bigcap_{M=N}^\infty \hat\Y^M_{\epsilon_M}\cap G \neq \emptyset\bigg).
+1654: \end{align}
+1655: Next, note that 
+1656: \begin{align*}
+1657: \Prob\bigg(\bigcup_{N=1}^\infty\bigcap_{M=N}^\infty \hat\Y^M_{\epsilon_M}\cap G \neq \emptyset\bigg)
+1658: &\geq 
+1659: \Prob\bigg(\bigcup_{N=M_\epsilon}^\infty\bigcap_{M=N}^\infty \hat\Y^M_{\epsilon_M}\cap G\neq \emptyset\bigg)
+1662: \geq 
+1663: \Prob\bigg(
+1664: \bigcup_{N=M_\epsilon}^\infty
+1665: \bigcap_{M=N}^\infty
+1666: \hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\bigg).
+1667: \end{align*}
+1668: The second inequality holds since $\hat\Y^M_{\bar{\epsilon}-\epsilon}\subset \hat\Y^M_{\epsilon_M}$ if $M\geq M_\epsilon$. % 
+1669: \\
+1670: Next, 
+1671: since $\hat\Y^M_{\bar{\epsilon}-\epsilon}\subseteq\hat\Y^{M+1}_{\bar{\epsilon}-\epsilon}$ for any $M\in\mathbb{N}$, we have that 
+1672: $\{\omega\in\Omega\, |\, \bigcap_{M=N}^\infty \hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\}
+1673: =
+1674: \{\omega\in\Omega \, |\, \hat\Y^N_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\}$. Thus, 
+1675: \begin{equation}\nonumber
+1676: \Prob\bigg(\bigcup_{N=M_{\epsilon}}^\infty\bigcap_{M=N}^\infty \hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\bigg)=\Prob\bigg(\bigcup_{M=M_\epsilon}^\infty\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\bigg).
+1677: \end{equation}
+1678: Combining the last three results, we obtain the following sufficient condition for \eqref{eq:C2}
+1679: \begin{equation}\label{eq:io_union_iff}
+1680: \Prob\bigg(\bigcup_{M=M_\epsilon}^\infty\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G \neq \emptyset\bigg) = 1
+1681: 	\implies
+1682: 	\Prob(\hat\Y^M_{\epsilon_M}\cap G = \emptyset \ \ i.o.) = 0 
+1683: .
+1684: \end{equation}
+1688: (C2.3) 
+1689: Finally, we combine \eqref{eq:prob_union_xm_in_G_equals_1} and \eqref{eq:io_union_iff} as follows. 
+1712: For $M\geq 0$, we have that
+1713: \begin{align*}
+1714: &\{
+1715: \omega\in\Omega: 
+1716: (y_{2M+1}(\omega)\in (G_\partial^1\oplus B(0,\bar{\epsilon})))
+1717: \cap 
+1718: (y_{2M+2}(\omega)\in (G_\partial^2\oplus B(0,\bar{\epsilon})))
+1719: \}
+1720: \\
+1721: &\qquad\subseteq
+1722: \{\omega\in\Omega \,|\, 
+1723: (\hat\Y^{2M+2}_{\bar{\epsilon}-\epsilon}(\omega)\cap (G_\partial^1\oplus B(0,\bar{\epsilon}))\neq\emptyset)
+1724: \cap
+1725: (\hat\Y^{2M+2}_{\bar{\epsilon}-\epsilon}(\omega)\cap (G_\partial^2\oplus B(0,\bar{\epsilon}))\neq\emptyset)
+1726: \} 
+1727: \end{align*}
+1728: Thus, 
+1729: \begin{align*}
+1730: &\bigcup_{M=0}^\infty
+1731: \{\omega\in\Omega: (y_{2M+1}(\omega)\in (G_\partial^1\oplus B(0,\bar{\epsilon})))\cap (y_{2M+2}(\omega)\in (G_\partial^2\oplus B(0,\bar{\epsilon})))\}
+1732: \\
+1733: &\hspace{5mm}\subseteq
+1734: \bigcup_{M=2}^\infty
+1735: \{\omega\in\Omega \,|\,  
+1736: (\hat\Y^M_{\bar{\epsilon}-\epsilon}(\omega)\cap G_\partial^1\neq\emptyset)
+1737: \cap
+1738: (\hat\Y^M_{\bar{\epsilon}-\epsilon}(\omega)\cap G_\partial^2\neq\emptyset)
+1739: \} 
+1740: \\
+1741: &\hspace{5mm}\subseteq
+1742: \bigcup_{M=1}^\infty
+1743: \{\omega\in\Omega \,|\, 
+1744: (\hat\Y^M_{\bar{\epsilon}-\epsilon}(\omega)\cap G_\partial^1\neq\emptyset)
+1745: \cap
+1746: (\hat\Y^M_{\bar{\epsilon}-\epsilon}(\omega)\cap G_\partial^2\neq\emptyset)
+1747: \}.
+1748: \end{align*}
+1749: From \eqref{eq:prob_union_xm_in_G_equals_1}, the first event holds with probability one. Therefore, by the above, 
+1750: $$
+1751: \Prob\left(
+1752: \bigcup_{M=M_\epsilon}^\infty
+1753: (\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G_\partial^1\neq\emptyset)
+1754: \cap
+1755: (\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G_\partial^2\neq\emptyset)
+1756: \right)=1.
+1757: $$
+1758: Given the right choice of $G_\delta^1,G_\delta^2$, by convexity of $\hull(\Y)$\footnote{$\hull(\Y)\oplus B(0,\bar\epsilon)$ is convex, so that any $y\in G\cap (\hull(\Y)\oplus B(0,\bar\epsilon))\neq\emptyset$ lies on a line passing through two extreme points $z_1^y,z_2^y$ of $\hull(\Y)\oplus B(0,\bar\epsilon)$.  
+1759: For some $\tilde\epsilon>0$, let $G_\partial^1=\mathring{B}_\partial^1(z_1^y,\tilde\epsilon)$ and $G_\partial^2=\mathring{B}_\partial^2(z_2^y,\tilde\epsilon)$ (note that $G_\partial^1,G_\partial^2$ intersect $\hull(\Y)\oplus B(0,\bar\epsilon)$). 
+1760: Then,  
+1761: by choosing $\tilde\epsilon$ small enough, 
+1762: since  $\hat\Y^M_{\bar{\epsilon}-\epsilon}$ is convex,  the inequality follows since  $\hat\Y^M_{\bar{\epsilon}-\epsilon}$ necessarily intersects $G$ if it intersects $G_\partial^1$ and $G_\partial^2$. } (see also Figure \ref{fig:proof:Gdelta}), we have that
+1763: \begin{align*}\label{eq:prob_YM_cap_G_neq_empty_is_1}
+1764: \Prob\left(\bigcup_{M=M_\epsilon}^\infty
+1765: \hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G
+1766: \neq\emptyset\right)\geq
+1767: \Prob\left(
+1768: \bigcup_{M=M_\epsilon}^\infty
+1769: (\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G_\partial^1\neq\emptyset)
+1770: \cap
+1771: (\hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G_\partial^2\neq\emptyset)
+1772: \right)
+1773: =1.
+1774: \end{align*}
+1775: Therefore, 
+1776: $\Prob\left(\bigcup_{M=M_\epsilon}^\infty
+1777: \hat\Y^M_{\bar{\epsilon}-\epsilon}\cap G
+1778: \neq\emptyset\right)=1$. 
+1779: Combining this result with \eqref{eq:io_union_iff}, we obtain that $\Prob(\hat\Y^M_{\epsilon_M}\cap G = \emptyset \ i.o.) = 0$. 
+1780: This conludes the proof of \eqref{eq:C2}. 
+
+1784: \vspace{2mm}
+
+1786: By Theorem \ref{thm:conv_randSets_detLim}, we conclude that almost surely, the sequence $\{\hat\Y^M_{\epsilon_M}(\omega),m\geq 1\}$  converges to $\hull(\Y)\oplus B(0,\bar{\epsilon})$ as $M\rightarrow\infty$. 
+1787: This concludes the proof of Theorem \ref{thm:asymptotic_convergence}.
+1790: \end{proof}
+
+1802: \subsection{Proof of Theorem \ref{thm:conservative_finite_sample}}\label{apdx:proof:thm:conservative_finite_sample}
+
+1804: We start with four intermediate results and then prove Theorem \ref{thm:conservative_finite_sample}. We use the notations introduced in Section \ref{apdx:random_set_theory} throughout this section.
+
+1809: \begin{lemma}% 
+1810: \label{lem:dX_packing_nb_Lip}
+1811: Under Assumption \ref{assum:f:lipschitz} \rev{and assuming that $\partial\Y\subseteq f(\partial\X)$,} 
+1812: $$D(\partial\Y,\epsilon)\leq D(\partial\X,\epsilon/L).$$ 
+1813: \end{lemma}
+
+1817: \begin{lemma}% 
+1818: \label{lem:Xball_coverage_prob} Under Assumption \ref{assum:f:lipschitz}, for any $x\in\R^p$, 
+1819: $y=f(x)$, and 
+1820: any $\delta>0$, % 
+1821: $$
+1822: \Prob_\Y\big(B(y,\delta)\big)
+1823: \geq \Prob_\X\big(B(x,\epsilon)\big)
+1824: \quad \text{for all }\ \epsilon\in [0,\delta/L].
+1825: $$
+1826: \end{lemma}
+
+1828: \begin{lemma}% 
+1829: \label{lem:Xhulleps_conservative_geom}
+1830: Let $\epsilon>0$ and define 
+1831: $$
+1832: Y_\epsilon^M
+1833: =
+1834: \underset{i=1}{\overset{M}{\bigcup}} \,
+1835: B(y_i,\epsilon),
+1836: \qquad
+1837: \pi(\partial\Y,Y_\epsilon^M)
+1838: =
+1839: \sup_{y\in\partial\Y}\Prob(\{y\} \cap Y_\epsilon^M = \emptyset).
+1840: $$  
+1847: Then, 
+1848: $$
+1849: \Prob(\partial\Y\subset Y_{2\epsilon}^M) \geq 1 - D(\partial\Y,\epsilon)
+1850: \pi(\partial\Y,Y_\epsilon^M).
+1851: $$
+1852: \end{lemma}
+
+1854: \begin{lemma}% 
+1855: \label{lem:Hausdorff_hulls}
+1856: Let $\epsilon\geq 0$ and let $Y\in\K$ be such that    
+1858: $\partial\Y\subseteq Y\oplus B(0,\epsilon)$ and $Y\subseteq \Y$. 
+1859: Then, $d_H(
+1860: \hull(Y), 
+1861: \hull(\Y)
+1862: )\leq \epsilon$.
+1863: \end{lemma}
+
+1867: Lemma \ref{lem:Xhulleps_conservative_geom} is the key to deriving Theorem \ref{thm:conservative_finite_sample}. 
+1868: It is first derived in \citep{Dumbgen1996} in the convex problem setting. Notably, Lemma \ref{lem:Xhulleps_conservative_geom} does not require the convexity of $\Y$.
+1869: \\
+
+1873: \begin{proof}\textbf{of Lemma \ref{lem:dX_packing_nb_Lip}.} 
+1874: First, note that 
+1875: since $\X$ is compact and $\partial\X\subseteq\X$, $\partial\X$ is compact (note that the boundary is always closed). Any compact set has a finite covering number, thus $D(\partial\X, \epsilon)$ is finite for any finite $\epsilon>0$. 
+1878: Second,   
+1879: given any $\delta>0$, 
+1880: any $x\in\X$, and $y=f(x)$,
+1881: \begin{equation}\label{eq:lipschitz_ball_conservative}
+1882: f(B(x,\epsilon)) \subseteq B(y,\delta)
+1883: \quad
+1884: \forall \epsilon\in[0,\delta/L],
+1885: \end{equation}
+1886: where $L$ is the Lipschitz constant in Assumption \ref{assum:f:lipschitz}. % 
+1888: Indeed, let $\tilde{x}\in B(x,\epsilon)$, so that $\|\tilde{x}-x\|\leq\epsilon$. Then, $
+1889: \|f(\tilde{x})-y\|
+1890: \leq L\,\|\tilde{x}-x\|\leq L\epsilon\leq\delta$ where the last inequality holds given that $\epsilon \leq \delta/L$. 
+
+1893: Next, let $F_{\partial\X}=\{x_i\}_{i=1}^{|F_{\partial\X}|}\subseteq\partial\X$ be a minimum $(\epsilon/L)$-covering for $\partial\X$, so that $|F_{\partial\X}|=D(\partial\X,\epsilon/L)$ and 
+1894:  for any $x\in\partial\X$, there exists $x_i\in F_{\partial\X}$ such that $\|x-x_i\|\leq \epsilon/L$. % 
+1895: Then, $F_{\partial\Y}=\{f(x_i)\, |\,x_i\in F_{\partial\X} \}$ is an $\epsilon$-covering for $\partial\Y$. 
+1896: 	Indeed, for any $y\in\partial\Y$, there exists some $x\in\partial\X$ such that $y=f(x)$, and there exists some $x_i\in F_{\partial\X}$ such that $\|x-x_i\|\leq \epsilon/L$. Therefore, 
+1897: 	$$\underset{y_i\in F_{\partial\Y}}{\sup} \|y-y_i\| = \underset{x_i\in F_{\partial\X}}{\sup} \|f(x)-f(x_i)\| 
+1898: \leq \underset{x_i\in F_{\partial\X}}{\sup} L\|x-x_i\| \leq \epsilon.$$ 
+
+1900: Therefore, since $F_{\partial\Y}$ is an $\epsilon$-covering for $\partial\Y$ and $|F_{\partial\Y}|=|F_{\partial\X}|=D(\partial\X,\epsilon/L)$, we obtain that 
+1901: $D(\partial\Y,\epsilon)\leq |F_{\partial\Y}| = D(\partial\X,\epsilon/L)$ which concludes this proof.
+1902: \end{proof}
+
+1959: \begin{proof}\textbf{of Lemma \ref{lem:Xball_coverage_prob}.}
+1960: From \eqref{eq:lipschitz_ball_conservative}, 
+1961: given any $\delta>0$, 
+1962:  $x\in\R^p$, and 
+1963:  $y=f(x)$, 
+1964: $
+1965: f(B(x,\epsilon)) \subset B(y,\delta)$ for any $\epsilon\in[0,\delta/L]$.
+1968: Thus, \vspace{-3mm}
+1969: \begin{align*}
+1970: \Prob_{\Y}(B(y,\delta))
+1976: &=
+1977: \Prob_\X\Big(f^{-1}(B(y,\delta))\Big)
+1978: \geq
+1979: \Prob_\X\left(
+1980: B(x,\epsilon)
+1981: \right)
+1982: \quad
+1983: \forall \epsilon\in[0,\delta/L],
+1984: \end{align*}
+1985: where the last inequality holds since $B(x,\epsilon) \subseteq f^{-1}(B(y,\delta))$,
+1986: which concludes this proof.
+1987: \end{proof}
+
+1992: \begin{proof}\textbf{of Lemma \ref{lem:Xhulleps_conservative_geom}.} 
+2010: Let $F_{\partial\Y}=\{y_i\}_{i=1}^{|F_{\partial\Y}|}\subseteq\partial\Y$ be a minimum $\epsilon$-covering for $\partial\Y$, so that $|F_{\partial\Y}|=D(\partial\Y,\epsilon)$ and 
+2011:  for any $y\in\partial\Y$, there exists $y_i\in F_{\partial\Y}$ such that $\|y-y_i\|\leq \epsilon$. 
+2012:  Let $B(F_{\partial\Y},\epsilon)=\bigcup_{y_i\in F_{\partial\Y}} B(y_i,\epsilon)$. 
+
+2016: By construction, $\partial\Y\subset B(F_{\partial\Y},\epsilon)$,
+2017: so that 
+2018: $
+2019: \partial\Y\nsubseteq Y_{2\epsilon}^M\implies
+2020: B(F_{\partial\Y},\epsilon)\nsubseteq Y_{2\epsilon}^M. 
+2021: $
+2022: Thus, 
+2023: \begin{align*}
+2024: \Prob(\partial\Y\nsubseteq Y_{2\epsilon}^M)
+2025: &\leq 
+2026: \Prob(B(F_{\partial\Y},\epsilon)\nsubseteq Y_{2\epsilon}^M)
+2027: =
+2028: \Prob(F_{\partial\Y}\nsubseteq Y_\epsilon^M)
+2029: \\
+2030: &=
+2031: \Prob\bigg(\bigcup_{y_i\in F_{\partial\Y}} y_i\notin Y_\epsilon^M\bigg)
+2032: \\
+2033: &\leq 
+2034: \sum_{y_i\in F_{\partial\Y}}\Prob(y_i\notin Y_\epsilon^M)
+2035: =
+2036: \sum_{y_i\in F_{\partial\Y}}
+2037: \Prob(\{y_i\}\cap Y_\epsilon^M = \emptyset)
+2038: \\
+2039: &\leq 
+2040: |F_{\partial\Y}| \cdot
+2041: \sup_{y\in\partial\Y}\Prob(\{y\}\cap Y_{\epsilon}^M = \emptyset)
+2042: \\
+2043: &\leq 
+2044: D(\partial\Y,\epsilon)\pi(\partial\Y,Y_{\epsilon}^M).
+2045: \end{align*}
+2046: The conclusion follows.
+2047: \end{proof}
+
+2049: \begin{proof}\textbf{of Lemma \ref{lem:Hausdorff_hulls}.} 
+2050: $\partial\Y\subseteq Y\oplus B(0,\epsilon)$ implies that $\hull(\Y)=\hull(\partial\Y)\subseteq \hull(Y\oplus B(0,\epsilon))=\hull(Y)\oplus B(0,\epsilon)$.
+
+2052: $Y\subseteq \Y$ implies % 
+2053: that 
+2054: $\hull(Y)\subseteq \hull(\Y)\subset\hull(\Y)\oplus B(0,\epsilon)$.% 
+
+2060: Together, 
+2061: $\hull(\Y)\subset\hull(Y)\oplus B(0,\epsilon)$
+2062: and $\hull(Y)\subset\hull(\Y)\oplus B(0,\epsilon)$
+2063: imply that $d_H(
+2064: \hull(Y), 
+2065: \hull(\Y)
+2066: )\leq \epsilon$, see \citep{Schneider2014}.
+2067: \end{proof}
+
+2071: With these results, we prove Theorem \ref{thm:conservative_finite_sample} below. We first restate it for better readability.
+2072: \\[2mm]
+2074: \textbf{Theorem \ref{thm:conservative_finite_sample}} 
+2075:  \textit{Define the probability threshold
+2076: $
+2077: \delta_M= 
+2078: D(\partial\X,\epsilon/(2L))\left(1 -
+2079: 	\Lambda_{\epsilon}^{L}
+2080: \right)^M
+2081: $ and the estimator $\hat\Y^M=\hull\left(\{y_i\}_{i{=}1}^M\right)$.
+2083: Then, under Assumptions \ref{assum:f:lipschitz} and \ref{assum:sampling_density} 
+2084: \rev{and assuming that $\partial\Y\subseteq f(\partial\X)$,}  
+2085: $$
+2086: \Prob(
+2087: d_H(
+2088: \hat\Y^M, 
+2089: \hull(\Y)
+2090: )\leq \epsilon
+2091: )\geq 1-\delta_M
+2092: \qquad\text{and}\qquad
+2093: \Prob(\Y\subseteq\hat\Y_\epsilon^M)\geq 1-\delta_M.
+2094: $$}
+2095: \rev{\hspace{-1.5mm}\textbf{Remark:} the assumption $\partial\Y\subseteq f(\partial\X)$ holds if the reachability map $f$ is open, e.g., if it is a submersion (its differential is surjective). 
+2096: If $\partial\Y\nsubseteq f(\partial\X)$, then one could modify Theorem \ref{thm:conservative_finite_sample} by replacing Assumption \ref{assum:sampling_density} with \textit{``Given $\epsilon,L\,{>}\,0$, there exists $\Lambda_{\epsilon}^{L}\,{>}\,0$ such that  $\Prob_\X\left(B\left(x,\frac{\epsilon}{2L}\right)\right)\,{\geq}\, \Lambda_{\epsilon}^{L}$ for all  $x\in\X$''} (i.e., one should sample over the entire set $\X$ and not only along the boundary) and by defining $\delta_M=D(\X,\epsilon/(2L))(1 -	\Lambda_{\epsilon}^{L})^M$.}
+2097: \\
+
+2101: \begin{proof}% 
+2102: As in Lemma \ref{lem:Xhulleps_conservative_geom}, define $Y_\epsilon^M
+2103: 	=
+2104: 	\bigcup_{i=1}^M B(y_i,\epsilon)$, 
+2105: 	$Y^M=\{y_i\}_{i=1}^M$, and 
+2106: $$
+2107: \pi(\partial\Y,Y_\epsilon^M)
+2108: =
+2109: \underset{y\in\partial\Y}{\sup}\Prob(\{y\} \cap Y_\epsilon^M = \emptyset)
+2110: =
+2111: \underset{y\in\partial\Y}{\sup}\Prob(B(y,\epsilon) \cap Y^M = \emptyset),
+2112: $$
+2113: which corresponds to the worst probability over $y\in\partial\Y$ of not sampling some $y_i$ that is $\epsilon$-close to $y$. 
+2116: First, we derive a bound for $\pi(\partial\Y,Y_\epsilon^M)$. 
+2118: Using the fact that the samples $y_i$ are i.i.d., 
+2119: \begin{align*}
+2120: \pi(\partial\Y,Y_\epsilon^M) 
+2121: &=
+2122: \sup_{y\in\partial\Y}\Prob(B(y,\epsilon) \cap Y^M = \emptyset)
+2123: \\
+2124: &= \sup_{y\in\partial\Y}\Prob\left(\bigcap_{i=1}^M
+2125: (y_i\notin B(y,\epsilon))\right)
+2126: \\
+2127: &= \left(1 -
+2128: 	\inf_{y\in\partial\Y}\Prob(y_i\in B(y,\epsilon)) 
+2129: \right)^M
+2134: \\
+2135: &=\left(1 -
+2136: 	\inf_{y\in\partial\Y}\Prob_\Y(B(y,\epsilon)) 
+2137: \right)^M.
+2138: \end{align*}
+2139: From Lemma \ref{lem:Xball_coverage_prob}, 
+2140: for any $x\in\R^p$, 
+2141: $y=f(x)$, and 
+2142: $\epsilon>0$, 
+2143: $\Prob_\Y(B(y,\epsilon))
+2144: \geq \Prob_\X(B(x,\epsilon/L))$. 
+2145: Since for all $y\in\partial\Y$, there exists $x\in\partial\X$ such that $y=f(x)$, we combine the two previous results to obtain 
+2146: \begin{align*}
+2147: \pi(\partial\Y,Y_\epsilon^M) 
+2148: \leq 
+2149: \left(1 -
+2150: 	\inf_{x\in\partial\X}\Prob_\X(B(x,\epsilon/L))
+2151: \right)^M.
+2152: \end{align*}
+2153: In particular, using Assumption \ref{assum:sampling_density}, 
+2154: \begin{align*}
+2155: \pi(\partial\Y,Y_{\epsilon/2}^M) 
+2156: \leq 
+2157: \left(1 -
+2158: 	\inf_{x\in\partial\X}\Prob_\X(B(x,\epsilon/(2L)))
+2159: \right)^M
+2160: \leq 
+2161: \left(1 -
+2162: 	\Lambda_{\epsilon}^{L}
+2163: \right)^M.
+2164: \end{align*}
+2166: To complete the proof of Theorem \ref{thm:conservative_finite_sample}, we use Lemma \ref{lem:Xhulleps_conservative_geom} which states that 
+2167: $$
+2168: \Prob(\partial\Y\subseteq Y_\epsilon^M) \geq 1 - D(\partial\Y,\epsilon/2)
+2169: \pi(\partial\Y,Y_{\epsilon/2}^M)
+2170: .
+2171: $$
+2174: Using Lemma \ref{lem:dX_packing_nb_Lip},  
+2175: $D(\partial\Y,\epsilon/2)\leq D(\partial\X,\epsilon/(2L))$. 
+2177: \\
+2178: By Lemma \ref{lem:Hausdorff_hulls}, 
+2179:  if $\partial\Y\subseteq Y_\epsilon^M$
+2180: and $Y^M\subseteq\Y$\footnote{Since $\Prob_\X(\X)=1$, we have that $\Prob_\Y(\Y)=1$, so that $Y^M\subseteq\Y$ with probability one.}, then 
+2181: $d_H(
+2182: \hull(Y^M), 
+2183: \hull(\Y)
+2184: )\leq \epsilon
+2185: $  
+2186: .
+2188: \\
+2189: Therefore, with $\hat\Y^M=\hull(Y^M)$ and Assumption \ref{assum:sampling_density}, combining the last inequalities,
+2190: \begin{align*}
+2191: \Prob(
+2192: d_H(
+2193: \hat\Y^M, 
+2194: \hull(\Y)
+2195: )\leq \epsilon
+2196: )
+2197: &\geq 
+2198: \Prob\left(\partial\Y\subseteq Y_\epsilon^M\right)
+2199: \\
+2200: &\geq 
+2201: 1 - D(\partial\Y,\epsilon/2)
+2202: \pi(\partial\Y,Y_{\epsilon/2}^M)
+2203: \\
+2204: &\geq
+2205: 1 - D(\partial\X,\epsilon/(2L))
+2206: \left(1 -
+2207: 	\Lambda_{\epsilon}^{L}
+2208: \right)^M.
+2209: \end{align*}
+2230: If $d_H(
+2231: \hat\Y^M, 
+2232: \hull(\Y)
+2233: )\leq \epsilon$, 
+2234: then 
+2235: $\Y\subseteq\hull(\Y)\subseteq \hat\Y^M\oplus B(0,\epsilon)=\hat\Y_\epsilon^M$. 
+2236: The conclusion follows.
+2237: \end{proof}
+
+2241: \subsection{Proof of Corollary \ref{cor:conservative_finite_sample}}\label{apdx:proof:cor:conservative_finite_sample}
+
+2245: We start with the following preliminary result:
+
+2258: \begin{lemma}% 
+2259: \label{lem:X_vol_covrg_eps_ball:improved_caps}
+2260: Assume that $\X^\comp$ is $r$-convex  (Assumption \ref{assum:Theta:r_convex}).
+2262: Define 
+2263: $\vec{r}=(r,0,\dots,0)\in\R^p$. 
+2264: Then, for any $\epsilon\geq 0$,  
+2265: $$\underset{x\in\partial\X}{\inf}\lambda(\X \cap B(x,\epsilon))
+2266: \geq 
+2267: \lambda\big(
+2268: B(0,\epsilon) 
+2269: \cap B(\vec{r},r)
+2270: \big)
+2271: .$$
+2272: \end{lemma}
+
+2276: \begin{proof}\textbf{of Lemma \ref{lem:X_vol_covrg_eps_ball:improved_caps}.}
+2277: By Assumption \ref{assum:Theta:r_convex}, $\X^\comp$ is $r$-convex. Thus, 
+2278:  for any $x\in\partial\X$, there exists some $\tilde{x}\in\Int(\X)$ and a (closed) ball $B(\tilde{x},r)$ such that $x\in B(\tilde{x},r)$ and $B(\tilde{x},r)\subseteq\X$. 
+2279:  Since $x\in\partial\X$ and $B(\tilde{x},r)\subseteq\X$, 
+2280:  $\|x-\tilde{x}\|=r$. % 
+
+2282: Let $\epsilon\geq 0$ and $\vec{r}=(r,0,\dots,0)\in\R^p$. Then, by translational and rotational invariance of the Lebesgue measure,
+2283: $$
+2284:  \lambda(\X \cap B(x,\epsilon))
+2285: \geq 
+2286: \lambda\big(
+2287: B(\tilde{x},r) 
+2288: \cap 
+2289: B(x,\epsilon)
+2290: \big)
+2291: =
+2292: \lambda\big(
+2293: B(x-\tilde{x},r) 
+2294: \cap 
+2295: B(0,\epsilon)
+2296: \big)
+2297: =
+2298: \lambda\big(
+2299: B(\vec{r},r) 
+2300: \cap 
+2301: B(0,\epsilon)
+2302: \big)
+2303: $$
+2304: As this holds for $x\in\partial\X$, % 
+2305: we obtain that 
+2306: $\underset{x\in\partial\X}{\inf}\lambda(\X \cap B(x,\epsilon))
+2307: \geq 
+2308: \lambda\big(
+2309: B(0,\epsilon) 
+2310: \cap B(\vec{r},r)
+2311: \big)
+2312: $.
+2313: \end{proof}
+
+2318: Then, we restate Corollary  \ref{cor:conservative_finite_sample} and prove it below. 
+2319: \\[2mm]
+2320: \textbf{Corollary \ref{cor:conservative_finite_sample}} 
+2321: \textit{Define the estimator $\hat\Y^M=\hull\left(\{y_i\}_{i{=}1}^M\right)$, 
+2322:  the offset vector 
+2323:  $\vec{r}=(r,0,\dots,0)\in\R^p$, 
+2324:  the volume $\Lambda_{\epsilon}^{r,L}=\lambda\big(
+2325:  B(0,\epsilon/(2L)) 
+2326:  \cap B(\vec{r},r)
+2327:  \big)$, 
+2328:  and the threshold
+2329:  $
+2330:  \delta_M= 
+2331:  D(\partial\X,\epsilon/(2L))\big(1 -
+2332:  	p_0 \Lambda_{\epsilon}^{r,L}
+2333:  \big)^M
+2334:  $.
+2336: Then, under Assumptions \ref{assum:f:lipschitz},  \ref{assum:Theta:r_convex} and \ref{assum:sampling_density:cor} 
+2337: \rev{and assuming that $\partial\Y\subseteq f(\partial\X)$,}  
+2338: $$
+2339: \Prob(
+2340: d_H(
+2341: \hat\Y^M, 
+2342: \hull(\Y)
+2343: )\leq \epsilon
+2344: )\geq 1-\delta_M,
+2345: \qquad \text{ and }\qquad\ 
+2346: \Prob(\Y\subseteq\hat\Y_\epsilon^M)\geq 1-\delta_M.
+2347: $$
+2349: }
+2351: \begin{proof}\textbf{of Corollary \ref{cor:conservative_finite_sample}.}
+2352: We prove that Assumptions \ref{assum:Theta:r_convex} and \ref{assum:sampling_density:cor} imply Assumption \ref{assum:sampling_density} with $\Lambda_{\epsilon}^{L}=p_0\Lambda_{\epsilon}^{r,L}$, where $\Lambda_{\epsilon}^{r,L}=\lambda\big(
+2353:  B(0,\epsilon/(2L)) 
+2354:  \cap B(\vec{r},r)
+2355:  \big)$. 
+2356: The result then follows by applying Theorem \ref{thm:conservative_finite_sample}.
+
+2359: Specifically, we must prove that 
+2360: $\Prob_\X(B(x,\epsilon/(2L)))\geq \Lambda_{\epsilon}^{L}$ for all  
+2361: 	$x\in\partial\X$. 
+
+2363: 	From Assumption \ref{assum:sampling_density:cor}, 
+2364: 	$\Prob_\X(A)\geq p_0\lambda(A)$ for all  
+2365:  	$A\in\B(\X)$ for some constant $p_0>0$.
+
+2367: Since $\Prob_\X(\X)=1$ (Assumption \ref{assum:sampling_density:cor}), 
+2368: 	$\Prob_\X(B(x,\epsilon/(2L)))
+2369: 	=
+2370: 	\Prob_\X(\X\cap B(x,\epsilon/(2L)))
+2371: 	$ for any  
+2372: 	$x\in\R^n$.
+
+2375: 	Therefore, for all  
+2376: 	$x\in\partial\X$, 
+2377: 	$\Prob_\X(B(x,\epsilon/(2L)))
+2378: 	=
+2379: 	\Prob_\X(\X\cap B(x,\epsilon/(2L)))
+2380: 	\geq 
+2381: 	p_0 \lambda(\X\cap B(x,\epsilon/(2L))).$
+
+2383: 	From Assumption \ref{assum:Theta:r_convex} and Lemma \ref{lem:X_vol_covrg_eps_ball:improved_caps}, we obtain  
+2384: 	$\Prob_\X(B(x,\epsilon/(2L)))
+2385: 	\geq 
+2386: 	p_0 \lambda\big(
+2387: B(0,\epsilon/(2L)) 
+2388: \cap B(\vec{r},r)
+2389: \big)$  for all  
+2390: 	$x\in\partial\X$ with $\vec{r}=(r,0,\dots,0)\in\R^p$. 
+2391: 	This concludes the proof of Corollary \ref{cor:conservative_finite_sample}.
+2392: \end{proof}
+
+2549: \section{Volume of the intersection of two hyperspheres}
+2550: \label{appendix:spherical_caps}\label{apdx:intersection_spherical_cap}
+2551: For completeness, we describe the computation of the constant $\Lambda_{\epsilon}^{r,L}=\lambda\big(
+2552: B(0,\epsilon/(2L)) 
+2553: \cap B(\vec{r},r)
+2554: \big)$ in Theorem \ref{thm:conservative_finite_sample} based on the results in \citep{Li2011,Petitjean2013,MattStackExchange2013}. 
+2557: Given $r>0$, $a\in\R$, 
+2558: and the incomplete beta function 
+2559: $I_x(a,b)=\Gamma(a+b)(\Gamma(a)\Gamma(b))^{-1}\int_0^xt^{a-1}(1-t)^{b-1}\dd t$, we define
+2560: $$V(r,a)=\begin{cases}
+2561: \frac{\pi^{p/2}}{2\Gamma(\frac{p}{2}+1)}r^nI_{1-a^2/r^2}\left(\frac{n+1}{2},\frac{1}{2}\right)\ &\text{if }a\geq 0,
+2562: \\
+2563: \frac{\pi^{p/2}}{2\Gamma(\frac{p}{2}+1)}r^n(2-I_{1-a^2/r^2}\left(\frac{n+1}{2},\frac{1}{2}\right))
+2564: \ &\text{otherwise.}
+2565: \end{cases}
+2566: $$
+2567: Let 
+2568: $c_1=\frac{(\epsilon/(2L))^2}{2r}$ and 
+2569: $c_1=\frac{2r^2-(\epsilon/(2L))^2}{2r}$. 
+2570: Then, 
+2571: $
+2572: \Lambda_{\epsilon}^{r,L}
+2573: =
+2574: V(\epsilon/(2L),c_1) 
+2575: +
+2576: V(r,c_2)$.
+
+2579: \label{appendix:spherical_caps}
+2581: \section{Computing the Lipschitz constant of a ReLU network from samples}\label{appendix:lipschitz_relu}
+2582: In this section, we show that sampling gradients enables obtaining the Lipschitz constant of a neural network with ReLU activation functions with high probability. 
+2583: Consider a feed-forward ReLU neural network $f:\R^n\rightarrow\R^n$ with $\ell\in\mathbb{N}$ layers, given as 
+2584: $$
+2585: f(x) = W^\ell x^\ell + b^\ell,
+2586: \quad x^{k+1}=\phi^k(W^kx^k+b^k), \ k=0,\dots,\ell-1,
+2587: \quad 
+2588: x^0 = x,
+2589: $$
+2590: where $(W^k,b^k)_{k=0}^\ell$ are the network weights and biases, and each $\phi^k:\R^{n_k}\rightarrow\R^{n_{k+1}}$ is defined as 
+2591: $\phi^k(x)=(\varphi(x_1),\dots,\varphi(x_{n_k}))
+2592: $ with $\varphi(z)=\max(0,z)$. 
+2594: Note that $f$ is piecewise-affine. 
+
+2596: Let $\X\subset\R^n$ be a non-empty compact set. 
+2598: Let $\A=\{A_1,\dots,A_N\}$ be the set of all polytopes $A_i\subseteq\X$ where $f|_{A_i}$ is affine, which we call the activation regions of $f$.  
+2599: Let $\Lambda_N=\frac{\min_{i=1,\dots,N} \lambda(A_i)}{\lambda(\X)}$ be the smallest (normalized Lebesgue) volume of all activation regions. 
+2600: Note that $f$ is Lipschitz continuous over $\X$, since it is continuous and restricted to a compact subset. Thus, for some $L\geq 0$,
+2601: $$
+2602: \|f(x_1)-f(x_2)\|\leq L\|x_1-x_2\|\quad \forall x_1,x_2\in\X.
+2603: $$
+2604: Further, since  $f$ is piecewise-affine, $f$ is $L$-Lipschitz continuous with 
+2605: $$
+2606: L=\max_{i=1,\dots,N} \{\|\nabla f(x_i)\|\ \text{for some }x_i\in A_i\}.
+2607: $$
+2608: We propose the following sampling-based method to recover the Lipschitz constant $L$:
+2609: \begin{enumerate}\setlength\itemsep{0.5mm}
+2610: \item Draw $M$ random samples $x_i$ in $\X$ according to the uniform probability measure over $\X$.
+2611: \item Evaluate $L_i=\|\nabla f(x_i)\|$ for all $i=1,\mydots,M$.
+2612: \item Set $\hat{L}=\max_{i=1,\dots,M} L_i$.
+2613: \end{enumerate}
+2614: In general, with this approach, providing statistical guarantees on whether $\hat{L}$ is a valid Lipschitz constant for $f$ is challenging; the analysis would rely on the Hessian of $f$ which is a-priori unknown. 
+2616: In this specific setting, $f$ is piecewise-affine, which we leverage in the analysis below.
+2617: \begin{lemma}
+2618: With the previous notations, define 
+2619: $\delta_M=N(1-\Lambda_N)^M
+2620: $. 
+2621: Then,
+2622: $$
+2623: \Prob(f\text{ is $\hat{L}$-Lipschitz continuous over $\X$})\geq 1-\delta_M.
+2624: $$
+2625: \end{lemma}
+2626: \begin{proof}
+2627: Since $L=\max_{i=1,\dots,N} \{\|\nabla f(x_i)\|\ \text{for some }x_i\in A_i\}$, a sufficient condition for $f$ to be $\hat{L}$-Lipschitz continuous is that at least one point $x_j$ was sampled in each region $A_i$. Thus,
+2628: \begin{align*}
+2629: \Prob\left(
+2630: \bigcap_{i=1}^N\left\{
+2631: \bigcup_{j=1}^M \{x_j\}\cap A_i\neq\emptyset
+2632: \right\}
+2633: \right)
+2634: &=
+2635: 1-
+2636: \Prob\left(
+2637: \bigcup_{i=1}^N\left\{
+2638: \bigcup_{j=1}^M \{x_j\}\cap A_i\neq\emptyset
+2639: \right\}^\comp
+2640: \right)
+2641: \\
+2642: &\geq
+2643: 1-
+2644: \sum_{i=1}^N
+2645: \Prob\left(
+2646: \bigcap_{j=1}^M x_j\notin A_i
+2647: \right)
+2648: \ \,\quad\text{(Boole's inequality)}
+2649: \\
+2650: &=
+2651: 1-
+2652: \sum_{i=1}^N
+2653: \Prob\left(
+2654:  x_j\notin A_i
+2655: \right)^M
+2656: \qquad\quad\text{(independent samples)}
+2657: \\
+2658: &\geq 
+2659: 1-N(1-\Lambda_N)^M,
+2660: \end{align*}
+2661: where the last step follows from
+2662: $\Prob\left(
+2663:  x_j\notin A_i
+2664: \right)=1-\Prob\left(
+2665:  x_j\in A_i
+2666: \right)\leq 1-\Lambda_N$. 
+2667: \end{proof}
+
+2669: Upper bounds for the number of activation regions $N$, as a function of the number of neurons and layers of the neural network $f$, are available in the literature \citep{Montufar2014,Serra2018,Hanin2019}. 
+2671: The regions $A_i$ and their number $N$ could be explicitely computed using formal methods \citep{Serra2018,Vincent2021}. % 
+
+2678: \section{Experimental details}
+2679: \subsection{Sensitivity analysis}\label{apdx:sensitivity}
+2680: We provide more details into the sensitivity analysis in Section \ref{sec:results:sensitivity}.
+
+2683: 	\begin{wrapfigure}{R}{0.32\linewidth}
+2684: 	\begin{minipage}{1\linewidth}
+2685: 	\vspace{-4mm}
+2686:     \centering	\includegraphics[width=1\linewidth]{figs/results/sensitivity/alphas.png}
+2687: 	\caption{$M=1000$ samples  $x_i$ distributed according to $\Prob_\X^\alpha$ for two values of the parameter $\alpha$.}\label{fig:sensitivity:sampling_distribution}
+2688: 	\vspace{-16mm}
+2689: 	\end{minipage}% 
+2690: 	\end{wrapfigure}
+
+2692: \textbf{Sampling distribution}: 
+2693: uniformly sampling over a $p$-dimensional ball $\X=B(0,1)$ can be done with the following algorithm (see, e.g., \citep{Harman2010}): % 
+2694: \begin{enumerate}[leftmargin=5mm]
+2695: \item Sample $u\sim\textrm{Unif}(0,1)$ and set the radius $r\gets u^{1/p}$.
+2696: \item Sample $z\sim \mathcal{N}(\mathbf{0},\textrm{I}_{p})$ with $\textrm{I}_p\in\R^{p\times p}$ the identity matrix.
+2697: \item Set the input sample to $x \gets (r\cdot z)/\|z\|_2$.
+2698: \end{enumerate}
+2699: Our sampling distribution $\Prob_\X^\alpha$ is a simple modification to this algorithm to yield increasingly larger probabilities of sampling inputs $x$ close to the boundary $\partial\X$. Specifically, we replace the first step above with sampling from a $\beta$-distribution 
+2700: $u\sim\textrm{Beta}(\alpha,\beta)$, where $\beta=1$ is fixed and $\alpha\geq 1$ is a varying parameter. Setting $\alpha=1$ yields a uniform distribution (i.e., $\textrm{Beta}(1,1)=\textrm{Unif}(0,1)$) whereas larger values of $\alpha$ yield larger probabilities of sampling close to the boundary $\partial\X$, see Figure \ref{fig:sensitivity:sampling_distribution}.
+
+2703: \textbf{Finite-sample bound}:  	
+2704: given a desired $\epsilon$-accuracy, 
+2705: evaluating the theoretical coverage probability $1-\delta_M$ from Corollary \ref{cor:conservative_finite_sample} requires evaluating the threshold
+2706:  $
+2707:  \delta_M= 
+2708:  D(\partial\X,\epsilon/(2L))\big(1 -
+2709:  	p_0 \Lambda_{\epsilon}^{r,L}
+2710:  \big)^M
+2711:  $. 
+2712: 	Since $\X$ is a $2$-dimensional unit-radius ball, the covering term is bounded by $D(\partial\X,\bar\epsilon)\leq (2\pi) / (2\bar\epsilon) + 1$. The volume term $\Lambda_{\epsilon}^{r,L}=\lambda\big(
+2713:  B(0,\epsilon/(2L)) 
+2714:  \cap B(\vec{r},r)
+2715:  \big)$ is computed as described in Section \ref{apdx:intersection_spherical_cap}. 
+2717:  The constant $p_0^\alpha>0$ that satisfies
+2718:  $\Prob_\X^\alpha(B_x)\geq p_0^\alpha\lambda(B_x)$ for all  
+2719:  	$B_x=B(x,\bar\epsilon)\cap\X$ with $x\in\partial\X$ (see Assumption \ref{assum:sampling_density:cor}) can be computed as $p_0^\alpha=(1-\textrm{CDF}_{\textrm{Beta}(\alpha,\beta)}((1-\bar\epsilon)^p)))/(1-\textrm{CDF}_{\textrm{Unif}(0,1)}((1-\bar\epsilon)^p))$. 
+2721: Finally, given the fixed threshold $\smash{\delta_M=10^{-3}}$, we compute the corresponding guaranteed accuracy value $\epsilon>0$ that satisfies $
+2722:  \delta_M= 
+2723:  D(\partial\X,\epsilon/(2L))\smash{(1 -
+2724:  	p_0 \Lambda_{\epsilon}^{r,L}
+2725:  )^M}
+2726:  $ using a bisection method.
+
+2729: \subsection{Verification of neural network controllers}\label{apdx:exps:nn}
+2730: We provide further details about the neural network controller experiment in Section \ref{sec:results:verif_closed_nn}. 
+2731: In this experiment, we consider the verification of a neural network controller $u_t=\pi_{\textrm{nn}}(x_t)$ for a known linear dynamical system $x_{t+1}=Ax_t+Bu_t$, where $t\in\mathbb{N}$ denotes a time index, and $x_t\in\R^n$ and $u_t\in\R^m$ denote the state and control input. % 
+2732: Given a set of initial states $\X_0\subset\R^n$, 
+2734: the problem consists of estimating the reachable set at time $t\in\mathbb{N}$ defined as
+2735: $
+2736: \X_t=\{(A(\cdot)+B\pinn(\cdot))\circ\dots\circ 
+2737: (Ax_0+B\pi_{\textrm{nn}}(x_0)): x_0\in\X_0\}$. 
+2738: Defining $(\X,\Y)=(\X_0,\X_t)$ and $f(x)=(A(\cdot)+B\pinn(\cdot))\circ\dots\circ 
+2739: (Ax+B\pi_{\textrm{nn}}(x))$, we see that this problem fits the mathematical form described in Section \ref{sec:intro}. % 
+2741: In the experiments, we consider $A=\SmallMatrix{
+2742: 1&1\\0&1
+2743: }$, $B=\SmallMatrix{
+2744: 0.5\\1
+2745: }$, % 
+2749: $
+2764: \X_0=\{(x^1,x^2)\in\R^2:
+2765: 5\leq 2x^1\leq 6, -1\leq 4x^2\leq 1
+2766: \}
+2767: $, and % 
+2769: a ReLU network $\pinn$ from \citep{Everett21_journal} with two layers of $5$ neurons each. 
+2772: We compare $\epsilon$-\randup with the formal verification technique \reachlp \citep{Everett21_journal} % 
+2774: and the sampling-based approaches presented in % 
+2775: \citep{ThorpeL4DC2021} and % 
+2776: \citep{Gruenbacher2021}. 
+2778: We use the Abel kernel $K(x_1,x_2)=\exp(-\|x_1-x_2\|/\scalebox{0.9}{$0.05$})$ for the kernel method \citep{ThorpeL4DC2021} due to its separating property \citep{DeVito2014}. 
+2780: To implement \gotube \citep{Gruenbacher2021}, we use the $\epsilon$-\randup algorithm where we replace the last convex hull bounding step with an % 
+2781: outer-bounding ball. % 
+2783: We use a uniform sampling distribution for all methods. 
+2792: As ground-truth, we use the reachable sets from $\epsilon$-\randup with $\epsilon=0$ and $M=10^6$, which is motivated by the asymptotic results from Theorem \ref{thm:asymptotic_convergence} and was previously done in \citep{Everett21_journal}. 
+
+2795: Next, we provide further details into the evaluation of the finite sample bound: given $\epsilon=0.02$, %$\epsilon=10^{-2}$, 
+2796: sampling $M=1400$ %$M=3000$ 
+2797: inputs that are uniformly-distributed on the boundary $\partial\X$ is sufficient to ensure that the approximated reachable sets from $\epsilon$-\randup are conservative with probability greater than $1-10^{-4}$. 
+2798: This result relies on the Lipschitz constant of the closed-loop system, which we set to $L=1$ to evaluate this bound since the neural network controller leads to closed-loop stability. Alternatively, one could use a formal method to compute a bound on this constant (in contrast to using a formal method for reachability analysis, computing this Lipschitz constant only needs to be done once and can be done offline) or sampling-based methods with a large number of samples (see Section \ref{appendix:lipschitz_relu} for an analysis). 
+2800: Since the input set is given as $\X=[2.5,3]\times[-0.25,0.25]$, we have $D(\partial\X, \epsilon/(2L))\leq 2\cdot(0.5+0.5)/(2\epsilon/(2L)) + 1=2/\epsilon+1$. 
+2801: Finally, since we sample according to a uniform distribution on the boundary and the input set is rectangular, the coverage constant $\Lambda_\epsilon^L$ in Assumption \ref{assum:sampling_density} can be set to $\Lambda_\epsilon^L=(2\cdot(\epsilon/2L)) / (4\cdot0.5)=\epsilon/2$. 
+2802: Thus, with $\epsilon=0.02$, %$\epsilon=10^{-2}$ 
+2803: (which leads to more accurate reachable set approximations than alternative approaches, see Figure \ref{fig:nn_controller:M_vs_dH_time}), from Theorem \ref{thm:conservative_finite_sample}, choosing $M\geq \frac{\log(\delta_M)-\log(D(\partial\X,\epsilon/(2L)))}{\log(1-\Lambda_\epsilon^L)}\approx 1376$ %2896$ 
+2804: is sufficient to be conservative with probability at least $1-10^{-4}$.
+2814: \end{document}

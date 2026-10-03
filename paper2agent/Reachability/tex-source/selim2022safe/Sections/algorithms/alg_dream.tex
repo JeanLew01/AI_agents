@@ -1,0 +1,21 @@
+\begin{algorithm}[t]
+\caption{Dreaming}
+\label{alg:dream}
+\KwInput{current RL agent state $\RLstate_k$, RL policy $\policy_\theta$, and environment mimic network $\mimic_\phi$}
+
+\KwInOut{reward $\rewfunc$ and action $\action\brk$ per Assum. \ref{assumption:stop}}
+
+$\dreamstate_k \leftarrow \RLstate_k$ // initialize dream state
+
+\For{$j = k:(k+\nplan)$ \label{ln:dream1}}{
+     $\mimicaction_j \leftarrow \policy_\theta(\dreamstate_j)$ // dream action \\ \label{ln:dream2}
+     
+     $\rew_j \leftarrow \rewfunc(\dreamstate_j,\mimicaction_j)$ // dream reward
+
+     $\dreamstate_{j+1} \leftarrow \mimic_\phi(\dreamstate_{j+1},\mimicaction_j)$ // dream next state \\ \label{ln:dream3}
+} \label{ln:dream4}
+
+$\mimicaction_j \leftarrow \action\brk$ for all $j > k + \nplan$ // include failsafe \\
+
+ \textbf{return} $\plan_k \leftarrow (\mimicaction_j)_{j=k}^\infty$ // dreamed plan
+\end{algorithm}

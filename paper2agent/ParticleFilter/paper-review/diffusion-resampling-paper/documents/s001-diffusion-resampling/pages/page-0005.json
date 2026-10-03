@@ -1,0 +1,317 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 5, four 180-dpi crops covering both columns, the native text lines and main.tex (end of Section 2.3 and Section 3 up to Assumption 2). First item 'Provided that $A$ is invertible ...' continues the paragraph after equation (12) on page 4 (no blank line in main.tex): join_previous=space. Displays converted from formula images to $$...$$ blocks (maths from main.tex, macros expanded: \\expp -> \\mathrm{e}, \\diff -> \\mathrm{d}, \\grad -> \\nabla, \\refmeasure -> \\pi_{\\mathrm{ref}}, \\abs/\\absbig -> |...|/\\bigl|...\\bigr|, \\innerpbig -> \\bigl\\langle...\\bigr\\rangle, \\expecbig -> \\mathbb{E}\\bigl[...\\bigr], \\R -> \\mathbb{R}), checked against the crops: the unnumbered Jentzen-Kloeden exponential integrator ($U_{t_k}$, $B_k$ Wiener integral), the unnumbered Lord-Rougemont integrator, the unnumbered recalled ideal re-sampler (4), equation (13) (approximate reversal with $s_N$ and $\\widetilde{U}(0)\\sim\\pi_{\\mathrm{ref}}$; single printed number on the middle line, given as \\tag{13}), the unnumbered strong log-concavity inequality, the Lipschitz display of Assumption 1 and the score-error bound of Assumption 2 (both unnumbered). Split items: the formula box of the log-concavity display also held the prose 'and we denote it by $\\nu\\preceq z$. The assumptions that we globally use are as follows.' (new text item p0005-b016a); the extractor's b019 merged the end of Assumption 1 with Assumption 2, now split (b019 / new b019a). Assumption labels in bold as printed: '**Assumption 1 (Diffusion conditions).**', '**Assumption 2 (Ensemble score condition).**'; their italic statements are transcribed upright with LaTeX maths. Joins (space): each display and its continuation; 'We denote the distributions of $U(t)$ and $\\widetilde{U}(t)$ by' (bottom of left column) -> '$q_t=p_{T-t}$ and $\\widetilde{q}_t$, ...' (top of right column). The last item ends 'Typically, the Monte' and continues on page 6 ('Carlo order is ...', join space set there). TeX vs PDF: the PDF cites 'Øksendal (2007, Thm. 5.2.1)' (TeX key Oksendal2003); PDF text kept. 'Recall the ideal re-sampler' keeps the printed compound hyphen (extractor had 'resampler'). Heading '## 3. Convergence analysis'. Omitted: running header, page number 5.",
+  "warnings": [
+    "Review possible header/footer: p0005-b000"
+  ],
+  "items": [
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        69.0,
+        291.0,
+        92.0
+      ],
+      "markdown": "Provided that $A$ is invertible, Jentzen & Kloeden (2009) propose an exponential integrator",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        95.0,
+        291.0,
+        149.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nU_{t_{k}} &= \\mathrm{e}^{A \\, \\Delta_k} \\, U_{t_{k-1}} + A^{-1} \\, (\\mathrm{e}^{A \\, \\Delta_k} - I_d) \\, f(U_{t_{k-1}}) + B_k, \\\\\nB_k &= \\sqrt{2} \\, b \\int^{t_{k}}_{t_{k-1}} \\mathrm{e}^{(t_{k} - \\tau) \\, A} \\, \\mathrm{d} W(\\tau),\n\\end{aligned}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        153.0,
+        292.0,
+        295.0
+      ],
+      "markdown": "where $\\Delta_k \\coloneqq t_{k} - t_{k-1}$, and the Wiener integral $B_k$ simplifies to $B_k \\sim \\mathrm{N}\\bigl(0, \\Sigma_N \\, (\\mathrm{e}^{2 \\, A \\, \\Delta_k} - I_d)\\bigr)$. The integrator works effectively if the stiffness of the linear part dominates that of the non-linear part (see conditions in e.g., Buckwar et al., 2011). Indeed, the structure of the approximate score $s_N$ in Equation (6) is essentially a product between a Softmax function and a linear one, which is Lipschitz. However, we note the Lipschitz constant is not uniform for all $t>0$, resulting in explosive $s_N$ near $t=0$, such as with $V_t$. This exponential integrator has been empirically shown to work well for generative diffusion models in practice, for instance by Lu et al. (2025).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        302.0,
+        291.0,
+        348.0
+      ],
+      "markdown": "In the case when the matrix $A$ is not invertible, which rarely happens for Gaussian $\\pi_{\\mathrm{ref}}$ but still possibly numerically, one can also use another lower-order integrator by Lord & Rougemont (2004):"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        60.0,
+        352.0,
+        285.0,
+        392.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nU_{t_k} &= \\mathrm{e}^{A \\, \\Delta_k} \\, U_{t_{k-1}} + \\Delta_k \\, \\mathrm{e}^{A \\, \\Delta_k} f(U_{t_{k-1}}, t_{k-1}) + B_k, \\\\\nB_k &\\sim \\mathrm{N}\\bigl(0, 2 \\, b^2 \\, \\mathrm{e}^{2 \\, A \\, \\Delta_k} \\Delta_k\\bigr),\n\\end{aligned}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        396.0,
+        268.0,
+        406.0
+      ],
+      "markdown": "which was also considered by Zhang & Chen (2023).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        414.0,
+        292.0,
+        472.0
+      ],
+      "markdown": "In light of Remark 1, it is even possible to simulate the resampling SDE fully in continuous time (see, e.g., Schauer et al., 2017; Baker et al., 2024), although most of the currently established techniques are still not (yet) pragmatic enough compared to just using a fine discretisation."
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        489.0,
+        177.0,
+        501.0
+      ],
+      "markdown": "## 3. Convergence analysis"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        510.0,
+        292.0,
+        544.0
+      ],
+      "markdown": "In this section we analyse the convergence properties of diffusion resampling in Algorithm 1. Recall the ideal re-sampler in Equation (4)"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        547.0,
+        293.0,
+        602.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathrm{d} U(t) &= b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(U(t)) + 2\\nabla\\log p_{T - t}(U(t)) \\bigr] \\, \\mathrm{d} t \\\\\n&\\quad + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\\\\nU(0) &\\sim p_T.\n\\end{aligned}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        606.0,
+        205.0,
+        616.0
+      ],
+      "markdown": "and the corresponding approximation",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        619.0,
+        296.0,
+        677.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathrm{d} \\widetilde{U}(t) &= b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(\\widetilde{U}(t)) + 2 \\, s_N(\\widetilde{U}(t), T - t) \\bigr] \\, \\mathrm{d} t \\\\\n&\\quad + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\\\\n\\widetilde{U}(0) &\\sim \\pi_{\\mathrm{ref}}.\n\\end{aligned}\n\\tag{13}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        682.0,
+        290.0,
+        718.0
+      ],
+      "markdown": "Here, we have access to the weighted samples $\\{ (w_i, X_i) \\}_{i=1}^N$ from $\\pi$ independent of the considered SDEs. We denote the distributions of $U(t)$ and $\\widetilde{U}(t)$ by"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        69.0,
+        544.0,
+        188.0
+      ],
+      "markdown": "$q_t=p_{T - t}$ and $\\widetilde{q}_t$, respectively, and similarly denote the true and approximate re-sample by $U(T)$ and $\\widetilde{U}(T)$. Clearly, there are two sources of errors: 1) the ensemble score approximation $\\nabla\\log p_{t} \\approx s_N$, and 2) the initial distribution approximation $p_T \\approx \\pi_{\\mathrm{ref}}$ due to finite time horizon $T$. For clarity, we here focus on continuous-time analysis, although discretisation errors may be considered within a similar framework (see e.g., Lord et al., 2014). We aim to analyse the geometric distance between the resampling distribution $\\widetilde{q}_t$ and the target $\\pi$ under these errors in relation to $t$ and $N$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b015",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        196.0,
+        544.0,
+        387.0
+      ],
+      "markdown": "Unless otherwise needed, for any parameter $T>0$ we assume the usual textbook linear growth and Lipschitz conditions on $X$ and $U$ so that a strong solution exists and $\\int^t_0 |X(\\tau)| \\, \\mathrm{d} \\tau$ has finite variance, see, for instance, Karatzas & Shreve (1991, pp. 289) or Øksendal (2007, Thm. 5.2.1). This also ensures a smooth transition density $p_{t|\\tau}$ for all $0\\leq \\tau < t\\leq T$ so that the ensemble score $s_N$ and its gradient in Equation (6) are pointwise well defined. We also assume the existence of the reverse process in the sense of Anderson (1982), i.e., the reversal solves the same Kolmogorov forward equation in reverse time, although the established conditions for this are still implicit (see, e.g., Haussmann & Pardoux, 1986; Millet et al., 1989). Denote the Wasserstein distance by $\\mathsf{W}_l^l(p, q) = \\inf_{\\gamma \\in\\Gamma(p, q)}\\mathbb{E}[|X - Y|^l]$ for $(X, Y) \\sim \\gamma$, where $\\Gamma$ is the set of all couplings of $(p, q)$. We say a distribution $\\nu$ is $z$-strongly log-concave if"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "text",
+      "bbox": [
+        302.0,
+        392.0,
+        547.0,
+        417.0
+      ],
+      "markdown": "$$\n\\bigl\\langle \\nabla\\log \\nu(x) - \\nabla\\log \\nu(x'), x-x' \\bigr\\rangle \\leq -z \\, |x - x'|^2,\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b016a",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        418.0,
+        543.0,
+        444.0
+      ],
+      "markdown": "and we denote it by $\\nu \\preceq z$. The assumptions that we globally use are as follows.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        448.0,
+        542.0,
+        471.0
+      ],
+      "markdown": "**Assumption 1 (Diffusion conditions).** There exist positive constants $2 \\, C_p < C_{\\mathrm{ref}} < 2 \\, C_{\\mathrm{ref}}^- + 2 \\, C_p$ such that"
+    },
+    {
+      "id": "p0005-b018",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        476.0,
+        526.0,
+        500.0
+      ],
+      "markdown": "$$\n\\bigl|\\nabla\\log \\pi_{\\mathrm{ref}}(x) - \\nabla\\log \\pi_{\\mathrm{ref}}(x')\\bigr| \\leq C_{\\mathrm{ref}} \\, |x - x'|,\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b019",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        502.0,
+        544.0,
+        521.0
+      ],
+      "markdown": "for all $x, x'\\in\\mathbb{R}^d$, $\\pi_{\\mathrm{ref}} \\preceq C_{\\mathrm{ref}}^-$, and $p_t \\preceq C_p$ for all $t\\geq 0$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b019a",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        521.0,
+        544.0,
+        564.0
+      ],
+      "markdown": "**Assumption 2 (Ensemble score condition).** There exist a constant $r>0$ and a positive non-increasing smooth function $t\\mapsto C_{e}(t)$, such that"
+    },
+    {
+      "id": "p0005-b020",
+      "kind": "text",
+      "bbox": [
+        324.0,
+        562.0,
+        525.0,
+        596.0
+      ],
+      "markdown": "$$\n\\sup_{x\\in\\mathbb{R}^d} \\mathbb{E}\\bigl[|\\nabla\\log p_t(x) - s_N(x, t)|^2\\bigr]^{1/2} \\leq \\frac{C_e(t)}{N^r}.\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b021",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        602.0,
+        521.0,
+        612.0
+      ],
+      "markdown": "for all $t>0$, where $\\mathbb{E}$ takes on the weighted samples.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b022",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        624.0,
+        544.0,
+        718.0
+      ],
+      "markdown": "Recall that the ensemble score defined in Equation (6) is exactly a self-normalised importance sampling, where $\\pi$ is the proposal, $\\pi(x_0 \\mid x_t) \\propto p_{t|0}(x_t \\mid x_0) \\, \\pi(x_0)$ is the target, and $\\nabla\\log p_{t|0}(x_t \\mid x_0)$ is the test function. The condition in Assumption 2 is thus akin to non-asymptotic variance bounds of importance sampling, and this has been well established by, for example, Agapiou et al. (2017) and Chopin & Papaspiliopoulos (2020, Thm. 8.5). Typically, the Monte"
+    },
+    {
+      "id": "p0005-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header (paper title) at the top of the page; page furniture."
+    },
+    {
+      "id": "p0005-b023",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        741.0
+      ],
+      "markdown": "5",
+      "reason": "Printed page number '5' at the bottom centre; page furniture."
+    }
+  ]
+}

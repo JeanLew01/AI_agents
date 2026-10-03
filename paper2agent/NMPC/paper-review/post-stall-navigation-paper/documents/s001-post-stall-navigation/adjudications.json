@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "page": 3,
+      "check": "missing_lines",
+      "fingerprint": "9d0208071268e49a2452dffcbce82fcfc0aa86edfd5776a0d8440f30419e9756",
+      "reason": "All 32 reported lines are mathematics now written in LaTeX: 16 are fragments of display equations (1) and (2) (from 'xk,uk,h' to '˙xc,k = f(t, xc,k, uc,k).'), 4 are fragments of display equation (3) ('(2λj)−k', 'bi = Σ−1', '2 (x −ai)', 'λ = eigenvalues(Σ)'), and 12 are prose lines of the three paragraphs between (2) and (3) that contain inline maths (x, u, f(t, x_{k+1}, u_{k+1}), h_min = 0.001s, h_max = 0.2s, δ_f, δ_i, (x_f, x_i), c(x) = d(x) − r, K = 10, d(x)_i = ‖x − a_i‖, the sums for d(x) and ∇d(x), d(x) ≥ r, p(x) ≤ s). The equations were compared symbol by symbol and the prose word by word with 280-300 dpi crops of the page and with approach.tex; no prose or symbol is missing."
+    },
+    {
+      "page": 3,
+      "check": "number_differences",
+      "fingerprint": "ef16e177593bf9435cf6b4fb58aaae4ee453305b151767dd620c49e3dc34947a",
+      "reason": "Traced token by token. Missing '−1' (4x, Unicode minus) all come from equation (3): (−1)^k, the −1/2 inside exp(...), the sum limit k−1, and the exponent of Σ^{−1/2}. In the LaTeX they appear as '-1' with ASCII minus for (-1)^k and k-1 (extra '-1' 2x) and as -\\frac{1}{2} (two extra '1'). The printed 'k + 1' of Γ(n/2 + k + 1) is written '+k+1' (extra '+1', one '1' fewer). The remaining two extra '1' are 'Algorithm 1' and 'k = 1' in the Algorithm 1 transcription, whose printed lines lie inside the algorithm image crop and are therefore not counted on the source side. All numbers in prose (0.001s, 0.2s, K = 10, [1], [28], [29]) and in the equations (6.0, 4, 2, 8, 0, tags 1-3) were compared with the page image."
+    },
+    {
+      "page": 3,
+      "check": "independent_parser_number_differences",
+      "fingerprint": "737b7e3ed4d73862580101cdb3a137ed1a70527cb6d2851d4f52603abdd8cf45",
+      "reason": "Same causes as above (Unicode minus and stacked fraction digits of equation (3) versus LaTeX, plus the Algorithm 1 transcription); the second parser splits one of the '−1/2' fragments differently, hence 3 instead of 4 missing '−1' and 2 instead of 3 extra '1'."
+    },
+    {
+      "page": 4,
+      "check": "missing_lines",
+      "fingerprint": "727471f5235762f8422cdef0ade786c74cab70a592c91911f833475f422abd30",
+      "reason": "All 10 reported lines contain mathematics now written in LaTeX: 6 are fragments of display equation (5) ('∇p(x) = (1 −p(x))', '1 −pi(x)', '(−1)k∇ck', '∇c0 = c0 · Σ−1', '[dk−j · ∇cj + ∇dk−j · cj]', '2k(2λ)−kT Σ−1') and 4 are prose lines with inline maths ('where n = 3 is the number of spatial dimensions and Σ is the', 'found that the summing a maximum of 75 terms for pi(x)', '2 and λ.' which is the tail of Σ^{-1/2} and λ, and the line with N(diag(0, 0, 0), diag(0.1, 0.1, 0.1))). Equation (5) and the surrounding prose were compared with a 280 dpi crop and with approach.tex/simulation.tex; no prose or symbol is missing."
+    },
+    {
+      "page": 4,
+      "check": "number_differences",
+      "fingerprint": "c65e1ae93f52194ff201d0e9fab111b8f27220b5137af9c2528800dde5fd3286",
+      "reason": "Traced token by token. Missing '−1' (6x, Unicode minus): (−1)^k, two exponents Σ^{−1/2}, the sum limit k−1 and the factor −1/2 of ∇d_k in equation (5), and the inline Σ^{−1/2} of the following paragraph. In the LaTeX: '-1' with ASCII minus for (-1)^k and k-1 (extra '-1' 2x), -\\frac{1}{2} four times (extra '1'), and 'k + 1' of Γ(n/2 + k + 1) written '+k+1' (extra '+1', one '1' fewer), which gives the reported extra '1' 3x. All numbers in prose were compared with the page image and match (the verifier reports no other difference)."
+    },
+    {
+      "page": 4,
+      "check": "independent_parser_number_differences",
+      "fingerprint": "8c37eaca77f16a0a252a516305b55b3d21fd521f463a8149599db9f06e165cd1",
+      "reason": "Same cause: Unicode minus and stacked fraction digits of equation (5) versus LaTeX '-1', '+1'; the second parser attaches three of the six '−1' fragments differently."
+    }
+  ]
+}

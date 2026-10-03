@@ -1,0 +1,184 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0001-b000"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "text",
+      "bbox": [
+        18.0,
+        215.0,
+        36.0,
+        555.0
+      ],
+      "markdown": "",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        91.0,
+        98.0,
+        521.0,
+        112.0
+      ],
+      "markdown": "# **GoTube: Scalable Stochastic Verification of Continuous-Depth Models**",
+      "source_class": "title"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        124.0,
+        131.0,
+        488.0,
+        158.0
+      ],
+      "markdown": "**Sophie Gruenbacher**<sup>1*</sup> **, Mathias Lechner**<sup>2</sup> **, Ramin Hasani**<sup>3</sup> **, Daniela Rus**<sup>3</sup> **, Thomas A. Henzinger**<sup>2</sup> **, Scott A. Smolka**<sup>4</sup> **, Radu Grosu**<sup>1</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "heading",
+      "bbox": [
+        154.0,
+        219.0,
+        192.0,
+        227.0
+      ],
+      "markdown": "### **Abstract**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        236.0,
+        283.0,
+        444.0
+      ],
+      "markdown": "We introduce a new stochastic verification algorithm that formally quantifies the behavioral robustness of any timecontinuous process formulated as a continuous-depth model. Our algorithm solves a set of global optimization (Go) problems over a given time horizon to construct a tight enclosure (Tube) of the set of all process executions starting from a ball of initial states. We call our algorithm GoTube. Through its construction, GoTube ensures that the bounding tube is conservative up to a desired probability and up to a desired tightness. GoTube is implemented in JAX and optimized to scale to complex continuous-depth neural network models. Compared to advanced reachability analysis tools for timecontinuous neural networks, GoTube does not accumulate overapproximation errors between time steps and avoids the infamous wrapping effect inherent in symbolic techniques. We show that GoTube substantially outperforms state-of-theart verification tools in terms of the size of the initial ball, speed, time-horizon, task completion, and scalability on a large set of experiments. GoTube is stable and sets the stateof-the-art in terms of its ability to scale to time horizons well beyond what has been previously possible.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "figure",
+      "bbox": [
+        344.0,
+        210.0,
+        534.0,
+        399.0
+      ],
+      "markdown": "<!-- Start of picture text -->\nLRT-NG<br>GoTube (ours)<br>Sample traces<br>10<br>8<br>6 0.50<br>0.25<br>4<br>0.00<br>2 0.25<br>0 1.0 0.5 0.0 0.5 1.0 0.750.50<br>x1<br>x2<br>Time (s)<br><!-- End of picture text -->",
+      "source_class": "picture",
+      "label": "Figure on PDF page 1 (6)",
+      "asset_name": "figure-p0001-005"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "caption",
+      "bbox": [
+        319.0,
+        404.0,
+        559.0,
+        448.0
+      ],
+      "markdown": "Figure 1: Reachtubes of LRT-NG (Gruenbacher et al. 2020) and GoTube for a CT-RNN controlling CartPole-v1 environment. CAPD (Kapela et al. 2020) and Flow* (Chen, ´Abrah´am, and Sankaranarayanan 2013) failed.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "heading",
+      "bbox": [
+        140.0,
+        461.0,
+        206.0,
+        470.0
+      ],
+      "markdown": "## **Introduction**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        476.0,
+        293.0,
+        584.0
+      ],
+      "markdown": "The use of deep-learning systems powered by continuous-depth models continues to grow, especially due to the revival of neural ordinary differential equations (Neural ODEs) (Chen et al. 2018). These models parametrize the derivative of the hidden states by a neural network. The resulting system of differential equations can perform strong function approximation and generative modeling. Ensuring their safety and robustness in any of these fronts is a major imperative, particularly in high-stakes decision-making applications such as medicine, automation, and finance.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        585.0,
+        293.0,
+        637.0
+      ],
+      "markdown": "A particularly appealing approach is to construct a tight overapproximation of the set of states reached over time according to the neural network’s dynamics (a bounding tube) and provide deterministic or stochastic guarantees for the conservativeness of the tube’s bounds.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        645.0,
+        293.0,
+        665.0
+      ],
+      "markdown": "*<sup>1</sup> TU Wien,<sup>2</sup> IST Austria,<sup>3</sup> CSAIL MIT,<sup>4</sup> Stony Brook University.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        666.0,
+        293.0,
+        704.0
+      ],
+      "markdown": "Correspondence to: sophie.gruenbacher@tuwien.ac.at Code: https://github.com/DatenVorsprung/GoTube Copyright © 2022, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        473.0,
+        559.0,
+        616.0
+      ],
+      "markdown": "Deterministic verification approaches ensure conservative bounds (Chen, Abrah´am,<sup>´</sup> and Sankaranarayanan 2013; Gowal et al. 2018; Mirman, Gehr, and Vechev 2018; Bunel et al. 2020a; Kapela et al. 2020; Gruenbacher et al. 2020), but often sacrifice speed and accuracy (Ehlers 2017), and thus scalability; see CAPD, Flow*, and LRT-NG in Fig. 1 and Fig. 3. Stochastic methods, on the other hand, only ensure a weaker notion of conservativeness in the form of confidence intervals (stochastic bounds). This, however, allows them to achieve much more accurate and faster verification algorithms that scale up to much larger dynamical system (Shmarov and Zuliani 2015b; Bortolussi and Sanguinetti 2014; Gruenbacher et al. 2021).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        618.0,
+        559.0,
+        705.0
+      ],
+      "markdown": "It was recently shown theoretically that stochastic verification approaches based on Lagrangian reachability (SLR) could provably guarantee confidence intervals for continuous-depth models (Gruenbacher et al. 2021). The proposed theoretical framework suggests performing both stochastic global optimization and local differential optimization (Zhigljavsky and Zilinskas 2008; Pontryagin 2018), and uses _interval arithmetic_ to symbolically bound",
+      "source_class": "text"
+    }
+  ]
+}

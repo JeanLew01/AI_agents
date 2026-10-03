@@ -1,0 +1,147 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview and high-resolution crops (Figure 2 at 220 dpi; equations (6), (7a)-(7c), (8) and the paragraph between them at 240-300 dpi) with the items; maths taken from 30algo.tex with the authors' macros (\\Yi, \\pYi, \\sba) expanded, then checked symbol by symbol on the crops. Heading '### 4.1 Model-based Diffusion as Multi-stage Optimization' is the printed subsection heading. Figure 2: one figure item with the three panels (a) Objective Function J(Y), (b) Forward Density, (c) Backward Process with colour bar; bbox [107,108,505,204.5] checked against the native label boxes (leftmost 'Objective' at x=109.3, colour-bar ticks to x=502.3, panel titles from y=110.4, axis labels to y=202.6). The in-figure legend reads 'MC Score Ascend' (authors' spelling, inside the image). Caption kept verbatim with LaTeX for $p_i(\\cdot)$, $p_0(\\cdot)$, $p_N(\\cdot)$. Equations (6), (7a)-(7c), (8) converted from formula images to LaTeX text items; (7a)-(7c) is one item with three $$ blocks tagged (7a), (7b), (7c); (7a) carries both fractions as printed, and (7b), (7c) start with '=' as printed. The exponent denominator in the paragraph after (7c) is written $1-\\bar{\\alpha_i}$ exactly as in the TeX source (visually indistinguishable from $1-\\bar{\\alpha}_i$ in print). Authors' wording kept: 'Its log-likelihood gradient is $\\nabla_{Y^{(i)}} p_{i \\mid 0}(\\cdot)$' (the printed formula is the gradient of the density, not of its logarithm). Printed cross-references: 'Eq. (7a)', 'Eq. (7b)', 'Eq. (3)', 'Eq. (7c)'. The page ends with equation (8); page 6 starts a new sentence, so no join. Page number 5 omitted. Coordinator (after independent verification): corrected `1-\\bar{\\alpha_i}` to `1-\\bar{\\alpha}_i` in p0005-b008 (bar over alpha only, as printed).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        75.0,
+        349.0,
+        85.0
+      ],
+      "markdown": "### 4.1 Model-based Diffusion as Multi-stage Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "figure",
+      "bbox": [
+        107.0,
+        108.0,
+        505.0,
+        204.5
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        214.0,
+        506.0,
+        268.0
+      ],
+      "markdown": "Figure 2: Reverse SDE vs. Monte Carlo score ascent (MCSA) on a synthetic highly non-convex objective function. (a) Synthesized objective function with multiple local minima. (b) The intermediate stage density $p_i(\\cdot)$, where peaked $p_0(\\cdot)$ is iteratively corrupted to a Gaussian $p_N(\\cdot)$. (c) Reverse SDE vs. MCSA: Background colors represent the density of $p_i(\\cdot)$ at different stages. MCSA converges faster due to larger step size and lower sampling noise while still capturing the multimodality.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        293.0,
+        505.0,
+        344.0
+      ],
+      "markdown": "We consider the reverse process for an unconstrained optimization problem $\\min_Y J(Y)$, where the target distribution is $p_0(Y^{(0)}) \\propto \\exp{(-\\frac{J(Y^{(0)})}{\\lambda})}$. In our MBD framework, “model” implies that we can evaluate $J(Y^{(0)})$ for arbitrary $Y^{(0)}$, enabling us to compute the target distribution up to the normalizing constant.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b003b",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        349.0,
+        505.0,
+        388.0
+      ],
+      "source_class": "text",
+      "markdown": "MBD uses Monte Carlo score ascent instead of the commonly adopted reverse SDE approach in MFD. Specifically, when denoising from $i$ to $i-1$, MBD performs one step of gradient ascent on $\\log{p_i(Y^{(i)})}$ and then scales the sample by the factor $\\frac{1}{\\sqrt{\\alpha_i}}$ as defined in the forward process:"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        201.0,
+        396.0,
+        507.0,
+        425.5
+      ],
+      "markdown": "$$\nY^{(i-1)} = \\frac{1}{\\sqrt{\\alpha_i}} \\left(Y^{(i)} + (1-\\bar{\\alpha}_i) \\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})}\\right) \\tag{6}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        436.0,
+        504.0,
+        461.0
+      ],
+      "markdown": "Critically, with the model-informed $p_0(Y^{(0)})$, we can estimate the score function $\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})}$ by connecting $p_i(Y^{(i)})$ to $p_0(Y^{(0)})$ via Bayes’ rule:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        479.5,
+        507.0,
+        585.0
+      ],
+      "markdown": "$$\n\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} = \\frac{\\nabla_{Y^{(i)}} \\int p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}}{\\int p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}} = \\frac{\\int \\nabla_{Y^{(i)}} p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}}{\\int p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}} \\tag{7a}\n$$\n\n$$\n= \\frac{\\int -\\frac{Y^{(i)} - \\sqrt{\\bar{\\alpha}_i} Y^{(0)}}{1-\\bar{\\alpha}_i} p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}}{\\int p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}} \\tag{7b}\n$$\n\n$$\n= -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\frac{\\int Y^{(0)} p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}}{\\int p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}} \\tag{7c}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        597.0,
+        506.0,
+        672.0
+      ],
+      "markdown": "Between Eq. (7a) and Eq. (7b), we use the forward Gaussian density in Eq. (3): $p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) \\propto \\exp(-\\frac{1}{2} \\frac{\\left(Y^{(i)} - \\sqrt{\\bar{\\alpha}_i} Y^{(0)}\\right)^\\top \\left(Y^{(i)} - \\sqrt{\\bar{\\alpha}_i} Y^{(0)}\\right)}{1-\\bar{\\alpha}_i})$. Its log-likelihood gradient is $\\nabla_{Y^{(i)}} p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) = -\\frac{1}{1-\\bar{\\alpha}_i} (Y^{(i)} - \\sqrt{\\bar{\\alpha}_i} Y^{(0)}) p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)})$. Given $Y^{(0)}$ as the integration variable in Eq. (7c), $p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)})$ is evaluated as a function of $Y^{(0)}$ parameterized by $Y^{(i)}$. Based on that, we define the function $\\phi_i(Y^{(0)})$ as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        682.0,
+        507.0,
+        723.5
+      ],
+      "markdown": "$$\n\\phi_i(Y^{(0)}) \\propto p_{i \\mid 0}(Y^{(i)} \\mid Y^{(0)}) \\propto \\exp(-\\frac{1}{2} \\frac{\\left(Y^{(0)} - \\frac{Y^{(i)}}{\\sqrt{\\bar{\\alpha}_i}}\\right)^\\top \\left(Y^{(0)} - \\frac{Y^{(i)}}{\\sqrt{\\bar{\\alpha}_i}}\\right)}{\\frac{1-\\bar{\\alpha}_i}{\\bar{\\alpha}_i}}) \\propto \\mathcal{N}(\\frac{Y^{(i)}}{\\sqrt{\\bar{\\alpha}_i}}, \\frac{I}{\\bar{\\alpha}_i} - I) \\tag{8}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "5",
+      "source_class": "page-footer",
+      "reason": "Page number 5 in the footer (verified on the preview)."
+    }
+  ]
+}

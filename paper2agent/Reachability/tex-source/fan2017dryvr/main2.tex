@@ -1,0 +1,157 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{paralist}
+\usepackage{tikz}
+\usepackage[ruled,commentsnumbered,linesnumbered,noend]{algorithm2e}
+%\usepackage[bookmarks=false]{hyperref}
+\usepackage{url}
+\usepackage{array}
+\usepackage{floatrow}
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{algorithmic}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{dsfont}
+\usepackage{epstopdf}
+\usepackage{subcaption}
+\usepackage{balance}
+\usepackage{makecell}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+
+\newcommand{\Simulink}{{Simulink\textsuperscript{\textregistered}}}
+\newcommand{\Mathworks}{{Mathworks\textsuperscript{\textregistered}}}
+\newcommand{\toolname}{{\sc DryVR}}
+\newcommand{\edgelab}{{\sc elab}}
+\newcommand{\vertlab}{{\sc vlab}}
+\newcommand{\modemap}{{\sc lmap}}
+\newcommand{\simulator}{{\sc sim}}
+\newcommand{\dom}{{\mathit dom}}
+\newcommand{\fstate}{\mathit{fstate}}
+\newcommand{\mode}{\mathit{mode}}
+\newcommand{\ltime}{\mathit{ltime}}
+\newcommand{\lstate}{\mathit{lstate}}
+\newcommand{\lmode}{\mathit{lmode}}
+\newcommand{\fmode}{\mathit{fmode}}
+\newcommand{\reach}[1]{\relax\ifmmode {\sf Reach}_{#1} \else ${\sf Reach}_{#1}$\fi}
+\newcommand{\Reach}[1]{\relax\ifmmode {\sf Reach}_{#1} \else ${\sf Reach}_{#1}$\fi}
+\newcommand{\post}[4]{\relax\ifmmode {\sf Post}_{#1}(#2,#3,#4) \else ${\sf Post}_{#1}(#2,#3,#4)$\fi}
+\newcommand{\posti}[1]{\relax\ifmmode {\sf Post}_{#1} \else ${\sf Post}_{#1}$\fi}
+\newcommand{\paths}[1]{\relax\ifmmode {\sf Paths}_{#1} \else ${\sf Paths}_{#1}$\fi}
+\newcommand{\pathof}[1]{\relax\ifmmode {\sf path}({#1}) \else ${\sf path}({#1})$\fi}
+\newcommand{\execs}[1]{\relax\ifmmode {\sf Execs}_{#1} \else ${\sf Exec}_{#1}$\fi}
+\newcommand{\traces}[1]{\relax\ifmmode {\sf Trace}_{#1} \else ${\sf Trace}_{#1}$\fi}
+\newcommand{\GraphReach}{\mathit{GraphReach}}
+\newcommand{\VerInit}{\mathit{VerInit}}
+
+%
+\newcommand{\Lmode}[1]{\relax\ifmmode {\sf {#1}} \else ${\sf {#1}}$\fi}
+
+
+%\hypersetup{
+%    bookmarks=false,         % show bookmarks bar?
+%    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+%    pdftoolbar=false,        % show Acrobat’s toolbar?
+%    pdfmenubar=false,        % show Acrobat’s menu?
+%    pdffitwindow=false,     % window fit to page when opened
+%    pdfstartview={FitH},    % fits the width of the page to the window
+%    pdftitle={My title},    % title
+%    pdfauthor={Author},     % author
+%    pdfsubject={Subject},   % subject of the document
+%    pdfcreator={Creator},   % creator of the document
+%    pdfproducer={Producer}, % producer of the document
+%    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+%    pdfnewwindow=false,      % links in new window
+%    colorlinks=true,       % false: boxed links; true: colored links
+%    linkcolor=blue,          % color of internal links (change box color with linkbordercolor)
+%    citecolor=blue,        % color of links to bibliography
+%    filecolor=magenta,      % color of file links
+%    urlcolor=blue           % color of external links
+%}
+
+
+
+\input{prelude1}
+%
+\newfont{\mycrnotice}{ptmr8t at 7pt}
+\newfont{\myconfname}{ptmri8t at 7pt}
+\let\crnotice\mycrnotice%
+\let\confname\myconfname%
+
+\newcommand{\transtime}[1]{\textrm{transt}_{#1}}
+\newcommand{\Transitions}[1]{\textrm{Trans}{(#1)}}
+\newcommand{\nextl}{\textsf{NEXT}}
+\newcommand{\timeinterval}{\mathcal{TI}}
+\newcommand{\computeRT}{\mathit{ReachComp}}
+\newcommand{\TimeIntvs}{\mathcal{I}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{example}
+\newtheorem{example}{Example}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+
+\linespread{0.94}
+
+\setlength{\abovecaptionskip}{5.0pt}
+\setlength{\belowcaptionskip}{5.0pt}
+\setlength{\textfloatsep}{0.05in}
+
+\begin{document}
+\title{\toolname: Data-driven verification and compositional reasoning for automotive  systems}
+\author{Chuchu Fan \and Bolun Qi \and Sayan Mitra \and Mahesh Viswanathan\\University of Illinois at Urbana-Champaign}
+\date{}
+\maketitle
+%\tableofcontents
+\begin{abstract}
+	We present the \toolname\ framework for verifying  hybrid control systems that are described by a combination of a black-box simulator for trajectories and a white-box transition graph specifying mode switches. 
+	%
+	The framework  includes (a) a probabilistic algorithm for learning  sensitivity of the continuous trajectories  from simulation data, 
+	(b) a bounded reachability analysis algorithm that uses the learned sensitivity, and 
+	(c) reasoning techniques based on simulation relations and sequential composition, that enable verification of complex systems under long switching sequences, from the reachability analysis of a simpler system under shorter sequences. 
+	 We demonstrate the utility of the framework by verifying a suite of automotive benchmarks that include powertrain control, automatic transmission, and several autonomous and ADAS features like automatic emergency braking, lane-merge, and auto-passing controllers.
+\end{abstract}
+%
+%\paragraph{Dynamics collection}
+\input{intro}
+\input{overview}
+\input{examples}
+\input{algo}
+\input{experiments}
+\input{theory}
+\input{casestudies}
+
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{sayan,mahesh}
+
+\newpage
+
+\appendix
+\input{appendix}
+%\clearpage
+%\newpage
+%\appendix
+%\input{append}
+
+%\newpage
+%\input{revision_summary}
+\end{document}

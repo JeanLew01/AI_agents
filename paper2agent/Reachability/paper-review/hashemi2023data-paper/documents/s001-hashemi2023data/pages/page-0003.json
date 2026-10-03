@@ -1,0 +1,101 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 130 dpi render and a 190 dpi crop of PDF page 3, and with sections/intro.tex and sections/PSandprelim.tex. All inline mathematics rewritten in LaTeX from the TeX source with the authors' macros expanded (\\horizon -> \\mathrm{K}, \\state -> s, \\traj -> \\sigma, \\init -> \\mathcal{I}, \\overallf -> \\mathcal{F}, \\zon -> \\mathsf{Zonotope}, \\timeid -> k) and checked against the page; TeX and PDF agree. Section references 'Section 2/3/4/5' resolved to the printed numbers. The run-in paragraph titles are printed in bold and are not section headings; they start their paragraphs in bold: 'Notation.' (printed bold with an upright full stop), 'Stochastic Dynamical System.', 'Trajectory Datasets.', 'Surrogate Model.'. The extractor had merged the 'Stochastic Dynamical System' and 'Trajectory Datasets' paragraphs into one item; they are split at the printed paragraph break (y about 456 pt). Section heading '2 Problem statement and Preliminaries' is level 2 with its printed number and capitalisation. Kept as printed: 'non-Markovian', 'well-studied', 'time-stamped', 'time-steps', 'data-points', 'user-defined'; 'Estimating the set of reachable sets'; the trajectory is written with the subset sign, $\\sigma_{s_0} = [\\ldots]^\\top \\subset \\mathbb{R}^{(\\mathrm{K}+1)n}$ (later with the element sign); 'the number of inputs $n_{\\ell+1}$ is the number of outputs' without a comma; $[n_0,n_1,\\cdots n_{\\ell+1}]$ without a comma after the dots; the dataset is printed $\\{s_{0,i}, \\sigma_{s_0,i}\\}_{i=1}^L$ with the index $i$ outside the subscript $s_0$ (page 6 prints $\\sigma_{s_{0,i}}$). The exponent is printed $(\\mathrm{K}+1)n$ in the first and last paragraphs and $n(\\mathrm{K}+1)$ in the i.i.d. remark, as in the TeX. \\left\\{ \\right\\} of the TeX written as \\{ \\}. The last paragraph ends in the middle of a sentence ('Training such a K-step'); it continues on page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        123.0
+      ],
+      "markdown": "The layout of our paper is as follows. In Section 2, we present the preliminaries and problem statement. Our algorithm for probabilistic reachable set computation is proposed in Section 3. We demonstrate the efficacy of our method on several numerical examples in Section 4, and we finally conclude in Section 5."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        133.0,
+        541.0,
+        236.0
+      ],
+      "markdown": "**Notation.** We use bold letters to indicate vectors and vector-valued functions, and calligraphic letters to denote sets. We denote the set $\\{1,2,\\cdots, n\\}$ with $[n]$. We present the structure of a feedforward neural network (FFNN) with $\\ell$ hidden layers as an array $[n_0,n_1,\\cdots n_{\\ell+1}]$, where $n_0$ denotes the number of inputs $n_{\\ell+1}$ is the number of outputs and $n_i , i\\in [\\ell]$ denotes the width of the $i$-th hidden layer. We denote $e_i\\in\\mathbb{R}^n$ as the $i$-th base vector of $\\mathbb{R}^n$. The expression $x \\sim \\mathcal{X}$ means, the random variable $x$ follows the distribution $\\mathcal{X}$. We denote the cardinality of a set $A$ with $|A|$. $\\mathsf{Zonotope}(b, A)$ denotes a zonotope [28] with center $b$ and array of base vectors $A$. The operator $\\oplus$ denotes the Minkowski sum. We also denote $\\lceil x \\rceil$ as the smallest integer greater than $x \\in \\mathbb{R}$."
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        256.0,
+        356.0,
+        267.0
+      ],
+      "markdown": "## 2 Problem statement and Preliminaries"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        283.0,
+        541.0,
+        456.0
+      ],
+      "markdown": "**Stochastic Dynamical System.** Estimating the set of reachable sets of stochastic dynamical systems starting from a compact set of initial states $\\mathcal{I} \\subset \\mathbb{R}^n$ is a well-studied problem. While this problem has been studied largely with model-based techniques, we focus on *bounded-time, model-free reachability* analysis of a black-box discrete-time stochastic dynamical system $M$. A random trajectory of $M$ can be modelled as a sequence of time-stamped states $\\sigma_{s_0} = [s_0^\\top, \\cdots, s^\\top_{\\mathrm{K}}]^\\top \\subset \\mathbb{R}^{(\\mathrm{K}+1)n}$. We denote the distribution over the set of trajectories consistent with $M$ as $\\mathcal{S}$, and use $\\sigma_{s_0} \\sim \\mathcal{S}$ to denote that $\\sigma_{s_0}$ is sampled from $\\mathcal{S}$. The distribution $\\mathcal{S}$ could be induced due to a distribution on the set of initial states of the system as well as stochastic uncertainties in its dynamics. For example, the transition dynamics could be Markovian, i.e., $s_{k} \\sim T(s' \\mid s = s_{k-1})$. However, we remark that the techniques proposed in this paper can work for systems with non-Markovian dynamics. For convenience, we denote the distribution over the set of initial states $\\mathcal{I}$ as $\\mathcal{W}$, and assume that $(\\Pr[s_0 \\notin \\mathcal{I}]=0)$. The notation $s_0 \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$ is used to denote that the state $s_0$ is sampled from $\\mathcal{I}$ using the distribution $\\mathcal{W}$. A practical choice of $\\mathcal{W}$ may be to uniformly sample $\\mathcal{I}$."
+    },
+    {
+      "id": "p0003-b003b",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        456.0,
+        541.0,
+        563.0
+      ],
+      "markdown": "**Trajectory Datasets.** We assume that we have access to a dataset of independently sampled trajectories of $M$, where the initial states are sampled with $s_0 \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$. We assume that each trajectory has $\\mathrm{K}$ time-steps. We split the trajectory dataset into two separate datasets, denoted as $D_{\\text{train}}$ and $D_{\\text{test}}$. Here $D_{\\text{train}}$ is our training dataset and is to be used for training a surrogate model of $M$. On the other hand, $D_{\\text{test}}$ is the test dataset, and is to be utilized to generate the calibration dataset for deriving statistical properties. Let $D_{\\text{test}}=\\{s_{0,i}, \\sigma_{s_0,i}\\}_{i=1}^L$ where $L$ is the number of test trajectories. Our goal is now to compute a probabilistic reach set such that $\\sigma_{s_0}$ is included inside with a probability not lower than a user-defined threshold $1-\\varepsilon$, where $\\varepsilon \\in (0,1)$."
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        565.0,
+        540.0,
+        628.0
+      ],
+      "markdown": "We remark that although the data-points within a single trajectory are not independent and identically distributed (i.i.d.), we observe that the trajectory $\\sigma_{s_0}$ can be seen as a vector $\\sigma_{s_0} \\in \\mathbb{R}^{n(\\mathrm{K}+1)}$ so that entire trajectories within $D_{\\text{train}}$ and $D_{\\text{test}}$ can be viewed as i.i.d. samples in the $\\mathbb{R}^{n(\\mathrm{K}+1)}$-space. This observation is crucially used later when we quantify uncertainty using conformal prediction."
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        631.0,
+        541.0,
+        682.0
+      ],
+      "markdown": "**Surrogate Model.** After obtaining the trajectory dataset, we train a surrogate model $\\mathcal{F}: \\mathbb{R}^n \\to \\mathbb{R}^{(\\mathrm{K}+1) n}$ that maps a given initial state to the predicted $\\mathrm{K}$-step trajectory of the system. For instance, the surrogate model can be a feedforward neural network with $n$ inputs and $(\\mathrm{K} + 1)n$ outputs. Let $\\bar{\\sigma}_{s_0}$ denote the predicted trajectory, then, $\\bar{\\sigma}_{s_0} = \\mathcal{F}(s_0).$ Training such a $\\mathrm{K}$-step"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        721.0
+      ],
+      "markdown": "3",
+      "reason": "Printed page number '3' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

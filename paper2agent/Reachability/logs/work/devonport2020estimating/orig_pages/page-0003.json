@@ -1,0 +1,134 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        186.0
+      ],
+      "markdown": "Our contribution is to show that scenario optimization may be used to provide guarantees for a range of data-driven reachability analysis methods that are applicable to a general class of systems. Specifically, we investigate a Monte Carlo-type method that provides reachable set estimates in the form of _norm ball_ sets, with the optional restriction that the norm balls be _axis-aligned_ . For each of these classes of norm ball sets, we provide a sample complexity bound derived from the scenario optimization representation of the problem. The sample complexity turns out to be quadratic with respect to the state dimension for the general norm ball case, and linear in the axis-aligned case.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        206.0,
+        230.0,
+        215.0
+      ],
+      "markdown": "# **2. Forward Reachable Sets**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        226.0,
+        523.0,
+        306.0
+      ],
+      "markdown": "We consider a general dynamical system with a state transition function Φ( _t_ 1; _t_ 0 _, x_ 0 _, u, d_ ) that maps an initial state _x_ 0 _∈_ R<sup>_n_</sup> at time _t_ 0 to a unique final state at time _t_ 1, under the influence of the system dynamics, an input _u_ : [ _t_ 0 _, t_ 1] _→_ R<sup>_p_</sup> , and a disturbance _d_ : [ _t_ 0 _, t_ 1] _→_ R<sup>_w_</sup> . For instance, when the system state dynamics _x_ ˙ ( _t_ ) = _f_ ( _t, x_ ( _t_ ) _, u_ ( _t_ ) _, d_ ( _t_ )) are known and has unique solutions on the interval [ _t_ 0 _, t_ 1], then Φ( _t_ 1; _t_ 0 _, x_ 0 _, u, d_ ) is just the value _φ_ ( _t_ 1), where _φ_ is the solution satisfying _φ_ ( _t_ 0) = _x_ 0.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        308.0,
+        523.0,
+        344.0
+      ],
+      "markdown": "For the problem of forward reachability analysis, we are also given an _initial set X_ 0 _⊂_ R<sup>_n_</sup> , a set _U_ of allowed inputs, and a set _D_ of allowed disturbances. The _forward reachable set_ is then defined as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "formula",
+      "bbox": [
+        178.0,
+        343.0,
+        527.0,
+        367.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (5)",
+      "asset_name": "formula-p0003-004"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        369.0,
+        523.0,
+        393.0
+      ],
+      "markdown": "that is the set of all states to which the system can transition at time _t_ 1 if it starts in a state in _X_ 0 at time _t_ 0 and is subject to an input in _U_ and a disturbance in _D_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        396.0,
+        523.0,
+        463.0
+      ],
+      "markdown": "Since the exact reachable set cannot be computed, we must settle for the goal of computing some approximation _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]. The approximating set is drawn from a family of sets that is described by a vector parameter _θ_ , so that the task of computing the approximation is reduced to finding a parameter. For instance, if we choose to approximate the reachable set with an _ellipsoid_ , that is a set of the form _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]( _A, b_ ) = _{x_ : _||Ax − b||_ 2 _≤_ 1 _},_ then the parameter is _θ_ = ( _A, b_ ).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        463.0,
+        523.0,
+        533.0
+      ],
+      "markdown": "Typically, _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] is designed to be either an overapproximation (so that _R_ [ _t_ 0 _,t_ 1] _⊂ R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]) or an underapproximation (so that _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] _⊂ R_ [ _t_ 0 _,t_ 1]). These approximations are useful for making safety guarantees, but reachable sets that are estimated from samples will generally not be either. Since we are focusing on a data-driven approach to reachable set computation, we will instead aim to compute an approximation that is similar to the true reachable set in a probabilistic sense.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        536.0,
+        523.0,
+        655.0
+      ],
+      "markdown": "Suppose we have a random variable _Z_ whose support is the reachable set, that is such that its probability density function (pdf) _pZ_ satisfies _pZ_ ( _x_ ) = 0 for _x_ outside of the reachable set and _pZ_ ( _x_ ) _>_ 0 for _x_ inside it. In that case, _R_ [ _t_ 0 _,t_ 1] is by definition an event with probability one, and any set that is disjoint with _R_ [ _t_ 0 _,t_ 1] has probability zero. Any set that contains part of the reachable set will have some probability in between, with a higher probability indicating that it contains more of the reachable set. We therefore want to compute a reachable set approximation that is guaranteed to have a high probability under such a distribution. If an approximation satisfies _PZ_ ( _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]) _≥_ 1 _− ϵ,_ where _PZ_ is the probability measure of _Z_ , then we say that this is an _ϵ-accurate_ approximation with respect to the distribution _pZ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        658.0,
+        523.0,
+        696.0
+      ],
+      "markdown": "A reachable set approximation that is _ϵ_ -accurate may still be quite conservative: in addition to the part of the approximation with measure 1 _− ϵ_ , it could also contain a large portion of the state space outside of the reachable set with measure zero. For most approximation classes this",
+      "source_class": "text"
+    }
+  ]
+}

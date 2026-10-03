@@ -1,0 +1,2317 @@
+{
+ "merged_at": "2026-10-03T01:09:30Z",
+ "sources": {
+  "gaussian_mixture_demo": {
+   "execution_id": "gaussian_mixture_demo",
+   "module": "resampling",
+   "tools_supported": [
+    "diffres_resample_particles_diffusion",
+    "diffres_resample_particles_baseline"
+   ],
+   "source_path": "repo/diffres/demos/gaussian_mixture.ipynb",
+   "source_sha256": "52d2c7fc97fe8ddeacb84e4dd4204869dec34d0092b5060653412cf599e3e295",
+   "source_repository": "https://github.com/zgbkdlm/diffres",
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/demos/gaussian_mixture.ipynb",
+   "status": "success",
+   "execution_mode": "notebook (papermill, unchanged notebook) + capture/replay driver calling upstream functions directly",
+   "execution_path": "notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb",
+   "inspection_copy": "notebooks/gaussian_mixture_demo/gaussian_mixture_inspection.ipynb",
+   "runtime": {
+    "python": "CPython 3.11.17",
+    "PROJECT_PYTHON": "$PROJECT_ROOT/diffres-env/bin/python",
+    "kernel": "diffres-p2a (diffres-env/share/jupyter/kernels/diffres-p2a, argv[0]=PROJECT_PYTHON)",
+    "jax": "0.7.2 (CPU, device TFRT_CPU_0; JAX_PLATFORMS=cpu via heavy.sh)",
+    "jax_enable_x64": true,
+    "ott-jax": "0.5.2",
+    "matplotlib": "3.10.6",
+    "papermill": "2.7.0",
+    "nbclient": "0.11.0",
+    "ipykernel": "7.4.0",
+    "IPython": "9.17.1",
+    "matplotlib_inline": "0.2.2",
+    "diffres": "0.0.1 editable from repo/diffres @767effe"
+   },
+   "parameters_changed_vs_upstream": "None. Notebook executed unchanged (nsamples=1024, c=5, d=10, dy=2, PRNGKey(666), a=-2, T=1., nsteps=32, integrator=jentzen_and_kloeden, ode=True, ensemble_ot eps=0.3, multinomial). Only environment: MPLBACKEND overridden from heavy.sh default Agg to module://matplotlib_inline.backend_inline so the figure is embedded (attempt 1 under Agg produced no image output).",
+   "attempts": [
+    {
+     "n": 1,
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1500 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/papermill_run1.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python -m papermill $PROJECT_ROOT/repo/diffres/demos/gaussian_mixture.ipynb $PROJECT_ROOT/notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb --kernel diffres-p2a --cwd $PROJECT_ROOT/notebooks/gaussian_mixture_demo/work --log-output",
+     "exit_status": 0,
+     "peak_memory_mb": 739,
+     "papermill_duration_s": 43.2,
+     "outcome": "all cells ran, but cell 7 had no display output because heavy.sh sets MPLBACKEND=Agg, which overrides the inline backend; notebook kept as attempts/attempt1_no_figure_Agg_backend.ipynb (sha256 6a1781f2...) and not used as reference"
+    },
+    {
+     "n": 2,
+     "command": "same as 3 with --limit-mb 1500",
+     "exit_status": 75,
+     "outcome": "heavy.sh NOT STARTED (MemAvailable=3127 MB < 1500+2000); nothing ran"
+    },
+    {
+     "n": 3,
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/papermill_run2.log -- env PYTHONDONTWRITEBYTECODE=1 MPLBACKEND=module://matplotlib_inline.backend_inline $PROJECT_ROOT/diffres-env/bin/python -m papermill $PROJECT_ROOT/repo/diffres/demos/gaussian_mixture.ipynb $PROJECT_ROOT/notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb --kernel diffres-p2a --cwd $PROJECT_ROOT/notebooks/gaussian_mixture_demo/work --log-output",
+     "exit_status": 0,
+     "peak_memory_mb": 723,
+     "wall_s": 55,
+     "papermill_duration_s": 51.1,
+     "cell_durations_s": {
+      "cell2_imports": 5.36,
+      "cell4_model_and_IS": 8.4,
+      "cell6_resampling": 29.87,
+      "cell7_plot": 2.49
+     },
+     "outcome": "reference run; papermill exception=None; one image/png output in cell 7"
+    },
+    {
+     "n": 4,
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/driver_capture_replay.log -- bash -c \"cd notebooks/gaussian_mixture_demo/work && env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py capture && env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py replay\"",
+     "exit_status": 0,
+     "peak_memory_mb": 681,
+     "wall_s": 83,
+     "outcome": "capture exit 0, replay exit 0 (all comparisons bitwise equal)"
+    }
+   ],
+   "notes_on_execution": [
+    "Papermill log shows \"Notebook JSON is invalid: Additional properties are not allowed (jetTransient ...)\" for the INPUT notebook (stored upstream output in cell 7); warning only, execution proceeded.",
+    "Executed notebook metadata.kernelspec still reads python3 (copied from the input; papermill 2.7.0 did not rewrite it), but the papermill log records \"Executing notebook with kernel: diffres-p2a\".",
+    "No GPU used (gpu_used_before/after 0 MiB in every heavy.sh run). repo/diffres git status clean after all runs."
+   ],
+   "data_and_seed_provenance": {
+    "data": "synthetic, generated inside the notebook (cell 4): 5-component Gaussian mixture prior in d=10, linear Gaussian likelihood dy=2 with obs_op=ones((2,10)), obs_cov=I2, y = obs_op @ (gm_weights @ ms); importance weights = likelihood of 1024 prior samples, normalised by logsumexp. No external data.",
+    "seed": "jax.random.PRNGKey(666) (cell 2); key split 3x in cell 4 and once in cell 6; the resampling key (raw uint32[2]) = [700162660, 1620510799]; all three resamplers use this same key.",
+    "how_inputs_were_obtained": "gaussian_mixture_driver.py capture reads the unchanged upstream notebook (sha256 checked) and exec()s the verbatim source of code cells 2, 4, 6 and 7 in one namespace (the notebook's own code), then saves arrays. Its figure re-render is byte-identical to the papermill figure, which ties the saved arrays to the papermill run."
+   },
+   "inputs": {
+    "inputs_resampling.npz": {
+     "path": "notebooks/gaussian_mixture_demo/data/inputs_resampling.npz",
+     "sha256": "ebac589df2d46d5b5eeb341c633db4550542c0bf3a7186ef225dfc0b6319d529",
+     "contents": {
+      "key": "uint32 (2,)",
+      "log_ws": "float64 (1024,), normalised (sum exp = 1 - 3e-16)",
+      "prior_samples": "float64 (1024, 10)",
+      "ts": "float64 (33,) = linspace(0,1,33)"
+     }
+    },
+    "resampling_arguments.json": {
+     "path": "notebooks/gaussian_mixture_demo/data/resampling_arguments.json",
+     "sha256": "db61007e0328c1aca3c149e8c5f3371e5b0d3ea83d57c4cc3fd4c4775a9cfee0",
+     "summary": "diffusion_resampling(key, log_ws, prior_samples, a=-2, ts=linspace(0,1.,33), integrator=\"jentzen_and_kloeden\", ode=True) [jitter=0., einsum=False defaults]; ensemble_ot(key, log_ws, prior_samples, eps=0.3) [implicit_diff=True default]; multinomial(key, log_ws, prior_samples); jax_enable_x64=True"
+    },
+    "notebook_context.npz": {
+     "path": "notebooks/gaussian_mixture_demo/data/notebook_context.npz",
+     "sha256": "d0f5dd6848345bc5e371f1123c40dd87e0b365c2014edaaadf72852d6367c9a6",
+     "contents": "true_post_samples (1024,10) exact posterior samples used in the figure, ms, covs, y, post_vs, post_ms, post_covs"
+    }
+   },
+   "outputs": {
+    "outputs_capture.npz": {
+     "path": "notebooks/gaussian_mixture_demo/data/outputs_capture.npz",
+     "sha256": "d13724746fdffdc14adcae763bef5bcd4ed2fefb0a9440f956645a60ec500770",
+     "contents": "approx_post_samples (diffusion), approx_post_samples_ot, approx_post_samples_multinomial; float64 (1024,10) each, as produced by notebook cell 6 code"
+    },
+    "outputs_replay.npz": {
+     "path": "notebooks/gaussian_mixture_demo/data/outputs_replay.npz",
+     "sha256": "4862876a390a476c3c778f43cb2cecd696c07a3e8e31ad8c569c64454392a1f1",
+     "contents": "same three arrays from direct upstream calls on the saved inputs, plus returned log weights (all = -log 1024)"
+    }
+   },
+   "reference_numbers": {
+    "input_ess": 178.1133018276936,
+    "weighted_mean_prior_dims01": [
+     2.167282607202751,
+     2.009248454884421
+    ],
+    "true_post_mean_dims01": [
+     2.2526719300186953,
+     1.5028771572185402
+    ],
+    "resample_means_dims01": {
+     "approx_post_samples": [
+      2.1624622484472833,
+      1.935391156871063
+     ],
+     "approx_post_samples_ot": [
+      2.1650274602625506,
+      1.9926674760046998
+     ],
+     "approx_post_samples_multinomial": [
+      2.181883212960594,
+      2.1480267964241415
+     ]
+    },
+    "resample_mean_all_std_all": {
+     "approx_post_samples": [
+      0.3524554415821253,
+      3.020282821755952
+     ],
+     "approx_post_samples_ot": [
+      0.35189476809068376,
+      2.9974086917085043
+     ],
+     "approx_post_samples_multinomial": [
+      0.3473942186072557,
+      3.0686517366326505
+     ]
+    },
+    "multinomial_unique_ancestors": 214,
+    "multinomial_rows_are_exact_input_particles": true,
+    "output_log_weights_uniform_minus_log_n": true,
+    "replay_timings_s": {
+     "diffusion_resampling": 9.6119384765625,
+     "ensemble_ot": 16.707470655441284,
+     "multinomial": 0.8558483123779297
+    }
+   },
+   "replay_comparisons": {
+    "method": "fresh process loads only inputs_resampling.npz + resampling_arguments.json, calls diffres.resampling.diffusion_resampling / ensemble_ot / multinomial directly (CPU, x64), compares with captured notebook-code outputs",
+    "tolerance": "exact (bitwise) required; observed exact",
+    "results": {
+     "approx_post_samples": {
+      "bitwise_equal": true,
+      "max_abs_diff": 0.0,
+      "dtype": "float64",
+      "shape": [
+       1024,
+       10
+      ]
+     },
+     "approx_post_samples_ot": {
+      "bitwise_equal": true,
+      "max_abs_diff": 0.0,
+      "dtype": "float64",
+      "shape": [
+       1024,
+       10
+      ]
+     },
+     "approx_post_samples_multinomial": {
+      "bitwise_equal": true,
+      "max_abs_diff": 0.0,
+      "dtype": "float64",
+      "shape": [
+       1024,
+       10
+      ],
+      "all_rows_are_input_particles": true,
+      "n_unique_ancestors": 214
+     },
+     "log_ws_diffusion_uniform": true,
+     "log_ws_ot_uniform": true,
+     "log_ws_multinomial_uniform": true
+    },
+    "figure": {
+     "replay_vs_papermill_figure_1": {
+      "png_bytes_equal": true,
+      "same_shape": true,
+      "pixels_equal": true,
+      "max_abs_pixel_diff": 0.0,
+      "shape_replay": [
+       517,
+       1217,
+       4
+      ],
+      "shape_papermill": [
+       517,
+       1217,
+       4
+      ]
+     },
+     "capture_vs_papermill_figure_1": {
+      "same_shape": true,
+      "png_bytes_equal": true,
+      "pixels_equal": true,
+      "shape_capture": [
+       517,
+       1217,
+       4
+      ],
+      "shape_papermill": [
+       517,
+       1217,
+       4
+      ]
+     },
+     "note": "notebook cell-7 plotting code re-run on the replayed arrays and rendered via IPython print_figure (the inline backend call) gives a PNG byte-identical to images/figure_1.png from the papermill run (sha256 38ef4f21...)"
+    },
+    "driver": "notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py",
+    "driver_sha256": "fd9c4b0540e0da6bb61913fcca3f879a21b3704a12008c2ca0c0d7cd1dc9964e",
+    "comparison_json": "notebooks/gaussian_mixture_demo/data/replay_comparison.json"
+   },
+   "figures": [
+    {
+     "path": "notebooks/gaussian_mixture_demo/images/figure_1.png",
+     "sha256": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+     "cell_index": 7,
+     "size": "1217x517 RGBA",
+     "manifest": "notebooks/gaussian_mixture_demo/images/image-manifest.json",
+     "description": "three panels, dims 0-1: true posterior samples vs diffusion resamples / OT resamples / multinomial resamples"
+    }
+   ],
+   "comparison_with_upstream_stored_output": {
+    "stored_figure": "notebooks/gaussian_mixture_demo/upstream_stored_figure/figure_1.png",
+    "stored_sha256": "193640c2062756520d92d108182b75322c7ce505e7d86abec0eea3c24014aab9",
+    "differing_pixels_per_panel": {
+     "panel1_diffusion": 50599,
+     "panel2_ot": 50,
+     "panel3_multinomial": 4270
+    },
+    "total_pixels": 629189,
+    "assessment": "Same size and layout. True-posterior points and the OT panel match visually (50 differing pixels in the OT third). The multinomial panel differs in a few points (4270 differing pixels, 707 with change > 0.3). The diffusion panel differs visibly (50599 px): the same multimodal coverage of the three posterior clusters, but a different realisation. The upstream author's run environment (JAX version, platform) is not recorded in the notebook, and the diffusion_resampling default path has had no algorithmic change since the notebook commit 6aa3e1f (only jitter=0./einsum=False switches were added). The cause is therefore unknown. This is a qualitative difference from the stored output only; the tool references are the locally executed results above."
+   },
+   "limitations": [
+    "The notebook prints no numbers. The only notebook output is the figure; the numeric references come from the capture driver, which runs the same notebook code, and are tied to the papermill run by a byte-identical figure.",
+    "Bitwise replay was observed on this CPU / jax 0.7.2 / x64 setup. Other platforms or JAX versions may differ (see the stored-output comparison).",
+    "diffusion_resampling uses exp(log_ws) directly; the saved log_ws are already logsumexp-normalised, as in the notebook.",
+    "Sliced-Wasserstein accuracy checks (tests/test_resampling.py) are not part of this source and were not run here."
+   ],
+   "attempts_used": 4,
+   "max_peak_memory_mb": 739,
+   "evidence_files": {
+    "notebooks/gaussian_mixture_demo/attempts/attempt1_no_figure_Agg_backend.ipynb": "6a1781f296e735f854f6ddeb65033a559bb3313f46734c420051475087e4f42d",
+    "notebooks/gaussian_mixture_demo/data/capture_info.json": "b2cdd7b7d0b84108f616e1cf0342dac1e962d7aeb86cc6e05fcd1c88d2ec46cb",
+    "notebooks/gaussian_mixture_demo/data/figure_vs_upstream_stored_output.json": "725da66332f9396ce0f66fef81e0666ba3a7caafbc4d1e18d92ddc42d155900c",
+    "notebooks/gaussian_mixture_demo/data/inputs_resampling.npz": "ebac589df2d46d5b5eeb341c633db4550542c0bf3a7186ef225dfc0b6319d529",
+    "notebooks/gaussian_mixture_demo/data/notebook_context.npz": "d0f5dd6848345bc5e371f1123c40dd87e0b365c2014edaaadf72852d6367c9a6",
+    "notebooks/gaussian_mixture_demo/data/outputs_capture.npz": "d13724746fdffdc14adcae763bef5bcd4ed2fefb0a9440f956645a60ec500770",
+    "notebooks/gaussian_mixture_demo/data/outputs_replay.npz": "4862876a390a476c3c778f43cb2cecd696c07a3e8e31ad8c569c64454392a1f1",
+    "notebooks/gaussian_mixture_demo/data/replay_comparison.json": "46987576e4debad6ebb9d687ad2bd640229766024e10de8e4525cd38f065027b",
+    "notebooks/gaussian_mixture_demo/data/resampling_arguments.json": "db61007e0328c1aca3c149e8c5f3371e5b0d3ea83d57c4cc3fd4c4775a9cfee0",
+    "notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py": "fd9c4b0540e0da6bb61913fcca3f879a21b3704a12008c2ca0c0d7cd1dc9964e",
+    "notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb": "4b0be2dc406e84acd48108b6e7bd590e574cee0a386be646cab3554b765b43c6",
+    "notebooks/gaussian_mixture_demo/gaussian_mixture_inspection.ipynb": "0d75573264ad036dab4a90808927721bb19d58003b5b5e7b3c5293b382b8a55c",
+    "notebooks/gaussian_mixture_demo/images/figure_1.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+    "notebooks/gaussian_mixture_demo/images/image-manifest.json": "a2bc6bbb980b0bbfd8bd7fa1c0178f3933aa4c306386b8da7b14c4999e7ce497",
+    "notebooks/gaussian_mixture_demo/images_driver/capture_cell7.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+    "notebooks/gaussian_mixture_demo/images_driver/replay_cell7.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+    "notebooks/gaussian_mixture_demo/logs/driver_capture_replay.log": "47ac82c39ce72bca16402878eaf5042ddf02de7d69434802819e66772469f2b8",
+    "notebooks/gaussian_mixture_demo/logs/papermill_run1.log": "cb84bff51921025f02a968e8e3139568b71c17526c35953a211a14a61d9842f6",
+    "notebooks/gaussian_mixture_demo/logs/papermill_run2.log": "d829405fedb1be34e5b6a1c3fca8b1696c1662b3590e900abf40a7c17dde9399",
+    "notebooks/gaussian_mixture_demo/logs/papermill_time.txt": "8c3dfcfd0be24ce39bd2ce3d133d3df6f5d3cf8a748222087a91ba375df00dd3",
+    "notebooks/gaussian_mixture_demo/upstream_stored_figure/figure_1.png": "193640c2062756520d92d108182b75322c7ce505e7d86abec0eea3c24014aab9",
+    "notebooks/gaussian_mixture_demo/upstream_stored_figure/image-manifest.json": "0aec52fb6ecf5b2a1dbdeb28aab16fd1e0042a55a97f149a152502e08529c349"
+   }
+  },
+  "gms_diffusion_experiment": {
+   "execution_id": "gms_diffusion_experiment",
+   "status": "success",
+   "module": "resampling",
+   "supports_tools": [
+    "diffres_resample_particles_diffusion"
+   ],
+   "source_path": "repo/diffres/experiments/gms/diffusion.py",
+   "source_sha256": "886496bab31d254ac8030286ea350e48db817bd680cccc8cdda50c58a94ba774",
+   "source_sha256_matches_scanner": true,
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/diffusion.py",
+   "upstream_function": "diffres.resampling.diffusion_resampling (diffres/resampling.py lines 195-308)",
+   "execution_mode": "native_script (unmodified upstream script run directly; plus runpy capture driver and replay driver)",
+   "execution_path": "repo/diffres/experiments/gms/diffusion.py",
+   "drivers": {
+    "capture": "notebooks/gms_diffusion_experiment/capture_driver.py",
+    "replay": "notebooks/gms_diffusion_experiment/replay_driver.py",
+    "report_builder": "notebooks/gms_diffusion_experiment/make_report.py"
+   },
+   "runtime": {
+    "python": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python (CPython 3.11.17)",
+    "jax": "0.7.2",
+    "backend": "cpu",
+    "jax_enable_x64": true,
+    "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 (JAX_PLATFORMS=cpu, no GPU; gpu_used 0 MiB before/after)",
+    "env": "PYTHONDONTWRITEBYTECODE=1 so nothing was written under repo/"
+   },
+   "changed_arguments_vs_upstream": {
+    "reference": "experiments/run_gms.sh (nsamples=10000, --id_l=0 --id_u=99, a=-1., T in {1,2,3}, nsteps in {8,32,128}, 7 integrator/flow combos)",
+    "changes": [
+     "--id_u=99 -> --id_u=0 (single Monte Carlo id 0)",
+     "--nsamples=10000 -> --nsamples=1000 (memory: (n,n,d) float64 arrays per step)"
+    ],
+    "unchanged": [
+     "--a=-1. (as run_gms.sh; script default -0.5 overridden as upstream does)",
+     "dx=8, dy=1, c=5, offset=0 (script defaults, as run_gms.sh)",
+     "config A: --T=3. --nsteps=128 --integrator=jentzen_and_kloeden, ODE (paper best SWD in Table tbl:gm-compare / tbl:app-gm-swd-1)",
+     "config B: --T=1. --nsteps=8 --integrator=euler --sde (Euler-Maruyama SDE path, in run_gms.sh grid)"
+    ]
+   },
+   "data_provenance": {
+    "rnd_keys": "repo/diffres/experiments/rnd_keys.npy copied into work_native/ and work_capture/ (generated upstream by experiments/generate_keys.py: PRNGKey(666) split 10000)",
+    "rnd_keys_sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df",
+    "mc_key_row0": [
+     2482698485,
+     3875352609
+    ],
+    "data_generation": "script-internal: GM prior (c=5, d=8, means U[-5,5], covs = g g^T + I), prior samples via diffres.tools.sampling_gm, log-likelihood weights normalised with logsumexp, exact posterior via diffres.tools.gm_lin_posterior",
+    "diffusion_resampling_key_A": [
+     1100985983,
+     1476939598
+    ],
+    "diffusion_resampling_key_B": [
+     1100985983,
+     1476939598
+    ],
+    "note": "Both configs use the same MC key, hence identical prior samples/log-weights/posterior samples and the same resampling key; only a/ts/integrator/ode differ."
+   },
+   "runs": {
+    "A_jk_ode_T3_K128": {
+     "command": "cd notebooks/gms_diffusion_experiment/work_native && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/native_A_jk_ode_T3_K128.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/diffusion.py --id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=3. --nsteps=128 --integrator=jentzen_and_kloeden",
+     "cwd": "notebooks/gms_diffusion_experiment/work_native",
+     "log": "notebooks/gms_diffusion_experiment/logs/native_A_jk_ode_T3_K128.log",
+     "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+     "heavy_start_utc": "2026-10-03T00:52:57Z",
+     "heavy_end_utc": "2026-10-03T00:53:21Z",
+     "runtime_seconds_excluding_lock_wait": 24.0,
+     "exit_status": 0,
+     "peak_memory_mb": 500,
+     "oom_kills": "0",
+     "upstream_output_file": "notebooks/gms_diffusion_experiment/work_native/gms/results/diffres--1.0-3.0-128-jentzen_and_kloeden-ode-0.npz",
+     "reference_output_copy": "notebooks/gms_diffusion_experiment/data/native_A_jk_ode_T3_K128.npz",
+     "printed_line": "diffres (id=0) with a=-1.0 | T=3.0 | nsteps=128 | jentzen_and_kloeden | ode has err 0.22439601954644894.",
+     "metrics": {
+      "swd_err": 0.22439601954644894,
+      "swd_err_repr": "0.22439601954644894",
+      "residual": [
+       -0.330222986196657,
+       0.018869799043309557,
+       0.2781541964498777,
+       0.13176991907626046,
+       0.12875004003442575,
+       0.07295991249001288,
+       -0.19415824079051025,
+       -0.12710889878796955
+      ],
+      "sum_sq_residual": 0.2798901747619864,
+      "output_log_weights_unique": [
+       -6.907755278982137
+      ]
+     },
+     "diffusion_resampling_call": {
+      "a": -1.0,
+      "ts_linspace": {
+       "start": 0.0,
+       "stop": 3.0,
+       "num": 129
+      },
+      "integrator": "jentzen_and_kloeden",
+      "ode": true,
+      "jitter": 0.0,
+      "einsum": false,
+      "wrapped_in_jax_jit": true
+     },
+     "captured_inputs": "notebooks/gms_diffusion_experiment/data/inputs_A_jk_ode_T3_K128.npz",
+     "captured_args": "notebooks/gms_diffusion_experiment/data/args_A_jk_ode_T3_K128.json",
+     "input_checks": {
+      "ts_equals_linspace_0_T_nsteps_plus_1": true,
+      "log_ws_logsumexp": 0.0,
+      "ess": 129.5428088717271,
+      "dtypes": {
+       "key": "uint32",
+       "log_ws": "float64",
+       "samples": "float64"
+      },
+      "shapes": {
+       "samples": [
+        1000,
+        8
+       ],
+       "ts": [
+        129
+       ]
+      }
+     },
+     "output_summary": {
+      "output_log_ws_unique": [
+       -6.907755278982137
+      ],
+      "minus_log_n": -6.907755278982137,
+      "weighted_input_mean": [
+       1.9629538301768996,
+       0.13156086698424926,
+       0.12039605281964151,
+       -1.2314353956868151,
+       -0.3720865244651918,
+       0.6710440226336936,
+       1.4544474748228255,
+       -0.4704619820433202
+      ],
+      "output_mean": [
+       1.8475197027842527,
+       0.1245288043287234,
+       0.15976609280417745,
+       -1.2647331574928675,
+       -0.281206744190795,
+       0.7403678803057269,
+       1.3594043333992187,
+       -0.4431580583258426
+      ],
+      "true_posterior_mean": [
+       2.177742688980906,
+       0.10565900528541404,
+       -0.11838810364570038,
+       -1.3965030765691286,
+       -0.40995678422522075,
+       0.6674079678157163,
+       1.553562574189728,
+       -0.3160491595378729
+      ],
+      "sum_sq_residual": 0.2798901747619864,
+      "output_all_finite": true
+     },
+     "paper_reference": {
+      "table": "tbl:app-gm-swd-1 (and Table tbl:gm-compare, best SWD)",
+      "swd_mean_std_scaled_1e_minus1": "0.80 +- 0.21",
+      "resampling_variance_scaled_1e_minus2": "3.74 +- 2.99 (Table tbl:gm-compare)",
+      "settings": "n=10000, 100 MC runs"
+     }
+    },
+    "B_euler_sde_T1_K8": {
+     "command": "cd notebooks/gms_diffusion_experiment/work_native && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/native_B_euler_sde_T1_K8.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/diffusion.py --id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=1. --nsteps=8 --integrator=euler --sde",
+     "cwd": "notebooks/gms_diffusion_experiment/work_native",
+     "log": "notebooks/gms_diffusion_experiment/logs/native_B_euler_sde_T1_K8.log",
+     "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+     "heavy_start_utc": "2026-10-03T00:54:58Z",
+     "heavy_end_utc": "2026-10-03T00:55:14Z",
+     "runtime_seconds_excluding_lock_wait": 16.0,
+     "exit_status": 0,
+     "peak_memory_mb": 486,
+     "oom_kills": "0",
+     "upstream_output_file": "notebooks/gms_diffusion_experiment/work_native/gms/results/diffres--1.0-1.0-8-euler-sde-0.npz",
+     "reference_output_copy": "notebooks/gms_diffusion_experiment/data/native_B_euler_sde_T1_K8.npz",
+     "printed_line": "diffres (id=0) with a=-1.0 | T=1.0 | nsteps=8 | euler | sde has err 0.2688576648090433.",
+     "metrics": {
+      "swd_err": 0.2688576648090433,
+      "swd_err_repr": "0.2688576648090433",
+      "residual": [
+       -0.14892946699752185,
+       0.0014836351693010424,
+       0.1799539322172421,
+       0.046429940287960214,
+       0.11728546321058986,
+       0.03264204540826576,
+       -0.06909377348852441,
+       -0.17237536985813268
+      ],
+      "sum_sq_residual": 0.10602994506664232,
+      "output_log_weights_unique": [
+       -6.907755278982137
+      ]
+     },
+     "diffusion_resampling_call": {
+      "a": -1.0,
+      "ts_linspace": {
+       "start": 0.0,
+       "stop": 1.0,
+       "num": 9
+      },
+      "integrator": "euler",
+      "ode": false,
+      "jitter": 0.0,
+      "einsum": false,
+      "wrapped_in_jax_jit": true
+     },
+     "captured_inputs": "notebooks/gms_diffusion_experiment/data/inputs_B_euler_sde_T1_K8.npz",
+     "captured_args": "notebooks/gms_diffusion_experiment/data/args_B_euler_sde_T1_K8.json",
+     "input_checks": {
+      "ts_equals_linspace_0_T_nsteps_plus_1": true,
+      "log_ws_logsumexp": 0.0,
+      "ess": 129.5428088717271,
+      "dtypes": {
+       "key": "uint32",
+       "log_ws": "float64",
+       "samples": "float64"
+      },
+      "shapes": {
+       "samples": [
+        1000,
+        8
+       ],
+       "ts": [
+        9
+       ]
+      }
+     },
+     "output_summary": {
+      "output_log_ws_unique": [
+       -6.907755278982137
+      ],
+      "minus_log_n": -6.907755278982137,
+      "weighted_input_mean": [
+       1.9629538301768996,
+       0.13156086698424926,
+       0.12039605281964151,
+       -1.2314353956868151,
+       -0.3720865244651918,
+       0.6710440226336936,
+       1.4544474748228255,
+       -0.4704619820433202
+      ],
+      "output_mean": [
+       2.0288132219833828,
+       0.10714264045471504,
+       0.06156582857154172,
+       -1.3500731362811695,
+       -0.2926713210146304,
+       0.7000500132239813,
+       1.4844688007012024,
+       -0.488424529396005
+      ],
+      "true_posterior_mean": [
+       2.177742688980906,
+       0.10565900528541404,
+       -0.11838810364570038,
+       -1.3965030765691286,
+       -0.40995678422522075,
+       0.6674079678157163,
+       1.553562574189728,
+       -0.3160491595378729
+      ],
+      "sum_sq_residual": 0.10602994506664232,
+      "output_all_finite": true
+     },
+     "paper_reference": {
+      "table": "tbl:app-gm-swd-1",
+      "swd_mean_std_scaled_1e_minus1": "2.39 +- 0.57",
+      "resampling_variance_scaled_1e_minus2": null,
+      "settings": "n=10000, 100 MC runs"
+     }
+    }
+   },
+   "capture_run": {
+    "command": "cd notebooks/gms_diffusion_experiment/work_capture && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/capture_A_B.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python notebooks/gms_diffusion_experiment/capture_driver.py notebooks/gms_diffusion_experiment/data",
+    "log": "notebooks/gms_diffusion_experiment/logs/capture_A_B.log",
+    "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+    "heavy_start_utc": "2026-10-03T01:02:27Z",
+    "heavy_end_utc": "2026-10-03T01:03:02Z",
+    "runtime_seconds_excluding_lock_wait": 35.0,
+    "exit_status": 0,
+    "peak_memory_mb": 580,
+    "oom_kills": "0",
+    "method": "runpy of the unmodified script for both configs; jax.jit wrapper records concrete args/outputs of the script's jitted `resampling` and `swd` (same XLA program), diffusion_resampling wrapper records static args at trace time, gm_lin_posterior wrapper records inputs/outputs",
+    "non_invasive_check": {
+     "A_jk_ode_T3_K128": {
+      "samples_bitwise_equal": true,
+      "log_ws_bitwise_equal": true,
+      "post_samples_bitwise_equal": true,
+      "err_bitwise_equal": true,
+      "residual_bitwise_equal": true,
+      "captured_post_samples_equal_native": true,
+      "captured_outputs_equal_native": true
+     },
+     "B_euler_sde_T1_K8": {
+      "samples_bitwise_equal": true,
+      "log_ws_bitwise_equal": true,
+      "post_samples_bitwise_equal": true,
+      "err_bitwise_equal": true,
+      "residual_bitwise_equal": true,
+      "captured_post_samples_equal_native": true,
+      "captured_outputs_equal_native": true
+     }
+    }
+   },
+   "replay": {
+    "command": "cd notebooks/gms_diffusion_experiment && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/replay.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python notebooks/gms_diffusion_experiment/replay_driver.py",
+    "log": "notebooks/gms_diffusion_experiment/logs/replay.log",
+    "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+    "heavy_start_utc": "2026-10-03T01:06:28Z",
+    "heavy_end_utc": "2026-10-03T01:06:53Z",
+    "runtime_seconds_excluding_lock_wait": 25.0,
+    "exit_status": 0,
+    "peak_memory_mb": 505,
+    "oom_kills": "0",
+    "method": "fresh process, x64, load data/inputs_<cfg>.npz, call diffres.resampling.diffusion_resampling inside jax.jit exactly as the script; recompute SWD with ott sliced_wasserstein(PNormP(p=1), n_proj=1000) and the mean residual as the script does; extra eager (no outer jit) call",
+    "comparison_file": "notebooks/gms_diffusion_experiment/data/replay_comparison.json",
+    "results": {
+     "A_jk_ode_T3_K128": {
+      "jit": {
+       "samples_bitwise_equal": true,
+       "samples_max_abs_diff": 0.0,
+       "log_ws_bitwise_equal": true,
+       "err_native": 0.22439601954644894,
+       "err_replay": 0.22439601954644894,
+       "err_abs_diff": 0.0,
+       "residual_native": [
+        -0.330222986196657,
+        0.018869799043309557,
+        0.2781541964498777,
+        0.13176991907626046,
+        0.12875004003442575,
+        0.07295991249001288,
+        -0.19415824079051025,
+        -0.12710889878796955
+       ],
+       "residual_replay": [
+        -0.330222986196657,
+        0.018869799043309557,
+        0.2781541964498777,
+        0.13176991907626046,
+        0.12875004003442575,
+        0.07295991249001288,
+        -0.19415824079051025,
+        -0.12710889878796955
+       ],
+       "residual_max_abs_diff": 0.0
+      },
+      "eager": {
+       "samples_bitwise_equal": false,
+       "samples_max_abs_diff": 4.927169783286445e-13,
+       "log_ws_bitwise_equal": true
+      }
+     },
+     "B_euler_sde_T1_K8": {
+      "jit": {
+       "samples_bitwise_equal": true,
+       "samples_max_abs_diff": 0.0,
+       "log_ws_bitwise_equal": true,
+       "err_native": 0.2688576648090433,
+       "err_replay": 0.2688576648090433,
+       "err_abs_diff": 0.0,
+       "residual_native": [
+        -0.14892946699752185,
+        0.0014836351693010424,
+        0.1799539322172421,
+        0.046429940287960214,
+        0.11728546321058986,
+        0.03264204540826576,
+        -0.06909377348852441,
+        -0.17237536985813268
+       ],
+       "residual_replay": [
+        -0.14892946699752185,
+        0.0014836351693010424,
+        0.1799539322172421,
+        0.046429940287960214,
+        0.11728546321058986,
+        0.03264204540826576,
+        -0.06909377348852441,
+        -0.17237536985813268
+       ],
+       "residual_max_abs_diff": 0.0
+      },
+      "eager": {
+       "samples_bitwise_equal": false,
+       "samples_max_abs_diff": 8.681944052568724e-14,
+       "log_ws_bitwise_equal": true
+      }
+     }
+    },
+    "tolerance_policy": "jit replay: bitwise required and observed (same key/inputs/x64/CPU). Eager call: not bitwise because XLA compiles the computation differently without the outer jit; observed max |diff| 4.9e-13 (A) and 8.7e-14 (B), within the ~1e-12 expectation stated in the brief."
+   },
+   "figures": {
+    "applicable": false,
+    "reason": "experiments/gms/diffusion.py produces no plots; only an .npz and a printed line."
+   },
+   "outputs_and_hashes": {
+    "notebooks/gms_diffusion_experiment/data/args_A_jk_ode_T3_K128.json": "0790333540d849f2279df9b5c784ba854185006b7e8c1bdd2505df201abf0444",
+    "notebooks/gms_diffusion_experiment/data/args_B_euler_sde_T1_K8.json": "af67b443448e487a960eae21c96f242620584bc9f34de1c33e89658d5edd8145",
+    "notebooks/gms_diffusion_experiment/data/inputs_A_jk_ode_T3_K128.npz": "1c494ee4eb38a3df176f0b941fc0caed3652de08a48f8eb1661b96cbf922a00a",
+    "notebooks/gms_diffusion_experiment/data/inputs_B_euler_sde_T1_K8.npz": "e409327000a3ae218d07d7a9fd3ffe5fdfcc7ca7588fa25eed9c2cd9ce9f0534",
+    "notebooks/gms_diffusion_experiment/data/native_A_jk_ode_T3_K128.npz": "a3b21f29153163f4f7ab49e46dbccff2f57c02daf16361cd56db920af9500a59",
+    "notebooks/gms_diffusion_experiment/data/native_B_euler_sde_T1_K8.npz": "beefede9d9ee8e3edae95acfe010471f1c94398241b08035962ddfaae9f84277",
+    "notebooks/gms_diffusion_experiment/data/outputs_capture_A_jk_ode_T3_K128.npz": "a8fe944cdeadc4c3128e56e53a2597c5db625cd1a1a5992939db67460c8d5a4a",
+    "notebooks/gms_diffusion_experiment/data/outputs_capture_B_euler_sde_T1_K8.npz": "a500180a9b1ef9900505563e8cf2e966fcadc457226d3e28006d06414a77cc55",
+    "notebooks/gms_diffusion_experiment/data/replay_comparison.json": "b9fb798ca8e232ea403f73766c384e48d2b72f8cba89bf2c2e44668de1954550",
+    "notebooks/gms_diffusion_experiment/data/replay_outputs_A_jk_ode_T3_K128.npz": "b42e6d16919f40eb266eb9e7ce6fa0ad7ab263c5057406ab125b277b2800c32b",
+    "notebooks/gms_diffusion_experiment/data/replay_outputs_B_euler_sde_T1_K8.npz": "285f7c7971b8bb060716c36ee4f03800dfc7b4b56936c6904978566b8cceb315",
+    "notebooks/gms_diffusion_experiment/capture_driver.py": "537b9d7fc848c92e29c595866d46fd0ed819efd590568f1bf734019315e04e8e",
+    "notebooks/gms_diffusion_experiment/replay_driver.py": "2165b362fc9f3b1fe039b3645893ee797fc717f88892dfa4980809080ebfd6e4",
+    "notebooks/gms_diffusion_experiment/make_report.py": "34206b44a1b6769ca4ed7ac403e76b8083365b837c68bd013de1e94f7dd803d2"
+   },
+   "key_reference_numbers": {
+    "A_jk_ode_T3_K128": {
+     "swd": 0.22439601954644894,
+     "sum_sq_residual": 0.2798901747619864
+    },
+    "B_euler_sde_T1_K8": {
+     "swd": 0.2688576648090433,
+     "sum_sq_residual": 0.10602994506664232
+    },
+    "input_ess": 129.5428088717271
+   },
+   "limitations": [
+    "Single MC id (0) and n=1000 instead of 100 MC ids and n=10000: the SWD values (0.224, 0.269) are not comparable to the paper averages (0.080 +- 0.021 and 0.239 +- 0.057 at n=10000). SWD at n=1000 is dominated by finite-sample error (ESS of the input weights is about 130), so these numbers are reference values for replaying the exact same call, not reproductions of the paper table.",
+    "Only two of the seven integrator/flow combinations in run_gms.sh were executed (jentzen_and_kloeden ODE and euler SDE); lord_and_rougemont, tweedie, and the remaining ODE/SDE combos were not run here (test_filters.py covered them at stage 1).",
+    "The upstream script saves only post_samples, approx_post_log_ws, approx_post_samples, err, residual; the inputs to diffusion_resampling (key, log_ws, prior samples, ts) were captured by the runpy capture driver, which was shown to produce bitwise-identical script outputs to the native run.",
+    "The work_native/ and work_capture/ scratch folders each contain a copy of rnd_keys.npy (sha256 above) and the script's ./gms/results output."
+   ],
+   "attempts": [
+    {
+     "n": 1,
+     "what": "native config A",
+     "exit": 0
+    },
+    {
+     "n": 2,
+     "what": "native config B",
+     "exit": 0
+    },
+    {
+     "n": 3,
+     "what": "capture driver (A and B)",
+     "exit": 0
+    },
+    {
+     "n": 4,
+     "what": "replay driver",
+     "exit": 0
+    }
+   ],
+   "repo_unmodified": "git status --short --ignored in repo/diffres is empty after all runs; HEAD 767effe3e755067eb8a04422597fbf37eb8ab754"
+  },
+  "gms_baselines_experiment": {
+   "execution_id": "gms_baselines_experiment",
+   "module": "resampling",
+   "supports_tools": [
+    "diffres_resample_particles_baseline"
+   ],
+   "status": "success",
+   "sources": {
+    "primary": {
+     "path": "repo/diffres/experiments/gms/baselines.py",
+     "sha256": "7b258df0ab4a7ca8eb5c91f6d5efbabbe359e0130db1cb9e4d3263a9241f1d5c"
+    },
+    "supporting": {
+     "path": "repo/diffres/experiments/gms/ot.py",
+     "sha256": "9a430f00adfa5169bd37393b167a7052657e46750b8bdaae003de26c3afb1b61"
+    },
+    "implementation": {
+     "path": "repo/diffres/diffres/resampling.py",
+     "sha256": "12b33fe23e1f62e18909cbcff9fa45db36ed65f6f943668728c9fe61795aa06e",
+     "symbols": [
+      "multinomial",
+      "stratified",
+      "systematic",
+      "ensemble_ot",
+      "multinomial_stopped (forward check only)"
+     ]
+    },
+    "data_generation": {
+     "path": "repo/diffres/diffres/tools.py",
+     "sha256": "54c60e1ac4f484532f51be57a63aacbdfb7a53ef8cef621495176ea7a843a5df",
+     "symbols": [
+      "sampling_gm",
+      "gm_lin_posterior"
+     ]
+    },
+    "keys_file": {
+     "path": "repo/diffres/experiments/rnd_keys.npy",
+     "sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df",
+     "note": "uint32 (10000,2) from jax.random.split(PRNGKey(666), 10000) per experiments/generate_keys.py; copied into native_run/ and capture_run/"
+    }
+   },
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres",
+   "upstream_checkout_unmodified": "git status --short --ignored in repo/diffres is empty after all runs",
+   "execution_mode": "native script (unmodified upstream scripts run by absolute path from a scratch cwd) + capture driver (runpy of the same unmodified scripts, globals saved) + replay driver (fresh process, direct upstream resampler calls)",
+   "execution_path": "notebooks/gms_baselines_experiment/run_native.sh",
+   "drivers": {
+    "native": "notebooks/gms_baselines_experiment/run_native.sh",
+    "capture_and_replay_wrapper": "notebooks/gms_baselines_experiment/run_capture_replay.sh",
+    "capture": "notebooks/gms_baselines_experiment/capture.py",
+    "replay": "notebooks/gms_baselines_experiment/replay.py"
+   },
+   "methods_accepted_by_baselines_py": [
+    "multinomial",
+    "stratified",
+    "systematic"
+   ],
+   "methods_note": "baselines.py raises ValueError for any other --method. multinomial_stopped/soft/gumbel are not reachable from baselines.py (gumbel/soft have their own scripts handled by other executors).",
+   "changed_arguments_vs_upstream": {
+    "reference": "repo/diffres/experiments/run_gms.sh",
+    "--id_u": "99 -> 0 (single MC id 0)",
+    "--nsamples": "10000 -> 1000",
+    "--method": "run_gms.sh only uses multinomial; stratified and systematic additionally run (script-supported)",
+    "--eps": "0.3 (unchanged; one of run_gms.sh values 0.3/0.6/0.8/0.9)",
+    "others": "defaults dx=8, dy=1, c=5, offset=0 (offset is parsed but unused by the scripts)"
+   },
+   "environment": {
+    "python": "diffres-env/bin/python",
+    "jax": "0.7.2",
+    "jaxlib": "0.7.2",
+    "ott-jax": "0.5.2",
+    "numpy": "2.3.3",
+    "x64": true,
+    "devices": [
+     "TFRT_CPU_0"
+    ],
+    "launcher": "heavy.sh (CPU-only, JAX_PLATFORMS=cpu)",
+    "env": "PYTHONDONTWRITEBYTECODE=1"
+   },
+   "heavy_jobs": [
+    {
+     "attempt": 1,
+     "command": "heavy.sh --limit-mb 1200 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_native.sh",
+     "exit_status": 75,
+     "note": "NOT STARTED: MemAvailable=3126 MB < 1200+2000; nothing executed",
+     "log": "notebooks/gms_baselines_experiment/logs/heavy_native.log (overwritten by attempt 2)"
+    },
+    {
+     "attempt": 2,
+     "command": "heavy.sh --limit-mb 1000 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_native.sh",
+     "exit_status": 0,
+     "wall_seconds": 61,
+     "peak_memory_mb": 444,
+     "oom_kills": 0,
+     "gpu_used_mib": 0,
+     "log": "notebooks/gms_baselines_experiment/logs/heavy_native.log"
+    },
+    {
+     "attempt": 3,
+     "command": "heavy.sh --limit-mb 1000 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_capture_replay.sh",
+     "exit_status": 0,
+     "wall_seconds": 98,
+     "peak_memory_mb": 491,
+     "oom_kills": 0,
+     "gpu_used_mib": 0,
+     "log": "notebooks/gms_baselines_experiment/logs/heavy_capture_replay.log",
+     "sub_steps": "4 capture processes (exit 0, 14.1-18.6 s each) + replay process (exit 0, 35.2 s)"
+    }
+   ],
+   "data_provenance": {
+    "mc_id": 0,
+    "key_mc": [
+     2482698485,
+     3875352609
+    ],
+    "resampling_key": [
+     1100985983,
+     1476939598
+    ],
+    "key_chain": "key_mc -> split[0] (ms) -> split[0] (covs) -> split[0] (prior: split(.,1000) keys, split[1] passed as unused eigvals/eigvecs) -> split[0] (posterior samples keys) -> split[0] = resampling key; re-derived and checked bitwise against script globals",
+    "model": "GM prior with c=5 equal weights, means U(-5,5)^8, covs a a^T + I; y = obs_op @ sum_k v_k m_k with obs_op=ones(1,8), obs_cov=I_1 (offset 0)",
+    "observation_y": [
+     2.058051944061351
+    ],
+    "weighted_input": "prior_samples (1000,8) float64, log_ws (1000,) float64 normalised (logsumexp = 0.0)",
+    "input_ess": 129.5428088717271,
+    "inputs_identical_across_all_four_runs": true,
+    "weighted_input_mean_minus_true_posterior_mean_norm": 0.4076577892081361
+   },
+   "configs": {
+    "baselines_multinomial": {
+     "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+     "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=multinomial",
+     "exit_status": 0,
+     "runtime_seconds_including_jit_and_imports": 18.62,
+     "in_upstream_run_gms_sh": true,
+     "stdout": "multinomial (id=0) has err 0.206197755096866.",
+     "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/multinomial-0.npz",
+     "native_output_keys": [
+      "post_samples",
+      "approx_post_log_ws",
+      "approx_post_samples",
+      "err",
+      "residual"
+     ],
+     "reference_values": {
+      "err_swd_p1_nproj1000": 0.206197755096866,
+      "residual_weighted_mean_minus_true_mean": [
+       -0.22937185701122131,
+       0.003159605322170425,
+       0.14435164069461057,
+       0.2134699438359393,
+       0.01218097090256709,
+       -0.011730418536527232,
+       0.030612656113396586,
+       -0.18939637403811632
+      ],
+      "residual_norm": 0.3951232022690992
+     },
+     "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.npz",
+     "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.json",
+     "key_chain_checks": {
+      "resampling_key_equals_script_global_key": true,
+      "post_keys_equal_script_global_keys": true,
+      "prior_samples_regenerated_bitwise": true
+     },
+     "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_multinomial.npz",
+     "upstream_call_replayed": "diffres.resampling.multinomial(key, log_ws, prior_samples) under jax.jit",
+     "native_vs_in_process_capture_bitwise": {
+      "post_samples": true,
+      "approx_post_log_ws": true,
+      "approx_post_samples": true,
+      "err": true,
+      "residual": true
+     },
+     "replay_jit_vs_native": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_bitwise": true,
+      "approx_post_log_ws_maxabs": 0.0,
+      "err_bitwise": true,
+      "err_absdiff": 0.0,
+      "residual_maxabs": 0.0
+     },
+     "replay_eager_vs_jit": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_maxabs": 0.0
+     },
+     "output_log_ws_equal_minus_log_n": true,
+     "ancestors": {
+      "every_output_row_matches_exactly_one_input_row": true,
+      "input_rows_distinct": true,
+      "n_unique_ancestors": 178,
+      "indices_nondecreasing": false,
+      "max_offspring": 19,
+      "corr_offspring_vs_n_times_weight": 0.9132522478224291,
+      "max_abs_offspring_minus_n_times_weight": 11.290554867468991
+     },
+     "multinomial_stopped_forward_equals_multinomial": {
+      "samples_bitwise": true,
+      "log_ws_maxabs": 8.881784197001252e-16
+     }
+    },
+    "baselines_stratified": {
+     "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+     "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=stratified",
+     "exit_status": 0,
+     "runtime_seconds_including_jit_and_imports": 13.79,
+     "in_upstream_run_gms_sh": false,
+     "stdout": "stratified (id=0) has err 0.2038019351560481.",
+     "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/stratified-0.npz",
+     "native_output_keys": [
+      "post_samples",
+      "approx_post_log_ws",
+      "approx_post_samples",
+      "err",
+      "residual"
+     ],
+     "reference_values": {
+      "err_swd_p1_nproj1000": 0.2038019351560481,
+      "residual_weighted_mean_minus_true_mean": [
+       -0.21838842838050954,
+       0.015638099891354756,
+       0.23868404281130973,
+       0.2002523896125472,
+       0.04137736373756795,
+       -0.011061088593713242,
+       -0.0960438942860451,
+       -0.16523620715402654
+      ],
+      "residual_norm": 0.4282184201456469
+     },
+     "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.npz",
+     "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.json",
+     "key_chain_checks": {
+      "resampling_key_equals_script_global_key": true,
+      "post_keys_equal_script_global_keys": true,
+      "prior_samples_regenerated_bitwise": true
+     },
+     "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_stratified.npz",
+     "upstream_call_replayed": "diffres.resampling.stratified(key, log_ws, prior_samples) under jax.jit",
+     "native_vs_in_process_capture_bitwise": {
+      "post_samples": true,
+      "approx_post_log_ws": true,
+      "approx_post_samples": true,
+      "err": true,
+      "residual": true
+     },
+     "replay_jit_vs_native": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_bitwise": true,
+      "approx_post_log_ws_maxabs": 0.0,
+      "err_bitwise": true,
+      "err_absdiff": 0.0,
+      "residual_maxabs": 0.0
+     },
+     "replay_eager_vs_jit": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_maxabs": 0.0
+     },
+     "output_log_ws_equal_minus_log_n": true,
+     "ancestors": {
+      "every_output_row_matches_exactly_one_input_row": true,
+      "input_rows_distinct": true,
+      "n_unique_ancestors": 186,
+      "indices_nondecreasing": true,
+      "max_offspring": 12,
+      "corr_offspring_vs_n_times_weight": 0.994764775004572,
+      "max_abs_offspring_minus_n_times_weight": 1.6827373164625417
+     }
+    },
+    "baselines_systematic": {
+     "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+     "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=systematic",
+     "exit_status": 0,
+     "runtime_seconds_including_jit_and_imports": 12.05,
+     "in_upstream_run_gms_sh": false,
+     "stdout": "systematic (id=0) has err 0.20321737171484955.",
+     "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/systematic-0.npz",
+     "native_output_keys": [
+      "post_samples",
+      "approx_post_log_ws",
+      "approx_post_samples",
+      "err",
+      "residual"
+     ],
+     "reference_values": {
+      "err_swd_p1_nproj1000": 0.20321737171484955,
+      "residual_weighted_mean_minus_true_mean": [
+       -0.22437979558705234,
+       0.02821138794994553,
+       0.23778969523093058,
+       0.15288417264227538,
+       0.038785432027220346,
+       0.015917713485849916,
+       -0.09865501135543919,
+       -0.1568651666244681
+      ],
+      "residual_norm": 0.4088482109366523
+     },
+     "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.npz",
+     "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.json",
+     "key_chain_checks": {
+      "resampling_key_equals_script_global_key": true,
+      "post_keys_equal_script_global_keys": true,
+      "prior_samples_regenerated_bitwise": true
+     },
+     "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_systematic.npz",
+     "upstream_call_replayed": "diffres.resampling.systematic(key, log_ws, prior_samples) under jax.jit",
+     "native_vs_in_process_capture_bitwise": {
+      "post_samples": true,
+      "approx_post_log_ws": true,
+      "approx_post_samples": true,
+      "err": true,
+      "residual": true
+     },
+     "replay_jit_vs_native": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_bitwise": true,
+      "approx_post_log_ws_maxabs": 0.0,
+      "err_bitwise": true,
+      "err_absdiff": 0.0,
+      "residual_maxabs": 0.0
+     },
+     "replay_eager_vs_jit": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_maxabs": 0.0
+     },
+     "output_log_ws_equal_minus_log_n": true,
+     "ancestors": {
+      "every_output_row_matches_exactly_one_input_row": true,
+      "input_rows_distinct": true,
+      "n_unique_ancestors": 196,
+      "indices_nondecreasing": true,
+      "max_offspring": 11,
+      "corr_offspring_vs_n_times_weight": 0.9961150120108648,
+      "max_abs_offspring_minus_n_times_weight": 0.9410082957350359
+     }
+    },
+    "ot_eps0.3": {
+     "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+     "command": "diffres-env/bin/python repo/diffres/experiments/gms/ot.py --id_l=0 --id_u=0 --nsamples=1000 --eps=0.3",
+     "exit_status": 0,
+     "runtime_seconds_including_jit_and_imports": 15.26,
+     "in_upstream_run_gms_sh": true,
+     "stdout": "OT (id=0) with eps=0.3 has err 0.1967139148148507.",
+     "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/ot-0.3-0.npz",
+     "native_output_keys": [
+      "post_samples",
+      "approx_post_log_ws",
+      "approx_post_samples",
+      "err",
+      "residual"
+     ],
+     "reference_values": {
+      "err_swd_p1_nproj1000": 0.1967139148148507,
+      "residual_weighted_mean_minus_true_mean": [
+       -0.21709479712752255,
+       0.026948430766418327,
+       0.24092121263069144,
+       0.16533596883855517,
+       0.037287541415413794,
+       0.005330026474877347,
+       -0.10165932220414886,
+       -0.15407923869618123
+      ],
+      "residual_norm": 0.4107665780745434
+     },
+     "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.npz",
+     "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.json",
+     "key_chain_checks": {
+      "resampling_key_equals_script_global_key": true,
+      "post_keys_equal_script_global_keys": true,
+      "prior_samples_regenerated_bitwise": true
+     },
+     "replay_output": "notebooks/gms_baselines_experiment/data/replay_ot_eps0.3.npz",
+     "upstream_call_replayed": "diffres.resampling.ensemble_ot(key, log_ws, prior_samples, 0.3) under jax.jit",
+     "native_vs_in_process_capture_bitwise": {
+      "post_samples": true,
+      "approx_post_log_ws": true,
+      "approx_post_samples": true,
+      "err": true,
+      "residual": true
+     },
+     "replay_jit_vs_native": {
+      "approx_post_samples_bitwise": true,
+      "approx_post_samples_maxabs": 0.0,
+      "approx_post_log_ws_bitwise": true,
+      "approx_post_log_ws_maxabs": 0.0,
+      "err_bitwise": true,
+      "err_absdiff": 0.0,
+      "residual_maxabs": 0.0
+     },
+     "replay_eager_vs_jit": {
+      "approx_post_samples_bitwise": false,
+      "approx_post_samples_maxabs": 1.1581846592889633e-12,
+      "approx_post_log_ws_maxabs": 0.0
+     },
+     "output_log_ws_equal_minus_log_n": true,
+     "sinkhorn_diagnostic": {
+      "converged": true,
+      "n_iters": 880,
+      "ott_default_threshold": 0.001,
+      "row_marginal_maxabs_vs_1_over_n": 1.8951853975046618e-16,
+      "col_marginal_maxabs_vs_weights": 2.0120285371983196e-05,
+      "n_P_X_maxabs_vs_native_output": 1.1581846592889633e-12,
+      "output_mean_minus_weighted_input_mean_norm": 0.004565642834618222
+     }
+    }
+   },
+   "replay_summary": "All four resamplers replay bitwise (max abs diff 0.0) from saved inputs in a fresh process under jax.jit, for outputs, output log weights, SWD err and residual; native and in-process capture .npz files are byte-identical (same sha256). Eager (un-jitted) ensemble_ot differs from jitted by 1.16e-12 (XLA fusion); eager multinomial/stratified/systematic are bitwise equal to jitted. multinomial_stopped forward samples equal multinomial bitwise; its log weights differ by 8.9e-16.",
+   "tolerances_recommended_for_tool_tests": {
+    "multinomial/stratified/systematic": "exact (bitwise) for samples given same key, inputs, x64, CPU; ancestors recoverable as exact row matches",
+    "ensemble_ot": "atol ~1e-10 on samples (jit vs eager 1.2e-12); bitwise only when called under jax.jit as the script does",
+    "swd_err": "bitwise when recomputed with the same ott call (sliced_wasserstein n_proj=1000, PNormP(1), default rng)"
+   },
+   "figures": "not applicable: the scripts produce no plots",
+   "outputs_and_hashes": {
+    "notebooks/gms_baselines_experiment/native_run/gms/results/multinomial-0.npz": "feb08edef1b7fff08edbb64d88333baf46a83889be52ec010e6472602351a9c2",
+    "notebooks/gms_baselines_experiment/native_run/gms/results/ot-0.3-0.npz": "04fcff848cfc3dc2e631c52f104eed4b23fb6b8703cad2836800e4c0e8e8a7cc",
+    "notebooks/gms_baselines_experiment/native_run/gms/results/stratified-0.npz": "f288603c4ac250ca1da14e1e3c5e9d5fd71310a622109fbcb397e73a1ef4db3a",
+    "notebooks/gms_baselines_experiment/native_run/gms/results/systematic-0.npz": "b86a6a0ef53f4f648ac3c318cd222c730664dd388fee7e233278a4c6199005e8",
+    "notebooks/gms_baselines_experiment/capture_run/gms/results/multinomial-0.npz": "feb08edef1b7fff08edbb64d88333baf46a83889be52ec010e6472602351a9c2",
+    "notebooks/gms_baselines_experiment/capture_run/gms/results/ot-0.3-0.npz": "04fcff848cfc3dc2e631c52f104eed4b23fb6b8703cad2836800e4c0e8e8a7cc",
+    "notebooks/gms_baselines_experiment/capture_run/gms/results/stratified-0.npz": "f288603c4ac250ca1da14e1e3c5e9d5fd71310a622109fbcb397e73a1ef4db3a",
+    "notebooks/gms_baselines_experiment/capture_run/gms/results/systematic-0.npz": "b86a6a0ef53f4f648ac3c318cd222c730664dd388fee7e233278a4c6199005e8",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.json": "0b233b505dd7d314b295856bcde220abaa3ac754904405119635e88b7a5a2b42",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.npz": "0b50cff8041791b5dcc9961ff81f3c93f90898aaaac355cb4682e06707be0638",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.json": "ec1d328f863f618f6efda7a534ace218ccda9717ef8320099e49f5a3aee87dbb",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.npz": "909ea1ae1e9234909aab7edae21f8eb79bfbd9a4b2b9870c87e0b669cf12ca91",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.json": "f22b5f116e915923461827e51701c2aa4bad866249d901e9832597af2590bfb5",
+    "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.npz": "12f3490bca2db8d1a69edec750da7883fe401100d709ab78197e8d539fbe4761",
+    "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.json": "4c774bbdf3c71dc54bdfce4252025a8d6d765ee9742eafa6e0d667b2c30f7e19",
+    "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.npz": "18c5b0822d89dc7265369bb8d365b88ad49ebf223446f6cd0f409b2d19fbd6a4",
+    "notebooks/gms_baselines_experiment/data/replay_baselines_multinomial.npz": "98c32ebfcf747906bbb5f7da1d05c0f8e99e119e766711dd6c58ca0a163f4309",
+    "notebooks/gms_baselines_experiment/data/replay_baselines_stratified.npz": "d7b137e7cbfe06465b1fc7e1ae3dfad12a671732f866ac1807d45ab05b02bf9f",
+    "notebooks/gms_baselines_experiment/data/replay_baselines_systematic.npz": "2bf64727cb2b0738d8865975ef06929105465caaa71f5ccbad55f2fe071266de",
+    "notebooks/gms_baselines_experiment/data/replay_comparison.json": "f72a986599318ee955831ec859fea554d1660edc1dac8e5d85b2cc3944cf0010",
+    "notebooks/gms_baselines_experiment/data/replay_ot_eps0.3.npz": "3f2d92f74e03d1dbb4db7beb18f3ff4b26765ce56ef77d2ad9517d70d9be0c2b",
+    "notebooks/gms_baselines_experiment/logs/capture_baselines_multinomial.log": "de4d20cab8383061f53e8cc3ecebd3201db57c8b4653ad0baffcd41aacfc1f85",
+    "notebooks/gms_baselines_experiment/logs/capture_baselines_stratified.log": "ebd836f0ea2be19ca8d06a96c70a2c82a7f7a1d77a6607c4b45e70a23bbd134e",
+    "notebooks/gms_baselines_experiment/logs/capture_baselines_systematic.log": "cebf202e2a82c553a6859a5c58ba338776fab7a135b0dcfb5ba89fe639509dec",
+    "notebooks/gms_baselines_experiment/logs/capture_ot_eps0.3.log": "6d0727d6bd31578734d9d2b6b10c5d45dcafdd418173d665944113d8e15f2d4c",
+    "notebooks/gms_baselines_experiment/logs/heavy_capture_replay.log": "ed010aa28982a491fb8592f12de20cda4ad3af07ca269aea23f3b4a0685138df",
+    "notebooks/gms_baselines_experiment/logs/heavy_native.log": "dd2979abbad9476613ea5b991dbaa751eac93176bd30c30b72a0275fd609dde6",
+    "notebooks/gms_baselines_experiment/logs/native_baselines_multinomial.log": "44fdb79805775a7f7ece8dd714f283f68fe0784d059bc3615bbf448c28f85dd6",
+    "notebooks/gms_baselines_experiment/logs/native_baselines_stratified.log": "ccc67f40de2339934aa54b4922dd0bcb471d11e2057d2994a03cc3ccb0f00766",
+    "notebooks/gms_baselines_experiment/logs/native_baselines_systematic.log": "5a6fded8a5427abeb4d43853f7d8b0b4eff1e24952ee96ab41ebc7ea6fb53a00",
+    "notebooks/gms_baselines_experiment/logs/native_ot_eps0.3.log": "fc914c18e829b25f631c053b4074f1a451cc2689e097415474beb071bc45ece8",
+    "notebooks/gms_baselines_experiment/logs/replay.log": "5f8f63d732130ab17aff45edf3dcf6704e908534aaa08f6307ae8114e5730824",
+    "notebooks/gms_baselines_experiment/run_native.sh": "3d1981b7546e5ebdfe5c4c81b291a7112abcbbc46e34ff2c46c89cf40a98363d",
+    "notebooks/gms_baselines_experiment/run_capture_replay.sh": "45c04ce7364e45e296a4b174515d2f1a616486869a68b691a3bb931ee435b93d",
+    "notebooks/gms_baselines_experiment/capture.py": "2a74cadec504a2852942b1986569b808e042d7260ba44cb7becf33b2dc80bf1d",
+    "notebooks/gms_baselines_experiment/replay.py": "8a0dc19b7a5779c8a564a3876ba9a7fcf0d06ff16f7a6d00ca6f7ffe95fd0c80"
+   },
+   "limitations": [
+    "Reduced size: n=1000 and a single MC id instead of n=10000 and ids 0-99, so err/residual are single-run Monte Carlo values, not the paper table averages.",
+    "Sinkhorn diagnostic (converged=True, 880 iterations, column-marginal error 2.0e-5 with ott default threshold 1e-3) was obtained by building the same ott LinearProblem/Sinkhorn as ensemble_ot does; it is a diagnostic, not a reference output.",
+    "Ancestor indices for multinomial/stratified/systematic are recovered by exact row matching of outputs to the (distinct) input rows; upstream does not return indices.",
+    "Stratified/systematic assume normalised weights (true here: logsumexp(log_ws)=0.0).",
+    "Native runtimes include process start, JAX import and JIT compilation."
+   ],
+   "attempts": "3 heavy.sh invocations: 1 refused by launcher (exit 75, nothing ran), 2 successful. No upstream file modified."
+  },
+  "gms_soft_experiment": {
+   "execution_id": "gms_soft_experiment",
+   "status": "success",
+   "source_path": "repo/diffres/experiments/gms/soft.py",
+   "source_sha256": "e06dc2b8f06cfd4c8f7fa0c67de8b55e1af4c55acc19c0878d0a58ed33437d34",
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/soft.py",
+   "module": "resampling",
+   "supports_tool": "diffres_resample_particles_baseline (method='soft', parameter alpha)",
+   "upstream_function": "diffres.resampling.soft_resampling(key, log_ws, samples, alpha) -> (normalised log weights (n,), particles (n,d)); repo/diffres/diffres/resampling.py lines 122-157",
+   "execution_mode": "native script (unmodified, invoked by absolute path in repo/) + in-process capture driver (runpy of the same script) + fresh-process replay driver; no notebook",
+   "execution_path": "notebooks/gms_soft_experiment/run_direct (cwd) running repo/diffres/experiments/gms/soft.py",
+   "runtime_environment": {
+    "python": "notebooks run with diffres-env/bin/python (CPython 3.11.17)",
+    "jax": "0.7.2 (CPU backend, x64 enabled by the script)",
+    "ott_jax": "0.5.2",
+    "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, no GPU used: gpu_used 0 MiB before/after)"
+   },
+   "arguments": {
+    "used": {
+     "id_l": 0,
+     "id_u": 0,
+     "nsamples": 1000,
+     "alpha": 0.9,
+     "dx": 8,
+     "dy": 1,
+     "c": 5,
+     "offset": 0.0
+    },
+    "upstream_defaults": {
+     "nsamples": 10000,
+     "alpha": 0.5,
+     "dx": 8,
+     "dy": 1,
+     "c": 5,
+     "offset": 0.0,
+     "id_l": null,
+     "id_u": null
+    },
+    "upstream_run_gms_sh": "python ./gms/soft.py --id_l=0 --id_u=99 --alpha={0.2,0.4,0.8,1.} --nsamples=10000",
+    "changes_vs_run_gms_sh": "id_u 99 -> 0 (single MC run, mc_id 0); nsamples 10000 -> 1000; alpha=0.9 (argument name --alpha)",
+    "note_on_alpha": "run_gms.sh at this commit does not run alpha=0.9 (it runs 0.2, 0.4, 0.8, 1.), but experiments/summary/print_gms_errs.py tabulates alphas [0., 0.2, 0.4, 0.8, 0.9], and the paper's GMS baseline table reports 'Soft 0.9' (SWD 0.83 +- 0.24, scaled by 10^-1, 100 MC runs, n=10000, per paper-review transcription paper-review/_scratch/diffres-16-23/p19.py). alpha=0.9 was used as assigned; the table number given in the assignment ('Table 1') was not independently checked."
+   },
+   "commands": [
+    {
+     "attempt": 1,
+     "purpose": "direct native run of the unmodified upstream script",
+     "cwd": "notebooks/gms_soft_experiment/run_direct (contains copy of experiments/rnd_keys.npy and empty gms/results/)",
+     "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log ../logs/attempt1_direct_soft.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/soft.py --id_l=0 --id_u=0 --nsamples=1000 --alpha=0.9",
+     "exit_status": 0,
+     "runtime_s": 20,
+     "runtime_note": "job 00:52:37Z-00:52:57Z; total wall 179 s including waiting for the shared heavy-job lock",
+     "peak_memory_mb": 651,
+     "stdout": "Soft (id=0) with alp=0.9 has err 0.20833637779043834.",
+     "log": "notebooks/gms_soft_experiment/logs/attempt1_direct_soft.log"
+    },
+    {
+     "attempt": 2,
+     "purpose": "capture run: same unmodified script executed via runpy.run_path with identical argv; module-level variables saved (inputs to the resampler, keys, outputs, metrics)",
+     "cwd": "notebooks/gms_soft_experiment/run_capture",
+     "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log ../logs/attempt2_capture.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python ../capture_soft_gms.py ../data",
+     "exit_status": 0,
+     "runtime_s": 16,
+     "peak_memory_mb": 650,
+     "stdout": "Soft (id=0) with alp=0.9 has err 0.20833637779043834. (+ metadata JSON)",
+     "log": "notebooks/gms_soft_experiment/logs/attempt2_capture.log"
+    },
+    {
+     "attempt": 3,
+     "purpose": "replay in a fresh process: soft_resampling from saved inputs (jit wrapper as in the script, and unjitted), metric via the same ott sliced_wasserstein call; comparison against capture and direct native outputs",
+     "cwd": "notebooks/gms_soft_experiment",
+     "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log logs/attempt3_replay.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python replay_soft_gms.py <abs path notebooks/gms_soft_experiment>",
+     "exit_status": 0,
+     "runtime_s": 11,
+     "peak_memory_mb": 556,
+     "log": "notebooks/gms_soft_experiment/logs/attempt3_replay.log"
+    }
+   ],
+   "attempts_total": 3,
+   "failed_attempts": 0,
+   "data_and_seed_provenance": {
+    "rnd_keys": "repo/diffres/experiments/rnd_keys.npy (sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df), copied unchanged into run_direct/ and run_capture/; row 0 used",
+    "key_mc": [
+     2482698485,
+     3875352609
+    ],
+    "key_resampling_uint32": [
+     1100985983,
+     1476939598
+    ],
+    "key_note": "legacy uint32 raw keys (jax.random.split of the numpy row); key_resampling is the exact key passed to soft_resampling",
+    "data_generation": "the script's own synthetic data: 5-component Gaussian mixture prior in d=8 (means U(-5,5), covs a a^T + I), 1000 prior samples via diffres.tools.sampling_gm, linear Gaussian likelihood (obs_op ones(1,8), obs_cov I, y = obs_op @ sum_c v_c m_c), exact posterior via diffres.tools.gm_lin_posterior and 1000 posterior samples; normalised log importance weights log_ws",
+    "dtype": "float64 everywhere (x64), keys uint32"
+   },
+   "inputs": {
+    "file": "notebooks/gms_soft_experiment/data/soft_gms_inputs.npz",
+    "sha256": "2df1f7c15c1121e1b233406919200e2e752d7dd6f8593c887331a25a53c9d570",
+    "contents": "key_mc (2,) uint32, key_resampling (2,) uint32, log_ws (1000,), ws (1000,), prior_samples (1000,8), alpha 0.9, y (1,), obs_op (1,8), obs_cov (1,1), vs (5,), ms (5,8), covs (5,8,8), post_vs (5,), post_ms (5,8), post_covs (5,8,8), post_samples (1000,8); all float64",
+    "resampler_call": "soft_resampling(key_resampling, log_ws, prior_samples, 0.9) under jax.jit with jax_enable_x64=True on CPU",
+    "input_ess": 129.5428088717271
+   },
+   "outputs": {
+    "native_result_file": {
+     "path": "notebooks/gms_soft_experiment/run_direct/gms/results/soft-0.9-0.npz",
+     "sha256": "18d1942e70eff97cf2198e928e26b2db08eba0bd5864445dade2636cedb66cfc",
+     "keys": "post_samples (1000,8), approx_post_log_ws (1000,), approx_post_samples (1000,8), err (), residual (8,)",
+     "note": "capture run wrote a byte-identical file run_capture/gms/results/soft-0.9-0.npz (same sha256)"
+    },
+    "capture_outputs": {
+     "path": "notebooks/gms_soft_experiment/data/soft_gms_outputs.npz",
+     "sha256": "7f35f841d74add78ccbbcb362bc0966412cbf4f2455c3301c3e81bbc652ba4e1",
+     "contents": "approx_post_log_ws (1000,), approx_post_weights = exp(log ws) (1000,), approx_post_samples (1000,8), err, residual (8,), approx_m (8,), true_m (8,)"
+    },
+    "capture_meta": {
+     "path": "notebooks/gms_soft_experiment/data/soft_gms_capture_meta.json",
+     "sha256": "75c3cc17c49e1a6cf75c1c683ba1d9fbf4be77d87daf97a40a93c4bf3c9eee0a"
+    },
+    "resample_indices": {
+     "path": "notebooks/gms_soft_experiment/data/soft_gms_resample_indices.npy",
+     "sha256": "cb13a640bd7331afa56df43e80e27064cf7e4a8cddbd992fcf93c797f873c157",
+     "note": "soft_resampling does not return indices; recovered post hoc by exact row matching of approx_post_samples against the (all-unique) prior_samples. 241 unique ancestors, range 6..995"
+    },
+    "replay_outputs": {
+     "path": "notebooks/gms_soft_experiment/data/soft_gms_replay_outputs.npz",
+     "sha256": "3de4362eabced07210b3ab496b15b4c2e48909adbe3bbafc9a1717c7cda88c37"
+    }
+   },
+   "reference_numbers": {
+    "err_swd": 0.20833637779043834,
+    "err_definition": "ott sliced_wasserstein(post_samples, approx_post_samples, wy=exp(approx_post_log_ws), cost_fn=PNormP(p=1), n_proj=1000)[0]",
+    "residual": [
+     -0.1342481337260648,
+     -0.01595940459944452,
+     0.14856285111850825,
+     0.2914666502730545,
+     -0.06433388071766033,
+     -0.11298015090427094,
+     0.11574962294317737,
+     -0.1968024557345251
+    ],
+    "residual_sq_sum": 0.19433353745912868,
+    "output_weights": {
+     "sum": 1.0,
+     "ess": 935.9255006137976,
+     "min": 2.2936734695133113e-119,
+     "max": 0.0010839488776138225,
+     "uniform": false
+    },
+    "comparability_to_paper": "single MC run at n=1000; not comparable with the paper's 100-run n=10000 mean (SWD 0.083 for Soft 0.9 in unscaled units). No claim of reproducing the paper's table is made."
+   },
+   "replay_comparisons": {
+    "file": "notebooks/gms_soft_experiment/data/soft_gms_replay_comparison.json",
+    "sha256": "3efebfac7003e9a663cba6bbac2b1b5007139fb298cf878b26948f207fd2b937",
+    "tolerance": "exact (bitwise) expected: same key, same float64 inputs, same x64 CPU setting",
+    "results": {
+     "replay_jit_vs_capture": "log_ws, samples, err, residual: bitwise equal (max abs diff 0.0)",
+     "replay_jit_vs_direct_native": "log_ws, samples, err, residual: bitwise equal (max abs diff 0.0)",
+     "replay_nojit_vs_jit": "log_ws, samples: bitwise equal",
+     "capture_native_vs_direct_native": "all 5 arrays bitwise equal; files byte-identical",
+     "capture_inputs_vs_direct_native": "post_samples bitwise equal (inputs captured are those of the direct run)",
+     "resample_indices": "replay indices identical to direct-run indices (exact integer match)"
+    }
+   },
+   "drivers": {
+    "capture": {
+     "path": "notebooks/gms_soft_experiment/capture_soft_gms.py",
+     "sha256": "cd4774715443e2b550cb5c25fcd9ca1bce6e68cca5b4530efd1cd38825742d18"
+    },
+    "replay": {
+     "path": "notebooks/gms_soft_experiment/replay_soft_gms.py",
+     "sha256": "9671db84897033d32c3d3f89fade70d3362172e4058af31dbffe90f2a60cbc84"
+    },
+    "note": "drivers only run the upstream script (runpy) or call diffres.resampling.soft_resampling / ott sliced_wasserstein directly; no algorithm re-implemented"
+   },
+   "figures": "not applicable: the script produces no plots",
+   "repo_unmodified": "git -C repo/diffres status --short --ignored is empty after all runs; HEAD 767effe3e755067eb8a04422597fbf37eb8ab754",
+   "limitations": [
+    "Reduced size (n=1000, one MC id) relative to run_gms.sh (n=10000, 100 MC ids); metric values are a single-seed reference, not the paper's averages.",
+    "alpha=0.9 is not among the alphas launched by run_gms.sh at this commit, although the summary script and paper table include it.",
+    "Resample indices are inferred by row matching, since upstream returns only particles and log weights."
+   ]
+  },
+  "gms_gumbel_experiment": {
+   "execution_id": "gms_gumbel_experiment",
+   "status": "success",
+   "source": {
+    "path": "experiments/gms/gumbel.py",
+    "project_path": "repo/diffres/experiments/gms/gumbel.py",
+    "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/gumbel.py",
+    "revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+    "sha256": "138738ff2784f1063b7f13b9abb9cd0032a2d75e63df81d55f26c0d439e4b975",
+    "module": "resampling",
+    "upstream_symbol": "diffres.resampling.gumbel_softmax(key, log_ws, samples, tau)",
+    "upstream_symbol_file_sha256": {
+     "repo/diffres/diffres/resampling.py": "12b33fe23e1f62e18909cbcff9fa45db36ed65f6f943668728c9fe61795aa06e",
+     "repo/diffres/diffres/tools.py": "54c60e1ac4f484532f51be57a63aacbdfb7a53ef8cef621495176ea7a843a5df"
+    },
+    "supports_tool": "diffres_resample_particles_baseline (method='gumbel_softmax', parameter tau)",
+    "repo_modified": false,
+    "repo_check": "git -C repo/diffres status --short --ignored -> empty after all runs"
+   },
+   "execution_mode": "native_script_plus_capture_and_replay_drivers",
+   "execution_path": "notebooks/gms_gumbel_experiment/logs/01_native_run.log",
+   "execution_files": {
+    "native_script": "repo/diffres/experiments/gms/gumbel.py (run unmodified by absolute path, cwd notebooks/gms_gumbel_experiment/run_native)",
+    "capture_driver": "notebooks/gms_gumbel_experiment/capture_driver.py (runpy.run_path of the unmodified script with the same argv, then saves the script's module globals; no algorithm code)",
+    "replay_driver": "notebooks/gms_gumbel_experiment/replay_driver.py (loads saved inputs, calls diffres.resampling.gumbel_softmax again jitted and eager, recomputes the script's metric with the script's own swd/residual code, compares)"
+   },
+   "runtime_environment": {
+    "python": "diffres-env/bin/python (CPython 3.11.17)",
+    "jax": "0.7.2 (CPU, jax.devices()=[TFRT_CPU_0])",
+    "jax_enable_x64": true,
+    "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, PYTHONPATH unset); GPU memory used 0 MiB before/after every job",
+    "notebook_kernel": "not used (native script; no notebook created as a log container)"
+   },
+   "arguments": {
+    "used": {
+     "id_l": 0,
+     "id_u": 0,
+     "nsamples": 1000,
+     "tau": 0.1,
+     "dx": 8,
+     "dy": 1,
+     "c": 5,
+     "offset": 0.0
+    },
+    "upstream_defaults": {
+     "nsamples": 10000,
+     "tau": 0.5,
+     "dx": 8,
+     "dy": 1,
+     "c": 5,
+     "offset": 0.0
+    },
+    "run_gms_sh_settings": "nsamples=10000, --id_l=0 --id_u=99, tau in {0., 0.2, 0.4, 0.8}",
+    "changes_vs_upstream": [
+     "--id_l=0 --id_u=0 (one Monte Carlo run instead of 100)",
+     "--nsamples=1000 instead of 10000 (assignment; machine memory budget)",
+     "--tau=0.1 as assigned (paper Table 1 setting; experiments/summary/print_gms_errs.py tabulates taus [0.1, 0.2, 0.4, 0.8], while run_gms.sh launches --tau=0. instead of 0.1, which looks like an upstream typo; noted, not changed)"
+    ],
+    "offset": "default 0.0; note the script parses --offset but never uses it (y = y_likely)"
+   },
+   "attempts": [
+    {
+     "n": 1,
+     "what": "native run of gumbel.py",
+     "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/01_native_run.log -- env --chdir=notebooks/gms_gumbel_experiment/run_native PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python repo/diffres/experiments/gms/gumbel.py --id_l=0 --id_u=0 --nsamples=1000 --tau=0.1",
+     "exit_status": 0,
+     "job_runtime_s": 17,
+     "wall_incl_lock_wait_s": 116.6,
+     "peak_memory_mb": 440,
+     "oom_kills": 0,
+     "stdout": "Gumbel-softmax (id=0) with tau=0.1 has err 0.227317260122535."
+    },
+    {
+     "n": 2,
+     "what": "capture driver (first try)",
+     "command": "same as attempt 3 but --limit-mb 1200",
+     "exit_status": 75,
+     "note": "heavy.sh refused to start: MemAvailable=3126 MB < 1200+2000; log logs/02a_capture_refused_exit75.stderr. Lowered limit to 900 MB (observed peak 440 MB)."
+    },
+    {
+     "n": 3,
+     "what": "capture driver",
+     "command": "heavy.sh --limit-mb 900 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/02_capture_run.log -- env --chdir=notebooks/gms_gumbel_experiment/run_capture PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python notebooks/gms_gumbel_experiment/capture_driver.py notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz notebooks/gms_gumbel_experiment/data/capture_meta.json --id_l=0 --id_u=0 --nsamples=1000 --tau=0.1",
+     "exit_status": 0,
+     "job_runtime_s": 14,
+     "peak_memory_mb": 439,
+     "oom_kills": 0
+    },
+    {
+     "n": 4,
+     "what": "replay driver (fresh process)",
+     "command": "heavy.sh --limit-mb 900 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/03_replay_run.log -- env --chdir=notebooks/gms_gumbel_experiment PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python notebooks/gms_gumbel_experiment/replay_driver.py notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz notebooks/gms_gumbel_experiment/run_native/gms/results/gumbel-0.1-0.npz notebooks/gms_gumbel_experiment/outputs/replay_outputs.npz notebooks/gms_gumbel_experiment/outputs/replay_comparison.json",
+     "exit_status": 0,
+     "job_runtime_s": 13,
+     "peak_memory_mb": 355,
+     "oom_kills": 0
+    }
+   ],
+   "memory_note": "gumbel_softmax vmaps an n-length softmax over n keys, i.e. n x n float64 intermediates (8 MB at n=1000). Peak scope memory 440 MB (mostly JAX/XLA/ott runtime); no memory pressure at n=1000. At the upstream n=10000 one n x n float64 array is 800 MB (not run here).",
+   "data_and_seed_provenance": {
+    "rnd_keys": "repo/diffres/experiments/rnd_keys.npy (uint32 (10000,2), sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df), copied unchanged into run_native/ and run_capture/",
+    "key_mc": [
+     2482698485,
+     3875352609
+    ],
+    "resampling_key": [
+     1100985983,
+     1476939598
+    ],
+    "resampling_key_derivation": "row 0 of rnd_keys.npy, then the script's chain of jax.random.split(key)[0] calls (5 splits) before the resampling call",
+    "data_generation": "script's own code: 5-component GM in d=8 (ms ~ U(-5,5), covs = a a^T + I), prior samples via diffres.tools.sampling_gm, exact posterior via diffres.tools.gm_lin_posterior with y = obs_op @ mixture mean, obs_op = ones(1,8), obs_cov = I_1",
+    "weights": "log_ws = sum N(y; obs_op x, 1) log-likelihood, normalised by logsumexp; ESS = 129.54 of 1000, max weight 0.01084"
+   },
+   "inputs": {
+    "path": "notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz",
+    "sha256": "f76a655a1c4702b5c0339bdbfcd0dec26de0c80fda7259d73ee1f24355294ae1",
+    "contents": "float64 unless noted: key_mc (uint32 2), resampling_key (uint32 2), tau (0.1), mc_id (int64 0), vs (5), ms (5,8), covs (5,8,8), obs_op (1,8), obs_cov (1,1), y (1), post_vs (5), post_ms (5,8), post_covs (5,8,8), prior_samples (1000,8) [resampler samples], log_ws (1000) [resampler log weights], ws (1000), post_samples (1000,8), approx_post_log_ws (1000), approx_post_samples (1000,8), err (), residual (8), approx_m (8), true_m (8)",
+    "resampler_call": "jax.jit(lambda k, lw, x: gumbel_softmax(k, lw, x, 0.1))(resampling_key, log_ws, prior_samples) with jax_enable_x64=True",
+    "meta": "notebooks/gms_gumbel_experiment/data/capture_meta.json (sha256 b11523f203e01799d94999929a6c616c6206ba1c53b66ab6f1b9a7d884982551)"
+   },
+   "outputs": {
+    "native_script_output": {
+     "path": "notebooks/gms_gumbel_experiment/run_native/gms/results/gumbel-0.1-0.npz",
+     "sha256": "05568892b76b7d2b6dcf5b95c4dc4c1f85c59a73d5c52d72342790170aeb9187",
+     "keys": "post_samples, approx_post_log_ws, approx_post_samples, err, residual (float64)"
+    },
+    "capture_run_script_output": {
+     "path": "notebooks/gms_gumbel_experiment/run_capture/gms/results/gumbel-0.1-0.npz",
+     "sha256": "05568892b76b7d2b6dcf5b95c4dc4c1f85c59a73d5c52d72342790170aeb9187",
+     "note": "byte-identical to the native file"
+    },
+    "replay_outputs": {
+     "path": "notebooks/gms_gumbel_experiment/outputs/replay_outputs.npz",
+     "sha256": "accb8c83fa01f146b0d4e49c10a7bcb1cecf706641f950fb834f86fc36f9b946"
+    },
+    "replay_comparison": {
+     "path": "notebooks/gms_gumbel_experiment/outputs/replay_comparison.json",
+     "sha256": "ca0bfc93cdb63d1733ed9b0fe553f1f445276613d6510fcacea435480915a7a4"
+    }
+   },
+   "reference_results": {
+    "err_swd_p1_nproj1000": 0.227317260122535,
+    "residual": [
+     -0.13012332,
+     0.00789854,
+     0.25779259,
+     0.23893686,
+     0.00714925,
+     -0.119703,
+     -0.03666808,
+     -0.18389459
+    ],
+    "residual_sq_sum": 0.19008400082698423,
+    "approx_post_log_ws": "all equal to -log(1000) = -6.907755278982137 (uniform, as documented)",
+    "approx_post_samples_shape": [
+     1000,
+     8
+    ],
+    "all_finite": true,
+    "interpretation": "Single MC run at n=1000; not comparable as a Table-1 statistic (paper averages 100 runs at n=10000). Reference numbers are for exact-replay verification of the tool, not a reproduction of the paper's table."
+   },
+   "replay_comparisons": {
+    "native_vs_capture (separate processes, same script)": "post_samples, approx_post_log_ws, approx_post_samples, err, residual: bitwise equal; result .npz files byte-identical",
+    "replay_jit_vs_capture (fresh process, gumbel_softmax under jax.jit as in script)": "approx_post_log_ws, approx_post_samples, err, residual: bitwise equal (max abs diff 0.0)",
+    "replay_eager_vs_capture (gumbel_softmax without jit)": "approx_post_log_ws bitwise equal; approx_post_samples not bitwise, max abs diff 4.44e-15, max rel diff 7.49e-13 (XLA fusion/reassociation of the softmax @ samples product); within the ~1e-12 float64 tolerance",
+    "recommended_tool_test_tolerance": "exact for log weights; for particles atol 1e-12 if the tool jits like the script, otherwise atol ~1e-13 / rtol 1e-11 (eager vs jit differs at 4e-15)",
+    "metric_replay_note": "err recomputed with the script's swd definition (ott sliced_wasserstein PNormP(p=1), n_proj=1000, default rng) gives the identical value 0.227317260122535"
+   },
+   "figures": "not applicable: the script produces no plots",
+   "limitations": [
+    "Only MC id 0 at n=1000 (vs. 100 runs at n=10000 upstream); paper Table 1 statistics are not reproduced.",
+    "The capture driver obtains inputs from the script's module globals after runpy execution; they are exactly the arrays the script passed to gumbel_softmax.",
+    "The replay driver duplicates the script's 2-line metric wrappers (swd, residual einsum) to recompute metrics; the resampler itself is called from diffres.resampling.",
+    "run_gms.sh launches --tau=0. (not 0.1); tau=0 would divide by zero in gumbel_softmax. Not run."
+   ],
+   "blockers": [],
+   "date_utc": "2026-10-03"
+  },
+  "filters_tests": {
+   "execution_id": "filters_tests",
+   "module": "feynman_kac",
+   "supports_tools": [
+    "diffres_run_lgssm_particle_filter",
+    "diffres_run_lgssm_kalman_filter (supporting evidence via test_kf)"
+   ],
+   "source_path": "repo/diffres/tests/test_filters.py",
+   "source_sha256": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/tests/test_filters.py",
+   "source_modified": false,
+   "status": "success",
+   "execution_mode": "native pytest run of the unchanged upstream test file + small capture/replay driver calling the same upstream functions",
+   "execution_path": "notebooks/filters_tests/filters_tests_driver.py",
+   "upstream_test_run": {
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1200 --log notebooks/filters_tests/logs/pytest_test_filters.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python -m pytest -p no:cacheprovider -v --durations=0 --junitxml=notebooks/filters_tests/logs/junit_test_filters.xml repo/diffres/tests/test_filters.py",
+    "cwd": "PROJECT_ROOT",
+    "exit_status": 0,
+    "result": "10 passed, 0 failed, 0 skipped, 0 errors (15 deprecation warnings from matplotlib/pyparsing)",
+    "pytest_time_s": 51.5,
+    "heavy_sh_runtime_s": 58,
+    "peak_memory_mb": 557,
+    "memory_limit_mb": 1200,
+    "per_test_call_s": {
+     "test_kf": 0.23,
+     "test_smc[multinomial]": 3.26,
+     "test_smc[multinomial_stopped]": 0.85,
+     "test_smc[stratified]": 0.99,
+     "test_smc[systematic]": 0.92,
+     "test_diffres[euler]": 5.84,
+     "test_diffres[lord_and_rougemont]": 5.56,
+     "test_diffres[jentzen_and_kloeden]": 6.17,
+     "test_diffres[tweedie]": 6.25,
+     "test_ensemble_ot": 11.17
+    },
+    "log": "notebooks/filters_tests/logs/pytest_test_filters.log",
+    "junit_xml": "notebooks/filters_tests/logs/junit_test_filters.xml",
+    "changed_arguments_vs_upstream": "none (upstream test sizes: nparticles=1000, nsteps=100, d=1)"
+   },
+   "driver": {
+    "path": "notebooks/filters_tests/filters_tests_driver.py",
+    "sha256": "f4b8b7f531b84bae26d853d5dfae40ff41bcbe7105d36ece55ce30b0c6c2f1c5",
+    "what_it_does": "capture: imports the upstream test module from its path (importlib; its module-level code sets jax_enable_x64, key=PRNGKey(666), ys=normal(key,(101,)), OU-LGSSM matrices, GP-regression reference, kf+rts), saves those inputs, then calls diffres.gaussian_filters.kf/rts and diffres.feynman_kac.smc_feynman_kac(key, test m0_sampler, log_g0, m_log_g, ys, 1000, 100, resampling=<r>, resampling_threshold=1., return_path=True) for every resampler used in the tests, saving all native outputs. replay: fresh process without importing the test module; loads the saved inputs, rebuilds the bootstrap model callables as verbatim copies of test_filters.py lines 59-73 bound to the loaded arrays, and repeats the same upstream calls. compare: bitwise/max-abs comparison and the tests' own assertions evaluated on captured outputs. No algorithm is re-implemented.",
+    "resampler_configs": {
+     "multinomial": "diffres.resampling.multinomial (passed directly)",
+     "multinomial_stopped": "diffres.resampling.multinomial_stopped",
+     "stratified": "diffres.resampling.stratified",
+     "systematic": "diffres.resampling.systematic",
+     "diffusion_<integrator>": "diffusion_resampling(key, log_ws, samples, -0.5, jnp.linspace(0., 2., 8), integrator=<euler|lord_and_rougemont|jentzen_and_kloeden|tweedie>, ode=False)",
+     "ensemble_ot_eps0.1": "ensemble_ot(key, log_ws, samples, eps=0.1) (implicit_diff default True)"
+    },
+    "runs": [
+     {
+      "mode": "capture",
+      "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_capture.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py capture",
+      "exit_status": 0,
+      "heavy_sh_runtime_s": 55,
+      "peak_memory_mb": 572,
+      "log": "notebooks/filters_tests/logs/driver_capture.log",
+      "per_resampler_s": {
+       "multinomial": 2.931352376937866,
+       "multinomial_stopped": 0.783203125,
+       "stratified": 0.7712974548339844,
+       "systematic": 1.9275555610656738,
+       "diffusion_euler": 6.552491188049316,
+       "diffusion_lord_and_rougemont": 5.508759021759033,
+       "diffusion_jentzen_and_kloeden": 5.030174255371094,
+       "diffusion_tweedie": 5.600425958633423,
+       "ensemble_ot_eps0.1": 11.175866842269897
+      }
+     },
+     {
+      "mode": "replay",
+      "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_replay.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py replay",
+      "exit_status": 0,
+      "heavy_sh_runtime_s": 55,
+      "peak_memory_mb": 476,
+      "log": "notebooks/filters_tests/logs/driver_replay.log",
+      "per_resampler_s": {
+       "multinomial": 7.710394859313965,
+       "multinomial_stopped": 0.8575103282928467,
+       "stratified": 0.7561070919036865,
+       "systematic": 1.1470773220062256,
+       "diffusion_euler": 6.621265411376953,
+       "diffusion_lord_and_rougemont": 5.4966137409210205,
+       "diffusion_jentzen_and_kloeden": 5.54399299621582,
+       "diffusion_tweedie": 5.921639442443848,
+       "ensemble_ot_eps0.1": 11.841342449188232
+      }
+     },
+     {
+      "mode": "compare",
+      "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_compare.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py compare",
+      "exit_status": 0,
+      "peak_memory_mb": 29,
+      "log": "notebooks/filters_tests/logs/driver_compare.log",
+      "note": "numpy only, no JAX"
+     }
+    ]
+   },
+   "runtime_environment": {
+    "python": "CPython 3.11.17 (diffres-env)",
+    "jax": "0.7.2",
+    "jaxlib": "0.7.2 (CPU)",
+    "numpy": "2.3.3",
+    "ott-jax": "0.5.2",
+    "devices": "CPU only (JAX_PLATFORMS=cpu via heavy.sh)",
+    "jax_enable_x64": true
+   },
+   "data_seed_provenance": {
+    "key": "jax.random.PRNGKey(666) (legacy raw uint32 key, saved as 'key' uint32[2]) - set in test module; the same key is used for ys and for every smc_feynman_kac call, as in the tests",
+    "ys": "jax.random.normal(key, (101,)) float64, from the test's module code (synthetic, not a model simulation)",
+    "model": "1-D OU LGSSM: ell=1, sigma=1, T=2, nsteps=100, dt=0.02, semigroup=exp(-dt), trans_cov=1-exp(-2dt), obs_op=1, obs_cov=xi=1, m0=0, v0=1; nparticles=1000",
+    "inputs_file": "notebooks/filters_tests/data/filters_tests_inputs.npz",
+    "inputs_keys": "key, ys, ts, m0, v0, semigroup, trans_cov, obs_op, obs_cov, xi, ell, sigma, T, dt, nparticles, nsteps, dx, dy, gp_mean, gp_var, gp_nll, testmod_kf_nll, testmod_mss, testmod_vss (all floats float64)"
+   },
+   "outputs": {
+    "capture": "notebooks/filters_tests/outputs/capture_outputs.npz",
+    "replay": "notebooks/filters_tests/outputs/replay_outputs.npz",
+    "comparison": "notebooks/filters_tests/outputs/comparison.json",
+    "npz_layout": "kf/{mfs (101,1), vfs (101,1,1), nll (), mps (100,1), vps (100,1,1), mss (101,1), vss (101,1,1)}; pf/<resampler>/{nll (), samples (101,1000,1) full particle path, log_ws (101,1000) normalised log weights, ess (101,)} for 9 resampler configs; float64",
+    "hashes_sha256": {
+     "notebooks/filters_tests/data/filters_tests_inputs.npz": "c01efb288c0d0adc8eb53c7b8461b37e4e086e606c041f1ad2ac4ca0295328d7",
+     "notebooks/filters_tests/outputs/capture_outputs.npz": "bae460b4aa2aa2a9fef51d5013b8b06c399b2f500d7458211501424865b8e983",
+     "notebooks/filters_tests/outputs/replay_outputs.npz": "bae460b4aa2aa2a9fef51d5013b8b06c399b2f500d7458211501424865b8e983",
+     "repo/diffres/tests/test_filters.py": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+     "notebooks/filters_tests/logs/junit_test_filters.xml": "35039582d5595c126dc50d519e3cd8f1951f025db2dd60d3255344dbdc420614",
+     "notebooks/filters_tests/logs/pytest_test_filters.log": "eda077846000013ee21bf6335669c75b57b84560e616fe84e72f8c48aad999cb",
+     "notebooks/filters_tests/outputs/comparison.json": "058a31ead54c6dce329568c3d7f7c6639953a93b4de12e6db41777a422149942"
+    }
+   },
+   "reference_numbers": {
+    "kf_nll": 141.42165070795778,
+    "gp_nll_closed_form": 141.42165070795772,
+    "pf_nll_upstream": {
+     "multinomial": 134.37630492977596,
+     "multinomial_stopped": 134.37630492977596,
+     "stratified": 134.46348753518532,
+     "systematic": 134.6973286692966,
+     "diffusion_euler": 135.2238321733969,
+     "diffusion_lord_and_rougemont": 136.20678137716914,
+     "diffusion_jentzen_and_kloeden": 136.35456151180844,
+     "diffusion_tweedie": 134.38883265953868,
+     "ensemble_ot_eps0.1": 131.56582173632722
+    },
+    "pf_final_ess": {
+     "multinomial": 933.9293844104507,
+     "multinomial_stopped": 933.9293844104507,
+     "stratified": 920.597099134095,
+     "systematic": 928.9026367833374,
+     "diffusion_euler": 927.3605147526293,
+     "diffusion_lord_and_rougemont": 899.8607834994891,
+     "diffusion_jentzen_and_kloeden": 919.0400289035179,
+     "diffusion_tweedie": 932.7712182874089,
+     "ensemble_ot_eps0.1": 954.8975216036497
+    },
+    "test_assertions_on_capture": {
+     "test_kf/mss_vs_gp_mean": {
+      "max_rel_err": 8.673154447626966e-14,
+      "rtol": 1e-07,
+      "passed": true
+     },
+     "test_kf/vss_vs_gp_var": {
+      "max_rel_err": 6.447717902826896e-15,
+      "rtol": 1e-07,
+      "passed": true
+     },
+     "test_kf/nll_vs_gp_nll": {
+      "max_rel_err": 4.0194283248886914e-16,
+      "rtol": 1e-07,
+      "passed": true
+     },
+     "kf_nll_equals_test_module_nll": true,
+     "pf/multinomial": {
+      "nll_pf": 134.37630492977596,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.04981801402340289,
+      "rtol": 0.06,
+      "passed": true
+     },
+     "pf/multinomial_stopped": {
+      "nll_pf": 134.37630492977596,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.04981801402340289,
+      "rtol": 0.06,
+      "passed": true
+     },
+     "pf/stratified": {
+      "nll_pf": 134.46348753518532,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.049201541192171384,
+      "rtol": 0.06,
+      "passed": true
+     },
+     "pf/systematic": {
+      "nll_pf": 134.6973286692966,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.047548038118627296,
+      "rtol": 0.06,
+      "passed": true
+     },
+     "pf/diffusion_euler": {
+      "nll_pf": 135.2238321733969,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.043825103889924714,
+      "rtol": 0.05,
+      "passed": true
+     },
+     "pf/diffusion_lord_and_rougemont": {
+      "nll_pf": 136.20678137716914,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.036874617886886285,
+      "rtol": 0.05,
+      "passed": true
+     },
+     "pf/diffusion_jentzen_and_kloeden": {
+      "nll_pf": 136.35456151180844,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.035829656709446225,
+      "rtol": 0.05,
+      "passed": true
+     },
+     "pf/diffusion_tweedie": {
+      "nll_pf": 134.38883265953868,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.049729429781174,
+      "rtol": 0.05,
+      "passed": true
+     },
+     "pf/ensemble_ot_eps0.1": {
+      "nll_pf": 131.56582173632722,
+      "kf_nll": 141.42165070795778,
+      "rel_err": 0.06969108988823287,
+      "rtol": 0.07,
+      "passed": true
+     }
+    }
+   },
+   "replay_comparison": {
+    "method": "separate process, inputs loaded from .npz, test module not imported; np.array_equal on every array",
+    "all_bitwise_equal": true,
+    "max_abs_diff_over_all_arrays": 0.0,
+    "n_arrays_compared": 43,
+    "capture_npz_sha256_equals_replay_npz_sha256": true,
+    "note": "Same key, inputs, x64, CPU => bitwise identical for KF, all four classic resamplers, all four diffusion integrators and ensemble OT; driver nll values also equal those the pytest run checks (same calls)."
+   },
+   "figures": {
+    "applicable": false,
+    "reason": "the upstream test file produces no plots"
+   },
+   "observations_for_tool_builders": [
+    "Upstream smc_feynman_kac computes nll0 = -logsumexp(log_g0(samples0)) without subtracting log(nparticles) (feynman_kac.py lines 82-85), while later steps use normalised weights. The returned PF nll is therefore offset by -log(nparticles) relative to the standard bootstrap estimate of -log p(y_0:N): adding log(1000)=6.9078 gives multinomial 141.2841, stratified 141.3712, systematic 141.6051, diffusion euler 142.1316 / lord_and_rougemont 143.1145 / jentzen_and_kloeden 143.2623 / tweedie 141.2966, ensemble_ot 138.4736 vs KF 141.4217. The tests' rtol 5e-2..7e-2 absorbs this ~7-nat offset. Constant offset, so gradients are unaffected. A wrapper reproducing upstream must report the raw upstream value (and may document/also report the corrected value); it must not silently change it.",
+    "Margins to the test tolerances are small for diffusion_tweedie (rel err 0.04973 vs rtol 0.05) and ensemble_ot eps=0.1 (0.06969 vs 0.07), i.e. these pass only for this key; other seeds may fail the test tolerances.",
+    "multinomial and multinomial_stopped give bitwise-identical forward outputs (differ only in gradients), as the scanner noted.",
+    "KF/RTS reproduce the closed-form GP regression to <1e-13 relative (test_kf asserts rtol 1e-7)."
+   ],
+   "attempts": [
+    {
+     "n": 1,
+     "what": "pytest test_filters.py (limit 1200 MB)",
+     "exit_status": 0,
+     "result": "10 passed"
+    },
+    {
+     "n": 2,
+     "what": "driver capture then replay, limit 1200 MB, issued back to back in one shell loop",
+     "exit_status": 75,
+     "result": "heavy.sh refused both (MemAvailable about 3125 MB < 3200 MB); not started"
+    },
+    {
+     "n": 3,
+     "what": "driver capture, limit 1000 MB",
+     "exit_status": 1,
+     "result": "SyntaxError in my driver (invalid keyword name in dict()); failed before importing JAX, peak 8 MB; fixed the keyword name only"
+    },
+    {
+     "n": 4,
+     "what": "driver capture, limit 1000 MB",
+     "exit_status": 0,
+     "result": "success, peak 572 MB"
+    },
+    {
+     "n": 5,
+     "what": "driver replay then compare, limit 1000 MB",
+     "exit_status": 0,
+     "result": "success, peak 476 MB / 29 MB; bitwise-equal replay"
+    }
+   ],
+   "repo_untouched_check": "git -C repo/diffres status --short --ignored -> empty after all runs (PYTHONDONTWRITEBYTECODE=1, -p no:cacheprovider)",
+   "limitations": [
+    "Single key (PRNGKey(666)) as in the test; no Monte Carlo study of PF nll variability.",
+    "Gradients (value_and_grad through smc_feynman_kac) are not exercised by this test file; see lgssm_gradient_demo.",
+    "Only the 1-D OU LGSSM of the test; full-matrix generalisation used by the planned tool is not covered here."
+   ]
+  },
+  "lgssm_diffusion_experiment": {
+   "execution_id": "lgssm_diffusion_experiment",
+   "module": "feynman_kac",
+   "supports_tools": [
+    "diffres_run_lgssm_particle_filter"
+   ],
+   "source_path": "repo/diffres/experiments/lgssm/diffusion.py",
+   "source_sha256": "22c0b269d3ed74915706806a3f14ca0257ee5f568c67bc761c54d12d6a04afe9",
+   "source_repository": "https://github.com/zgbkdlm/diffres.git",
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "repo_unmodified": "git status --short --ignored in repo/diffres is empty after all runs",
+   "status": "success",
+   "execution_mode": "native script (unmodified upstream, full pipeline incl. 128x128 loss grid and jaxopt L-BFGS-B) + reference driver (verbatim input preparation, same upstream calls, full-precision capture) + replay",
+   "execution_path": "notebooks/lgssm_diffusion_experiment/run/ (cwd) invoking repo/diffres/experiments/lgssm/diffusion.py; reference capture by notebooks/lgssm_diffusion_experiment/driver.py",
+   "fallback_needed": false,
+   "fallback_note": "The full script (grid + L-BFGS) ran in 21 s with 421 MB peak, well within 1500 MB / 30 min, so no part of the script was skipped. The driver exists only because the script saves just six scalars (no ys, grids, moments, ESS, gradients); it re-runs every script code path (grid, filtering KL/Bures, L-BFGS) plus value_and_grad at the true and initial parameters.",
+   "environment": {
+    "python": "diffres-env/bin/python (CPython 3.11.17)",
+    "jax": "0.7.2 (CPU, TFRT_CPU_0)",
+    "jax_enable_x64": true,
+    "jaxopt": "0.8.5",
+    "scipy": "1.16.2",
+    "launcher": "heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, PYTHONPATH unset); GPU 0 MiB before/after every run"
+   },
+   "settings": {
+    "cli": "--id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=jentzen_and_kloeden --sde",
+    "changes_vs_upstream_defaults": {
+     "nsteps": "128 -> 32",
+     "nparticles": "32 -> 16",
+     "a": "-0.5 -> -1.0",
+     "T": "3.0 -> 1.0",
+     "dsteps": "8 -> 4",
+     "integrator": "euler -> jentzen_and_kloeden",
+     "sde": "off -> on"
+    },
+    "changes_vs_run_lgssm_sh": "run_lgssm.sh uses --id_l=0 --id_u=99, default nsteps=128 and nparticles=32, and sweeps T in {1,2,3} x dsteps in {4,8,16,32} x integrators; here one MC id (0), nsteps 32, nparticles 16, one configuration (T=1, dsteps=4, jentzen_and_kloeden, SDE). a=-1 matches run_lgssm.sh.",
+    "hard_coded_in_script_unchanged": "model p1=0.5 (F), p2=1.0 (H), sig=1 (Q), xi=0.5 (R), m0=0, v0=1; 128x128 grid over [p1+-0.1] x [p2+-0.1]; resampling_threshold=1; L-BFGS-B init (1.5, 2.0); diffusion_resampling jitter=0, einsum=False"
+   },
+   "data_and_seed_provenance": {
+    "rnd_keys": "repo/diffres/experiments/rnd_keys.npy copied to notebooks/lgssm_diffusion_experiment/run/rnd_keys.npy (sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df, identical), shape (10000,2) uint32",
+    "key_mc": "rnd_keys[0] = [2482698485, 3875352609]",
+    "key_derivation": "key_simulation, key_pf = jax.random.split(key_mc) -> key_simulation=[2232835097, 2390994151], key_pf=[2063920160, 2302666694]",
+    "data": "xs, ys = diffres.tools.simulate_lgssm(key_simulation, 0.5*I, 1*I, 1*ones, 0.5*I, 0, 1*I, 32): ys float64 (33,1), ys[:3,0] = [-1.17260866, -1.25850033, -1.16623934]",
+    "diffusion_ts": "linspace(0, 1, 5) = [0, 0.25, 0.5, 0.75, 1.0]"
+   },
+   "attempts": [
+    {
+     "n": 1,
+     "what": "unmodified upstream script",
+     "cwd": "notebooks/lgssm_diffusion_experiment/run",
+     "command": "heavy.sh --limit-mb 1500 --timeout 1800 --log notebooks/lgssm_diffusion_experiment/logs/attempt1_script.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python repo/diffres/experiments/lgssm/diffusion.py --id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=jentzen_and_kloeden --sde (absolute paths)",
+     "exit_status": 0,
+     "wall_s": 21.05,
+     "heavy_peak_mb": 421,
+     "max_rss_mb": 559,
+     "oom_kills": 0,
+     "stdout": "Diffres | a -1.0 | T 1.0 | dsteps=4 | jentzen_and_kloeden | sde | nparticles 16 | id=0 | loss err 4.743355474292779 | KL 0.3468090874063321 | Bures 0.05497328611278358 | opt params [1.5 2. ]",
+     "native_output": "run/lgssm/results/diffres--1.0-1.0-4-jentzen_and_kloeden-sde-16-0.npz"
+    },
+    {
+     "n": "2 (refused, not executed)",
+     "what": "driver.py with --limit-mb 1500",
+     "exit_status": 75,
+     "note": "heavy.sh NOT STARTED: MemAvailable=3129 MB < 1500+2000; retried immediately with --limit-mb 1000 (attempt 1 peak was 421 MB). Evidence: logs/attempt2_refused_exit75.txt"
+    },
+    {
+     "n": 2,
+     "what": "reference driver",
+     "command": "cd run && heavy.sh --limit-mb 1000 --timeout 1800 --log logs/attempt2_driver.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python notebooks/lgssm_diffusion_experiment/driver.py",
+     "exit_status": 0,
+     "wall_s": 21.06,
+     "heavy_peak_mb": 439,
+     "oom_kills": 0
+    },
+    {
+     "n": 3,
+     "what": "replay from saved inputs",
+     "command": "cd run && heavy.sh --limit-mb 1000 --timeout 1800 --log logs/attempt3_replay.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python notebooks/lgssm_diffusion_experiment/replay.py",
+     "exit_status": 0,
+     "wall_s": 37.0,
+     "heavy_peak_mb": 430,
+     "oom_kills": 0
+    }
+   ],
+   "upstream_calls": {
+    "smc_feynman_kac": "smc_feynman_kac(key_pf, m0_sampler, log_g0, m_log_g, ys, nparticles=16, nsteps=32, resampling=lambda k,lw,s: diffusion_resampling(k, lw, s, -1.0, linspace(0,1,5), integrator='jentzen_and_kloeden', ode=False), resampling_threshold=1., return_path=True|False); bootstrap m0_sampler/log_g0/m_log_g exactly as script lines 63-80",
+    "kf": "diffres.gaussian_filters.kf(ys, m0, v0, params[0]*I, trans_cov, params[1]*ones, obs_cov)[:3]",
+    "filtering_error": "mean over 33 times of tools.kl(mfs_kf, vfs_kf, mfs_pf, vfs_pf) and tools.bures(...) with PF weighted moments (script lines 118-122); note argument order: KL(KF || PF)",
+    "loss": "loss_fn_pf(params, ys, key) = smc nll with return_path=False (negative log-likelihood); gradient via jax.value_and_grad",
+    "optimiser": "jaxopt.ScipyMinimize(method='L-BFGS-B', fun=loss_fn_pf, jit=True).run([1.5, 2.0], ys_=ys, key_=key_pf)"
+   },
+   "reference_results": {
+    "err_loss_grid_mse": 4.743355474292779,
+    "err_filtering_kl": 0.3468090874063321,
+    "err_filtering_bures": 0.05497328611278358,
+    "nll_kf_true": 53.82208834445972,
+    "grad_kf_true_wrt_(p1,p2)": [
+     0.942243438077579,
+     0.7919049480478205
+    ],
+    "nll_pf_true": 51.65626932766265,
+    "grad_pf_true_wrt_(p1,p2)": [
+     -4.341496557867354,
+     -4.052103566005391
+    ],
+    "nll_pf_init_(1.5,2.0)": 71.39736781211357,
+    "grad_pf_init": [
+     -4.190996622010844,
+     4.1002672395915045
+    ],
+    "ess_min": 2.8312970986272425,
+    "ess_mean": 8.518241895642031,
+    "opt_params": [
+     1.5,
+     2.0
+    ],
+    "opt_success": false,
+    "opt_status": 2,
+    "opt_iter_num": 0,
+    "opt_fun_val": "NaN",
+    "opt_num_fun_eval": 20,
+    "opt_num_jac_eval": 20,
+    "nll_path_vs_nopath_absdiff": 7.105427357601002e-15
+   },
+   "inputs": {
+    "data/inputs.npz": {
+     "sha256": "00b71f5b8b86759f83e860fa73fd1b581df19334f40ace2b0b8f86d0ad7ce74c",
+     "contents": "key_mc, key_simulation, key_pf (uint32 (2,)); xs, ys (33,1) f64; params_true, init_params (2,); cartesian (128,128,2); ts (5,); semigroup, trans_cov, obs_op, obs_cov, m0, v0"
+    },
+    "data/inputs_args.json": {
+     "sha256": "1418e2f6f552c2a392b472e002acab448f16a06052064718073b6878c08d0278"
+    },
+    "run/rnd_keys.npy": {
+     "sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df"
+    }
+   },
+   "outputs": {
+    "run/lgssm/results/diffres--1.0-1.0-4-jentzen_and_kloeden-sde-16-0.npz": {
+     "sha256": "b7d8ba5dd8aa5582cb31761e7e934a96d34cd1d77e62968152119721d4725de8",
+     "producer": "unmodified upstream script",
+     "contents": "err_loss, err_filtering_kl, err_filtering_bures, opt_params, opt_success, opt_iter_num"
+    },
+    "outputs/reference_outputs.npz": {
+     "sha256": "8ffa7bc02b8302bc0beec0d7548709dd02de882320c912f76eb87f8c52bcbb89",
+     "producer": "driver.py",
+     "contents": "losses_kf/losses_pf (128,128); err_loss; mfs_kf (33,1), vfs_kf (33,1,1), nll_kf_true, grad_kf_true; sampless (33,16,1), log_wss (33,16), esss (33,), nll_pf_true_path; nll_pf_true, grad_pf_true; nll_pf_init, grad_pf_init; mfs_pf, vfs_pf; kl_per_step, bures_per_step (33,); err_filtering_kl/bures; opt_params, opt_success, opt_status, opt_iter_num, opt_fun_val, opt_num_fun_eval, opt_num_jac_eval (all float64 where floating)"
+    },
+    "outputs/reference_summary.json": {
+     "sha256": "f06c40bdacc68fa0b4dca3ead19578f9183de0dcc7067abe050b12dabbbd4bb4"
+    },
+    "outputs/replay_comparison.json": {
+     "sha256": "1cea37fd429675bfc450683b8641f060572c8767611a7e9ed84b04b9911b31c2"
+    }
+   },
+   "code": {
+    "lgssm_setup.py": {
+     "sha256": "78c86db61d78ff99d3b3a3c38eed66c76975c8d33f064727b808ab5b054fbc3c",
+     "role": "verbatim copy of script lines 25-102 (constants, kf/pf/loss closures, vmapped grid losses, jaxopt solver, grid) as a function of the CLI args; the script cannot be imported because it parses argv and runs its loop at import. Adds pf_full = same smc_feynman_kac call without [:3] to capture ESS."
+    },
+    "driver.py": {
+     "sha256": "5e3ca99f31525ed676ff205999bc1cb33a814605551fa64dc41f4750a978a3f2"
+    },
+    "replay.py": {
+     "sha256": "eb25e85e88478480802ba76aef39e5e085c3c8a7a81b539b933cde82eff8524d"
+    }
+   },
+   "comparisons": {
+    "script_vs_driver": "err_loss, err_filtering_kl, err_filtering_bures, opt_params, opt_success, opt_iter_num: all bitwise equal (max abs diff 0.0)",
+    "driver_internal": "pf_full vs pf (same call): samples/log-weights/nll diff 0.0; nll return_path=True vs False: 7.1e-15 (different jitted program, value_and_grad vs plain)",
+    "replay_vs_reference": "34 checks, all passed, all floats bitwise equal: rnd_keys row and key splits (exact), simulate_lgssm xs/ys, grid, losses_kf/losses_pf grids, err_loss, KF moments/nll/grad, PF particles/log-weights/ESS/nll, PF value_and_grad at true and initial params, PF moments, per-step KL/Bures and means, L-BFGS opt_params/fun_val (NaN==NaN) and exact success/status/iter/nfev/njev",
+    "tolerance_justification": "same keys, same inputs, x64, CPU, same jaxlib: bitwise expected and observed; pass criterion rtol=atol=1e-12"
+   },
+   "figures": "not applicable: the script produces no plots (loss landscapes are plotted only by experiments/summary/plot_lgssm_loss_landscapes.py, not run). The 128x128 grids are saved in outputs/reference_outputs.npz.",
+   "observations_and_limitations": [
+    "Upstream L-BFGS-B at these settings did not move: success=False, scipy status 2 (abnormal termination, line search), nit=0, fun_val=NaN after 20 function/gradient evaluations, opt_params = init (1.5, 2.0). The loss and gradient at the initial point are finite (71.397, [-4.191, 4.100]), so the NaN arises at line-search trial points. This is reproduced exactly by the driver and replay; it is upstream behaviour at the reduced settings, not investigated further and not altered. The tool should not expose optimisation (consistent with tool_review 'omit').",
+    "Single-key PF gradient at the true parameters ([-4.34, -4.05]) differs strongly from the KF gradient ([0.94, 0.79]) with 16 particles and 32 steps; it is one Monte Carlo draw, not an estimate of bias.",
+    "KL is KL(N_KF || N_PF) (tools.kl(m0=KF, cov0=KF, m1=PF, cov1=PF)), averaged over all 33 time steps including t=0.",
+    "Values are for one MC id at reduced settings (nsteps 32, nparticles 16) and are not comparable to the paper's Table 2 / Figure 2 (100 MC runs, nsteps 128, nparticles 32).",
+    "The script's np.savez_compressed result file holds only 6 scalars; all richer arrays come from the driver, which calls the same upstream code paths and reproduced those 6 scalars bitwise."
+   ],
+   "not_executed": "Nothing in experiments/lgssm/diffusion.py was skipped for MC id 0. MC ids 1-99, other configurations of run_lgssm.sh and experiments/lgssm/{baselines,gumbel,ot,soft}.py were not run (out of scope).",
+   "blockers": []
+  },
+  "lgssm_gradient_demo": {
+   "execution_id": "lgssm_gradient_demo",
+   "module": "gaussian_filters",
+   "supports_tools": [
+    "diffres_simulate_lgssm_data (diffres.tools.simulate_lgssm)",
+    "diffres_run_lgssm_kalman_filter (diffres.gaussian_filters.kf / rts, nll and gradient)",
+    "diffres_run_lgssm_particle_filter (supporting: PF value_and_grad with diffusion_resampling and multinomial_stopped)"
+   ],
+   "source_path": "repo/diffres/demos/gradient_variance2.py",
+   "source_sha256": "95401a97cd85d3d37ad816db85d261167108642bac66537789f9702bef33a600",
+   "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/demos/gradient_variance2.py",
+   "repo_modified": false,
+   "repo_status_after": "git status --short --ignored in repo/diffres: empty",
+   "status": "success",
+   "execution_mode": "native script (unmodified) + capture driver (runpy of the unmodified script) + replay driver",
+   "execution_path": "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stdout (native run); full-precision capture via notebooks/lgssm_gradient_demo/capture_run.py",
+   "runtime_environment": {
+    "python": "CPython 3.11.17",
+    "PROJECT_PYTHON": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python",
+    "jax": "0.7.2",
+    "jaxlib": "0.7.2 (CPU)",
+    "numpy": "2.3.3",
+    "diffres": "0.0.1 editable from repo/diffres",
+    "device": "CPU only (heavy.sh: JAX_PLATFORMS=cpu); GPU memory 0 MiB before/after",
+    "x64": "enabled by the script (jax_enable_x64=True)"
+   },
+   "settings": {
+    "upstream_defaults": {
+     "--nsteps": 128,
+     "--nparticles": 8
+    },
+    "used": {
+     "--nsteps": 16,
+     "--nparticles": 8
+    },
+    "changed_vs_upstream": "--nsteps 128 -> 16 (smallest-settings rule); --nparticles left at default 8. Everything else hard-coded in the script and unchanged: PRNGKey(666), F=0.5, Q=1, H=1, R=1, m0=0, P0=1, theta=(0.2,0.2), nmcs=1000, diffusion a=-1, T=2, dsteps=128, integrator=euler, ode=True, jitter=1e-5, resampling_threshold=1.",
+    "monte_carlo_loop": "The hard-coded 1000-iteration loop (2 jitted value_and_grad PF calls per iteration) ran in full; no part of the script was skipped. ~54 s inside the heavy.sh scope for the native run."
+   },
+   "attempts": [
+    {
+     "n": 1,
+     "what": "native run of the unmodified script",
+     "cwd": "notebooks/lgssm_gradient_demo/run_cwd (script writes no files)",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/demos/gradient_variance2.py --nsteps 16 --nparticles 8",
+     "exit_status": 0,
+     "scope_start_end_utc": [
+      "2026-10-03T00:51:42Z",
+      "2026-10-03T00:52:36Z"
+     ],
+     "runtime_s_in_scope": 54,
+     "wall_s_incl_lock_wait": 162,
+     "peak_memory_mb": 446,
+     "logs": [
+      "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stdout",
+      "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stderr"
+     ]
+    },
+    {
+     "n": "-",
+     "what": "capture driver, first try: NOT STARTED by heavy.sh (exit 75, MemAvailable=3090 MB < 1200+2000); not an execution attempt",
+     "exit_status": 75,
+     "logs": [
+      "notebooks/lgssm_gradient_demo/logs/notstarted_capture_exit75.stderr"
+     ]
+    },
+    {
+     "n": 2,
+     "what": "capture driver: runpy.run_path of the unmodified script with the same argv, then saves its globals and extra kf/rts outputs at full precision",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON ../capture_run.py --nsteps 16 --nparticles 8 --out ../data/reference_nsteps16_np8.npz --summary ../data/reference_nsteps16_np8_summary.json  (cwd notebooks/lgssm_gradient_demo/run_cwd)",
+     "exit_status": 0,
+     "scope_start_end_utc": [
+      "2026-10-03T00:55:37Z",
+      "2026-10-03T00:57:55Z"
+     ],
+     "runtime_s_script_part": 131.0,
+     "peak_memory_mb": 488,
+     "logs": [
+      "notebooks/lgssm_gradient_demo/logs/attempt2_capture_nsteps16_np8.stdout",
+      "notebooks/lgssm_gradient_demo/logs/attempt2_capture_nsteps16_np8.stderr"
+     ]
+    },
+    {
+     "n": 3,
+     "what": "replay driver in a fresh process (direct upstream calls on saved inputs; PF via the script's own pre-loop source executed verbatim)",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON ../replay.py  (cwd notebooks/lgssm_gradient_demo/run_cwd)",
+     "exit_status": 0,
+     "scope_start_end_utc": [
+      "2026-10-03T01:03:57Z",
+      "2026-10-03T01:05:05Z"
+     ],
+     "runtime_s": {
+      "keys_sim_kf_rts": 7.890201568603516,
+      "pf_1000x2_with_compile": 52.145747423172
+     },
+     "peak_memory_mb": 477,
+     "logs": [
+      "notebooks/lgssm_gradient_demo/logs/attempt3_replay.stdout",
+      "notebooks/lgssm_gradient_demo/logs/attempt3_replay.stderr"
+     ]
+    }
+   ],
+   "peak_memory_mb_max": 488,
+   "data_and_seed_provenance": {
+    "data": "Synthetic. ys/xs are produced by diffres.tools.simulate_lgssm inside the script (line 97); no external data.",
+    "key": "jax.random.PRNGKey(666) = [0, 666] (uint32)",
+    "key_simulation": "jax.random.split(key)[0] = [2482698485, 3875352609]",
+    "mc_keys": "jax.random.split(key, num=1000), shape (1000,2) uint32; keys[0] equals key_simulation (the script reuses it)",
+    "model": {
+     "F (semigroup)": [
+      [
+       0.5
+      ]
+     ],
+     "Q (trans_cov)": [
+      [
+       1.0
+      ]
+     ],
+     "H (obs_op)": [
+      [
+       1.0
+      ]
+     ],
+     "R (obs_cov)": [
+      [
+       1.0
+      ]
+     ],
+     "m0": [
+      0.0
+     ],
+     "P0 (v0)": [
+      [
+       1.0
+      ]
+     ],
+     "dx": 1,
+     "dy": 1,
+     "nsteps": 16,
+     "ys_shape": [
+      17,
+      1
+     ],
+     "xs_shape": [
+      17,
+      1
+     ]
+    },
+    "evaluation_point": "theta=(0.2,0.2): F_theta = 0.2*I, H_theta = 0.2*ones((dy,dx)); Q, R, m0, P0 kept at the true values (script lines 40-43)"
+   },
+   "reference_results": {
+    "kf_nll_at_theta (loss_true)": "34.829210096507474",
+    "kf_grad_wrt_theta (grad_true)": [
+     "-0.8709261160639918",
+     "-5.527063010352865"
+    ],
+    "kf_grad_wrt_full_matrices_at_theta": {
+     "dF": "[[-0.8709261160639918]]",
+     "dH": "[[-5.527063010352865]]",
+     "chain_rule": "d/dtheta0 = sum(dF*I), d/dtheta1 = sum(dH*ones) reproduce grad_true bitwise"
+    },
+    "kf_nll_at_true_parameters": "29.828975391167102",
+    "pf_mc_mean_nll_diffusion": "32.84181518915767",
+    "pf_mc_mean_grad_diffusion": [
+     "-0.7360584028226624",
+     "-4.479919188992926"
+    ],
+    "pf_mc_mean_nll_multinomial_stopped": "32.843304623174475",
+    "pf_mc_mean_grad_multinomial_stopped": [
+     "-0.7080282237571349",
+     "-4.327154516102288"
+    ],
+    "pf_grad_rmse_vs_kf_diffusion": [
+     "0.7492157996378205",
+     "2.819570062333505"
+    ],
+    "pf_grad_rmse_vs_kf_multinomial_stopped": [
+     "1.2442323756925324",
+     "5.426991997886331"
+    ],
+    "pf_first_key_values": {
+     "loss_dp": "32.549968268303935",
+     "grad_dp": [
+      "-0.8481210063122013",
+      "-5.693409567105228"
+     ],
+     "loss_stopped": "32.764519627497",
+     "grad_stopped": [
+      "1.852732518792451",
+      "-3.228118095990052"
+     ]
+    },
+    "nonfinite_pf_gradients": {
+     "grads_dp": 0,
+     "grads_rein": 0
+    },
+    "native_stdout_lines": "34.829210096507474 [-0.87092612 -5.52706301] / 32.84181518915767 [-0.7360584  -4.47991919] / 32.843304623174475 [-0.70802822 -4.32715452] / [0.7492158  2.81957006] / [1.24423238 5.426992  ]",
+    "diffusion_vs_stopped": "At nsteps=16, nparticles=8 the diffusion-resampling PF gradient has lower RMSE w.r.t. the exact KF gradient than multinomial_stopped (0.749 vs 1.244 for theta0; 2.820 vs 5.427 for theta1), the qualitative point of the demo."
+   },
+   "outputs": {
+    "notebooks/lgssm_gradient_demo/data/reference_nsteps16_np8.npz": {
+     "sha256": "19de5274c7b2ee5f9c569ac4e26e04f3e528ed3c61c3812459e36aa4edfc5681",
+     "contents": "float64/uint32 at full precision: key, key_simulation, keys(1000,2), semigroup, trans_cov, obs_op, obs_cov, m0, v0, xs(17,1), ys(17,1), params, loss_true, grad_true, losses_dp/grads_dp (diffusion, 1000 / 1000x2), losses_rein/grads_rein (multinomial_stopped), kf_theta_{mfs,vfs,nll,mps,vps}, rts_theta_{mss,vss}, kf_true_*, rts_true_*, kf_theta_nll_via_FH, kf_theta_dF, kf_theta_dH, plus scalar settings (nsteps, nparticles, a, T, dsteps, ts, integrator, ode, jitter, nmcs, p1, p2, sig, xi, v0_scalar, script_sha256). Note: 'rein' is the script's own name for multinomial_stopped."
+    },
+    "notebooks/lgssm_gradient_demo/data/reference_nsteps16_np8_summary.json": {
+     "sha256": "8ec06cff1bae11eb8e974b3adadbd41ef00e8f8e514afe773f9fde926f18a94d",
+     "contents": "repr()-precision scalars, xs/ys values, MC summaries"
+    },
+    "notebooks/lgssm_gradient_demo/data/replay_comparison.json": {
+     "sha256": "717b0d545bb2039223044a289612f1790c5c3986ba6db62c4b8bf1d03646e46f",
+     "contents": "per-check comparison results"
+    }
+   },
+   "drivers": {
+    "notebooks/lgssm_gradient_demo/capture_run.py": {
+     "sha256": "e0512d169661ea5440fa3b9b7ba239cc8312a7ed432669d98c10116cb7e676ea",
+     "role": "runs the unmodified script via runpy.run_path (sys.argv = script --nsteps 16 --nparticles 8) and saves its globals; afterwards calls upstream kf/rts/value_and_grad once more to record full filter/smoother outputs and the dF/dH gradient. No algorithm re-implemented."
+    },
+    "notebooks/lgssm_gradient_demo/replay.py": {
+     "sha256": "a408dabcb94d5ccdc429015c6332faca2692fc141a6ba0be9c43dd0528a46599",
+     "role": "fresh-process replay: direct calls to jax.random, diffres.tools.simulate_lgssm, diffres.gaussian_filters.kf/rts on saved inputs; PF replay by executing the script's source text verbatim up to (excluding) 'nmcs = 1000' (102 lines, sha256 b9ebeb795e0d7e714a7dec4136adfd8db1533f519d8119d55c6d249de22afc63) and calling its jitted diffpf_diff/diffpf_stopped for all 1000 saved keys; compares native printed values too."
+    }
+   },
+   "replay_comparison": {
+    "all_pass": true,
+    "n_checks": 40,
+    "n_bitwise_equal": 35,
+    "tolerances": "keys/simulation: exact; KF/RTS/gradients: rtol=atol=1e-12; PF: rtol=atol=1e-9; native 8-digit printout vs captured: rtol 1e-7, atol 1e-8 (print rounding)",
+    "observed": "All 35 numerical replays (keys, xs, ys, KF nll/grad, kf/rts outputs at theta and at true params, dF/dH, chain rule, all 1000x2 PF losses and gradients) were BITWISE equal on CPU with x64. The 5 non-bitwise checks are the native run's 8-digit printed arrays vs full-precision captured values (max abs diff 4.3e-9 = print rounding), which also shows the native run and the runpy capture produced the same numbers.",
+    "details_file": "notebooks/lgssm_gradient_demo/data/replay_comparison.json"
+   },
+   "figures": "not applicable: the script produces no plots (prints only)",
+   "findings_for_tool_builders": [
+    "smc_feynman_kac's nll is offset from the KF nll by the parameter-independent constant -log(nparticles): nll0 = -logsumexp(log_g0) without subtracting log(s) (diffres/feynman_kac.py, after the m0 sampling). Here KF nll 34.8292 - log(8)=2.0794 -> 32.7498; MC mean PF nll 32.8418 (diffusion) / 32.8433 (stopped) is above it by ~0.09, consistent with Jensen bias. The gradient is unaffected. A PF tool reporting 'log-likelihood' should state this (or document the offset) rather than silently compare raw PF nll with KF nll.",
+    "The KF tool in matrix form reproduces the demo exactly: value_and_grad of kf(...)[2] w.r.t. (F,H) at F=0.2I, H=0.2*ones gives dF=-0.8709261160639918, dH=-5.527063010352865, equal bitwise to grad_true w.r.t. theta via the chain rule (1-D case).",
+    "For the simulate tool: ys from simulate_lgssm with key = jax.random.split(PRNGKey(666))[0] and nsteps=16 equal the saved ys exactly; simulate_lgssm internally splits that key three times (x0, y0, step noise), so a tool must pass the key through unchanged to match.",
+    "The script's PF uses ys[0] at time 0 (log_g0) and kf also updates on ys[0]; both treat ys as length nsteps+1."
+   ],
+   "limitations": [
+    "Run at --nsteps 16 instead of the upstream default 128 (smallest-settings rule); the default-size reference values (128 steps) were not computed. Monte Carlo loop, particle count (8) and all other hard-coded settings are at upstream values.",
+    "No independent closed-form check of the KF here (that is covered by tests/test_filters.py::test_kf, executor filters_tests); the KF gradient is checked against itself on replay and against the chain-rule matrix form.",
+    "PF MC statistics are from 1000 keys at nsteps=16 only; they are reference values for this configuration, not convergence evidence."
+   ],
+   "blockers": []
+  }
+ },
+ "excluded": {
+  "resampling_tests": "see reports/exclusions/resampling-tests.json"
+ }
+}

@@ -1,0 +1,202 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "Compared the 220 dpi render of both columns with the text. Title, author line, abstract, Section I and the start of Section II (II-A) checked word by word against the authors' TeX; citation numbers [1]-[25] checked against the page. Corrections: removed the abstract's bold face and the extractor's emphasis debris; restored line-wrap compounds (high-dimensional, scenario-based, under- or over-approximated, data-driven); merged the paragraph \"The holdout method, or cross-validation ... computationally efficient.\" that the column break had split; all inline math rewritten as LaTeX from the TeX source and checked on the render (subscripts n_x, n_d, x_{0i}, the i.i.d overset); display (1) converted from a formula image to LaTeX with \\tag{1}. The printed run-in \"Abstract—\" is given as a \"## Abstract\" heading. The unnumbered first-page author note (affiliations/emails, printed at the foot of the left column) and the boxed IEEE copyright notice (foot of the page) are placed directly after the author line so that they do not interrupt the sentence that runs from display (1) to the top of page 2. \"Alburquerque\" is the authors' spelling. The vertical arXiv stamp is omitted as page furniture.",
+  "warnings": [
+    "Review possible header/footer: p0001-b000"
+  ],
+  "items": [
+    {
+      "id": "p0001-r001",
+      "kind": "omit",
+      "bbox": [
+        18.0,
+        214.0,
+        37.0,
+        578.0
+      ],
+      "markdown": "",
+      "reason": "Vertical arXiv identifier stamp in the left margin (\"arXiv:2504.06541v2 [eess.SY] 11 Sep 2025\"); page furniture. The source version is recorded in the conversion notes."
+    },
+    {
+      "id": "p0001-r002",
+      "kind": "heading",
+      "bbox": [
+        118.0,
+        74.0,
+        494.0,
+        106.0
+      ],
+      "markdown": "# Data-Driven Reachability with Scenario Optimization and the Holdout Method"
+    },
+    {
+      "id": "p0001-r003",
+      "kind": "text",
+      "bbox": [
+        144.0,
+        128.0,
+        460.0,
+        139.0
+      ],
+      "markdown": "Elizabeth Dietrich, Rosalyn Devonport, Stephen Tu, and Murat Arcak"
+    },
+    {
+      "id": "p0001-r004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        690.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "E. Dietrich and M. Arcak are with the University of California, Berkeley, USA. Email: `{eadietri, arcak}@berkeley.edu`. R. Devonport is with the University of New Mexico, Alburquerque, USA. Email: `devonport@unm.edu`. S. Tu is with the University of Southern California, USA. Email: `stephen.tu@usc.edu`."
+    },
+    {
+      "id": "p0001-r005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        749.0,
+        557.0,
+        776.0
+      ],
+      "markdown": "©2025 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works."
+    },
+    {
+      "id": "p0001-r006",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        163.0,
+        299.0,
+        173.0
+      ],
+      "markdown": "## Abstract"
+    },
+    {
+      "id": "p0001-r007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        174.0,
+        299.0,
+        351.0
+      ],
+      "markdown": "Reachability analysis is an important method in providing safety guarantees for systems with unknown or uncertain dynamics. Due to the computational intractability of exact reachability analysis for general nonlinear, high-dimensional systems, recent work has focused on the use of probabilistic methods for computing approximate reachable sets. In this work, we advocate for the use of a general purpose, practical, and sharp method for data-driven reachability: *the holdout method*. Despite the simplicity of the holdout method, we show—on several numerical examples including scenario-based reach tubes—that the resulting probabilistic bounds are substantially sharper and require fewer samples than existing methods for data-driven reachability. Furthermore, we complement our work with a discussion on the necessity of probabilistic reachability bounds. We argue that any method that attempts to *de-randomize* the bounds, by converting the guarantees to hold deterministically, requires (a) an exponential in state-dimension amount of samples to achieve non-vacuous guarantees, and (b) extra assumptions on the dynamics."
+    },
+    {
+      "id": "p0001-r008",
+      "kind": "heading",
+      "bbox": [
+        137.0,
+        368.0,
+        216.0,
+        376.0
+      ],
+      "markdown": "## I. Introduction"
+    },
+    {
+      "id": "p0001-r009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        384.0,
+        299.0,
+        585.0
+      ],
+      "markdown": "Reachability analysis plays an integral role in analyzing system safety by determining the set of states a system can transition to in a finite time horizon [1]. Many set-based techniques [2]–[5] have been developed to compute under- or over-approximated reachable sets to capture all possible trajectories and present guarantees on state-space safety. However, when there is limited information on a system’s dynamics, through only simulation or experimentation, we must estimate reachable sets and derive probabilistic guarantees of correctness directly from data. To provide probability measures for learned reachable sets, many approaches require a minimum number of samples [6]–[9] or assumptions on the system dynamics [10]–[12], and are often computationally intensive [13], [14]. We advocate for the use of a general purpose method, *the holdout method*, that circumvents these limitations and improves the sample complexity and sharpness of existing probabilistic reachability bounds."
+    },
+    {
+      "id": "p0001-r010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        587.0,
+        299.0,
+        678.0
+      ],
+      "markdown": "The holdout method, or cross-validation, is one of the simplest and most widely used methods for estimating prediction error and providing statistical guarantees [15]–[18]. While this method has been utilized across disciplines for decades, its biggest limitation is the availability of data. The holdout method requires a validation set that is only used to assess the performance of the prediction model. If data is scarce, this can lead to test-set contamination or a small test-set size. However, in the context of data-driven reachability analysis, especially simulation-based approaches, generating new data sets avoids these issues and can be computationally efficient."
+    },
+    {
+      "id": "p0001-r011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        198.0,
+        559.0,
+        376.0
+      ],
+      "markdown": "There are numerous works investigating other statistical learning techniques for data-driven reachability analysis, including approaches such as scenario optimization [19]–[21], conformal prediction [22]–[24], and Gaussian processes [11], [25]. While many of these works rely on a-priori sample complexities, [19] calculates a-posteriori probability bounds using a wait-and-judge perspective. Therefore, we compare the a-posteriori bounds we achieve with the holdout method directly to the wait-and-judge perspective to demonstrate the stronger and more computationally-efficient guarantees that we are able to obtain. Further, in contrast to existing approaches, the holdout method provides a general purpose framework, amenable to any reachable set estimator, and it does not require any prior knowledge about system dynamics or sample complexity."
+    },
+    {
+      "id": "p0001-r012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        378.0,
+        559.0,
+        483.0
+      ],
+      "markdown": "To conclude our work, we include a discussion on the necessity of probabilistic bounds in the context of data-driven reachability analysis. We argue that any attempt to *de-randomize* a probabilistic bound—that is, convert a probabilistic bound into a deterministic bound via enlargement of the reachable set—must not only make extra assumptions on the dynamics (e.g., Lipschitz bounds on the transition function), but also requires an exponential in state-dimension number of scenarios to obtain non-vacuous guarantees."
+    },
+    {
+      "id": "p0001-r013",
+      "kind": "heading",
+      "bbox": [
+        380.0,
+        493.0,
+        491.0,
+        501.0
+      ],
+      "markdown": "## II. Problem Statement"
+    },
+    {
+      "id": "p0001-r014",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        508.0,
+        429.0,
+        516.0
+      ],
+      "markdown": "### A. Forward Reachable Sets."
+    },
+    {
+      "id": "p0001-r015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        523.0,
+        559.0,
+        629.0
+      ],
+      "markdown": "A forward reachable set is defined as $R = \\{\\Phi(t_1; t_0, x_0, d) : x_0 \\in X_0, d \\in D\\}$ where $X_0 \\subseteq \\mathbb{R}^{n_x}$ is the set of initial states, $D$ is the set of disturbance signals $d : [t_0, t_1] \\rightarrow \\mathbb{R}^{n_d}$, and $\\Phi : X_0 \\times D \\rightarrow \\mathbb{R}^{n_x}$ is the state transition function. This is the set of all states to which the system can transition to at time $t_1$ from states $X_0$ at time $t_0$ subject to disturbances in $D$. Since we cannot compute exact reachable sets, we aim to compute an approximation, $\\hat{R}$, that is close to the true reachable set in a probabilistic sense."
+    },
+    {
+      "id": "p0001-r016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        631.0,
+        559.0,
+        715.0
+      ],
+      "markdown": "To compute such an approximation, we first endow both $X_0$ and $D$ with probability distributions $\\mu_{X_0}$ and $\\mu_D$, respectively. Let $\\Delta$ be the resulting probability space from which we draw samples $\\delta^{(i)} = \\Phi(t_1; t_0, x_{0i}, d_i), i = 1, \\dots, N$ where $x_{01}, \\dots, x_{0N} \\overset{i.i.d}{\\sim} \\mu_{X_0}$, $d_1, \\dots, d_N \\overset{i.i.d}{\\sim} \\mu_D$. We compute a reachable set estimate in the form of a sublevel set of a parameterized function"
+    },
+    {
+      "id": "p0001-r017",
+      "kind": "text",
+      "bbox": [
+        368.0,
+        717.0,
+        559.0,
+        740.0
+      ],
+      "markdown": "$$\n\\hat{R}(\\theta) = \\{x \\in \\mathbb{R}^{n_x} : g(x, \\theta) \\leq 0\\} \\tag{1}\n$$"
+    }
+  ]
+}

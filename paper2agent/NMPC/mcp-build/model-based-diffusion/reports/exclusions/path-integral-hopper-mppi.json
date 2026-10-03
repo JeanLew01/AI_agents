@@ -1,0 +1,9 @@
+{
+  "kind": "tutorial",
+  "id": "path_integral_hopper_mppi",
+  "decided_at": "2026-10-02T15:01:29Z",
+  "decided_by": "coordinator",
+  "reason": "Upstream defect at the pinned commit with the resolved dependency stack: mbd/planners/path_integral.py line 101 calls env.sys.replace(dt=env.dt), which raises TypeError (System.__init__() got an unexpected keyword argument 'dt') with brax 0.10.5 / mujoco-mjx 3.1.6 before any optimisation starts. Reproduced by the executor for hopper+mppi, ant+mppi and hopper+cem (exit status 1, identical traceback). The planner script of the same commit already uses the newer Brax call, so no Brax version satisfies both scripts; upstream source is not patched in this conversion.",
+  "evidence": ["reports/executed_notebook_path_integral_hopper_mppi.json", "notebooks/path_integral_hopper_mppi/logs/"],
+  "consequences": ["The tool mbd_run_baseline_planner is excluded (no working implementation to bind to).", "mbd_evaluate_seeds and mbd_sweep_temperature are restricted to algo=mbd, because run_mbd.py calls the same run_path_integral for algo=path_integral."]
+}

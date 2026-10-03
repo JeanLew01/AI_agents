@@ -1,0 +1,137 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "Compared item by item with the 170 dpi render of PDF page 1 (single column). The proceedings banner at the top ('Proceedings of Machine Learning Research vol 242:514-527, 2024') is page furniture and is set to omit; its content is recorded in the conversion notes. Title kept as the single level-1 heading (bold markers removed). The extractor had turned the author names into two level-3 headings and merged the three e-mail addresses into one line; the author block is rewritten as text, one author per line with the e-mail printed on the same line at the right margin. The e-mail addresses are printed in small capitals (the text layer gives capitals and loses the underscore of 'alex_devonport'); they are written in lower case. Affiliation: two italic lines as printed. 'Abstract' is a printed centred heading, kept as level 2; abstract and 'Keywords:' line compared word by word, 'probabilistic' is italic in the print. '1. Introduction' set to level 2. Three introduction paragraphs compared with the render; line-wrap hyphen of 'Al-thoff and Frehse' removed; 'Donze' restored with its accent (text layer: 'Donz´e'). The last paragraph ends in the middle of a citation list ('... Duggirala et al., 2013; Maidens') and continues on page 2 (join set there). The copyright line at the foot of the page ('(c) 2024 E. Dietrich, R.A. Devonport & M. Arcak.') is kept as a text item; in the reading order it is placed after the author block so that it does not interrupt the sentence that runs on to page 2. No mathematics on this page.",
+  "warnings": [
+    "Review possible header/footer: p0001-b000",
+    "Review possible header/footer: p0001-b013"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "omit",
+      "bbox": [
+        90.0,
+        42.0,
+        306.0,
+        50.0
+      ],
+      "markdown": "",
+      "reason": "Proceedings banner at the top of the first page ('Proceedings of Machine Learning Research vol 242:514-527, 2024'); page furniture. The volume, page range and year are recorded in the conversion notes."
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        110.0,
+        91.0,
+        502.0,
+        105.0
+      ],
+      "markdown": "# Nonconvex Scenario Optimization for Data-Driven Reachability"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        130.0,
+        522.0,
+        194.0
+      ],
+      "markdown": "**Elizabeth Dietrich** eadietri@berkeley.edu  \n**Rosalyn Alex Devonport** alex_devonport@berkeley.edu  \n**Murat Arcak** arcak@berkeley.edu  \n*Department of Electrical Engineering and Computer Sciences*  \n*University of California, Berkeley*"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "heading",
+      "bbox": [
+        283.0,
+        243.0,
+        329.0,
+        252.0
+      ],
+      "markdown": "## Abstract"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        109.0,
+        260.0,
+        503.0,
+        366.0
+      ],
+      "markdown": "Many of the popular reachability analysis methods rely on the existence of system models. When system dynamics are uncertain or unknown, data-driven techniques must be utilized instead. In this paper, we propose an approach to data-driven reachability that provides a *probabilistic* guarantee of correctness for these systems through nonconvex scenario optimization. We pose the problem of finding reachable sets directly from data as a chance-constrained optimization problem, and present two algorithms for estimating nonconvex reachable sets: (1) through the union of partition cells and (2) through the sum of radial basis functions. Additionally, we investigate numerical examples to demonstrate the capability and applicability of the introduced methods to provide nonconvex reachable set approximations."
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        109.0,
+        369.0,
+        422.0,
+        379.0
+      ],
+      "markdown": "**Keywords:** Reachability analysis, scenario optimization, data-driven methods"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        390.0,
+        170.0,
+        399.0
+      ],
+      "markdown": "## 1. Introduction"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        410.0,
+        523.0,
+        475.0
+      ],
+      "markdown": "To guarantee the safety of dynamical systems, *reachability analysis* is often used to determine the set of states that a system could possibly visit. However, in practice, computing exact reachable sets is an undecidable problem. For this reason, approximation methods are often used to reason about these systems and present guarantees. For example, over-approximated reachable sets guarantee safety when they do not overlap with unsafe regions of the state space."
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        478.0,
+        523.0,
+        610.0
+      ],
+      "markdown": "There are many approaches that have been developed for this type of reachability analysis for systems with known dynamics. The most common of these include utilization of Hamilton-Jacobi differential equations (Mitchell et al., 2005; Bansal et al., 2017; Chen and Tomlin, 2018) or barrier certificates (Prajna, 2003; Prajna and Jadbabaie, 2004). While these techniques handle complex nonlinear dynamics well, their computational cost increases sharply with state dimensions. Set propagation techniques (Althoff, 2010; Althoff et al., 2021) iteratively compute a sequence of sets and achieve better scalability with state dimension. The most commonly used families of sets are ellipsoids (Kurzhanski and Varaiya, 2000; Botchkarev and Tripakis, 2000), hyperrectangles (Meyer et al., 2021), zonotopes (Girard, 2005), polytopes (Althoff et al., 2010), and support functions (Althoff and Frehse, 2016)."
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        614.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "However, when the exact dynamics of a system are not known or only partially known, none of the techniques above can be used. Instead, we must estimate reachable sets in a data-driven manner. Several methods attempt to provide probabilistic guarantees of correctness for reachable sets directly from data. These methods include results from simulation and trajectory sensitivity analysis (Donzé and Maler, 2007; Girard and Pappas, 2006; Fan et al., 2017) or Gaussian processes (Devonport and Arcak, 2020a) and utilize simulation-based data to learn reachable sets. Other simulation-based and data-driven reachability methods include (Duggirala et al., 2013; Maidens"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        727.0,
+        249.0,
+        735.0
+      ],
+      "markdown": "© 2024 E. Dietrich, R.A. Devonport & M. Arcak."
+    }
+  ]
+}

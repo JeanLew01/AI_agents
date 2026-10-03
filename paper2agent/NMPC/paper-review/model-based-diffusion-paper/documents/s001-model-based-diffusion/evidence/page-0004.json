@@ -1,0 +1,909 @@
+{
+  "page": 4,
+  "lines": [
+    {
+      "text": "costs. We use Y = [x1∶T ;u1∶T ] to denote all decision variables. Traditionally, TO is solved using",
+      "bbox": [
+        108.0,
+        73.99293518066406,
+        503.9952697753906,
+        85.94767761230469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear programming, which faces challenges such as non-convex problem structures, nonlinear or",
+      "bbox": [
+        108.0,
+        86.11737060546875,
+        504.1675109863281,
+        95.02393341064453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "discontinuous dynamics, and high-dimensional state and control action spaces. Recently, there has",
+      "bbox": [
+        108.0,
+        97.0263671875,
+        503.99884033203125,
+        105.93292999267578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "been a growing interest in bypassing these challenges by directly generating samples from the optimal",
+      "bbox": [
+        108.0,
+        107.93536376953125,
+        504.00152587890625,
+        116.84192657470703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory distribution using diffusion models trained on optimal demonstration data [12, 40, 46, 61].",
+      "bbox": [
+        108.0,
+        118.8443603515625,
+        505.7437438964844,
+        127.75092315673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To use diffusion for TO, (1) is first transformed into a sampling problem. The target distribution",
+      "bbox": [
+        107.69100189208984,
+        135.23333740234375,
+        504.0044250488281,
+        144.139892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p0(Y (0)) is proportional to dynamical feasibility pd(Y ) ∝∏T",
+      "bbox": [
+        108.0,
+        144.67572021484375,
+        358.7472839355469,
+        157.6425018310547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=1 1(xt = ft−1(xt−1,ut−1)), optimal-",
+      "bbox": [
+        354.03997802734375,
+        146.43495178222656,
+        505.65728759765625,
+        158.80078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ity pJ(Y ) ∝exp(−J(Y )",
+      "bbox": [
+        108.0,
+        157.890625,
+        208.2331085205078,
+        171.2914276123047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "λ",
+      "bbox": [
+        196.70700073242188,
+        166.43267822265625,
+        201.43524169921875,
+        173.40647888183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ") and the constraints pg(Y ) ∝∏T",
+      "bbox": [
+        209.4290008544922,
+        158.32373046875,
+        346.6053161621094,
+        171.29148864746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=1 1(gt(xt,ut) ≤0), i.e.,",
+      "bbox": [
+        341.89801025390625,
+        160.0829620361328,
+        444.4153137207031,
+        172.44879150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p0(Y ) ∝pd(Y )pJ(Y )pg(Y )",
+      "bbox": [
+        246.0340118408203,
+        193.17799377441406,
+        365.9623718261719,
+        204.3855438232422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2)",
+      "bbox": [
+        493.05096435546875,
+        194.3934326171875,
+        504.6673278808594,
+        203.29998779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Obtaining the solution Y ∗from the TO problem in Eq. (1) is equivalent to sampling from Eq. (2)",
+      "bbox": [
+        108.0,
+        225.54806518554688,
+        504.6667785644531,
+        235.5106658935547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "given a low temperature λ →0. In fact, in Appendix A.2, we prove that the distribution of J(Y )",
+      "bbox": [
+        108.0,
+        235.9589385986328,
+        503.9963684082031,
+        246.41966247558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with Y ∼p0(⋅) converges in probability to the optimal value J∗as λ →0, under mild assumptions.",
+      "bbox": [
+        107.64099884033203,
+        246.86793518066406,
+        505.7384033203125,
+        258.0754699707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, it is generally difficult to directly sample from the high-dimensional and sparse target",
+      "bbox": [
+        108.0,
+        258.99237060546875,
+        503.9974365234375,
+        267.89892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distribution p0(⋅). To address this issue, the diffusion process iteratively refines the samples following",
+      "bbox": [
+        108.0,
+        268.6859130859375,
+        503.997802734375,
+        279.8934631347656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a backward process, which reverses a predefined forward process as shown in Fig. 1. The forward",
+      "bbox": [
+        108.0,
+        280.81036376953125,
+        504.0016784667969,
+        289.7169189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "process corrupts the original distribution p0(⋅) to an isotropic Gaussian pN(⋅) by incrementally",
+      "bbox": [
+        108.0,
+        290.50390625,
+        504.34674072265625,
+        301.71142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "adding small noise to it and scaling it down by √αi to maintain an invariant noise covariance",
+      "bbox": [
+        108.0,
+        294.97991943359375,
+        504.0045471191406,
+        313.0299072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(see Fig. 2(b) for an example). Mathematically, this means we iteratively obtain Y (i) ∼pi(⋅) with",
+      "bbox": [
+        107.6709976196289,
+        310.7449035644531,
+        503.999755859375,
+        325.7624206542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pi∣i−1(⋅∣Y (i−1)) ∼N(√αiY (i−1),(1 −αi)I). Because the noise at each time step is independent, the",
+      "bbox": [
+        108.0,
+        320.6189270019531,
+        503.9983215332031,
+        338.61444091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditional distribution of Y (i)∣Y (i−1) also leads to that of Y (i)∣Y (0):",
+      "bbox": [
+        108.0,
+        338.0853576660156,
+        386.40557861328125,
+        351.1406555175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pi∣0(⋅∣Y (0)) ∼N(√¯αiY (0),(1 −¯αi)I),",
+      "bbox": [
+        196.86598205566406,
+        373.4969177246094,
+        355.5306091308594,
+        392.6524353027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯αi =",
+      "bbox": [
+        366.9670104980469,
+        381.0909118652344,
+        384.5456237792969,
+        392.5475158691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        391.9010009765625,
+        373.4246520996094,
+        394.7184143066406,
+        380.3984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∏",
+      "bbox": [
+        387.5589904785156,
+        381.86590576171875,
+        399.0657958984375,
+        391.8285217285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k=1",
+      "bbox": [
+        387.00299072265625,
+        393.65765380859375,
+        399.62005615234375,
+        400.6314392089844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "αk.",
+      "bbox": [
+        401.09197998046875,
+        381.58905029296875,
+        415.1365661621094,
+        392.2984313964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(3)",
+      "bbox": [
+        493.05096435546875,
+        382.3063659667969,
+        504.6673278808594,
+        391.2129211425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The backward process pi−1∣i(Y (i−1)∣Y (i)) is the reverse of the forward process pi∣i−1(Y (i)∣Y (i−1)),",
+      "bbox": [
+        107.69097900390625,
+        421.8696594238281,
+        505.2455749511719,
+        434.5014343261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which removes the noise from the corrupted distribution pN(⋅) to obtain the target distribution p0(⋅).",
+      "bbox": [
+        107.64099884033203,
+        435.0259094238281,
+        505.74322509765625,
+        446.2334289550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The target distribution p0(⋅) in the diffusion process is given by:",
+      "bbox": [
+        107.69100189208984,
+        445.9349060058594,
+        363.52044677734375,
+        457.1424255371094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pi−1(Y (i−1)) = ∫pi−1∣i(Y (i−1)∣Y (i))pi(Y (i))dY (i),",
+      "bbox": [
+        181.72601318359375,
+        480.5056457519531,
+        399.06048583984375,
+        494.1395263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(4)",
+      "bbox": [
+        493.0509033203125,
+        483.28936767578125,
+        504.6672668457031,
+        492.1959228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p0(Y (0)) = ∫pN(Y (N))",
+      "bbox": [
+        196.50491333007812,
+        507.0416259765625,
+        302.0082702636719,
+        520.6754760742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        308.55987548828125,
+        500.9436340332031,
+        312.5349426269531,
+        507.91741943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∏",
+      "bbox": [
+        304.79388427734375,
+        509.3848876953125,
+        316.3006896972656,
+        519.3474731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=N",
+      "bbox": [
+        303.4878845214844,
+        521.099609375,
+        316.85516357421875,
+        528.0734252929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pi−1∣i(Y (i−1)∣Y (i))dY (1∶N)",
+      "bbox": [
+        319.077880859375,
+        507.0416259765625,
+        429.7770080566406,
+        520.1724243164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(5)",
+      "bbox": [
+        493.0509033203125,
+        509.82635498046875,
+        504.6672668457031,
+        518.73291015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Standard diffusion models [33, 40, 61], which we refer to as Model-Free Diffusion (MFD), solve the",
+      "bbox": [
+        108.0,
+        549.2853393554688,
+        503.99755859375,
+        558.19189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "backward process by learning score function merely from data. In contrast, we propose leveraging",
+      "bbox": [
+        108.0,
+        560.1943359375,
+        503.99652099609375,
+        569.1008911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the dynamics model to estimate the score to improve the generalizability of the model and allow a",
+      "bbox": [
+        108.0,
+        571.1033935546875,
+        503.9975280761719,
+        580.0099487304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "natural integration with diverse quality data.",
+      "bbox": [
+        108.0,
+        582.0123291015625,
+        283.9893493652344,
+        590.9188842773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        108.0,
+        624.64892578125,
+        113.97760009765625,
+        635.3966674804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Model-Based Diffusion",
+      "bbox": [
+        125.93280029296875,
+        624.64892578125,
+        243.16549682617188,
+        635.3966674804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we formally introduce our MBD algorithm that leverages model information to",
+      "bbox": [
+        108.0,
+        658.7003784179688,
+        503.9972229003906,
+        667.60693359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "perform backward process. To streamline the discussion, in Section 4.1, we first present MBD",
+      "bbox": [
+        108.0,
+        669.609375,
+        503.9974060058594,
+        678.5159301757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with Monte Carlo score ascent to solve simplified and generic unconstrained optimization problems.",
+      "bbox": [
+        107.64099884033203,
+        680.5183715820312,
+        505.7414245605469,
+        689.4249267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In Section 4.2, we extend MBD to the constrained optimization setting to solve the TO problem given",
+      "bbox": [
+        108.0,
+        691.4273681640625,
+        504.0014953613281,
+        700.3339233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "complex dynamics and constraints. Lastly, in Section 4.3, we augment the MBD algorithm with",
+      "bbox": [
+        108.0,
+        702.3363647460938,
+        503.9971618652344,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrations to improve sample quality and steer the diffusion process.",
+      "bbox": [
+        108.0,
+        713.245361328125,
+        401.3188171386719,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        303.5090026855469,
+        743.1333618164062,
+        308.49029541015625,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250117174028Z",
+      "modDate": "D:20260927011225-05'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/model-based-diffusion-paper/documents/.pdf-skill-scan-6fk4cmtz/review/source.pdf",
+      "page_count": 30,
+      "page_number": 4
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          108,
+          74,
+          506,
+          128
+        ],
+        "pos": [
+          0,
+          519
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          107,
+          135,
+          506,
+          172
+        ],
+        "pos": [
+          519,
+          1041
+        ]
+      },
+      {
+        "index": 2,
+        "class": "formula",
+        "bbox": [
+          246,
+          193,
+          505,
+          205
+        ],
+        "pos": [
+          1041,
+          1043
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          225,
+          506,
+          352
+        ],
+        "pos": [
+          1043,
+          2392
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          196,
+          374,
+          505,
+          399
+        ],
+        "pos": [
+          2392,
+          2394
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          107,
+          421,
+          506,
+          457
+        ],
+        "pos": [
+          2394,
+          2802
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          181,
+          478,
+          505,
+          527
+        ],
+        "pos": [
+          2802,
+          2804
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          108,
+          549,
+          504,
+          591
+        ],
+        "pos": [
+          2804,
+          3147
+        ]
+      },
+      {
+        "index": 8,
+        "class": "section-header",
+        "bbox": [
+          108,
+          624,
+          244,
+          634
+        ],
+        "pos": [
+          3147,
+          3179
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          107,
+          658,
+          506,
+          723
+        ],
+        "pos": [
+          3179,
+          3732
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          750
+        ],
+        "pos": [
+          3732,
+          3736
+        ]
+      }
+    ],
+    "text": "costs. We use _Y_ = [ _x_ 1∶ _T_ ; _u_ 1∶ _T_ ] to denote all decision variables. Traditionally, TO is solved using nonlinear programming, which faces challenges such as non-convex problem structures, nonlinear or discontinuous dynamics, and high-dimensional state and control action spaces. Recently, there has been a growing interest in bypassing these challenges by directly generating samples from the optimal trajectory distribution using diffusion models trained on optimal demonstration data [12, 40, 46, 61]. \n\nTo use diffusion for TO, (1) is first transformed into a sampling problem. The target distribution _p_ 0( _Y_<sup>(0)</sup> ) is proportional to dynamical feasibility _pd_ ( _Y_ ) ∝∏<sup>_T_</sup> _t_ =1<sup>**1**(</sup><sup>_xt_=</sup><sup>_ft_−1(</sup><sup>_xt_−1</sup><sup>_,ut_−1)), optimal-</sup> ity _pJ_ ( _Y_ ) ∝ exp (−<sup>_J_</sup><sup><u>(</u></sup> _λ_<sup>_Y_</sup><sup><u>)</u></sup> ) and the constraints _pg_ ( _Y_ ) ∝∏ _t_<sup>_T_</sup> =1<sup>**1**(</sup><sup>_gt_(</sup><sup>_xt,ut_) ≤0), i.e.,</sup> \n\n\n\nObtaining the solution _Y_<sup>∗</sup> from the TO problem in Eq. (1) is equivalent to sampling from Eq. (2) given a low temperature _λ_ → 0. In fact, in Appendix A.2, we prove that the distribution of _J_ ( _Y_ ) with _Y_ ∼ _p_ 0(⋅) converges in probability to the optimal value _J_<sup>∗</sup> as _λ_ → 0, under mild assumptions. However, it is generally difficult to directly sample from the high-dimensional and sparse target distribution _p_ 0(⋅). To address this issue, the diffusion process iteratively refines the samples following a backward process, which reverses a predefined forward process as shown in Fig. 1. The forward process corrupts the original distribution _p_ 0(⋅) to an isotropic Gaussian _pN_ (⋅) by incrementally adding small noise to it and scaling it down by<sup>~~√~~</sup> _<u>αi</u>_ to maintain an invariant noise covariance (see Fig. 2(b) for an example). Mathematically, this means we iteratively obtain _Y_<sup>(</sup><sup>_i_)</sup> ∼ _pi_ (⋅) with _pi_ ∣ _i_ −1(⋅∣ _Y_<sup>(</sup><sup>_i_−1)</sup> ) ∼N(<sup>~~√~~</sup> _<u>αiY</u>_<sup>(</sup><sup>_i_−1)</sup> _,_ (1 − _αi_ ) _I_ ). Because the noise at each time step is independent, the conditional distribution of _Y_<sup>(</sup><sup>_i_)</sup> ∣ _Y_<sup>(</sup><sup>_i_−1)</sup> also leads to that of _Y_<sup>(</sup><sup>_i_)</sup> ∣ _Y_<sup>(0)</sup> : \n\n\n\nThe backward process _pi_ −1∣ _i_ ( _Y_<sup>(</sup><sup>_i_−1)</sup> ∣ _Y_<sup>(</sup><sup>_i_)</sup> ) is the reverse of the forward process _pi_ ∣ _i_ −1( _Y_<sup>(</sup><sup>_i_)</sup> ∣ _Y_<sup>(</sup><sup>_i_−1)</sup> ), which removes the noise from the corrupted distribution _pN_ (⋅) to obtain the target distribution _p_ 0(⋅). The target distribution _p_ 0(⋅) in the diffusion process is given by: \n\n\n\nStandard diffusion models [33, 40, 61], which we refer to as Model-Free Diffusion (MFD), solve the backward process by learning score function merely from data. In contrast, we propose leveraging the dynamics model to estimate the score to improve the generalizability of the model and allow a natural integration with diverse quality data. \n\n# **4 Model-Based Diffusion** \n\nIn this section, we formally introduce our MBD algorithm that leverages model information to perform backward process. To streamline the discussion, in Section 4.1, we first present MBD with Monte Carlo score ascent to solve simplified and generic unconstrained optimization problems. In Section 4.2, we extend MBD to the constrained optimization setting to solve the TO problem given complex dynamics and constraints. Lastly, in Section 4.3, we augment the MBD algorithm with demonstrations to improve sample quality and steer the diffusion process. \n\n4 \n\n"
+  }
+}

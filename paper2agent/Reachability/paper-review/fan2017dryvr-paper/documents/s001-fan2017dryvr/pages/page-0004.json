@@ -1,0 +1,123 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 190-dpi render of the text block and with overview.tex. Headings with printed numbers: '2 Modeling/semantic framework' (##), '2.1 Powertrain control system' and '2.2 Transition graphs' (###). All inline math rewritten in LaTeX from the TeX source with the authors' macros expanded and checked against the render: \\V, \\E are calligraphic ($\\mathcal{V}$, $\\mathcal{E}$); subscripts 'init'/'term' are sans-serif ($\\mathsf{init}$, $\\mathsf{term}$); \\nnreals is $\\mathbb{R}_{\\geq 0}$; \\paths{G}, \\traces{G} are sans-serif $\\mathsf{Paths}_{G}$, $\\mathsf{Trace}_{G}$ (singular 'Trace' as printed); system and mode names (\\auto, \\Lmode) are sans-serif ($\\mathsf{Powertrn}$, $\\mathsf{startup}$, ...). TeX/PDF differences, PDF followed: (1) the set of modes \\L is printed as 'Ł' (see page 2 note), written $\\text{Ł}$, also in $\\text{Ł}_{\\mathsf{init}}$; (2) the labelling functions \\vertlab, \\edgelab are defined as small caps ({\\sc vlab}, {\\sc elab}) but are printed in italics inside math, written $\\mathit{vlab}$, $\\mathit{elab}$. 'Simulink' carries a superscript registered sign in the PDF, written 'Simulink®'. Definition 2.1: label printed bold with a period; the body is upright (definition style) and ends at 'non-negative reals.' (end of the TeX environment); the run-in enumeration (a)-(e) is printed inline. Source inconsistencies kept as printed: the system is called 'Powertrn' in Section 2.1 but 'Powertrain' in the last paragraph; 'intergrator'; the variable $pe$ is printed as the two-letter product-like 'pe'. Citations [40], [21, 27] and the references 'Section 2.1', 'Figure 1' checked on the render. Line-wrap hyphen removed (out-going). Figure 1, referred to in the last paragraph, is printed at the top of page 5. Omitted: page number 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        124.0,
+        374.0,
+        140.0
+      ],
+      "markdown": "## 2 Modeling/semantic framework"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        149.0,
+        478.0,
+        170.0
+      ],
+      "markdown": "We introduce a powertrain control system from [40] as a running example to illustrate the elements of our hybrid system modeling framework."
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        186.0,
+        320.0,
+        198.0
+      ],
+      "markdown": "### 2.1 Powertrain control system"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        205.0,
+        478.0,
+        373.0
+      ],
+      "markdown": "This system ($\\mathsf{Powertrn}$) models a highly nonlinear engine control system. The relevant state variables of the model are intake manifold pressure ($p$), air-fuel ratio ($\\lambda$), estimated manifold pressure ($pe$) and intergrator state ($i$). The overall system can be in one of four modes $\\mathsf{startup}$, $\\mathsf{normal}$, $\\mathsf{powerup}$, $\\mathsf{sensorfail}$. A Simulink® diagram describes the continuous evolution of the above variables. In this paper, we mainly work on the *Hybrid I/O Automaton Model* in the suite of powertrain control models. The Simulink® model consists of continuous variables describing the dynamics of the powertrain plant and sample-and-hold variables as the controller. One of the key requirements to verify is that the engine maintains the air-fuel ratio within a desired range in different modes for a given set of driver behaviors. This requirement has implications on fuel economy and emissions. For testing purposes, the control system designers work with sets of driver profiles that essentially define families of switching signals across the different modes. Previous verification results on this problem have been reported in [21, 27] on a simplified version of the powertrain control model."
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        378.0,
+        268.0,
+        390.0
+      ],
+      "markdown": "### 2.2 Transition graphs"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        397.0,
+        478.0,
+        430.0
+      ],
+      "markdown": "We will use $\\text{Ł}$ to denote a finite set of *modes* or locations of the system under consideration. The discrete behavior or mode transitions are specified by what we call a transition graph over $\\text{Ł}$."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        439.0,
+        478.0,
+        505.0
+      ],
+      "markdown": "**Definition 2.1.** A *transition graph* is a labeled, directed acyclic graph $G = \\langle \\text{Ł}, \\mathcal{V}, \\mathcal{E}, \\mathit{vlab}, \\mathit{elab} \\rangle$, where (a) $\\text{Ł}$ is the set of vertex labels also called the set of *modes*, (b) $\\mathcal{V}$ the set of vertices, (c) $\\mathcal{E}\\subseteq \\mathcal{V} \\times \\mathcal{V}$ is the set of edges, (d) $\\mathit{vlab}: \\mathcal{V} \\rightarrow \\text{Ł}$ is a vertex labeling function that labels each vertex with a mode, and (e) $\\mathit{elab}: \\mathcal{E}\\rightarrow \\mathbb{R}_{\\geq 0} \\times \\mathbb{R}_{\\geq 0}$ is an edge labeling function that labels each edge with a nonempty, closed, bounded interval defined by pair of non-negative reals."
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        514.0,
+        478.0,
+        625.0
+      ],
+      "markdown": "Since $G$ is a DAG, there is a nonempty subset $\\mathcal{V}_{\\mathsf{init}} \\subseteq \\mathcal{V}$ of vertices with no incoming edges and a nonempty subset $\\mathcal{V}_{\\mathsf{term}} \\subseteq \\mathcal{V}$ of vertices with no outgoing edges. We define the set of initial locations of $G$ as $\\text{Ł}_{\\mathsf{init}} = \\{ \\ell \\ |\\ \\exists \\ v \\in \\mathcal{V}_{\\mathsf{init}}, \\mathit{vlab}(v) = \\ell \\}$. A (maximal) *path* of the graph $G$ is a sequence $\\pi = v_1, t_1, v_2, t_2, \\ldots, v_k$ such that, (a) $v_1 \\in \\mathcal{V}_{\\mathsf{init}}$, (b) $v_k \\in \\mathcal{V}_{\\mathsf{term}}$, and (c) for each $(v_i,t_i,v_{i+1})$ subsequence, there exists $(v_i, v_{i+1}) \\in \\mathcal{E}$, and $t_i \\in \\mathit{elab}((v_i,v_{i+1}))$. $\\mathsf{Paths}_{G}$ is the set of all possible paths of $G$. For a given path $\\pi = v_1, t_1, v_2, t_2, \\ldots, v_k$ its *trace*, denoted by $\\mathit{vlab}(\\pi)$, is the sequence $\\mathit{vlab}(v_1), t_1, \\mathit{vlab}(v_2), t_2, \\ldots, \\mathit{vlab}(v_k)$. Since $G$ is a DAG, a trace of $G$ can visit the same mode finitely many times. $\\mathsf{Trace}_{G}$ is the set of all traces of $G$."
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        627.0,
+        478.0,
+        659.0
+      ],
+      "markdown": "An example transition graph for the $\\mathsf{Powertrain}$ system of Section 2.1 is shown in Figure 1. The set of vertices $\\mathcal{V} = \\{0,\\ldots, 4\\}$ and the $\\mathit{vlab}$’s and $\\mathit{elab}$’s appear adjacent to the vertices and edges."
+    },
+    {
+      "id": "p0004-pageno",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        695.0,
+        309.0,
+        703.0
+      ],
+      "markdown": "4",
+      "reason": "Printed page number 4 centred at the foot of the page; page furniture, checked on the page render."
+    }
+  ]
+}

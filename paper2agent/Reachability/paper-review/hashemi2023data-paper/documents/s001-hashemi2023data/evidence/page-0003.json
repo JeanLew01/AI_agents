@@ -1,0 +1,814 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "The layout of our paper is as follows. In Section 2, we present the preliminaries and problem",
+      "bbox": [
+        88.9198989868164,
+        73.49452209472656,
+        539.8652954101562,
+        85.64725494384766
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "statement. Our algorithm for probabilistic reachable set computation is proposed in Section 3. We",
+      "bbox": [
+        71.99990844726562,
+        86.69453430175781,
+        539.9525756835938,
+        98.8472671508789
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrate the eﬃcacy of our method on several numerical examples in Section 4, and we ﬁnally",
+      "bbox": [
+        71.99990844726562,
+        99.77461242675781,
+        539.7881469726562,
+        111.9273452758789
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conclude in Section 5.",
+      "bbox": [
+        71.99990844726562,
+        112.97462463378906,
+        175.65505981445312,
+        125.12735748291016
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Notation. We use bold letters to indicate vectors and vector-valued functions, and calligraphic",
+      "bbox": [
+        71.99990844726562,
+        131.57460021972656,
+        539.7261352539062,
+        143.7273406982422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "letters to denote sets. We denote the set {1, 2, · · · , n} with [n]. We present the structure of a",
+      "bbox": [
+        71.99969482421875,
+        144.65467834472656,
+        540.0081176757812,
+        156.8074188232422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "feedforward neural network (FFNN) with ℓhidden layers as an array [n0, n1, · · · nℓ+1], where n0",
+      "bbox": [
+        72.00057983398438,
+        157.8546905517578,
+        539.5526123046875,
+        171.07266235351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "denotes the number of inputs nℓ+1 is the number of outputs and ni, i ∈[ℓ] denotes the width of the",
+      "bbox": [
+        72.00048828125,
+        170.9347686767578,
+        539.880615234375,
+        184.8874969482422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i-th hidden layer. We denote ei ∈Rn as the i-th base vector of Rn. The expression x ∼X means,",
+      "bbox": [
+        72.00015258789062,
+        180.1746368408203,
+        539.8790283203125,
+        197.9672088623047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the random variable x follows the distribution X. We denote the cardinality of a set A with |A|.",
+      "bbox": [
+        72.00033569335938,
+        197.21449279785156,
+        539.8916625976562,
+        209.3672332763672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Zonotope(b, A) denotes a zonotope [28] with center b and array of base vectors A. The operator ⊕",
+      "bbox": [
+        72.000732421875,
+        210.4145050048828,
+        539.9569091796875,
+        222.56724548339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "denotes the Minkowski sum. We also denote ⌈x⌉as the smallest integer greater than x ∈R.",
+      "bbox": [
+        72.00152587890625,
+        223.4945831298828,
+        508.2098388671875,
+        235.64732360839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        72.00091552734375,
+        256.689208984375,
+        79.89132690429688,
+        269.6294860839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem statement and Preliminaries",
+      "bbox": [
+        95.64259338378906,
+        256.689208984375,
+        355.50030517578125,
+        269.6294860839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Stochastic Dynamical System. Estimating the set of reachable sets of stochastic dynamical",
+      "bbox": [
+        72.00091552734375,
+        281.33477783203125,
+        539.8908081054688,
+        293.4875183105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "systems starting from a compact set of initial states I ⊂Rn is a well-studied problem. While this",
+      "bbox": [
+        71.9998779296875,
+        290.4551086425781,
+        539.8911743164062,
+        306.567626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "problem has been studied largely with model-based techniques, we focus on bounded-time, model-",
+      "bbox": [
+        71.99978637695312,
+        307.6148986816406,
+        539.8838500976562,
+        319.76763916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "free reachability analysis of a black-box discrete-time stochastic dynamical system M. A random",
+      "bbox": [
+        71.99969482421875,
+        320.69500732421875,
+        539.896728515625,
+        332.8477478027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory of M can be modelled as a sequence of time-stamped states σs0 = [s⊤",
+      "bbox": [
+        71.99981689453125,
+        333.8290710449219,
+        477.1034240722656,
+        348.80792236328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 , · · · , s⊤",
+      "bbox": [
+        470.5201110839844,
+        333.8290710449219,
+        515.3834228515625,
+        348.9278259277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "K]⊤⊂",
+      "bbox": [
+        508.8001403808594,
+        333.8290710449219,
+        539.9566040039062,
+        348.5528564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "R(K+1)n.",
+      "bbox": [
+        72.00021362304688,
+        347.5429382324219,
+        112.57130432128906,
+        360.20794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We denote the distribution over the set of trajectories consistent with M as S, and",
+      "bbox": [
+        122.15653228759766,
+        348.0552062988281,
+        539.892578125,
+        360.20794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "use σs0 ∼S to denote that σs0 is sampled from S. The distribution S could be induced due to",
+      "bbox": [
+        72.00033569335938,
+        361.1349182128906,
+        539.98193359375,
+        376.0478210449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a distribution on the set of initial states of the system as well as stochastic uncertainties in its",
+      "bbox": [
+        72.0,
+        374.3353271484375,
+        539.9078369140625,
+        386.4880676269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics. For example, the transition dynamics could be Markovian, i.e., sk ∼T(s′ | s = sk−1).",
+      "bbox": [
+        72.0,
+        384.4261779785156,
+        540.0107421875,
+        401.3677673339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, we remark that the techniques proposed in this paper can work for systems with non-",
+      "bbox": [
+        71.99981689453125,
+        400.61505126953125,
+        539.8826904296875,
+        412.7677917480469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Markovian dynamics. For convenience, we denote the distribution over the set of initial states I as",
+      "bbox": [
+        71.99981689453125,
+        413.6951599121094,
+        539.9544677734375,
+        425.847900390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W, and assume that (Pr[s0 /∈I] = 0). The notation s0",
+      "bbox": [
+        72.0008544921875,
+        429.5353698730469,
+        336.6329040527344,
+        443.3677978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I is used to denote that the state s0 is",
+      "bbox": [
+        340.6808776855469,
+        427.3092956542969,
+        539.9536743164062,
+        443.3677978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampled from I using the distribution W. A practical choice of W may be to uniformly sample I.",
+      "bbox": [
+        72.00115966796875,
+        442.7353820800781,
+        539.1713256835938,
+        454.88812255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Trajectory Datasets.",
+      "bbox": [
+        88.92138671875,
+        457.5932922363281,
+        200.00177001953125,
+        467.4223937988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We assume that we have access to a dataset of independently sampled",
+      "bbox": [
+        210.36138916015625,
+        455.8150939941406,
+        539.8919067382812,
+        467.96783447265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectories of M, where the initial states are sampled with s0",
+      "bbox": [
+        72.00140380859375,
+        471.6553039550781,
+        361.11395263671875,
+        484.75299072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I. We assume that each trajectory",
+      "bbox": [
+        364.5619201660156,
+        469.4295959472656,
+        539.8297119140625,
+        483.80804443359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "has K time-steps. We split the trajectory dataset into two separate datasets, denoted as Dtrain",
+      "bbox": [
+        72.001708984375,
+        484.8553161621094,
+        539.4219970703125,
+        497.008056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Dtest. Here Dtrain is our training dataset and is to be used for training a surrogate model of",
+      "bbox": [
+        72.00152587890625,
+        498.0552978515625,
+        539.9447021484375,
+        511.8877258300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "M. On the other hand, Dtest is the test dataset, and is to be utilized to generate the calibration",
+      "bbox": [
+        72.0018310546875,
+        511.135009765625,
+        539.778076171875,
+        524.9678955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dataset for deriving statistical properties. Let Dtest = {s0,i, σs0,i}L",
+      "bbox": [
+        72.00222778320312,
+        524.1100463867188,
+        386.75677490234375,
+        538.1678466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 where L is the number of test",
+      "bbox": [
+        381.0023498535156,
+        524.3350219726562,
+        540.001953125,
+        539.48779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectories. Our goal is now to compute a probabilistic reach set such that σs0 is included inside",
+      "bbox": [
+        72.00213623046875,
+        537.4151000976562,
+        539.8564453125,
+        552.3280639648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with a probability not lower than a user-deﬁned threshold 1 −ε, where ε ∈(0, 1).",
+      "bbox": [
+        72.00262451171875,
+        550.6151123046875,
+        458.41168212890625,
+        562.7678833007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We remark that although the data-points within a single trajectory are not independent and",
+      "bbox": [
+        88.9217529296875,
+        563.6951904296875,
+        539.8795166015625,
+        575.8479614257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "identically distributed (i.i.d.), we observe that the trajectory σs0 can be seen as a vector σs0 ∈",
+      "bbox": [
+        72.00173950195312,
+        576.8952026367188,
+        539.9469604492188,
+        591.80810546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rn(K+1) so that entire trajectories within Dtrain and Dtest can be viewed as i.i.d. samples in the",
+      "bbox": [
+        72.00152587890625,
+        586.01513671875,
+        539.833984375,
+        603.8081665039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rn(K+1)-space. This observation is crucially used later when we quantify uncertainty using conformal",
+      "bbox": [
+        72.00161743164062,
+        602.6630249023438,
+        539.8563842773438,
+        615.3280639648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "prediction.",
+      "bbox": [
+        72.00180053710938,
+        616.25537109375,
+        122.39747619628906,
+        628.4081420898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Surrogate Model.",
+      "bbox": [
+        88.92169952392578,
+        631.2335815429688,
+        184.76622009277344,
+        641.0626831054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "After obtaining the trajectory dataset, we train a surrogate model F :",
+      "bbox": [
+        199.20169067382812,
+        629.4553833007812,
+        540.0236206054688,
+        641.608154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rn →R(K+1)n that maps a given initial state to the predicted K-step trajectory of the system.",
+      "bbox": [
+        72.00177001953125,
+        638.5753173828125,
+        540.0180053710938,
+        654.6878662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For instance, the surrogate model can be a feedforward neural network with n inputs and (K +",
+      "bbox": [
+        72.0018310546875,
+        655.7350463867188,
+        539.9596557617188,
+        667.8878173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1)n outputs. Let ¯σs0 denote the predicted trajectory, then, ¯σs0 = F(s0). Training such a K-step",
+      "bbox": [
+        72.00225830078125,
+        668.815185546875,
+        540.0286254882812,
+        683.7280883789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        303.2417907714844,
+        710.5753784179688,
+        308.6636047363281,
+        722.7281494140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "dvips + GPL Ghostscript GIT PRERELEASE 9.22",
+      "creationDate": "D:20230918214413-04'00'",
+      "modDate": "D:20230918214413-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hashemi2023data-paper/documents/.pdf-skill-scan-iympfb69/review/source.pdf",
+      "page_count": 15,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          71,
+          75,
+          540,
+          123
+        ],
+        "pos": [
+          0,
+          315
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          71,
+          133,
+          541,
+          236
+        ],
+        "pos": [
+          315,
+          1119
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          72,
+          256,
+          356,
+          267
+        ],
+        "pos": [
+          1119,
+          1165
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          71,
+          283,
+          541,
+          563
+        ],
+        "pos": [
+          1165,
+          3274
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          72,
+          565,
+          540,
+          628
+        ],
+        "pos": [
+          3274,
+          3701
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          72,
+          631,
+          541,
+          682
+        ],
+        "pos": [
+          3701,
+          4103
+        ]
+      },
+      {
+        "index": 6,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          712,
+          309,
+          721
+        ],
+        "pos": [
+          4103,
+          4107
+        ]
+      }
+    ],
+    "text": "The layout of our paper is as follows. In Section 2, we present the preliminaries and problem statement. Our algorithm for probabilistic reachable set computation is proposed in Section 3. We demonstrate the efficacy of our method on several numerical examples in Section 4, and we finally conclude in Section 5. \n\n**Notation** . We use bold letters to indicate vectors and vector-valued functions, and calligraphic letters to denote sets. We denote the set {1, 2, · · · , n} with [n]. We present the structure of a feedforward neural network (FFNN) with ℓ hidden layers as an array [n0, n1, · · · nℓ+1], where n0 denotes the number of inputs nℓ+1 is the number of outputs and ni, i ∈ [ℓ] denotes the width of the i-th hidden layer. We denote ei ∈ R<sup>n</sup> as the i-th base vector of R<sup>n</sup> . The expression x ∼X means, the random variable x follows the distribution X . We denote the cardinality of a set A with |A|. Zonotope(b, A) denotes a zonotope [28] with center b and array of base vectors A. The operator ⊕ denotes the Minkowski sum. We also denote ⌈x⌉ as the smallest integer greater than x ∈ R. \n\n# **2 Problem statement and Preliminaries** \n\n**Stochastic Dynamical System.** Estimating the set of reachable sets of stochastic dynamical systems starting from a compact set of initial states I ⊂ R<sup>n</sup> is a well-studied problem. While this problem has been studied largely with model-based techniques, we focus on bounded-time, modelfree reachability analysis of a black-box discrete-time stochastic dynamical system M . A random trajectory of M can be modelled as a sequence of time-stamped states σs0 = [s<sup>⊤</sup> 0<sup>, · · ·, s⊤</sup> K<sup>]⊤⊂</sup> R<sup>(K+1)n</sup> . We denote the distribution over the set of trajectories consistent with M as S, and use σs0 ∼S to denote that σs0 is sampled from S. The distribution S could be induced due to a distribution on the set of initial states of the system as well as stochastic uncertainties in its dynamics. For example, the transition dynamics could be Markovian, i.e., sk ∼ T (s<sup>′</sup> | s = sk−1). However, we remark that the techniques proposed in this paper can work for systems with nonMarkovian dynamics. For convenience, we denote the distribution over the set of initial states I as W, and assume that (Pr[s0 ∈I/ ] = 0). The notation s0 W∼I is used to denote that the state s0 is sampled from I using the distribution W. A practical choice of W may be to uniformly sample I. **Trajectory Datasets.** We assume that we have access to a dataset of independently sampled trajectories of M , where the initial states are sampled with s0 W∼I. We assume that each trajectory has K time-steps. We split the trajectory dataset into two separate datasets, denoted as Dtrain and Dtest. Here Dtrain is our training dataset and is to be used for training a surrogate model of M . On the other hand, Dtest is the test dataset, and is to be utilized to generate the calibration dataset for deriving statistical properties. Let Dtest = {s0,i, σs0,i}i<sup>L</sup> =1<sup>whereListhenumberoftest</sup> trajectories. Our goal is now to compute a probabilistic reach set such that σs0 is included inside with a probability not lower than a user-defined threshold 1 − ε, where ε ∈ (0, 1). \n\nWe remark that although the data-points within a single trajectory are not independent and identically distributed (i.i.d.), we observe that the trajectory σs0 can be seen as a vector σs0 ∈ R<sup>n(K+1)</sup> so that entire trajectories within Dtrain and Dtest can be viewed as i.i.d. samples in the R<sup>n(K+1)</sup> -space. This observation is crucially used later when we quantify uncertainty using conformal prediction. \n\n**Surrogate Model.** After obtaining the trajectory dataset, we train a surrogate model F : R<sup>n</sup> → R<sup>(K+1)n</sup> that maps a given initial state to the predicted K-step trajectory of the system. For instance, the surrogate model can be a feedforward neural network with n inputs and (K + 1)n outputs. Let σ¯s0 denote the predicted trajectory, then, σ¯s0 = F(s0). Training such a K-step \n\n3 \n\n"
+  }
+}

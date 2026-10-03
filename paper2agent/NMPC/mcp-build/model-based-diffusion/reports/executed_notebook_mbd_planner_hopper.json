@@ -1,0 +1,656 @@
+{
+ "execution_id": "mbd_planner_hopper",
+ "report_written_utc": "2026-10-02T15:14:00Z",
+ "status": "succeeded",
+ "status_notes": "The reference run (run1) of the documented command completed with exit status 0 and all native outputs. The replay of record is the coordinator's independent complete run of the identical command (not this executor's own second run): this executor's run2 was cut off by a machine freeze after upstream had printed its last line, so its exit status was never recorded. The requested changed-input case was not attempted. See replay_comparison, changed_input_case and limitations.",
+ "source": {
+  "path": "mbd/planners/mbd_planner.py",
+  "pinned_checkout": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/repo/model-based-diffusion",
+  "commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+  "source_url": "https://github.com/LeCAR-Lab/model-based-diffusion.git",
+  "script_sha256": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+  "script_sha256_matches_scanner_sha256_at_scan": true,
+  "private_copy": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source",
+  "private_copy_created_with": "git -C repo/model-based-diffusion archive c1eb913783f1713f7a1ebb657b34e0188d52cd8b | tar -x -C notebooks/mbd_planner_hopper/source",
+  "private_copy_identity_check": "List of files in the copy equals `git ls-tree -r --name-only <commit>` (34 files; logs/tracked_files.txt vs logs/copy_files.txt, diff empty), and `git hash-object --no-filters` of every file in the copy equals the blob id recorded in the commit's tree (logs/tracked_blob_hashes.txt vs logs/copy_blob_hashes.txt, diff empty). SHA-256 of all 34 files in logs/source_copy_sha256.txt; re-checked with `sha256sum -c` after the machine restart (all match). The pinned checkout itself is at the commit with an empty `git status --porcelain`.",
+  "import_resolution_proof": {
+   "command": "(cwd /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/planners) /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 300 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/import_proof.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python -c \"import mbd; print(mbd.__file__)\"",
+   "exit_status": 0,
+   "printed": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/__init__.py",
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/import_proof.log",
+   "note": "The environment also holds an editable install of mbd that points at the pinned checkout (site-packages/__editable__.mbd-0.0.1.pth); PYTHONPATH takes precedence, as the printed path shows."
+  }
+ },
+ "execution_mode": "native-command",
+ "execution_path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/run.sh",
+ "execution_path_sha256": "876f20111d044a31e8186c56f246ff70c4df894dd7a962cfa056a433a9cb1639",
+ "documented_command": {
+  "cwd_relative_to_source": "mbd/planners",
+  "argv": [
+   "$PROJECT_PYTHON",
+   "mbd_planner.py",
+   "--env_name",
+   "hopper",
+   "--seed",
+   "0"
+  ],
+  "effective_parameters": {
+   "env_name": "hopper",
+   "seed": 0,
+   "Nsample": 2048,
+   "Hsample": 50,
+   "Ndiffuse": 100,
+   "temp_sample": 0.1,
+   "beta0": 0.0001,
+   "betaT": 0.01,
+   "enable_demo": false,
+   "disable_recommended_params": false,
+   "not_render": false
+  },
+  "effective_parameters_basis": "Script defaults (mbd_planner.py:19-36); the log line `override temp_sample to 0.1` confirms the recommended-parameter branch; the progress bar total 99 = Ndiffuse-1 and the saved array shape (99, 50, 3) confirm Ndiffuse=100, Hsample=50 and three actuators. Nsample is not printed by upstream; 2048 is the script default and is not overridden for hopper (mbd_planner.py:58-66).",
+  "size_fallback_used": false
+ },
+ "commands": [
+  {
+   "label": "import_proof",
+   "purpose": "prove `import mbd` resolves to the private copy",
+   "exit_status": 0,
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/import_proof.log",
+   "launcher_log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/import_proof.launcher.log",
+   "scope_memory_peak_mb": 120
+  },
+  {
+   "label": "runtime_probe",
+   "purpose": "record interpreter, package versions and JAX device (no simulation)",
+   "command": "(cwd /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/planners) /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 300 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/runtime_probe.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/runtime_probe.py",
+   "exit_status": 0,
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/runtime_probe.log",
+   "launcher_log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/runtime_probe.launcher.log",
+   "scope_memory_peak_mb": 233
+  },
+  {
+   "label": "run1",
+   "purpose": "reference run of the documented command",
+   "driver_invocation": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/run.sh run1 --seed 0",
+   "command": "(cwd /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/planners) /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run1.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python mbd_planner.py --env_name hopper --seed 0",
+   "exit_status": 0,
+   "launcher_start_utc": "2026-10-02T14:54:35Z",
+   "launcher_end_utc": "2026-10-02T14:57:57Z",
+   "wall_time_s": 202.0,
+   "elapsed_including_lock_wait_s": 368.02,
+   "tqdm_diffusion_elapsed_s": 77,
+   "first_iteration_including_jit_compile_s": 33,
+   "scope_memory_max_mb": 1759,
+   "scope_memory_peak_mb": 1253,
+   "oom_kills": 0,
+   "gpu_used_before_mib": 1307,
+   "gpu_used_after_mib": 1252,
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run1.log",
+   "log_sha256": "3806d0b64a5093e4798a6257dbe554fa1e8377c55f2b7a43876229149ecaf5e9",
+   "launcher_log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run1.launcher.log",
+   "meta": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run1.meta.txt",
+   "traceback_in_log": false,
+   "phase_times_from_file_mtimes_utc": {
+    "mu_0ts.npy_written": "2026-10-02T14:56:17Z",
+    "rollout.html_written": "2026-10-02T14:57:16Z",
+    "process_end": "2026-10-02T14:57:57Z",
+    "note": "After the diffusion loop upstream spends about 60 s producing rollout.html (a Python loop over 50 calls of the jitted step, compiled afresh) and about 40 s on the final rollout (also compiled afresh) before it prints the reward; a wrapper timeout must cover these phases."
+   }
+  },
+  {
+   "label": "run2",
+   "purpose": "replay with identical arguments",
+   "driver_invocation": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/run.sh run2 --seed 0",
+   "command": "(cwd /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/planners) /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run2.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python mbd_planner.py --env_name hopper --seed 0",
+   "exit_status": null,
+   "exit_status_explanation": "Never recorded: the machine froze at about 15:05Z, after upstream had printed `final reward = 1.56e+00` (last statement of the script) and before the launcher wrote its memory-peak and end lines. Not counted as a completed run.",
+   "launcher_start_utc": "2026-10-02T14:59:53Z",
+   "launcher_end_utc": null,
+   "wall_time_s": null,
+   "log_last_written_utc": "2026-10-02T15:04:32Z",
+   "last_progress_line_reached": "Diffusing: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 99/99 [01:53<00:00,  1.15s/it, rew=1.61e+00]",
+   "last_line_of_log": "final reward = 1.56e+00",
+   "scope_memory_max_mb": 1511,
+   "mem_available_at_start_mb": 2211,
+   "scope_memory_peak_mb": null,
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run2.log",
+   "log_sha256": "e0bb73020f8c8777259447446ba7470ea6d5c59049f5cf9dad2a1c0a8e1e7c8f",
+   "launcher_log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run2.launcher.log",
+   "meta": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run2.meta.txt",
+   "interruption_note": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/run2.interruption-note.txt",
+   "traceback_in_log": false
+  },
+  {
+   "label": "compare",
+   "purpose": "NumPy-only parsing and comparison (no JAX import)",
+   "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/compare.py",
+   "exit_status": 0,
+   "output": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/comparison.json",
+   "output_sha256": "9e1e05b71b516b316bd16fd269e7cf3f918a4ead397ee9dce1cd9c3a1376ecca"
+  }
+ ],
+ "runtime": {
+  "interpreter": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+  "interpreter_resolves_to": "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+  "python_version": "3.11.17 (main, Oct  1 2026, 20:58:47) [Clang 22.1.3 ]",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": {
+   "jax": "0.4.30",
+   "jaxlib": "0.4.30",
+   "jax-cuda12-plugin": "0.4.30",
+   "jax-cuda12-pjrt": "0.4.30",
+   "brax": "0.10.5",
+   "mujoco": "3.1.6",
+   "mujoco-mjx": "3.1.6",
+   "numpy": "1.26.4",
+   "scipy": "1.14.0",
+   "tyro": "0.8.5",
+   "tqdm": "4.66.4",
+   "matplotlib": "3.9.0",
+   "etils": "1.9.2",
+   "flax": "0.8.5",
+   "nvidia-cudnn-cu12": "9.2.0.82",
+   "nvidia-cuda-runtime-cu12": "12.5.82"
+  },
+  "device": "cuda:0",
+  "device_evidence": "runtime_probe.py in the same interpreter and environment variables: jax.devices() = ['cuda:0'], default backend gpu; the upstream script itself does not print the device.",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, driver 581.04 (nvidia-smi)",
+  "float_precision": "float32 (jax_enable_x64 = False; the x64 line is commented out upstream)",
+  "environment_variables_set_by_launcher": {
+   "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+   "MPLBACKEND": "Agg",
+   "PYTHONPATH": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source"
+  },
+  "runtime_probe_log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs/runtime_probe.log"
+ },
+ "seed_and_data_provenance": {
+  "seed": 0,
+  "seed_mechanism": "`--seed` -> jax.random.PRNGKey(seed) (mbd_planner.py:41); the key is split once for env.reset and once for the diffusion loop; no other random generator is used by the script.",
+  "input_data_files": null,
+  "input_data_explanation": "The command takes no data file. The only external model input is the hopper MJCF shipped inside the installed brax package.",
+  "model_asset": {
+   "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/lib/python3.11/site-packages/brax/envs/assets/hopper.xml",
+   "sha256": "0fe1b2b922b677f60603da4fc8b9165f4ad98f61ce7f836e13e9a53bc690922d",
+   "from_package": "brax 0.10.5",
+   "loaded_by": "mbd/envs/hopper.py:13-14 (backend positional, n_frames 20)"
+  }
+ },
+ "inputs": [
+  {
+   "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/planners/mbd_planner.py",
+   "sha256": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829"
+  },
+  {
+   "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/envs/hopper.py",
+   "sha256": "efa7521293001e84087ca4ce4b4ad073bd91a0e03db10e40ce039e028043973b"
+  },
+  {
+   "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/mbd/utils.py",
+   "sha256": "3ea0dabe674266988a463d2d6e2fe311813697e835a2955abd6b2023a4ceed75"
+  }
+ ],
+ "outputs": {
+  "reference_run1": {
+   "directory": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run1",
+   "sha256sums_file": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run1/SHA256SUMS",
+   "files": {
+    "mu_0ts.npy": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run1/mu_0ts.npy",
+     "bytes": 59528,
+     "sha256": "46f8393ae092faaa751fcc3933bd68f39a36b1a7081ed4b68d531e2e3c762cda",
+     "mtime_utc": "2026-10-02T14:56:17Z",
+     "shape": [
+      99,
+      50,
+      3
+     ],
+     "dtype": "float32",
+     "all_finite": true,
+     "min": -0.9989629983901978,
+     "max": 0.9975469708442688,
+     "mean": 0.005868944339454174,
+     "abs_max": 0.9989629983901978,
+     "nonzero_elements": 14850,
+     "elements": 14850,
+     "final_iterate_abs_max": 0.9960690140724182,
+     "final_iterate_first_action": [
+      -0.9913382530212402,
+      0.4659896194934845,
+      0.7169230580329895
+     ],
+     "final_iterate_last_action": [
+      -0.19844116270542145,
+      -0.3263022005558014,
+      -0.6457950472831726
+     ]
+    },
+    "rollout.html": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run1/rollout.html",
+     "bytes": 13083,
+     "sha256": "ce7d9ad18f56e51553d1a20841819bd1aa595160fc4d82454397953f0317003a",
+     "mtime_utc": "2026-10-02T14:57:16Z",
+     "starts_with_doctype_html": true,
+     "ends_with_closing_html_tag": true,
+     "embeds_compressed_system_variable": true
+    }
+   },
+   "written_by_upstream_at": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source/results/hopper/ (moved to the outputs directory by run.sh after the run)"
+  },
+  "run2_interrupted": {
+   "directory": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run2-interrupted",
+   "sha256sums_file": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run2-interrupted/SHA256SUMS",
+   "files": {
+    "mu_0ts.npy": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run2-interrupted/mu_0ts.npy",
+     "bytes": 59528,
+     "sha256": "46f8393ae092faaa751fcc3933bd68f39a36b1a7081ed4b68d531e2e3c762cda",
+     "mtime_utc": "2026-10-02T15:02:16Z",
+     "shape": [
+      99,
+      50,
+      3
+     ],
+     "dtype": "float32",
+     "all_finite": true,
+     "min": -0.9989629983901978,
+     "max": 0.9975469708442688,
+     "mean": 0.005868944339454174,
+     "abs_max": 0.9989629983901978,
+     "nonzero_elements": 14850,
+     "elements": 14850,
+     "final_iterate_abs_max": 0.9960690140724182,
+     "final_iterate_first_action": [
+      -0.9913382530212402,
+      0.4659896194934845,
+      0.7169230580329895
+     ],
+     "final_iterate_last_action": [
+      -0.19844116270542145,
+      -0.3263022005558014,
+      -0.6457950472831726
+     ]
+    },
+    "rollout.html": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs/run2-interrupted/rollout.html",
+     "bytes": 13083,
+     "sha256": "ce7d9ad18f56e51553d1a20841819bd1aa595160fc4d82454397953f0317003a",
+     "mtime_utc": "2026-10-02T15:03:52Z",
+     "starts_with_doctype_html": true,
+     "ends_with_closing_html_tag": true,
+     "embeds_compressed_system_variable": true
+    }
+   },
+   "note": "Files upstream wrote during the cut-off run2; complete and loadable, but from a run without a recorded exit status. Secondary evidence only."
+  },
+  "changed_input": null
+ },
+ "parsed_reference_values": {
+  "from": "run1",
+  "stdout_override_line": "override temp_sample to 0.1",
+  "stdout_init_sigma_line": "init sigma = 6.30e-01",
+  "stdout_final_reward_line": "final reward = 1.56e+00",
+  "final_reward_printed": "1.56e+00",
+  "final_reward": 1.56,
+  "final_reward_precision_note": "Upstream prints the reward with `:.2e` (three significant digits). The unrounded float32 value was not measured: obtaining it needs an extra JAX evaluation, and JAX jobs were disabled before that could be run.",
+  "final_reward_unrounded": null,
+  "progress_bar_total": 99,
+  "sample_mean_reward_per_iteration_printed": [
+   "5.83e-02",
+   "2.05e-01",
+   "3.65e-01",
+   "4.11e-01",
+   "4.43e-01",
+   "4.32e-01",
+   "4.31e-01",
+   "4.66e-01",
+   "4.64e-01",
+   "5.12e-01",
+   "4.71e-01",
+   "4.95e-01",
+   "4.94e-01",
+   "5.36e-01",
+   "5.80e-01",
+   "5.56e-01",
+   "5.37e-01",
+   "5.45e-01",
+   "5.37e-01",
+   "5.55e-01",
+   "5.81e-01",
+   "5.92e-01",
+   "6.58e-01",
+   "5.85e-01",
+   "6.00e-01",
+   "6.49e-01",
+   "6.49e-01",
+   "6.02e-01",
+   "6.04e-01",
+   "6.26e-01",
+   "6.60e-01",
+   "6.82e-01",
+   "6.54e-01",
+   "6.49e-01",
+   "6.37e-01",
+   "6.49e-01",
+   "6.49e-01",
+   "6.87e-01",
+   "6.68e-01",
+   "6.63e-01",
+   "6.48e-01",
+   "6.67e-01",
+   "6.52e-01",
+   "6.92e-01",
+   "6.97e-01",
+   "7.25e-01",
+   "7.25e-01",
+   "7.30e-01",
+   "7.23e-01",
+   "7.61e-01",
+   "7.52e-01",
+   "7.56e-01",
+   "7.73e-01",
+   "8.03e-01",
+   "8.26e-01",
+   "8.36e-01",
+   "8.35e-01",
+   "8.61e-01",
+   "8.51e-01",
+   "8.44e-01",
+   "7.95e-01",
+   "8.39e-01",
+   "8.48e-01",
+   "8.66e-01",
+   "8.88e-01",
+   "8.97e-01",
+   "9.30e-01",
+   "9.24e-01",
+   "9.39e-01",
+   "9.48e-01",
+   "9.57e-01",
+   "9.70e-01",
+   "9.92e-01",
+   "1.01e+00",
+   "1.01e+00",
+   "1.07e+00",
+   "1.07e+00",
+   "1.10e+00",
+   "1.11e+00",
+   "1.15e+00",
+   "1.16e+00",
+   "1.19e+00",
+   "1.20e+00",
+   "1.23e+00",
+   "1.26e+00",
+   "1.27e+00",
+   "1.30e+00",
+   "1.33e+00",
+   "1.36e+00",
+   "1.38e+00",
+   "1.43e+00",
+   "1.46e+00",
+   "1.48e+00",
+   "1.51e+00",
+   "1.54e+00",
+   "1.56e+00",
+   "1.58e+00",
+   "1.60e+00",
+   "1.61e+00"
+  ],
+  "sample_mean_reward_note": "Mean reward of the Nsample sampled trajectories at each of the 99 reverse-diffusion iterations, as printed in the progress bar postfix (three significant digits); first 5.83e-02, last 1.61e+00.",
+  "mu_0ts": {
+   "shape": [
+    99,
+    50,
+    3
+   ],
+   "dtype": "float32",
+   "all_finite": true,
+   "min": -0.9989629983901978,
+   "max": 0.9975469708442688,
+   "mean": 0.005868944339454174,
+   "abs_max": 0.9989629983901978,
+   "final_iterate_first_action": [
+    -0.9913382530212402,
+    0.4659896194934845,
+    0.7169230580329895
+   ],
+   "final_iterate_last_action": [
+    -0.19844116270542145,
+    -0.3263022005558014,
+    -0.6457950472831726
+   ],
+   "sha256": "46f8393ae092faaa751fcc3933bd68f39a36b1a7081ed4b68d531e2e3c762cda",
+   "bytes": 59528
+  },
+  "mu_0ts_shape_note": "[Ndiffuse-1, Hsample, Nu] = [99, 50, 3], as the scanner expected; the last entry mu_0ts[-1] is the final control sequence that upstream renders and scores.",
+  "rollout_html": {
+   "bytes": 13083,
+   "sha256": "ce7d9ad18f56e51553d1a20841819bd1aa595160fc4d82454397953f0317003a",
+   "starts_with_doctype_html": true,
+   "ends_with_closing_html_tag": true,
+   "embeds_compressed_system_variable": true,
+   "note": "Brax visualizer page; the trajectory is embedded as a compressed string (`var system = \"...\"`), and the page loads its viewer script from the internet (brax v0.10.5 viewer.js via a CDN, pako from unpkg). It was not opened in a browser."
+  }
+ },
+ "replay_comparison": {
+  "replay_of_record": {
+   "what": "The coordinator's independent, complete run of the identical command, NOT this executor's own second run.",
+   "command": "(cwd repo/model-based-diffusion/mbd/planners of the pinned checkout) heavy.sh --timeout 1200 --log tmp/env-probe/coord/hopper-default.log -- $PROJECT_PYTHON mbd_planner.py --env_name hopper --seed 0",
+   "differences_from_run1": "Run from the pinned checkout through the environment's editable install of mbd (no PYTHONPATH) instead of the private copy; the two trees are byte-identical for all tracked files. Same interpreter, same environment, same GPU, same launcher. Run at 14:39:48Z-14:43:39Z, i.e. before run1 (14:54:35Z-14:57:57Z).",
+   "exit_status": 0,
+   "wall_time_s": 231.0,
+   "scope_memory_peak_mb": 1203,
+   "log": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/tmp/env-probe/coord/hopper-default.log",
+   "log_sha256": "7f49624417dc30dbe66eb2d4bd3655ca49579a9d3ab64c03a87b45330955c6c2",
+   "time_and_launcher_file": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/tmp/env-probe/coord/hopper-default.time",
+   "files": {
+    "mu_0ts.npy": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/tmp/env-probe/coord/hopper-default-out/mu_0ts.npy",
+     "bytes": 59528,
+     "sha256": "46f8393ae092faaa751fcc3933bd68f39a36b1a7081ed4b68d531e2e3c762cda",
+     "mtime_utc": "2026-10-02T14:42:18Z",
+     "shape": [
+      99,
+      50,
+      3
+     ],
+     "dtype": "float32",
+     "all_finite": true,
+     "min": -0.9989629983901978,
+     "max": 0.9975469708442688,
+     "mean": 0.005868944339454174,
+     "abs_max": 0.9989629983901978,
+     "nonzero_elements": 14850,
+     "elements": 14850,
+     "final_iterate_abs_max": 0.9960690140724182,
+     "final_iterate_first_action": [
+      -0.9913382530212402,
+      0.4659896194934845,
+      0.7169230580329895
+     ],
+     "final_iterate_last_action": [
+      -0.19844116270542145,
+      -0.3263022005558014,
+      -0.6457950472831726
+     ]
+    },
+    "rollout.html": {
+     "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/tmp/env-probe/coord/hopper-default-out/rollout.html",
+     "bytes": 13083,
+     "sha256": "ce7d9ad18f56e51553d1a20841819bd1aa595160fc4d82454397953f0317003a",
+     "mtime_utc": "2026-10-02T14:42:58Z",
+     "starts_with_doctype_html": true,
+     "ends_with_closing_html_tag": true,
+     "embeds_compressed_system_variable": true
+    }
+   },
+   "files_were_only_read": true
+  },
+  "run1_vs_coordinator_probe": {
+   "runs": [
+    "run1",
+    "coordinator-probe"
+   ],
+   "shape": [
+    [
+     99,
+     50,
+     3
+    ],
+    [
+     99,
+     50,
+     3
+    ]
+   ],
+   "shape_equal": true,
+   "dtype_equal": true,
+   "mu_0ts_array_equal": true,
+   "mu_0ts_max_abs_diff": 0.0,
+   "mu_0ts_final_iterate_max_abs_diff": 0.0,
+   "mu_0ts_first_differing_iteration_index": null,
+   "mu_0ts_number_of_differing_elements": 0,
+   "mu_0ts_number_of_elements": 14850,
+   "mu_0ts_file_sha256_equal": true,
+   "rollout_html_sha256_equal": true,
+   "rollout_html_bytes": [
+    13083,
+    13083
+   ],
+   "final_reward_printed": [
+    "1.56e+00",
+    "1.56e+00"
+   ],
+   "final_reward_printed_equal": true,
+   "final_reward_printed_abs_diff": 0.0,
+   "init_sigma_printed": [
+    "6.30e-01",
+    "6.30e-01"
+   ],
+   "init_sigma_printed_equal": true,
+   "sample_mean_reward_per_iteration_printed_equal": true,
+   "sample_mean_reward_per_iteration_printed_max_abs_diff": 0.0,
+   "sample_mean_reward_per_iteration_count": 99
+  },
+  "additional_evidence_run1_vs_run2_interrupted": {
+   "runs": [
+    "run1",
+    "run2-interrupted"
+   ],
+   "shape": [
+    [
+     99,
+     50,
+     3
+    ],
+    [
+     99,
+     50,
+     3
+    ]
+   ],
+   "shape_equal": true,
+   "dtype_equal": true,
+   "mu_0ts_array_equal": true,
+   "mu_0ts_max_abs_diff": 0.0,
+   "mu_0ts_final_iterate_max_abs_diff": 0.0,
+   "mu_0ts_first_differing_iteration_index": null,
+   "mu_0ts_number_of_differing_elements": 0,
+   "mu_0ts_number_of_elements": 14850,
+   "mu_0ts_file_sha256_equal": true,
+   "rollout_html_sha256_equal": true,
+   "rollout_html_bytes": [
+    13083,
+    13083
+   ],
+   "final_reward_printed": [
+    "1.56e+00",
+    "1.56e+00"
+   ],
+   "final_reward_printed_equal": true,
+   "final_reward_printed_abs_diff": 0.0,
+   "init_sigma_printed": [
+    "6.30e-01",
+    "6.30e-01"
+   ],
+   "init_sigma_printed_equal": true,
+   "sample_mean_reward_per_iteration_printed_equal": true,
+   "sample_mean_reward_per_iteration_printed_max_abs_diff": 0.0,
+   "sample_mean_reward_per_iteration_count": 99,
+   "caveat": "run2 has no recorded exit status (machine freeze). Its two files were written by upstream before the freeze (mtimes 15:02:16Z and 15:03:52Z, inside run2's lifetime; run.sh guarantees the results directory did not exist when run2 started) and passed the completeness checks, so the comparison is valid for the file contents, but run2 is not a completed run."
+  },
+  "summary": {
+   "mu_0ts_array_equal": true,
+   "mu_0ts_max_abs_diff": 0.0,
+   "final_reward_printed_abs_diff": 0.0,
+   "final_reward_unrounded_abs_diff": null,
+   "final_reward_unrounded_abs_diff_explanation": "Not measured (see parsed_reference_values.final_reward_precision_note). Because mu_0ts.npy is bitwise identical and rollout.html (which embeds the rolled-out states of the final control sequence) is byte-identical, a difference in the unrounded reward would require the last 50-step rollout alone to be non-repeatable, which none of the available evidence suggests; this is an inference, not a measurement.",
+   "rollout_html_byte_identical": true,
+   "number_of_executions_compared": 3,
+   "number_with_recorded_exit_status_0": 2,
+   "statement": "All three executions of `mbd_planner.py --env_name hopper --seed 0` on cuda:0 produced bitwise-identical mu_0ts.npy (SHA-256 46f8393a...2cda), byte-identical rollout.html (SHA-256 ce7d9ad1...003a), the same printed final reward 1.56e+00 and the same 99 printed per-iteration mean rewards."
+  },
+  "proposed_tolerance": {
+   "mu_0ts": "Same shape (99, 50, 3) and dtype float32; numpy.array_equal is what was observed. For the wrapper test use max |difference| <= 1e-6 (absolute; all values lie in [-1, 1], so this is about 17 float32 ulp for magnitudes in [0.5, 1)).",
+   "final_reward": "Printed string equal to `1.56e+00`; as a numeric check |difference| <= 0.005 (half a unit of the last printed digit).",
+   "rollout_html": "Exists, non-empty, starts with <!DOCTYPE html>, ends with </html>; byte equality (13083 bytes, same SHA-256) was observed and may be asserted on this machine.",
+   "justification": "The observed run-to-run difference is exactly zero in three executions, so there is no measured noise to size a looser tolerance from. A loose tolerance (for example 1e-3) would have no basis: in a contact-rich rollout that is re-weighted over 99 iterations, a genuine floating-point divergence does not stay small but grows to differences of the order of the values themselves, so the outcome is either bitwise agreement or a clearly visible mismatch. 1e-6 therefore only absorbs representation-level noise and makes a real divergence fail loudly instead of passing silently.",
+   "scope_of_validity": "Same machine, GPU (cuda:0, RTX 4070 Laptop, driver 581.04), interpreter and package set, same arguments, each run in a fresh process. Not established: CPU against GPU, another GPU or driver, another jax/brax build, or runs inside a long-lived process that has already compiled other programs. If the wrapper test ever shows a mismatch under these same conditions, treat it as a finding (GPU non-determinism appearing) and re-measure rather than widening the threshold.",
+   "basis_strength": "Three executions, two of them with a recorded exit status of 0."
+  }
+ },
+ "changed_input_case": {
+  "requested_arguments": "--env_name hopper --Nsample 512 --Ndiffuse 50 --seed 1",
+  "status": "not attempted",
+  "reason": "not attempted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z",
+  "outputs": null,
+  "consequence": "There is no changed-input reference for the wrapper tests of this execution; outputs/changed-input/ does not exist."
+ },
+ "figures": null,
+ "figures_explanation": "The command produces no image; its visual output is rollout.html (recorded under outputs).",
+ "limitations": [
+  "The replay of record is the coordinator's independent run of the same command from the pinned checkout, not a second run by this executor; this executor's run2 was cut off by a machine freeze and has no exit status.",
+  "The changed-input case (--Nsample 512 --Ndiffuse 50 --seed 1) was not run.",
+  "The final reward is known only to the three significant digits upstream prints; no unrounded value was measured.",
+  "Nsample is not echoed by upstream; 2048 is taken from the script defaults.",
+  "Determinism was observed on one machine and one device only; nothing is claimed for CPU or other hardware.",
+  "rollout.html was checked structurally (complete HTML with an embedded compressed payload), not rendered; viewing it needs internet access for the viewer scripts.",
+  "The device is established by a separate probe in the same environment, since the script does not print it.",
+  "Whether run2 contributed to the machine freeze is not known to this executor: it ran inside a 1511 MB memory scope (run1 peaked at 1253 MB in a 1759 MB scope) and had already printed its final line when the log stopped; its peak memory was not recorded."
+ ],
+ "attempts": [
+  {
+   "n": 1,
+   "label": "run1",
+   "arguments": "--env_name hopper --seed 0",
+   "outcome": "succeeded, exit status 0, 202 s, peak 1253 MB"
+  },
+  {
+   "n": 2,
+   "label": "run2",
+   "arguments": "--env_name hopper --seed 0",
+   "outcome": "cut off by a machine freeze after upstream's last output line; exit status not recorded; both output files complete and identical to run1"
+  },
+  {
+   "n": null,
+   "label": "changed-input",
+   "arguments": "--env_name hopper --Nsample 512 --Ndiffuse 50 --seed 1",
+   "outcome": "not attempted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z"
+  }
+ ],
+ "attempts_used_of_five": 2,
+ "evidence_files": {
+  "readme": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/README.md",
+  "driver": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/run.sh",
+  "comparison_script": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/compare.py",
+  "comparison_result": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/comparison.json",
+  "runtime_probe_script": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/runtime_probe.py",
+  "logs_directory": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/logs",
+  "outputs_directory": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/outputs",
+  "source_copy": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_hopper/source"
+ },
+ "coordinator_decisions_needed": [
+  "Accept the coordinator-probe run as the replay of record (bitwise identical to run1), or schedule a second executor-owned run once heavy jobs are allowed again.",
+  "Whether to run the changed-input case later; until then the wrapper tests for hopper have only the default-argument reference.",
+  "tmp/env-probe/coord/hopper-default* is now replay evidence and should not be cleaned up (hashes are recorded here)."
+ ]
+}

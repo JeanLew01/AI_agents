@@ -1,0 +1,97 @@
+{
+  "page": 12,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0012.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0012-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        127.0,
+        478.0,
+        183.0
+      ],
+      "markdown": "_curv_ (Line 5). For each possible initial set _S_ init corresponding to _curv_ in _VerInit_ , the algorithm computes a discrepancy function (Line 7) and uses it to compute a reachtube from _S_ init up to time _dt_ (Line 8). For each successor _nextv_ of _curv_ , the restriction of the computed reachtube _RT_ to the corresponding transition time interval _elab_ (( _curv , nextv_ )) is set as an initial set for _nextv_ (Lines 11–12).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b001",
+      "kind": "text",
+      "bbox": [
+        141.0,
+        199.0,
+        463.0,
+        221.0
+      ],
+      "markdown": "**Algorithm 1:** _GraphReach_ ( _H_ ) computes bounded time reachtubes for each vertex of the transition _G_ of hybrid system _H_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b002",
+      "kind": "text",
+      "bbox": [
+        139.0,
+        225.0,
+        384.0,
+        236.0
+      ],
+      "markdown": "**1** _RS ←_ ∅; _VerInit ←{⟨_ Θ _, v_ init _⟩}_ ; _Order ← TopSort_ ( _G_ );",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b003",
+      "kind": "text",
+      "bbox": [
+        134.0,
+        237.0,
+        470.0,
+        372.0
+      ],
+      "markdown": "**2 for** _ptr_ = 0 : _len_ ( _Order_ ) _−_ 1 **do 3** _curv ←_ Order[ _ptr_ ] ; **4** _ℓ ← vlab_ ( _curv_ ); **5** _dt ←_ max _{t_<sup>_′_</sup> _∈_ R _≥_ 0 _|∃vs ∈V,_ ( _curv , vs_ ) _∈E,_ ( _t, t_<sup>_′_</sup> ) _← elab_ (( _curv , vs_ )) _}_ ; **6 for** _S_ init _∈{S | ⟨S, curv ⟩∈ VerInit}_ **do 7** _β ← LearnDiscrepancy_ ( _S_ init _, dt, ℓ_ ); **8** _RT ← ReachComp_ ( _S_ init _, dt, β_ ); **9** _RS ← RS ∪⟨RT, curv ⟩_ ; **10 for** _nextv ∈ curv .succ_ **do 11** ( _t, t_<sup>_′_</sup> ) _← elab_ (( _curv , nextv_ )); **12** _VerInit ← VerInit ∪⟨Restr_ ( _RT,_ ( _t, t_<sup>_′_</sup> )) _, nextv⟩_ ; **13 return** _RS_ ;",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        391.0,
+        478.0,
+        570.0
+      ],
+      "markdown": "The invariant verification algorithm _VerifySafety_ decides safety of _H_ with respect to a given unsafe set _U_ and uses _GraphReach_ . The detailed pseudocode appears in Appendix A.3. This algorithm proceeds in a way similar to the simulation-based verification algorithms for dynamical and hybrid systems [22, 30]. Given initial set Θ and transition graph _G_ of _H_ , this algorithm partitions Θ into several subsets, and then for each subset _S_ it checks whether the computed over-approximate reachtube _RS_ from _S_ intersects with _U_ : (a) If _RS_ is disjoint, the system is safe starting from _S_ ; (b) if certain part of a reachtube _RT_ is contained in _U_ , the system is declared as unsafe and _RT_ with the the corresponding path of the graph are returned as counter-example witnesses; (c) if neither of the above conditions hold, then the algorithm performs refinement to get a more precise over-approximation of _RS_ . Several refinement strategies are implemented in DryVR to accomplish the last step. Broadly, these strategies rely on splitting the initial set _S_ into smaller sets (this gives tighter discrepancy in the subsequent vertices) and splitting the edge labels of _G_ into smaller intervals (this gives smaller initial sets in the vertices).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        571.0,
+        478.0,
+        676.0
+      ],
+      "markdown": "The above description focuses on invariant properties, but the algorithm and our implementation in DryVR can verify a useful class of temporal properties. These are properties in which the time constraints only refer to the time since the last mode transition. For example, for the Powertrn benchmark the tool verifies requirements like “after 4s in normal mode, the air-fuel ratio should be contained in [14 _._ 6 _,_ 14 _._ 8] and after 4s in powerup it should be in [12 _._ 4 _,_ 12 _._ 6]”. **Correctness** Given a correct discrepancy function for each mode, we can prove the soundness and relative completeness of Algorithm 2. This analysis closely follows the proof of Theorem 19 and Theorem 21 in [20]. Combining",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b006",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        696.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "12",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        54.0,
+        299.0,
+        186.0
+      ],
+      "markdown": "_b}_ , where _≤_ is the standard partial order R<sup>_n_</sup> . Given a vector _x_ , a subscript _xi_ denotes the _i_<sup>_th_</sup> element of _x_ . Given an ordered multiset of vectors (a collection of points in R<sup>_n_</sup> for instance), a superscript _x_<sup>(</sup><sup>_i_)</sup> denotes the _i_<sup>_th_</sup> member of the multiset. For _x ∈_ R<sup>_n_</sup> , the vector _zk_ ( _x_ ) _∈_ R<sup>(</sup> _n_ + _n k_<sup>)</sup> denotes the vector of monomials of degree _≤ k_ , including degree zero, evaluated at _x_ : for instance, if _n_ = 2 and _k_ = 2, then _zk_ ( _x_ ) = [1 _x_ 1 _x_ 2 _x_ 1 _x_ 2 _x_<sup>2</sup> 1 _x_<sup>2</sup> 2<sup>]</sup><sup>_⊤_.Thespaceof</sup> polynomials of degree _≤ d_ in _n_ variables is denoted R[ _x_ ]<sup>_n_</sup> _d_<sup>:</sup> note that elements of _zd_ , treated as polynomials, form a basis for R[ _x_ ]<sup>_n_</sup> _d_<sup>.</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "heading",
+      "bbox": [
+        134.0,
+        197.0,
+        218.0,
+        204.0
+      ],
+      "markdown": "# II. PRELIMINARIES",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        213.0,
+        211.0,
+        223.0
+      ],
+      "markdown": "# _A. Probabilistic Reachability Analysis_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        229.0,
+        299.0,
+        357.0
+      ],
+      "markdown": "Consider a dynamical system with a state transition function Φ( _t_ 1; _t_ 0 _, x_ 0 _, d_ ) that maps an initial state _x_ ( _t_ 0) = _x_ 0 _∈_ R<sup>_n_</sup> at time _t_ 0 to a unique final state at time _t_ 1, under a disturbance _d_ : [ _t_ 0 _, t_ 1] _→_ R<sup>_w_</sup> . For instance, when the system state dynamics _x_ ˙ ( _t_ ) = _f_ ( _t, x_ ( _t_ ) _, d_ ( _t_ )) are known and have unique solutions on the interval [ _t_ 0 _, t_ 1], then Φ( _t_ 1; _t_ 0 _, x_ 0 _, d_ ) is just _x_ ( _t_ 1), where _x_ is the solution of the state dynamics with initial condition _x_ ( _t_ 0) = _x_ 0. In addition to representing exogenous disturbances, the disturbance signal _d_ may account for deviations of an input from a nominal control law.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        361.0,
+        299.0,
+        430.0
+      ],
+      "markdown": "For the problem of forward reachability analysis, we are also given an _initial set X_ 0 _⊂_ R<sup>_n_</sup> , a set _D_ of allowed disturbances and a time range [ _t_ 0 _, t_ 1]. The _forward reachable set_ is then defined as the set of all states to which the system can transition in the time range [ _t_ 0 _, t_ 1] with initial states in _X_ 0 and disturbances in _D_ , that is the set",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "formula",
+      "bbox": [
+        78.0,
+        435.0,
+        275.0,
+        457.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (6)",
+      "asset_name": "formula-p0002-005"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        461.0,
+        299.0,
+        554.0
+      ],
+      "markdown": "To tackle the problem of estimating the forward reachable set by statistical means, we add probabilistic structure to the reachability problem that corresponds to taking random independent samples from the reachable set. Specifically, we take random variables _X_ 0 and _D_ that take values on _X_ 0 and _D_ respectively. These random variables then induce a random variable Φ( _t_ 1; _t_ 0 _, X_ 0 _, D_ ) over the forward reachable set, whose probability measure we denote as _µ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        557.0,
+        299.0,
+        636.0
+      ],
+      "markdown": "_Remark 1:_ The random variables _X_ 0 and _D_ may have a physical significance, if the initial states, inputs, or disturbances are known to behave randomly in the problem at hand. However, they do not need to: they may be considered as _instrumental distributions_ whose purpose is to provide a consistent rule for selecting initial states and disturbances at random.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        640.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "The measure _µ_ ( _A_ ) of a set _A ∈_ R<sup>_n_</sup> has an intuitive interpretation: if we take samples _x_ 0 and _d_ of the random variables _X_ 0 and _D_ , then the vector Φ( _t_ 1; _t_ 0 _, x_ 0 _, d_ ) lies in _A_ with probability _µ_ ( _A_ ). Additionally, the smallest set of measure 1 is the reachable set. This interpretation motivates _µ_ ( _A_ ) as a measure of _probabilistic accuracy_ : if a set _A ⊆_ R<sup>_n_</sup> has a greater measure _µ_ ( _A_ ) than a set _B ⊆_ R<sup>_n_</sup> , then _A_ is a more accurate approximation of the reachable set than _B_ , in",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        113.0
+      ],
+      "markdown": "the sense that it “misses” less of the probability mass than _B_ does. In the probabilistic version of the forward reachability problem, our goal is to find reachable set approximations _R_ ˆ[ _t_ 0 _,t_ 1] such that _µ_ ( ˆ _R_ [ _t_ 0 _,t_ 1]) is close to 1. Formally, we look to solve the following problem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        115.0,
+        559.0,
+        175.0
+      ],
+      "markdown": "_Problem 1:_ Given the state transition function Φ( _t_ 1; _t_ 0 _, x_ 0 _, u_ ), time range [ _t_ 0 _, t_ 1], initial set _X_ 0, and disturbance set _D_ , the random variables _X_ 0 and _D_ , and an _accuracy level ϵ ∈_ (0 _,_ 1), compute a set _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] such that _µ_ ( _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]) _≥_ 1 _− ϵ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        175.0,
+        559.0,
+        234.0
+      ],
+      "markdown": "Selecting a set with high measure under _µ_ is not sufficient to ensure a reasonable estimate, since the trivial solution _R_ ˆ[ _t_ 0 _,t_ 1] = R<sup>_n_</sup> satisfies _µ_ ( ˆ _R_ [ _t_ 0 _,t_ 1]) = 1. To avoid this problem we require some regularization, such as requiring that _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] be compact and penalizing estimates with high volume.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        243.0,
+        413.0,
+        253.0
+      ],
+      "markdown": "# _B. Christoffel Functions_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        259.0,
+        559.0,
+        279.0
+      ],
+      "markdown": "Given a finite measure _µ_ on R<sup>_n_</sup> and a positive integer _k_ , the Christoffel function of order _k_ is defined as the ratio",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "formula",
+      "bbox": [
+        374.0,
+        279.0,
+        497.0,
+        313.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (15)",
+      "asset_name": "formula-p0002-014"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        314.0,
+        459.0,
+        322.0
+      ],
+      "markdown": "where _M_ is the matrix of moments",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "formula",
+      "bbox": [
+        371.0,
+        323.0,
+        501.0,
+        357.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (17)",
+      "asset_name": "formula-p0002-016"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        358.0,
+        559.0,
+        440.0
+      ],
+      "markdown": "and _zk_ ( _x_ ) is the vector of monomials of degree _≤ k_ . We assume throughout that _M_ is positive definite, ensuring that _M_<sup>_−_1</sup> exists. The Christoffel function has several important application in approximation theory, where its asymptotic properties are used to prove the regularity and consistency of Fourier series of orthogonal polynomials. For our purposes, it is more convenient to use the _inverse Christoffel function_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "formula",
+      "bbox": [
+        370.0,
+        441.0,
+        501.0,
+        464.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (19)",
+      "asset_name": "formula-p0002-018"
+    },
+    {
+      "id": "p0002-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        468.0,
+        559.0,
+        549.0
+      ],
+      "markdown": "which is a polynomial of degree 2 _k_ . In Problem 1, and more generally in the problem of estimating a probability distribution from samples, _µ_ is a probability measure which we do not _a priori_ know. In this case, we instead use an empirical estimate of _µ_ constructed from a collection of independently and identically distributed (iid) samples _x_<sup>(</sup><sup>_i_)</sup> , _i_ = 1 _, . . . , N_ samples from _µ_ , namely",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b020",
+      "kind": "formula",
+      "bbox": [
+        395.0,
+        551.0,
+        476.0,
+        591.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (21)",
+      "asset_name": "formula-p0002-020"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        593.0,
+        559.0,
+        626.0
+      ],
+      "markdown": "where _δx_ is the _Dirac measure_ satisfying � _f_ ( _y_ ) _dδx_ ( _y_ ) = _f_ ( _x_ ). The measure _µ_ ˆ itself defines a Christoffel function, whose inverse",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "formula",
+      "bbox": [
+        320.0,
+        627.0,
+        551.0,
+        687.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 2 (23)",
+      "asset_name": "formula-p0002-022"
+    },
+    {
+      "id": "p0002-b023",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "ismatrixcalled _M_ ˆ theis positive _empirical_ definite _inverse_ (and _Christoffel_ hence _M_ ˆ _function_<sup>_−_1</sup> exists). Theif _N ≥_ � _n_ + _n k_ � and the _x_<sup>(</sup><sup>_i_)</sup> do not all belong to the zero set of a single degree _k_ polynomial.",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+ "page": 23,
+ "width": 612.0,
+ "height": 792.0,
+ "mode": "native",
+ "preview": "previews/page-0023.png",
+ "reviewed": true,
+ "review_notes": "Appendix D (sampling-based Lipschitz constant of a ReLU network, Lemma 7 and the first part of its proof). Text and mathematics taken from the authors' TeX (main.tex lines 2581-2660), macros expanded (\\A -> \\mathcal{A}, \\comp -> \\mathsf{c}), and compared with the 150-dpi render and three 230-dpi crops covering the whole page. Checked symbol by symbol: network f: R^n -> R^n with ell layers, f(x) = W^ell x^ell + b^ell, x^{k+1} = phi^k(W^k x^k + b^k), k = 0,...,ell-1, x^0 = x; phi^k: R^{n_k} -> R^{n_{k+1}}, varphi(z) = max(0,z); Lambda_N = min_{i=1,...,N} lambda(A_i) / lambda(X); ||f(x_1)-f(x_2)|| <= L ||x_1-x_2|| for all x_1,x_2 in X; L = max_{i=1,...,N} {||grad f(x_i)|| for some x_i in A_i}; the three-step procedure (one numbered list item, numbering as printed); Lemma 7: delta_M = N (1 - Lambda_N)^M and P(f is \\hat L-Lipschitz continuous over X) >= 1 - delta_M; proof chain: P(cap_{i=1}^N {cup_{j=1}^M {x_j} cap A_i != empty}) = 1 - P(cup_{i=1}^N {...}^c) >= 1 - sum_{i=1}^N P(cap_{j=1}^M x_j not-in A_i) (Boole's inequality) = 1 - sum_{i=1}^N P(x_j not-in A_i)^M (independent samples) >= 1 - N (1 - Lambda_N)^M, ending with a comma; the sentence continues on page 24 ('where the last step follows from ...'). All five displays were extractor formula images or glyph soup and are now LaTeX; none has a printed number. Labels as printed: '**Lemma 7**' (bold, no period, italic body ending with the display) and '**Proof**'. Heading fixed to '## Appendix D. Computing the Lipschitz constant of a ReLU network from samples'. Running header and page number 23 omitted.",
+ "warnings": [
+  "Review possible header/footer: p0023-b000"
+ ],
+ "items": [
+  {
+   "id": "p0023-r000",
+   "kind": "omit",
+   "bbox": [
+    200.0,
+    36.0,
+    412.0,
+    54.0
+   ],
+   "markdown": "SAMPLING-BASED REACHABILITY ANALYSIS",
+   "reason": "Running header 'SAMPLING-BASED REACHABILITY ANALYSIS' (page furniture repeated on every page after the first); checked on the page image."
+  },
+  {
+   "id": "p0023-r001",
+   "kind": "heading",
+   "bbox": [
+    90.0,
+    93.0,
+    510.0,
+    105.0
+   ],
+   "markdown": "## Appendix D. Computing the Lipschitz constant of a ReLU network from samples"
+  },
+  {
+   "id": "p0023-r002",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    114.0,
+    523.0,
+    152.0
+   ],
+   "markdown": "In this section, we show that sampling gradients enables obtaining the Lipschitz constant of a neural network with ReLU activation functions with high probability. Consider a feed-forward ReLU neural network $f:\\mathbb{R}^n\\rightarrow\\mathbb{R}^n$ with $\\ell\\in\\mathbb{N}$ layers, given as"
+  },
+  {
+   "id": "p0023-r003",
+   "kind": "text",
+   "bbox": [
+    135.0,
+    162.0,
+    478.0,
+    178.0
+   ],
+   "markdown": "$$\nf(x) = W^\\ell x^\\ell + b^\\ell, \\quad x^{k+1}=\\phi^k(W^kx^k+b^k), \\ k=0,\\dots,\\ell-1, \\quad x^0 = x,\n$$"
+  },
+  {
+   "id": "p0023-r004",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    186.0,
+    523.0,
+    212.0
+   ],
+   "markdown": "where $(W^k,b^k)_{k=0}^\\ell$ are the network weights and biases, and each $\\phi^k:\\mathbb{R}^{n_k}\\rightarrow\\mathbb{R}^{n_{k+1}}$ is defined as $\\phi^k(x)=(\\varphi(x_1),\\dots,\\varphi(x_{n_k}))$ with $\\varphi(z)=\\max(0,z)$. Note that $f$ is piecewise-affine."
+  },
+  {
+   "id": "p0023-r005",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    213.0,
+    523.0,
+    266.0
+   ],
+   "markdown": "Let $\\mathcal{X}\\subset\\mathbb{R}^n$ be a non-empty compact set. Let $\\mathcal{A}=\\{A_1,\\dots,A_N\\}$ be the set of all polytopes $A_i\\subseteq\\mathcal{X}$ where $f|_{A_i}$ is affine, which we call the activation regions of $f$. Let $\\Lambda_N=\\frac{\\min_{i=1,\\dots,N} \\lambda(A_i)}{\\lambda(\\mathcal{X})}$ be the smallest (normalized Lebesgue) volume of all activation regions. Note that $f$ is Lipschitz continuous over $\\mathcal{X}$, since it is continuous and restricted to a compact subset. Thus, for some $L\\geq 0$,"
+  },
+  {
+   "id": "p0023-r006",
+   "kind": "text",
+   "bbox": [
+    197.0,
+    277.0,
+    415.0,
+    292.0
+   ],
+   "markdown": "$$\n\\|f(x_1)-f(x_2)\\|\\leq L\\|x_1-x_2\\|\\quad \\forall x_1,x_2\\in\\mathcal{X}.\n$$"
+  },
+  {
+   "id": "p0023-r007",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    301.0,
+    523.0,
+    313.0
+   ],
+   "markdown": "Further, since $f$ is piecewise-affine, $f$ is $L$-Lipschitz continuous with"
+  },
+  {
+   "id": "p0023-r008",
+   "kind": "text",
+   "bbox": [
+    208.0,
+    321.0,
+    405.0,
+    343.0
+   ],
+   "markdown": "$$\nL=\\max_{i=1,\\dots,N} \\{\\|\\nabla f(x_i)\\|\\ \\text{for some }x_i\\in A_i\\}.\n$$"
+  },
+  {
+   "id": "p0023-r009",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    352.0,
+    523.0,
+    364.0
+   ],
+   "markdown": "We propose the following sampling-based method to recover the Lipschitz constant $L$:"
+  },
+  {
+   "id": "p0023-r010",
+   "kind": "text",
+   "bbox": [
+    104.0,
+    372.0,
+    523.0,
+    423.0
+   ],
+   "markdown": "1. Draw $M$ random samples $x_i$ in $\\mathcal{X}$ according to the uniform probability measure over $\\mathcal{X}$.\n2. Evaluate $L_i=\\|\\nabla f(x_i)\\|$ for all $i=1,\\dots,M$.\n3. Set $\\hat{L}=\\max_{i=1,\\dots,M} L_i$."
+  },
+  {
+   "id": "p0023-r011",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    432.0,
+    523.0,
+    471.0
+   ],
+   "markdown": "In general, with this approach, providing statistical guarantees on whether $\\hat{L}$ is a valid Lipschitz constant for $f$ is challenging; the analysis would rely on the Hessian of $f$ which is a-priori unknown. In this specific setting, $f$ is piecewise-affine, which we leverage in the analysis below."
+  },
+  {
+   "id": "p0023-r012",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    481.0,
+    523.0,
+    494.0
+   ],
+   "markdown": "**Lemma 7** With the previous notations, define $\\delta_M=N(1-\\Lambda_N)^M$. Then,"
+  },
+  {
+   "id": "p0023-r013",
+   "kind": "text",
+   "bbox": [
+    195.0,
+    502.0,
+    417.0,
+    518.0
+   ],
+   "markdown": "$$\n\\mathbb{P}(f\\text{ is $\\hat{L}$-Lipschitz continuous over $\\mathcal{X}$})\\geq 1-\\delta_M.\n$$"
+  },
+  {
+   "id": "p0023-r014",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    526.0,
+    523.0,
+    553.0
+   ],
+   "markdown": "**Proof** Since $L=\\max_{i=1,\\dots,N} \\{\\|\\nabla f(x_i)\\|\\ \\text{for some }x_i\\in A_i\\}$, a sufficient condition for $f$ to be $\\hat{L}$-Lipschitz continuous is that at least one point $x_j$ was sampled in each region $A_i$. Thus,"
+  },
+  {
+   "id": "p0023-r015",
+   "kind": "text",
+   "bbox": [
+    108.0,
+    561.0,
+    504.0,
+    705.0
+   ],
+   "markdown": "$$\n\\begin{aligned}\n\\mathbb{P}\\left( \\bigcap_{i=1}^N\\left\\{ \\bigcup_{j=1}^M \\{x_j\\}\\cap A_i\\neq\\emptyset \\right\\} \\right) &= 1- \\mathbb{P}\\left( \\bigcup_{i=1}^N\\left\\{ \\bigcup_{j=1}^M \\{x_j\\}\\cap A_i\\neq\\emptyset \\right\\}^{\\mathsf{c}} \\right) \\\\\n&\\geq 1- \\sum_{i=1}^N \\mathbb{P}\\left( \\bigcap_{j=1}^M x_j\\notin A_i \\right) \\quad\\text{(Boole's inequality)} \\\\\n&= 1- \\sum_{i=1}^N \\mathbb{P}\\left( x_j\\notin A_i \\right)^M \\qquad\\quad\\text{(independent samples)} \\\\\n&\\geq 1-N(1-\\Lambda_N)^M,\n\\end{aligned}\n$$"
+  },
+  {
+   "id": "p0023-r016",
+   "kind": "omit",
+   "bbox": [
+    295.0,
+    722.0,
+    317.0,
+    737.0
+   ],
+   "markdown": "23",
+   "reason": "Printed page number 23 at the bottom centre (page furniture); checked on the page image."
+  }
+ ]
+}

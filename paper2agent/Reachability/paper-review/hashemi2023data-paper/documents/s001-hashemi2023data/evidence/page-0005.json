@@ -1,0 +1,886 @@
+{
+  "page": 5,
+  "lines": [
+    {
+      "text": "In this work, we are interested in computing X while our access to M is limited to the datasets",
+      "bbox": [
+        88.9198989868164,
+        73.49452209472656,
+        539.9281616210938,
+        85.64725494384766
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Dtrain and Dtest. We will show that we can compute X with valid guarantees by employing reach-",
+      "bbox": [
+        71.99978637695312,
+        86.69453430175781,
+        539.7308959960938,
+        100.5273208618164
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ability analysis on the surrogate model trained from Dtrain and error analysis of this model by",
+      "bbox": [
+        71.99911499023438,
+        99.77461242675781,
+        539.9175415039062,
+        113.6073989868164
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applying conformal prediction on Dtest.",
+      "bbox": [
+        71.99893188476562,
+        112.97462463378906,
+        259.0900573730469,
+        125.12735748291016
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.1",
+      "bbox": [
+        71.99913024902344,
+        142.81947326660156,
+        89.14865112304688,
+        153.5911102294922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Computing Reachsets for Surrogate Models",
+      "bbox": [
+        102.58557891845703,
+        142.81947326660156,
+        359.9716491699219,
+        153.5911102294922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.1.1",
+      "bbox": [
+        71.99913024902344,
+        163.7130126953125,
+        97.65459442138672,
+        173.5421142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ReLU Surrogate Model",
+      "bbox": [
+        110.02300262451172,
+        163.7130126953125,
+        238.02801513671875,
+        173.5421142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We start with training a neural network surrogate model F : Rn →Rn(K+1) over the training",
+      "bbox": [
+        71.99913024902344,
+        178.13526916503906,
+        539.8919067382812,
+        194.24778747558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dataset Dtrain. The surrogate model is trained to approximate the trajectory σs0 ∈Rn(K+1) of the",
+      "bbox": [
+        71.99917602539062,
+        191.3352813720703,
+        539.8984375,
+        210.2079315185547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stochastic system M sampled with initial state s0",
+      "bbox": [
+        71.99905395507812,
+        211.73487854003906,
+        307.9516296386719,
+        224.83291625976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I. We denote the prediction ¯σs0 ∈Rn(K+1) of",
+      "bbox": [
+        311.5195007324219,
+        207.7751007080078,
+        539.9544067382812,
+        226.6477508544922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "σs0 as,",
+      "bbox": [
+        71.99981689453125,
+        224.81495666503906,
+        103.08611297607422,
+        239.7278289794922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯σs0 = F(s0) =",
+      "bbox": [
+        126.23966979980469,
+        244.50576782226562,
+        194.3562469482422,
+        258.4477233886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h",
+      "bbox": [
+        197.3997802734375,
+        240.40408325195312,
+        202.5488739013672,
+        260.5859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s⊤",
+      "bbox": [
+        202.5599365234375,
+        242.86932373046875,
+        214.3030242919922,
+        255.68760681152344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 , F1(s0), · · · , Fn(s0), · · · , F(n−1)K(s0), · · · , FnK(s0)",
+      "bbox": [
+        207.71971130371094,
+        242.42298889160156,
+        473.4325256347656,
+        258.3278503417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i⊤",
+      "bbox": [
+        473.3998107910156,
+        238.0693359375,
+        485.2632141113281,
+        260.5859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where Fj(s0) is the (j + n)-th component of the vector F(s0).",
+      "bbox": [
+        71.99990844726562,
+        266.94976806640625,
+        365.6508483886719,
+        280.2731628417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Recent works in the literature have had great success on obtaining accurate bounds for the",
+      "bbox": [
+        88.919921875,
+        280.2552185058594,
+        539.86181640625,
+        292.407958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability analysis of ReLU neural networks using polyhedral sets [21, 34, 35]. The accuracy of",
+      "bbox": [
+        71.99990844726562,
+        293.4552307128906,
+        539.9577026367188,
+        305.60797119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "these techniques motivates us to use ReLU activation functions for training neural networks as the",
+      "bbox": [
+        71.99908447265625,
+        306.5349426269531,
+        539.8457641601562,
+        318.68768310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "surrogate models. These surrogate models will be used for deterministic reachability analysis which",
+      "bbox": [
+        71.99887084960938,
+        319.7349548339844,
+        539.8471069335938,
+        331.8876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "provides surrogate ﬂowpipes which we formally deﬁne next.",
+      "bbox": [
+        71.99887084960938,
+        332.8150634765625,
+        354.4396057128906,
+        344.9678039550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Deﬁnition 2 (Surrogate ﬂowpipe). The surrogate ﬂowpipe ¯X ⊂Rn(K+1) contains the image of",
+      "bbox": [
+        71.99887084960938,
+        352.28802490234375,
+        539.9389038085938,
+        367.1678161621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "F(I). Formally, for all, s0 ∈I it has to hold that F(s0) ∈¯X.",
+      "bbox": [
+        71.99893188476562,
+        366.57867431640625,
+        365.9555358886719,
+        381.9280090332031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The reachability analysis methodology for ReLU neural networks in [21] introduces two diﬀerent",
+      "bbox": [
+        88.91915893554688,
+        390.17529296875,
+        539.8460083007812,
+        402.3280334472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approaches known as the exact-star and approx-star techniques.",
+      "bbox": [
+        71.99899291992188,
+        403.37530517578125,
+        386.2833557128906,
+        415.5280456542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "These are used to compute a",
+      "bbox": [
+        395.62841796875,
+        403.37530517578125,
+        539.9863891601562,
+        415.5280456542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "surrogate ﬂowpipe ¯X. The exact-star technique proposes exact reachability analysis using star sets,",
+      "bbox": [
+        71.99899291992188,
+        414.93890380859375,
+        539.9785766601562,
+        428.608154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "but can be slower due to its inherent computational complexity. On the other hand, the approx-star",
+      "bbox": [
+        71.998046875,
+        429.6554260253906,
+        539.8710327148438,
+        441.80816650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "technique computes over-approximation of the ﬂowpipe and is thus runtime-eﬃcient, although it may",
+      "bbox": [
+        71.998046875,
+        442.73553466796875,
+        539.7926635742188,
+        454.8882751464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "make the surrogate model reachable set estimation conservative. The computational complexity of",
+      "bbox": [
+        71.998046875,
+        455.935546875,
+        539.9124755859375,
+        468.0882873535156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the exact-star technique and the conservatism of the approx-star technique can both be noticeably",
+      "bbox": [
+        71.998046875,
+        469.0152587890625,
+        539.8092041015625,
+        481.1679992675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reduced using the idea of set partitioning [21]. In this approach, we partition the set of initial",
+      "bbox": [
+        71.998046875,
+        482.21527099609375,
+        539.85009765625,
+        494.3680114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditions I into N diﬀerent sub-partitions,",
+      "bbox": [
+        71.998046875,
+        495.2953796386719,
+        281.259033203125,
+        507.4481201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ii ⊂I,",
+      "bbox": [
+        258.23785400390625,
+        530.2265014648438,
+        291.9796447753906,
+        543.0880126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        307.6781311035156,
+        519.310302734375,
+        314.3969421386719,
+        526.6268920898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[",
+      "bbox": [
+        305.3980407714844,
+        527.9243774414062,
+        317.51806640625,
+        548.106201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        304.5581970214844,
+        545.7831420898438,
+        318.2703857421875,
+        553.7532958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ii = I,",
+      "bbox": [
+        320.0378723144531,
+        530.2265014648438,
+        353.77960205078125,
+        543.0880126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and perform reachability analysis on every single sub-region with parallel computing. The inclusion",
+      "bbox": [
+        71.99777221679688,
+        562.6153564453125,
+        539.82080078125,
+        574.7681274414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of set-partitioning results in noticeable improvement in the computational eﬃciency and helps us",
+      "bbox": [
+        71.99777221679688,
+        575.6954345703125,
+        539.8935546875,
+        587.8482055664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "compute more accurate ∆-conﬁdent ﬂowpipes.",
+      "bbox": [
+        71.99777221679688,
+        588.8954467773438,
+        292.19354248046875,
+        601.0482177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.2",
+      "bbox": [
+        71.9977035522461,
+        618.7402954101562,
+        89.147216796875,
+        629.511962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Computation of a guaranteed ∆-conﬁdent ﬂowpipe",
+      "bbox": [
+        102.58414459228516,
+        618.5848999023438,
+        401.1628723144531,
+        629.511962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "When we train neural network surrogate models, typically we minimize a loss function deﬁned",
+      "bbox": [
+        71.99760437011719,
+        637.8556518554688,
+        539.845458984375,
+        650.0084228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as the diﬀerence between the K-step trajectory predicted by the surrogate model and the actual",
+      "bbox": [
+        71.99758911132812,
+        650.9353637695312,
+        539.8853759765625,
+        663.088134765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory. Depending on the dynamics of the underlying stochastic system M and depending on",
+      "bbox": [
+        71.99746704101562,
+        664.1353149414062,
+        539.983154296875,
+        676.2880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "how well the surrogate model is trained, there is potential for error when predicting the trajectory",
+      "bbox": [
+        71.9971923828125,
+        677.3353271484375,
+        539.835693359375,
+        689.4880981445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5",
+      "bbox": [
+        303.2373962402344,
+        710.5755004882812,
+        308.6592102050781,
+        722.728271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "dvips + GPL Ghostscript GIT PRERELEASE 9.22",
+      "creationDate": "D:20230918214413-04'00'",
+      "modDate": "D:20230918214413-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hashemi2023data-paper/documents/.pdf-skill-scan-iympfb69/review/source.pdf",
+      "page_count": 15,
+      "page_number": 5
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          71,
+          75,
+          540,
+          125
+        ],
+        "pos": [
+          0,
+          327
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          71,
+          142,
+          360,
+          154
+        ],
+        "pos": [
+          327,
+          380
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          71,
+          163,
+          239,
+          174
+        ],
+        "pos": [
+          380,
+          416
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          71,
+          181,
+          540,
+          238
+        ],
+        "pos": [
+          416,
+          746
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          126,
+          238,
+          486,
+          261
+        ],
+        "pos": [
+          746,
+          748
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          267,
+          366,
+          280
+        ],
+        "pos": [
+          748,
+          824
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          71,
+          281,
+          540,
+          345
+        ],
+        "pos": [
+          824,
+          1274
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          71,
+          354,
+          540,
+          381
+        ],
+        "pos": [
+          1274,
+          1475
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          71,
+          391,
+          540,
+          507
+        ],
+        "pos": [
+          1475,
+          2317
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          258,
+          519,
+          354,
+          552
+        ],
+        "pos": [
+          2317,
+          2319
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          71,
+          564,
+          540,
+          601
+        ],
+        "pos": [
+          2319,
+          2565
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          71,
+          618,
+          402,
+          630
+        ],
+        "pos": [
+          2565,
+          2631
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          71,
+          639,
+          540,
+          689
+        ],
+        "pos": [
+          2631,
+          3016
+        ]
+      },
+      {
+        "index": 13,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          712,
+          309,
+          721
+        ],
+        "pos": [
+          3016,
+          3020
+        ]
+      }
+    ],
+    "text": "In this work, we are interested in computing X while our access to M is limited to the datasets Dtrain and Dtest. We will show that we can compute X with valid guarantees by employing reachability analysis on the surrogate model trained from Dtrain and error analysis of this model by applying conformal prediction on Dtest. \n\n# **3.1 Computing Reachsets for Surrogate Models** \n\n## **3.1.1 ReLU Surrogate Model** \n\nWe start with training a neural network surrogate model F : R<sup>n</sup> → R<sup>n(K+1)</sup> over the training dataset Dtrain. The surrogate model is trained to approximate the trajectory σs0 ∈ R<sup>n(K+1)</sup> of the stochastic system M sampled with initial state s0 W∼I. We denote the prediction σ¯s0 ∈ Rn(K+1) of σs0 as, \n\n\n\nwhere F<sup>j</sup> (s0) is the (j + n)-th component of the vector F(s0). \n\nRecent works in the literature have had great success on obtaining accurate bounds for the reachability analysis of ReLU neural networks using polyhedral sets [21, 34, 35]. The accuracy of these techniques motivates us to use ReLU activation functions for training neural networks as the surrogate models. These surrogate models will be used for deterministic reachability analysis which provides surrogate flowpipes which we formally define next. \n\n**Definition 2** (Surrogate flowpipe) **.** The surrogate flowpipe X<sup>¯</sup> ⊂ R<sup>n(K+1)</sup> contains the image of F(I). Formally, for all, s0 ∈I it has to hold that F(s0) ∈ X<sup>¯</sup> . \n\nThe reachability analysis methodology for ReLU neural networks in [21] introduces two different approaches known as the exact-star and approx-star techniques. These are used to compute a surrogate flowpipe X<sup>¯</sup> . The exact-star technique proposes exact reachability analysis using star sets, but can be slower due to its inherent computational complexity. On the other hand, the approx-star technique computes over-approximation of the flowpipe and is thus runtime-efficient, although it may make the surrogate model reachable set estimation conservative. The computational complexity of the exact-star technique and the conservatism of the approx-star technique can both be noticeably reduced using the idea of set partitioning [21]. In this approach, we partition the set of initial conditions I into N different sub-partitions, \n\n\n\nand perform reachability analysis on every single sub-region with parallel computing. The inclusion of set-partitioning results in noticeable improvement in the computational efficiency and helps us compute more accurate ∆-confident flowpipes. \n\n# **3.2 Computation of a guaranteed** ∆ **-confident flowpipe** \n\nWhen we train neural network surrogate models, typically we minimize a loss function defined as the difference between the K-step trajectory predicted by the surrogate model and the actual trajectory. Depending on the dynamics of the underlying stochastic system M and depending on how well the surrogate model is trained, there is potential for error when predicting the trajectory \n\n5 \n\n"
+  }
+}

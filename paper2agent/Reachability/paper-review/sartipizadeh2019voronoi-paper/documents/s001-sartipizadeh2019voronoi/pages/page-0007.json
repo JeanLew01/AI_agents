@@ -1,0 +1,177 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 150 dpi render and two 230 dpi crops of PDF page 7 and with the TeX source. Headings '## 4 Partition-based sample reduction' and '### 4.1 Seed Selection and Buffer Computation' (capitalisation as printed). All mathematics rewritten in LaTeX from the TeX source and checked on the crops; TeX and PDF agree. The extractor 'formula' images were replaced by $$ blocks: the unnumbered MILP of Problem 3 (aligned block with the printed 's.t.'), the unnumbered display $\\phi(W):=G_{w}W.$ inside Problem 3, and the unnumbered display of $\\hat{X}(\\psi^{(j)})$ inside Lemma 3 (the extractor had made a 'formula' image of the last text line of Lemma 3 as well; it is text again). Problem 3 and Lemma 3 start with the printed bold label; bodies printed in italics, written upright. Problem 3 ends after '... a lower bound on the solution of Problem 2.' and Lemma 3 after '... sampled state trajectory set $\\mathcal{X}_{K}^{x_0,U}$.' (end of the italic text = TeX environments). The proof of Lemma 3 starts with the printed italic 'Proof:' (written bold) and ends with the printed filled square, written $\\blacksquare$. Checked on the crops: the hats in $\\hat{X}^{(j)}$, $\\hat{z}^{(j)}$, $\\hat{K}$; the buffer $\\varepsilon^{(j)}$ (varepsilon) in $F\\hat{X}^{(j)}\\leq h-\\varepsilon^{(j)}+M(1-\\hat{z}^{(j)})\\mathbf{1}$; the objective weight $\\frac{1}{K}$ (not $1/\\hat{K}$) with the sum running to $\\hat{K}$; $p_{\\hat{K}}^{\\ast}(x_0)$; $\\sum_{j=1}^{\\hat{K}}\\alpha^{(j)}=K$ and $\\alpha^{(j)}\\in\\mathbb{N}_{[1,K]}$; $j^{th}$ with italic 'th'; $\\Psi_{\\hat{K}}$, $\\Phi_{K}:=\\phi(\\mathcal{W}_{K})$, $\\hat{\\mathcal{X}}_{\\hat{K}}^{x_0,U}$. Kept as printed: after the display $\\phi(W):=G_{w}W.$ the next sentence starts with '$\\alpha^{(j)}$ is the importance rate'; 'Figure 2 shows a 2D partition with 11 seeds'; 'Results directly from Lemma 1.'.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        57.0,
+        316.0,
+        71.0
+      ],
+      "markdown": "## 4 Partition-based sample reduction"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        84.0,
+        556.0,
+        187.0
+      ],
+      "markdown": "As implied from the concentration probability bounds given in Theorem 1, Problem 2 typically needs a large number of samples to provide a precise approximation for Problem 1 with a small deviation $\\delta$ and small risk of failure $\\beta$. Therefore, solving Problem 2 can be computationally expensive or even intractable for real-time applications. In this section, we address Question 2 by proposing a *partition-based* method which provides an underapproximation to Problem 2 with flexible computational complexity, as opposed to the sampling-based approach, presented in Problem 2. To this end, we propose the following MILP problem with $\\hat{K}$ binary variables, where $\\hat{K}$ can be significantly smaller than $K$ and is selected by the user."
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        201.0,
+        336.0,
+        212.0
+      ],
+      "markdown": "**Problem 3.** The partition-based terminal time problem is"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "text",
+      "bbox": [
+        177.0,
+        211.0,
+        435.0,
+        319.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\max_{U\\in\\mathcal{U}^N} \\quad & \\frac{1}{K}\\sum_{j=1}^{\\hat{K}}\\alpha^{(j)}\\hat{z}^{(j)} \\\\\n\\text{s.t.} \\quad & \\hat{X}^{(j)} = G_{x}x_{0} + G_{u} U + \\psi^{(j)}, \\quad j\\in \\mathbb{N}_{[1,\\hat{K}]}, \\\\\n& F\\hat{X}^{(j)} \\leq h -\\varepsilon^{(j)}+ M(1-\\hat{z}^{(j)})\\mathbf{1}, \\quad j\\in \\mathbb{N}_{[1,\\hat{K}]}, \\\\\n& \\hat{z}^{(j)} \\in\\{0,1\\}, \\quad j\\in \\mathbb{N}_{[1,\\hat{K}]}\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        325.0,
+        556.0,
+        369.0
+      ],
+      "markdown": "with the optimal value denoted by $p_{\\hat{K}}^{\\ast}(x_0)$. Here, $M \\in \\mathbb{R}$ is some large positive number, and $\\psi^{(j)}$ for $j\\in\\mathbb{N}_{[1,\\hat{K}]}$ are $\\hat{K}$ selected representatives (seeds) of uncertainty, computed in a prediction mapping $\\phi:\\mathcal{W}^{N}\\rightarrow \\mathcal{X}^{N}$ with"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "text",
+      "bbox": [
+        264.0,
+        368.0,
+        348.0,
+        390.0
+      ],
+      "markdown": "$$\n\\phi(W):=G_{w}W.\n$$"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        392.0,
+        556.0,
+        435.0
+      ],
+      "markdown": "$\\alpha^{(j)}$ is the importance rate of the $j^{th}$ seed with $\\sum_{j=1}^{\\hat{K}}\\alpha^{(j)}=K$ and $\\alpha^{(j)}\\in\\mathbb{N}_{[1,K]}$. For $j\\in\\mathbb{N}_{[1,\\hat{K}]}$, $\\varepsilon^{(j)}$ is an appropriately designed buffer that guarantees the solution of Problem 3 is a lower bound on the solution of Problem 2."
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        444.0,
+        556.0,
+        484.0
+      ],
+      "markdown": "In Problem 3, the state uncertainty is characterized by $\\hat{K}$ seeds where the $j^{th}$ seed represents $\\alpha^{(j)}$ scenarios of $\\mathcal{W}_{K}$. Then the reach-avoid constraints are only checked at the selected seeds instead of being checked at every scenario, which reduces the number of binary variables and constraints."
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        502.0,
+        321.0,
+        514.0
+      ],
+      "markdown": "### 4.1 Seed Selection and Buffer Computation"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        520.0,
+        556.0,
+        575.0
+      ],
+      "markdown": "Given a sample set $\\mathcal{W}_K$, $x_{0}\\in\\mathcal{S}$, and $U$, we define $\\mathcal{X}_{K}^{x_0,U}:=X(x_0,U,\\mathcal{W}_K)$ as the set of sampled state trajectories. We desire that the elements $\\mathcal{X}_{K}^{x_0,U}$ remain in reach-avoid set $\\mathcal{R}$. The set $\\mathcal{X}_{K}^{x_0,U}$ can be partitioned into cells, where each cell consists of some of the random state trajectories and is represented by a seed. Figure 2 shows a 2D partition with 11 seeds."
+    },
+    {
+      "id": "p0007-b009b",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        588.0,
+        556.0,
+        619.0
+      ],
+      "markdown": "**Lemma 3.** Let $\\Psi_{\\hat{K}}:=\\{\\psi^{(1)},\\cdots,\\psi^{(\\hat{K})}\\}$ be the set of optimal seeds of $\\Phi_{K}:=\\phi(\\mathcal{W}_{K})$ with $\\phi(W):=G_{w}W$ that minimizes $\\mathrm{WSS}$. Then $\\hat{\\mathcal{X}}_{\\hat{K}}^{x_0,U}=\\hat{X}(\\Psi_{\\hat{K}})=\\{\\hat{X}(\\psi^{(1)}),\\cdots,\\hat{X}(\\psi^{(\\hat{K})})\\}$ with"
+    },
+    {
+      "id": "p0007-b010",
+      "kind": "text",
+      "bbox": [
+        227.0,
+        625.0,
+        385.0,
+        650.0
+      ],
+      "markdown": "$$\n\\hat{X}(\\psi^{(j)})=G_{x}x_{0}+G_{u}U+\\psi^{(j)},\n$$"
+    },
+    {
+      "id": "p0007-b011",
+      "kind": "text",
+      "bbox": [
+        51.0,
+        650.0,
+        410.0,
+        675.0
+      ],
+      "markdown": "represents the set of optimal seeds for sampled state trajectory set $\\mathcal{X}_{K}^{x_0,U}$."
+    },
+    {
+      "id": "p0007-b012",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        680.0,
+        556.0,
+        705.0
+      ],
+      "markdown": "**Proof:** Results directly from Lemma 1. Since there is no uncertainty in $G_x$ and $G_u$, $G_{x}x_0+G_{u}U$ in (2) can be interpreted as a translation term. $\\blacksquare$"
+    },
+    {
+      "id": "p0007-b013",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        707.0,
+        556.0,
+        732.0
+      ],
+      "markdown": "According to Lemma 3, although the state trajectory is an optimization variable, it can be clustered through the prediction mapping $\\phi(W)$ *offline*, independent of the choice of $x_0$ and $U$."
+    }
+  ]
+}

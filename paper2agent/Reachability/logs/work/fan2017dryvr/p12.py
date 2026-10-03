@@ -1,0 +1,35 @@
+from pagelib import *
+
+items = [
+    text("p0012-b000", [133.0, 127.0, 478.0, 183.0],
+         r"$\mathit{curv}$ (Line 5). For each possible initial set $S_{\mathsf{init}}$ corresponding to $\mathit{curv}$ in $\mathit{VerInit}$, the algorithm computes a discrepancy function (Line 7) and uses it to compute a reachtube from $S_{\mathsf{init}}$ up to time $\mathit{dt}$ (Line 8). For each successor $\mathit{nextv}$ of $\mathit{curv}$, the restriction of the computed reachtube $RT$ to the corresponding transition time interval $\mathit{elab}((\mathit{curv,nextv}))$ is set as an initial set for $\mathit{nextv}$ (Lines 11–12).",
+         join_previous="space"),
+    figure("p0012-alg1", [131.0, 195.5, 480.0, 376.5], "Algorithm 1", "algorithm-1"),
+    text("p0012-alg1-text", [139.0, 199.0, 470.0, 372.0], r"""
+**Algorithm 1:** $\mathit{GraphReach}(\mathcal{H})$ computes bounded time reachtubes for each vertex of the transition $G$ of hybrid system $\mathcal{H}$.
+1 $RS \gets \emptyset; \mathit{VerInit} \gets \{\langle \Theta, v_{\mathsf{init}} \rangle\}; \mathit{Order} \gets \mathit{TopSort}(G)$;
+2 **for** $ptr = 0: len(Order)-1$ **do**
+    3 $\mathit{curv} \gets \mathrm{Order}[ptr]$ ;
+    4 $\ell \gets \mathit{vlab}(\mathit{curv})$;
+    5 $\mathit{dt} \gets \mathrm{max} \{t' \in \mathbb{R}_{\geq 0} \:| \:\exists vs \in \mathcal{V}, (\mathit{curv}, vs) \in \mathcal{E}, (t,t') \gets \mathit{elab} \left( (\mathit{curv}, vs) \right) \}$;
+    6 **for** $S_{\mathsf{init}} \in \{S\ |\ \langle S,\mathit{curv} \rangle \in \mathit{VerInit}\}$ **do**
+        7 $\beta \gets \mathit{LearnDiscrepancy}(S_{\mathsf{init}},\mathit{dt},\ell)$;
+        8 $RT \gets \mathit{ReachComp}(S_{\mathsf{init}},\mathit{dt},\beta)$;
+        9 $RS \gets RS \cup \langle RT, \mathit{curv} \rangle$;
+        10 **for** $\mathit{nextv} \in \mathit{curv}.succ$ **do**
+            11 $(t,t') \gets \mathit{elab} \left( (\mathit{curv}, nextv) \right)$;
+            12 $\mathit{VerInit} \gets \mathit{VerInit} \cup \langle \mathit{Restr}(RT,(t,t')), nextv\rangle$;
+13 **return** $RS$ ;
+"""),
+    text("p0012-b004", [133.0, 391.0, 478.0, 570.0],
+         r"The invariant verification algorithm $\mathit{VerifySafety}$ decides safety of $\mathcal{H}$ with respect to a given unsafe set $\mathcal{U}$ and uses $\mathit{GraphReach}$. The detailed pseudocode appears in Appendix A.3. This algorithm proceeds in a way similar to the simulation-based verification algorithms for dynamical and hybrid systems [22, 30]. Given initial set $\Theta$ and transition graph $G$ of $\mathcal{H}$, this algorithm partitions $\Theta$ into several subsets, and then for each subset $S$ it checks whether the computed over-approximate reachtube $RS$ from $S$ intersects with $\mathcal{U}$: (a) If $RS$ is disjoint, the system is safe starting from $S$; (b) if certain part of a reachtube $RT$ is contained in $\mathcal{U}$, the system is declared as unsafe and $RT$ with the the corresponding path of the graph are returned as counter-example witnesses; (c) if neither of the above conditions hold, then the algorithm performs refinement to get a more precise over-approximation of $RS$. Several refinement strategies are implemented in DryVR to accomplish the last step. Broadly, these strategies rely on splitting the initial set $S$ into smaller sets (this gives tighter discrepancy in the subsequent vertices) and splitting the edge labels of $G$ into smaller intervals (this gives smaller initial sets in the vertices)."),
+    text("p0012-b005", [133.0, 571.0, 478.0, 638.0],
+         r"The above description focuses on invariant properties, but the algorithm and our implementation in DryVR can verify a useful class of temporal properties. These are properties in which the time constraints only refer to the time since the last mode transition. For example, for the $\mathsf{Powertrn}$ benchmark the tool verifies requirements like “after 4s in $\mathsf{normal}$ mode, the air-fuel ratio should be contained in $[14.6, 14.8]$ and after 4s in $\mathsf{powerup}$ it should be in $[12.4, 12.6]$”."),
+    text("p0012-b005b", [133.0, 642.0, 478.0, 676.0],
+         "**Correctness** Given a correct discrepancy function for each mode, we can prove the soundness and relative completeness of Algorithm 2. This analysis closely follows the proof of Theorem 19 and Theorem 21 in [20]. Combining"),
+    pageno(12, [300.0, 696.0, 311.0, 703.0]),
+]
+
+save(12, items, r"""
+Compared with a 190-dpi render of the text block, a 330-dpi crop of the algorithm box, and algo.tex. First item continues the sentence from page 11 (join_previous 'space'); line references as printed: 'Line 5', 'Line 7', 'Line 8', 'Lines 11–12' (en dash). Algorithm 1 (GraphReach) is printed between the first paragraph and 'The invariant verification algorithm ...' (both complete sentences), so it stays in place: image crop 'algorithm-1' (edges measured on the 330-dpi crop: top rule, two-line caption, rule, 13 numbered lines with their nesting bars, bottom rule; no body text inside; the short stroke that seems to sit above the 'S' of '⟨S, curv⟩' in line 6 is the lower bar of the subscript '≥' of line 5, checked at 800 dpi) followed by a transcription from the TeX source checked line by line on the crop. The transcription keeps the printed line numbers 1-13 (bold in the PDF, written as plain numbers at the start of each line), one paragraph per printed line, and marks each nesting level with '&emsp;&emsp;' (lines 3-6 level 1, lines 7-10 level 2, lines 11-12 level 3); the extractor had fragmented the box into three text items, which were replaced. Pseudocode kept as printed, including: 'Order[ptr]' with upright 'Order' in line 3 but italic 'Order' in lines 1-2; line 5 uses '$\gets$' inside the set-builder ('$(t,t') \gets elab((curv, vs))$') and defines $dt$ as the largest right end point $t'$ of the outgoing edge labels; line 9 adds the pair $\langle RT, curv\rangle$ with $\cup$ (no set braces), likewise line 12; 'the transition $G$' in the caption (the word 'graph' is missing). In the caption the PDF prints 'Algorithm 1:' in bold. Paragraph 'The invariant verification algorithm ...': 'with the the corresponding path' (doubled 'the' across a line break) is printed and kept; (a)/(b)/(c) run inline. Intervals written with a space after the comma ('[14.6, 14.8]', '[12.4, 12.6]'); '4s' as printed; typographic quotes as printed. The extractor had merged the run-in paragraph 'Correctness' into the previous paragraph; it is separated again (bold run-in title, new item). References as printed: 'Appendix A.3', 'Algorithm 2' (the VerifySafety algorithm of Appendix A.3), 'Theorem 19 and Theorem 21 in [20]', citation [22, 30]. Line-wrap hyphens removed (pseu-docode, sys-tems, reach-tube, re-finement). The 'Correctness' paragraph continues on page 13. Omitted: page number 12.
+""")

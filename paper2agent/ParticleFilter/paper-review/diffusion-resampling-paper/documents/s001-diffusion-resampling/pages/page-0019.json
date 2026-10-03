@@ -1,0 +1,333 @@
+{
+  "page": 19,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0019.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and crops of Table 3 (200 dpi) and Table 4 (260 dpi). Running header and page number omitted. Reading order: the page opens with Tables 3-4 (floats); they were moved after the paragraph 'Tables 3 and 4 show more detailed results ...' so that section G reads continuously from page 18 ('At each individual experiment ...', Remark 3, discussion) and the tables sit between complete paragraphs before '## H. Time comparison'. Table 3 (table-3): 10 x 8, two-level header flattened by repeating the integrator over ODE/SDE ('Euler–Maruyama ODE', ..., 'Tweedie SDE'); values from main.tex verified cell by cell against the crop. Table 4 (table-4): three side-by-side sub-tables captured as printed in one 5 x 9 grid with the header 'Method | SWD | Resampling variance' repeated three times; the middle sub-table prints 'Gumbel 0.2' twice (rows 1 and 2) - a typo in the PDF and TeX (probably 0.1 was meant), kept as printed. Captions as separate caption items with 0^{-1}$/0^{-2}$. Remark 3 starts with '**Remark 3 (Resampling variance).**' (body italic in print, emitted as plain text); Var and E brackets from TeX (\\varrBig/\\expecBig expanded). Section H paragraphs: inline maths in LaTeX (Delta = T/(K+1), Delta = 0.1, T = Delta (K+1)). The last paragraph 'Tables 5 and 6 show ... for large sample size' continues on page 20 (page 20's first item needs join_previous=space). [coordinator] Table 4 header cells prefixed with their sub-table (OT:/Gumbel:/Soft:) so CSV column names are unique (verifier minor); printed header is \"Method | SWD | Resampling variance\" three times. [coordinator] caption label italics removed (2) so that all captions use the same plain \"Table N.\" / \"Figure N.\" style (verifier minor M2).",
+  "warnings": [
+    "Review possible header/footer: p0019-b000"
+  ],
+  "items": [
+    {
+      "id": "p0019-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0019-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        355.0,
+        543.0,
+        401.0
+      ],
+      "markdown": "At each individual experiment, we randomly generate the Gaussian mixture components. Specifically, we draw the mixture mean $m_i \\sim \\mathrm{Uniform}([-5, 5]^d)$ and the covariance $v_i = \\overline{v}_i + I_d$, where $\\overline{v}_i \\sim \\mathrm{Wishart}(I_d)$. To reduce experiment variance, the weights $\\omega_i = 1 \\, / \\, c$ are fixed to be even, the observation operator $H\\in\\mathbb{R}^{1 \\times d}$ is an all-one vector, and $\\Xi=1$. Experiments are repeated 100 times independently."
+    },
+    {
+      "id": "p0019-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        407.0,
+        542.0,
+        486.0
+      ],
+      "markdown": "**Remark 3 (Resampling variance).** In literature, the resampling variance is usually defined as the variance of the resampling algorithm itself conditioned on the input samples, that is, $\\operatorname{Var}\\Bigl[\\frac{1}{N}\\sum_{i=1}^N X_i^* \\mid \\{(w_i, X_i)\\}_{i=1}^N\\Bigr]$. This is useful to heuristically gauge the noise level of resampling. However, this does not inform how well the re-samples approximate the true distribution $\\pi$. With a slight abuse of terminology, we define the resampling variance as the mean estimator error $\\mathbb{E}\\Bigl[\\bigl(\\frac{1}{N}\\sum_{i=1}^N X_i^* - \\mathcal{M} \\bigr)^2\\Bigr]$, where $\\mathcal{M}$ stands for the true mean of the Gaussian mixture posterior $\\pi$. The expectation is approximated by the 100 independent Monte Carlo runs."
+    },
+    {
+      "id": "p0019-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        498.0,
+        542.0,
+        556.0
+      ],
+      "markdown": "Tables 3 and 4 show more detailed results compared to Table 1 in the main body. We see that with a fixed fine-enough discretisation, the SWD in general decreases as $T$ increases independent of the SDE integrator used. It also shows that the probability flow (ODE) version for solving the resampling SDE is better than SDE, especially when $K$ is small. As for the integrators, Jentzen–Kloeden appears to be the best, and it is especially more useful when the discretisation is coarse. The OT resampling performs roughly the same as with diffusion resampling with setting $\\varepsilon=0.8$ and $T=3, K=32$."
+    },
+    {
+      "id": "p0019-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        66.0,
+        542.0,
+        87.0
+      ],
+      "markdown": "Table 3. Sliced 1-Wasserstein distance (SWD, scaled by $10^{-1}$) of the Gaussian mixture experiments. This table focuses only on the diffusion resampling. We see that the Jentzen–Kloeden integrator performs the best in average."
+    },
+    {
+      "id": "p0019-b002",
+      "kind": "table",
+      "bbox": [
+        54.0,
+        93.0,
+        540.0,
+        241.0
+      ],
+      "markdown": "",
+      "label": "Table 3",
+      "asset_name": "table-3",
+      "rows": [
+        [
+          "Method",
+          "Euler–Maruyama ODE",
+          "Euler–Maruyama SDE",
+          "Lord–Rougemont ODE",
+          "Lord–Rougemont SDE",
+          "Jentzen–Kloeden ODE",
+          "Jentzen–Kloeden SDE",
+          "Tweedie SDE"
+        ],
+        [
+          "T = 1, K = 8",
+          "1.92 ± 0.41",
+          "2.39 ± 0.57",
+          "1.79 ± 0.27",
+          "3.04 ± 0.67",
+          "1.64 ± 0.35",
+          "2.70 ± 0.62",
+          "2.10 ± 0.51"
+        ],
+        [
+          "T = 1, K = 32",
+          "1.31 ± 0.30",
+          "1.03 ± 0.26",
+          "1.29 ± 0.30",
+          "1.03 ± 0.26",
+          "1.26 ± 0.30",
+          "1.03 ± 0.26",
+          "1.01 ± 0.26"
+        ],
+        [
+          "T = 1, K = 128",
+          "1.23 ± 0.31",
+          "0.92 ± 0.25",
+          "1.23 ± 0.31",
+          "0.90 ± 0.25",
+          "1.22 ± 0.31",
+          "0.91 ± 0.25",
+          "0.92 ± 0.25"
+        ],
+        [
+          "T = 2, K = 8",
+          "2.45 ± 0.56",
+          "4.15 ± 0.91",
+          "4.41 ± 0.74",
+          "7.38 ± 1.37",
+          "1.93 ± 0.45",
+          "5.56 ± 1.04",
+          "3.28 ± 0.80"
+        ],
+        [
+          "T = 2, K = 32",
+          "1.02 ± 0.22",
+          "1.38 ± 0.34",
+          "1.22 ± 0.23",
+          "1.66 ± 0.39",
+          "0.93 ± 0.22",
+          "1.51 ± 0.35",
+          "1.27 ± 0.32"
+        ],
+        [
+          "T = 2, K = 128",
+          "0.82 ± 0.21",
+          "0.84 ± 0.24",
+          "0.84 ± 0.21",
+          "0.85 ± 0.24",
+          "0.82 ± 0.21",
+          "0.85 ± 0.24",
+          "0.83 ± 0.24"
+        ],
+        [
+          "T = 3, K = 8",
+          "3.22 ± 0.73",
+          "5.60 ± 1.14",
+          "10.78 ± 2.17",
+          "13.21 ± 2.14",
+          "2.53 ± 0.60",
+          "8.62 ± 1.42",
+          "4.12 ± 0.97"
+        ],
+        [
+          "T = 3, K = 32",
+          "1.20 ± 0.26",
+          "1.89 ± 0.46",
+          "2.27 ± 0.45",
+          "2.52 ± 0.57",
+          "1.06 ± 0.24",
+          "2.16 ± 0.49",
+          "1.66 ± 0.43"
+        ],
+        [
+          "T = 3, K = 128",
+          "0.82 ± 0.21",
+          "0.89 ± 0.24",
+          "0.93 ± 0.21",
+          "0.94 ± 0.25",
+          "0.80 ± 0.21",
+          "0.91 ± 0.25",
+          "0.87 ± 0.24"
+        ]
+      ]
+    },
+    {
+      "id": "p0019-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        248.0,
+        542.0,
+        269.0
+      ],
+      "markdown": "Table 4. Sliced 1-Wasserstein distance (SWD, scaled by $10^{-1}$) and resampling variance (scaled by $10^{-2}$) of the Gaussian mixture experiments. This table should be compared to Table 3."
+    },
+    {
+      "id": "p0019-b004",
+      "kind": "table",
+      "bbox": [
+        54.0,
+        274.0,
+        540.0,
+        335.0
+      ],
+      "markdown": "",
+      "label": "Table 4",
+      "asset_name": "table-4",
+      "rows": [
+        [
+          "OT: Method",
+          "OT: SWD",
+          "OT: Resampling variance",
+          "Gumbel: Method",
+          "Gumbel: SWD",
+          "Gumbel: Resampling variance",
+          "Soft: Method",
+          "Soft: SWD",
+          "Soft: Resampling variance"
+        ],
+        [
+          "OT (ε = 0.3)",
+          "0.84 ± 0.22",
+          "3.42 ± 3.26",
+          "Gumbel 0.2",
+          "1.40 ± 0.24",
+          "3.92 ± 3.74",
+          "Soft 0.2",
+          "0.92 ± 0.25",
+          "4.71 ± 3.60"
+        ],
+        [
+          "OT (ε = 0.6)",
+          "0.97 ± 0.21",
+          "3.41 ± 3.29",
+          "Gumbel 0.2",
+          "2.52 ± 0.41",
+          "3.90 ± 3.76",
+          "Soft 0.4",
+          "0.86 ± 0.23",
+          "4.11 ± 3.98"
+        ],
+        [
+          "OT (ε = 0.8)",
+          "1.08 ± 0.20",
+          "3.42 ± 3.30",
+          "Gumbel 0.4",
+          "5.16 ± 0.82",
+          "3.83 ± 3.76",
+          "Soft 0.8",
+          "0.85 ± 0.24",
+          "4.12 ± 4.09"
+        ],
+        [
+          "OT (ε = 0.9)",
+          "1.14 ± 0.20",
+          "3.42 ± 3.29",
+          "Gumbel 0.8",
+          "11.57 ± 1.81",
+          "3.59 ± 3.54",
+          "Soft 0.9",
+          "0.83 ± 0.24",
+          "3.75 ± 3.77"
+        ]
+      ]
+    },
+    {
+      "id": "p0019-b008",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        573.0,
+        160.0,
+        585.0
+      ],
+      "markdown": "## H. Time comparison"
+    },
+    {
+      "id": "p0019-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        594.0,
+        542.0,
+        616.0
+      ],
+      "markdown": "In this experiment we focus on the actual computational time and compare different methods when controlling them to have a similar level of estimation error. The main result is shown in Figure 1, supplemented by Tables 5 and 6."
+    },
+    {
+      "id": "p0019-b010",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        624.0,
+        542.0,
+        658.0
+      ],
+      "markdown": "The results are averaged over 50 independent runs on an NVIDIA A100 80G GPU with a fixed dimension $d=8$. We have also experimented on a CPU (AMD EPYC 9354 32-Core) but we did not observe any significant difference compared to that of GPU worth to report."
+    },
+    {
+      "id": "p0019-b011",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        665.0,
+        543.0,
+        700.0
+      ],
+      "markdown": "For previous experiments, $T$ and $K$ are given, and the time interval is adapted by $\\Delta = T \\, / \\,(K + 1)$. For this experiment, we fix a time interval $\\Delta =0.1$ and change $K$, so that $T = \\Delta \\, (K + 1)$. We compute the resampling error which is a square root of the resampling variance."
+    },
+    {
+      "id": "p0019-b012",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        708.0,
+        542.0,
+        718.0
+      ],
+      "markdown": "Tables 5 and 6 show that the diffusion and OT methods have a similar estimation error especially for large sample size"
+    },
+    {
+      "id": "p0019-b013",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "19",
+      "reason": "Printed page number '19' in the footer; page furniture."
+    }
+  ]
+}

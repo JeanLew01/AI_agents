@@ -1,0 +1,332 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared with 200 dpi page render and 300 dpi column crops (all sub/superscripts legible). All 13 extractor 'formula' image items replaced by LaTeX text items: (2a)/(2b), (3a)/(3b), the two unnumbered displays in Definitions 1 and 2, (4a)/(4b), (5a)/(5b), (6), (7), (8); each printed equation number has its own $$ block with \\tag, and the lines of one multi-line display stay together in one item. Inline math rewritten from glyph soup to LaTeX (\\mathcal{X}^j, \\mathcal{U}, \\mathbb{R}^{n_u}, \\pi_{\\text{tube}}, \\mathcal{R}_k, \\mathcal{X}_\\delta, \\mathcal{I}_s, \\delta^{(i)}, x^*, \\bar{N}). Reading order: left column then right column; the paragraph 'Note that the probability bound ...' is split by the column break after 'the first two moments,' and was merged with its right-column continuation (former item p0003-b016). First item continues the last sentence of PDF page 2 (join_previous=space). Extractor errors fixed: subsection titles 'B. Probabilistic Reachable Sets' and 'C. Scenario Optimization' were '#' headings (now '###'); the sentence 'We recall the definitions of PRS as given in [7].' was wrongly a heading (now text). Theorem-like labels set in bold as first words: Remark 1 (printed italic), Definition 1 (k-step PRS), Definition 2 (PRS), Assumption 1 ([9]), Theorem 1 ([9]); the statement of Theorem 1 is printed in italics and consists of the items 'Let N_s and N_k satisfy', display (6), and 'The optimal solution x^* of (5) is a feasible solution for optimization problem (4) with probability 1 - beta.' (italic markers not reproduced). Printed peculiarities kept verbatim: in (2a) the index set is printed '{1, . . . n_c}' without a comma after the dots; before (8) the parenthesis in '(see [9].' is never closed; (3b) and (7) have no terminal punctuation. Line-wrap hyphens repaired: 'time-varying' (real compound), 'relevant', 'constraint', 'disturbances', 'probabilistic', 'optimization', 'sufficient'. Sentence continues after (8) on PDF page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        79.0
+      ],
+      "markdown": "a collection of $n_c$ chance constraints on the states and hard constraints on the inputs",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        78.0,
+        81.0,
+        306.0,
+        118.0
+      ],
+      "markdown": "$$\\Pr(x(k) \\in \\mathcal{X}^j \\mid x(0)) \\ge p_j\\,,\\ \\ j \\in \\{1, \\ldots n_c\\}, \\tag{2a}$$\n\n$$u(k) \\in \\mathcal{U}, \\tag{2b}$$"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        120.0,
+        301.0,
+        179.0
+      ],
+      "markdown": "where $\\mathcal{X}^j \\subseteq \\mathbb{R}^n$ and $\\mathcal{U} \\subseteq \\mathbb{R}^{n_u}$ and the probabilities are with respect to a known initial state $x(0)$. We consider the objective of minimizing the expected value of a general time-varying cost function $l_k(x(k), u(k))$ resulting in a finite-time stochastic optimal control problem."
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        183.0,
+        301.0,
+        266.0
+      ],
+      "markdown": "**Remark 1.** The assumption of finite $\\bar{N}$ is particularly relevant for open-loop unstable systems in the context of constraint (2a), which cannot be satisfied under unbounded disturbances with *any* bounded control law as $\\bar{N} \\to \\infty$ [15]. In practice, $\\mathcal{U}$ is often large w.r.t. likely disturbance realizations, and the problem is well defined with finite $\\bar{N}$ also for unstable systems."
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        271.0,
+        301.0,
+        376.0
+      ],
+      "markdown": "In this paper, we present an MPC approach to approximate the solution of the optimal control problem by repeatedly solving a simplified problem over a smaller horizon $N \\ll \\bar{N}$ in such a way that the closed-loop system satisfies constraints (2). To this end, we split the system dynamics (1) into a nominal part $z(k)$ and error $e(k)$ such that $x(k) = z(k) + e(k)$. Correspondingly, the input is divided into a nominal input $v(k)$ and a tube controller $\\pi_{\\text{tube}}$ with $u(k) = v(k) + \\pi_{\\text{tube}}(e(k))$, resulting in the decoupled dynamics"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        85.0,
+        379.0,
+        306.0,
+        415.0
+      ],
+      "markdown": "$$z(k+1) = Az(k) + Bv(k) + \\bar{w}(k), \\tag{3a}$$\n\n$$e(k+1) = Ae(k) + B\\pi_{\\text{tube}}(e(k)) + w(k) \\tag{3b}$$"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        418.0,
+        301.0,
+        500.0
+      ],
+      "markdown": "with initial condition $z(0) = x(0)$, $e(0) = 0$. Differently to many other tube-based methods, we formulate the MPC problem such that (3) remains valid also in closed-loop under the MPC control law, as detailed in Section III. For constraint tightening, we therefore make use of the concept of probabilistic reachable sets (PRS) for the error system (3b), as outlined in the following."
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        518.0,
+        180.0,
+        526.0
+      ],
+      "markdown": "### B. Probabilistic Reachable Sets"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        533.0,
+        258.0,
+        543.0
+      ],
+      "markdown": "We recall the definitions of PRS as given in [7]."
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        549.0,
+        301.0,
+        585.0
+      ],
+      "markdown": "**Definition 1 ($k$-step PRS).** A set $\\mathcal{R}_k$ with $0 \\le k \\le \\bar{N}$ is a $k$-step probabilistic reachable set ($k$-step PRS) of probability level $p$ for system (3b) initialized at $e(0)$ if"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        116.0,
+        588.0,
+        233.0,
+        609.0
+      ],
+      "markdown": "$$\\Pr(e(k) \\in \\mathcal{R}_k \\mid e(0)) \\ge p.$$"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        612.0,
+        301.0,
+        644.0
+      ],
+      "markdown": "**Definition 2 (PRS).** A set $\\mathcal{R}$ is a probabilistic reachable set (PRS) of probability level $p$ for system (3b) initialized at $e(0)$ if"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        642.0,
+        261.0,
+        663.0
+      ],
+      "markdown": "$$\\Pr(e(k) \\in \\mathcal{R} \\mid e(0)) \\ge p \\quad \\forall\\, 0 \\le k \\le \\bar{N}.$$"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        667.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Note that the probability bound in the definition of a PRS holds at all time steps individually, i.e. it guarantees $e(k)$ to lie in $\\mathcal{R}$ with probability $p$ at each time step $k$, but makes no statement about the probability of being contained in $\\mathcal{R}$ for all time steps jointly, which would require much more restrictive sets. Assuming knowledge of the distribution of the disturbance sequence $W$, or at least the first two moments, techniques for analytically computing PRS for (3b) have been presented in [6], [7]. In this paper, we instead compute PRS relying on samples of $W$ and simulation of the error system (see Section IV), by making use of results from scenario optimization, which are outlined in the following section."
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        130.0,
+        418.0,
+        140.0
+      ],
+      "markdown": "### C. Scenario Optimization"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        145.0,
+        564.0,
+        167.0
+      ],
+      "markdown": "Scenario optimization [8], [9] considers chance constrained optimization problems of the form"
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "text",
+      "bbox": [
+        375.0,
+        168.0,
+        569.0,
+        211.0
+      ],
+      "markdown": "$$\\min_{x \\in \\mathcal{X} \\subseteq \\mathbb{R}^d} \\quad c^{\\mathsf{T}} x \\tag{4a}$$\n\n$$\\text{s.t.} \\quad \\Pr(x \\in \\mathcal{X}_\\delta) \\ge p, \\tag{4b}$$"
+    },
+    {
+      "id": "p0003-b021",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        214.0,
+        564.0,
+        283.0
+      ],
+      "markdown": "where $\\mathcal{X}_\\delta$ are convex and closed sets for each realization of a random variable $\\delta$, and $d$ is the dimension of the decision variable $x$. Problem (4) is approximated by considering $N_s$ samples of the random variable $\\delta$, and enforcing the constraint for a selection of these samples $i \\in \\mathcal{I}_s$. The sampled optimization problem results in"
+    },
+    {
+      "id": "p0003-b022",
+      "kind": "text",
+      "bbox": [
+        375.0,
+        284.0,
+        569.0,
+        327.0
+      ],
+      "markdown": "$$\\min_{x \\in \\mathcal{X} \\subseteq \\mathbb{R}^d} \\quad c^{\\mathsf{T}} x \\tag{5a}$$\n\n$$\\text{s.t.} \\quad x \\in \\mathcal{X}_{\\delta^{(i)}},\\ i \\in \\mathcal{I}_s, \\tag{5b}$$"
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        329.0,
+        564.0,
+        365.0
+      ],
+      "markdown": "in which $\\delta^{(i)}$ denotes a sample of $\\delta$, and the considered subset of samples has cardinality $|\\mathcal{I}_s| = N_s - N_k$, which is found by discarding $N_k$ samples from the original set."
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        372.0,
+        564.0,
+        407.0
+      ],
+      "markdown": "**Assumption 1 ([9]).** Constraints are discarded such that the optimal solution $x^*$ of (5) violates all the discarded constraints $\\mathcal{X}_{\\delta^{(j)}}$ with $j \\in \\{1, \\ldots, N_s\\} \\setminus \\mathcal{I}_s$."
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        414.0,
+        564.0,
+        508.0
+      ],
+      "markdown": "This technical assumption is required to make use of established results from scenario optimization and can in general be satisfied, e.g. by successive optimization while greedily removing samples [9]. By discarding samples it is therefore possible to improve the objective function in (5), while maintaining probabilistic guarantees of the solution with regard to the chance constraint optimization problem (4), which is formalized in the following theorem."
+    },
+    {
+      "id": "p0003-b027",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        515.0,
+        481.0,
+        525.0
+      ],
+      "markdown": "**Theorem 1 ([9]).** Let $N_s$ and $N_k$ satisfy"
+    },
+    {
+      "id": "p0003-b028",
+      "kind": "text",
+      "bbox": [
+        324.0,
+        526.0,
+        569.0,
+        567.0
+      ],
+      "markdown": "$$\\binom{N_k + d - 1}{N_k} \\sum_{i=0}^{N_k + d - 1} \\binom{N_s}{i} (1 - p)^i p^{N_s - i} \\le \\beta. \\tag{6}$$"
+    },
+    {
+      "id": "p0003-b029",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        568.0,
+        564.0,
+        590.0
+      ],
+      "markdown": "The optimal solution $x^*$ of (5) is a feasible solution for optimization problem (4) with probability $1 - \\beta$."
+    },
+    {
+      "id": "p0003-b030",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        597.0,
+        564.0,
+        631.0
+      ],
+      "markdown": "The bound in Theorem 1 is often unwieldy for practical computations and can be approximated. For instance, a sufficient condition for (6) is given by"
+    },
+    {
+      "id": "p0003-b031",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        632.0,
+        569.0,
+        681.0
+      ],
+      "markdown": "$$N_k \\le (1-p) N_s - d + 1 - \\sqrt{2 (1-p) N_s \\ln\\left( \\frac{((1-p) N_s)^{d-1}}{\\beta} \\right)} \\tag{7}$$"
+    },
+    {
+      "id": "p0003-b032",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        679.0,
+        564.0,
+        724.0
+      ],
+      "markdown": "and provides a practical way of assessing how many samples $N_k$ to discard while providing guarantees with respect to $p$ and $\\beta$ given a number of sampled scenarios $N_s$ (see [9]. Without removing constraint samples, i.e. for $N_k = 0$, one can obtain"
+    },
+    {
+      "id": "p0003-b033",
+      "kind": "text",
+      "bbox": [
+        356.0,
+        724.0,
+        569.0,
+        757.0
+      ],
+      "markdown": "$$N_s \\ge \\frac{2}{1-p} \\left( (d-1) \\ln(2) - \\ln(\\beta) \\right), \\tag{8}$$"
+    }
+  ]
+}

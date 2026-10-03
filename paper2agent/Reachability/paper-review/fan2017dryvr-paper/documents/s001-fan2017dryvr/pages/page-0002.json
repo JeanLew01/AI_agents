@@ -1,0 +1,80 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 190-dpi render of the text block and with intro.tex. First item continues the sentence from page 1 (join_previous 'space'). Inline math rewritten in LaTeX from the TeX source with macros expanded ($\\mathcal{TL}$ for \\TL, $\\mathbb{R}^n$, $\\mathbb{R}^2$ for \\reals). TeX/PDF DISAGREEMENT, PDF followed: the set of modes is written \\L in the TeX source, which the authors define as calligraphic L (\\def\\L{{\\cal L}}), but this PDF prints the text letter 'Ł' (L with stroke; the definition was evidently overridden by the standard LaTeX command \\L). It is transcribed as printed, $\\text{Ł}$, on this and all later pages (three occurrences on this page: 'set of modes Ł', 'each mode in Ł', '$\\ell \\in$ Ł'). Italic emphasis kept for white-box, black-box, transition graph, simulator, discrepancy function. Section references as printed: 'Sections 2.1, 2.5, and A.2'; citation numbers [40], [46], [30, 22, 23] checked on the render. '15-20' and '100%' as printed. Line-wrap hyphens removed (con-trol, sys-tems, ap-proach, dis-crepancy, learn-ing, transform-ing, topolog-ically, switch-ing, sys-tems); real hyphens kept (white-box, black-box, lane-change, auto-passing, time-triggered, simulation-driven, over-approximate). 'Safety verification algorithm' and 'Reasoning' are run-in bold paragraph titles. The 'Reasoning' paragraph continues on page 3. Omitted: page number 2.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        127.0,
+        478.0,
+        169.0
+      ],
+      "markdown": "seen as a *white-box*. In contrast, the dynamics of vehicle itself, with hundreds of parameters, is more naturally viewed as a *black-box*. That is, it can be simulated or tested with different initial conditions and inputs, but it is nearly impossible to write down a nice mathematical model.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        172.0,
+        478.0,
+        328.0
+      ],
+      "markdown": "The empirical observation motivating this work is that many control systems, and especially automotive systems, share this combination of white and black boxes (see other examples in Sections 2.1, 2.5, and A.2). In this paper, we view hybrid systems as a combination of a white-box that specifies the mode switches and a black-box that can simulate the continuous evolution in each mode. Suppose the system has a set of modes $\\text{Ł}$ and $n$ continuous variables. The mode switches are defined by a *transition graph* $G$ which is a directed acyclic graph (DAG) whose vertices and edges define the allowed mode switches and the switching times. The black-box is a set of trajectories $\\mathcal{TL}$ in $\\mathbb{R}^n$ for each mode in $\\text{Ł}$. We do not have a closed form description of $\\mathcal{TL}$, but instead, we have a *simulator*, that can generate sampled data points on individual trajectories for a given initial state and mode. Combining a transition graph $G$, a set of trajectories $\\mathcal{TL}$, and a set of initial states in $\\mathbb{R}^n$, we obtain a hybrid system for which executions, reachability, and trace containment can be defined naturally."
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        330.0,
+        478.0,
+        418.0
+      ],
+      "markdown": "We have studied a suite of automotive systems such as powertrain control [40], automatic transmission control [46], and ADAS features like automatic emergency braking (AEB), lane-change, and auto-passing, that are naturally represented in the above style. In verifying a lane change or merge controller, once the maneuver is activated, the mode transitions occur within certain time intervals. In testing a powertrain control system, the mode transitions are brought about by the driver and it is standard to describe typical driver classes using time-triggered signals. Similar observations hold in other examples."
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        423.0,
+        478.0,
+        636.0
+      ],
+      "markdown": "**Safety verification algorithm** With black-box modules in our hybrid systems, we address the challenge of providing guaranteed verification. Our approach is based on the idea of simulation-driven reachability analysis [30, 22, 23]. For a given mode $\\ell \\in \\text{Ł}$, finitely many simulations of the trajectories of $\\ell$ and a *discrepancy function* bounding the sensitivity of these trajectories, is used to over-approximate the reachable states. For the key step of computing discrepancy for modes that are now represented by black-boxes, we introduce a probabilistic algorithm that learns the parameters of exponential discrepancy functions from simulation data. The algorithm transforms the problem of learning the parameters of the discrepancy function to the problem of learning a linear separator for a set of points in $\\mathbb{R}^2$ that are obtained from transforming the simulation data. A classical result in PAC learning, ensures that any such discrepancy function works with high probability for all trajectories. We performed dozens of experiments with a variety of black-box simulators and observed that 15-20 simulation traces typically give a discrepancy function that works for nearly 100% of all simulations. The reachability algorithm for the hybrid system proceeds along the vertices of the transition graph in a topologically sorted order and this gives a sound bounded time verification algorithm, provided the learned discrepancy function is correct."
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        641.0,
+        478.0,
+        673.0
+      ],
+      "markdown": "**Reasoning** White-box transition graphs in our modelling, identify the switching sequences under which the black-box modules are exercised. Complex systems have involved transition graphs that describe subtle sequences in which"
+    },
+    {
+      "id": "p0002-pageno",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        695.0,
+        309.0,
+        703.0
+      ],
+      "markdown": "2",
+      "reason": "Printed page number 2 centred at the foot of the page; page furniture, checked on the page render."
+    }
+  ]
+}

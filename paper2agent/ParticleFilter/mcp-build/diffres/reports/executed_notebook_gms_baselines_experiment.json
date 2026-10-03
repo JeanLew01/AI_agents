@@ -1,0 +1,471 @@
+{
+ "gms_baselines_experiment": {
+  "execution_id": "gms_baselines_experiment",
+  "module": "resampling",
+  "supports_tools": [
+   "diffres_resample_particles_baseline"
+  ],
+  "status": "success",
+  "sources": {
+   "primary": {
+    "path": "repo/diffres/experiments/gms/baselines.py",
+    "sha256": "7b258df0ab4a7ca8eb5c91f6d5efbabbe359e0130db1cb9e4d3263a9241f1d5c"
+   },
+   "supporting": {
+    "path": "repo/diffres/experiments/gms/ot.py",
+    "sha256": "9a430f00adfa5169bd37393b167a7052657e46750b8bdaae003de26c3afb1b61"
+   },
+   "implementation": {
+    "path": "repo/diffres/diffres/resampling.py",
+    "sha256": "12b33fe23e1f62e18909cbcff9fa45db36ed65f6f943668728c9fe61795aa06e",
+    "symbols": [
+     "multinomial",
+     "stratified",
+     "systematic",
+     "ensemble_ot",
+     "multinomial_stopped (forward check only)"
+    ]
+   },
+   "data_generation": {
+    "path": "repo/diffres/diffres/tools.py",
+    "sha256": "54c60e1ac4f484532f51be57a63aacbdfb7a53ef8cef621495176ea7a843a5df",
+    "symbols": [
+     "sampling_gm",
+     "gm_lin_posterior"
+    ]
+   },
+   "keys_file": {
+    "path": "repo/diffres/experiments/rnd_keys.npy",
+    "sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df",
+    "note": "uint32 (10000,2) from jax.random.split(PRNGKey(666), 10000) per experiments/generate_keys.py; copied into native_run/ and capture_run/"
+   }
+  },
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres",
+  "upstream_checkout_unmodified": "git status --short --ignored in repo/diffres is empty after all runs",
+  "execution_mode": "native script (unmodified upstream scripts run by absolute path from a scratch cwd) + capture driver (runpy of the same unmodified scripts, globals saved) + replay driver (fresh process, direct upstream resampler calls)",
+  "execution_path": "notebooks/gms_baselines_experiment/run_native.sh",
+  "drivers": {
+   "native": "notebooks/gms_baselines_experiment/run_native.sh",
+   "capture_and_replay_wrapper": "notebooks/gms_baselines_experiment/run_capture_replay.sh",
+   "capture": "notebooks/gms_baselines_experiment/capture.py",
+   "replay": "notebooks/gms_baselines_experiment/replay.py"
+  },
+  "methods_accepted_by_baselines_py": [
+   "multinomial",
+   "stratified",
+   "systematic"
+  ],
+  "methods_note": "baselines.py raises ValueError for any other --method. multinomial_stopped/soft/gumbel are not reachable from baselines.py (gumbel/soft have their own scripts handled by other executors).",
+  "changed_arguments_vs_upstream": {
+   "reference": "repo/diffres/experiments/run_gms.sh",
+   "--id_u": "99 -> 0 (single MC id 0)",
+   "--nsamples": "10000 -> 1000",
+   "--method": "run_gms.sh only uses multinomial; stratified and systematic additionally run (script-supported)",
+   "--eps": "0.3 (unchanged; one of run_gms.sh values 0.3/0.6/0.8/0.9)",
+   "others": "defaults dx=8, dy=1, c=5, offset=0 (offset is parsed but unused by the scripts)"
+  },
+  "environment": {
+   "python": "diffres-env/bin/python",
+   "jax": "0.7.2",
+   "jaxlib": "0.7.2",
+   "ott-jax": "0.5.2",
+   "numpy": "2.3.3",
+   "x64": true,
+   "devices": [
+    "TFRT_CPU_0"
+   ],
+   "launcher": "heavy.sh (CPU-only, JAX_PLATFORMS=cpu)",
+   "env": "PYTHONDONTWRITEBYTECODE=1"
+  },
+  "heavy_jobs": [
+   {
+    "attempt": 1,
+    "command": "heavy.sh --limit-mb 1200 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_native.sh",
+    "exit_status": 75,
+    "note": "NOT STARTED: MemAvailable=3126 MB < 1200+2000; nothing executed",
+    "log": "notebooks/gms_baselines_experiment/logs/heavy_native.log (overwritten by attempt 2)"
+   },
+   {
+    "attempt": 2,
+    "command": "heavy.sh --limit-mb 1000 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_native.sh",
+    "exit_status": 0,
+    "wall_seconds": 61,
+    "peak_memory_mb": 444,
+    "oom_kills": 0,
+    "gpu_used_mib": 0,
+    "log": "notebooks/gms_baselines_experiment/logs/heavy_native.log"
+   },
+   {
+    "attempt": 3,
+    "command": "heavy.sh --limit-mb 1000 --timeout 1800 -- bash notebooks/gms_baselines_experiment/run_capture_replay.sh",
+    "exit_status": 0,
+    "wall_seconds": 98,
+    "peak_memory_mb": 491,
+    "oom_kills": 0,
+    "gpu_used_mib": 0,
+    "log": "notebooks/gms_baselines_experiment/logs/heavy_capture_replay.log",
+    "sub_steps": "4 capture processes (exit 0, 14.1-18.6 s each) + replay process (exit 0, 35.2 s)"
+   }
+  ],
+  "data_provenance": {
+   "mc_id": 0,
+   "key_mc": [
+    2482698485,
+    3875352609
+   ],
+   "resampling_key": [
+    1100985983,
+    1476939598
+   ],
+   "key_chain": "key_mc -> split[0] (ms) -> split[0] (covs) -> split[0] (prior: split(.,1000) keys, split[1] passed as unused eigvals/eigvecs) -> split[0] (posterior samples keys) -> split[0] = resampling key; re-derived and checked bitwise against script globals",
+   "model": "GM prior with c=5 equal weights, means U(-5,5)^8, covs a a^T + I; y = obs_op @ sum_k v_k m_k with obs_op=ones(1,8), obs_cov=I_1 (offset 0)",
+   "observation_y": [
+    2.058051944061351
+   ],
+   "weighted_input": "prior_samples (1000,8) float64, log_ws (1000,) float64 normalised (logsumexp = 0.0)",
+   "input_ess": 129.5428088717271,
+   "inputs_identical_across_all_four_runs": true,
+   "weighted_input_mean_minus_true_posterior_mean_norm": 0.4076577892081361
+  },
+  "configs": {
+   "baselines_multinomial": {
+    "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+    "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=multinomial",
+    "exit_status": 0,
+    "runtime_seconds_including_jit_and_imports": 18.62,
+    "in_upstream_run_gms_sh": true,
+    "stdout": "multinomial (id=0) has err 0.206197755096866.",
+    "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/multinomial-0.npz",
+    "native_output_keys": [
+     "post_samples",
+     "approx_post_log_ws",
+     "approx_post_samples",
+     "err",
+     "residual"
+    ],
+    "reference_values": {
+     "err_swd_p1_nproj1000": 0.206197755096866,
+     "residual_weighted_mean_minus_true_mean": [
+      -0.22937185701122131,
+      0.003159605322170425,
+      0.14435164069461057,
+      0.2134699438359393,
+      0.01218097090256709,
+      -0.011730418536527232,
+      0.030612656113396586,
+      -0.18939637403811632
+     ],
+     "residual_norm": 0.3951232022690992
+    },
+    "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.npz",
+    "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.json",
+    "key_chain_checks": {
+     "resampling_key_equals_script_global_key": true,
+     "post_keys_equal_script_global_keys": true,
+     "prior_samples_regenerated_bitwise": true
+    },
+    "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_multinomial.npz",
+    "upstream_call_replayed": "diffres.resampling.multinomial(key, log_ws, prior_samples) under jax.jit",
+    "native_vs_in_process_capture_bitwise": {
+     "post_samples": true,
+     "approx_post_log_ws": true,
+     "approx_post_samples": true,
+     "err": true,
+     "residual": true
+    },
+    "replay_jit_vs_native": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_bitwise": true,
+     "approx_post_log_ws_maxabs": 0.0,
+     "err_bitwise": true,
+     "err_absdiff": 0.0,
+     "residual_maxabs": 0.0
+    },
+    "replay_eager_vs_jit": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_maxabs": 0.0
+    },
+    "output_log_ws_equal_minus_log_n": true,
+    "ancestors": {
+     "every_output_row_matches_exactly_one_input_row": true,
+     "input_rows_distinct": true,
+     "n_unique_ancestors": 178,
+     "indices_nondecreasing": false,
+     "max_offspring": 19,
+     "corr_offspring_vs_n_times_weight": 0.9132522478224291,
+     "max_abs_offspring_minus_n_times_weight": 11.290554867468991
+    },
+    "multinomial_stopped_forward_equals_multinomial": {
+     "samples_bitwise": true,
+     "log_ws_maxabs": 8.881784197001252e-16
+    }
+   },
+   "baselines_stratified": {
+    "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+    "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=stratified",
+    "exit_status": 0,
+    "runtime_seconds_including_jit_and_imports": 13.79,
+    "in_upstream_run_gms_sh": false,
+    "stdout": "stratified (id=0) has err 0.2038019351560481.",
+    "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/stratified-0.npz",
+    "native_output_keys": [
+     "post_samples",
+     "approx_post_log_ws",
+     "approx_post_samples",
+     "err",
+     "residual"
+    ],
+    "reference_values": {
+     "err_swd_p1_nproj1000": 0.2038019351560481,
+     "residual_weighted_mean_minus_true_mean": [
+      -0.21838842838050954,
+      0.015638099891354756,
+      0.23868404281130973,
+      0.2002523896125472,
+      0.04137736373756795,
+      -0.011061088593713242,
+      -0.0960438942860451,
+      -0.16523620715402654
+     ],
+     "residual_norm": 0.4282184201456469
+    },
+    "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.npz",
+    "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.json",
+    "key_chain_checks": {
+     "resampling_key_equals_script_global_key": true,
+     "post_keys_equal_script_global_keys": true,
+     "prior_samples_regenerated_bitwise": true
+    },
+    "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_stratified.npz",
+    "upstream_call_replayed": "diffres.resampling.stratified(key, log_ws, prior_samples) under jax.jit",
+    "native_vs_in_process_capture_bitwise": {
+     "post_samples": true,
+     "approx_post_log_ws": true,
+     "approx_post_samples": true,
+     "err": true,
+     "residual": true
+    },
+    "replay_jit_vs_native": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_bitwise": true,
+     "approx_post_log_ws_maxabs": 0.0,
+     "err_bitwise": true,
+     "err_absdiff": 0.0,
+     "residual_maxabs": 0.0
+    },
+    "replay_eager_vs_jit": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_maxabs": 0.0
+    },
+    "output_log_ws_equal_minus_log_n": true,
+    "ancestors": {
+     "every_output_row_matches_exactly_one_input_row": true,
+     "input_rows_distinct": true,
+     "n_unique_ancestors": 186,
+     "indices_nondecreasing": true,
+     "max_offspring": 12,
+     "corr_offspring_vs_n_times_weight": 0.994764775004572,
+     "max_abs_offspring_minus_n_times_weight": 1.6827373164625417
+    }
+   },
+   "baselines_systematic": {
+    "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+    "command": "diffres-env/bin/python repo/diffres/experiments/gms/baselines.py --id_l=0 --id_u=0 --nsamples=1000 --method=systematic",
+    "exit_status": 0,
+    "runtime_seconds_including_jit_and_imports": 12.05,
+    "in_upstream_run_gms_sh": false,
+    "stdout": "systematic (id=0) has err 0.20321737171484955.",
+    "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/systematic-0.npz",
+    "native_output_keys": [
+     "post_samples",
+     "approx_post_log_ws",
+     "approx_post_samples",
+     "err",
+     "residual"
+    ],
+    "reference_values": {
+     "err_swd_p1_nproj1000": 0.20321737171484955,
+     "residual_weighted_mean_minus_true_mean": [
+      -0.22437979558705234,
+      0.02821138794994553,
+      0.23778969523093058,
+      0.15288417264227538,
+      0.038785432027220346,
+      0.015917713485849916,
+      -0.09865501135543919,
+      -0.1568651666244681
+     ],
+     "residual_norm": 0.4088482109366523
+    },
+    "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.npz",
+    "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.json",
+    "key_chain_checks": {
+     "resampling_key_equals_script_global_key": true,
+     "post_keys_equal_script_global_keys": true,
+     "prior_samples_regenerated_bitwise": true
+    },
+    "replay_output": "notebooks/gms_baselines_experiment/data/replay_baselines_systematic.npz",
+    "upstream_call_replayed": "diffres.resampling.systematic(key, log_ws, prior_samples) under jax.jit",
+    "native_vs_in_process_capture_bitwise": {
+     "post_samples": true,
+     "approx_post_log_ws": true,
+     "approx_post_samples": true,
+     "err": true,
+     "residual": true
+    },
+    "replay_jit_vs_native": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_bitwise": true,
+     "approx_post_log_ws_maxabs": 0.0,
+     "err_bitwise": true,
+     "err_absdiff": 0.0,
+     "residual_maxabs": 0.0
+    },
+    "replay_eager_vs_jit": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_maxabs": 0.0
+    },
+    "output_log_ws_equal_minus_log_n": true,
+    "ancestors": {
+     "every_output_row_matches_exactly_one_input_row": true,
+     "input_rows_distinct": true,
+     "n_unique_ancestors": 196,
+     "indices_nondecreasing": true,
+     "max_offspring": 11,
+     "corr_offspring_vs_n_times_weight": 0.9961150120108648,
+     "max_abs_offspring_minus_n_times_weight": 0.9410082957350359
+    }
+   },
+   "ot_eps0.3": {
+    "command_absolute_paths_cwd": "notebooks/gms_baselines_experiment/native_run",
+    "command": "diffres-env/bin/python repo/diffres/experiments/gms/ot.py --id_l=0 --id_u=0 --nsamples=1000 --eps=0.3",
+    "exit_status": 0,
+    "runtime_seconds_including_jit_and_imports": 15.26,
+    "in_upstream_run_gms_sh": true,
+    "stdout": "OT (id=0) with eps=0.3 has err 0.1967139148148507.",
+    "native_output": "notebooks/gms_baselines_experiment/native_run/gms/results/ot-0.3-0.npz",
+    "native_output_keys": [
+     "post_samples",
+     "approx_post_log_ws",
+     "approx_post_samples",
+     "err",
+     "residual"
+    ],
+    "reference_values": {
+     "err_swd_p1_nproj1000": 0.1967139148148507,
+     "residual_weighted_mean_minus_true_mean": [
+      -0.21709479712752255,
+      0.026948430766418327,
+      0.24092121263069144,
+      0.16533596883855517,
+      0.037287541415413794,
+      0.005330026474877347,
+      -0.10165932220414886,
+      -0.15407923869618123
+     ],
+     "residual_norm": 0.4107665780745434
+    },
+    "captured_inputs": "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.npz",
+    "capture_metadata": "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.json",
+    "key_chain_checks": {
+     "resampling_key_equals_script_global_key": true,
+     "post_keys_equal_script_global_keys": true,
+     "prior_samples_regenerated_bitwise": true
+    },
+    "replay_output": "notebooks/gms_baselines_experiment/data/replay_ot_eps0.3.npz",
+    "upstream_call_replayed": "diffres.resampling.ensemble_ot(key, log_ws, prior_samples, 0.3) under jax.jit",
+    "native_vs_in_process_capture_bitwise": {
+     "post_samples": true,
+     "approx_post_log_ws": true,
+     "approx_post_samples": true,
+     "err": true,
+     "residual": true
+    },
+    "replay_jit_vs_native": {
+     "approx_post_samples_bitwise": true,
+     "approx_post_samples_maxabs": 0.0,
+     "approx_post_log_ws_bitwise": true,
+     "approx_post_log_ws_maxabs": 0.0,
+     "err_bitwise": true,
+     "err_absdiff": 0.0,
+     "residual_maxabs": 0.0
+    },
+    "replay_eager_vs_jit": {
+     "approx_post_samples_bitwise": false,
+     "approx_post_samples_maxabs": 1.1581846592889633e-12,
+     "approx_post_log_ws_maxabs": 0.0
+    },
+    "output_log_ws_equal_minus_log_n": true,
+    "sinkhorn_diagnostic": {
+     "converged": true,
+     "n_iters": 880,
+     "ott_default_threshold": 0.001,
+     "row_marginal_maxabs_vs_1_over_n": 1.8951853975046618e-16,
+     "col_marginal_maxabs_vs_weights": 2.0120285371983196e-05,
+     "n_P_X_maxabs_vs_native_output": 1.1581846592889633e-12,
+     "output_mean_minus_weighted_input_mean_norm": 0.004565642834618222
+    }
+   }
+  },
+  "replay_summary": "All four resamplers replay bitwise (max abs diff 0.0) from saved inputs in a fresh process under jax.jit, for outputs, output log weights, SWD err and residual; native and in-process capture .npz files are byte-identical (same sha256). Eager (un-jitted) ensemble_ot differs from jitted by 1.16e-12 (XLA fusion); eager multinomial/stratified/systematic are bitwise equal to jitted. multinomial_stopped forward samples equal multinomial bitwise; its log weights differ by 8.9e-16.",
+  "tolerances_recommended_for_tool_tests": {
+   "multinomial/stratified/systematic": "exact (bitwise) for samples given same key, inputs, x64, CPU; ancestors recoverable as exact row matches",
+   "ensemble_ot": "atol ~1e-10 on samples (jit vs eager 1.2e-12); bitwise only when called under jax.jit as the script does",
+   "swd_err": "bitwise when recomputed with the same ott call (sliced_wasserstein n_proj=1000, PNormP(1), default rng)"
+  },
+  "figures": "not applicable: the scripts produce no plots",
+  "outputs_and_hashes": {
+   "notebooks/gms_baselines_experiment/native_run/gms/results/multinomial-0.npz": "feb08edef1b7fff08edbb64d88333baf46a83889be52ec010e6472602351a9c2",
+   "notebooks/gms_baselines_experiment/native_run/gms/results/ot-0.3-0.npz": "04fcff848cfc3dc2e631c52f104eed4b23fb6b8703cad2836800e4c0e8e8a7cc",
+   "notebooks/gms_baselines_experiment/native_run/gms/results/stratified-0.npz": "f288603c4ac250ca1da14e1e3c5e9d5fd71310a622109fbcb397e73a1ef4db3a",
+   "notebooks/gms_baselines_experiment/native_run/gms/results/systematic-0.npz": "b86a6a0ef53f4f648ac3c318cd222c730664dd388fee7e233278a4c6199005e8",
+   "notebooks/gms_baselines_experiment/capture_run/gms/results/multinomial-0.npz": "feb08edef1b7fff08edbb64d88333baf46a83889be52ec010e6472602351a9c2",
+   "notebooks/gms_baselines_experiment/capture_run/gms/results/ot-0.3-0.npz": "04fcff848cfc3dc2e631c52f104eed4b23fb6b8703cad2836800e4c0e8e8a7cc",
+   "notebooks/gms_baselines_experiment/capture_run/gms/results/stratified-0.npz": "f288603c4ac250ca1da14e1e3c5e9d5fd71310a622109fbcb397e73a1ef4db3a",
+   "notebooks/gms_baselines_experiment/capture_run/gms/results/systematic-0.npz": "b86a6a0ef53f4f648ac3c318cd222c730664dd388fee7e233278a4c6199005e8",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.json": "0b233b505dd7d314b295856bcde220abaa3ac754904405119635e88b7a5a2b42",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_multinomial.npz": "0b50cff8041791b5dcc9961ff81f3c93f90898aaaac355cb4682e06707be0638",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.json": "ec1d328f863f618f6efda7a534ace218ccda9717ef8320099e49f5a3aee87dbb",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_stratified.npz": "909ea1ae1e9234909aab7edae21f8eb79bfbd9a4b2b9870c87e0b669cf12ca91",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.json": "f22b5f116e915923461827e51701c2aa4bad866249d901e9832597af2590bfb5",
+   "notebooks/gms_baselines_experiment/data/capture_baselines_systematic.npz": "12f3490bca2db8d1a69edec750da7883fe401100d709ab78197e8d539fbe4761",
+   "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.json": "4c774bbdf3c71dc54bdfce4252025a8d6d765ee9742eafa6e0d667b2c30f7e19",
+   "notebooks/gms_baselines_experiment/data/capture_ot_eps0.3.npz": "18c5b0822d89dc7265369bb8d365b88ad49ebf223446f6cd0f409b2d19fbd6a4",
+   "notebooks/gms_baselines_experiment/data/replay_baselines_multinomial.npz": "98c32ebfcf747906bbb5f7da1d05c0f8e99e119e766711dd6c58ca0a163f4309",
+   "notebooks/gms_baselines_experiment/data/replay_baselines_stratified.npz": "d7b137e7cbfe06465b1fc7e1ae3dfad12a671732f866ac1807d45ab05b02bf9f",
+   "notebooks/gms_baselines_experiment/data/replay_baselines_systematic.npz": "2bf64727cb2b0738d8865975ef06929105465caaa71f5ccbad55f2fe071266de",
+   "notebooks/gms_baselines_experiment/data/replay_comparison.json": "f72a986599318ee955831ec859fea554d1660edc1dac8e5d85b2cc3944cf0010",
+   "notebooks/gms_baselines_experiment/data/replay_ot_eps0.3.npz": "3f2d92f74e03d1dbb4db7beb18f3ff4b26765ce56ef77d2ad9517d70d9be0c2b",
+   "notebooks/gms_baselines_experiment/logs/capture_baselines_multinomial.log": "de4d20cab8383061f53e8cc3ecebd3201db57c8b4653ad0baffcd41aacfc1f85",
+   "notebooks/gms_baselines_experiment/logs/capture_baselines_stratified.log": "ebd836f0ea2be19ca8d06a96c70a2c82a7f7a1d77a6607c4b45e70a23bbd134e",
+   "notebooks/gms_baselines_experiment/logs/capture_baselines_systematic.log": "cebf202e2a82c553a6859a5c58ba338776fab7a135b0dcfb5ba89fe639509dec",
+   "notebooks/gms_baselines_experiment/logs/capture_ot_eps0.3.log": "6d0727d6bd31578734d9d2b6b10c5d45dcafdd418173d665944113d8e15f2d4c",
+   "notebooks/gms_baselines_experiment/logs/heavy_capture_replay.log": "ed010aa28982a491fb8592f12de20cda4ad3af07ca269aea23f3b4a0685138df",
+   "notebooks/gms_baselines_experiment/logs/heavy_native.log": "dd2979abbad9476613ea5b991dbaa751eac93176bd30c30b72a0275fd609dde6",
+   "notebooks/gms_baselines_experiment/logs/native_baselines_multinomial.log": "44fdb79805775a7f7ece8dd714f283f68fe0784d059bc3615bbf448c28f85dd6",
+   "notebooks/gms_baselines_experiment/logs/native_baselines_stratified.log": "ccc67f40de2339934aa54b4922dd0bcb471d11e2057d2994a03cc3ccb0f00766",
+   "notebooks/gms_baselines_experiment/logs/native_baselines_systematic.log": "5a6fded8a5427abeb4d43853f7d8b0b4eff1e24952ee96ab41ebc7ea6fb53a00",
+   "notebooks/gms_baselines_experiment/logs/native_ot_eps0.3.log": "fc914c18e829b25f631c053b4074f1a451cc2689e097415474beb071bc45ece8",
+   "notebooks/gms_baselines_experiment/logs/replay.log": "5f8f63d732130ab17aff45edf3dcf6704e908534aaa08f6307ae8114e5730824",
+   "notebooks/gms_baselines_experiment/run_native.sh": "3d1981b7546e5ebdfe5c4c81b291a7112abcbbc46e34ff2c46c89cf40a98363d",
+   "notebooks/gms_baselines_experiment/run_capture_replay.sh": "45c04ce7364e45e296a4b174515d2f1a616486869a68b691a3bb931ee435b93d",
+   "notebooks/gms_baselines_experiment/capture.py": "2a74cadec504a2852942b1986569b808e042d7260ba44cb7becf33b2dc80bf1d",
+   "notebooks/gms_baselines_experiment/replay.py": "8a0dc19b7a5779c8a564a3876ba9a7fcf0d06ff16f7a6d00ca6f7ffe95fd0c80"
+  },
+  "limitations": [
+   "Reduced size: n=1000 and a single MC id instead of n=10000 and ids 0-99, so err/residual are single-run Monte Carlo values, not the paper table averages.",
+   "Sinkhorn diagnostic (converged=True, 880 iterations, column-marginal error 2.0e-5 with ott default threshold 1e-3) was obtained by building the same ott LinearProblem/Sinkhorn as ensemble_ot does; it is a diagnostic, not a reference output.",
+   "Ancestor indices for multinomial/stratified/systematic are recovered by exact row matching of outputs to the (distinct) input rows; upstream does not return indices.",
+   "Stratified/systematic assume normalised weights (true here: logsumexp(log_ws)=0.0).",
+   "Native runtimes include process start, JAX import and JIT compilation."
+  ],
+  "attempts": "3 heavy.sh invocations: 1 refused by launcher (exit 75, nothing ran), 2 successful. No upstream file modified."
+ }
+}

@@ -1,0 +1,211 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        75.0,
+        369.0,
+        85.0
+      ],
+      "markdown": "# **5.2 Iterative Reachability Estimation for Stochastic Settings**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        95.0,
+        505.0,
+        149.0
+      ],
+      "markdown": "In stochastic environments, for each state, there is some likelihood of entering into the unsafe states under any policy. Thus, we adopt the probabilistic reachability Definitions 3 and 4. Rather than using the binary indicator in the optimal feasible set to demarcate the feasibility and infeasibility optimization scenarios, we use the likelihood of infeasibility of the safest policy. In particular, for any state _s_ , the optimal likelihood that the policy will enter the infeasible set is _ϕ_<sup>_∗_</sup> ( _s_ ) from Definition 4.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        155.0,
+        506.0,
+        208.0
+      ],
+      "markdown": "We again divide the full optimization problem in stochastic settings into infeasible and feasible ones similar to Equations 1 and 2. However, we consider the infeasible formulation with likelihood the current state is in a safest policy’s infeasible state, or _ϕ_<sup>_∗_</sup> ( _s_ ). Similarly, we account for the feasible optimization formulation with likelihood the current state is in a safest policy’s feasible set, 1 _− ϕ_<sup>_∗_</sup> ( _s_ ). The complete Reachability Estimation for Safe Policy Optimization (RESPO) can be rewritten as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "formula",
+      "bbox": [
+        118.0,
+        211.0,
+        510.0,
+        249.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 6 (4)",
+      "asset_name": "formula-p0006-003"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        253.0,
+        505.0,
+        317.0
+      ],
+      "markdown": "In sum, the RESPO framework provides several benefits when compared with other constrained Reinforcement Learning and reachability-based approaches. Notably, 1) it maintains persistent safety when in the feasible set unlike CMDP-based approaches, 2) compared with other reachability-based approaches, RESPO considers performance optimization in addition to maintaining safety, 3) it maintains the behavior of a safest policy in the infeasible set and even reenters the feasible set when possible, 4) RESPO employs rigorously defined reachability definitions even in stochastic settings.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        331.0,
+        210.0,
+        341.0
+      ],
+      "markdown": "# **5.3 Overall Algorithm**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        352.0,
+        505.0,
+        405.0
+      ],
+      "markdown": "We describe our algorithms by breaking down the novel components. Our algorithm predicts reachability membership to guide the training toward optimizing the right portion of the optimization equation (i.e., feasibility case or infeasibility case). Furthermore, it exclusively uses the discounted sum of costs as the safety value function – we can avoid having to learn the reachability value function while having the benefit of exploiting the improved signal in the cost value function.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        418.0,
+        505.0,
+        450.0
+      ],
+      "markdown": "**Optimization in infeasible set versus feasible set.** If the agent is in the infeasible set, this is the simplest case. We want to find the optimal policy that maximizes _−Vc_<sup>_π_(</sup><sup>_s_).This would be the only</sup> term that needs to be considered in optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "formula",
+      "bbox": [
+        103.0,
+        451.0,
+        509.0,
+        506.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 6 (9)",
+      "asset_name": "formula-p0006-008"
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        501.0,
+        505.0,
+        555.0
+      ],
+      "markdown": "Now what remains is obtaining the reachability estimation function _ϕ_<sup>_∗_</sup> . First, we address the problem of acquiring optimal likelihood of being feasible. It is nearly impossible to accurately know before training if a state is in a safest policy’s infeasible set. We propose learning a function guaranteed to converge to this REF (with some discount factor for _γ_ -contraction mapping) by using the recursive Bellman formulation proved in Theorem 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        560.0,
+        498.0,
+        584.0
+      ],
+      "markdown": "We learn a function _p_ ( _s_ ) to capture the probability _ϕ_<sup>_∗_</sup> ( _s_ ). It is trained like a reachability function: _p_ ( _s_ ) = max _{_ 1 _s∈Sv , γ · p_ ( _s_<sup>_′_</sup> ) _},_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        585.0,
+        505.0,
+        617.0
+      ],
+      "markdown": "where _Sv_ is the violation set, _s_<sup>_′_</sup> is the next sampled state, and _γ_ is a discount parameter 0 _≪ γ <_ 1 to ensure convergence of _p_ ( _s_ ). Furthermore, and crucially, we ensure the learning rate of this REF is on a slower time scale than the policy and its critics but faster than the lagrange multiplier.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        624.0,
+        428.0,
+        634.0
+      ],
+      "markdown": "Bringing the concepts covered above, we present our full optimization equation:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b013",
+      "kind": "formula",
+      "bbox": [
+        110.0,
+        632.0,
+        510.0,
+        667.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 6 (14)",
+      "asset_name": "formula-p0006-013"
+    },
+    {
+      "id": "p0006-b014",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        666.0,
+        506.0,
+        724.0
+      ],
+      "markdown": "We show the design of our algorithm **RESPO** in an actor-critic framework in Algorithm 1. Note that the _V_ and _Vc_ have corresponding _Q_ functions: _V_<sup>_π_</sup> ( _s_ ) = E _a∼π_ ( _·|s_ ) _Q_ ( _s, a_ ) and _Vc_<sup>_π_(</sup><sup>_s_)=</sup> E _a∼π_ ( _·|s_ ) _Qc_ ( _s, a_ ). The gradients’ definitions are found in the appendix. We use operator ΓΘ to indicate the projection of vector _θ ∈_ R<sup>_n_</sup> to the closest point in compact and convex set Θ _⊆_ R<sup>_n_</sup> . Specifically, ΓΘ = arg min _θ_ ˆ _∈_ Θ _||θ_<sup>ˆ</sup> _− θ||_<sup>2</sup> . ΓΩ is similarly defined.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b015",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "6",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+ "filters_tests": {
+  "execution_id": "filters_tests",
+  "module": "feynman_kac",
+  "supports_tools": [
+   "diffres_run_lgssm_particle_filter",
+   "diffres_run_lgssm_kalman_filter (supporting evidence via test_kf)"
+  ],
+  "source_path": "repo/diffres/tests/test_filters.py",
+  "source_sha256": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/tests/test_filters.py",
+  "source_modified": false,
+  "status": "success",
+  "execution_mode": "native pytest run of the unchanged upstream test file + small capture/replay driver calling the same upstream functions",
+  "execution_path": "notebooks/filters_tests/filters_tests_driver.py",
+  "upstream_test_run": {
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1200 --log notebooks/filters_tests/logs/pytest_test_filters.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python -m pytest -p no:cacheprovider -v --durations=0 --junitxml=notebooks/filters_tests/logs/junit_test_filters.xml repo/diffres/tests/test_filters.py",
+   "cwd": "PROJECT_ROOT",
+   "exit_status": 0,
+   "result": "10 passed, 0 failed, 0 skipped, 0 errors (15 deprecation warnings from matplotlib/pyparsing)",
+   "pytest_time_s": 51.5,
+   "heavy_sh_runtime_s": 58,
+   "peak_memory_mb": 557,
+   "memory_limit_mb": 1200,
+   "per_test_call_s": {
+    "test_kf": 0.23,
+    "test_smc[multinomial]": 3.26,
+    "test_smc[multinomial_stopped]": 0.85,
+    "test_smc[stratified]": 0.99,
+    "test_smc[systematic]": 0.92,
+    "test_diffres[euler]": 5.84,
+    "test_diffres[lord_and_rougemont]": 5.56,
+    "test_diffres[jentzen_and_kloeden]": 6.17,
+    "test_diffres[tweedie]": 6.25,
+    "test_ensemble_ot": 11.17
+   },
+   "log": "notebooks/filters_tests/logs/pytest_test_filters.log",
+   "junit_xml": "notebooks/filters_tests/logs/junit_test_filters.xml",
+   "changed_arguments_vs_upstream": "none (upstream test sizes: nparticles=1000, nsteps=100, d=1)"
+  },
+  "driver": {
+   "path": "notebooks/filters_tests/filters_tests_driver.py",
+   "sha256": "f4b8b7f531b84bae26d853d5dfae40ff41bcbe7105d36ece55ce30b0c6c2f1c5",
+   "what_it_does": "capture: imports the upstream test module from its path (importlib; its module-level code sets jax_enable_x64, key=PRNGKey(666), ys=normal(key,(101,)), OU-LGSSM matrices, GP-regression reference, kf+rts), saves those inputs, then calls diffres.gaussian_filters.kf/rts and diffres.feynman_kac.smc_feynman_kac(key, test m0_sampler, log_g0, m_log_g, ys, 1000, 100, resampling=<r>, resampling_threshold=1., return_path=True) for every resampler used in the tests, saving all native outputs. replay: fresh process without importing the test module; loads the saved inputs, rebuilds the bootstrap model callables as verbatim copies of test_filters.py lines 59-73 bound to the loaded arrays, and repeats the same upstream calls. compare: bitwise/max-abs comparison and the tests' own assertions evaluated on captured outputs. No algorithm is re-implemented.",
+   "resampler_configs": {
+    "multinomial": "diffres.resampling.multinomial (passed directly)",
+    "multinomial_stopped": "diffres.resampling.multinomial_stopped",
+    "stratified": "diffres.resampling.stratified",
+    "systematic": "diffres.resampling.systematic",
+    "diffusion_<integrator>": "diffusion_resampling(key, log_ws, samples, -0.5, jnp.linspace(0., 2., 8), integrator=<euler|lord_and_rougemont|jentzen_and_kloeden|tweedie>, ode=False)",
+    "ensemble_ot_eps0.1": "ensemble_ot(key, log_ws, samples, eps=0.1) (implicit_diff default True)"
+   },
+   "runs": [
+    {
+     "mode": "capture",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_capture.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py capture",
+     "exit_status": 0,
+     "heavy_sh_runtime_s": 55,
+     "peak_memory_mb": 572,
+     "log": "notebooks/filters_tests/logs/driver_capture.log",
+     "per_resampler_s": {
+      "multinomial": 2.931352376937866,
+      "multinomial_stopped": 0.783203125,
+      "stratified": 0.7712974548339844,
+      "systematic": 1.9275555610656738,
+      "diffusion_euler": 6.552491188049316,
+      "diffusion_lord_and_rougemont": 5.508759021759033,
+      "diffusion_jentzen_and_kloeden": 5.030174255371094,
+      "diffusion_tweedie": 5.600425958633423,
+      "ensemble_ot_eps0.1": 11.175866842269897
+     }
+    },
+    {
+     "mode": "replay",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_replay.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py replay",
+     "exit_status": 0,
+     "heavy_sh_runtime_s": 55,
+     "peak_memory_mb": 476,
+     "log": "notebooks/filters_tests/logs/driver_replay.log",
+     "per_resampler_s": {
+      "multinomial": 7.710394859313965,
+      "multinomial_stopped": 0.8575103282928467,
+      "stratified": 0.7561070919036865,
+      "systematic": 1.1470773220062256,
+      "diffusion_euler": 6.621265411376953,
+      "diffusion_lord_and_rougemont": 5.4966137409210205,
+      "diffusion_jentzen_and_kloeden": 5.54399299621582,
+      "diffusion_tweedie": 5.921639442443848,
+      "ensemble_ot_eps0.1": 11.841342449188232
+     }
+    },
+    {
+     "mode": "compare",
+     "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1200 --log notebooks/filters_tests/logs/driver_compare.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/filters_tests/filters_tests_driver.py compare",
+     "exit_status": 0,
+     "peak_memory_mb": 29,
+     "log": "notebooks/filters_tests/logs/driver_compare.log",
+     "note": "numpy only, no JAX"
+    }
+   ]
+  },
+  "runtime_environment": {
+   "python": "CPython 3.11.17 (diffres-env)",
+   "jax": "0.7.2",
+   "jaxlib": "0.7.2 (CPU)",
+   "numpy": "2.3.3",
+   "ott-jax": "0.5.2",
+   "devices": "CPU only (JAX_PLATFORMS=cpu via heavy.sh)",
+   "jax_enable_x64": true
+  },
+  "data_seed_provenance": {
+   "key": "jax.random.PRNGKey(666) (legacy raw uint32 key, saved as 'key' uint32[2]) - set in test module; the same key is used for ys and for every smc_feynman_kac call, as in the tests",
+   "ys": "jax.random.normal(key, (101,)) float64, from the test's module code (synthetic, not a model simulation)",
+   "model": "1-D OU LGSSM: ell=1, sigma=1, T=2, nsteps=100, dt=0.02, semigroup=exp(-dt), trans_cov=1-exp(-2dt), obs_op=1, obs_cov=xi=1, m0=0, v0=1; nparticles=1000",
+   "inputs_file": "notebooks/filters_tests/data/filters_tests_inputs.npz",
+   "inputs_keys": "key, ys, ts, m0, v0, semigroup, trans_cov, obs_op, obs_cov, xi, ell, sigma, T, dt, nparticles, nsteps, dx, dy, gp_mean, gp_var, gp_nll, testmod_kf_nll, testmod_mss, testmod_vss (all floats float64)"
+  },
+  "outputs": {
+   "capture": "notebooks/filters_tests/outputs/capture_outputs.npz",
+   "replay": "notebooks/filters_tests/outputs/replay_outputs.npz",
+   "comparison": "notebooks/filters_tests/outputs/comparison.json",
+   "npz_layout": "kf/{mfs (101,1), vfs (101,1,1), nll (), mps (100,1), vps (100,1,1), mss (101,1), vss (101,1,1)}; pf/<resampler>/{nll (), samples (101,1000,1) full particle path, log_ws (101,1000) normalised log weights, ess (101,)} for 9 resampler configs; float64",
+   "hashes_sha256": {
+    "notebooks/filters_tests/data/filters_tests_inputs.npz": "c01efb288c0d0adc8eb53c7b8461b37e4e086e606c041f1ad2ac4ca0295328d7",
+    "notebooks/filters_tests/outputs/capture_outputs.npz": "bae460b4aa2aa2a9fef51d5013b8b06c399b2f500d7458211501424865b8e983",
+    "notebooks/filters_tests/outputs/replay_outputs.npz": "bae460b4aa2aa2a9fef51d5013b8b06c399b2f500d7458211501424865b8e983",
+    "repo/diffres/tests/test_filters.py": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+    "notebooks/filters_tests/logs/junit_test_filters.xml": "35039582d5595c126dc50d519e3cd8f1951f025db2dd60d3255344dbdc420614",
+    "notebooks/filters_tests/logs/pytest_test_filters.log": "eda077846000013ee21bf6335669c75b57b84560e616fe84e72f8c48aad999cb",
+    "notebooks/filters_tests/outputs/comparison.json": "058a31ead54c6dce329568c3d7f7c6639953a93b4de12e6db41777a422149942"
+   }
+  },
+  "reference_numbers": {
+   "kf_nll": 141.42165070795778,
+   "gp_nll_closed_form": 141.42165070795772,
+   "pf_nll_upstream": {
+    "multinomial": 134.37630492977596,
+    "multinomial_stopped": 134.37630492977596,
+    "stratified": 134.46348753518532,
+    "systematic": 134.6973286692966,
+    "diffusion_euler": 135.2238321733969,
+    "diffusion_lord_and_rougemont": 136.20678137716914,
+    "diffusion_jentzen_and_kloeden": 136.35456151180844,
+    "diffusion_tweedie": 134.38883265953868,
+    "ensemble_ot_eps0.1": 131.56582173632722
+   },
+   "pf_final_ess": {
+    "multinomial": 933.9293844104507,
+    "multinomial_stopped": 933.9293844104507,
+    "stratified": 920.597099134095,
+    "systematic": 928.9026367833374,
+    "diffusion_euler": 927.3605147526293,
+    "diffusion_lord_and_rougemont": 899.8607834994891,
+    "diffusion_jentzen_and_kloeden": 919.0400289035179,
+    "diffusion_tweedie": 932.7712182874089,
+    "ensemble_ot_eps0.1": 954.8975216036497
+   },
+   "test_assertions_on_capture": {
+    "test_kf/mss_vs_gp_mean": {
+     "max_rel_err": 8.673154447626966e-14,
+     "rtol": 1e-07,
+     "passed": true
+    },
+    "test_kf/vss_vs_gp_var": {
+     "max_rel_err": 6.447717902826896e-15,
+     "rtol": 1e-07,
+     "passed": true
+    },
+    "test_kf/nll_vs_gp_nll": {
+     "max_rel_err": 4.0194283248886914e-16,
+     "rtol": 1e-07,
+     "passed": true
+    },
+    "kf_nll_equals_test_module_nll": true,
+    "pf/multinomial": {
+     "nll_pf": 134.37630492977596,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.04981801402340289,
+     "rtol": 0.06,
+     "passed": true
+    },
+    "pf/multinomial_stopped": {
+     "nll_pf": 134.37630492977596,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.04981801402340289,
+     "rtol": 0.06,
+     "passed": true
+    },
+    "pf/stratified": {
+     "nll_pf": 134.46348753518532,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.049201541192171384,
+     "rtol": 0.06,
+     "passed": true
+    },
+    "pf/systematic": {
+     "nll_pf": 134.6973286692966,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.047548038118627296,
+     "rtol": 0.06,
+     "passed": true
+    },
+    "pf/diffusion_euler": {
+     "nll_pf": 135.2238321733969,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.043825103889924714,
+     "rtol": 0.05,
+     "passed": true
+    },
+    "pf/diffusion_lord_and_rougemont": {
+     "nll_pf": 136.20678137716914,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.036874617886886285,
+     "rtol": 0.05,
+     "passed": true
+    },
+    "pf/diffusion_jentzen_and_kloeden": {
+     "nll_pf": 136.35456151180844,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.035829656709446225,
+     "rtol": 0.05,
+     "passed": true
+    },
+    "pf/diffusion_tweedie": {
+     "nll_pf": 134.38883265953868,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.049729429781174,
+     "rtol": 0.05,
+     "passed": true
+    },
+    "pf/ensemble_ot_eps0.1": {
+     "nll_pf": 131.56582173632722,
+     "kf_nll": 141.42165070795778,
+     "rel_err": 0.06969108988823287,
+     "rtol": 0.07,
+     "passed": true
+    }
+   }
+  },
+  "replay_comparison": {
+   "method": "separate process, inputs loaded from .npz, test module not imported; np.array_equal on every array",
+   "all_bitwise_equal": true,
+   "max_abs_diff_over_all_arrays": 0.0,
+   "n_arrays_compared": 43,
+   "capture_npz_sha256_equals_replay_npz_sha256": true,
+   "note": "Same key, inputs, x64, CPU => bitwise identical for KF, all four classic resamplers, all four diffusion integrators and ensemble OT; driver nll values also equal those the pytest run checks (same calls)."
+  },
+  "figures": {
+   "applicable": false,
+   "reason": "the upstream test file produces no plots"
+  },
+  "observations_for_tool_builders": [
+   "Upstream smc_feynman_kac computes nll0 = -logsumexp(log_g0(samples0)) without subtracting log(nparticles) (feynman_kac.py lines 82-85), while later steps use normalised weights. The returned PF nll is therefore offset by -log(nparticles) relative to the standard bootstrap estimate of -log p(y_0:N): adding log(1000)=6.9078 gives multinomial 141.2841, stratified 141.3712, systematic 141.6051, diffusion euler 142.1316 / lord_and_rougemont 143.1145 / jentzen_and_kloeden 143.2623 / tweedie 141.2966, ensemble_ot 138.4736 vs KF 141.4217. The tests' rtol 5e-2..7e-2 absorbs this ~7-nat offset. Constant offset, so gradients are unaffected. A wrapper reproducing upstream must report the raw upstream value (and may document/also report the corrected value); it must not silently change it.",
+   "Margins to the test tolerances are small for diffusion_tweedie (rel err 0.04973 vs rtol 0.05) and ensemble_ot eps=0.1 (0.06969 vs 0.07), i.e. these pass only for this key; other seeds may fail the test tolerances.",
+   "multinomial and multinomial_stopped give bitwise-identical forward outputs (differ only in gradients), as the scanner noted.",
+   "KF/RTS reproduce the closed-form GP regression to <1e-13 relative (test_kf asserts rtol 1e-7)."
+  ],
+  "attempts": [
+   {
+    "n": 1,
+    "what": "pytest test_filters.py (limit 1200 MB)",
+    "exit_status": 0,
+    "result": "10 passed"
+   },
+   {
+    "n": 2,
+    "what": "driver capture then replay, limit 1200 MB, issued back to back in one shell loop",
+    "exit_status": 75,
+    "result": "heavy.sh refused both (MemAvailable about 3125 MB < 3200 MB); not started"
+   },
+   {
+    "n": 3,
+    "what": "driver capture, limit 1000 MB",
+    "exit_status": 1,
+    "result": "SyntaxError in my driver (invalid keyword name in dict()); failed before importing JAX, peak 8 MB; fixed the keyword name only"
+   },
+   {
+    "n": 4,
+    "what": "driver capture, limit 1000 MB",
+    "exit_status": 0,
+    "result": "success, peak 572 MB"
+   },
+   {
+    "n": 5,
+    "what": "driver replay then compare, limit 1000 MB",
+    "exit_status": 0,
+    "result": "success, peak 476 MB / 29 MB; bitwise-equal replay"
+   }
+  ],
+  "repo_untouched_check": "git -C repo/diffres status --short --ignored -> empty after all runs (PYTHONDONTWRITEBYTECODE=1, -p no:cacheprovider)",
+  "limitations": [
+   "Single key (PRNGKey(666)) as in the test; no Monte Carlo study of PF nll variability.",
+   "Gradients (value_and_grad through smc_feynman_kac) are not exercised by this test file; see lgssm_gradient_demo.",
+   "Only the 1-D OU LGSSM of the test; full-matrix generalisation used by the planned tool is not covered here."
+  ]
+ }
+}

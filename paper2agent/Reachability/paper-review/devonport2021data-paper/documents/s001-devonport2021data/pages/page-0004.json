@@ -1,0 +1,233 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render and a 240 dpi crop of the right column of PDF page 4 and with the TeX source. First item continues Remark 2 from page 3 (join_previous 'space'; the sentence '... a subset of the state | variables.' was checked on both pages). All mathematics rewritten in LaTeX from the TeX source and checked against the page; TeX and PDF agree. The five extractor 'formula' image items were replaced by $$...$$ text items: Duffing dynamics with the printed number (2) as \\tag{2}; the parameter values, quadrotor dynamics, initial-state intervals and input intervals are unnumbered in print. The authors' 'split' environments are written as 'aligned'. Thousands separators: the PDF prints '156, 626' (a math-mode comma, twice) and '46,052'; all are written as plain '156,626' / '46,052' inside $...$ and the authors' \\! spacing command was dropped so that the numbers stay searchable. Headings: 'IV. EXAMPLES' in title case, subsections A and B as level 3. Typewriter 'c5.24xlarge' kept in backticks. The paragraph crossing the column break ('... of the empirical inverse | Christoffel function sublevel set ...') was merged. Line-wrap hyphens repaired ('numerical', 'random'); 'reduced-state' is a real compound hyphen broken at a line end (extractor had 'reducedstate'). Authors' text kept as printed, including: 'The initial is the interval' (no 'set'), 'the assertion of Proposition 1' (the result is Theorem 1; the paper has no Proposition), '$N_{ap}$' in lower case followed by '$N_{AP}$', 'within 1% of the true'. All numbers (0.05, 0.4, 1.3, [0.95,1.05], [-0.05,0.05], [0,100], k=10, 10^{-9}, 156,626, 39 minutes, 41 seconds, 46,052, 99.99%, 2x10^{-5}, 0.99, 0.95, g=9.81, K=0.89/1.4, d_0=70, d_1=17, n_0=55, the six initial intervals, the two input intervals, [0,5]) were checked against the page image. Figure 1, which is discussed in the paragraph 'Figure 1 shows ...' on this page, is printed on page 5; plan.json reading_order places the figure and its caption directly after that paragraph. The last sentence continues on page 5.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        54.0,
+        299.0,
+        185.0
+      ],
+      "markdown": "variables. For example, suppose the state is $(x_1,\\dots,x_n)\\in\\mathbb{R}^n$, and we wish to verify a safety specification involving only the states $x_1,\\dots,x_m$, where $m<n$: a reachable set for the states $x_1,\\dots,x_m$ would suffice for this problem. In cases like this, Algorithm 1 can be modified to use only the first $m$ elements of the samples $x_f^{(i)}$. The output of the algorithm is then an empirical inverse Christoffel function with domain $\\mathbb{R}^m$ whose sublevel set $\\hat{R}_{[t_0,t_1]}$ estimates the reachable set for the reduced set of states. In the sequel, we refer to this application of Algorithm 1 as the *reduced-state variant* of Algorithm 1.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "heading",
+      "bbox": [
+        143.0,
+        194.0,
+        209.0,
+        202.0
+      ],
+      "markdown": "## IV. Examples"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        209.0,
+        299.0,
+        300.0
+      ],
+      "markdown": "This section demonstrates Algorithm 1’s ability to make accurate estimates of forward reachable sets with three numerical examples. We demonstrate how the parallel nature of the algorithm can be leveraged to improve computation times by running all experiments on two computing platforms: (i) a laptop with 4 2.6 GHz cores; and (ii) an instance of the AWS EC2 computing platform `c5.24xlarge`, a virtual machine with 96 3.6 GHz cores."
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        311.0,
+        187.0,
+        319.0
+      ],
+      "markdown": "### A. Chaotic Nonlinear Oscillator"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        326.0,
+        299.0,
+        348.0
+      ],
+      "markdown": "The first example is a reachable set estimation problem for the nonlinear, time-varying system with dynamics"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        105.0,
+        351.0,
+        304.0,
+        386.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\dot{x} &= y \\\\\n\\dot{y} &= -\\alpha y + x - x^3 + \\gamma\\cos(\\omega t),\n\\end{aligned} \\tag{2}\n$$"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        388.0,
+        299.0,
+        433.0
+      ],
+      "markdown": "with states $x,y\\in\\mathbb{R}$ and parameters $\\alpha, \\gamma, \\omega\\in\\mathbb{R}$. This system is known as the *Duffing oscillator*, a nonlinear oscillator which exhibits chaotic behavior for certain values of $\\alpha$, $\\gamma$, and $\\omega$, for instance"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        101.0,
+        437.0,
+        242.0,
+        457.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\alpha &= 0.05, & \\gamma &= 0.4, & \\omega &= 1.3.\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        461.0,
+        299.0,
+        507.0
+      ],
+      "markdown": "The initial is the interval such that $x(0)\\in[0.95, 1.05]$, $y(0)\\in[-0.05,0.05]$, and we take $X_0$ to be the uniform random variable over this interval. The time range is $[t_0,t_1]=[0,100]$."
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        509.0,
+        299.0,
+        602.0
+      ],
+      "markdown": "We use Algorithm 1 to compute a reachable set for (2) using an order $k=10$ empirical inverse Christoffel function with accuracy and confidence parameters $\\epsilon=0.05$, $\\delta=10^{-9}$. With these parameters, (1) states that $N=156,626$ samples are required to ensure that Theorem 1 holds for the reachable set estimate. Total computation times for this example were 39 minutes on the laptop, and 41 seconds on `c5.24xlarge`."
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        605.0,
+        299.0,
+        698.0
+      ],
+      "markdown": "Figure 1 shows the reachable set estimate for the Duffing oscillator system with the problem data given above, and the point cloud of $156,626$ samples used to compute the empirical inverse Christoffel function and the level parameter $\\alpha$. The reachable set estimate is neither convex nor simply connected, closely following the boundaries of the cloud of points and excluding an empty region within the cloud of points."
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        700.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "To experimentally verify that the assertion of Proposition 1 holds for the reachable set estimate, we compute an *a posteriori* estimate of the accuracy of the empirical inverse Christoffel function sublevel set. To do this, we first compute a new set of sample points of size $N_{ap}$. Denoting by $N_{out}$ the number of new samples that lie outside of the reachable set estimate, we can compute the empirical accuracy of a reachable set approximation as $1-N_{out}/N_{AP}$. We use $N_{AP}=46,052$ sample points to make the *a posteriori* estimate. This sample size ensures that a one-sided Chernoff bound holds, which guarantees that empirical accuracy is within 1% of the true with 99.99% confidence. The *a posteriori* empirical accuracy computed with this sample is $1-(2\\times 10^{-5})$, ensuring that the true accuracy of the reachable set estimate is at least $0.99-2\\times10^{-5}$ with 99.99% confidence. This is well in excess of the $0.95$ accuracy guaranteed by Theorem 1."
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        229.0,
+        430.0,
+        239.0
+      ],
+      "markdown": "### B. Planar Quadrotor Model"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        244.0,
+        559.0,
+        290.0
+      ],
+      "markdown": "The next example is a reachable set estimation problem for horizontal position and altitude in a nonlinear model of the planar dynamics of a quadrotor used as an example in [18], [19]. The dynamics for this model are"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        378.0,
+        292.0,
+        493.0,
+        344.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\ddot{x} &= u_1 K\\sin(\\theta)\\\\\n\\ddot{h} &= -g + u_1 K\\cos(\\theta) \\\\\n\\ddot{\\theta} &= -d_0\\theta - d_1\\dot{\\theta} + n_0 u_2,\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        347.0,
+        559.0,
+        462.0
+      ],
+      "markdown": "where $x$ and $h$ denote the quadrotor’s horizontal position and altitude in meters, respectively, and $\\theta$ denotes its angular displacement (so that the quadrotor is level with the ground at $\\theta=0$) in radians. The system has 6 states, which we take to be $x$, $h$, $\\theta$, and their first derivatives. The two system inputs $u_1$ and $u_2$ (treated as disturbances for this example) represent the motor thrust and the desired angle, respectively. The parameter values used (following [19]) are $g=9.81$, $K=0.89/1.4$, $d_0=70$, $d_1=17$, and $n_0=55$. The set of initial states is the interval such that"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        337.0,
+        464.0,
+        534.0,
+        517.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nx(0)&\\in[-1.7, 1.7], & \\dot{x}(0)&\\in[-0.8, 0.8], \\\\\nh(0)&\\in[0.3, 2.0], & \\dot{h}(0)&\\in[-1.0, 1.0], \\\\\n\\theta(0)&\\in[-\\pi/12, \\pi/12], & \\dot{\\theta}(0)&\\in[-\\pi/2, \\pi/2],\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        519.0,
+        559.0,
+        541.0
+      ],
+      "markdown": "the set of inputs is the set of constant functions $u_1(t)=u_1$, $u_2(t)=u_2$ $\\forall t\\in[t_0,t_1]$, whose values lie in the interval"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        317.0,
+        544.0,
+        544.0,
+        565.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nu_1&\\in[-1.5+ g/K, 1.5 + g/K], & u_2&\\in[-\\pi/4, \\pi/4],\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        569.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "and we take $X_0$ and $D$ to be the uniform random variables defined over these intervals. The time range is $[t_0,t_1]=[0,5]$. We take probabilistic parameters $\\epsilon=0.05$, $\\delta=10^{-9}$. Since the goal of this example is to estimate a reachable set for the horizontal position and altitude only, we are interested in a reachable set for a subset of the state variables, namely $x$ and $h$. As mentioned in Remark 2, Algorithm 1 can be used to estimate a reachable set for $x$ and $h$ in two ways: we can either compute a Christoffel function estimate for the reachable set and take the “shadow projection” of the estimate onto $x$ and $h$, or we could compute a Christoffel function estimate for $x$ and $h$ directly using the reduced-state variant of Algorithm 1 with the $(x,h)$ components of the reachable set data. To compare the relative accuracy"
+    }
+  ]
+}

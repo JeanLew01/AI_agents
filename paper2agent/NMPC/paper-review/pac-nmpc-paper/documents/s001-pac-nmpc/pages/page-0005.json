@@ -1,0 +1,266 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] This page was raw extraction. Compared with feedback.tex, nmpc.tex and trajgen_experiments.tex and with 220-dpi crops of both columns. Algorithm 4 (top of left column; extracted as glyph-soup text), Algorithm 5 and Algorithm 6 (top of right column; extracted as \"formula\") are now images algorithm-4 [47,53.5,302,189], algorithm-5 [310,53.5,565,229.5], algorithm-6 [310,239,565,381] (boxes set from the rules seen in the crops and re-checked by cropping), each followed by a line-by-line transcription from the TeX source checked against the crop, including the blue side comments (// Nominal Rollout, // Feedback Rollout, // Alg. 2, // Alg. 6, // Extend prior). Each algorithm is placed after the complete paragraph that cites it (Alg. 4 after \"... summarized in Alg. 4 ...\"; Alg. 5 after the Section IV-C paragraph; Alg. 6 after \"... (Alg. 6).\"). Equations (10), (11) and the three-line display (12) (one printed number, on the last line; written as one aligned block with \\tag{12}) converted from images/glyph text to $$ blocks. All inline maths rewritten in LaTeX with macros expanded. Headings fixed: \"### C. PAC-NMPC\", \"## V. SIMULATION EXPERIMENTS\", \"### A. Trajectory Optimization Experiments\" (were \"# \"). Joins: first item continues the word \"tra-|jectory\" from PDF page 4 (join_previous=none); the Section IV-C paragraph continues across the column break below the algorithms (\"... of the control trajectory\" + \"represent control signals ...\", join_previous=space on p0005-b013). Real compound hyphens at line wraps kept: \"two-stage\", \"time-varying\"; \"dynam-ics\" rejoined. Running header and page number \"4\" set to omit (extractor warning on p0005-b001 resolved: running header, it had been left as text). Printed peculiarities kept exactly: \"mulitvariate\"; \"we the compute\"; Algorithm 4 line 3 loops over k while line 4 is indexed by t; Algorithm 4 line 8 and Algorithm 6 line 5 use (x_t - x_t^d) whereas Eq. (10) and Section IV-B use (x_t^d - x_t); Algorithm 4 line 1 has no transposes ([u_0, ..., u_{N_T}]) unlike Algorithm 3; Algorithm 6 line 9 has subscript T - H/\\Delta t (not N_T) and \"max\", \"min\", \"diag\", \"Trim\" set in math italic; \"$\\mathbf{x_0}$\" in Section IV-C is printed with a bold subscript; the nominal dynamics is f in the algorithms and bold \\mathbf{f} in Eq. (11); f in Eq. (12) is a row vector without transpose. The page ends with Eq. (12); the next paragraph starts on PDF page 6.",
+  "warnings": [
+    "Review possible header/footer: p0005-b001"
+  ],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "omit",
+      "bbox": [
+        47.0,
+        25.0,
+        55.0,
+        34.0
+      ],
+      "markdown": "4",
+      "reason": "Printed page number \"4\" in the running header."
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "omit",
+      "bbox": [
+        254.0,
+        25.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED AUGUST, 2023",
+      "reason": "Running header \"IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED AUGUST, 2023\" (repeats on PDF pages 2, 3, 7, 9)."
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        196.0,
+        301.0,
+        278.0
+      ],
+      "markdown": "jectory. All of the elements of these sequences are parameters of the feedback policy. Assuming the surrogate distribution is a mulitvariate Gaussian with a diagonal covariance matrix, in this case, $\\boldsymbol{\\xi}\\in \\mathbb{R}^{2(N_xN_u+N_x+N_u)N_T}$. Given the size of the decision space, this parameterization of the policy is unlikely to be computationally tractable. To overcome this challenge, we instead use a local closed-loop policy of the form",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        280.0,
+        306.0,
+        303.0
+      ],
+      "markdown": "$$\\mathbf{u}_t = \\mathbf{K}_t(\\boldsymbol{\\tau}^d(\\boldsymbol{\\xi},\\mathbf{x}_0))\\left(\\mathbf{x}_t^d(\\boldsymbol{\\xi},\\mathbf{x}_0) - \\mathbf{x}_t\\right) + \\mathbf{u}_t^d(\\boldsymbol{\\xi}). \\tag{10}$$"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        305.0,
+        301.0,
+        341.0
+      ],
+      "markdown": "Here we refer to $\\boldsymbol{\\tau}^d\\triangleq\\{\\mathbf{x}_0^d,\\mathbf{u}_0^d, \\mathbf{x}_1^d,\\mathbf{u}_1^d ... , \\mathbf{u}_{N_T}^d, \\mathbf{x}_{N_T+1}^d\\}$ as the nominal trajectory, which is computed using a nominal deterministic discrete-time dynamics model, $\\mathbf{f}(\\mathbf{x}_t^d,\\mathbf{u}_t^d)$,"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        116.0,
+        342.0,
+        306.0,
+        365.0
+      ],
+      "markdown": "$$\\mathbf{x}_{t+1}^d=\\mathbf{x}_t^d+\\mathbf{f}(\\mathbf{x}_t^d,\\mathbf{u}_t^d)\\Delta t \\tag{11}$$"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        366.0,
+        301.0,
+        521.0
+      ],
+      "markdown": "where $\\mathbf{u}_t^d = \\boldsymbol{\\zeta}_t$. To sample from this feedback policy, we must first compute the nominal trajectory, $\\boldsymbol{\\tau}^d$. However, $\\boldsymbol{\\tau}^d$ itself is dependent on $\\boldsymbol{\\xi}$; for this reason, we employ a two-stage sampling process. In the first stage, we sample from the trajectory distribution $p(\\boldsymbol{\\tau}^d|\\boldsymbol{\\xi})$ using the deterministic dynamics model (Eq. 11) and the surrogate distribution $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$. For each sample trajectory $\\boldsymbol{\\tau}^d$, we the compute the time-varying gains $\\mathbf{K}_t(\\boldsymbol{\\tau}^d)$. In the second stage, we sample from the closed-loop stochastic dynamics using the feedback policy (Eq. 10). This approach, summarized in Alg. 4, certifies the feedback policy by allowing our sampled costs and constraints to capture the impact of our local feedback policy on our stochastic dynamics model."
+    },
+    {
+      "id": "p0005-alg4",
+      "kind": "figure",
+      "bbox": [
+        47.0,
+        53.5,
+        302.0,
+        189.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 4",
+      "asset_name": "algorithm-4"
+    },
+    {
+      "id": "p0005-alg4text",
+      "kind": "text",
+      "bbox": [
+        47.0,
+        53.5,
+        302.0,
+        189.0
+      ],
+      "markdown": "**Algorithm 4:** $\\boldsymbol{\\tau} \\sim p(\\cdot | \\boldsymbol{\\xi}, \\mathbf{x}_0)$ with Feedback  \n1 Inputs: $\\boldsymbol{\\xi} = [\\mathbf{u}_0, ..., \\mathbf{u}_{N_T}]$, $\\mathbf{x}_0$;  \n2 $\\mathbf{x}_0^d = \\mathbf{x}_0$;  \n3 **for** $k=0,\\dots,N_T$ **do** &emsp;// Nominal Rollout  \n4 &emsp;$\\mathbf{x}_{t+1}^d = \\mathbf{x}_{t}^d + f(\\mathbf{x}_t^d, \\mathbf{u}_t^d)\\Delta{t}$;  \n5 $\\boldsymbol{\\tau}^d = \\left\\{ \\mathbf{x}_0^d,\\mathbf{u}_0^d, \\mathbf{x}_1^d, \\mathbf{u}_1^d ..., \\mathbf{u}_{N_T}^d, \\mathbf{x}_{N_T+1}^d\\right\\}$;  \n6 $\\boldsymbol{\\kappa} = \\text{TVLQR}(\\boldsymbol{\\tau}^d)$;  \n7 **for** $t=0,\\dots,N_T$ **do** &emsp;// Feedback Rollout  \n8 &emsp;$\\mathbf{u}_t = \\mathbf{K}_t\\left(\\mathbf{x}_t - \\mathbf{x}_t^d\\right) + \\mathbf{u}_t^d$;  \n9 &emsp;$\\mathbf{x}_{t+1} \\sim p(\\cdot | \\mathbf{x}_t, \\mathbf{u}_t)$;  \n10 Return $\\boldsymbol{\\tau} = \\left\\{ \\mathbf{x}_0,\\mathbf{u}_0, \\mathbf{x}_1,\\mathbf{u}_1, ...,\\mathbf{u}_{N_T}, \\mathbf{x}_{N_T+1}\\right\\}$"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        523.0,
+        301.0,
+        591.0
+      ],
+      "markdown": "We use the finite horizon, discrete, time-varying linear quadratic regulator (TVLQR) [37] to compute the feedback gains $\\mathbf{K}_t(\\boldsymbol{\\tau}^d)$. For each sampled nominal trajectory, the gains are computed by integrating the finite horizon discrete-time Riccati equations backward in time using the nominal dynamics linearized about $\\boldsymbol{\\tau}^d$."
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        611.0,
+        112.0,
+        619.0
+      ],
+      "markdown": "### C. PAC-NMPC"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        626.0,
+        301.0,
+        750.0
+      ],
+      "markdown": "Finally, we propose a receding-horizon NMPC approach based on our PAC feedback motion planning algorithm (Alg. 5). At each planning interval, with a period of $H$, the trajectory distribution and corresponding feedback policy is optimized given the current state, $\\mathbf{x_0}$, and the prior hyper-parameters, $\\widehat{\\boldsymbol{\\nu}}^*_0$. Then, the trajectory and feedback gains are trimmed by $\\frac{H}{\\Delta t}$ to account for time passed since the beginning of the planning interval and executed by the controller. The trim operation is given as $Trim(\\boldsymbol{\\kappa}) = \\left\\{\\mathbf{K}_{\\frac{H}{\\Delta t}}, ..., \\mathbf{K}_{N_T}\\right\\}$. Hyper-parameters determining the first $\\frac{H}{\\Delta t}$ time steps of the control trajectory"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        387.0,
+        564.0,
+        445.0
+      ],
+      "markdown": "represent control signals that the system is executing during the optimization and are not modified during the optimization. To execute the policy, we use the maximum likelihood estimate of the policy parameters, which is simply the mean, $\\boldsymbol{\\mu}$, of the multivariate Gaussian $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-alg5",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        229.5
+      ],
+      "markdown": "",
+      "label": "Algorithm 5",
+      "asset_name": "algorithm-5"
+    },
+    {
+      "id": "p0005-alg5text",
+      "kind": "text",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        229.5
+      ],
+      "markdown": "**Algorithm 5:** PAC-NMPC  \n1 Input: $\\widehat{\\boldsymbol{\\nu}}^*_0$;  \n2 $\\mathbf{x}_0 =$ GetCurrentState();  \n3 **while** *objective not completed* **do**  \n4 &emsp;$\\widehat{\\boldsymbol{\\nu}}^* =$ Optimize($\\widehat{\\boldsymbol{\\nu}}^*_0, \\mathbf{x}_0$); // Alg. 2  \n5 &emsp;$\\mathbf{u}^d =$ MaximumLikelihoodEstimate($\\widehat{\\boldsymbol{\\nu}}^*$);  \n6 &emsp;**for** $t=0,\\dots,N_T$ **do** &emsp;// Nominal Rollout  \n7 &emsp;&emsp;$\\mathbf{x}_{t+1}^d = \\mathbf{x}_{t}^d + f(\\mathbf{x}_t^d, \\mathbf{u}_t^d)\\Delta{t}$;  \n8 &emsp;$\\boldsymbol{\\tau}^d = \\left\\{ \\mathbf{x}_0^d,\\mathbf{u}_0^d, \\mathbf{x}_1^d, \\mathbf{u}_1^d ..., \\mathbf{u}_{N_T}^d, \\mathbf{x}_{N_T+1}^d\\right\\}$;  \n9 &emsp;$\\boldsymbol{\\kappa} = \\text{TVLQR}(\\boldsymbol{\\tau}^d)$;  \n10 &emsp;$\\boldsymbol{\\tau}^d, \\boldsymbol{\\kappa}, \\widehat{\\boldsymbol{\\nu}}^* \\gets$ Trim($\\boldsymbol{\\tau}^d, \\boldsymbol{\\kappa}, \\widehat{\\boldsymbol{\\nu}}^*$);  \n11 &emsp;Execute ($\\boldsymbol{\\tau}^d,\\boldsymbol{\\kappa}$);  \n12 &emsp;$\\mathbf{x}_0 =$ GetCurrentState();  \n13 &emsp;$\\widehat{\\boldsymbol{\\nu}}^*_0 =$ InitializePrior($\\widehat{\\boldsymbol{\\nu}}^*$,$\\boldsymbol{\\tau}^d$,$\\boldsymbol{\\kappa}$, $\\mathbf{x}_0$); // Alg. 6  \n14 Return"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        447.0,
+        564.0,
+        600.0
+      ],
+      "markdown": "Given that optimal trajectory distributions are expected to be similar between subsequent planning intervals, we use the optimal hyper-parameters from the last planning interval to initialize the prior policy distribution for the next. This initialization is extremely important since it allows the prior to start near an optimal solution, thus reducing the required number of iterations for convergence. After trimming, we apply the feedback policy to generate a modified policy parameter distribution with a mean feasible for the current initial state. Then, we extend the mean with zeros and the variance with its final value. We threshold the prior variance with $\\boldsymbol{\\eta}_{min}$ to prevent it from starting too small, which would inhibit exploration (Alg. 6)."
+    },
+    {
+      "id": "p0005-alg6",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        239.0,
+        565.0,
+        381.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 6",
+      "asset_name": "algorithm-6"
+    },
+    {
+      "id": "p0005-alg6text",
+      "kind": "text",
+      "bbox": [
+        310.0,
+        239.0,
+        565.0,
+        381.0
+      ],
+      "markdown": "**Algorithm 6:** Initialize Prior  \n1 Input: $\\widehat{\\boldsymbol{\\nu}}^*$, $\\boldsymbol{\\tau}^d$, $\\boldsymbol{\\kappa}$, $\\mathbf{x}_0$;  \n2 $[\\boldsymbol{\\mu}_0^T, \\boldsymbol{\\mu}_1^T, ..., \\boldsymbol{\\mu}_{N_T-\\frac{H}{\\Delta t}}^T, \\boldsymbol{\\eta}_0^T, \\boldsymbol{\\eta}_1^T, ..., \\boldsymbol{\\eta}_{N_T-\\frac{H}{\\Delta t}}^T]^T = \\widehat{\\boldsymbol{\\nu}}^*$;  \n3 $\\mathbf{u}^d = \\boldsymbol{\\mu}$;  \n4 **for** $t=0,\\dots,N_T-\\frac{H}{\\Delta t}$ **do** &emsp;// Feedback Rollout  \n5 &emsp;$\\mathbf{u}_t = \\mathbf{K}_t\\left(\\mathbf{x}_t - \\mathbf{x}_t^d\\right) + \\mathbf{u}_t^d$;  \n6 &emsp;$\\mathbf{x}_{t+1} = \\mathbf{x}_{t} + f(\\mathbf{x}_t, \\mathbf{u}_t)\\Delta{t}$;  \n7 **for** $t=N_T-\\frac{H}{\\Delta t}+1,\\dots,N_T$ **do** &emsp;// Extend prior  \n8 &emsp;$\\mathbf{u}_t = \\mathbf{0}$;  \n9 &emsp;$\\boldsymbol{\\eta}_t = max(\\boldsymbol{\\eta}_{T-\\frac{H}{\\Delta t}}, \\boldsymbol{\\eta}_{min})$;  \n10 Return $\\widehat{\\boldsymbol{\\nu}}^*_0 = [\\mathbf{u}_0^T, \\mathbf{u}_1^T, ..., \\mathbf{u}_{N_T}^T, \\boldsymbol{\\eta}_0^T, \\boldsymbol{\\eta}_1^T, ..., \\boldsymbol{\\eta}_{N_T}^T]^T$"
+    },
+    {
+      "id": "p0005-b015",
+      "kind": "heading",
+      "bbox": [
+        371.0,
+        613.0,
+        504.0,
+        621.0
+      ],
+      "markdown": "## V. SIMULATION EXPERIMENTS"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        628.0,
+        476.0,
+        638.0
+      ],
+      "markdown": "### A. Trajectory Optimization Experiments"
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        643.0,
+        564.0,
+        701.0
+      ],
+      "markdown": "We simulate a stochastic bicycle model with acceleration and steering rate inputs. We denote $\\mathbf{x}_t=[ x_0, x_1, x_2, x_3, x_4]^T$ as the state vector, $\\mathbf{u}_t=[u_0, u_1]^T$ as the control vector, $l = 0.33$ as the wheel base, and $\\boldsymbol{\\Gamma} = diag(\\left[0.001, 0.001, 0.1, 0.2, 0.001\\right])$ as the covariance."
+    },
+    {
+      "id": "p0005-b018",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        705.0,
+        569.0,
+        754.0
+      ],
+      "markdown": "$$\\begin{aligned} \\mathbf{x}_{t+1} &\\sim p(\\cdot | \\mathbf{x}_t, \\mathbf{u}_t) \\triangleq \\mathbf{x}_t + \\left(f(\\mathbf{x}_t, \\mathbf{u}_t) + \\boldsymbol{\\omega} \\right) \\Delta t \\\\ f(\\mathbf{x}_t, \\mathbf{u}_t) &= [x_3\\cos(x_2), x_3\\sin(x_2), x_3\\tan(x_4) / l, u_0, u_1] \\\\ \\boldsymbol{\\omega} &\\sim \\mathcal{N}(\\cdot | \\mathbf{0}, \\boldsymbol{\\Gamma}) \\end{aligned} \\tag{12}$$"
+    }
+  ]
+}

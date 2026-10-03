@@ -1,0 +1,233 @@
+% \newcommand{\states}{S}
+\newcommand{\statee}{s}
+\newcommand{\dplstate}{\hat{s}}
+\newcommand{\dplstates}{\hat{S}}
+\newcommand{\action}{a}
+\newcommand{\maction}{\hat{a}}
+\newcommand{\actions}{A}
+\newcommand{\mactions}{\hat{A}}
+\newcommand{\policy}{\pi}
+\newcommand{\reward}{r}
+\newcommand{\trainingmodel}{\mathcal{M}_\mathrm{trn}}
+\newcommand{\deploymentmodel}{\mathcal{M}_\mathrm{dep}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\numlayers}{L}
+\newcommand{\nnparams}{\mathbf{\theta}}
+\newcommand{\gaussian}{\mathcal{N}}
+% \newcommand{\State}{s}
+\newcommand{\pl}{\left(}
+\newcommand{\pr}{\right)}
+% \newcommand{\States}{S}
+\newcommand{\Actions}{A}
+\newcommand{\Transitions}{T}
+\newcommand{\Action}{a}
+\newcommand{\model}{M}
+\newcommand{\param}{\mathbf{\theta}}
+\newcommand{\paramtrn}{\mathbf{\theta}_{trn}}
+\newcommand{\paramdpl}{\mathbf{\theta}_{dpl}}
+\newcommand{\paramtrnfirst}{\mathbf{\theta}_{trn,1}}
+\newcommand{\paramtrnsec}{\mathbf{\theta}_{trn,2}}
+\newcommand{\paramdplfirst}{\mathbf{\theta}_{dpl,1}}
+\newcommand{\paramdplsec}{\mathbf{\theta}_{dpl,2}}
+\newcommand{\parammodel}{\widehat{\model}(\param)}
+\newcommand{\parammodeltrn}{\widehat{\model}_{trn}(\param_{trn})}
+\newcommand{\parammodeldpl}{\widehat{\model}_{dpl}(\param_{dpl})}
+\newcommand{\paramtransitions}{\widehat{\Transitions}}
+\newcommand{\optimtrajectory}{\mathcal{T}}
+\newcommand{\Horizon}{\mathsf{H}}
+\newcommand{\horizon}{\mathrm{K}}
+\newcommand{\timeid}{k}
+\newcommand{\init}{\mathcal{I}}
+\newcommand{\rob}{\rho}
+\newcommand{\traj}{\sigma}
+\newcommand{\trajsim}{\traj^{\mathsf{sim}}}
+% \newcommand{\ressim}{\rho^{\mathsf{sim}}}
+% \newcommand{\resreal}{\rho^{\mathsf{real}}}
+% \newcommand{\resmapsim}{\rho^{\mathsf{sim}}}
+% \newcommand{\resmapreal}{\rho^{\mathsf{real}}}
+% \newcommand{\errsim}[1]{R^{\mathsf{sim}, #1}}
+% \newcommand{\errreal}[1]{R^{\mathsf{real}, #1}}
+% \newcommand{\errmapsim}[1]{r^{\mathsf{sim}, #1}}
+% \newcommand{\errrmapeal}[1]{r^{\mathsf{real}, #1}}
+\newcommand{\ressim}{\rho}
+\newcommand{\resreal}{\rho}
+\newcommand{\resmapsim}{\rho}
+\newcommand{\resmapreal}{\rho}
+\newcommand{\errsim}[1]{R^{#1}}
+\newcommand{\errreal}[1]{R^{#1}}
+\newcommand{\errmapsim}[1]{r^{#1}}
+\newcommand{\errrmapeal}[1]{r^{#1}}
+\newcommand{\trajsimseg}[1]{\traj^{\mathsf{sim} , #1}}
+\newcommand{\PE}{\mathsf{PE}}
+% \newcommand{\PEreal}{\mathsf{PE}^{\mathsf{real}}}
+% \newcommand{\PEsim}{\mathsf{PE}^{\mathsf{sim}}}
+% \newcommand{\PErealseg}[1]{\mathsf{PE}^{\mathsf{real, #1}}}
+% \newcommand{\PEsimseg}[1]{\mathsf{PE}^{\mathsf{sim, #1}}}
+\newcommand{\PEreal}{\mathsf{PE}}
+\newcommand{\PEsim}{\mathsf{PE}}
+\newcommand{\PErealseg}[1]{\mathsf{PE}^{#1}}
+\newcommand{\PEsimseg}[1]{\mathsf{PE}^{#1}}
+\newcommand{\eigvecseg}[1]{\mathsf{V}^{ #1}}
+\newcommand{\trajreal}{\traj^{\mathsf{real}}}
+\newcommand{\dynamics}{\mathsf{f}}
+\newcommand{\relu}{\mathsf{ReLU}}
+\newcommand{\ch}{\mathsf{Convex\!\!-\!\!Hull}}
+\newcommand{\stltonn}{\mathsf{STL2NN}}
+\newcommand{\var}{\mathsf{VaR}_{\delta}}
+\newcommand{\cvar}{\mathsf{CVaR}_{\delta}}
+\newcommand{\risk}{\mathsf{R}_{\delta}}
+\newcommand{\zon}{\mathsf{Zonotope}}
+% \newcommand{\residuals}{\mathcal{R}}
+% \newcommand{\residuals}{\mathcal{R}_{\states_\timeid}^{i,N},\ i \in [n]}
+\newcommand{\residuals}{\mathcal{R}_{\timeid}^{i},\ i \in [n]}
+\newcommand{\retosiduals}{\mathcal{R}_{D_{\text{stat}}}}
+\newcommand{\predbarrier}{\mu}
+\newcommand{\overallf}{\mathcal{F}}
+\newcommand{\controls}{\mathcal{C}}
+\newcommand{\posreals}{\mathbb{R}^{\ge 0}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\posint}{\integers^{\ge 0}}
+\newcommand{\pposint}{\integers^{> 0}}
+\newcommand{\deltareal}{\delta^{\mathsf{real}}}
+\newcommand{\taureal}{\tau^{\mathsf{real}}}
+\newcommand{\control}{\mathbf{u}}
+\newcommand{\noise}{\mathbf{w}}
+\newcommand{\normal}{\mathcal{N}}
+\newcommand{\sampledinits}{\widehat{\init}}
+\newcommand{\horizonCont}{T}
+\newcommand{\sigmoid}{\mathrm{sigmoid}}
+\newcommand{\expectedvalue}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\expectedvalueover}[2]{\underset{#1}{\mathbb{E}}\left[#2\right]}
+\newcommand{\uniformdist}{\mathcal{U}}
+\newcommand{\alw}{\mathbf{G}}
+\newcommand{\ev}{\mathbf{F}}
+\newcommand{\unt}{\mathbf{U}}
+\newcommand{\intvl}{I}
+\newcommand{\contsysf}{\mathbf{\bar f}}
+\newcommand{\contsysg}{\mathbf{\bar g}}
+\newcommand{\contstate}{\mathbf{x}}
+\newcommand{\NN}{\eta}
+% {\mathbf{u}}
+\newcommand{\bool}{\mathbf{\beta}}
+\newcommand{\nextt}{\mathbf{X}}
+\newcommand{\transpose}[1]{{#1}^{\top}}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\twonorm}[1]{\norm{#1}_2}
+
+\newcommand{\barrier}{b}
+\newcommand{\barrierof}[1]{\barrier_{#1}}
+\newcommand{\zerolevelset}{B}
+\newcommand{\dmax}{\displaystyle\max}
+\newcommand{\selector}{\mathsf{sel}}
+\newcommand{\horiz}{\mathsf{H}}
+\newcommand{\thenode}{\mathsf{Node}}
+\newcommand{\minmax}{\mathsf{MinMaxNode}}
+
+
+
+% \newtheorem{definition}{Definition}
+
+
+
+% Environments
+% \newtheorem{remarks}{Remarks}
+% \newtheorem{remark}{Remark}
+% \newtheorem{example}{Example}    
+% \newtheorem{corollary}{Corollary}
+% \newtheorem{proposition}{Proposition}    
+\newtheorem{assumption}{Assumption}    
+\newtheorem{problem}{Problem}    
+
+% Sets of numbers
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+
+% Vectors
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bd}{\mathbf{d}}
+\newcommand{\xbar}{\bar{\x}}
+\newcommand{\be}{\mathbf{e}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bE}{\mathbf{E}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bM}{\mathbf{M}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bB}{\mathbf{B}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\dist}{\trajdist^{\mathsf{real}}}
+\newcommand{\distzero}{\trajdist^{\mathsf{sim}}}
+\newcommand{\distR}{\trajdistR^{\mathsf{real}}}
+\newcommand{\distzeroR}{\trajdistR^{\mathsf{sim}}}
+\newcommand{\loss}{\mathcal{L}}
+\newcommand{\Wsim}{\mathcal{W}^{\mathsf{sim}}}
+\newcommand{\trajdataset}{\mathcal{T}}
+\newcommand{\traindataset}{\trajdataset^{\mathsf{trn}}}
+\newcommand{\tv}{\mathsf{TV}}
+
+\newcommand{\calibdataset}{\mathcal{R}^{\mathsf{calib}}}
+\newcommand{\lpdataset}{\mathcal{T}^{\mathsf{LP}}}
+
+% Optimization operators/notation
+% \DeclareMathOperator*{\argmax}{arg\,max}
+% \DeclareMathOperator*{\argmin}{arg\,min}
+
+% Functions
+% \newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+
+\newcommand{\mypara}[1]{\vspace{0.3em} \noindent{\bf #1}.}  
+
+\newcommand{\myipara}[1]{\vspace{0.3em} \noindent{\em #1}.} 
+
+% Operators
+\newcommand{\id}{\text{Id}}
+\newcommand{\prox}{\text{prox}}
+
+% For this paper
+\newcommand{\Lsq}{L_{\text{sq}}}
+\newcommand{\singstate}{
+    \begin{bmatrix}
+        \x^0 - \xbar^0 \\ \x^1 - \xbar^1
+    \end{bmatrix}
+}
+
+\def\dom{\mathrm{dom}}
+
+\def\relu{\mathrm{ReLU}}
+
+
+% \newcommand{\specialcell}[2][c]{%
+% 	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+	
+
+\newcommand{\randvar}{r}
+\newcommand{\avg}[1]{\mu_{#1}}
+% \newcommmand{\variance}[1]{\Sigma_{#1}}
+\newcommand{\vx}{\mathbf{x}}
+
+\newcommand{\jyo}[1]{\textcolor{red}{Jyo: #1}}
+\newcommand{\navid}[1]{\textcolor{black}{#1}}
+\newcommand{\navidd}[1]{\textcolor{black}{#1}}
+\newcommand{\navidg}[1]{\textcolor{black}{#1}}
+
+
+% \newcommand{\reals}{\mathbb{R}}
+% \newcommand{\init}{\mathrm{init}}
+\newcommand{\distinit}{\mathcal{W}}
+\newcommand{\states}{\mathcal{S}}
+% \newcommand{\Sinit}{\states_\init}
+\newcommand{\Statee}{S}
+\newcommand{\trajdist}{\mathcal{D}_{\Statee,\horizon}}
+\newcommand{\trajdistR}{\mathcal{J}_{\Statee,\horizon}}
+
+
+
+\newcommand{\smallerfont}{\fontsize{8.3}{10}\selectfont}

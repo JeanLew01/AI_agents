@@ -1,0 +1,39 @@
+from pagelib import *
+
+items = [
+    header(10),
+    figure("p0010-b001", [85.0, 87.0, 355.0, 205.0], "Figure 5", "figure-5"),
+    caption("p0010-b002", [359.0, 92.0, 523.0, 198.0],
+            r"Figure 5: Rocket Landing: outlier-adjusted (blue) and baseline (grey) results. (Left) Slice of the neural BRTs achieving $\epsilon=10^{-4}$ (99.990% safety). (Right) The outlier-adjusted approach increases the safe volume from 0.334 to 0.366 (9.58% increase)."),
+    text("p0010-b003", [89.0, 220.0, 523.0, 299.0],
+         r"landing zone while avoiding the no-go zones. An analogous HJI-VI to the one in Section 3.1 can be derived for this case, whose solution can be computed using DeepReach. However, since reach-avoid problems are more complex than just the reach or avoid problem, the DeepReach solution results in a poor safety volume. In fact, *no* safe volume can be recovered with the desired safety level of $\epsilon \le 10^{-4}$. In contrast, we can recover a sizable safe volume using the outlier-adjusted approach, as shown in Figure 6. These examples highlight the utility of the proposed approach.",
+         join_previous="space"),
+    figure("p0010-b004", [85.0, 304.0, 355.0, 423.0], "Figure 6", "figure-6"),
+    caption("p0010-b005", [359.0, 324.0, 523.0, 414.0],
+            r"Figure 6: Rocket Landing with No-Go Zones: outlier-adjusted (blue) and baseline (grey) results. (Left) Slice of the neural BRTs achieving $\epsilon=10^{-4}$ (99.990% safety). (Right) The outlier-adjusted approach increases the safe volume from 0 to 0.19."),
+    heading("p0010-b006", [90.0, 448.0, 251.0, 458.0], "## 7. Discussion and Future Work"),
+    text("p0010-b007", [90.0, 465.0, 523.0, 652.0],
+         "In this work, we propose two different verification methods, based on robust scenario optimization and conformal prediction, to provide probabilistic safety guarantees for neural reachable tubes. Our methods allow a direct trade-off between resilience to outlier errors in the neural tube, which are inevitable in a learning-based approach, and the strength of the probabilistic safety guarantee. Furthermore, we show that split conformal prediction, a widely used method in the machine learning community for uncertainty quantification, reduces to a scenario-based approach, making the two methods equivalent not only for verification of neural reachable tubes but also more generally. We hope that our proof will lead to future insights into the close relationship between the highly related but disparate fields of conformal prediction and scenario optimization. Finally, we propose an outlier-adjusted verification approach that harnesses information about the error distribution in neural reachable tubes to recover greater safe volumes. We demonstrate the efficacy of the proposed approaches for the high-dimensional problems of multi-vehicle collision avoidance and rocket landing with no-go zones. Altogether, these are important steps toward using learning-based reachability methods to compute safety assurances for high-dimensional systems in the real world."),
+    text("p0010-b008", [90.0, 654.0, 523.0, 706.0],
+         "In the future, we will explore how the key idea of the outlier-adjusted verification approach, using cost labels as a supervised learning signal, can be used to enhance the accuracy of learning-based reachability methods like DeepReach. Other directions include providing safety assurances in the presence of worst-case disturbances and in real-time for tubes that are generated online."),
+    pageno(10, "p0010-b009", [301.0, 726.0, 311.0, 733.0]),
+]
+
+save(10, items, r"""
+Compared the whole page with the 130 dpi render, with 200 dpi crops of Figures 5 and 6 taken with a margin (to check the
+crop edges) and with sections/outlier-adjusted_approach.tex and sections/conclusion.tex. Figure 5 (Section 6.2) is printed
+at the top of this page, in the middle of the sentence that runs from page 9 to this page; in plan.json reading_order the
+figure and its caption follow the Section 6.2 paragraph of page 9, and the text item 'landing zone while avoiding ...'
+continues the last sentence of page 9 (join_previous 'space', resolved in reading order). Figures 5 and 6 are each one
+image with panels (a) and (b) left of the caption; the boxes contain the panel titles ('v_y = -200, v_x = 150' and
+'v_y = -200, v_x = 50', 'Fixed N = ~3.7M'), legends, axis and tick labels and the annotations ('Vol. = 0.334',
+'Vol. = 0.366', 'Vol. = 0.19', '99.990% safety'). The Figure 5 caption had been extracted as plain text with broken
+hyphens ('outlieradjusted') and the Figure 6 caption with 'NoGo'; both are caption items transcribed from the TeX source
+and compared with the page ('outlier-adjusted' and 'No-Go' are real hyphens broken at line ends). Percentages and plain
+numbers are plain text (99.990%, 9.58%, 0.334, 0.366, 0.19, '0 to 0.19'); eps = 10^{-4} and eps <= 10^{-4} are LaTeX.
+Kept as printed: 'HJI-VI' in Section 6.3 (Section 3.1 introduces the abbreviation 'HJB-VI'), 'poor safety volume',
+'in real-time'. Heading 7 is level 2 (the extractor had level 1). Line-wrap hyphens removed (Fur-thermore, re-lated,
+land-ing, in-crease); real hyphens kept (no-go, reach-avoid, outlier-adjusted, trade-off, learning-based, scenario-based,
+high-dimensional, multi-vehicle, worst-case, real-time; 'learning-' at a line end is the real hyphen of learning-based).
+Omitted: running header and page number.
+""")

@@ -1,0 +1,157 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 130 dpi render and a 190 dpi crop of PDF page 4, and with sections/PSandprelim.tex and sections/verification.tex. The first item continues the sentence from page 3 ('Training such a K-step | predictive model ...') with join_previous 'space'. All inline and display mathematics rewritten in LaTeX from the TeX source with macros expanded and checked symbol by symbol against the crop; TeX and PDF agree. The four extractor 'formula' image items were replaced by $$ text items; only the two displays with printed numbers carry \\tag: (1) the problem statement $\\Pr[\\sigma_{s_0}\\in X]\\ge 1-\\varepsilon$ and (2) the definition of a $\\Delta$-confident flowpipe; the two conformal inference displays are unnumbered. Changes of notation that do not change the printed symbols: \\hdots written \\ldots, $R^*$ written $R^{\\ast}$ (two asterisks in one paragraph would pair as Markdown emphasis). The authors type absolute values with \\mid ('$R_i=\\mid y_i-\\mu(x_i)\\mid$'), which is kept. Run-in bold paragraph titles 'Conformal Inference.' and 'Problem Definition.' start their paragraphs in bold (not section headings). 'Definition 1 ($\\Delta$-confident flowpipe).' is printed with bold 'Definition 1', an upright parenthesis and a bold full stop; the whole label is given in bold. Definition 1 ends with display (2), which has no final full stop (end of the definition environment in the TeX source); its italic body is not reproduced in italics. Citations checked on the page: [22, 23, 29], [30–32], [33, Lemma 1]. Line-wrap hyphens removed in 'quantification' (twice); 'data-generating', 'non-decreasing', '$\\ell$-th' are printed compounds. 'a user provided failure probability threshold' has no hyphen in the source. Section heading '3 Scalable Data-Driven Reachability' is level 2.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        151.0
+      ],
+      "markdown": "predictive model can be difficult, especially when the dynamics are nonlinear. Hence, in practice, we train models that take as input trajectory fragments to predict future trajectory fragments and then sequentially compose such models to obtain a longer predicted trajectory. We remark that this does not affect the probabilistic reasoning that we perform later in the paper as the entire predictive model can still be treated as a deterministic map that takes as input the initial state $s_0$ and outputs a $\\mathrm{K}$-step predicted trajectory.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        153.0,
+        541.0,
+        257.0
+      ],
+      "markdown": "**Conformal Inference.** Conformal inference [22, 23, 29] is a statistical tool for uncertainty quantification that has recently been used for analysing the uncertainty in the predictions performed by complex machine learning models [30–32]. Conformal inference/prediction performs error quantification without making any assumption on the underlying data-generating distribution or the machine learning model. Consider a regression model $\\mu$ and the random variables $z_1,z_2,...,z_{m+1}$ where $z_i=(x_i,y_i) \\in \\mathbb{R}^n \\times \\mathbb{R}$ with $i\\in [m + 1]$ which are all independently sampled from the same distribution. Given a miscoverage level $\\alpha \\in (0, 1)$, conformal inference enables us to compute a prediction interval $C(x_{m+1})=[\\mu(x_{m+1})-R^{\\ast},\\ \\mu(x_{m+1})+R^{\\ast}] \\subset \\mathbb{R}$ from $z_1,z_2,...,z_{m}$ such that,"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        230.0,
+        264.0,
+        382.0,
+        286.0
+      ],
+      "markdown": "$$\n\\Pr[ y_{m+1} \\in C(x_{m+1})] \\geq 1- \\alpha.\n$$"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        293.0,
+        540.0,
+        370.0
+      ],
+      "markdown": "More formally, define the residual $R_i=\\mid y_i-\\mu(x_i) \\mid$ for all $z_i$ with $i\\in [m + 1]$. Since the random variables $z_1,z_2,...,z_{m+1}$ are independent and identically distributed, the same applies to the residual $R_1,\\ldots, R_{m+1}$. Under the assumption that $m$ satisfies $\\ell=\\lceil (m+1)(1-\\alpha)\\rceil\\le m$, it holds that $R^{\\ast}$ can be chosen to be the $\\ell$-th smallest residual [33, Lemma 1]. Without loss of generality, if $R_1,\\ldots, R_{m}$ are sorted in non-decreasing order, then $R^{\\ast}=R_\\ell$ and it holds that $\\Pr[ R_{m+1} \\leq R^{\\ast}] \\geq (1-\\alpha)$. By the choice of the residual, it hence holds that"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        174.0,
+        375.0,
+        438.0,
+        406.0
+      ],
+      "markdown": "$$\n\\Pr\\Big[ y_{m+1} \\in [\\mu(x_{m+1})-R^{\\ast},\\ \\mu(x_{m+1})+R^{\\ast}] \\Big] \\geq 1-\\alpha.\n$$"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        411.0,
+        339.0,
+        422.0
+      ],
+      "markdown": "We also refer to $\\delta = 1-\\alpha$ as the confidence probability."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        425.0,
+        541.0,
+        491.0
+      ],
+      "markdown": "**Problem Definition.** Our probabilistic reachability analysis can be formally stated as follows. Given the stochastic dynamical system $M$ with initial state $s_0 \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$ and trajectory distribution $\\mathcal{S}$, training and test datasets $D_{\\text{train}}$ and $D_{\\text{test}}$ consisting of $\\mathrm{K}$-step trajectories independently sampled from $M$, and a user provided failure probability threshold $\\varepsilon \\in (0,1)$, compute a probabilistic reach set (also called flowpipe) $X$ such that:"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        252.0,
+        498.0,
+        545.0,
+        520.0
+      ],
+      "markdown": "$$\n\\Pr\\left[ \\sigma_{s_0} \\in X \\right] \\geq 1-\\varepsilon \\tag{1}\n$$"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        535.0,
+        335.0,
+        549.0
+      ],
+      "markdown": "## 3 Scalable Data-Driven Reachability"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        562.0,
+        540.0,
+        614.0
+      ],
+      "markdown": "In the setting described in the previous section, we now show how to compute a reach set or a flowpipe $X\\subset \\mathbb{R}^{n(\\mathrm{K}+1)}$ using reachability analysis and conformal inference. This flowpipe will contain the trajectory $\\sigma_{s_0}$ of $M$ sampled with initial state $s_0 \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$ with the confidence level of $\\Delta = 1-\\varepsilon$. We hence denote this flowpipe as $\\Delta$-confident flowpipe and define it as follows."
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        625.0,
+        540.0,
+        654.0
+      ],
+      "markdown": "**Definition 1 ($\\Delta$-confident flowpipe).** For a given confidence probability $\\Delta\\in (0,\\ 1)$ and a random trajectory $\\sigma_{s_0} \\sim \\mathcal{S}$ with initial state $s_{0} \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$, we say that $X \\subset \\mathbb{R}^{n(\\mathrm{K}+1)}$ is a $\\Delta$-confident flowpipe if"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        261.0,
+        660.0,
+        545.0,
+        682.0
+      ],
+      "markdown": "$$\n\\Pr[\\sigma_{s_0} \\in X ] \\geq \\Delta \\tag{2}\n$$"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        720.0
+      ],
+      "markdown": "4",
+      "reason": "Printed page number '4' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

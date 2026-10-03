@@ -1,0 +1,191 @@
+{
+  "validator": "paper2agent-workflow",
+  "schema_version": 1,
+  "success": true,
+  "through": "complete",
+  "errors": [],
+  "passed_assignments": [
+    {
+      "role": "environment",
+      "task": "project",
+      "run_id": "environment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "filters_tests",
+      "run_id": "execute-filters-tests-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "gaussian_mixture_demo",
+      "run_id": "execute-gaussian-mixture-demo-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "gms_baselines_experiment",
+      "run_id": "execute-gms-baselines-experiment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "gms_diffusion_experiment",
+      "run_id": "execute-gms-diffusion-experiment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "gms_gumbel_experiment",
+      "run_id": "execute-gms-gumbel-experiment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "gms_soft_experiment",
+      "run_id": "execute-gms-soft-experiment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "lgssm_diffusion_experiment",
+      "run_id": "execute-lgssm-diffusion-experiment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "lgssm_gradient_demo",
+      "run_id": "execute-lgssm-gradient-demo-attempt-1"
+    },
+    {
+      "role": "implementer",
+      "task": "feynman_kac",
+      "run_id": "implement-feynman-kac-attempt-1"
+    },
+    {
+      "role": "implementer",
+      "task": "gaussian_filters",
+      "run_id": "implement-gaussian-filters-attempt-1"
+    },
+    {
+      "role": "implementer",
+      "task": "resampling",
+      "run_id": "implement-resampling-attempt-1"
+    },
+    {
+      "role": "scanner",
+      "task": "project",
+      "run_id": "scanner-attempt-1"
+    },
+    {
+      "role": "verifier",
+      "task": "feynman_kac",
+      "run_id": "verify-feynman-kac-attempt-1"
+    },
+    {
+      "role": "verifier",
+      "task": "gaussian_filters",
+      "run_id": "verify-gaussian-filters-attempt-1"
+    },
+    {
+      "role": "verifier",
+      "task": "resampling",
+      "run_id": "verify-resampling-attempt-1"
+    }
+  ],
+  "exclusions": [
+    {
+      "kind": "tutorial",
+      "id": "resampling_tests",
+      "reason": "Memory: tests/test_resampling.py hard-codes n=10,000 float64 samples and builds several 10,000 x 10,000 arrays (about 0.8 GB each). The environment manager ran it through the guarded launcher: whole file killed by the 1200 MB scope limit; per test at 1900 MB, test_diffres_versions passed and 5 tests were OOM-killed; the remaining tests were refused for low free memory. The file has no size parameter. A safe run would need a limit of 3 GB or more, which on this 7.5 GB WSL host (two WSL freezes on 2026-10-02) is not permitted. Resampling references come instead from demos/gaussian_mixture.ipynb (n=1024) and single-seed runs of experiments/gms/{diffusion,baselines,soft,gumbel}.py at nsamples=1000; independent verifiers compare wrappers with direct upstream calls.",
+      "at": "2026-10-03T00:47:00Z",
+      "report": "reports/exclusions/resampling-tests.json",
+      "report_sha256": "10086611251b730b7025ac93ef0706862f15ac3b0869444609f88d4a91cc72fc"
+    }
+  ],
+  "scope": "Validates recorded state and artifact consistency; does not authenticate host identities or establish numerical/scientific correctness.",
+  "expected_assignments": [
+    {
+      "role": "environment",
+      "task": "project"
+    },
+    {
+      "role": "executor",
+      "task": "filters_tests"
+    },
+    {
+      "role": "executor",
+      "task": "gaussian_mixture_demo"
+    },
+    {
+      "role": "executor",
+      "task": "gms_baselines_experiment"
+    },
+    {
+      "role": "executor",
+      "task": "gms_diffusion_experiment"
+    },
+    {
+      "role": "executor",
+      "task": "gms_gumbel_experiment"
+    },
+    {
+      "role": "executor",
+      "task": "gms_soft_experiment"
+    },
+    {
+      "role": "executor",
+      "task": "lgssm_diffusion_experiment"
+    },
+    {
+      "role": "executor",
+      "task": "lgssm_gradient_demo"
+    },
+    {
+      "role": "implementer",
+      "task": "feynman_kac"
+    },
+    {
+      "role": "implementer",
+      "task": "gaussian_filters"
+    },
+    {
+      "role": "implementer",
+      "task": "resampling"
+    },
+    {
+      "role": "scanner",
+      "task": "project"
+    },
+    {
+      "role": "verifier",
+      "task": "feynman_kac"
+    },
+    {
+      "role": "verifier",
+      "task": "gaussian_filters"
+    },
+    {
+      "role": "verifier",
+      "task": "resampling"
+    }
+  ],
+  "active_tutorials": [
+    "filters_tests",
+    "gaussian_mixture_demo",
+    "gms_baselines_experiment",
+    "gms_diffusion_experiment",
+    "gms_gumbel_experiment",
+    "gms_soft_experiment",
+    "lgssm_diffusion_experiment",
+    "lgssm_gradient_demo"
+  ],
+  "active_modules": [
+    "feynman_kac",
+    "gaussian_filters",
+    "resampling"
+  ],
+  "exposed_tools": [
+    "diffres_resample_particles_baseline",
+    "diffres_resample_particles_diffusion",
+    "diffres_run_lgssm_kalman_filter",
+    "diffres_run_lgssm_particle_filter",
+    "diffres_simulate_lgssm_data"
+  ],
+  "completion_files_checked": 9,
+  "project_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres",
+  "state": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/reports/agent-runs.json"
+}

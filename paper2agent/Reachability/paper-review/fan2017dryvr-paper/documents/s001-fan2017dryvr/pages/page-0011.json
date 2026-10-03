@@ -1,0 +1,135 @@
+{
+  "page": 11,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0011.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 190-dpi render of the text block, a 420-dpi crop of the top of the page (PED formula), and algo.tex. PAGE BREAK: the page starts with the right-hand side '$|\\tau_1(t_{i-1}) - \\tau_2(t_{i-1})| Ke^{\\gamma_i t}$' of the PED condition; that formula was moved to the end of page 10 so that the inequality is in one piece, and the first item here starts with the period that follows it (join_previous 'none'). The extractor 'formula' image was replaced by a LaTeX display from the TeX, checked on the 420-dpi crop (no printed equation number): $\\beta(x_1,x_2,t) = |x_1 - x_2| Ke^{\\sum_{j=1}^{i-1}\\gamma_j(t_j - t_{j-1}) + \\gamma_i (t-t_{i-1})}$ 'for $t \\in [t_{i-1},t_i]$'. As printed, the PED condition on page 10 has the exponent $\\gamma_i t$ (not $\\gamma_i (t - t_{i-1})$) and the single constant $K$. '3.1.3 Experiments on learning discrepancy' is a numbered sub-subsection (####); '3.2 Verification algorithm' a numbered subsection (###). Extractor damage fixed: '1020' -> '10-20' (printed '10-' at a line end followed by '20'; the TeX has '10-20'). Numbers kept as plain text as printed: '10-20', '100-10000', '1000', '96%', '99.9%'. Inline math from the TeX with macros expanded and checked on the render: sans-serif subscripts $S_{\\mathsf{train}}$, $S_{\\mathsf{test}}$, $S_{\\mathsf{init}}$, $v_{\\mathsf{init}}$; italic names $\\mathit{GraphReach}$, $\\mathit{VerInit}$, $\\mathit{LearnDiscrepancy}$, $\\mathit{ReachComp}$, $\\mathit{Order}$, $\\mathit{curv}$, $\\mathit{dt}$; $RS$, $RT$, $ptr$ in plain math italics; 'Ł' for \\L as printed. Em dashes around 'one for each vertex of $G$' are printed. Authors' wording kept: 'simulations traces', 'every pair of trace', 'of the points $S_{test}$ in and for', 'upto', 'data-structures'. References as printed: 'Equation 1', 'Algorithm 1', 'Section 3.1', 'Line 1', citation [22]. The last paragraph continues on page 12. Omitted: page number 11.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0011-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        126.0,
+        478.0,
+        149.0
+      ],
+      "markdown": ". Under such circumstances, the discrepancy function itself can be seen to be given as",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0011-b001",
+      "kind": "text",
+      "bbox": [
+        146.0,
+        153.0,
+        465.0,
+        178.0
+      ],
+      "markdown": "$$\\beta(x_1,x_2,t) = |x_1 - x_2| Ke^{\\sum_{j=1}^{i-1}\\gamma_j(t_j - t_{j-1}) + \\gamma_i (t-t_{i-1})} \\qquad \\text{for } t \\in [t_{i-1},t_i].$$"
+    },
+    {
+      "id": "p0011-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        183.0,
+        478.0,
+        272.0
+      ],
+      "markdown": "If the time points $0 = t_0,t_1,\\ldots t_N = T$ are fixed, then the constants $K, \\gamma_1, \\gamma_2, \\ldots \\gamma_N$ can be discovered using the learning approach described for GED; here, to discover $\\gamma_i$, we take $\\Gamma_i$ to be the pairs obtained by restricting the trajectories to be between times $t_{i-1}$ and $t_i$. The sequence of time points $t_i$ are also dynamically constructed by our algorithm based on the following approach. Our experience suggests that a value for $\\gamma$ that is $\\geq 2$ results in very conservative reach tube computation. Therefore, the time points $t_i$ are constructed inductively to be as large as possible, while ensuring that $\\gamma_i < 2$."
+    },
+    {
+      "id": "p0011-b003",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        277.0,
+        355.0,
+        287.0
+      ],
+      "markdown": "#### 3.1.3 Experiments on learning discrepancy"
+    },
+    {
+      "id": "p0011-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        295.0,
+        478.0,
+        428.0
+      ],
+      "markdown": "We used the above algorithm to learn discrepancy functions for dozens of modes with complex, nonlinear trajectories. Our experiments suggest that around 10-20 simulation traces are adequate for computing both global and piece-wise discrepancy functions. For each mode we use a set $S_{\\mathsf{train}}$ of simulation traces that start from independently drawn random initial states in $\\mathcal{TL}_{\\mathsf{init},\\ell}$ to learn a discrepancy function. Each trace may have 100-10000 time points, depending on the relevant time horizon and sample times. Then we draw another set $S_{\\mathsf{test}}$ of 1000 simulations traces for validating the computed discrepancy. For every pair of trace in $S_{\\mathsf{test}}$ and for every time point, we check whether the computed discrepancy satisfies Equation 1. We observe that for $|S_{\\mathsf{train}}| > 10$ the computed discrepancy function is correct for 96% of the points $S_{\\mathsf{test}}$ in and for $|S_{\\mathsf{train}}| > 20$ it is correct for more than 99.9%, across all experiments."
+    },
+    {
+      "id": "p0011-b005",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        444.0,
+        294.0,
+        456.0
+      ],
+      "markdown": "### 3.2 Verification algorithm"
+    },
+    {
+      "id": "p0011-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        463.0,
+        478.0,
+        518.0
+      ],
+      "markdown": "In this section, we present algorithms to solve the bounded verification problem for hybrid systems using learned exponential discrepancy functions. We first introduce an algorithm $\\mathit{GraphReach}$ (Algorithm 1) which takes as input a hybrid system $\\mathcal{H} = \\langle \\text{Ł}, \\Theta, G, \\mathcal{TL} \\rangle$ and returns a set of reachtubes—one for each vertex of $G$—such that their union over-approximates $\\mathsf{ReachTube}_{\\mathcal{H}}$."
+    },
+    {
+      "id": "p0011-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        519.0,
+        478.0,
+        575.0
+      ],
+      "markdown": "$\\mathit{GraphReach}$ maintains two data-structures: (a) $RS$ accumulates pairs of the form $\\langle RT, v\\rangle$, where $v \\in \\mathcal{V}$ and $RT$ is its corresponding reachtube; (b) $\\mathit{VerInit}$ accumulates pairs of the form $\\langle S, v \\rangle$, where $v \\in \\mathcal{V}$ and $S\\subset \\mathbb{R}^n$ is the set of states from which the reachtube in $v$ is to be computed. Each $v$ could be in multiple such pairs in $RS$ and $\\mathit{VerInit}$. Initially, $RS = \\emptyset$ and $\\mathit{VerInit} = \\{\\langle \\Theta, v_{\\mathsf{init}}\\rangle\\}$."
+    },
+    {
+      "id": "p0011-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        575.0,
+        478.0,
+        631.0
+      ],
+      "markdown": "$\\mathit{LearnDiscrepancy}(S_{\\mathsf{init}},d,\\ell)$ computes the discrepancy function for mode $\\ell$, from initial set $S_{\\mathsf{init}}$ and upto time $d$ using the algorithm of Section 3.1. $\\mathit{ReachComp}(S_{\\mathsf{init}},d,\\beta)$ first generates finite simulation traces from $S_{\\mathsf{init}}$ and then bloats the traces to compute a reachtube using the discrepancy function $\\beta$. This step is similar to the algorithm for dynamical systems given in [22]."
+    },
+    {
+      "id": "p0011-b009",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        632.0,
+        478.0,
+        673.0
+      ],
+      "markdown": "The $\\mathit{GraphReach}$ algorithm proceeds as follows: first, a topologically sorted array of the vertices of the DAG $G$ is computed in $\\mathit{Order}$ (Line 1). The pointer $ptr$ iterates over the $\\mathit{Order}$ and for each vertex $\\mathit{curv}$ the following is computed. The variable $\\mathit{dt}$ is set to the maximum transition time to other vertices from"
+    },
+    {
+      "id": "p0011-pageno",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        695.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "11",
+      "reason": "Printed page number 11 centred at the foot of the page; page furniture, checked on the page render."
+    }
+  ]
+}

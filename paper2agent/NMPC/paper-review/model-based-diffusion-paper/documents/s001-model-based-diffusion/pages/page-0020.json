@@ -1,0 +1,159 @@
+{
+  "page": 20,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0020.png",
+  "reviewed": true,
+  "review_notes": "[v2] Rest of A.4 with Figure 6, start of A.5 / A.5.1 (task list items 1-4). Re-examined from the preview, a 220-dpi crop of caption and A.4 text (y 205-480), a 170-dpi crop of A.5 (y 480-735) and three crops of Figure 6 (220 dpi with a 10 pt margin, 150 dpi of the old box, 220 dpi of the final box); text and maths taken from 90appendix.tex lines 237-268 and compared with the crops; no TeX/PDF difference found on this page. Reading order: the page starts with the paragraph 'where demonstrate likelihood term ...', which continues the sentence of display (32) on page 19 (the previous item is a $$ block, so no join_previous, per the coordinator's convention); then the top-of-page float Figure 6 with its caption; then the remaining prose. Version-2 changes: all inline maths rewritten in LaTeX (HTML sub/sup and '/'-style fractions removed): the printed stacked fractions for $\\bar{Y}^{(0)}$ and the score function are \\frac{...}{...} again, $w_{\\text{demo}}$, $w_{\\text{model}}$, $p_J(\\cdot)$, $p(Y^{(0)}|Y_{\\text{demo}}) \\propto p_0(Y^{(0)}) p_{\\text{demo}}(Y^{(0)})$, and the caption constraint $||Y| - 0.4| > 0.3$; \\cref resolved to the printed 'Eq. (11)' and 'Fig. 6'. Figure 6 (asset figure-6): two panels ('Objective and Density' with left axis Objective, right axis Density, x axis Y and legend J(Y), p_0(Y), Infeasible Region, Desired Point, Data Point; 'Backward Process with MC Score Ascend' with axes Y / Diffusion Step and legend w/ data, w/o data, Data Point); bbox [106,70,508,196] checked on the crops (titles at y=73.5, legends end at y=192.6, caption starts at y=217 and is excluded). 'Ascend' in the panel title is as printed. Caption verbatim; the green star (optimal point) and green filled circle (demonstration data) symbols of the caption and of the paragraph 'In Fig. 6, ...' are written as '★' and '●' (colour not reproduced). Headings '### A.5 Experiment Details', '#### A.5.1 Simulator and Environment'. The enumerated task list is kept as one text item per printed item ('1. **Ant**: ...' to '4. **Halfcheetah**: ...'), numbers and bold names as printed; line-wrap hyphens removed in 'manipulation', 'implementation', 'demonstration'. Numbers checked on the crop: 3D/2D, control dimensions 8, 3, 6, substeps 'from 10 to 20', citation [20]. Printed peculiarities kept: typos 'demostration', 'aviod', 'it will yields', 'We want MBD converge', 'required to jumping', 'All task is set', 'each task implementations', 'composed of keep'; 'the resulted solution will lie between optimal point ★ with the help of demonstration data ●' is printed like this. The last item (list item 4, '... the agent and control') is an unfinished sentence continued on page 21 (page 21's first item has join_previous=space). Page number 20 omitted. check: 15 missing lines and number differences, all notation or symbol-font artefacts (see adjudication note).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0020-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        293.0,
+        505.0,
+        361.0
+      ],
+      "markdown": "where demonstrate likelihood term $w_{\\text{demo}}(Y^{(0)})$ will draw samples towards data without considering the model. Given $w = w_{\\text{demo}}$, $\\bar{Y}^{(0)} = \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} Y^{(0)} p_{\\text{demo}}(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} p_{\\text{demo}}(Y^{(0)})} = Y_{\\text{demo}}$. The score function would be $\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} = -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} Y_{\\text{demo}}$, which means the score function is a linear combination of the current sample and the demonstration data."
+    },
+    {
+      "id": "p0020-b000",
+      "kind": "figure",
+      "bbox": [
+        106.0,
+        70.0,
+        508.0,
+        196.0
+      ],
+      "markdown": "",
+      "label": "Figure 6",
+      "asset_name": "figure-6"
+    },
+    {
+      "id": "p0020-b001",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        217.0,
+        506.0,
+        274.0
+      ],
+      "markdown": "Figure 6: MBD with data vs. without data on a nonconvex function with constraints $||Y| - 0.4| > 0.3$. We want MBD converge to the optimal point ★ with the help of demonstration data ●. Although the demostration point is not optimal, MBD can still converge to the optimal point with the guidance of the demonstration data. Here data serves as a regularization term to guide the diffusion process to the negative optimal point while allowing to use model further to refine the solution."
+    },
+    {
+      "id": "p0020-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        367.0,
+        506.0,
+        425.0
+      ],
+      "markdown": "If we don’t use Eq. (11) and employ the posterior distribution $p(Y^{(0)}|Y_{\\text{demo}}) \\propto p_0(Y^{(0)}) p_{\\text{demo}}(Y^{(0)})$, it will yields update weights $w = w_{\\text{demo}} w_{\\text{model}}$, which will draw samples to both model and demonstration data. If the demonstration data is not optimal, the final solution will be a compromise between the model and demonstration data. In Fig. 6, the resulted solution will lie between optimal point ★ with the help of demonstration data ●."
+    },
+    {
+      "id": "p0020-b005",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        430.0,
+        505.0,
+        477.0
+      ],
+      "markdown": "Using the max function in $w$ can aviod this issue. In the early stage while $p_J(Y^{(0)})$ is low due to poor sample quality, $w_{\\text{demo}}$ will dominate thanks to the high $p_J(Y_{\\text{demo}})$. This will draw samples towards the demonstration data as shown in the earlier stage of Fig. 6. As the sample quality improves and $p_J(Y^{(0)}) > p_J(Y_{\\text{demo}})$, $w_{\\text{model}}$ will dominate and the sample will converge to the optimal point."
+    },
+    {
+      "id": "p0020-b006",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        491.0,
+        215.0,
+        500.0
+      ],
+      "markdown": "### A.5 Experiment Details"
+    },
+    {
+      "id": "p0020-b007",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        511.0,
+        260.0,
+        519.0
+      ],
+      "markdown": "#### A.5.1 Simulator and Environment"
+    },
+    {
+      "id": "p0020-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        529.0,
+        506.0,
+        572.0
+      ],
+      "markdown": "We leverage the GPU-accelerated simulator Google Brax [20] to design the locomotion and manipulation tasks. All task is set to use positional backend in Brax except for the pushT task, which uses the generalizable backend for better contact dynamics simulation. Here we provide a brief description of each task implementations:"
+    },
+    {
+      "id": "p0020-b009",
+      "kind": "text",
+      "bbox": [
+        131.0,
+        582.0,
+        505.0,
+        613.0
+      ],
+      "markdown": "1. **Ant**: The Ant task is a 3D locomotion task where the agent is required to move forward as fast as possible. The reward is composed of the forward velocity of the agent and control cost, same as the original Brax implementation. The control dimension is 8."
+    },
+    {
+      "id": "p0020-b010",
+      "kind": "text",
+      "bbox": [
+        131.0,
+        618.0,
+        506.0,
+        659.0
+      ],
+      "markdown": "2. **Hopper**: The Hopper task is a 2D locomotion task where the agent is required to jumping forward as fast as possible. We use the same reward function as the original Brax implementation. We modify the simulation substeps from 10 to 20 for longer planning horizon given the same control node. The control dimension is 3."
+    },
+    {
+      "id": "p0020-b011",
+      "kind": "text",
+      "bbox": [
+        131.0,
+        665.0,
+        505.0,
+        695.0
+      ],
+      "markdown": "3. **Walker2d**: The Walker2d task is a 2D locomotion task where the agent is required to walk forward. The reward is composed of keep the agent upright and moving forward. The control dimension is 6."
+    },
+    {
+      "id": "p0020-b012",
+      "kind": "text",
+      "bbox": [
+        131.0,
+        702.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "4. **Halfcheetah**: The Halfcheetah task is a 2D locomotion task where the agent is required to run forward. The reward is composed of the forward velocity of the agent and control"
+    },
+    {
+      "id": "p0020-b013",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "20",
+      "source_class": "page-footer",
+      "reason": "Page number 20 in the footer (checked on the preview)."
+    }
+  ]
+}

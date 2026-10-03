@@ -1,0 +1,383 @@
+{
+ "run_mbd_seeds_car2d": {
+  "execution_id": "run_mbd_seeds_car2d",
+  "title": "Multi-seed evaluation (owner of mbd_evaluate_seeds)",
+  "source_path": "mbd/scripts/run_mbd.py",
+  "source_commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+  "source_url": "https://github.com/LeCAR-Lab/model-based-diffusion",
+  "source_sha256": {
+   "mbd/scripts/run_mbd.py": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+   "mbd/planners/mbd_planner.py": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+   "mbd/envs/car2d.py": "0156d9dba306d8c5423e8fdea0beca1ccd35b328b4a845f94976229b5bb38208",
+   "mbd/envs/hopper.py": "efa7521293001e84087ca4ce4b4ad073bd91a0e03db10e40ce039e028043973b",
+   "mbd/utils.py": "3ea0dabe674266988a463d2d6e2fe311813697e835a2955abd6b2023a4ceed75"
+  },
+  "status": "succeeded",
+  "execution_mode": "native-command",
+  "execution_path": "notebooks/run_mbd_seeds_car2d/run.sh",
+  "evidence_namespace": "notebooks/run_mbd_seeds_car2d",
+  "private_source_copy": {
+   "path": "notebooks/run_mbd_seeds_car2d/source",
+   "created_with": "git -C repo/model-based-diffusion archive c1eb913783f1713f7a1ebb657b34e0188d52cd8b | tar -x -C notebooks/run_mbd_seeds_car2d/source",
+   "identity_check": "For each of the 34 files of the commit, `git hash-object --no-filters <file in copy>` was compared with the blob id from `git ls-tree -r <commit>`; the two sorted lists are identical (logs/source_commit_blobs.txt and logs/source_copy_blobs.txt have the same SHA-256). All 34 entries have mode 100644, there is no symbolic link. The SHA-256 of run_mbd.py in the copy equals `sha256_at_scan` of the scanner entry.",
+   "commit_blob_list": "notebooks/run_mbd_seeds_car2d/logs/source_commit_blobs.txt",
+   "commit_blob_list_sha256": "65a3c21b071e4d719ce077727b80bffeced31e87bc183865f033ea8e586f4d4a",
+   "copy_blob_list": "notebooks/run_mbd_seeds_car2d/logs/source_copy_blobs.txt",
+   "copy_blob_list_sha256": "65a3c21b071e4d719ce077727b80bffeced31e87bc183865f033ea8e586f4d4a",
+   "copy_sha256_manifest": "notebooks/run_mbd_seeds_car2d/logs/source_copy_sha256.txt",
+   "copy_sha256_manifest_sha256": "9515f99e7cd86b5037cef4f83459fc23cc867aa67cbb9cebbdc77ee32865c132",
+   "files_after_runs": "unchanged; only __pycache__ directories were added by the interpreter (files_before.txt and files_after.txt of every run are identical)"
+  },
+  "import_resolution": {
+   "how_run_mbd_imports_the_planner": "run_mbd.py line 6 does `import mbd` and uses `mbd.planners.mbd_planner.Args` / `run_diffusion` (lines 28-31). It does not touch sys.path. mbd/__init__.py imports utils, envs and planners; mbd/planners/__init__.py imports mbd_planner and path_integral.",
+   "risk": "The project environment has an editable install of mbd pointing at the pinned checkout (site-packages/__editable__.mbd-0.0.1.pth -> repo/model-based-diffusion). Without PYTHONPATH the checkout would be imported instead of the copy.",
+   "resolution": "PYTHONPATH=<copy> is set inside the launched command; PYTHONPATH entries precede site-packages and the .pth entry on sys.path.",
+   "proof_command": "heavy.sh --timeout 300 --log logs/import_proof.log -- env PYTHONPATH=<copy> $PROJECT_PYTHON -c \"import mbd; print(mbd.__file__)\"  (cwd <copy>/mbd/scripts)",
+   "proof_output": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/__init__.py",
+   "planner_module_file": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/planners/mbd_planner.py",
+   "env_module_file": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/envs/car2d.py",
+   "proof_logs": [
+    "notebooks/run_mbd_seeds_car2d/logs/import_proof.log",
+    "notebooks/run_mbd_seeds_car2d/logs/runtime_probe.log"
+   ]
+  },
+  "commands": [
+   {
+    "label": "run1",
+    "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/scripts",
+    "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1200 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/outputs/run1/stdout_stderr.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python run_mbd.py --env_name car2d --algo mbd --mode seed",
+    "invoked_utc": "2026-10-02T14:51:47Z",
+    "finished_utc": "2026-10-02T14:54:35Z",
+    "exit_status": 0,
+    "wall_seconds_including_lock_wait": 167.9,
+    "launcher_stderr": [
+     "heavy.sh: start 2026-10-02T14:54:01Z MemAvailable=2353MB MemoryMax=1653MB timeout=1200s gpu_used_before=1308MiB",
+     "heavy.sh: end 2026-10-02T14:54:35Z exit=0 gpu_used_after=1307MiB MemAvailable=2460MB"
+    ],
+    "scope_memory_peak_mb": 466,
+    "oom_kills": "0",
+    "log": "notebooks/run_mbd_seeds_car2d/outputs/run1/stdout_stderr.log",
+    "log_sha256": "f914cd09344846c0fdc0b37386e5119e7f7473a7ee2fdcc1f759cc66fe8a7626",
+    "log_bytes": 70263,
+    "parsed": "notebooks/run_mbd_seeds_car2d/outputs/run1/parsed.json",
+    "files_written_by_upstream": []
+   },
+   {
+    "label": "run2",
+    "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/scripts",
+    "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1200 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/outputs/run2/stdout_stderr.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python run_mbd.py --env_name car2d --algo mbd --mode seed",
+    "invoked_utc": "2026-10-02T14:54:51Z",
+    "finished_utc": "2026-10-02T14:59:39Z",
+    "exit_status": 0,
+    "wall_seconds_including_lock_wait": 288.1,
+    "launcher_stderr": [
+     "heavy.sh: start 2026-10-02T14:58:58Z MemAvailable=2337MB MemoryMax=1637MB timeout=1200s gpu_used_before=1320MiB",
+     "heavy.sh: end 2026-10-02T14:59:39Z exit=0 gpu_used_after=1302MiB MemAvailable=2370MB"
+    ],
+    "scope_memory_peak_mb": 449,
+    "oom_kills": "0",
+    "log": "notebooks/run_mbd_seeds_car2d/outputs/run2/stdout_stderr.log",
+    "log_sha256": "598996726a463f281ef3225cc482eabf19eb58f6123182cb4e6a8e68688e5cdb",
+    "log_bytes": 70750,
+    "parsed": "notebooks/run_mbd_seeds_car2d/outputs/run2/parsed.json",
+    "files_written_by_upstream": []
+   }
+  ],
+  "runtime": {
+   "interpreter": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+   "python": "3.11.17 (main, Oct  1 2026, 20:58:47) [Clang 22.1.3 ]",
+   "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+   "package_versions": {
+    "jax": "0.4.30",
+    "jaxlib": "0.4.30",
+    "jax-cuda12-plugin": "0.4.30",
+    "jax-cuda12-pjrt": "0.4.30",
+    "brax": "0.10.5",
+    "mujoco": "3.1.6",
+    "mujoco-mjx": "3.1.6",
+    "numpy": "1.26.4",
+    "scipy": "1.14.0",
+    "flax": "0.8.5",
+    "tyro": "0.8.5",
+    "tqdm": "4.66.4",
+    "matplotlib": "3.9.0",
+    "mbd": "0.0.1"
+   },
+   "device": "cuda:0",
+   "jax_devices": "[cuda(id=0)]",
+   "jax_default_backend": "gpu",
+   "jax_enable_x64": "False",
+   "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 581.04, 8188 MiB",
+   "environment_set_by_launcher": {
+    "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+    "MPLBACKEND": "Agg"
+   },
+   "environment_set_in_command": {
+    "PYTHONPATH": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source"
+   },
+   "launcher": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh",
+   "launcher_sha256": "536fe348d6b48452e5558d7cc304a6f59d85d7c78826505b4c35c12a7d7e6863",
+   "runtime_probe": "notebooks/run_mbd_seeds_car2d/runtime_probe.py",
+   "runtime_probe_log": "notebooks/run_mbd_seeds_car2d/logs/runtime_probe.log"
+  },
+  "seed_and_data_provenance": {
+   "seeds": "0..7, fixed by `for seed in range(8)` (run_mbd.py line 20); each becomes jax.random.PRNGKey(seed) (mbd_planner.py line 40). The command has no seed option in this mode.",
+   "planner_parameters": "planner defaults (mbd_planner.py lines 29-35): Nsample 2048, Hsample 50, Ndiffuse 100, beta0 1e-4, betaT 1e-2, enable_demo False; not_render=True. For car2d the recommended-parameter tables have no entry, so temp_sample stays 0.1 (printed: `override temp_sample to 0.1`).",
+   "input_data": "none supplied by the caller. Car2d.__init__ loads mbd/assets/car2d_xref.npy from the copy (used only for the demonstration terms, which are off here).",
+   "input_files": {
+    "mbd/assets/car2d_xref.npy": "8b671a267aae37d662d5b06f51bf829b11f8503e0bb05f9153bac08662bf5187"
+   }
+  },
+  "outputs": {
+   "native_files": [],
+   "native_files_note": "The script writes no file in this mode (not_render=True). Verified per run: no new file in the copy and no results/ directory (outputs/<run>/files_written_by_upstream.txt is empty).",
+   "stdout_stderr_logs": {
+    "notebooks/run_mbd_seeds_car2d/outputs/run1/stdout_stderr.log": "f914cd09344846c0fdc0b37386e5119e7f7473a7ee2fdcc1f759cc66fe8a7626",
+    "notebooks/run_mbd_seeds_car2d/outputs/run2/stdout_stderr.log": "598996726a463f281ef3225cc482eabf19eb58f6123182cb4e6a8e68688e5cdb"
+   },
+   "parsed": {
+    "notebooks/run_mbd_seeds_car2d/outputs/run1/parsed.json": "f0b9e225266b979bbe77b6c499cda9bdd18238c9cd30facc973a09c4c7bd59df",
+    "notebooks/run_mbd_seeds_car2d/outputs/run2/parsed.json": "ba7fda53386771d995fb75f97ba711708655bcbbdc384ffd825bde377464ded6"
+   },
+   "driver_and_helpers": {
+    "notebooks/run_mbd_seeds_car2d/run.sh": "5ab7d734a5e1a7654e55f5ed9cc9877ca1c3d384f99420b6af77c31522fd1bd6",
+    "notebooks/run_mbd_seeds_car2d/parse_logs.py": "2e752b6622ba99289d9a3c689f3765c83ead36538d59d8271e535fd2cecfa5da",
+    "notebooks/run_mbd_seeds_car2d/compare_runs.py": "c1e87d9b72c2b134c00a9cfcffdeedf6ef5e40320fcbc284f14a9eac02b6d391",
+    "notebooks/run_mbd_seeds_car2d/build_report.py": "f580e251520323cf2461a22b3d248efe0fd8d74a8a4b2e69a2ee2e1c00fb32b4"
+   }
+  },
+  "reference_values": {
+   "env_name": "car2d",
+   "algo": "mbd",
+   "mode": "seed",
+   "rew_line": "rew: -0.00 \\pm 0.00",
+   "reward_mean": -0.0,
+   "reward_mean_text": "-0.00",
+   "reward_std": 0.0,
+   "reward_std_text": "0.00",
+   "time_line": "time: 3.58 \\pm 1.35",
+   "time_mean_s": 3.58,
+   "time_std_s": 1.35,
+   "override_temp_sample_lines": [
+    "0.1",
+    "0.1",
+    "0.1",
+    "0.1",
+    "0.1",
+    "0.1",
+    "0.1",
+    "0.1"
+   ],
+   "init_sigma_lines": [
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01",
+    "6.30e-01"
+   ],
+   "per_seed_progress_bar_last_step_sample_mean_reward_text": [
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00",
+    "0.00e+00"
+   ],
+   "per_seed_progress_bar_steps": [
+    "99/99",
+    "99/99",
+    "99/99",
+    "99/99",
+    "99/99",
+    "99/99",
+    "99/99",
+    "99/99"
+   ],
+   "reward_mean_sign_note": "The printed mean is `-0.00`: a negative number that rounds to zero at two decimals. float('-0.00') is -0.0, which compares equal to 0.0; a test that wants to pin the sign must compare the text.",
+   "time_note": "wall-clock seconds per seed including JIT compilation; not a reference value (presence and positivity only)."
+  },
+  "per_seed_information_printed_by_the_script": {
+   "final_reward_per_seed": null,
+   "final_reward_per_seed_note": "run_mbd.py prints only the aggregate; the per-seed final rewards are never printed and are therefore not available from this command.",
+   "what_is_printed_per_seed": "`override temp_sample to 0.1`, `init sigma = 6.30e-01` and one tqdm progress bar (99 reverse-diffusion steps) whose `rew=` postfix is the mean reward of the 2048 sampled trajectories at the current step, format .2e (mbd_planner.py lines 135 and 147). That quantity is not the final reward.",
+   "progress_bar_last_step_sample_mean_reward_text": {
+    "run1": [
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00"
+    ],
+    "run2": [
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00"
+    ]
+   },
+   "all_progress_updates": "In both logs every captured progress update of every seed shows rew=0.00e+00 (run1: 849 updates, run2: 853 updates; counted with grep, see README)."
+  },
+  "degenerate_summary": {
+   "is_degenerate": true,
+   "explanation": "The printed summary is `rew: -0.00 \\pm 0.00`. A standard deviation below 0.005 over eight values together with a mean of magnitude below 0.005 bounds every per-seed final reward to within about 0.02 of zero (largest possible deviation is std * sqrt(8)); the exact per-seed values are not printed, so exact equality of the eight rewards is not shown by the log. In addition the sample-mean reward shown in the progress bars was 0.00e+00 at every captured diffusion step of every seed in both runs. The car2d reward (car2d.py lines 89-93) is 1 - (clip(distance to goal, 0, 0.2) / 0.2)^2, which is zero unless the car is within 0.2 of the goal, so without the demonstration no sampled trajectory came close to the goal. Consequently this reference cannot distinguish seeds or detect a change of the planner's numerical behaviour; it verifies exit status, the output format and the eight-run structure only.",
+   "all_rewards_zero_at_printed_precision": true,
+   "exact_equality_of_the_eight_rewards_shown_by_log": false,
+   "supplementary_hopper_run": {
+    "state": "interrupted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z (never started)",
+    "note": "The same command with --env_name hopper was launched through run.sh at 2026-10-02T15:00:01Z with a 3000 s timeout, because the car2d summary is degenerate. It was still waiting for the workspace lock behind other executors' jobs (the launcher never printed its start line and no log file was created) when the machine froze at about 15:05Z. After the restart no process of it exists, and the coordinator has disabled heavy jobs workspace-wide, so it was not retried. No hopper value exists.",
+    "partial_evidence": {
+     "directory": "notebooks/run_mbd_seeds_car2d/outputs/hopper_run1",
+     "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 3000 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/outputs/hopper_run1/stdout_stderr.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python run_mbd.py --env_name hopper --algo mbd --mode seed",
+     "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/run_mbd_seeds_car2d/source/mbd/scripts",
+     "invoked_utc": "2026-10-02T15:00:01Z",
+     "finished_utc": null,
+     "exit_status": null,
+     "exit_status_note": "never recorded: the driver did not return",
+     "launcher_stderr_bytes": 0,
+     "launcher_printed_start_line": false,
+     "stdout_stderr_log_exists": false,
+     "files_present": [
+      "files_before.txt",
+      "launcher_stderr.txt",
+      "run_meta.txt"
+     ],
+     "values": null,
+     "values_note": "no value exists: the Python process was never started, so there is no log to parse"
+    }
+   }
+  },
+  "replay_comparison": {
+   "runs": [
+    "run1",
+    "run2"
+   ],
+   "exit_statuses": [
+    0,
+    0
+   ],
+   "rew_lines": [
+    "rew: -0.00 \\pm 0.00",
+    "rew: -0.00 \\pm 0.00"
+   ],
+   "rew_line_text_identical": true,
+   "reward_mean": [
+    -0.0,
+    -0.0
+   ],
+   "reward_mean_text": [
+    "-0.00",
+    "-0.00"
+   ],
+   "reward_mean_equal_exactly": true,
+   "reward_std": [
+    0.0,
+    0.0
+   ],
+   "reward_std_text": [
+    "0.00",
+    "0.00"
+   ],
+   "reward_std_equal_exactly": true,
+   "max_abs_difference_of_printed_values": 0.0,
+   "tolerance": "none needed: the printed two-decimal strings are identical",
+   "time_lines_not_compared": [
+    "time: 3.58 \\pm 1.35",
+    "time: 4.39 \\pm 2.70"
+   ],
+   "time_lines_present_and_positive": true,
+   "per_seed_progress_bar_last_step_sample_mean_reward_text": {
+    "run1": [
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00"
+    ],
+    "run2": [
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00",
+     "0.00e+00"
+    ]
+   },
+   "per_seed_progress_bar_values_identical": true,
+   "override_temp_sample_lines_identical": true,
+   "init_sigma_lines_identical": true,
+   "arrays": null,
+   "arrays_note": "run_mbd.py --mode seed writes no file (not_render=True), so there is no array to compare with numpy.array_equal",
+   "files_written_by_upstream": {
+    "run1": [],
+    "run2": []
+   },
+   "log_sha256": {
+    "run1": "f914cd09344846c0fdc0b37386e5119e7f7473a7ee2fdcc1f759cc66fe8a7626",
+    "run2": "598996726a463f281ef3225cc482eabf19eb58f6123182cb4e6a8e68688e5cdb"
+   },
+   "logs_bytewise_identical": false,
+   "logs_note": "the logs differ in the tqdm timing/rate fields and in the time: line, which are wall-clock quantities",
+   "result": "identical",
+   "normalized_log_check": "After removing the intermediate progress updates and replacing the wall-clock fields (tqdm elapsed/remaining/rate, the `time:` line, the launcher's peak-memory figure), the two logs are identical line by line (27 lines each; command in README).",
+   "file": "notebooks/run_mbd_seeds_car2d/outputs/replay_comparison_run1_vs_run2.json"
+  },
+  "interruption": {
+   "what": "machine freeze on 2026-10-02 at about 15:05Z (reported by the coordinator); heavy jobs were then disabled workspace-wide",
+   "effect_on_this_execution": "Both car2d runs, their parsing and the replay comparison had finished before the freeze (run2 ended 14:59:39Z, comparison written 15:00:38Z, first report 15:02Z). Only the supplementary hopper run was lost; it had not started. After the freeze the report was rebuilt from the files on disk and checked against the raw logs with standard-library code only; no JAX command was run."
+  },
+  "figures": null,
+  "figures_note": "The command produces no figure (not_render=True).",
+  "limitations": [
+   "The car2d summary is degenerate (all rewards zero at two decimals); see degenerate_summary.",
+   "Per-seed final rewards are not printed by upstream, so they are not part of the reference.",
+   "The reward values are printed with two decimals only; equality of the printed text is the strongest check this command allows.",
+   "stdout and stderr are captured in one file by the launcher (`--log`); tqdm writes its bars to stderr with carriage returns, so each bar is one long physical line.",
+   "Lock waiting time is included in wall_seconds_including_lock_wait; the launcher's start/end lines give the actual run window (run1 34 s, run2 41 s for eight seeds).",
+   "The supplementary hopper evaluation produced no result (interrupted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z (never started)), so there is no non-degenerate reference for this command."
+  ],
+  "attempts": [
+   {
+    "n": 1,
+    "label": "run1",
+    "what": "documented command, car2d",
+    "exit_status": 0,
+    "outcome": "succeeded"
+   },
+   {
+    "n": 2,
+    "label": "run2",
+    "what": "replay, identical arguments",
+    "exit_status": 0,
+    "outcome": "succeeded"
+   },
+   {
+    "n": 3,
+    "label": "hopper_run1",
+    "what": "same command with --env_name hopper (supplementary, single run)",
+    "exit_status": null,
+    "outcome": "interrupted: heavy jobs disabled after a machine freeze on 2026-10-02 about 15:05Z (never started)"
+   }
+  ],
+  "coordinator_decisions": [
+   "The car2d reference is degenerate. Decide whether mbd_evaluate_seeds is accepted with a structural reference only (exit status, eight runs, output format, `rew: -0.00 \\pm 0.00`), or whether a non-degenerate reference (hopper, eight seeds, about 35 minutes, about 1.2 GB or more) must be produced once heavy jobs are allowed again.",
+   "The driver for that run is ready: notebooks/run_mbd_seeds_car2d/run.sh hopper_run1 hopper 3000 (not to be started while heavy jobs are disabled)."
+  ]
+ }
+}

@@ -1,0 +1,62 @@
+\section{Conformal Proofs}\label{sec:CP}
+
+\subsection{Proof of \texorpdfstring{\theoremref{theorem:conformal_method}}{Conformal Probabilistic Safety Verification Theorem}}\label{apd:conformal_theorem_proof}
+
+\begin{proof}
+
+\theoremref{theorem:conformal_method} is a straightforward application of the split conformal prediction method detailed in \citet{MAL-101}, where we set the conformal ``input'' $x=x$, ``output'' $y=-\costFunction(x,0)$, ``score function'' $s(x,y)=y=-\costFunction(x,0)$, ``size of the calibration set'' $n=N$, and ``user-chosen error rate'' $\alpha=\frac{k+1}{N+1}$.
+The conformal $\hat{q}$ is then computed as the $\frac{\lceil(N+1)(1-\alpha)\rceil}{N}$ quantile of the calibration scores $-\costFunction(x_{1:N},0)$.
+The quantile is $\frac{\lceil(N+1)(1-\alpha)\rceil}{N} = \frac{\lceil(N+1)(1-\frac{k+1}{N+1})\rceil}{N} = \frac{\lceil(N+1)(\frac{N-k}{N+1})\rceil}{N} = \frac{N-k}{N}$, where we have defined $k$ in the procedures in \sectionref{sec:scenario-based_method} as the number of scores $-\costFunction(x_i,0) \ge 0$.
+Thus, this quantile corresponds precisely to the largest \textit{negative} score, so we know that $\hat{q} < 0$.
+Theorem 1 in \citet{MAL-101} then yields:
+\begin{align}
+    \underset{ \left( x_{1:N},x \right) \in \safeset }{\mathbb{P}} \left( -\costFunction(x,0) \le \hat{q}  \right) &\ge 1-\alpha \nonumber \\
+    \underset{ \left( x_{1:N},x \right) \in \safeset }{\mathbb{P}} \left( \costFunction(x,0) \ge -\hat{q}  \right) &\ge 1-\frac{k+1}{N+1} \nonumber \\
+    \underset{ \left( x_{1:N},x \right) \in \safeset }{\mathbb{P}} \left( \costFunction(x,0) > 0  \right) &\ge \frac{N-k}{N+1} \label{eq:cp_proof_coverage}
+\end{align}
+where Equation \eqref{eq:cp_proof_coverage} follows from the line preceding it because if $\costFunction(x,0) \ge -\hat{q}$, then certainly $\costFunction(x,0) > 0$.
+This coverage property result is precisely the same as described in \remarkref{remark:CP_coverage}.
+Furthermore, Section 3.2 in \citet{MAL-101} yields:
+\begin{align}
+    \underset{ x \in \safeset }{\mathbb{P}} \left( \costFunction(x,0) > 0  \right) &\sim \text{Beta}(N+1-l,l),\quad l= \lfloor (N+1)\alpha\rfloor \nonumber \\
+    \underset{ x \in \safeset }{\mathbb{P}} \left( \costFunction(x,0) > 0  \right) &\sim \text{Beta}(N-k,k+1)
+\end{align}
+which is precisely the result of \theoremref{theorem:conformal_method}.
+\end{proof}
+
+\subsection{Proof that Split Conformal Prediction Reduces to Robust Scenario Optimization}\label{apd:reduction_proof}
+Here, we show that split conformal prediction, in full generality, reduces to a robust scenario optimization problem.
+We hope that this insight will encourage future research on the close relationship between the highly related but disparate fields of conformal prediction and scenario optimization.
+In split conformal prediction, we first define a score function $s(x,y) \in \mathbb{R}$ which is meant to reflect the uncertainty for a model input $x$ and corresponding model output $y$.
+Then, we sample an i.i.d. calibration set $(X_1,Y_1),...,(X_n,Y_n)$ and compute $\hat{q}$ as the $\frac{\lceil(n+1)(1-\alpha)\rceil}{n}$ quantile of the calibration scores $s(X_1,Y_1),...,s(X_n,Y_n)$, where $\alpha \in [0, 1]$ is a user-chosen error rate.
+For a new i.i.d. sample $X_\text{test}$, we construct a prediction set $C(X_\text{test})=\{y: s(X_\text{test},y) \le \hat{q}\}$.
+Theorem 1 in \citet{MAL-101} provides the following coverage property: $\mathbb{P} \left( Y_{\text{test}} \in C(X_\text{test}) \right) \ge 1-\alpha$.
+This follows from the more powerful property, first introduced in \citet{pmlr-v25-vovk12}, which we prove reduces to a robust scenario-based result after:
+\begin{equation}\label{eq:conditional_coverage}
+    \mathbb{P} \left( Y_\text{test} \in C(X_\text{test}) | \{ (X_i, Y_i) \}^n_{i=1} \right) \sim \text{Beta}(n+1-l, l), \quad l=\lfloor (n+1)\alpha \rfloor
+\end{equation}
+
+\begin{proof}
+    
+To show that split conformal prediction reduces to a scenario-based approach, consider the CCP \eqref{eq:CCP} in \lemmaref{lemma:CCP} in \appendixref{apd:SO}, where $h=(x,y)$ and $f(h)=f\left((x,y)\right)=s(x,y)$.
+That is, we want to find a probabilistic upper-bound on samples of the score function.
+Then, consider the corresponding SP \eqref{eq:SP} in \lemmaref{lemma:CCP} where the $n$ sampled calibration scores $s(X_1, Y_1), ..., s(X_n, Y_n)$ forms our set of constraints.
+Remove the $k=\lfloor (n+1)\alpha-1 \rfloor$ largest scores, where $\alpha$ is the user-chosen error rate in split conformal prediction.
+The largest remaining score will be the $\frac{n-k}{n}$ quantile.
+$\frac{n-k}{n}=\frac{n-\lfloor (n+1)\alpha-1 \rfloor}{n}=\frac{n+\lceil -((n+1)\alpha-1) \rceil}{n}=\frac{\lceil n -(n+1)\alpha + 1 \rceil}{n}=\frac{\lceil (n+1)(1-\alpha) \rceil}{n}$, which is precisely the same quantile as $\hat{q}$ in split conformal prediction. Thus, the solution to the SP is $g^*_{N,k}=\hat{q}$. \lemmaref{lemma:CCP} tells us that for a violation parameter $\epsilon \in (0, 1)$ and a confidence parameter $\beta \in (0, 1)$ that satisfies the relationship in Equation \eqref{eq:parameters_relationship}, with probability at least $1-\beta$, the following holds:
+\begin{equation}\label{eq:scenario_based_conformal_prediction}
+    \mathbb{P}\left( Y_\text{test} \in C(X_\text{test}) | \{ (X_i, Y_i) \}^n_{i=1} \right) \ge 1-\epsilon
+\end{equation}
+
+This is equivalent to Equation \eqref{eq:conditional_coverage}. To see why, note that the cumulative distribution function of the Beta distribution in Equation \eqref{eq:conditional_coverage} is given in terms of $k$ by the incomplete beta function ratio $I_x(n-k, k+1)=\sum^n_{j=n-k}\binom{n}{j}x^j(1-x)^{n-j}$ from \citet[\href{https://dlmf.nist.gov/8.17.E5}{(8.17.5)}]{NIST:DLMF}.
+Changing the index $i=n-j$ yields $I_x(n-k, k+1)=\sum^k_{i=0}\binom{n}{n-i}x^{n-i}(1-x)^{n-(n-i)}=\sum^k_{i=0}\binom{n}{i}x^{n-i}(1-x)^{i}$.
+Thus, Equation \eqref{eq:conditional_coverage} is equivalent to the claim that for any violation parameter $\epsilon \in (0, 1)$ and confidence parameter $\beta \in (0, 1)$, $\mathbb{P}\left( Y_\text{test} \in C(X_\text{test}) | \{ (X_i, Y_i) \}^n_{i=1} \right) \ge 1-\epsilon$ (Equation \eqref{eq:scenario_based_conformal_prediction}) holds with probability at least $1-\beta$ as long as $\beta \ge I_{1-\epsilon}(n-k, k+1)=\sum^k_{i=0}\binom{n}{i}\epsilon^{i}(1-\epsilon)^{n-i}$ (Equation \eqref{eq:parameters_relationship}).
+
+\end{proof}
+
+\subsection{Proof of \texorpdfstring{\lemmaref{lemma:conformal_method}}{Conformal Probabilistic Safety Verification Lemma}}\label{apd:conformal_lemma_proof}
+
+\begin{proof}
+    The conformal probabilistic safety verification method in \sectionref{sec:conformal_method} is nothing more than a specific formulation of the general split conformal prediction method in \appendixref{apd:reduction_proof}, which we have proven provides a result that is equivalent to the robust scenario optimization result in \lemmaref{lemma:CCP}.
+    The result in \lemmaref{lemma:CCP}, when formulated in the context of the conformal probabilistic safety verification method in \sectionref{sec:conformal_method} and noting that $\forall (\state,\tvar), \costFunction(\state,\tvar) \le V(\state, \tvar)$ from Equation \eqref{eq:valuefunc}, is precisely \lemmaref{lemma:conformal_method}.
+\end{proof}

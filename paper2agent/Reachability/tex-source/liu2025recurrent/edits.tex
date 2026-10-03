@@ -1,0 +1,68 @@
+\usepackage{ifthen}
+\newboolean{showcomments}
+\setboolean{showcomments}{false}
+
+\usepackage{color}
+\usepackage{todonotes}
+
+\newboolean{arxiv}
+\setboolean{arxiv}{false}
+
+
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+
+%ADD CITES
+\newcommand{\addcite}[0]{\ifthenelse{\boolean{showcomments}}
+{\textcolor{purple}{(add cite(s)) }}{}}%
+
+\newcommand{\addcites}[0]{\ifthenelse{\boolean{showcomments}}
+{\textcolor{purple}{(add cite(s)) }}{}}%
+
+\newcommand{\addref}[0]{\ifthenelse{\boolean{showcomments}}
+{\textcolor{purple}{(add ref) }}{}}%
+
+\newcommand{\myparagraph}[1]{\vspace{1mm}\noindent\textbf{#1.}}
+
+% Comments
+\newcommand{\enrique}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=bleudefrance,caption={}]{Enrique: #1}}{}}
+\newcommand{\rene}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=cyan]{Ren\'e: #1}}{}}
+\newcommand{\emmargin}[1]{\ifthenelse{\boolean{showcomments}}{\marginpar{\color{bleudefrance}\tiny EM: #1}}{}}
+\newcommand{\hancheng}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=orange]{Hancheng: #1}}{}}
+\newcommand{\ziqing}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=red]{Ziqing: #1}}{}}
+\newcommand{\salma}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=yellow]{Salma: #1}}{}}
+\newcommand{\zxmargin}[1]{\ifthenelse{\boolean{showcomments}}{\marginpar{\color{purple}\tiny ZX: #1}}{}}
+\newcommand{\stmargin}[1]{\ifthenelse{\boolean{showcomments}}{\marginpar{\color{red}\tiny ST: #1}}{}}
+\newcommand{\jixian}[1]{  \ifthenelse{\boolean{showcomments}}
+{\todo[inline,color=lightgray]{Jixian: #1}}{}}
+
+\newcommand{\hl}[1]{\ifthenelse{\boolean{showcomments}}
+{\textcolor{red}{#1}}{#1}}
+
+%Edits to be highlighted
+\newboolean{showedits}
+\setboolean{showedits}{false}
+\usepackage[markup=underlined]{changes}
+\definechangesauthor[color=bleudefrance]{EM}
+\newcommand{\aem}[1]{
+\ifthenelse{\boolean{showedits}}
+{\added[id=EM]{#1}}
+{\!#1\hspace{-4.75pt}}
+}
+\newcommand{\repem}[2]{
+\ifthenelse{\boolean{showedits}}
+{\replaced[id=EM]{#1}{#2}}
+{\!#1\hspace{-4.75pt}}
+}
+\newcommand{\dem}[1]{
+\ifthenelse{\boolean{showedits}}
+{\deleted[id=EM]{#1}}
+{}
+}
+%\listoftodos[{\color{red}\textbf{List of comments/suggestions}}]
+\newcommand{\hlem}[1]{\textcolor{bleudefrance}{#1}}

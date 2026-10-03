@@ -1,0 +1,190 @@
+{
+  "page": 29,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0029.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with preview and a 200-dpi crop of Table 18; maths and cells from TeX (app:weather, tbl:weather), all agree with the PDF. Heading changed from '# **M. Weather forecast**' to '## M. Weather forecast'. Table 18 is printed at the page top, before the section M heading, but belongs to section M (page 27 ended a complete paragraph, page 28 has only figures): moved its caption + table after the completed 'Results and evaluation' paragraph that first cites it, so the page ends with the paragraph that continues on page 30. bbox re-measured [133,111,460,248]. Table cells copied as printed, including the missing space in '(T = 1, K = 4,ODE)'. Inline maths rewritten in LaTeX from TeX (\\cond expanded to \\;|\\;; \\R -> \\mathbb{R}; $p_\\theta(z_k \\;|\\; z_{k-1})$, $z_k\\in\\mathbb{R}^{2048}$, $5.625^\\circ$, $\\mathcal{N}(y_k \\;|\\; \\mathcal{M}_k z_k, \\sigma_y^2 I)$, Sigmoid update, $\\sigma_q^2=0.1$, $2\\times10^{-4}$, $10^{-5}$, $\\times10^{-3}$). Removed <sup> damage that had pulled 'where M_k denotes ... A' and 'with sigma_q^2=0.1. We train the' into superscripts. Run-in titles 'Experiment settings', 'Training details', 'Results and evaluation' kept bold. Author wording 'Tables 18 and Table 19' kept. Last item ends mid-sentence ('drawn from the') and continues on page 30.",
+  "warnings": [
+    "Review possible header/footer: p0029-b000"
+  ],
+  "items": [
+    {
+      "id": "p0029-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "**Diffusion differentiable resampling**",
+      "reason": "Running header (paper title \"Diffusion differentiable resampling\") repeated on every page"
+    },
+    {
+      "id": "p0029-b003",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        266.0,
+        160.0,
+        275.0
+      ],
+      "markdown": "## M. Weather forecast"
+    },
+    {
+      "id": "p0029-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        286.0,
+        544.0,
+        404.0
+      ],
+      "markdown": "**Experiment settings** As another large-scale experiment, we consider a high-dimensional weather forecasting task to further demonstrate that the diffusion resampler scales to high-dimensional state space models. Given partial noisy observations, we track the evolution of the 850 hPa atmospheric temperature field over time. We use SMC to enable learning the parameters $\\theta$ of an SSM with atmosphere dynamics model $p_\\theta(z_k \\;|\\; z_{k-1})$ and observation model $p(y_k \\;|\\; z_k)$. Here, the latent state $z_k \\in \\mathbb{R}^{2048}$ represents the global temperature field at $5.625^\\circ$ resolution, with the resulting latent dimension $d=2048$ ($32 \\times 64$ spatial grid). The partial observation $y_k$ consists of 80% of pixels selected uniformly at random at each time step, corrupted by Gaussian noise with standard deviation $\\sigma_y = 0.01$. The observation model is $p(y_k \\;|\\; z_k) = \\mathcal{N}(y_k \\;|\\; \\mathcal{M}_kz_k, \\sigma_y^2 I)$, where $\\mathcal{M}_k$ denotes the random mask operator for the observed pixels at time step $k$. A UNet parametrises the transition density $p_\\theta(z_k \\;|\\; z_{k-1})$, and is learnt using the negative log-likelihood estimate provided by a particle filter with resampling at every step."
+    },
+    {
+      "id": "p0029-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        412.0,
+        542.0,
+        446.0
+      ],
+      "markdown": "The models are trained using ERA5 data from the WeatherBench benchmark dataset (Rasp et al., 2020). We present results for two different settings: a full year setting, where the model is tasked with iterative 4-day forecasts over a full year, and a single-sequence setting, where the model is tasked with iterative 8-day forecasts in January."
+    },
+    {
+      "id": "p0029-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        461.0,
+        544.0,
+        567.0
+      ],
+      "markdown": "**Training details** We use data from the years 2010-2018 for training (excluding 2016), with 2014 held out for evaluation. The temperature fields are normalised to $[0, 1]$ using global min-max normalisation computed across all years. The UNet takes the current state $z_{k-1}$ and process noise concatenated along the channel dimension. The output is given by $z_k = \\mathrm{Sigmoid}\\bigl(z_{k-1} + \\delta_\\theta(z_{k-1}, q_k)\\bigr)$, where $\\delta_\\theta$ is the UNet output, and $q_k \\sim \\mathcal{N}(0, \\sigma_q^2 I)$ with $\\sigma_q^2 = 0.1$. We train the model for 3000 iterations using the Adam optimiser with learning rate $2 \\times 10^{-4}$ and gradient clipping with global norm threshold $1.0$. The optimiser omits at most 10 consecutive non-finite parameter updates by leaving the current parameter values unchanged. We use $N=16$ particles and trigger resampling at each filtering step. By default, the diffusion resampler jitters the diagonal of the Gaussian reference by $10^{-5}$ for numerical stability, and the log-likelihood at each time step is normalised by the number of observed pixels."
+    },
+    {
+      "id": "p0029-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        582.0,
+        544.0,
+        676.0
+      ],
+      "markdown": "**Results and evaluation** The learnt dynamics models are evaluated on unobserved (masked) pixels from the training sequences and on full sequences from the held-out year. We use the mean square error (MSE) averaged over time steps and 16 individual rollout samples to evaluate the performance. All MSE values are reported at scale $\\times 10^{-3}$, averaged over 5 independent training runs. Table 18 shows results for the full year setting, where training sequences of length 16 are randomly sampled from the full year of 6-hourly data across all 7 training years. The model is evaluated on 5 evenly spaced windows from the held-out year, covering all seasons. Table 19 shows results for the single-sequence setting, where the training data consists of fixed sequences of length 32 covering the first 8 days of January for each year in the training data. The model is evaluated on the corresponding January sequence from the held-out year."
+    },
+    {
+      "id": "p0029-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        66.0,
+        544.0,
+        107.0
+      ],
+      "markdown": "Table 18. Prediction quality in terms of MSE ($\\times 10^{-3}$, lower is better) for the weather forecasting experiment in the full year setting. Results are presented as mean ± standard deviation over 5 independent runs recorded after 3000 training iterations. Train MSE is averaged over 5 evenly spaced windows from each of the 7 training years; eval MSE is computed on 5 evenly spaced windows from the held-out year."
+    },
+    {
+      "id": "p0029-b002",
+      "kind": "table",
+      "bbox": [
+        133.0,
+        111.0,
+        460.0,
+        248.0
+      ],
+      "markdown": "",
+      "label": "Table 18",
+      "asset_name": "table-18",
+      "rows": [
+        [
+          "Method",
+          "Train MSE (masked)",
+          "Eval MSE (full)"
+        ],
+        [
+          "Diffusion, Euler–Maruyama (T = 1, K = 4,ODE)",
+          "2.2 ± 0.7",
+          "2.1 ± 0.8"
+        ],
+        [
+          "Diffusion, Euler–Maruyama (T = 1, K = 4,SDE)",
+          "2.5 ± 0.8",
+          "2.4 ± 0.7"
+        ],
+        [
+          "Diffusion, Euler–Maruyama (T = 1, K = 8,ODE)",
+          "2.1 ± 0.5",
+          "2.0 ± 0.4"
+        ],
+        [
+          "Diffusion, Jentzen–Kloeden (T = 1, K = 8,ODE)",
+          "2.0 ± 0.5",
+          "1.9 ± 0.4"
+        ],
+        [
+          "Soft (0.7)",
+          "1.7 ± 0.1",
+          "1.7 ± 0.1"
+        ],
+        [
+          "Soft (0.9)",
+          "1.6 ± 0.1",
+          "1.7 ± 0.2"
+        ],
+        [
+          "Gumbel (0.1)",
+          "4.6 ± 2.0",
+          "4.7 ± 2.3"
+        ],
+        [
+          "Gumbel (0.3)",
+          "1.7 ± 0.1",
+          "1.7 ± 0.1"
+        ],
+        [
+          "OT (ε = 0.5)",
+          "1.9 ± 0.1",
+          "1.8 ± 0.1"
+        ],
+        [
+          "OT (ε = 1.0)",
+          "1.8 ± 0.2",
+          "1.8 ± 0.1"
+        ],
+        [
+          "OT (ε = 1.5)",
+          "2.4 ± 1.2",
+          "2.4 ± 1.4"
+        ]
+      ]
+    },
+    {
+      "id": "p0029-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        684.0,
+        542.0,
+        718.0
+      ],
+      "markdown": "Our results show that diffusion resampling can be used inside the SMC learning pipeline to learn atmosphere dynamics in this complex, high-dimensional setting. Tables 18 and Table 19 show that almost all configurations achieve relatively low MSE on both unobserved pixels in sequences drawn from the training data, and on unseen sequences drawn from the"
+    },
+    {
+      "id": "p0029-b009",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "29",
+      "reason": "Page number footer \"29\" (verified on preview)"
+    }
+  ]
+}

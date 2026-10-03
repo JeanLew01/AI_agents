@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "name": "fan2017dryvr-paper",
+  "title": "DryVR: Data-driven verification and compositional reasoning for automotive systems",
+  "source": {
+    "path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/fan2017dryvr-paper/originals/s001-fan2017dryvr.pdf",
+    "sha256": "a65d12cb0a6e93b24966138cb80cbed9de6e2bc0f551779771388128fd67c41f",
+    "normalized_sha256": "e2d8d5b2db4dfa4b1600f394c9aee5c94256dd12968052d2e751b1f965eb4301",
+    "pages": 25
+  },
+  "notes": [
+    "Source version: arXiv:1702.06902v1 [cs.SY], 22 Feb 2017 (25 pages, single column: main text pages 1-17, references [1]-[56] on pages 18-22, Appendix A on pages 23-25); authors Chuchu Fan, Bolun Qi, Sayan Mitra, Mahesh Viswanathan (University of Illinois at Urbana-Champaign). The title above is printed in sentence case on this arXiv version, with the tool name in small caps (written 'DryVR'). The paper was published as 'DryVR: Data-Driven Verification and Compositional Reasoning for Automotive Systems' at CAV 2017 (Springer LNCS). This package was made from the arXiv v1 PDF only; the proceedings version was not compared, so its numbering, wording and any corrections made there are not reflected here.",
+    "Numbering in this version: theorem-like statements are numbered by section with one shared counter: Definitions 2.1, 2.2, 2.4, 2.6, 2.7; Propositions 2.3, 2.5, 2.9, 3.1, 4.1, 4.2, 4.3; Remark 2.8; Theorems 3.2 and 4.4. Only two equations carry printed numbers: (1), the discrepancy inequality in Section 3.1, and (2), the linear-separator condition in Section 3.1.1 (the text refers to them as 'Equation 1' and 'Equation 2'); `\\tag{n}` is used only for these. Algorithm 1 (GraphReach) is in Section 3.2, Algorithm 2 (VerifySafety) in Appendix A.3. There are three figures (Figures 1-3), one table (Table 1) and one footnote (Footnote 1, Section 3.1.1).",
+    "Mathematics was transcribed to LaTeX from the authors' arXiv TeX source (main2.tex with prelude1.tex and the section files intro, overview, examples, algo, experiments, theory, substitutivity_exp, casestudies, appendix; main2.bbl for the bibliography), with the authors' private macros expanded to standard LaTeX, and every formula was checked against the PDF pages (190-dpi renders of every page and 330-450 dpi crops of the propositions, theorems, displayed formulas, algorithm boxes, Table 1 and the figures). No formula is kept as an image only. The three displayed formulas of Section 3.1.2 (GED form, its log form, PED form) have no printed numbers.",
+    "TeX/PDF disagreements, PDF followed. (a) The set of modes is written with the macro \\L in the TeX source, which the authors define as a calligraphic L, but this PDF prints the text letter 'Ł' (L with stroke) everywhere, apparently because the definition was overridden by the standard LaTeX command of the same name. It is transcribed as printed, $\\text{Ł}$ (for example $\\ell \\in \\text{Ł}$, $\\text{Ł}_{\\mathsf{init}}$, $\\mathcal{H} = \\langle \\text{Ł}, \\Theta, G, \\mathcal{TL} \\rangle$); read it as the finite set of modes (locations), $\\mathcal{L}$ in the authors' intended notation. (b) The labelling functions and the simulator are defined as small-caps macros but are printed in italics inside formulas; they are written $\\mathit{vlab}$ (vertex labels), $\\mathit{elab}$ (edge labels), $\\mathit{lmap}$ (mode map), $\\mathit{sim}$ (simulator). Other notation: $\\mathcal{TL}$ is the set of labeled trajectories (printed as a calligraphic 'TL'), $\\mathcal{V}$, $\\mathcal{E}$ vertices and edges, $\\mathcal{H}$ a hybrid system, $\\mathcal{U}$ the unsafe set, $\\tau.\\mathit{fstate}$, $\\tau.\\mathit{lstate}$, $\\tau.\\mathit{ltime}$, $\\tau.\\mathit{dom}$ the first state, last state, last time and domain of a trajectory, $\\circ$ the sequential composition of graphs, and sans-serif names such as $\\mathsf{Reach}_{\\mathcal{H}}$, $\\mathsf{ReachTube}_{\\mathcal{H}}$, $\\mathsf{Trace}_{G}$, $\\mathsf{Paths}_{G}$, $\\mathsf{Execs}_{\\mathcal{H}}$, $\\mathsf{err}_{\\mathcal{D}}$ and the mode/system names ($\\mathsf{cruise}$, $\\mathsf{em\\_brake}$, $\\mathsf{Powertrn}$, ...).",
+    "Where the main guarantees are in this version (for citing): the discrepancy function is defined in Section 3.1 (conditions (a), with inequality (1), and (b)); the learning procedure is in Section 3.1.1 (linear separators, condition (2), the two-step sampling algorithm) and Section 3.1.2 (global and piece-wise exponential discrepancy, GED and PED); the probabilistic (PAC) statement with its sample count is Proposition 3.1, which with its proof closes Section 3.1.1; Section 3.1.3 reports the empirical accuracy of learned discrepancies. Reach tubes from simulations plus discrepancy are computed by Algorithm 1 (GraphReach, with the subroutines LearnDiscrepancy and ReachComp described in the text of Section 3.2; ReachComp is only described in words with a pointer to [22]). Soundness is Theorem 3.2, stated under the assumption that every learned $\\beta$ is a discrepancy function. Relative completeness is NOT stated as a theorem in this version: the paragraph 'Correctness' before Theorem 3.2 only says that soundness and relative completeness of Algorithm 2 can be proved given correct discrepancy functions, following Theorem 19 and Theorem 21 of [20]. Proposition 3.1 is stated for points drawn from a distribution $\\mathcal{D}$ on $\\Gamma$; the paper prints no numerical instance of its bound and no separate statement relating the number $k$ of sampled points to the number of simulation traces (Section 3.1.3 gives only empirical trace counts). The results on trace containment and sequential composition are Propositions 2.3, 2.5, 2.9, 4.1-4.3 and Theorem 4.4.",
+    "Layout decisions. Three floats are printed at the top of a page in the middle of a sentence that runs over from the previous page: Figure 2 (page 13), Table 1 (page 14) and Figure 3 (page 17). Each was moved a few paragraphs down on its own page, to the paragraph that discusses it, so that the sentences read continuously. The condition of the piece-wise exponential discrepancy is split by the page break between pages 10 and 11 and is given in one piece. Algorithms 1 and 2 are image crops (assets/figure/algorithm-1.jpg; assets/supp_figs/algorithm-2.jpg, placed in the supplementary category because it is printed in the appendix), each followed by a text transcription that starts each line with its printed line number, with one paragraph per printed line and '&emsp;&emsp;' per nesting level. Figures 1-3 are image crops that include the printed sub-captions; the sub-captions are repeated at the start of the caption text. Figure 3(c): the image in this package was rendered by MuPDF, which draws the reach tubes as translucent overlapping bands with vertical stripes. The PDF contains no transparency settings; poppler (pdftoppm) renders solid bands: in the 'cruise' panel solid blue for x in [0, 3.5] and solid red for x in [3.5, 4.5]; in the 'em_brake' panel (after the short initial transient) solid red from about 0.1 to -0.5, solid blue from -0.5 to -2, solid gray from -2 to -9, and solid red from -9 to about -10.1. This matches the text, which says that the reach tubes for G_1 (red) contain those for G_2 (blue and gray). Table 1 is a CSV (assets/table/table-1.csv) with plain Unicode cells; its Model cells that span two printed rows are repeated in both rows (see the note under the table). Run-in paragraph titles (Model assumptions, Safety verification algorithm, Reasoning, Automotive applications, Related work, Trajectory containment, Global exponential discrepancy (GED), Piece-wise exponential discrepancy (PED)., Correctness, Graph simulation, Sequential composition) are kept as bold text at the start of their paragraphs, not as headings. Footnote 1 follows the last paragraph of its page as 'Footnote 1: ...'. Italic bodies of propositions, theorems and the remark are not reproduced as italics. Intervals and index sets are written with a space after the comma ('[12.4, 12.6]', '$\\{1, 2\\}$'). The appendix of this version contains no figures or tables.",
+    "Source errors and inconsistencies that are printed like this in the PDF (and in the authors' TeX) and are NOT conversion errors: in Section 3.1.2 the inline definition of the pairs of $\\Gamma$ and the PED condition are printed with '=' inside the norm, '$|\\tau_1(t) = \\tau_2(t)|$', where the displayed formulas have '$|\\tau_1(t) - \\tau_2(t)|$'; the PED condition has the exponent $\\gamma_i t$ while the displayed PED discrepancy has $\\gamma_i (t-t_{i-1})$; Definition 2.2 (c)(i) prints '$(v,u_j) \\in R$'; Definition 2.4 (a) has a stray parenthesis and (d)(iii) has 'otherwise' set as math; Definition 2.7 lists the graph as a 4-tuple without $\\mathit{vlab}$; Theorem 3.2 prints '$\\mathit{VerifySafety}(\\mathcal{H},U)$' with a plain $U$; Algorithm 1 has 'the transition $G$' in its caption, upright 'Order' in line 3 and '$\\gets$' inside the set of line 5; Algorithm 2 calls $\\mathit{GraphReach}(\\mathcal{H})$ without the subset $S$, uses $\\mathcal{I}$ and $I$ for the same queue and $l$ for the mode; Appendix A.3 says 'shown in 2' for Algorithm 2; the system is called 'Powertrn' but 'Powertrain' in the paragraph before Figure 1 and in the caption of Figure 1; the scenario list of Section 2.5 (Merge, AutoPassing, Merge3, AEB) differs from that of Appendix A.1 (MergeBehind, MergeAhead, AutoPassing, AEB, MergeBetween); the heading of A.1 reads 'venchmarks'; Appendix A.1 says '$x$-axis' for both directions; and wording slips such as 'seprator', 'can used to', 'either “Safe” of “Unsafe”', 'was been proved', 'with the the corresponding path', 'of the points $S_{\\mathsf{test}}$ in and for'. The page-level review notes in the external review directory list these page by page."
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "file": "pages/page-0001.json"
+    },
+    {
+      "page": 2,
+      "file": "pages/page-0002.json"
+    },
+    {
+      "page": 3,
+      "file": "pages/page-0003.json"
+    },
+    {
+      "page": 4,
+      "file": "pages/page-0004.json"
+    },
+    {
+      "page": 5,
+      "file": "pages/page-0005.json"
+    },
+    {
+      "page": 6,
+      "file": "pages/page-0006.json"
+    },
+    {
+      "page": 7,
+      "file": "pages/page-0007.json"
+    },
+    {
+      "page": 8,
+      "file": "pages/page-0008.json"
+    },
+    {
+      "page": 9,
+      "file": "pages/page-0009.json"
+    },
+    {
+      "page": 10,
+      "file": "pages/page-0010.json"
+    },
+    {
+      "page": 11,
+      "file": "pages/page-0011.json"
+    },
+    {
+      "page": 12,
+      "file": "pages/page-0012.json"
+    },
+    {
+      "page": 13,
+      "file": "pages/page-0013.json"
+    },
+    {
+      "page": 14,
+      "file": "pages/page-0014.json"
+    },
+    {
+      "page": 15,
+      "file": "pages/page-0015.json"
+    },
+    {
+      "page": 16,
+      "file": "pages/page-0016.json"
+    },
+    {
+      "page": 17,
+      "file": "pages/page-0017.json"
+    },
+    {
+      "page": 18,
+      "file": "pages/page-0018.json"
+    },
+    {
+      "page": 19,
+      "file": "pages/page-0019.json"
+    },
+    {
+      "page": 20,
+      "file": "pages/page-0020.json"
+    },
+    {
+      "page": 21,
+      "file": "pages/page-0021.json"
+    },
+    {
+      "page": 22,
+      "file": "pages/page-0022.json"
+    },
+    {
+      "page": 23,
+      "file": "pages/page-0023.json"
+    },
+    {
+      "page": 24,
+      "file": "pages/page-0024.json"
+    },
+    {
+      "page": 25,
+      "file": "pages/page-0025.json"
+    }
+  ]
+}

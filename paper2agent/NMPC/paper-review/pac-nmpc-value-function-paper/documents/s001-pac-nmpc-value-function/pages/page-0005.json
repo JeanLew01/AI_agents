@@ -1,0 +1,233 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview, overlay and 250-dpi crops of both columns and of both figures with the items; text and maths taken from approach.tex and sim_experiments.tex, macros expanded, compiled with pdflatex and compared with the page. Display equations: equation (6) (value-function improvement constraint) had been split by the extractor into two formula images (formula-p0005-001/-002); it is now one text item: the printed number (6) sits on the first line (g_V), which is its own block with \\tag{6}, followed by an aligned block with the unnumbered lines c_V and C(tau). Equation (7) (stochastic bicycle model, formerly formula-p0005-007): the printed number (7) sits on the third line, so the item holds an aligned block with the two unnumbered lines (x_{t+1} ~ p(.|x_t,u_t), f(x_t,u_t)) followed by the block 'omega ~ N(.|0,Gamma). \\tag{7}'. TeX-versus-PDF: the source has '(eq. \\ref{eq:constraint_pac_bound})'; the label sits in inline maths of Section III-A, so the PDF prints '(eq. III-A)', which is what is transcribed (the intended target is the unnumbered constraint PAC bound guarantee on page 4). No other disagreement. Headings repaired: 'V. SIMULATION EXPERIMENTS' was a text item, now '## V. SIMULATION EXPERIMENTS'; 'A. Experimental Setup' was '# _..._', now '### A. Experimental Setup'. Inline maths rewritten from glyph soup (the extractor had glued prose into superscripts, e.g. 'andaPACboundontheprobability', and produced U+FFFD for the hat on ell and the big brackets): state/control vectors, Gamma = diag([4e^{-4}, 4e^{-4}, 1.1e^{-2}, 1e^{-1}, 5.6e^{-3}]) (printed with upright 'e' and the exponent as superscript), limits [-1., 1] m/s, [-1, 1] rad/s, [-0.4, 0.4] rad, Q = diag([1e^{-2} 1e^{-2} 0 0 0]), v in [-1, 3] m/s, Q_f = diag([1 1 0 0 0]), v_max . N_t . Delta t, Delta t = 0.1, H = 0.2, L = 5, M = 1024, delta = 0.05, gamma = 2, gamma = 4, gamma_t = 0.35, Sigma_epsilon = 0.01; all numbers read on the crops. Paragraph split repaired: 'We use a quadratic state cost ...' is its own indented paragraph (new item p0005-b008b). Printed peculiarities kept: acceleration limit written '[-1., 1] m/s' (trailing decimal point and unit m/s as printed); 'N_t' (lower-case t) in v_max . N_t . Delta t; 'at distance of'; 'A*' escaped as A\\* in markdown. Figures: Figure 2 (figure-2, stacked bar chart of outcome percentages for five controllers, bbox [311.5,56,560,179] from an ink-extent measurement 313.8-557.5 x 58.0-176.8; a 300-dpi zoom of the bottom edge confirms that the three-line x tick labels, e.g. 'PAC-NMPC / Quadratic / Terminal Cost', are complete inside the box) and Figure 3 (figure-3, trajectories in a cluttered test environment with legend, bbox [338,217,532,410], ink 340.0-529.8 x 219.2-407.8); both are raster images without native text; captions separate and verbatim ('PAC-NMPC' restored in the Fig. 3 caption where the extractor dropped the hyphen at the line wrap). Reading order: the paragraph 'We compared our approach ... shortest path to the | goal. A receding horizon goal ...' continues from the bottom of the left column to below the two figures in the right column (p0005-b015 join_previous=space); Figures 2 and 3 with their captions are therefore emitted after the paragraph 'When running PAC-NMPC ... to 50Hz.' and before the last item. The last item 'We trained the actor and critic in simulation with the' ends mid-sentence and is continued by the first item of page 6. Line-wrap hyphens repaired (performance, dynamics). Figure boxes re-measured with a stricter ink threshold: about 2 pt of white margin on every side and no other ink within 6 pt.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        125.0
+      ],
+      "markdown": "We use the negative learned value function as the terminal cost so that $q_f(\\mathbf{x}_{N_T}) = -V^{\\boldsymbol{\\psi}\\boldsymbol{\\phi}}(\\mathbf{x}_{N_T}, \\widehat{\\boldsymbol{\\ell}}_{N_T})$. In this way, we approximate the infinite horizon trajectory cost given the current LiDAR measurement. We apply the additional constraint that the learned value function improves from the current state to the final state of the trajectory:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        128.0,
+        301.0,
+        179.0
+      ],
+      "markdown": "$$g_{V}(\\mathbf{x}_{N_T}) = V(\\mathbf{x}_{N_T}, \\widehat{\\boldsymbol{\\ell}}_{N_T}) - V(\\mathbf{x}_0, \\boldsymbol{\\ell}_0) \\tag{6}$$\n\n$$\\begin{aligned}\nc_{V}(\\mathbf{x}_{N_T}) &= g_{V}(\\mathbf{x}_{N_T}) < 0 \\\\\nC(\\boldsymbol{\\tau}) &= c(\\mathbf{x}_0) \\lor c(\\mathbf{x}_1) \\cdots \\lor c(\\mathbf{x}_{N_T}) \\lor c_{V}(\\mathbf{x}_{N_T}).\n\\end{aligned}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        183.0,
+        299.0,
+        277.0
+      ],
+      "markdown": "During each planning interval, PAC-NMPC optimizes and returns policy hyperparameters, $\\boldsymbol{\\nu}^*$, a PAC bound on the expected cost, $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu}^*)$, and a PAC bound on the probability of constraint violation, $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu}^*)$. These bounds serve as performance and safety guarantees for the policy; the probability of violating the obstacle constraint or worsening the learned value function, given the current LiDAR measurement, will be less than $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})$ with a probability of $1-\\delta$ (eq. III-A).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        110.0,
+        287.0,
+        243.0,
+        294.0
+      ],
+      "markdown": "## V. SIMULATION EXPERIMENTS",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        302.0,
+        147.0,
+        312.0
+      ],
+      "markdown": "### A. Experimental Setup",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        318.0,
+        299.0,
+        340.0
+      ],
+      "markdown": "We simulate a stochastic bicycle model with acceleration and steering rate inputs given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        344.0,
+        301.0,
+        393.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\mathbf{x}_{t+1} &\\sim p(\\cdot | \\mathbf{x}_t, \\mathbf{u}_t) \\triangleq \\mathbf{x}_t + \\left(f(\\mathbf{x}_t, \\mathbf{u}_t) + \\boldsymbol{\\omega} \\right) \\Delta t, \\\\\nf(\\mathbf{x}_t, \\mathbf{u}_t) &= [v\\cos(\\theta), v\\sin(\\theta), v\\tan(\\delta_s) / l, \\dot{v}, \\dot{\\delta_s}]^T,\n\\end{aligned}$$\n\n$$\\boldsymbol{\\omega} \\sim \\mathcal{N}(\\cdot | \\mathbf{0}, \\boldsymbol{\\Gamma}). \\tag{7}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        396.0,
+        299.0,
+        472.0
+      ],
+      "markdown": "Here $\\mathbf{x}_t=[p_x \\ p_y \\ \\theta \\ v \\ \\delta_s]^T$ is the state vector, $\\mathbf{u}_t=[\\dot{v} \\ \\dot{\\delta_s}]^T$ is the control vector, $l = 0.33 m$ is the wheelbase, $\\boldsymbol{\\omega}$ is Gaussian noise, and $\\boldsymbol{\\Gamma} = diag(\\left[4\\mathrm{e}^{-4}, 4\\mathrm{e}^{-4}, 1.1\\mathrm{e}^{-2}, 1\\mathrm{e}^{-1}, 5.6\\mathrm{e}^{-3}\\right])$ is the process covariance, which was fit from hardware data. We limit the acceleration, $\\dot{v}\\in\\left[-1., 1\\right] \\frac{m}{s}$, the steering rate, $\\dot{\\delta_s}\\in\\left[-1, 1 \\right] \\frac{rad}{s}$, and the steering angle, $\\delta_s\\in\\left[-0.4, 0.4\\right] rad$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008b",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        470.0,
+        299.0,
+        509.0
+      ],
+      "markdown": "We use a quadratic state cost $q(\\mathbf{x}, \\mathbf{u}) = (\\mathbf{x}-\\mathbf{x}_G)^T Q (\\mathbf{x}-\\mathbf{x}_G)$ where $Q = diag([1\\mathrm{e}^{-2} \\ 1\\mathrm{e}^{-2} \\ 0 \\ 0 \\ 0])$, and a velocity constraint such that $v \\in \\left[-1, 3\\right] \\frac{m}{s}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        509.0,
+        299.0,
+        626.0
+      ],
+      "markdown": "Our approach considers not only uncertainty in the dynamics, but also in the learned actor and critic networks. For every trajectory sampled by PAC-NMPC, we also sample dropout masks for the actor and critic networks [53] before evaluating the cost-to-go at the trajectory’s terminal state. Since our approach already requires multiple forward passes through the networks, one for each trajectory, Monte Carlo dropout does not add additional inference time. This allows us to incorporate value function uncertainty into the PAC bound to provide more accurate performance guarantees.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        629.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "We compared our approach against four baselines across two simulation environment distributions. The actor and critic networks were trained for each environment. First, we evaluated PAC-NMPC with a quadratic terminal cost, $q_f(\\mathbf{x}_{N_T}) = (\\mathbf{x}_{N_T}-\\mathbf{x}_G)^T Q_f (\\mathbf{x}_{N_T}-\\mathbf{x}_G)$ where $Q_f = diag([1 \\ 1 \\ 0 \\ 0 \\ 0])$. Second, we used the LiDAR measurements to continuously build and maintain an occupancy grid of the environment. Each planning iteration, we ran a naive A\\* search algorithm on the grid to find the shortest path to the",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        448.0,
+        559.0,
+        530.0
+      ],
+      "markdown": "goal. A receding horizon goal, $\\mathbf{x}_A$, was selected at distance of $v_{max} \\cdot N_t \\cdot \\Delta t$ along the path, and was used to form a quadratic terminal cost, $q_f(\\mathbf{x}_{N_T}) = (\\mathbf{x}_{N_T}-\\mathbf{x}_A)^T Q_f (\\mathbf{x}_{N_T}-\\mathbf{x}_A)$. Third, we compared directly against the actor policy, $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{s})$. Fourth, instead of using PAC-NMPC, we optimized trajectories with MPPI [54], while still using the learned value function as a terminal trajectory cost.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        532.0,
+        559.0,
+        722.0
+      ],
+      "markdown": "When running PAC-NMPC, we optimize a 12 timestep trajectory with $\\Delta t=0.1$ sec at a replanning period of $H=0.2$ sec, and we interpolate the feedback policies to 50Hz. We set PAC-NMPC parameters as $L=5$, $M=1024$, $\\delta=0.05$, and normalize the trajectory costs before optimization to achieve tighter PAC bounds. We evaluated PAC-NMPC with several $\\gamma$ values and selected the best value for each environment; $\\gamma=2$ in the cluttered environments and $\\gamma=4$ in the concave trap environments. When running MPPI, we similarly normalized the sampled trajectory costs and summed them with the constraints using the same $\\gamma$ values. We used the same number of timesteps, $\\Delta t$, $H$, number of sampled trajectories, a temperature of $\\gamma_t=0.35$, and a sampling variance of $\\Sigma_\\epsilon=0.01$. We allowed MPPI to run for as many iterations as possible in the replanning period and interpolated the resulting trajectories to 50Hz.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "figure",
+      "bbox": [
+        311.5,
+        56.0,
+        560.0,
+        179.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        189.0,
+        559.0,
+        206.0
+      ],
+      "markdown": "Fig. 2. Simulated cluttered environments. Percentage of trials in which the system reached the goal, didn’t reach the goal, and violated constraints.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "figure",
+      "bbox": [
+        338.0,
+        217.0,
+        532.0,
+        410.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        420.0,
+        559.0,
+        437.0
+      ],
+      "markdown": "Fig. 3. Simulated cluttered environments. Testing environment where PAC-NMPC fails when only using a quadratic terminal cost.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        724.0,
+        559.0,
+        732.0
+      ],
+      "markdown": "We trained the actor and critic in simulation with the",
+      "source_class": "text"
+    }
+  ]
+}

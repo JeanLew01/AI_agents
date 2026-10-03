@@ -1,0 +1,149 @@
+{
+  "scan_metadata": {
+    "repository": "diffres",
+    "repository_url": "https://github.com/zgbkdlm/diffres",
+    "commit": "767effe3e755067eb8a04422597fbf37eb8ab754",
+    "paper": "Diffusion differentiable resampling (Andersson & Zhao, ICML 2026; arXiv:2512.10401)",
+    "route": "python",
+    "requested_filter": null,
+    "scan_date": "2026-10-02",
+    "evaluated_source_files": 38,
+    "included_source_files": 6,
+    "proposed_tools": 5,
+    "proposed_modules": [
+      "resampling",
+      "feynman_kac",
+      "gaussian_filters"
+    ],
+    "success": true,
+    "explanation": "Static scan of README, diffres/*.py, demos (4 scripts + notebook), tests (3), experiments (scripts, run_*.sh, summary). No code was executed. Five tools selected over three modules; six execution assignments proposed (two marked optional). Experiments other than one smallest-setting LGSSM and one GMS run are verification references only; CIFAR-10, Lotka-Volterra training, profiling, sweeps and summaries are omitted with reasons."
+  },
+  "tutorials": [
+    {
+      "path": "demos/gaussian_mixture.ipynb",
+      "project_path": "repo/diffres/demos/gaussian_mixture.ipynb",
+      "sha256": "52d2c7fc97fe8ddeacb84e4dd4204869dec34d0092b5060653412cf599e3e295",
+      "title": "Diffusion resampling example (Gaussian mixture)",
+      "description": "Official tutorial: builds a 5-component GM prior in d=10 with linear Gaussian likelihood (dy=2), importance-weights 1024 prior samples, resamples with diffusion_resampling(a=-2, ts=linspace(0,1,33), integrator=jentzen_and_kloeden, ode=True), ensemble_ot(eps=0.3) and multinomial, and plots against exact posterior samples (gm_lin_posterior + sampling_gm). Outputs: one saved figure (image/png); no printed numbers.",
+      "type": "notebook",
+      "tutorial_id": "gaussian_mixture_demo",
+      "module": "resampling",
+      "suggested_tools": [
+        {
+          "tool_name": "diffres_resample_particles_diffusion",
+          "module": "resampling",
+          "source_section": "cell 6 \"Resampling starts\" (diffusion_resampling call), inputs from cell 4",
+          "description": "Resample a user-supplied weighted particle set with diffusion resampling (empirical diagonal Gaussian reference), returning equally weighted, differentiable-by-construction resamples.",
+          "primary_input": "samples (n, d) [or (n, ...)] as inline JSON list or path to .npy/.csv; log_weights (n,) or weights (n,); a < 0 (docstring: must be negative); T and nsteps -> ts=linspace(0,T,nsteps+1) as in every upstream caller (optionally explicit ts); integrator in {euler, lord_and_rougemont, jentzen_and_kloeden, diffrax (ode only), tweedie (sde only)}; ode bool; jitter >= 0; seed int -> jax.random.PRNGKey(seed). Enable jax_enable_x64 as all upstream callers do. Keep einsum internal (GPU-utilisation switch only).",
+          "outputs": "resampled particles (n, d) saved to file plus inline when small; output log weights (uniform -log n); brief summary (input ESS, weighted mean of input vs mean of output).",
+          "applicable_to_new_data": true,
+          "upstream_callable": "diffres/resampling.py::diffusion_resampling(key, log_ws, samples, a, ts, integrator=\"euler\", ode=True, jitter=0., einsum=False)"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_resampling.py",
+      "project_path": "repo/diffres/tests/test_resampling.py",
+      "sha256": "9faa2dda66a9f3e1889735969aa7296ce8f382106c481e0608e0a9d7be308968",
+      "title": "Resampling unit tests",
+      "description": "Weighted 1-D sample (n=10000, uniform on [-2,2], log weights = N(0; x, 1)); checks sliced-Wasserstein distance between resampled and weighted original for soft_resampling(alpha=1-1e-3), gumbel_softmax(tau=1e-3) [atol 1e-4], diffusion_resampling(a=-0.5, ts=linspace(0,1,16)) for integrators euler/lord_and_rougemont/jentzen_and_kloeden x ode/sde, diffrax (ode only), tweedie (sde only) [atol 1e-3], ensemble_ot(eps=0.1) [atol 3e-3]; test_diffres_versions checks diffusion_resampling == diffusion_resampling_generic with the empirical Gaussian reference (exact allclose).",
+      "type": "script",
+      "tutorial_id": "resampling_tests",
+      "module": "resampling",
+      "suggested_tools": [
+        {
+          "tool_name": "diffres_resample_particles_baseline",
+          "module": "resampling",
+          "source_section": "test_misc_resamplings, test_ensemble_ot (soft_resampling, gumbel_softmax, ensemble_ot); multinomial/stratified/systematic/multinomial_stopped via tests/test_filters.py::test_smc",
+          "description": "Resample the same kind of weighted particle set with one of the baseline resamplers implemented in the repository, for comparison with diffusion resampling.",
+          "primary_input": "samples, log_weights/weights, seed as above; method in {multinomial, stratified, systematic, multinomial_stopped, ensemble_ot, soft, gumbel_softmax}; method parameters eps (+implicit_diff) for ensemble_ot, alpha in [0,1] for soft, tau > 0 for gumbel_softmax.",
+          "outputs": "resampled particles (n, d) and output log weights (soft_resampling returns non-uniform normalised log weights; others uniform), same summary as the diffusion tool.",
+          "applicable_to_new_data": true,
+          "upstream_callable": "diffres/resampling.py::multinomial, stratified, systematic, multinomial_stopped, ensemble_ot(eps=None->1/log n, implicit_diff=True), soft_resampling(alpha), gumbel_softmax(tau)"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_filters.py",
+      "project_path": "repo/diffres/tests/test_filters.py",
+      "sha256": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+      "title": "Filter and SMC unit tests",
+      "description": "1-D OU-type LGSSM (semigroup exp(-dt), trans_cov 1-exp(-2dt), H=1, R=1, m0=0, P0=1, 101 observations ys=N(0,1) draws). test_kf: kf+rts match closed-form GP regression mean/variance/nll. test_smc: smc_feynman_kac with multinomial, multinomial_stopped, stratified, systematic (1000 particles) nll vs KF nll rtol 6e-2. test_diffres: diffusion_resampling inside SMC (a=-0.5, ts=linspace(0,2,8), sde, 4 integrators) rtol 5e-2. test_ensemble_ot: eps=0.1, rtol 7e-2.",
+      "type": "script",
+      "tutorial_id": "filters_tests",
+      "module": "feynman_kac",
+      "suggested_tools": [
+        {
+          "tool_name": "diffres_run_lgssm_particle_filter",
+          "module": "feynman_kac",
+          "source_section": "m0_sampler, log_g0, m_log_g, test_smc, test_diffres, test_ensemble_ot (smc_feynman_kac)",
+          "description": "Run a bootstrap particle filter (SMC) on a linear Gaussian state-space model given as JSON matrices with a chosen resampler (diffusion or any baseline), returning filtering particles/weights, ESS and the log-likelihood estimate; optionally its gradient w.r.t. model matrices and a comparison with the exact Kalman filter.",
+          "primary_input": "F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx,), P0 (dx,dx), ys (N+1, dy) with ys[0] the time-0 observation (used by log_g0, matching kf); nparticles; resampler name + its parameters (same set as the two resampling tools); resampling_threshold in (0,1]; seed; return_gradient bool; compare_to_kalman bool.",
+          "outputs": "filtering particles (N+1, s, dx) and log weights (N+1, s) saved to .npz; weighted filtering means/covariances; ESS (N+1,); negative log-likelihood (upstream returns nll; also report log-likelihood = -nll); optional jax.value_and_grad gradient of nll w.r.t. F and H (as in demos/gradient_variance2.py and the L-BFGS objective in experiments/lgssm); optional KF nll and mean KL / Bures filtering errors.",
+          "applicable_to_new_data": true,
+          "upstream_callable": "diffres/feynman_kac.py::smc_feynman_kac(key, m0, log_g0, m_log_g, pytree=ys, nparticles, nsteps=N, resampling, resampling_threshold=1., return_path=True)"
+        }
+      ]
+    },
+    {
+      "path": "demos/gradient_variance2.py",
+      "project_path": "repo/diffres/demos/gradient_variance2.py",
+      "sha256": "95401a97cd85d3d37ad816db85d261167108642bac66537789f9702bef33a600",
+      "title": "Gradient of PF log-likelihood: diffusion vs stopped-gradient multinomial",
+      "description": "Simulates a 1-D LGSSM with simulate_lgssm (F=0.5, Q=1, H=1, R=1, P0=1, PRNGKey(666), default 128 steps); computes the exact KF negative log-likelihood and its gradient w.r.t. theta=(scale of F, scale of H) at theta=(0.2,0.2), then 1000 Monte Carlo jax.value_and_grad evaluations of the PF nll with diffusion_resampling (a=-1, T=2, 128 steps, euler, ode, jitter=1e-5) and multinomial_stopped (8 particles); prints KF loss/grad, MC means and gradient RMSEs.",
+      "type": "script",
+      "tutorial_id": "lgssm_gradient_demo",
+      "module": "gaussian_filters",
+      "suggested_tools": [
+        {
+          "tool_name": "diffres_run_lgssm_kalman_filter",
+          "module": "gaussian_filters",
+          "source_section": "kf / loss_kf + jax.value_and_grad (lines 40-43, 92-101); kf+rts also in tests/test_filters.py::test_kf",
+          "description": "Exact Kalman filter (and optional RTS smoother) for the same LGSSM JSON specification: filtering/smoothing means and covariances, exact negative log-likelihood, optional gradient of the nll w.r.t. F and H; the reference against which particle filters are judged.",
+          "primary_input": "F, Q, H, R, m0, P0, ys as in the particle-filter tool; smooth bool; return_gradient bool.",
+          "outputs": "filtering means (N+1,dx) and covariances (N+1,dx,dx); nll and log-likelihood; optional RTS smoothing means/covariances; optional gradient of nll w.r.t. F and H.",
+          "applicable_to_new_data": true,
+          "upstream_callable": "diffres/gaussian_filters.py::kf(ys, m0, v0, semigroup, trans_cov, obs_op, obs_cov) -> (mfs, vfs, nll, mps, vps); rts(mfs, vfs, mps, vps, semigroup) -> (mss, vss)"
+        },
+        {
+          "tool_name": "diffres_simulate_lgssm_data",
+          "module": "gaussian_filters",
+          "source_section": "simulate_lgssm call (line 97)",
+          "description": "Simulate a latent trajectory and observations from an LGSSM JSON specification, so users can generate inputs for the two filter tools.",
+          "primary_input": "F, Q, H, R, m0, P0 (Q, R, P0 positive definite), nsteps N, seed.",
+          "outputs": "xs (N+1, dx), ys (N+1, dy) saved to .npz/.json for reuse by the filter tools.",
+          "applicable_to_new_data": true,
+          "upstream_callable": "diffres/tools.py::simulate_lgssm(key, semigroup, trans_cov, obs_op, obs_cov, m0, v0, nsteps) -> (xs (N+1,dx), ys (N+1,dy))"
+        }
+      ]
+    },
+    {
+      "path": "experiments/lgssm/diffusion.py",
+      "project_path": "repo/diffres/experiments/lgssm/diffusion.py",
+      "sha256": "22c0b269d3ed74915706806a3f14ca0257ee5f568c67bc761c54d12d6a04afe9",
+      "title": "LGSSM experiment, diffusion resampling",
+      "description": "Per MC seed: simulate LGSSM (F=0.5, Q=1, H=1, R=0.5), PF-vs-KF loss over a hard-coded 128x128 parameter grid, filtering KL and Bures errors between PF weighted moments and KF moments at the true parameters (lines 115-122), and L-BFGS-B (jaxopt) parameter estimation. Saves ./lgssm/results/*.npz relative to cwd.",
+      "type": "script",
+      "tutorial_id": "lgssm_diffusion_experiment",
+      "module": "feynman_kac",
+      "optional": true,
+      "smallest_settings": "--id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=euler",
+      "suggested_tools": [],
+      "supporting_role": "Execution reference for diffres_run_lgssm_particle_filter compare_to_kalman (KL/Bures) at smallest settings; owns no tool."
+    },
+    {
+      "path": "experiments/gms/diffusion.py",
+      "project_path": "repo/diffres/experiments/gms/diffusion.py",
+      "sha256": "886496bab31d254ac8030286ea350e48db817bd680cccc8cdda50c58a94ba774",
+      "title": "Gaussian-mixture experiment, diffusion resampling",
+      "description": "Same model as the notebook but with a quantitative metric: sliced Wasserstein (p=1) between exact posterior samples and diffusion-resampled samples, plus the posterior-mean residual. Defaults dx=8, dy=1, c=5, nsamples=10000. Saves ./gms/results/*.npz relative to cwd.",
+      "type": "script",
+      "tutorial_id": "gms_diffusion_experiment",
+      "module": "resampling",
+      "optional": true,
+      "smallest_settings": "--id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=1. --nsteps=8 --integrator=euler",
+      "suggested_tools": [],
+      "supporting_role": "Quantitative execution reference (SWD vs exact posterior) for diffres_resample_particles_diffusion; owns no tool."
+    }
+  ]
+}

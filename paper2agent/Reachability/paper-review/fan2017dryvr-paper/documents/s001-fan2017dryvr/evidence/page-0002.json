@@ -1,0 +1,800 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "seen as a white-box. In contrast, the dynamics of vehicle itself, with hundreds of",
+      "bbox": [
+        133.76800537109375,
+        127.85096740722656,
+        477.5185546875,
+        136.69775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parameters, is more naturally viewed as a black-box. That is, it can be simulated",
+      "bbox": [
+        133.76800537109375,
+        139.0889434814453,
+        477.4859619140625,
+        147.93572998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "or tested with diﬀerent initial conditions and inputs, but it is nearly impossible",
+      "bbox": [
+        133.76803588867188,
+        150.32594299316406,
+        477.5474853515625,
+        159.1727294921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to write down a nice mathematical model.",
+      "bbox": [
+        133.76803588867188,
+        161.5639190673828,
+        318.10601806640625,
+        170.41070556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The empirical observation motivating this work is that many control systems,",
+      "bbox": [
+        148.7120361328125,
+        172.80189514160156,
+        477.4977111816406,
+        181.648681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and especially automotive systems, share this combination of white and black",
+      "bbox": [
+        133.76803588867188,
+        184.0398712158203,
+        477.4976501464844,
+        192.88665771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "boxes (see other examples in Sections 2.1, 2.5, and A.2).",
+      "bbox": [
+        133.76803588867188,
+        195.27784729003906,
+        391.3111267089844,
+        204.1246337890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we",
+      "bbox": [
+        399.4704895019531,
+        195.27784729003906,
+        477.4975891113281,
+        204.1246337890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "view hybrid systems as a combination of a white-box that speciﬁes the mode",
+      "bbox": [
+        133.76803588867188,
+        206.5158233642578,
+        477.4878234863281,
+        215.36260986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "switches and a black-box that can simulate the continuous evolution in each",
+      "bbox": [
+        133.76803588867188,
+        217.75379943847656,
+        477.5176696777344,
+        226.6005859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mode. Suppose the system has a set of modes L and n continuous variables.",
+      "bbox": [
+        133.76803588867188,
+        228.9917755126953,
+        477.50189208984375,
+        237.83856201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The mode switches are deﬁned by a transition graph G which is a directed acyclic",
+      "bbox": [
+        133.76803588867188,
+        240.22975158691406,
+        477.4761962890625,
+        249.0765380859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "graph (DAG) whose vertices and edges deﬁne the allowed mode switches and",
+      "bbox": [
+        133.76803588867188,
+        251.4667510986328,
+        477.4878234863281,
+        260.31353759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the switching times. The black-box is a set of trajectories TL in Rn for each",
+      "bbox": [
+        133.76803588867188,
+        259.0897521972656,
+        477.4856872558594,
+        271.551513671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mode in L. We do not have a closed form description of TL, but instead, we have",
+      "bbox": [
+        133.76806640625,
+        273.38482666015625,
+        477.4886474609375,
+        282.7895202636719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a simulator, that can generate sampled data points on individual trajectories",
+      "bbox": [
+        133.76808166503906,
+        285.1807556152344,
+        477.52252197265625,
+        294.02752685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for a given initial state and mode. Combining a transition graph G, a set of",
+      "bbox": [
+        133.76806640625,
+        296.41876220703125,
+        477.47918701171875,
+        305.2655334472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectories TL, and a set of initial states in Rn, we obtain a hybrid system for",
+      "bbox": [
+        133.76806640625,
+        306.114990234375,
+        477.50390625,
+        316.5035400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which executions, reachability, and trace containment can be deﬁned naturally.",
+      "bbox": [
+        133.76808166503906,
+        318.894775390625,
+        477.5375671386719,
+        327.7415466308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We have studied a suite of automotive systems such as powertrain con-",
+      "bbox": [
+        148.7120819091797,
+        330.1327819824219,
+        477.4779052734375,
+        338.97955322265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trol [40], automatic transmission control [46], and ADAS features like automatic",
+      "bbox": [
+        133.76808166503906,
+        341.37078857421875,
+        477.51751708984375,
+        350.2175598144531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "emergency braking (AEB), lane-change, and auto-passing, that are naturally",
+      "bbox": [
+        133.76808166503906,
+        352.6077880859375,
+        477.5275573730469,
+        361.4545593261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "represented in the above style. In verifying a lane change or merge controller,",
+      "bbox": [
+        133.76808166503906,
+        363.8457946777344,
+        477.5076904296875,
+        372.69256591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "once the maneuver is activated, the mode transitions occur within certain time",
+      "bbox": [
+        133.76808166503906,
+        375.08380126953125,
+        477.49786376953125,
+        383.9305725097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "intervals.",
+      "bbox": [
+        133.76808166503906,
+        386.3218078613281,
+        173.16021728515625,
+        395.1685791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In testing a powertrain control system, the mode transitions are",
+      "bbox": [
+        182.54498291015625,
+        386.3218078613281,
+        477.5077209472656,
+        395.1685791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "brought about by the driver and it is standard to describe typical driver classes",
+      "bbox": [
+        133.76808166503906,
+        397.559814453125,
+        477.5375061035156,
+        406.4065856933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "using time-triggered signals. Similar observations hold in other examples.",
+      "bbox": [
+        133.76808166503906,
+        408.7978210449219,
+        454.1851806640625,
+        417.64459228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Safety veriﬁcation algorithm",
+      "bbox": [
+        133.76808166503906,
+        424.0138244628906,
+        277.4386901855469,
+        432.860595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "With black-box modules in our hybrid sys-",
+      "bbox": [
+        287.41510009765625,
+        424.0138244628906,
+        477.5214538574219,
+        432.860595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tems, we address the challenge of providing guaranteed veriﬁcation. Our ap-",
+      "bbox": [
+        133.76809692382812,
+        435.2518310546875,
+        477.5177307128906,
+        444.0986022949219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proach is based on the idea of simulation-driven reachability analysis [30, 22, 23].",
+      "bbox": [
+        133.76809692382812,
+        446.4898376464844,
+        477.5373229980469,
+        455.33660888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For a given mode ℓ∈ L, ﬁnitely many simulations of the trajectories of ℓand",
+      "bbox": [
+        133.76809692382812,
+        457.1689147949219,
+        477.48785400390625,
+        466.5736083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a discrepancy function bounding the sensitivity of these trajectories, is used",
+      "bbox": [
+        133.76812744140625,
+        468.96484375,
+        477.5014343261719,
+        477.8116149902344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to over-approximate the reachable states. For the key step of computing dis-",
+      "bbox": [
+        133.76812744140625,
+        480.2028503417969,
+        477.497802734375,
+        489.04962158203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "crepancy for modes that are now represented by black-boxes, we introduce a",
+      "bbox": [
+        133.76812744140625,
+        491.44085693359375,
+        477.4977722167969,
+        500.2876281738281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "probabilistic algorithm that learns the parameters of exponential discrepancy",
+      "bbox": [
+        133.76812744140625,
+        502.6788635253906,
+        477.5277099609375,
+        511.525634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "functions from simulation data. The algorithm transforms the problem of learn-",
+      "bbox": [
+        133.76812744140625,
+        513.9168701171875,
+        477.5375671386719,
+        522.763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing the parameters of the discrepancy function to the problem of learning a",
+      "bbox": [
+        133.76812744140625,
+        525.1548461914062,
+        477.5276184082031,
+        534.0016479492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear separator for a set of points in R2 that are obtained from transform-",
+      "bbox": [
+        133.76812744140625,
+        532.77685546875,
+        477.5033264160156,
+        545.2396240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing the simulation data. A classical result in PAC learning, ensures that any",
+      "bbox": [
+        133.76812744140625,
+        547.630859375,
+        477.5176086425781,
+        556.4776611328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "such discrepancy function works with high probability for all trajectories. We",
+      "bbox": [
+        133.76812744140625,
+        558.8678588867188,
+        477.5475158691406,
+        567.7146606445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performed dozens of experiments with a variety of black-box simulators and",
+      "bbox": [
+        133.76812744140625,
+        570.1058349609375,
+        477.5176086425781,
+        578.95263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "observed that 15-20 simulation traces typically give a discrepancy function that",
+      "bbox": [
+        133.76812744140625,
+        581.3438720703125,
+        477.5176696777344,
+        590.190673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "works for nearly 100% of all simulations. The reachability algorithm for the",
+      "bbox": [
+        133.76812744140625,
+        592.5819091796875,
+        477.52752685546875,
+        601.4287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hybrid system proceeds along the vertices of the transition graph in a topolog-",
+      "bbox": [
+        133.76812744140625,
+        603.8198852539062,
+        477.51763916015625,
+        612.6666870117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ically sorted order and this gives a sound bounded time veriﬁcation algorithm,",
+      "bbox": [
+        133.76812744140625,
+        615.057861328125,
+        477.5376281738281,
+        623.9046630859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "provided the learned discrepancy function is correct.",
+      "bbox": [
+        133.76812744140625,
+        626.2958984375,
+        362.6389465332031,
+        635.1427001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Reasoning",
+      "bbox": [
+        133.76812744140625,
+        641.5119018554688,
+        185.07553100585938,
+        650.3587036132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "White-box transition graphs in our modelling, identify the switch-",
+      "bbox": [
+        195.0331268310547,
+        641.5119018554688,
+        477.5426330566406,
+        650.3587036132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing sequences under which the black-box modules are exercised. Complex sys-",
+      "bbox": [
+        133.76812744140625,
+        652.7498779296875,
+        477.4778747558594,
+        661.5966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tems have involved transition graphs that describe subtle sequences in which",
+      "bbox": [
+        133.76812744140625,
+        663.9879150390625,
+        477.5078125,
+        672.834716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        303.13311767578125,
+        695.7208862304688,
+        308.1144104003906,
+        704.5676879882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20170223012647Z",
+      "modDate": "D:20170223012647Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/fan2017dryvr-paper/documents/.pdf-skill-scan-5_j6hizf/review/source.pdf",
+      "page_count": 25,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          133,
+          127,
+          478,
+          169
+        ],
+        "pos": [
+          0,
+          298
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          133,
+          172,
+          478,
+          328
+        ],
+        "pos": [
+          298,
+          1434
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          133,
+          330,
+          478,
+          418
+        ],
+        "pos": [
+          1434,
+          2052
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          133,
+          423,
+          478,
+          636
+        ],
+        "pos": [
+          2052,
+          3522
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          133,
+          641,
+          478,
+          673
+        ],
+        "pos": [
+          3522,
+          3754
+        ]
+      },
+      {
+        "index": 5,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          695,
+          309,
+          703
+        ],
+        "pos": [
+          3754,
+          3758
+        ]
+      }
+    ],
+    "text": "seen as a _white-box_ . In contrast, the dynamics of vehicle itself, with hundreds of parameters, is more naturally viewed as a _black-box_ . That is, it can be simulated or tested with different initial conditions and inputs, but it is nearly impossible to write down a nice mathematical model. \n\nThe empirical observation motivating this work is that many control systems, and especially automotive systems, share this combination of white and black boxes (see other examples in Sections 2.1, 2.5, and A.2). In this paper, we view hybrid systems as a combination of a white-box that specifies the mode switches and a black-box that can simulate the continuous evolution in each mode. Suppose the system has a set of modes �L and _n_ continuous variables. The mode switches are defined by a _transition graph G_ which is a directed acyclic graph (DAG) whose vertices and edges define the allowed mode switches and the switching times. The black-box is a set of trajectories _TL_ in R<sup>_n_</sup> for each mode in �L. We do not have a closed form description of _TL_ , but instead, we have a _simulator_ , that can generate sampled data points on individual trajectories for a given initial state and mode. Combining a transition graph _G_ , a set of trajectories _TL_ , and a set of initial states in R<sup>_n_</sup> , we obtain a hybrid system for which executions, reachability, and trace containment can be defined naturally. \n\nWe have studied a suite of automotive systems such as powertrain control [40], automatic transmission control [46], and ADAS features like automatic emergency braking (AEB), lane-change, and auto-passing, that are naturally represented in the above style. In verifying a lane change or merge controller, once the maneuver is activated, the mode transitions occur within certain time intervals. In testing a powertrain control system, the mode transitions are brought about by the driver and it is standard to describe typical driver classes using time-triggered signals. Similar observations hold in other examples. \n\n**Safety verification algorithm** With black-box modules in our hybrid systems, we address the challenge of providing guaranteed verification. Our approach is based on the idea of simulation-driven reachability analysis [30, 22, 23]. For a given mode _ℓ ∈_ �L, finitely many simulations of the trajectories of _ℓ_ and a _discrepancy function_ bounding the sensitivity of these trajectories, is used to over-approximate the reachable states. For the key step of computing discrepancy for modes that are now represented by black-boxes, we introduce a probabilistic algorithm that learns the parameters of exponential discrepancy functions from simulation data. The algorithm transforms the problem of learning the parameters of the discrepancy function to the problem of learning a linear separator for a set of points in R<sup>2</sup> that are obtained from transforming the simulation data. A classical result in PAC learning, ensures that any such discrepancy function works with high probability for all trajectories. We performed dozens of experiments with a variety of black-box simulators and observed that 15-20 simulation traces typically give a discrepancy function that works for nearly 100% of all simulations. The reachability algorithm for the hybrid system proceeds along the vertices of the transition graph in a topologically sorted order and this gives a sound bounded time verification algorithm, provided the learned discrepancy function is correct. \n\n**Reasoning** White-box transition graphs in our modelling, identify the switching sequences under which the black-box modules are exercised. Complex systems have involved transition graphs that describe subtle sequences in which \n\n2 \n\n"
+  }
+}

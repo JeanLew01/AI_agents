@@ -1,0 +1,833 @@
+{
+  "page": 10,
+  "lines": [
+    {
+      "text": "Figure 3: Optimization process of MBD on the (a) Humanoid Standup, (b) Push T, and (c) Humanoid",
+      "bbox": [
+        108.0,
+        239.66339111328125,
+        504.0016784667969,
+        248.5699462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Running tasks. The trajectory is iteratively refined to achieve the desired objective in the high-",
+      "bbox": [
+        108.0,
+        250.5723876953125,
+        505.6535949707031,
+        259.47894287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dimensional space with model information.",
+      "bbox": [
+        108.0,
+        261.48138427734375,
+        280.9507141113281,
+        270.387939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5.2",
+      "bbox": [
+        108.0,
+        279.51483154296875,
+        120.4532470703125,
+        288.4712219238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Data-augmented MBD for Trajectory Optimization",
+      "bbox": [
+        130.4158477783203,
+        279.51483154296875,
+        348.56683349609375,
+        288.4712219238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We also evaluate the performance of MBD with data augmentation on the Car UMaze Navigation and",
+      "bbox": [
+        107.53199768066406,
+        299.7363586425781,
+        504.002197265625,
+        308.6429138183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Humanoid Jogging tasks to see how partial and dynamically infeasible data can help the exploration",
+      "bbox": [
+        108.0,
+        310.6453552246094,
+        504.0013122558594,
+        319.5519104003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of MBD and regularize the solution by steering the diffusion process.",
+      "bbox": [
+        108.0,
+        321.5543518066406,
+        384.02374267578125,
+        330.4609069824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For Car UMaze Navigation, the map blocked by U-shaped obstacles is challenging to explore given a",
+      "bbox": [
+        108.0,
+        337.9423522949219,
+        504.0015869140625,
+        346.8489074707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear dynamics model. Therefore, random shooting has a low chance of reaching the goal region.",
+      "bbox": [
+        108.0,
+        348.8513488769531,
+        505.7394714355469,
+        357.7579040527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To sample with loosened dynamical constraints, we augment MBD with data from the RRT [38]",
+      "bbox": [
+        107.69100189208984,
+        359.7603759765625,
+        503.9999084472656,
+        368.66693115234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithm through goal-directed exploration with simplified dynamics. Fig. 4(b) shows the difference",
+      "bbox": [
+        108.0,
+        370.67034912109375,
+        503.9951171875,
+        379.576904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "between data-augmented MBD and data-free one: the former can refine the infeasible trajectory and",
+      "bbox": [
+        108.0,
+        381.5793762207031,
+        504.0011291503906,
+        390.4859313964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "further improve it to reach the goal in less time, while the latter struggles to find a feasible solution.",
+      "bbox": [
+        108.0,
+        392.4883728027344,
+        505.7432556152344,
+        401.3949279785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The reason is that the infeasible trajectory from RRT serves as a good initialization for MBD, which",
+      "bbox": [
+        107.69100189208984,
+        403.3973693847656,
+        503.9949035644531,
+        412.3039245605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can be further refined to minimize the cost function with MBD.",
+      "bbox": [
+        108.0,
+        414.3063659667969,
+        360.6315612792969,
+        423.2129211425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For Humanoid Jogging, we aim to regularize the solution for the task with multiple solutions to the",
+      "bbox": [
+        108.0,
+        430.6943664550781,
+        503.99676513671875,
+        439.6009216308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "desired one with partial state data. Due to the infinite possibilities for humanoid jogging motion, the",
+      "bbox": [
+        108.0,
+        441.6043701171875,
+        503.99737548828125,
+        450.51092529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "human motion data provide a good reference to regularize MBD to converge to a more human-like",
+      "bbox": [
+        108.0,
+        452.51336669921875,
+        503.9989013671875,
+        461.419921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and robust solution instead of an aggressive or unstable one [26, 45]. We use data from the CMU",
+      "bbox": [
+        108.0,
+        463.42236328125,
+        504.00299072265625,
+        472.32891845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mocap dataset [1], from which we extract torso, thigh, and shin positions and use them as a partial",
+      "bbox": [
+        108.0,
+        474.33135986328125,
+        503.9989013671875,
+        483.2379150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state reference. Fig. 4(a) demonstrates a more stable motion generated by data-augmented MBD.",
+      "bbox": [
+        108.0,
+        485.2403564453125,
+        494.55889892578125,
+        494.14691162109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        108.0,
+        512.4558715820312,
+        113.97760009765625,
+        523.20361328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Conclusion and Future Work",
+      "bbox": [
+        125.93280029296875,
+        512.4558715820312,
+        275.2771911621094,
+        523.20361328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper introduces Model-Based Diffusion (MBD), a novel diffusion-based trajectory optimization",
+      "bbox": [
+        107.69100189208984,
+        537.2533569335938,
+        503.9951477050781,
+        546.159912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "framework that employs a dynamics model to approximate the score function. MBD not only out-",
+      "bbox": [
+        108.0,
+        548.162353515625,
+        505.6537170410156,
+        557.0689086914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performs existing methods in terms of sample efficiency and generalization, but also provides a new",
+      "bbox": [
+        108.0,
+        559.0713500976562,
+        504.3627624511719,
+        567.9779052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "perspective on trajectory optimization by leveraging diffusion models as powerful samplers. Future",
+      "bbox": [
+        108.0,
+        569.9803466796875,
+        504.000244140625,
+        578.8869018554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "directions involve theoretically understanding its convergence, optimizing the standard Gaussian for-",
+      "bbox": [
+        108.0,
+        580.8893432617188,
+        505.6554260253906,
+        589.7958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ward process using the model information, adapting it to online tasks with receding horizon strategies,",
+      "bbox": [
+        107.64099884033203,
+        591.79833984375,
+        505.2435302734375,
+        600.7048950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and exploring advanced sampling and scheduling techniques to further improve performance.",
+      "bbox": [
+        108.0,
+        602.7073974609375,
+        479.9933776855469,
+        611.6139526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Acknowledgments",
+      "bbox": [
+        108.0,
+        626.0177612304688,
+        185.9374237060547,
+        634.97412109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This work was supported by NSF Grant 2154171, NSF CAREER 2339112 and CMU CyLab Seed",
+      "bbox": [
+        107.69100189208984,
+        644.8933715820312,
+        504.0002136230469,
+        653.7999267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Funding.",
+      "bbox": [
+        108.0,
+        655.8033447265625,
+        143.70594787597656,
+        664.7098999023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "References",
+      "bbox": [
+        108.0,
+        683.0178833007812,
+        163.54383850097656,
+        693.765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[1] Carnegie",
+      "bbox": [
+        112.98100280761719,
+        702.3363647460938,
+        166.11083984375,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mellon",
+      "bbox": [
+        175.88653564453125,
+        702.3363647460938,
+        205.244140625,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University",
+      "bbox": [
+        215.00967407226562,
+        702.3363647460938,
+        257.5166931152344,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "-",
+      "bbox": [
+        267.2822265625,
+        702.3363647460938,
+        270.6661376953125,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "CMU",
+      "bbox": [
+        280.4316711425781,
+        702.3363647460938,
+        303.5803527832031,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Graphics",
+      "bbox": [
+        313.34588623046875,
+        702.3363647460938,
+        350.03021240234375,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lab",
+      "bbox": [
+        359.7957458496094,
+        702.3363647460938,
+        375.5974426269531,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "-",
+      "bbox": [
+        385.36297607421875,
+        702.3363647460938,
+        388.74688720703125,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "motion",
+      "bbox": [
+        398.5124206542969,
+        702.3363647460938,
+        427.31109619140625,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "capture",
+      "bbox": [
+        437.0867919921875,
+        702.3363647460938,
+        466.9931640625,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "library.",
+      "bbox": [
+        476.7586975097656,
+        702.3363647460938,
+        505.7403259277344,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "http://mocap.cs.cmu.edu/.",
+      "bbox": [
+        129.57899475097656,
+        713.245361328125,
+        232.5225372314453,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10",
+      "bbox": [
+        301.01898193359375,
+        743.1333618164062,
+        310.9815673828125,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250117174028Z",
+      "modDate": "D:20260927011225-05'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/model-based-diffusion-paper/documents/.pdf-skill-scan-6fk4cmtz/review/source.pdf",
+      "page_count": 30,
+      "page_number": 10
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "picture",
+        "bbox": [
+          108,
+          71,
+          505,
+          229
+        ],
+        "pos": [
+          0,
+          2
+        ]
+      },
+      {
+        "index": 1,
+        "class": "caption",
+        "bbox": [
+          108,
+          239,
+          506,
+          271
+        ],
+        "pos": [
+          2,
+          239
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          108,
+          279,
+          349,
+          289
+        ],
+        "pos": [
+          239,
+          299
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          299,
+          505,
+          331
+        ],
+        "pos": [
+          299,
+          565
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          107,
+          337,
+          506,
+          424
+        ],
+        "pos": [
+          565,
+          1324
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          108,
+          430,
+          505,
+          495
+        ],
+        "pos": [
+          1324,
+          1914
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          108,
+          512,
+          276,
+          521
+        ],
+        "pos": [
+          1914,
+          1951
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          107,
+          537,
+          506,
+          612
+        ],
+        "pos": [
+          1951,
+          2636
+        ]
+      },
+      {
+        "index": 8,
+        "class": "section-header",
+        "bbox": [
+          108,
+          626,
+          186,
+          635
+        ],
+        "pos": [
+          2636,
+          2661
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          107,
+          644,
+          505,
+          665
+        ],
+        "pos": [
+          2661,
+          2756
+        ]
+      },
+      {
+        "index": 10,
+        "class": "section-header",
+        "bbox": [
+          108,
+          683,
+          164,
+          692
+        ],
+        "pos": [
+          2756,
+          2775
+        ]
+      },
+      {
+        "index": 11,
+        "class": "list-item",
+        "bbox": [
+          112,
+          702,
+          506,
+          723
+        ],
+        "pos": [
+          2775,
+          2881
+        ]
+      },
+      {
+        "index": 12,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          743,
+          311,
+          751
+        ],
+        "pos": [
+          2881,
+          2886
+        ]
+      }
+    ],
+    "text": "\n\nFigure 3: Optimization process of MBD on the (a) Humanoid Standup, (b) Push T, and (c) Humanoid Running tasks. The trajectory is iteratively refined to achieve the desired objective in the highdimensional space with model information. \n\n## **5.2 Data-augmented MBD for Trajectory Optimization** \n\nWe also evaluate the performance of MBD with data augmentation on the Car UMaze Navigation and Humanoid Jogging tasks to see how partial and dynamically infeasible data can help the exploration of MBD and regularize the solution by steering the diffusion process. \n\nFor Car UMaze Navigation, the map blocked by U-shaped obstacles is challenging to explore given a nonlinear dynamics model. Therefore, random shooting has a low chance of reaching the goal region. To sample with loosened dynamical constraints, we augment MBD with data from the RRT [38] algorithm through goal-directed exploration with simplified dynamics. Fig. 4(b) shows the difference between data-augmented MBD and data-free one: the former can refine the infeasible trajectory and further improve it to reach the goal in less time, while the latter struggles to find a feasible solution. The reason is that the infeasible trajectory from RRT serves as a good initialization for MBD, which can be further refined to minimize the cost function with MBD. \n\nFor Humanoid Jogging, we aim to regularize the solution for the task with multiple solutions to the desired one with partial state data. Due to the infinite possibilities for humanoid jogging motion, the human motion data provide a good reference to regularize MBD to converge to a more human-like and robust solution instead of an aggressive or unstable one [26, 45]. We use data from the CMU Mocap dataset [1], from which we extract torso, thigh, and shin positions and use them as a partial state reference. Fig. 4(a) demonstrates a more stable motion generated by data-augmented MBD. \n\n# **6 Conclusion and Future Work** \n\nThis paper introduces Model-Based Diffusion (MBD), a novel diffusion-based trajectory optimization framework that employs a dynamics model to approximate the score function. MBD not only outperforms existing methods in terms of sample efficiency and generalization, but also provides a new perspective on trajectory optimization by leveraging diffusion models as powerful samplers. Future directions involve theoretically understanding its convergence, optimizing the standard Gaussian forward process using the model information, adapting it to online tasks with receding horizon strategies, and exploring advanced sampling and scheduling techniques to further improve performance. \n\n## **Acknowledgments** \n\nThis work was supported by NSF Grant 2154171, NSF CAREER 2339112 and CMU CyLab Seed Funding. \n\n# **References** \n\n- [1] Carnegie Mellon University - CMU Graphics Lab - motion capture library. http://mocap.cs.cmu.edu/. \n\n10 \n\n"
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "mbd_planner_car2d": {
+    "execution_id": "mbd_planner_car2d",
+    "status": "succeeded",
+    "status_note": "The documented command ran to completion twice with exit status 0 and wrote both expected files. 'succeeded' describes the execution. The optimised plan itself earns zero reward (the car does not leave the U-shaped obstacle); see scientific_observations.",
+    "recorded_utc": "2026-10-02T15:00:00Z",
+    "source": {
+      "path": "mbd/planners/mbd_planner.py",
+      "pinned_checkout": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/repo/model-based-diffusion",
+      "commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+      "source_url": "https://github.com/LeCAR-Lab/model-based-diffusion",
+      "source_url_basis": "git remote 'origin' of the pinned checkout (https://github.com/LeCAR-Lab/model-based-diffusion.git)",
+      "documentation": "README.md lines 33-40 ('cd mbd/planners; python mbd_planner.py --env_name $ENV_NAME')",
+      "private_copy": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/source",
+      "private_copy_creation": "git -C repo/model-based-diffusion archive c1eb913783f1713f7a1ebb657b34e0188d52cd8b | tar -x -C notebooks/mbd_planner_car2d/source",
+      "private_copy_verification": {
+        "method": "(1) sorted file list of the copy equals 'git ls-tree -r --name-only <commit>' (34 files, empty diff); (2) 'git hash-object <copy>/<file>' equals the blob id in 'git ls-tree -r <commit>' for every file",
+        "before_runs": {"files_compared": 34, "mismatches": 0},
+        "after_run2": {"files_compared": 34, "mismatches": 0, "extra_files": "14 __pycache__/*.pyc files written by the interpreter; nothing else"},
+        "record": "notebooks/mbd_planner_car2d/logs/source_copy_verification.txt",
+        "script_sha256": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+        "script_sha256_matches_scanner": true
+      },
+      "pinned_checkout_untouched": "after both runs 'git status --porcelain --ignored' of the pinned checkout lists only the three __pycache__ directories that were already there before this executor started; no results/ directory exists in it"
+    },
+    "execution_mode": "native-command",
+    "execution_path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/run.sh",
+    "execution_path_sha256": "74036ab131c3f6e9fc9c0b7989bfec73acbf31e4c22aa8a188c34ee654be1c89",
+    "execution_path_note": "run.sh only launches the unmodified upstream script through the guarded launcher and moves the files upstream wrote into outputs/<label>/. After run1 and before run2 one bookkeeping line was changed (the SHA-256 list is now written to logs/<label>.sha256 instead of into the output directory, where the first version had hashed its own empty file); the launch command is unchanged. The stray outputs/run1/SHA256SUMS was deleted and logs/run1.sha256 regenerated from the two upstream files.",
+    "command": {
+      "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/source/mbd/planners",
+      "argv": [
+        "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh", "--timeout", "900", "--log", "<namespace>/logs/<label>.log", "--",
+        "env", "PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/source",
+        "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+        "mbd_planner.py", "--env_name", "car2d", "--seed", "0"
+      ],
+      "environment_set_by_launcher": {"XLA_PYTHON_CLIENT_PREALLOCATE": "false", "MPLBACKEND": "Agg", "PYTHONPATH": "unset by the launcher, then set to the private copy by 'env' inside the command"},
+      "effective_parameters": {
+        "env_name": "car2d", "seed": 0, "Nsample": 2048, "Hsample": 50, "Ndiffuse": 100, "temp_sample": 0.1, "beta0": 0.0001, "betaT": 0.01,
+        "enable_demo": false, "disable_recommended_params": false, "not_render": false,
+        "basis": "dataclass defaults at mbd_planner.py:21-35; car2d is in none of the override dictionaries (lines 45-63); the log line 'override temp_sample to 0.1' confirms temp_sample"
+      }
+    },
+    "commands": [
+      {
+        "label": "probe_import",
+        "purpose": "prove that 'import mbd' resolves to the private copy",
+        "command": "heavy.sh --timeout 300 --log logs/probe_import.log -- env PYTHONPATH=<copy> $PROJECT_PYTHON -c \"import mbd; print(mbd.__file__)\"",
+        "cwd": "<copy>/mbd/planners",
+        "exit_status": 0,
+        "stdout": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/source/mbd/__init__.py",
+        "launcher": "start 2026-10-02T14:49:47Z MemAvailable=2152MB MemoryMax=1452MB; end 2026-10-02T14:49:57Z exit=0; scope memory.peak=136MB oom_kills=0",
+        "log": "notebooks/mbd_planner_car2d/logs/probe_import.log"
+      },
+      {
+        "label": "probe_runtime",
+        "purpose": "interpreter, package versions, JAX device",
+        "command": "heavy.sh --timeout 300 --log logs/probe_runtime.log -- env PYTHONPATH=<copy> $PROJECT_PYTHON -c <version and device print, see run.sh>",
+        "cwd": "<copy>/mbd/planners",
+        "exit_status": 0,
+        "launcher": "start 2026-10-02T14:50:38Z MemAvailable=2484MB MemoryMax=1784MB; end 2026-10-02T14:50:42Z exit=0; scope memory.peak=195MB oom_kills=0",
+        "log": "notebooks/mbd_planner_car2d/logs/probe_runtime.log"
+      },
+      {
+        "label": "run1",
+        "command": "run.sh run run1  (= documented command, see 'command')",
+        "exit_status": 0,
+        "launcher_start_utc": "2026-10-02T14:52:52Z",
+        "launcher_end_utc": "2026-10-02T14:53:23Z",
+        "wall_seconds_job": 31,
+        "wall_seconds_job_basis": "difference of the launcher's start and end lines (1 s resolution); includes interpreter start, JIT compilation, 99 reverse steps, rendering",
+        "wall_seconds_including_lock_wait": 155.91,
+        "tqdm_loop_seconds": "about 4 (final progress line '99/99 [00:04<00:00, 23.61it/s]')",
+        "launcher_memory": "MemAvailable=2412MB at start, MemoryMax=1712MB",
+        "scope_memory_peak_mb": 600,
+        "oom_kills": 0,
+        "gpu_memory_used_mib_before_after": [1336, 1330],
+        "log": "notebooks/mbd_planner_car2d/logs/run1.log",
+        "log_sha256": "2ba83926cd491572441c2ef39dbcfd2623976acd0875bf9629c93c2ea59995c5",
+        "launcher_stderr": "notebooks/mbd_planner_car2d/logs/run1.launcher.txt",
+        "files_written_by_upstream": ["results/car2d/mu_0ts.npy", "results/car2d/rollout.png"]
+      },
+      {
+        "label": "run2",
+        "purpose": "replay with identical arguments",
+        "command": "run.sh run run2  (= documented command, see 'command')",
+        "exit_status": 0,
+        "launcher_start_utc": "2026-10-02T14:58:40Z",
+        "launcher_end_utc": "2026-10-02T14:58:57Z",
+        "wall_seconds_job": 17,
+        "wall_seconds_job_basis": "difference of the launcher's start and end lines (1 s resolution)",
+        "wall_seconds_including_lock_wait": 322.42,
+        "tqdm_loop_seconds": "about 2 (final progress line '99/99 [00:02<00:00, 38.77it/s]')",
+        "launcher_memory": "MemAvailable=2330MB at start, MemoryMax=1630MB",
+        "scope_memory_peak_mb": 500,
+        "oom_kills": 0,
+        "gpu_memory_used_mib_before_after": [1259, 1318],
+        "log": "notebooks/mbd_planner_car2d/logs/run2.log",
+        "log_sha256": "b13b48d215ee479f9fb45a988d9fd85fd45990ac3c84479886c96a2fd023b7d7",
+        "launcher_stderr": "notebooks/mbd_planner_car2d/logs/run2.launcher.txt",
+        "files_written_by_upstream": ["results/car2d/mu_0ts.npy", "results/car2d/rollout.png"]
+      }
+    ],
+    "runtime": {
+      "interpreter": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+      "python": "3.11.17 (main, Oct 1 2026, 20:58:47) [Clang 22.1.3]",
+      "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "packages": {
+        "jax": "0.4.30", "jaxlib": "0.4.30", "jax-cuda12-plugin": "0.4.30", "jax-cuda12-pjrt": "0.4.30",
+        "brax": "0.10.5", "mujoco": "3.1.6", "mujoco-mjx": "3.1.6", "numpy": "1.26.4", "matplotlib": "3.9.0",
+        "tyro": "0.8.5", "tqdm": "4.66.4", "scipy": "1.14.0"
+      },
+      "device": "cuda:0",
+      "device_evidence": "jax.devices() = [cuda(id=0)], jax.default_backend() = 'gpu', a jax.numpy array reports devices [cuda(id=0)] (logs/probe_runtime.log)",
+      "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, driver 581.04",
+      "jax_enable_x64": false,
+      "matplotlib_backend": "Agg",
+      "evidence": "notebooks/mbd_planner_car2d/logs/probe_runtime.log"
+    },
+    "seed_and_data_provenance": {
+      "seed": 0,
+      "seed_mechanism": "jax.random.PRNGKey(seed=args.seed) at mbd_planner.py:40, the only source of randomness in the script; passed with the supported flag --seed 0",
+      "data": "No external dataset. The car2d environment is defined analytically in mbd/envs/car2d.py (RK4 kinematics, 11 circular obstacles, start [-0.5, 0, 3*pi/2], goal [0.5, 0]). The environment constructor also loads the bundled demonstration mbd/assets/car2d_xref.npy (car2d.py:66); with enable_demo False it does not enter the update.",
+      "inputs": [
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/planners/mbd_planner.py", "sha256": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829"},
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/envs/car2d.py", "sha256": "0156d9dba306d8c5423e8fdea0beca1ccd35b328b4a845f94976229b5bb38208"},
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/envs/__init__.py", "sha256": "f74fb0f2d2c1f4d0341ed26d4560850f08af6559c5d9257837d0a36fb74e4e20"},
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/utils.py", "sha256": "3ea0dabe674266988a463d2d6e2fe311813697e835a2955abd6b2023a4ceed75"},
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/__init__.py", "sha256": "41730b9fd003a160f8dd5082457c3c540986133dcdddc64aa99844078888c678"},
+        {"path": "notebooks/mbd_planner_car2d/source/mbd/assets/car2d_xref.npy", "sha256": "8b671a267aae37d662d5b06f51bf829b11f8503e0bb05f9153bac08662bf5187"}
+      ],
+      "input_hash_record": "notebooks/mbd_planner_car2d/logs/input_hashes.sha256"
+    },
+    "outputs": {
+      "run1": [
+        {"path": "notebooks/mbd_planner_car2d/outputs/run1/mu_0ts.npy", "upstream_path": "<copy>/results/car2d/mu_0ts.npy", "bytes": 39728, "sha256": "f8777df19f7115ddfd820933796649b853131a2e623e03e5376c867edf0f75bc", "shape": [99, 50, 2], "dtype": "float32"},
+        {"path": "notebooks/mbd_planner_car2d/outputs/run1/rollout.png", "upstream_path": "<copy>/results/car2d/rollout.png", "bytes": 19223, "sha256": "043b2f8a32e90aad82a30545282432bc70dfde3432f5a12e7ee2816512f2e93c", "png": "300 x 300 px, 8-bit RGBA"}
+      ],
+      "run2": [
+        {"path": "notebooks/mbd_planner_car2d/outputs/run2/mu_0ts.npy", "upstream_path": "<copy>/results/car2d/mu_0ts.npy", "bytes": 39728, "sha256": "f8777df19f7115ddfd820933796649b853131a2e623e03e5376c867edf0f75bc", "shape": [99, 50, 2], "dtype": "float32"},
+        {"path": "notebooks/mbd_planner_car2d/outputs/run2/rollout.png", "upstream_path": "<copy>/results/car2d/rollout.png", "bytes": 19223, "sha256": "043b2f8a32e90aad82a30545282432bc70dfde3432f5a12e7ee2816512f2e93c", "png": "300 x 300 px, 8-bit RGBA"}
+      ],
+      "collection_note": "run.sh refuses to start if <copy>/results already exists, and after each run moves the files out of <copy>/results/car2d/ and removes <copy>/results, so each run's files are known to be freshly written by that run.",
+      "hash_records": ["notebooks/mbd_planner_car2d/logs/run1.sha256", "notebooks/mbd_planner_car2d/logs/run2.sha256"]
+    },
+    "reference_values": {
+      "stdout_lines": {
+        "override_temp_sample": "0.1",
+        "init_sigma": "6.30e-01",
+        "final_reward": "-1.19e-07"
+      },
+      "final_reward_parsed_float": -1.19e-07,
+      "final_reward_precision_note": "Upstream prints the final reward with three significant digits (mbd_planner.py:187) and does not save it; no higher-precision value exists in the evidence, so none is given.",
+      "progress_bar": "Every progress-bar refresh that carries a reward (107 in run1, 104 in run2, including the last one at 99/99) shows 'rew=0.00e+00', i.e. the mean reward of the 2048 sampled trajectories was displayed as zero at every reverse step.",
+      "mu_0ts": {
+        "shape": [99, 50, 2],
+        "dtype": "float32",
+        "all_finite": true,
+        "min": -0.14090946316719055,
+        "max": 0.10602962225675583,
+        "mean": -0.001998741179704666,
+        "first_slice_min_max": [-0.033960167318582535, 0.030173353850841522],
+        "final_plan": {
+          "definition": "mu_0ts[-1], shape [50, 2], the action sequence used for the rendered rollout and the printed final reward",
+          "min": -0.14019380509853363,
+          "max": 0.08313099294900894,
+          "mean_per_action_dim": [-0.0025820229202508926, -0.004262247588485479],
+          "sum_abs": 3.5653512477874756,
+          "first_3_rows": [[-0.008294057101011276, -0.010664070025086403], [-0.012346661649644375, 0.08313099294900894], [-0.02998526580631733, -0.10351290553808212]],
+          "last_3_rows": [[0.020656459033489227, -0.044380366802215576], [-0.024653850123286247, 0.012644466012716293], [0.03057713247835636, -0.007431064732372761]]
+        },
+        "statistics_tool": "numpy 1.26.4 only (numpy.load on the saved file; no JAX, no upstream code); record in logs/replay_comparison.txt"
+      }
+    },
+    "replay_comparison": {
+      "runs_compared": ["run1", "run2"],
+      "identical_arguments": true,
+      "printed_values_identical": true,
+      "printed_values": {"override_temp_sample": ["0.1", "0.1"], "init_sigma": ["6.30e-01", "6.30e-01"], "final_reward": ["-1.19e-07", "-1.19e-07"]},
+      "array_shapes": [[99, 50, 2], [99, 50, 2]],
+      "array_dtypes": ["float32", "float32"],
+      "numpy_array_equal": true,
+      "max_abs_diff": 0.0,
+      "mu_0ts_npy_files_byte_identical": true,
+      "rollout_png_files_byte_identical": true,
+      "tolerance": "none needed: the arrays are bitwise equal between the two runs on cuda:0 (same process configuration, same machine). No tolerance for other devices, drivers or JAX versions was measured.",
+      "log_differences": "the two logs differ only in tqdm timing text (elapsed time, it/s, number of refresh lines) and in the launcher's peak-memory line",
+      "record": "notebooks/mbd_planner_car2d/logs/replay_comparison.txt",
+      "corroboration_outside_this_namespace": "The coordinator's earlier feasibility run from the pinned checkout itself (tmp/env-probe/coord/car2d-default-out/, not this executor's evidence) has the same SHA-256 for mu_0ts.npy and rollout.png, so the private copy and the checkout produce identical files. Read-only observation; those files were not modified."
+    },
+    "figures": [
+      {
+        "path": "notebooks/mbd_planner_car2d/outputs/run1/rollout.png",
+        "sha256": "043b2f8a32e90aad82a30545282432bc70dfde3432f5a12e7ee2816512f2e93c",
+        "produced_by": "upstream, mbd_planner.py:157-169 and Car2d.render (mbd/envs/car2d.py:112-134)",
+        "description": "A 300 x 300 px plot on axes x, y in [-2, 2] showing the eleven grey circular obstacles that form a U open to the left and, inside it, the red 'Car path' as a small cluster of points around the start position (about x = -0.5, y = 0): the car stays where it started, does not leave the U and does not approach the goal at (0.5, 0), which upstream does not draw.",
+        "viewed_by_executor": true,
+        "cosmetic_note": "the x-axis label is cut off at the lower edge (figsize 3 x 3 inches without a tight layout)"
+      }
+    ],
+    "scientific_observations": [
+      "The final plan obtains zero reward: the printed value -1.19e-07 equals -2^-23 to the printed precision, which is one float32 rounding step below zero in the reward 1 - (clip(d, 0, 0.2) / 0.2)^2 of car2d.py:89-93 for a car farther than 0.2 from the goal. This reading of the number is an inference from the source, not a separately measured quantity.",
+      "The mean sample reward shown by the progress bar is 0.00e+00 at every refresh, so in this run no reward signal was displayed at any reverse step. This is the documented command without --enable_demo; the coordinator's probe note relates this outcome to the paper's data-free car2d case (its Figure 4(b)). The executor did not check the paper."
+    ],
+    "limitations": [
+      "One seed (0), one environment (car2d), script defaults only; no other parameter combination was executed.",
+      "The final reward exists only as the three-significant-digit stdout value.",
+      "Bitwise reproducibility was established for two runs on this machine (RTX 4070 Laptop, driver 581.04, jax 0.4.30 CUDA 12); it is not evidence for other hardware or versions.",
+      "The combined stdout/stderr log is one file (the launcher's --log merges both streams); tqdm writes carriage returns, so the log must be read with CR translated to LF.",
+      "--enable_demo was not run under this assignment.",
+      "Wall time includes JIT compilation and differs between the runs (31 s and 17 s by launcher timestamps); the waiting time for the shared workspace lock (about 2 and 5 minutes) is not part of it."
+    ],
+    "attempts": [
+      {"n": 1, "label": "run1", "exit_status": 0, "outcome": "succeeded", "changes": null},
+      {"n": 2, "label": "run2", "exit_status": 0, "outcome": "succeeded (replay)", "changes": "none to the command; run.sh hash-list location changed, see execution_path_note"}
+    ],
+    "attempts_used": 2,
+    "attempts_allowed": 5,
+    "failures": [],
+    "evidence_namespace": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d",
+    "readme": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/mbd_planner_car2d/README.md",
+    "notebook": null,
+    "notebook_note": "Native script execution; no notebook was created (not applicable to this route).",
+    "for_coordinator": [
+      "Tests can compare mu_0ts.npy with numpy.array_equal against outputs/run1/mu_0ts.npy on this device; a tolerance for other devices has no measured basis.",
+      "rollout.png was byte-identical across runs here, but the scanner's verification basis only asks for 'exists and is non-empty'; a hash check on the PNG would tie the test to matplotlib 3.9.0.",
+      "The reference result is a zero-reward plan. A wrapper description must not suggest that the default car2d call reaches the goal."
+    ]
+  }
+}

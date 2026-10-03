@@ -1,0 +1,275 @@
+{
+  "page": 24,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0024.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and 220-dpi crops of both tables; maths taken from main.tex (app:pendulum, tbl:app-lokta-diffusion) and checked against the page. Page opens with the continuation of page 23's last paragraph ('...In particular, we compute the log-likelihood...'): moved it first and set join_previous=space. Table 12 (prey-predator, section J) floats at the page top: placed after that completed paragraph, caption once (printed above the tables), then the two stacked tables as table-12-rmse and table-12-success (extractor had merged them into one garbled grid). Merged two-level headers flattened by repeating the integrator name (e.g. 'Euler–Maruyama ODE'); NaN cells kept as printed. Table bboxes re-measured (first [76,112,516,214], second [126,219,467,328]). Rewrote inline maths in LaTeX ($\\kappa^{-1}$, $10^4$, $\\Lambda_\\zeta=\\sigma_\\zeta^2\\operatorname{diag}(0,1)$, $\\sigma_{\\mathrm{train}}=5\\sigma_{\\mathrm{obs}}$, $\\beta_2$, $Z_0$, $f_\\theta$, $r_\\phi$), removing <sup> damage. 'Results and evaluation' kept as bold run-in title. Last paragraph ends mid-sentence ('we consider end-to-end training') and continues on page 25. Running header and page number omitted. Author grammar 'indicate' (for 'indicates') kept.",
+  "warnings": [
+    "Review possible header/footer: p0024-b000"
+  ],
+  "items": [
+    {
+      "id": "p0024-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "**Diffusion differentiable resampling**",
+      "reason": "Running header (paper title \"Diffusion differentiable resampling\") repeated on every page"
+    },
+    {
+      "id": "p0024-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        351.0,
+        542.0,
+        410.0
+      ],
+      "markdown": "we compute the log-likelihood as the mean over pixel dimensions (rather than the sum) and rescale the result by a factor $\\kappa^{-1}$ (where $\\kappa = 10^4$). We use a resampling threshold such that we resample if the ESS is less than $N=32$. We train the neural networks for 3000 iterations. The learnable parameters are updated using the Adam optimiser (learning rate $10^{-4}$) with global gradient clipping (maximum norm 1.0) and $\\beta_2=0.999$ (other Adam defaults as in Optax). We use $N = 32$ particles to approximate the negative log-likelihood during training.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0024-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        67.0,
+        544.0,
+        107.0
+      ],
+      "markdown": "Table 12. Prediction RMSE (first table) of diffusion resampling for the prey-predator model, and the associated number of successful runs (second table) out of 20. By comparing to Table 11 we see that all the entries here are largely better than the other resampling methods. However, we also see that exponential integrators do not always provide stable gradient back-propagation, although they provide accurate forward estimation."
+    },
+    {
+      "id": "p0024-b002",
+      "kind": "table",
+      "bbox": [
+        76.0,
+        112.0,
+        516.0,
+        214.0
+      ],
+      "markdown": "",
+      "label": "Table 12 (first table: prediction RMSE)",
+      "asset_name": "table-12-rmse",
+      "rows": [
+        [
+          "Method",
+          "Euler–Maruyama ODE",
+          "Euler–Maruyama SDE",
+          "Lord–Rougemont ODE",
+          "Lord–Rougemont SDE",
+          "Jentzen–Kloeden ODE",
+          "Jentzen–Kloeden SDE",
+          "Tweedie SDE"
+        ],
+        [
+          "T = 1, K = 4",
+          "1.29 ± 0.79",
+          "1.30 ± 0.98",
+          "NaN",
+          "17.01 ± 3.16",
+          "1.31 ± 0.79",
+          "2.22 ± 0.72",
+          "1.17 ± 0.75"
+        ],
+        [
+          "T = 1, K = 8",
+          "1.31 ± 0.71",
+          "2.38 ± 6.56",
+          "16.62 ± 6.42",
+          "10.21 ± 7.42",
+          "1.29 ± 0.70",
+          "1.65 ± 0.90",
+          "1.23 ± 0.71"
+        ],
+        [
+          "T = 1, K = 16",
+          "1.40 ± 0.89",
+          "1.95 ± 1.10",
+          "10.79 ± 10.42",
+          "5.78 ± 6.15",
+          "1.38 ± 0.88",
+          "5.20 ± 4.62",
+          "2.24 ± 1.02"
+        ],
+        [
+          "T = 2, K = 4",
+          "1.21 ± 0.81",
+          "1.85 ± 1.22",
+          "NaN",
+          "NaN",
+          "1.21 ± 0.76",
+          "NaN",
+          "1.18 ± 0.76"
+        ],
+        [
+          "T = 2, K = 8",
+          "1.26 ± 0.70",
+          "1.61 ± 0.79",
+          "NaN",
+          "13.88 ± 10.80",
+          "1.24 ± 0.72",
+          "2.05 ± 1.19",
+          "1.17 ± 0.68"
+        ],
+        [
+          "T = 2, K = 16",
+          "1.29 ± 0.70",
+          "1.01 ± 0.47",
+          "9.52 ± 1.97",
+          "15.38 ± 13.57",
+          "1.30 ± 0.75",
+          "1.72 ± 1.04",
+          "1.29 ± 0.87"
+        ]
+      ]
+    },
+    {
+      "id": "p0024-b002b",
+      "kind": "table",
+      "bbox": [
+        126.0,
+        219.0,
+        467.0,
+        328.0
+      ],
+      "markdown": "",
+      "label": "Table 12 (second table: number of successful runs out of 20)",
+      "asset_name": "table-12-success",
+      "rows": [
+        [
+          "Method",
+          "Euler–Maruyama ODE",
+          "Euler–Maruyama SDE",
+          "Lord–Rougemont ODE",
+          "Lord–Rougemont SDE",
+          "Jentzen–Kloeden ODE",
+          "Jentzen–Kloeden SDE",
+          "Tweedie SDE"
+        ],
+        [
+          "T = 1, K = 4",
+          "20",
+          "18",
+          "0",
+          "4",
+          "20",
+          "9",
+          "20"
+        ],
+        [
+          "T = 1, K = 8",
+          "20",
+          "20",
+          "2",
+          "16",
+          "20",
+          "18",
+          "20"
+        ],
+        [
+          "T = 1, K = 16",
+          "20",
+          "18",
+          "15",
+          "19",
+          "20",
+          "18",
+          "17"
+        ],
+        [
+          "T = 2, K = 4",
+          "20",
+          "12",
+          "0",
+          "0",
+          "20",
+          "0",
+          "20"
+        ],
+        [
+          "T = 2, K = 8",
+          "20",
+          "16",
+          "0",
+          "8",
+          "20",
+          "10",
+          "20"
+        ],
+        [
+          "T = 2, K = 16",
+          "20",
+          "18",
+          "3",
+          "15",
+          "20",
+          "15",
+          "20"
+        ]
+      ]
+    },
+    {
+      "id": "p0024-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        418.0,
+        542.0,
+        499.0
+      ],
+      "markdown": "In the second setting, we consider a more challenging regime in which we force resampling at every filtering step after $j > 10$. Here, we use process noise with $\\Lambda_{\\zeta} = \\sigma_{\\zeta}^2 \\, \\operatorname{diag}(0,1)$ with $\\sigma_{\\zeta}^2=0.1$, and make an additive noise assumption in the learned transition model. We use $\\sigma_{\\mathrm{train}} = 5 \\, \\sigma_{\\mathrm{obs}}$ and no other scaling of the log-likelihood compared to the true observation model. We train the neural networks for 1500 iterations. The learnable parameters are updated using the Adam optimiser (learning rate $2\\times 10^{-4}$) with global gradient clipping (maximum norm 1.0) and $\\beta_2=0.99$ (other Adam defaults as in Optax). Here, we use $N=16$ particles. The optimiser omits at most 10 consecutive non-finite parameter updates by leaving the current parameter values unchanged."
+    },
+    {
+      "id": "p0024-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        516.0,
+        542.0,
+        574.0
+      ],
+      "markdown": "**Results and evaluation** We evaluate the learnt models by comparing the average SSIM and PSNR of image sequences obtained by unrolling the dynamics from $Z_0$ using the learnt transition function $f_\\theta$, and then generating images by passing the resulting state trajectory through the learnt decoder $r_\\phi$. All results corresponding to the first experiment setting are averaged over $5$ independent runs, and all results corresponding to the second experiment setting are averaged over $9$ independent runs."
+    },
+    {
+      "id": "p0024-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        582.0,
+        544.0,
+        652.0
+      ],
+      "markdown": "For the first setting, results for different configurations of the diffusion resampler are presented in Table 13. Results for different configurations of the baselines are presented in Table 14. For the second, more challenging setting, in which resampling is invoked at nearly every filtering step, the corresponding results are presented in Tables 15 and 16, respectively. Figure 8 shows the median loss evolution during training for the best model configuration (in terms of mean SSIM and PSNR) from each resampling class in each experiment setting. Figure 9 shows mean prediction SSIM/PSNR for the second setting; see Figure 5 for a comparison to the corresponding results in the first setting."
+    },
+    {
+      "id": "p0024-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        660.0,
+        542.0,
+        718.0
+      ],
+      "markdown": "The difference in SSIM/PSNR between the two experiments indicate that the second setting is more challenging for all resampling methods. In the first setting, performance is competitive, and diffusion resampling provides a stable end-to-end optimisation and effective integration into the high-dimensional learning pipeline. Notably, resampling is not always necessary for convergence in end-to-end training using particle filters, and prior work has reported cases where omitting resampling can be more effective (see, e.g., Karkus et al., 2018). In our experiments, we consider end-to-end training"
+    },
+    {
+      "id": "p0024-b008",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        740.0
+      ],
+      "markdown": "24",
+      "reason": "Page number footer \"24\" (verified on preview)"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "scan_metadata": {
+    "repository_name": "dial-mpc",
+    "repository_url": "https://github.com/LeCAR-Lab/dial-mpc",
+    "repository_commit": "871c84f1cefbe9fa9d83a06b05ab4f0243c1a05c",
+    "repository_path": "repo/dial-mpc",
+    "paper_name": "Full-Order Sampling-Based MPC for Torque-Level Locomotion Control via Diffusion-Style Annealing (DIAL-MPC)",
+    "route": "cli",
+    "cli_backend": "python",
+    "scan_date": "2026-10-02",
+    "requested_filter": null,
+    "evaluated_source_files": 33,
+    "included_source_files": 5,
+    "proposed_tool_count": 2,
+    "execution_assignment_count": 5,
+    "success": true,
+    "explanation": "No user filter. The repository has no notebooks, no tests and no reference outputs; its user interface is six console scripts registered in setup.py:23-32. Only the synchronous command `dial-mpc` (dial_mpc/core/dial_core.py:175-329) is a bounded, headless, file-producing operation, so two tools are proposed (list packaged examples, run a synchronous DIAL-MPC rollout). The seven packaged synchronous examples are the same operation with different configs and are merged into one tool; four of them are assigned for execution because each covers a distinct environment config class or a README-documented command, three more are kept as optional supporting examples in the full inventory. Asynchronous simulation, real-robot deployment and the two helper entry points are deferred or omitted with blockers in reports/tutorial-scanner.json. Selection does not establish that execution passes on this machine; the environment result decides feasibility."
+  },
+  "tutorials": [
+    {
+      "execution_id": "list_examples",
+      "module": "cli_wrapper",
+      "path": "dial_mpc/examples/__init__.py",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/__init__.py",
+      "sha256": "82b2ff1961980786a48ed09cda678cfdba79eec8fa2fe5eb63d018d6ed0bcc04",
+      "title": "List packaged synchronous examples (dial-mpc --list-examples)",
+      "description": "README.md:66-70 documents `dial-mpc --list-examples`. dial_core.py:196-200 prints `Examples:` followed by one two-space-indented name per entry of `dial_mpc.examples.examples` (dial_mpc/examples/__init__.py:1-9, seven names) and returns before any environment is created. The banner from art.tprint (dial_core.py:182) precedes it on stdout.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented, bounded, stdout-only command that tells an MCP client which `example` values the rollout tool accepts. Cheap (imports JAX/Brax/MuJoCo but compiles nothing and creates no environment).",
+      "execution": {
+        "priority": "required",
+        "command": ["dial-mpc", "--list-examples"],
+        "working_directory": "notebooks/list_examples/ (any directory; the command writes no files)",
+        "environment": {"XLA_PYTHON_CLIENT_PREALLOCATE": "false"},
+        "heavy_job": "Imports JAX/Brax/MuJoCo only; no compilation or simulation. Use the workspace heavy lock anyway if memory is tight.",
+        "inputs": "None. The compared ground truth is the `examples` list in dial_mpc/examples/__init__.py:1-9.",
+        "expected_native_output": "Exit status 0; stdout contains the line `Examples:` and then exactly the seven names unitree_h1_jog, unitree_h1_push_crate, unitree_h1_loco, unitree_go2_trot, unitree_go2_seq_jump, unitree_go2_crate_climb, allegro_reorient in that order, each printed as two spaces plus the name. No files are written.",
+        "comparison": "Parsed name list from stdout equals `dial_mpc.examples.examples` exactly (order and spelling); every name has a file dial_mpc/examples/<name>.yaml in the pinned checkout. Replay: second invocation gives identical parsed list."
+      },
+      "suggested_tools": [
+        {
+          "tool_name": "dial_mpc_list_examples",
+          "source_section": "dial_mpc.core.dial_core:main, `--list-examples` branch (dial_mpc/core/dial_core.py:187, 196-200); README.md `Synchronous Simulation > Run Examples` (README.md:64-70)",
+          "description": "Run `dial-mpc --list-examples` and return the names of the packaged synchronous DIAL-MPC examples that `dial_mpc_run_sync_simulation` accepts as `example`.",
+          "primary_input": "None (no arguments).",
+          "outputs": "List of example names parsed from the lines after `Examples:` on stdout. Optional path metadata: the absolute path of each packaged YAML in the pinned checkout (dial_mpc/examples/<name>.yaml), validated to exist at call time, so a client can read it as a template for `config_path`.",
+          "applicable_to_new_data": false,
+          "applicability_note": "Discovery helper without data input; its value is to make the rollout tool usable without hard-coded names."
+        }
+      ]
+    },
+    {
+      "execution_id": "sync_unitree_go2_trot",
+      "module": "cli_wrapper",
+      "path": "dial_mpc/examples/unitree_go2_trot.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_trot.yaml",
+      "sha256": "5eaae6666bcc8a0276e07dd1795f1ff8faccf385ce2965b149097f0be9c88d40",
+      "title": "Synchronous DIAL-MPC rollout: Unitree Go2 trot (primary reference)",
+      "description": "`dial-mpc --example unitree_go2_trot` loads this YAML (dial_core.py:206-207), builds env `unitree_go2_walk` (UnitreeGo2Env, dial_mpc/envs/unitree_go2_env.py:36-315) and runs the closed-loop loop of dial_core.py:242-268: step the simulator with the first control node, shift the plan, run Ndiffuse annealed sampling updates (Ndiffuse_init at t=0). Config: n_steps 400, Nsample 2048, Hsample 16, Hnode 4, Ndiffuse 2, torque control, default_vx 0.8, gait trot.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Owning source of the rollout tool. Smallest locomotion example (shortest horizon, 12 actuators), therefore the most likely to fit the 8 GB GPU; exercises the velocity/gait parameter family of UnitreeGo2EnvConfig (unitree_go2_env.py:25-33).",
+      "execution": {
+        "priority": "required",
+        "command": ["dial-mpc", "--example", "unitree_go2_trot"],
+        "working_directory": "A fresh directory inside notebooks/sync_unitree_go2_trot/ : `output_dir: unitree_go2_trot` in the YAML is relative to the working directory (dial_core.py:278-279).",
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "FLASK_RUN_FROM_CLI": "true",
+          "PYTHONUNBUFFERED": "1"
+        },
+        "environment_note": "dial_core.py:329 ends with a blocking `app.run(port=5000)`. Flask's `Flask.run` returns immediately when FLASK_RUN_FROM_CLI=true (flask/app.py:611 in dial-mpc-env, flask 3.1.1 seen at scan time), so the process exits by itself after all three artifacts are written (dial_core.py:298-323) and no port is opened. The executor must confirm this by observing exit status 0 and no listener on port 5000. Fallback if it does not hold: wait until `*_predictions.npy` exists (last file written, dial_core.py:323), then send SIGINT; werkzeug's serve_forever swallows KeyboardInterrupt (werkzeug/serving.py:817-823) so the exit status should be 0. PYTHONUNBUFFERED keeps the `mean reward` line if the process has to be killed.",
+        "heavy_job": "Yes: prefix with `flock /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/.heavy.lock` and give a timeout.",
+        "reduced_size_rule": "Run the documented command unchanged first. If it is killed or runs out of memory, copy the YAML into the execution namespace, change only upstream config fields (first n_steps for time; then Nsample, then Hsample or Ndiffuse for memory; batch is (Nsample+1) x (Hsample+1) simulator states, dial_core.py:114-120), run it with `dial-mpc --config <copy>`, and record every changed field. Do not edit upstream files.",
+        "inputs": "dial_mpc/examples/unitree_go2_trot.yaml and the Go2 MJX model dial_mpc/models/unitree_go2/mjx_scene_force.xml (loaded at unitree_go2_env.py:95-99). No external data.",
+        "expected_native_output": "In `<cwd>/unitree_go2_trot/`: `<YYYYmmdd-HHMMSS>_brax_visualization.html` (dial_core.py:293-302), `<ts>_states.npy` with one row per step = [step index, qpos, qvel, ctrl] (dial_core.py:305-322), `<ts>_predictions.npy` = weighted mean predicted link positions of the last diffusion iteration, shape (n_steps, Hsample+1, n_links, 3) (dial_core.py:124, 135, 319-323). stdout line `mean reward = <value>` (dial_core.py:270-271). File names carry a wall-clock timestamp (dial_core.py:281) and must be found by globbing a fresh directory.",
+        "comparison": "No expected numbers exist upstream; the reference is this standalone execution. Record: exit status; presence of exactly one file of each kind; array dtypes and shapes (states: n_steps rows, 1+nq+nv+nu columns; Go2 home keyframe has nq=19, mjx_go2_force.xml:293); first states column equals 0..n_steps-1; all values finite; parsed mean reward; base x displacement and minimum base height from the states array as descriptive values (not asserted). Replay the identical command once with the same seed and report the maximum absolute difference of both arrays; that observed repeatability sets the tolerance for the later wrapper-versus-standalone comparison (same config, same seed)."
+      },
+      "suggested_tools": [
+        {
+          "tool_name": "dial_mpc_run_sync_simulation",
+          "source_section": "dial_mpc.core.dial_core:main (dial_mpc/core/dial_core.py:175-329) with class MBDPI (dial_core.py:51-172); README.md `Synchronous Simulation` (README.md:60-78) and `Writing Custom Environment` config/command (README.md:268-302)",
+          "description": "Run one closed-loop DIAL-MPC rollout in synchronous simulation (the simulator waits for the planner at every control step) for a packaged example or a user YAML config, by invoking `dial-mpc --config <per-call YAML>`. The per-call YAML is the selected example/user config with typed overrides applied and `output_dir` set to a fresh absolute result directory; `dial-mpc --example NAME` is the same code path with the packaged YAML (dial_core.py:206-209).",
+          "primary_input": "Exactly one of `example` (name from dial_mpc_list_examples) or `config_path` (YAML with DIAL-MPC, base-environment and environment-specific keys as in README.md:269-296). Optional typed overrides defined by the upstream dataclasses: DialConfig (dial_mpc/core/dial_config.py:5-23) seed, n_steps, Nsample, Hsample, Hnode, Ndiffuse, Ndiffuse_init, temp_sample, horizon_diffuse_factor, traj_diffuse_factor, sigma_scale; velocity-command environments (UnitreeGo2EnvConfig unitree_go2_env.py:25-33; UnitreeH1WalkEnvConfig unitree_h1_env.py:25-77; UnitreeH1LocoEnvConfig unitree_h1_env.py:570-606) default_vx, default_vy, default_vyaw, ramp_up_time, gait; jump environment (UnitreeGo2SeqJumpEnvConfig unitree_go2_env.py:318-324) jump_dt, pose_target_sequence, yaw_target_sequence.",
+          "outputs": "Absolute paths of the native artifacts in the per-call result directory: `*_states.npy`, `*_predictions.npy`, `*_brax_visualization.html`, plus the effective YAML config that was passed to the CLI; `mean_reward` parsed from the stdout line `mean reward = ...`; array shapes read from the saved files; bounded stdout/stderr tail for diagnostics.",
+          "applicable_to_new_data": true,
+          "applicability_note": "New inputs are new configs: other target velocities, gaits, jump target sequences, seeds, rollout lengths and sampling/annealing hyperparameters for the seven registered environments (dial_mpc/envs/__init__.py:14-22), or a full user YAML. New robots need `--custom-env`, which has no runnable upstream reference (see tool_review in reports/tutorial-scanner.json)."
+        }
+      ]
+    },
+    {
+      "execution_id": "sync_unitree_h1_jog",
+      "module": "cli_wrapper",
+      "path": "dial_mpc/examples/unitree_h1_jog.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_h1_jog.yaml",
+      "sha256": "cfa9480069e1e839a090faf5bd6a86527ef67c3adf36cf4a6ed3a18d30cd4766",
+      "title": "Synchronous DIAL-MPC rollout: Unitree H1 jog (README command)",
+      "description": "The one synchronous run command printed in the README (`dial-mpc --example unitree_h1_jog`, README.md:72-78). Env `unitree_h1_walk` (UnitreeH1WalkEnv, dial_mpc/envs/unitree_h1_env.py:80-375, model mjx_scene_h1_walk.xml, 19 actuators, per-joint kp/kd arrays as dataclass defaults). Config: n_steps 400, Nsample 2048, Hsample 25, Hnode 5, Ndiffuse 4, default_vx 2.0, ramp_up_time 3.0, gait jog.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: the README-documented command and the humanoid config class. Largest of the assigned jobs (longer horizon, 4 diffusion steps, more bodies); the most likely to need the reduced-size rule.",
+      "execution": {
+        "priority": "supporting",
+        "command": ["dial-mpc", "--example", "unitree_h1_jog"],
+        "working_directory": "A fresh directory inside notebooks/sync_unitree_h1_jog/ (YAML output_dir `unitree_h1_jog` is relative to it).",
+        "environment": {"XLA_PYTHON_CLIENT_PREALLOCATE": "false", "FLASK_RUN_FROM_CLI": "true", "PYTHONUNBUFFERED": "1"},
+        "heavy_job": "Yes: heavy lock and timeout.",
+        "reduced_size_rule": "Same rule as sync_unitree_go2_trot; record changed fields.",
+        "inputs": "dial_mpc/examples/unitree_h1_jog.yaml; model dial_mpc/models/unitree_h1/mjx_scene_h1_walk.xml (unitree_h1_env.py:150-154).",
+        "expected_native_output": "Same three artifact kinds in `<cwd>/unitree_h1_jog/` and the `mean reward` stdout line.",
+        "comparison": "Same checks as sync_unitree_go2_trot (status, files, shapes, step-index column, finiteness, mean reward, same-seed replay difference)."
+      },
+      "suggested_tools": []
+    },
+    {
+      "execution_id": "sync_unitree_go2_seq_jump",
+      "module": "cli_wrapper",
+      "path": "dial_mpc/examples/unitree_go2_seq_jump.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_seq_jump.yaml",
+      "sha256": "2a9d63cf753fd5b13999a1e6a266c8c0c91ed4f3fbdca66b5b29d5678b6112d1",
+      "title": "Synchronous DIAL-MPC rollout: Unitree Go2 sequential jumping",
+      "description": "Env `unitree_go2_seq_jump` (UnitreeGo2SeqJumpEnv, dial_mpc/envs/unitree_go2_env.py:327-646). The YAML supplies jump_dt 1.0, a 5x3 pose_target_sequence and a 5-entry yaw_target_sequence; lists become JAX arrays (io_utils.py:18-23) and foot contact targets are generated from them (unitree_go2_env.py:332-340, 559-592). Config: n_steps 400, Nsample 2048, Hsample 20, Hnode 5, Ndiffuse 2.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: the only example with array-valued task parameters (jump targets), i.e. the second typed-parameter family of the tool.",
+      "execution": {
+        "priority": "supporting",
+        "command": ["dial-mpc", "--example", "unitree_go2_seq_jump"],
+        "working_directory": "A fresh directory inside notebooks/sync_unitree_go2_seq_jump/ (YAML output_dir `unitree_go2_seq_jump` is relative to it).",
+        "environment": {"XLA_PYTHON_CLIENT_PREALLOCATE": "false", "FLASK_RUN_FROM_CLI": "true", "PYTHONUNBUFFERED": "1"},
+        "heavy_job": "Yes: heavy lock and timeout.",
+        "reduced_size_rule": "Same rule as sync_unitree_go2_trot. Keep n_steps at or above 250 if possible so that all five 1-second jump stages are reached (stage index = floor(step*dt/jump_dt), unitree_go2_env.py:512-515); record changed fields.",
+        "inputs": "dial_mpc/examples/unitree_go2_seq_jump.yaml; model dial_mpc/models/unitree_go2/mjx_scene_force.xml.",
+        "expected_native_output": "Same three artifact kinds in `<cwd>/unitree_go2_seq_jump/` and the `mean reward` stdout line.",
+        "comparison": "Same checks as sync_unitree_go2_trot. Descriptive only: base x position at the end of each jump stage next to the configured targets 0.0, 0.4, 0.8, 1.2, 1.6 m."
+      },
+      "suggested_tools": []
+    },
+    {
+      "execution_id": "sync_allegro_reorient",
+      "module": "cli_wrapper",
+      "path": "dial_mpc/examples/allegro_reorient.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/allegro_reorient.yaml",
+      "sha256": "6b5ce63a7e610e4ac85807e2d0047b43bbb402cf3550a3fef5373bb15a4f3946",
+      "title": "Synchronous DIAL-MPC rollout: Allegro hand ball reorientation",
+      "description": "README news item `dial-mpc --example allegro_reorient` (README.md:26). Env `allegro_reorient` (AllegroReorientEnv, dial_mpc/envs/manipulation.py:29-117, model wonik_allegro/scene_left.xml). Only position control is implemented (manipulation.py:68-71) and the simulator timestep is 0.005 with dt 0.02 (four physics substeps per control step, base_env.py:18). Config: n_steps 200, Nsample 2048, Hsample 20, Hnode 4, Ndiffuse 2.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: non-locomotion task, position control, different model loader (mjcf.load_model on a MuJoCo model, manipulation.py:38-43) and substepping; shows that the tool is not tied to legged robots.",
+      "execution": {
+        "priority": "supporting",
+        "command": ["dial-mpc", "--example", "allegro_reorient"],
+        "working_directory": "A fresh directory inside notebooks/sync_allegro_reorient/ (YAML output_dir `allegro_reorient` is relative to it).",
+        "environment": {"XLA_PYTHON_CLIENT_PREALLOCATE": "false", "FLASK_RUN_FROM_CLI": "true", "PYTHONUNBUFFERED": "1"},
+        "heavy_job": "Yes: heavy lock and timeout.",
+        "reduced_size_rule": "Same rule as sync_unitree_go2_trot; record changed fields.",
+        "inputs": "dial_mpc/examples/allegro_reorient.yaml; model dial_mpc/models/wonik_allegro/scene_left.xml (keyframe `in_hand_reorient` at scene_left.xml:38, body `object` at scene_left.xml:22).",
+        "expected_native_output": "Same three artifact kinds in `<cwd>/allegro_reorient/` and the `mean reward` stdout line.",
+        "comparison": "Same checks as sync_unitree_go2_trot (status, files, shapes, step-index column, finiteness, mean reward, same-seed replay difference)."
+      },
+      "suggested_tools": []
+    }
+  ]
+}

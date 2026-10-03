@@ -1,0 +1,158 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview and three 260-dpi crops (paragraph before (2), paragraph before (3) with (3), backward-process paragraph with (4)-(5)) with the items; prose and maths taken from 20formulation.tex and 30algo.tex and checked on the page. First item continues the page-3 sentence ('... are the stage' | 'costs.'), join_previous=space. Equations (2), (3), (4), (5) converted from formula images to LaTeX text items with \\tag; (4) and (5) are an aligned pair in print and are kept as two consecutive items. TeX vs PDF (PDF wins): the forward kernels are printed with variance-form second arguments, $\\mathcal{N}(\\sqrt{\\alpha_i} Y^{(i-1)}, (1-\\alpha_i) I)$ inline and $\\mathcal{N}(\\sqrt{\\bar{\\alpha}_i} Y^{(0)}, (1-\\bar{\\alpha}_i) I)$ in (3), whereas the arXiv v1 TeX has $\\sqrt{1-\\alpha_i} I$ and $\\sqrt{1-\\bar{\\alpha}_i} I$. Printed cross-references kept: '(1)', 'Eq. (1)', 'Eq. (2)', 'Appendix A.2', 'Fig. 1', 'Fig. 2(b)', 'Section 4.1/4.2/4.3'. Line-wrap hyphen in 'optimal-ity' removed. Authors' wording kept as printed ('The target distribution $p_0(\\cdot)$ in the diffusion process is given by:'; 'to perform backward process'). Heading '## 4 Model-Based Diffusion' is the printed section heading. Page number 4 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        74.0,
+        506.0,
+        128.0
+      ],
+      "markdown": "costs. We use $Y = [x_{1:T}; u_{1:T}]$ to denote all decision variables. Traditionally, TO is solved using nonlinear programming, which faces challenges such as non-convex problem structures, nonlinear or discontinuous dynamics, and high-dimensional state and control action spaces. Recently, there has been a growing interest in bypassing these challenges by directly generating samples from the optimal trajectory distribution using diffusion models trained on optimal demonstration data [12, 40, 46, 61].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        135.0,
+        506.0,
+        172.0
+      ],
+      "markdown": "To use diffusion for TO, (1) is first transformed into a sampling problem. The target distribution $p_0(Y^{(0)})$ is proportional to dynamical feasibility $p_d(Y) \\propto \\prod_{t=1}^{T} \\mathbf{1}(x_t = f_{t-1}(x_{t-1}, u_{t-1}))$, optimality $p_J(Y) \\propto \\exp{(-\\frac{J(Y)}{\\lambda})}$ and the constraints $p_g(Y) \\propto \\prod_{t=1}^{T} \\mathbf{1}(g_t(x_t, u_t) \\leq 0)$, i.e.,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        243.0,
+        190.5,
+        507.0,
+        207.0
+      ],
+      "markdown": "$$\np_0(Y) \\propto p_d(Y) p_J(Y) p_g(Y) \\tag{2}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        225.0,
+        506.0,
+        352.0
+      ],
+      "markdown": "Obtaining the solution $Y^*$ from the TO problem in Eq. (1) is equivalent to sampling from Eq. (2) given a low temperature $\\lambda \\rightarrow 0$. In fact, in Appendix A.2, we prove that the distribution of $J(Y)$ with $Y \\sim p_0(\\cdot)$ converges in probability to the optimal value $J^*$ as $\\lambda \\rightarrow 0$, under mild assumptions. However, it is generally difficult to directly sample from the high-dimensional and sparse target distribution $p_0(\\cdot)$. To address this issue, the diffusion process iteratively refines the samples following a backward process, which reverses a predefined forward process as shown in Fig. 1. The forward process corrupts the original distribution $p_0(\\cdot)$ to an isotropic Gaussian $p_N(\\cdot)$ by incrementally adding small noise to it and scaling it down by $\\sqrt{\\alpha_i}$ to maintain an invariant noise covariance (see Fig. 2(b) for an example). Mathematically, this means we iteratively obtain $Y^{(i)} \\sim p_i(\\cdot)$ with $p_{i|i-1}(\\cdot | Y^{(i-1)}) \\sim \\mathcal{N}(\\sqrt{\\alpha_i} Y^{(i-1)}, (1-\\alpha_i) I)$. Because the noise at each time step is independent, the conditional distribution of $Y^{(i)} | Y^{(i-1)}$ also leads to that of $Y^{(i)} | Y^{(0)}$:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        194.0,
+        370.0,
+        507.0,
+        403.5
+      ],
+      "markdown": "$$\np_{i|0}(\\cdot | Y^{(0)}) \\sim \\mathcal{N}(\\sqrt{\\bar{\\alpha}_i} Y^{(0)}, (1-\\bar{\\alpha}_i) I), \\quad \\bar{\\alpha}_i = \\prod_{k=1}^{i} \\alpha_k. \\tag{3}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        421.0,
+        506.0,
+        457.0
+      ],
+      "markdown": "The backward process $p_{i-1|i}(Y^{(i-1)} | Y^{(i)})$ is the reverse of the forward process $p_{i|i-1}(Y^{(i)} | Y^{(i-1)})$, which removes the noise from the corrupted distribution $p_N(\\cdot)$ to obtain the target distribution $p_0(\\cdot)$. The target distribution $p_0(\\cdot)$ in the diffusion process is given by:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        178.0,
+        475.0,
+        507.0,
+        498.5
+      ],
+      "markdown": "$$\np_{i-1}(Y^{(i-1)}) = \\int p_{i-1|i}(Y^{(i-1)} | Y^{(i)}) p_i(Y^{(i)}) \\, dY^{(i)}, \\tag{4}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b006b",
+      "kind": "text",
+      "bbox": [
+        178.0,
+        498.5,
+        507.0,
+        531.0
+      ],
+      "markdown": "$$\np_0(Y^{(0)}) = \\int p_N(Y^{(N)}) \\prod_{i=N}^{1} p_{i-1|i}(Y^{(i-1)} | Y^{(i)}) \\, dY^{(1:N)} \\tag{5}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        549.0,
+        504.0,
+        591.0
+      ],
+      "markdown": "Standard diffusion models [33, 40, 61], which we refer to as Model-Free Diffusion (MFD), solve the backward process by learning score function merely from data. In contrast, we propose leveraging the dynamics model to estimate the score to improve the generalizability of the model and allow a natural integration with diverse quality data.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        624.0,
+        244.0,
+        634.0
+      ],
+      "markdown": "## 4 Model-Based Diffusion",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        658.0,
+        506.0,
+        723.0
+      ],
+      "markdown": "In this section, we formally introduce our MBD algorithm that leverages model information to perform backward process. To streamline the discussion, in Section 4.1, we first present MBD with Monte Carlo score ascent to solve simplified and generic unconstrained optimization problems. In Section 4.2, we extend MBD to the constrained optimization setting to solve the TO problem given complex dynamics and constraints. Lastly, in Section 4.3, we augment the MBD algorithm with demonstrations to improve sample quality and steer the diffusion process.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page number 4 in the footer (verified on the preview)."
+    }
+  ]
+}

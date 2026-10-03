@@ -1,0 +1,123 @@
+{
+  "page": 23,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0023.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 190-dpi render of the text block and with appendix.tex. 'A Appendix' is a lettered section (## heading, printed 'A' kept) and 'A.1 ADAS and autonomous vehicle venchmarks' its first subsection (###); 'venchmarks' is the printed spelling (source typo, kept). No figures or tables are printed in the appendix of this version. Mode and scenario names are printed in sans-serif, with visible underscores in em_brake, ch_left, ch_right: written $\\mathsf{em\\_brake}$ etc. (the extractor had strikethrough fragments such as 'em ~~b~~ rake'). 'Simulink®' carries a superscript registered sign. The four scenario descriptions on this page (MergeBehind, MergeAhead, AutoPassing, AEB) are a printed description list with sans-serif labels followed by a bold colon; kept as paragraphs with the label in bold. Source slips kept as printed: the run-in enumeration starts with '(a)' and has no '(b)'; 'constant (hard).' without 'deceleration'; 'velocity $vx$' and 'velocity $vy$' without parentheses; 'along the road direction ($x$-axis)' where Section 2.5 has '$y$-axis'; 'with except that'; 'to transit from mode to another mode'; 'in some range; Transition graph' with a semicolon. Line-wrap hyphens removed (appro-priate, accelera-tion). The AEB item continues on page 24 (join there). Omitted: page number 23.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0023-b000",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        124.0,
+        231.0,
+        138.0
+      ],
+      "markdown": "## A Appendix"
+    },
+    {
+      "id": "p0023-b001",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        149.0,
+        425.0,
+        158.0
+      ],
+      "markdown": "### A.1 ADAS and autonomous vehicle venchmarks"
+    },
+    {
+      "id": "p0023-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        168.0,
+        478.0,
+        189.0
+      ],
+      "markdown": "We provide more details for the different scenarios used for testing ADAS and Autonomous driving control systems."
+    },
+    {
+      "id": "p0023-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        189.0,
+        478.0,
+        302.0
+      ],
+      "markdown": "Recall, that each vehicle model in Simulink® has several continuous variables including the $x, y$-coordinates of the vehicle on the road, its velocity, heading, steering angle, etc. The vehicle can be controlled by two input signals, namely the throttle (acceleration or brake) and the steering speed. By choosing appropriate values of these input signals, we have defined the following modes for each vehicle (a) $\\mathsf{cruise}$: move forward at constant speed, $\\mathsf{speedup}$: constant acceleration, $\\mathsf{brake}$: constant (slow) deceleration, $\\mathsf{em\\_brake}$: constant (hard). We have designed lane switching modes $\\mathsf{ch\\_left}$ and $\\mathsf{ch\\_right}$ in which the acceleration and steering are controlled in such a manner that the vehicle switches to its left (resp. right) lane in a certain amount of time."
+    },
+    {
+      "id": "p0023-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        302.0,
+        478.0,
+        378.0
+      ],
+      "markdown": "For each vehicle, we mainly analyze four variables: absolute position ($sx$) and velocity $vx$ orthogonal to the road direction ($x$-axis), and absolute position ($sy$) and velocity $vy$ along the road direction ($x$-axis). The throttle and steering information can be expressed using the four variables. We will use subscripts to distinguish between different vehicles. The following scenarios are constructed by defining appropriate sets of initial states and transitions graphs labeled by the modes of two or more vehicles."
+    },
+    {
+      "id": "p0023-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        389.0,
+        478.0,
+        456.0
+      ],
+      "markdown": "**$\\mathsf{MergeBehind}$:** Initial condition: Vehicle A is in left and vehicle B is in the right lane; initial positions and speeds are in some range; A is in $\\mathsf{cruise}$ mode, and B is in $\\mathsf{cruise}$ or $\\mathsf{speedup}$. Transition graph: Vehicle A goes through the mode sequence $\\mathsf{speedup}$, $\\mathsf{ch\\_right}$, $\\mathsf{cruise}$ with specified intervals of time to transit from mode to another mode. Requirement: A merges behind B within a time bound and maintains at least a given safe separation."
+    },
+    {
+      "id": "p0023-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        465.0,
+        478.0,
+        509.0
+      ],
+      "markdown": "**$\\mathsf{MergeAhead}$:** Initial condition: Same as $\\mathsf{MergeBehind}$ with except that B is in $\\mathsf{cruise}$ or $\\mathsf{brake}$ mode. Transition graph: Same structure as $\\mathsf{MergeBehind}$ with different timing parameters. Requirement: A merges ahead of B and maintains at least a given safe separation."
+    },
+    {
+      "id": "p0023-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        518.0,
+        478.0,
+        618.0
+      ],
+      "markdown": "**$\\mathsf{AutoPassing}$:** Initial condition: Vehicle A behind B in the same lane, with A in $\\mathsf{speedup}$ and B in $\\mathsf{cruise}$; initial positions and speeds are in some range. Transition graph: A goes through the mode sequence $\\mathsf{ch\\_left}$, $\\mathsf{speedup}$, $\\mathsf{brake}$, and $\\mathsf{ch\\_right}$, $\\mathsf{cruise}$ with specified time intervals in each mode to complete the overtake maneuver. If B switches to $\\mathsf{speedup}$ before A enters $\\mathsf{speedup}$ then A aborts and changes back to right lane. If B switches to $\\mathsf{brake}$ before A enters $\\mathsf{ch\\_left}$, then A should adjust the time to switch to $\\mathsf{ch\\_left}$ to avoid collision. Requirement: Vehicle A overtakes B while maintaining minimal safe separation."
+    },
+    {
+      "id": "p0023-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        626.0,
+        478.0,
+        671.0
+      ],
+      "markdown": "**$\\mathsf{AEB}$:** (Emergency brakes) Initial condition: Vehicle A behind B in the same lane with A in $\\mathsf{cruise}$, B is stopped (in $\\mathsf{cruise}$ mode with velocity $0$). Initial positions and speeds are in some range; Transition graph: A transits from $\\mathsf{cruise}$ to $\\mathsf{em\\_brake}$ over a given interval of time or several disjoint intervals"
+    },
+    {
+      "id": "p0023-pageno",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        695.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "23",
+      "reason": "Printed page number 23 centred at the foot of the page; page furniture, checked on the page render."
+    }
+  ]
+}

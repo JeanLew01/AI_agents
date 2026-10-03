@@ -1,0 +1,1666 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "2) A simple-to-implement, sampling-based algorithm to",
+      "bbox": [
+        58.922000885009766,
+        59.200374603271484,
+        300.01690673828125,
+        68.10694122314453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sample sufﬁciently diverse initial states in order to",
+      "bbox": [
+        73.19900512695312,
+        71.1553955078125,
+        300.0175476074219,
+        80.06195831298828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generate a provably-accurate approximation of the target",
+      "bbox": [
+        73.19900512695312,
+        83.11138916015625,
+        300.0174865722656,
+        92.01795196533203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable set, up to any desired accuracy. Additionally,",
+      "bbox": [
+        73.19900512695312,
+        95.06640625,
+        300.01739501953125,
+        103.97296905517578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an anytime variant of our approximation algorithm that",
+      "bbox": [
+        73.19900512695312,
+        107.02142333984375,
+        300.0174865722656,
+        115.92798614501953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is asymptotically optimal,",
+      "bbox": [
+        73.19900512695312,
+        118.9764404296875,
+        178.42396545410156,
+        127.88300323486328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3) An analysis of the proposed algorithms and their theo-",
+      "bbox": [
+        58.92200469970703,
+        130.93145751953125,
+        300.016845703125,
+        139.8380126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "retical properties, including approximation accuracy and",
+      "bbox": [
+        73.19900512695312,
+        142.886474609375,
+        300.0174865722656,
+        151.79302978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computational complexity, as a function of the desired",
+      "bbox": [
+        73.19900512695312,
+        154.84246826171875,
+        300.0174560546875,
+        163.7490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximation error ε and system-speciﬁc variables,",
+      "bbox": [
+        73.19900512695312,
+        166.63807678222656,
+        286.769775390625,
+        175.70404052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4) Empirical results demonstrating the broad applicability",
+      "bbox": [
+        58.92200469970703,
+        178.75250244140625,
+        300.0168762207031,
+        187.6590576171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and practical effectiveness of our algorithm on a set of",
+      "bbox": [
+        73.19900512695312,
+        190.70751953125,
+        300.01751708984375,
+        199.61407470703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "real-world inspired, simulated scenarios.",
+      "bbox": [
+        73.19900512695312,
+        202.66253662109375,
+        237.95054626464844,
+        211.569091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "II. RELATED WORK",
+      "bbox": [
+        131.54000854492188,
+        222.4205322265625,
+        217.43919372558594,
+        231.32708740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our approach to reachability analysis integrates prior work",
+      "bbox": [
+        58.9219970703125,
+        238.2745361328125,
+        300.0168762207031,
+        247.18109130859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in veriﬁcation, validation, and theoretical computer science. A",
+      "bbox": [
+        48.9589958190918,
+        250.22955322265625,
+        300.0165100097656,
+        259.1361083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "large body of literature has been devoted to formal analysis",
+      "bbox": [
+        48.9589958190918,
+        262.1845703125,
+        300.0165100097656,
+        271.09112548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of reachability for ﬁnite [13], continuous [6, 11], and hybrid",
+      "bbox": [
+        48.9589958190918,
+        274.14056396484375,
+        300.01641845703125,
+        283.047119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "systems [4, 28, 5, 10] with applications ranging from ensuring",
+      "bbox": [
+        48.9589958190918,
+        286.0955505371094,
+        300.0164794921875,
+        295.0021057128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the safety of mobile robots in human environments to ﬂight",
+      "bbox": [
+        48.9589958190918,
+        298.050537109375,
+        300.0164489746094,
+        306.95709228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "maneuver veriﬁcation [27, 7, 22, 32, 36, 33, 24, 17, 21, 28].",
+      "bbox": [
+        48.9589958190918,
+        310.0055236816406,
+        300.0163269042969,
+        318.9120788574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Accurate reachability analysis necessitates the computation of",
+      "bbox": [
+        48.9589958190918,
+        321.96051025390625,
+        300.01654052734375,
+        330.8670654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the reachable set for every single state in an uncountable state",
+      "bbox": [
+        48.9589958190918,
+        333.91650390625,
+        300.0164794921875,
+        342.82305908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "space, which is computationally intractable in practice [34].",
+      "bbox": [
+        48.9589958190918,
+        345.8714904785156,
+        300.0164794921875,
+        354.7780456542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Therefore, a vast collection of prior work has focused on de-",
+      "bbox": [
+        48.9589958190918,
+        357.82647705078125,
+        300.0164794921875,
+        366.7330322265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "veloping approximation algorithms such as ﬁnite abstractions,",
+      "bbox": [
+        48.9589958190918,
+        369.7814636230469,
+        300.0165100097656,
+        378.6880187988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for the computation of approximate reachable sets.",
+      "bbox": [
+        48.9589958190918,
+        381.7364501953125,
+        257.18731689453125,
+        390.64300537109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To this end, an approach using zonotopes is presented in [2]",
+      "bbox": [
+        58.9219970703125,
+        393.8184509277344,
+        300.016845703125,
+        402.7250061035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and implemented as the CORA toolbox. Taylor ﬂow tubes",
+      "bbox": [
+        48.9589958190918,
+        405.7734375,
+        300.0164489746094,
+        414.67999267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "were used in Flow⋆tool [9]. Other tools such as HyTech [23]",
+      "bbox": [
+        48.9589958190918,
+        416.02825927734375,
+        300.0132751464844,
+        426.635986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and [12] consider only linear dynamics. In [20, 28] reachability",
+      "bbox": [
+        48.95899200439453,
+        429.6844177246094,
+        300.0164794921875,
+        438.5909729003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is cast as Partial Differential Equations (PDEs) and standard",
+      "bbox": [
+        48.95899200439453,
+        441.639404296875,
+        300.0165100097656,
+        450.54595947265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tools for solving PDEs are used. However, virtually all of these",
+      "bbox": [
+        48.95899200439453,
+        453.5943908691406,
+        300.0164794921875,
+        462.5009460449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tools compute over-approximations and cast the generally",
+      "bbox": [
+        48.95899200439453,
+        465.54937744140625,
+        300.0165100097656,
+        474.4559326171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(highly) non-linear system dynamics as polynomials or even",
+      "bbox": [
+        48.95899200439453,
+        477.5043640136719,
+        300.0164794921875,
+        486.4109191894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear functions, which results in potentially unbounded error",
+      "bbox": [
+        48.95899200439453,
+        489.4603576660156,
+        300.0164489746094,
+        498.3669128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "terms. Moreover, they are highly sensitive to the dimensional-",
+      "bbox": [
+        48.95899200439453,
+        501.41534423828125,
+        300.0164489746094,
+        510.3218994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ity of the input space and suffer to a great extent from the curse",
+      "bbox": [
+        48.95899200439453,
+        513.370361328125,
+        300.01654052734375,
+        522.2769165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of dimensionality [28]. Although our algorithm also scales",
+      "bbox": [
+        48.95899200439453,
+        525.3253173828125,
+        300.0164489746094,
+        534.2318725585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "exponentially with dimension, it exhibits provable guarantees",
+      "bbox": [
+        48.95899200439453,
+        537.2803344726562,
+        300.0164794921875,
+        546.1868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with respect to the generated approximate set and enables the",
+      "bbox": [
+        48.95899200439453,
+        549.2353515625,
+        300.0165100097656,
+        558.1419067382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "user to specify the trade-off between accuracy and computation",
+      "bbox": [
+        48.95899200439453,
+        561.1912841796875,
+        300.0165100097656,
+        570.0978393554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time allowing for near real-time computations if desired.",
+      "bbox": [
+        48.95899200439453,
+        573.1463012695312,
+        281.4661865234375,
+        582.0528564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To overcome the computational tractability issues, the sim-",
+      "bbox": [
+        58.921993255615234,
+        585.2283325195312,
+        300.0169677734375,
+        594.1348876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pliﬁed version of the problem has been addressed in the",
+      "bbox": [
+        48.95899200439453,
+        597.183349609375,
+        300.0165100097656,
+        606.0899047851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "context of safety, namely falsiﬁcation [31, 11, 6]. In this case,",
+      "bbox": [
+        48.95899200439453,
+        609.1383056640625,
+        300.0218505859375,
+        618.0448608398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an invariant set is ﬁxed and the procedure generates some",
+      "bbox": [
+        48.958984375,
+        621.0933227539062,
+        300.0165100097656,
+        629.9998779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory that exists in the set. This approach culminated in the",
+      "bbox": [
+        48.958984375,
+        633.04833984375,
+        300.0165100097656,
+        641.9548950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "development of frameworks such as counter-example guided",
+      "bbox": [
+        48.958984375,
+        645.0043334960938,
+        300.0164489746094,
+        653.910888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "abstraction reﬁnement methods [14, 25] for safety veriﬁcation",
+      "bbox": [
+        48.958984375,
+        656.9593505859375,
+        300.01641845703125,
+        665.8659057617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and synthesis. Another falsiﬁcation method for continuous",
+      "bbox": [
+        48.958984375,
+        668.914306640625,
+        300.0164794921875,
+        677.8208618164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and hybrid systems based on the Rapidly-exploring Random",
+      "bbox": [
+        48.958984375,
+        680.8693237304688,
+        300.0164489746094,
+        689.77587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Tree (RRT) algorithm (and its variants) was proposed in [6].",
+      "bbox": [
+        48.958984375,
+        692.8243408203125,
+        300.0165100097656,
+        701.7308959960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Other approaches to overcome the inherit tractability issues of",
+      "bbox": [
+        48.958984375,
+        704.7803344726562,
+        300.0164794921875,
+        713.6868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "veriﬁcation include decoupling the dynamics of the system [8],",
+      "bbox": [
+        48.958984375,
+        716.7353515625,
+        300.0165100097656,
+        725.6419067382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which, however, poses a strong assumption on the types of the",
+      "bbox": [
+        311.9729919433594,
+        59.200374603271484,
+        563.0305786132812,
+        68.10694122314453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "systems that can be considered.",
+      "bbox": [
+        311.9729919433594,
+        71.1563720703125,
+        441.2974853515625,
+        80.06293487548828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Previous work has also investigated veriﬁcation for au-",
+      "bbox": [
+        321.9360046386719,
+        83.2183837890625,
+        563.031005859375,
+        92.12494659423828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tonomous cars and other agents. In [3], planned driving",
+      "bbox": [
+        311.9729919433594,
+        95.17340087890625,
+        563.0305786132812,
+        104.07996368408203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "maneuvers are veriﬁed before execution via zonotope-based",
+      "bbox": [
+        311.9729919433594,
+        107.12841796875,
+        563.0304565429688,
+        116.03498077392578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximations of the reachable set. Similarly,",
+      "bbox": [
+        311.9729919433594,
+        119.08441162109375,
+        505.097900390625,
+        127.99097442626953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[18] consid-",
+      "bbox": [
+        513.0978393554688,
+        119.08441162109375,
+        563.030517578125,
+        127.99097442626953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ered safe envelopes for shared steering of a vehicle, however,",
+      "bbox": [
+        311.9729919433594,
+        131.0394287109375,
+        563.0304565429688,
+        139.94598388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the approach does not consider vehicle dynamics, but its",
+      "bbox": [
+        311.9729919433594,
+        142.99444580078125,
+        563.0302734375,
+        151.9010009765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance heavily depends on the geometry of the environ-",
+      "bbox": [
+        311.9729919433594,
+        154.949462890625,
+        563.0306396484375,
+        163.85601806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ment. The work in [26] introduces a compositional veriﬁcation",
+      "bbox": [
+        311.9729919433594,
+        166.90447998046875,
+        563.0304565429688,
+        175.81103515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "framework for a large array of driving scenarios to verify",
+      "bbox": [
+        311.9729919433594,
+        178.8594970703125,
+        563.030517578125,
+        187.76605224609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planner constraints on a city-level scale. In [1], the coupled",
+      "bbox": [
+        311.9729919433594,
+        190.81549072265625,
+        563.030517578125,
+        199.7220458984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics of vehicle platooning is investigated and veriﬁed",
+      "bbox": [
+        311.9729919433594,
+        202.7705078125,
+        563.030517578125,
+        211.67706298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ofﬂine. However, literally all previous works do not provide",
+      "bbox": [
+        311.9729919433594,
+        214.72552490234375,
+        563.0305786132812,
+        223.632080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "theoretical guarantee on the performance of the method.",
+      "bbox": [
+        311.9729919433594,
+        226.6805419921875,
+        542.487548828125,
+        235.58709716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In contrast to prior work, this paper addresses the prob-",
+      "bbox": [
+        321.9360046386719,
+        238.7435302734375,
+        563.0308227539062,
+        247.65008544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lem of generating accurate under-approximations of reachable",
+      "bbox": [
+        311.9729919433594,
+        250.69854736328125,
+        563.0305786132812,
+        259.6051025390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sets and closes the research gap in approximate reachability",
+      "bbox": [
+        311.9729919433594,
+        262.653564453125,
+        563.0305786132812,
+        271.56011962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "analysis, which has predominantly focused on computing over-",
+      "bbox": [
+        311.9729919433594,
+        274.6085510253906,
+        563.0306396484375,
+        283.5151062011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximations. Unlike prior approaches that lack theoretical",
+      "bbox": [
+        311.9729919433594,
+        286.56353759765625,
+        563.0304565429688,
+        295.4700927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guarantees on performance or impose strong assumptions",
+      "bbox": [
+        311.9729919433594,
+        298.51953125,
+        563.0303955078125,
+        307.42608642578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on the problem, our sampling-based algorithm is simple-to-",
+      "bbox": [
+        311.9729919433594,
+        310.4745178222656,
+        563.0303955078125,
+        319.3810729980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "implement, imposes minimal assumptions, and is provably-",
+      "bbox": [
+        311.9729919433594,
+        322.42950439453125,
+        563.0306396484375,
+        331.3360595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimal up to any desired approximation accuracy.",
+      "bbox": [
+        311.9729919433594,
+        334.3844909667969,
+        519.2647094726562,
+        343.2910461425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "III. PROBLEM DEFINITION",
+      "bbox": [
+        380.34698486328125,
+        353.97650146484375,
+        494.6603088378906,
+        362.883056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Consider a robot described by the dynamic system: ˙x =",
+      "bbox": [
+        321.93597412109375,
+        369.5541076660156,
+        563.0338745117188,
+        378.62005615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h(x, u), where x ∈Rd is the state, u ∈U is the control",
+      "bbox": [
+        311.97296142578125,
+        378.0534973144531,
+        563.0271606445312,
+        390.5750427246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "signal, the set of controls U ⊂Rm is a compact set, and",
+      "bbox": [
+        311.97296142578125,
+        390.00848388671875,
+        563.0335693359375,
+        402.530029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h is a continuously differentiable function. Let x(x0, t, u(·))",
+      "bbox": [
+        311.9729919433594,
+        404.8621520996094,
+        563.0338745117188,
+        415.1809997558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "denote the robot’s state at time t starting from the initial state",
+      "bbox": [
+        311.9730224609375,
+        417.37506103515625,
+        563.0296630859375,
+        426.4410095214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x0 and evolving under input control signal u(t). Denote the",
+      "bbox": [
+        311.9730224609375,
+        429.3300476074219,
+        563.0306396484375,
+        439.8899841308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set H(x0, T) = {x(x0, T, u(·)) | u(t) ∈U, ∀t ∈[0, T]}.",
+      "bbox": [
+        311.9730224609375,
+        440.72711181640625,
+        539.2256469726562,
+        451.0469665527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Let X ⊂Rd denote the d-dimensional compact set of initial",
+      "bbox": [
+        321.93597412109375,
+        449.89141845703125,
+        563.0270385742188,
+        462.4139709472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "states and let Y denote the d-dimensional compact set of all",
+      "bbox": [
+        311.9730224609375,
+        464.7450866699219,
+        563.0277709960938,
+        474.36895751953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable states. The reachability function f : Rd →2Y maps",
+      "bbox": [
+        311.9730224609375,
+        473.0850830078125,
+        563.0321044921875,
+        486.3239440917969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "each state x ∈X to a compact set of reachable states, f(x) ⊆",
+      "bbox": [
+        311.9730224609375,
+        488.6550598144531,
+        563.0339965820312,
+        498.2789306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2Y. Let T > 0 be the terminal time, the reachability function",
+      "bbox": [
+        311.97308349609375,
+        499.2366638183594,
+        563.0330810546875,
+        510.2339172363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is f(x) = H(x, T). The domain of f is deﬁned to be the entire",
+      "bbox": [
+        311.97308349609375,
+        513.1229248046875,
+        563.032958984375,
+        522.1889038085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "d-dimensional space for convenience in our analysis, however,",
+      "bbox": [
+        311.9730529785156,
+        525.0789184570312,
+        563.0349731445312,
+        534.1448974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "without loss of generality we assume that f(z) = ∅∀z /∈X.",
+      "bbox": [
+        311.9730529785156,
+        536.47607421875,
+        563.03173828125,
+        546.0999145507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For any subset X ′ ⊆X, deﬁne the function that represents the",
+      "bbox": [
+        311.97308349609375,
+        544.8160400390625,
+        563.0272216796875,
+        558.0548706054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "union of all reachable sets in X ′, F(X ′) = ∪x∈X ′f(x) for",
+      "bbox": [
+        311.97308349609375,
+        559.0126342773438,
+        563.0315551757812,
+        570.7058715820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "notational brevity. Note that F is monotonous, i.e., for any",
+      "bbox": [
+        311.97308349609375,
+        572.89892578125,
+        563.032470703125,
+        581.9649047851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "subset X ′ ⊆X, F(X ′) ⊆F(X) and that the ground truth",
+      "bbox": [
+        311.97308349609375,
+        580.6810302734375,
+        563.0277099609375,
+        593.9208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable set is F(X). We assume that both the state space,",
+      "bbox": [
+        311.97308349609375,
+        596.2520751953125,
+        563.02978515625,
+        605.8759155273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X, and the ground truth reachable set, F(X), are compact.",
+      "bbox": [
+        311.97308349609375,
+        608.20703125,
+        554.7439575195312,
+        617.8308715820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our objective is to generate an approximation to F(X) via",
+      "bbox": [
+        321.93609619140625,
+        620.26904296875,
+        563.0314331054688,
+        629.8928833007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the union of the reachable sets of a ﬁnite set S ⊂X such that",
+      "bbox": [
+        311.9731140136719,
+        632.2250366210938,
+        563.029052734375,
+        641.848876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "|S| = n ∈N+. That is, our goal is to judiciously construct a",
+      "bbox": [
+        311.97308349609375,
+        644.1800537109375,
+        563.03125,
+        654.4989013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬁnite set S ⊂X such that F(S) ≈F(X). We will quantify",
+      "bbox": [
+        311.97308349609375,
+        656.1350708007812,
+        563.0304565429688,
+        665.7589111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the accuracy of our approximation by comparing the volume",
+      "bbox": [
+        311.9730529785156,
+        668.807373046875,
+        563.030517578125,
+        677.7139282226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of F(S) to that of F(X). More formally, let µ(·) denote the",
+      "bbox": [
+        311.9730529785156,
+        680.0450439453125,
+        563.0311279296875,
+        689.6688842773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lebesgue measure, i.e., volume, of any measurable set and let",
+      "bbox": [
+        311.9730224609375,
+        692.7173461914062,
+        563.0305786132812,
+        701.6239013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µ(F(X)) denote the volume of the ground truth reachable set.",
+      "bbox": [
+        311.9730224609375,
+        703.9560546875,
+        563.0272827148438,
+        713.5798950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We formalize the reachability problem as follows.",
+      "bbox": [
+        321.93603515625,
+        716.7353515625,
+        526.9064331054688,
+        725.6419067382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20101201120000",
+      "modDate": "D:20180525141144Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/liebenwein2018sampling-paper/documents/.pdf-skill-scan-hcebbhhl/review/source.pdf",
+      "page_count": 10,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "list-item",
+        "bbox": [
+          58,
+          59,
+          301,
+          128
+        ],
+        "pos": [
+          0,
+          309
+        ]
+      },
+      {
+        "index": 1,
+        "class": "list-item",
+        "bbox": [
+          58,
+          130,
+          301,
+          176
+        ],
+        "pos": [
+          309,
+          536
+        ]
+      },
+      {
+        "index": 2,
+        "class": "list-item",
+        "bbox": [
+          58,
+          178,
+          301,
+          212
+        ],
+        "pos": [
+          536,
+          698
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          131,
+          222,
+          218,
+          230
+        ],
+        "pos": [
+          698,
+          719
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          48,
+          238,
+          301,
+          391
+        ],
+        "pos": [
+          719,
+          1521
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          393,
+          301,
+          583
+        ],
+        "pos": [
+          1521,
+          2516
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          48,
+          585,
+          301,
+          726
+        ],
+        "pos": [
+          2516,
+          3254
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          311,
+          59,
+          564,
+          81
+        ],
+        "pos": [
+          3254,
+          3350
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          311,
+          83,
+          564,
+          236
+        ],
+        "pos": [
+          3350,
+          4122
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          311,
+          238,
+          564,
+          344
+        ],
+        "pos": [
+          4122,
+          4640
+        ]
+      },
+      {
+        "index": 10,
+        "class": "section-header",
+        "bbox": [
+          380,
+          354,
+          495,
+          361
+        ],
+        "pos": [
+          4640,
+          4668
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          311,
+          369,
+          564,
+          451
+        ],
+        "pos": [
+          4668,
+          5206
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          311,
+          451,
+          564,
+          619
+        ],
+        "pos": [
+          5206,
+          6283
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          311,
+          620,
+          564,
+          726
+        ],
+        "pos": [
+          6283,
+          6876
+        ]
+      }
+    ],
+    "text": "- 2) A simple-to-implement, sampling-based algorithm to sample sufficiently diverse initial states in order to generate a provably-accurate approximation of the target reachable set, up to any desired accuracy. Additionally, an anytime variant of our approximation algorithm that is asymptotically optimal, \n\n- 3) An analysis of the proposed algorithms and their theoretical properties, including approximation accuracy and computational complexity, as a function of the desired approximation error _ε_ and system-specific variables, \n\n- 4) Empirical results demonstrating the broad applicability and practical effectiveness of our algorithm on a set of real-world inspired, simulated scenarios. \n\n# II. RELATED WORK \n\nOur approach to reachability analysis integrates prior work in verification, validation, and theoretical computer science. A large body of literature has been devoted to formal analysis of reachability for finite [13], continuous [6, 11], and hybrid systems [4, 28, 5, 10] with applications ranging from ensuring the safety of mobile robots in human environments to flight maneuver verification [27, 7, 22, 32, 36, 33, 24, 17, 21, 28]. Accurate reachability analysis necessitates the computation of the reachable set for every single state in an uncountable state space, which is computationally intractable in practice [34]. Therefore, a vast collection of prior work has focused on developing approximation algorithms such as finite abstractions, for the computation of approximate reachable sets. \n\nTo this end, an approach using zonotopes is presented in [2] and implemented as the CORA toolbox. Taylor flow tubes were used in Flow<sup>_⋆_</sup> tool [9]. Other tools such as HyTech [23] and [12] consider only linear dynamics. In [20, 28] reachability is cast as Partial Differential Equations (PDEs) and standard tools for solving PDEs are used. However, virtually all of these tools compute over-approximations and cast the generally (highly) non-linear system dynamics as polynomials or even linear functions, which results in potentially unbounded error terms. Moreover, they are highly sensitive to the dimensionality of the input space and suffer to a great extent from the curse of dimensionality [28]. Although our algorithm also scales exponentially with dimension, it exhibits provable guarantees with respect to the generated approximate set and enables the user to specify the trade-off between accuracy and computation time allowing for near real-time computations if desired. \n\nTo overcome the computational tractability issues, the simplified version of the problem has been addressed in the context of safety, namely _falsification_ [31, 11, 6]. In this case, an invariant set is fixed and the procedure generates some trajectory that exists in the set. This approach culminated in the development of frameworks such as counter-example guided abstraction refinement methods [14, 25] for safety verification and synthesis. Another falsification method for continuous and hybrid systems based on the Rapidly-exploring Random Tree (RRT) algorithm (and its variants) was proposed in [6]. Other approaches to overcome the inherit tractability issues of verification include decoupling the dynamics of the system [8], \n\nwhich, however, poses a strong assumption on the types of the systems that can be considered. \n\nPrevious work has also investigated verification for autonomous cars and other agents. In [3], planned driving maneuvers are verified before execution via zonotope-based approximations of the reachable set. Similarly, [18] considered safe envelopes for shared steering of a vehicle, however, the approach does not consider vehicle dynamics, but its performance heavily depends on the geometry of the environment. The work in [26] introduces a compositional verification framework for a large array of driving scenarios to verify planner constraints on a city-level scale. In [1], the coupled dynamics of vehicle platooning is investigated and verified offline. However, literally all previous works do not provide theoretical guarantee on the performance of the method. \n\nIn contrast to prior work, this paper addresses the problem of generating accurate under-approximations of reachable sets and closes the research gap in approximate reachability analysis, which has predominantly focused on computing overapproximations. Unlike prior approaches that lack theoretical guarantees on performance or impose strong assumptions on the problem, our sampling-based algorithm is simple-toimplement, imposes minimal assumptions, and is provablyoptimal up to any desired approximation accuracy. \n\n# III. PROBLEM DEFINITION \n\nConsider a robot described by the dynamic system: _x_ ˙ = _h_ ( _x, u_ ), where _x ∈_ R<sup>_d_</sup> is the state, _u ∈U_ is the control signal, the set of controls _U ⊂_ R<sup>_m_</sup> is a compact set, and _h_ is a continuously differentiable function. Let **x** ( _x_ 0 _, t, u_ ( _·_ )) denote the robot’s state at time _t_ starting from the initial state _x_ 0 and evolving under input control signal _u_ ( _t_ ). Denote the set _H_ ( _x_ 0 _, T_ ) = _{_ **x** ( _x_ 0 _, T, u_ ( _·_ )) _| u_ ( _t_ ) _∈U, ∀t ∈_ [0 _, T_ ] _}_ . \n\nLet _X ⊂_ R<sup>_d_</sup> denote the _d_ -dimensional compact set of initial states and let _Y_ denote the _d_ -dimensional compact set of all reachable states. The _reachability function f_ : R<sup>_d_</sup> _→_ 2<sup>_Y_</sup> maps each state _x ∈X_ to a compact set of reachable states, _f_ ( _x_ ) _⊆_ 2<sup>_Y_</sup> . Let _T >_ 0 be the terminal time, the reachability function is _f_ ( _x_ ) = _H_ ( _x, T_ ). The domain of _f_ is defined to be the entire _d_ -dimensional space for convenience in our analysis, however, without loss of generality we assume that _f_ ( _z_ ) = _∅∀z ∈X/_ . For any subset _X_<sup>_′_</sup> _⊆X_ , define the function that represents the union of all reachable sets in _X_<sup>_′_</sup> , _F_ ( _X_<sup>_′_</sup> ) = _∪x∈X ′f_ ( _x_ ) for notational brevity. Note that _F_ is monotonous, i.e., for any subset _X_<sup>_′_</sup> _⊆X_ , _F_ ( _X_<sup>_′_</sup> ) _⊆ F_ ( _X_ ) and that the _ground truth reachable set_ is _F_ ( _X_ ). We assume that both the state space, _X_ , and the ground truth reachable set, _F_ ( _X_ ), are compact. \n\nOur objective is to generate an approximation to _F_ ( _X_ ) via the union of the reachable sets of a finite set _S ⊂X_ such that _|S|_ = _n ∈_ N+. That is, our goal is to judiciously construct a finite set _S ⊂X_ such that _F_ ( _S_ ) _≈ F_ ( _X_ ). We will quantify the accuracy of our approximation by comparing the volume of _F_ ( _S_ ) to that of _F_ ( _X_ ). More formally, let _µ_ ( _·_ ) denote the Lebesgue measure, i.e., volume, of any measurable set and let _µ_ ( _F_ ( _X_ )) denote the volume of the ground truth reachable set. We formalize the reachability problem as follows. \n\n"
+  }
+}

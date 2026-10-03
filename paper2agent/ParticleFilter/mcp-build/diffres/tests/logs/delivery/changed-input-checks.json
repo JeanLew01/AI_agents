@@ -1,0 +1,666 @@
+{
+ "python": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/bin/python",
+ "python_version": "3.11.17",
+ "cwd": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp",
+ "tool_schemas": {
+  "diffres_resample_particles_diffusion": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "particles_path": {
+     "description": ".npz with 'samples' (N, ...) float and exactly one of 'log_weights' (N,) or 'weights' (N,); weights are normalised before resampling; memory grows as N^2 x (sample size) float64 per integration step, so keep N to a few thousand",
+     "type": "string"
+    },
+    "a": {
+     "default": -2.0,
+     "description": "Mean-reverting coefficient of the Ornstein-Uhlenbeck reference process; must be negative (more negative = faster mixing towards the empirical Gaussian reference); default -2 from demos/gaussian_mixture.ipynb (gms experiments use -1)",
+     "type": "number"
+    },
+    "T": {
+     "default": 1.0,
+     "description": "Terminal diffusion time T > 0; ts = linspace(0, T, nsteps + 1) as in every upstream caller; default 1.0 from the demo notebook",
+     "type": "number"
+    },
+    "nsteps": {
+     "default": 32,
+     "description": "Number of integration steps K >= 1; default 32 from the demo notebook",
+     "type": "integer"
+    },
+    "integrator": {
+     "default": "euler",
+     "description": "Integrator of the reverse dynamics; 'diffrax' (diffrax Euler solver) requires ode=True and 'tweedie' requires ode=False; default 'euler' from the upstream signature (the demo notebook uses 'jentzen_and_kloeden')",
+     "enum": [
+      "euler",
+      "lord_and_rougemont",
+      "jentzen_and_kloeden",
+      "diffrax",
+      "tweedie"
+     ],
+     "type": "string"
+    },
+    "ode": {
+     "default": true,
+     "description": "True: probability-flow ODE (deterministic given the initial reference draw); False: reverse SDE; default True from the upstream signature",
+     "type": "boolean"
+    },
+    "jitter": {
+     "default": 0.0,
+     "description": "Non-negative value added to the reference variances for numerical stability (e.g. a dimension with zero weighted variance); upstream default 0",
+     "type": "number"
+    },
+    "seed": {
+     "default": 0,
+     "description": "Seed for jax.random.PRNGKey(seed); ignored when prng_key is given",
+     "type": "integer"
+    },
+    "prng_key": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Optional raw PRNG key (two uint32 values) used instead of seed, e.g. to reproduce a run with a split key"
+    },
+    "output_dir": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Base output directory; a fresh unique subdirectory is created per call (default <project>/tmp/outputs/<tool>)"
+    }
+   },
+   "required": [
+    "particles_path"
+   ]
+  },
+  "diffres_resample_particles_baseline": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "particles_path": {
+     "description": ".npz with 'samples' (N, ...) float ((N,) or (N, d) for ensemble_ot and gumbel_softmax) and exactly one of 'log_weights' (N,) or 'weights' (N,); weights are normalised before resampling; ensemble_ot and gumbel_softmax build N x N arrays, so keep N to a few thousand",
+     "type": "string"
+    },
+    "method": {
+     "default": "multinomial",
+     "description": "Baseline resampler from diffres.resampling (soft = soft_resampling)",
+     "enum": [
+      "multinomial",
+      "stratified",
+      "systematic",
+      "multinomial_stopped",
+      "ensemble_ot",
+      "soft",
+      "gumbel_softmax"
+     ],
+     "type": "string"
+    },
+    "eps": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "ensemble_ot only: entropic regularisation > 0; None uses the upstream default 1/log(N)"
+    },
+    "alpha": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "soft only: softening parameter in [0, 1] (1 = multinomial); None uses 0.5, the experiments/gms/soft.py default (the paper's Gaussian-mixture table reports alpha = 0.9)"
+    },
+    "tau": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "gumbel_softmax only: temperature > 0 (-> 0 approaches multinomial); None uses 0.5, the experiments/gms/gumbel.py default (the paper's Gaussian-mixture table reports tau = 0.1)"
+    },
+    "seed": {
+     "default": 0,
+     "description": "Seed for jax.random.PRNGKey(seed); ignored when prng_key is given",
+     "type": "integer"
+    },
+    "prng_key": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Optional raw PRNG key (two uint32 values) used instead of seed, e.g. to reproduce a run with a split key"
+    },
+    "output_dir": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Base output directory; a fresh unique subdirectory is created per call (default <project>/tmp/outputs/<tool>)"
+    }
+   },
+   "required": [
+    "particles_path"
+   ]
+  },
+  "diffres_run_lgssm_particle_filter": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "model_path": {
+     "description": "JSON file with LGSSM matrices F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx): x_k = F x_{k-1} + N(0,Q), y_k = H x_k + N(0,R), x_0 ~ N(m0,P0)",
+     "type": "string"
+    },
+    "observations_path": {
+     "description": ".npz file with 'ys' of shape (T+1, dy); ys[0] is the time-0 observation ((T+1,) is accepted when dy = 1)",
+     "type": "string"
+    },
+    "nparticles": {
+     "default": 32,
+     "description": "Number of particles N (upstream LGSSM experiments use 32, tests 1000)",
+     "type": "integer"
+    },
+    "resampling_method": {
+     "default": "diffusion",
+     "description": "Resampler used inside the SMC",
+     "enum": [
+      "diffusion",
+      "multinomial",
+      "stratified",
+      "systematic",
+      "multinomial_stopped",
+      "ensemble_ot",
+      "soft",
+      "gumbel_softmax"
+     ],
+     "type": "string"
+    },
+    "resampling_threshold": {
+     "default": 1.0,
+     "description": "Resample when ESS < threshold * N; 1.0 (upstream default) resamples at every step, 0 never resamples",
+     "type": "number"
+    },
+    "diffusion_a": {
+     "default": -0.5,
+     "description": "diffusion: negative forward noising coefficient a",
+     "type": "number"
+    },
+    "diffusion_T": {
+     "default": 3.0,
+     "description": "diffusion: terminal time T (default 3 as experiments/lgssm; tests/test_filters.py uses 2)",
+     "type": "number"
+    },
+    "diffusion_steps": {
+     "default": 8,
+     "description": "diffusion: number of integration steps K, ts = linspace(0, T, K+1) (default 8 as experiments/lgssm; tests/test_filters.py uses 7)",
+     "type": "integer"
+    },
+    "diffusion_integrator": {
+     "default": "euler",
+     "description": "diffusion: integrator ('tweedie' needs ode=false, 'diffrax' needs ode=true)",
+     "enum": [
+      "euler",
+      "lord_and_rougemont",
+      "jentzen_and_kloeden",
+      "tweedie",
+      "diffrax"
+     ],
+     "type": "string"
+    },
+    "diffusion_ode": {
+     "default": true,
+     "description": "diffusion: true = probability-flow ODE, false = reverse SDE",
+     "type": "boolean"
+    },
+    "diffusion_jitter": {
+     "default": 0.0,
+     "description": "diffusion: jitter added to the reference variance (gradient demo uses 1e-5)",
+     "type": "number"
+    },
+    "ot_eps": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "ensemble_ot: entropic regulariser; null uses the upstream default 1/log(N)"
+    },
+    "ot_implicit_diff": {
+     "default": false,
+     "description": "ensemble_ot: implicit differentiation of Sinkhorn; default false (unrolled) as experiments/lgssm/ot.py, whereas the upstream function default and tests/test_filters.py use true; forward values are the same",
+     "type": "boolean"
+    },
+    "soft_alpha": {
+     "default": 0.5,
+     "description": "soft: softening parameter alpha in [0, 1] (1 = no softening)",
+     "type": "number"
+    },
+    "gumbel_tau": {
+     "default": 0.5,
+     "description": "gumbel_softmax: positive temperature tau",
+     "type": "number"
+    },
+    "seed": {
+     "default": 0,
+     "description": "Seed for jax.random.PRNGKey(seed)",
+     "type": "integer"
+    },
+    "prng_key": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Optional raw PRNGKey data (two uint32 values) used instead of seed"
+    },
+    "save_particle_path": {
+     "default": false,
+     "description": "Also save particles and log-weights of all T+1 steps (else final step only)",
+     "type": "boolean"
+    },
+    "compute_gradient": {
+     "default": false,
+     "description": "Also compute the gradient of nll w.r.t. F and H by jax.value_and_grad",
+     "type": "boolean"
+    },
+    "compare_to_kalman": {
+     "default": false,
+     "description": "Also run the exact Kalman filter and compute per-step KL and Bures errors of the particle filtering moments",
+     "type": "boolean"
+    },
+    "output_dir": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Base output directory; a fresh subdirectory is created per call"
+    }
+   },
+   "required": [
+    "model_path",
+    "observations_path"
+   ]
+  },
+  "diffres_run_lgssm_kalman_filter": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "model_path": {
+     "description": "LGSSM JSON with keys F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx)",
+     "type": "string"
+    },
+    "observations_path": {
+     "description": ".npz with ys of shape (T+1, dy), ys[0] observed at time 0; (T+1,) allowed if dy=1",
+     "type": "string"
+    },
+    "smooth": {
+     "default": false,
+     "description": "Also run the Rauch-Tung-Striebel smoother (diffres.gaussian_filters.rts)",
+     "type": "boolean"
+    },
+    "compute_gradient": {
+     "default": false,
+     "description": "Also compute the gradient of the KF nll w.r.t. the full matrices F and H (jax.grad)",
+     "type": "boolean"
+    },
+    "output_dir": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Base output directory; a fresh subdirectory is created per call"
+    }
+   },
+   "required": [
+    "model_path",
+    "observations_path"
+   ]
+  },
+  "diffres_simulate_lgssm_data": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "model_path": {
+     "description": "LGSSM JSON with keys F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx)",
+     "type": "string"
+    },
+    "nsteps": {
+     "description": "Number of transitions T; T+1 states and observations (times 0..T) are returned",
+     "type": "integer"
+    },
+    "seed": {
+     "default": 0,
+     "description": "Seed for jax.random.PRNGKey(seed); ignored if prng_key is given",
+     "type": "integer"
+    },
+    "prng_key": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Optional raw PRNGKey data (two uint32 values) used instead of seed"
+    },
+    "output_dir": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Base output directory; a fresh subdirectory is created per call"
+    }
+   },
+   "required": [
+    "model_path",
+    "nsteps"
+   ]
+  }
+ },
+ "diffusion_call": {
+  "is_error": false,
+  "data": {
+   "message": "Diffusion-resampled 300 particles (lord_and_rougemont, ODE, a=-1.5, T=2.0, nsteps=16).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py",
+   "artifacts": [
+    {
+     "description": "resampled particles: 'samples' (N, ...) and 'log_weights' (N,) = -log N",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/e41ed7b277f6411a87aed34fdca3dfe6/resampled.npz"
+    }
+   ],
+   "n_particles": 300,
+   "sample_shape": [
+    8
+   ],
+   "input_weight_field": "log_weights",
+   "input_log_normaliser": -1.3136992606490283,
+   "ess_input": 36.05889781868299,
+   "ess_output": 299.99999999999994,
+   "settings": {
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "jitter": 0.0,
+    "ts": "linspace(0, T, nsteps + 1)",
+    "jit": true,
+    "x64": true
+   },
+   "prng_key": [
+    0,
+    4242
+   ]
+  }
+ },
+ "diffusion_call_repeat": {
+  "is_error": false,
+  "data": {
+   "message": "Diffusion-resampled 300 particles (lord_and_rougemont, ODE, a=-1.5, T=2.0, nsteps=16).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py",
+   "artifacts": [
+    {
+     "description": "resampled particles: 'samples' (N, ...) and 'log_weights' (N,) = -log N",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/3b7fa0a0908e43a4b888b05e63a14a11/resampled.npz"
+    }
+   ],
+   "n_particles": 300,
+   "sample_shape": [
+    8
+   ],
+   "input_weight_field": "log_weights",
+   "input_log_normaliser": -1.3136992606490283,
+   "ess_input": 36.05889781868299,
+   "ess_output": 299.99999999999994,
+   "settings": {
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "jitter": 0.0,
+    "ts": "linspace(0, T, nsteps + 1)",
+    "jit": true,
+    "x64": true
+   },
+   "prng_key": [
+    0,
+    4242
+   ]
+  }
+ },
+ "pf_call": {
+  "is_error": false,
+  "data": {
+   "message": "Bootstrap PF with multinomial resampling: N=64, T=100, nll=137.288 (nll + log N = 141.447).",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/feynman_kac.py",
+   "artifacts": [
+    {
+     "description": "particle filter results (.npz): final-step 'samples' (N, dx) and normalised 'log_weights' (N,) [usable as particles_path of the resampling tools], 'ess' (T+1,), weighted 'filtering_means' (T+1, dx) and 'filtering_covs' (T+1, dx, dx), nll, nll_plus_log_n, prng_key",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/d588bb715f9a459eb558c750ec69aa3b/particle_filter.npz"
+    }
+   ],
+   "nll": 137.28838350917536,
+   "nll_plus_log_n": 141.44726659253504,
+   "nll_note": "nll is the raw upstream smc_feynman_kac value; it omits +log(N) in the time-0 term (feynman_kac.py lines 82-85), so nll_plus_log_n = nll + log(N) estimates the exact negative log-likelihood (comparable to the Kalman filter nll)",
+   "ess": {
+    "final": 61.1823372755821,
+    "min": 38.78761015640708,
+    "mean": 56.93072319804621,
+    "resampling_steps": 100,
+    "nsteps": 100
+   },
+   "final_filtering_mean": [
+    0.8000434800213267
+   ],
+   "nparticles": 64,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "observation_density": "sum of univariate normals (diagonal R)",
+   "resampling_method": "multinomial",
+   "resampling_settings": {},
+   "resampling_threshold": 1.0,
+   "prng_key": [
+    0,
+    2026
+   ]
+  }
+ },
+ "kf_call": {
+  "is_error": false,
+  "data": {
+   "message": "Kalman filter on 101 observations (dx=1, dy=1): nll=141.4216507",
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/gaussian_filters.py#L27-L54",
+   "artifacts": [
+    {
+     "description": "Kalman filter results: filtering_means (T+1,dx), filtering_covariances (T+1,dx,dx), predictive_means (T,dx), predictive_covariances (T,dx,dx), nll ()",
+     "path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/595db60d01d44a20b8f5aa529e9d7fe4/kalman_results.npz"
+    }
+   ],
+   "nll": 141.42165070795778,
+   "log_likelihood": -141.42165070795778,
+   "num_observations": 101,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "smooth": false,
+   "compute_gradient": false
+  }
+ },
+ "server_processes": [
+  {
+   "pid": 8881,
+   "exe": "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+   "cwd": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp",
+   "n_mapped_files": 13,
+   "mapped_files_under_workspace": [],
+   "jaxlib_so_sample": []
+  }
+ ],
+ "checks": {
+  "diffusion_changed_input": {
+   "tool_args": {
+    "particles_path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/inputs/resampling/delivery_gms_first300.npz",
+    "a": -1.5,
+    "T": 2.0,
+    "nsteps": 16,
+    "integrator": "lord_and_rougemont",
+    "ode": true,
+    "seed": 4242,
+    "output_dir": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input"
+   },
+   "N": 300,
+   "fixture_weight_field": "log_weights",
+   "artifact": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/e41ed7b277f6411a87aed34fdca3dfe6/resampled.npz",
+   "artifact_repeat": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/3b7fa0a0908e43a4b888b05e63a14a11/resampled.npz",
+   "distinct_artifact_paths": true,
+   "samples_shape": [
+    300,
+    8
+   ],
+   "bitwise_equal_to_direct_jit": true,
+   "max_abs_diff_vs_direct_jit": 0.0,
+   "max_abs_diff_vs_direct_eager": 6.128431095930864e-14,
+   "repeat_bitwise_equal": true,
+   "prng_key_returned": [
+    0,
+    4242
+   ],
+   "ess_output": 299.99999999999994,
+   "pass": true
+  },
+  "particle_filter_changed_input": {
+   "tool_args": {
+    "model_path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/inputs/feynman_kac/filters_model.json",
+    "observations_path": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/inputs/feynman_kac/filters_ys_1d.npz",
+    "nparticles": 64,
+    "resampling_method": "multinomial",
+    "resampling_threshold": 1.0,
+    "prng_key": [
+     0,
+     2026
+    ],
+    "output_dir": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input"
+   },
+   "N": 64,
+   "prng_key_matches_PRNGKey2026": true,
+   "fixture_ys_equal_test_ys_bitwise": true,
+   "fixture_F_minus_test_semigroup": 0.0,
+   "fixture_Q_minus_test_trans_cov": 0.0,
+   "direct_upstream_nll": 137.28838350917536,
+   "direct_upstream_nll_plus_log_n": 141.44726659253504,
+   "direct_upstream_kf_nll": 141.42165070795778,
+   "artifact": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/tmp/outputs/delivery-changed-input/d588bb715f9a459eb558c750ec69aa3b/particle_filter.npz",
+   "tool_nll": 137.28838350917536,
+   "tool_nll_plus_log_n": 141.44726659253504,
+   "abs_diff_nll": 0.0,
+   "max_abs_diff_final_samples": 0.0,
+   "max_abs_diff_final_log_weights": 8.881784197001252e-16,
+   "max_abs_diff_ess": 9.947598300641403e-14,
+   "bitwise_nll": true,
+   "pass": true,
+   "tool_kf_nll": 141.42165070795778,
+   "abs_diff_kf_nll_tool_vs_direct": 0.0,
+   "pf_nll_plus_log_n_minus_kf_nll": 0.02561588457726316
+  }
+ },
+ "origins": {
+  "diffres_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/diffres/__init__.py",
+  "fastmcp_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/fastmcp/__init__.py",
+  "jax_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages/jax/__init__.py",
+  "server_module_file": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/diffres_mcp.py",
+  "tools_modules": {
+   "tools.feynman_kac": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/feynman_kac.py",
+   "tools.gaussian_filters": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/gaussian_filters.py",
+   "tools.resampling": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src/tools/resampling.py"
+  },
+  "n_loaded_module_files": 3047,
+  "module_files_in_workspace_outside_extracted": [
+   "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py",
+   "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py"
+  ],
+  "module_files_outside_extracted_and_uv_python": [
+   "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py",
+   "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery/changed_input_checks.py"
+  ],
+  "sys_path": [
+   "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src",
+   "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/src",
+   "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/logs/delivery",
+   "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python311.zip",
+   "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11",
+   "/home/jixia/.local/share/uv/python/cpython-3.11-linux-x86_64-gnu/lib/python3.11/lib-dynload",
+   "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/delivery test/diffres-mcp/.venv/lib/python3.11/site-packages"
+  ]
+ },
+ "success": false
+}

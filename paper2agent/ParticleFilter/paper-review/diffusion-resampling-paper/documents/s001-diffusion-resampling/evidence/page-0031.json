@@ -1,0 +1,768 @@
+{
+  "page": 31,
+  "lines": [
+    {
+      "text": "Diffusion differentiable resampling",
+      "bbox": [
+        231.35499572753906,
+        47.92219161987305,
+        365.52813720703125,
+        55.98298645019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For a more comprehensive comparison, there are limitations to address, such as the limited number of independent runs,",
+      "bbox": [
+        55.439998626708984,
+        70.26837158203125,
+        542.6806640625,
+        79.17493438720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "choice of evaluation metric and the amount of data used for training. A simple MSE against the ground truth does not fully",
+      "bbox": [
+        55.439998626708984,
+        82.224365234375,
+        541.7869873046875,
+        91.13092803955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "capture the predictive distribution quality and may not fully capture the forecasting performance in terms of fine-grained",
+      "bbox": [
+        55.439998626708984,
+        94.17938232421875,
+        541.4405517578125,
+        103.08594512939453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "details and long forecasting windows. In both settings, the diffusion resampler achieves a performance comparable to the",
+      "bbox": [
+        55.439998626708984,
+        106.13433837890625,
+        541.4366455078125,
+        115.04090118408203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "baselines. Training is stable across seeds, which shows that the diffusion resampler scales at latent dimension d = 2048.",
+      "bbox": [
+        55.439998626708984,
+        117.92994689941406,
+        534.3721923828125,
+        126.99591827392578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N. Choosing the hyperparameters",
+      "bbox": [
+        55.439998626708984,
+        145.159912109375,
+        227.81007385253906,
+        155.9076385498047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Although the diffusion resampling is powerful, it comes with a variety of hyperparameters to tune: the diffusion coefficients",
+      "bbox": [
+        55.082000732421875,
+        166.02734375,
+        541.443603515625,
+        174.93389892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "b and πref, the diffusion time T, the integrator, and integration step K. Ideally, πref should well approximate the underlying",
+      "bbox": [
+        55.439998626708984,
+        177.8229522705078,
+        541.4450073242188,
+        188.3839111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous distribution, and the choice b should correspondingly reflect the approximation error as in Corollary 1. The",
+      "bbox": [
+        55.439998626708984,
+        189.77796936035156,
+        541.4398193359375,
+        198.84393310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "setting of diffusion time T is arbitrary if one can sample pT exactly, but smaller T leads to potentially lower integration",
+      "bbox": [
+        55.439998626708984,
+        201.7339630126953,
+        541.4415893554688,
+        212.2939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "steps required. As for the integrator and integration steps, our empirical results indicate that Jentzen–Kloeden and Euler–",
+      "bbox": [
+        55.439998626708984,
+        213.848388671875,
+        542.9320678710938,
+        222.75494384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Maruyama are often a good start, and K ≤8 is often sufficient for learning large neural network-parametrised systems.",
+      "bbox": [
+        55.439998626708984,
+        224.83697509765625,
+        543.1854248046875,
+        242.12208557128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To retain a good computational complexity, it is suggested that the number of integration steps should be smaller than the",
+      "bbox": [
+        55.13100051879883,
+        237.75836181640625,
+        541.4385986328125,
+        246.6649169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "number of samples: K < N.",
+      "bbox": [
+        55.439998626708984,
+        249.55397033691406,
+        171.15557861328125,
+        258.61993408203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "O. Additional related work",
+      "bbox": [
+        55.439998626708984,
+        276.783935546875,
+        193.25955200195312,
+        287.5316467285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In addition to the discussion in Section 5, there are also connections to other, less central, lines of work. For instance,",
+      "bbox": [
+        55.439998626708984,
+        297.6513671875,
+        542.6806640625,
+        306.55792236328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the ensemble score estimator is related to the kernel projection used in Stein variational gradient flow (Liu, 2017). The",
+      "bbox": [
+        55.439998626708984,
+        309.6063537597656,
+        541.44091796875,
+        318.5129089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "controlled gain term in Yang et al. (2013) also plays a role analogous to resampling in a continuous-time limit, but involves",
+      "bbox": [
+        55.439998626708984,
+        321.5613708496094,
+        541.43798828125,
+        330.4679260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a computationally demanding PDE-solving step. While there are interesting connections to our work, the approach focuses",
+      "bbox": [
+        55.439998626708984,
+        333.5173645019531,
+        541.435302734375,
+        342.4239196777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on continuous-time flow filtering (cf. Kang et al., 2025) and leads to algorithms that are no longer standard SMC. Bao",
+      "bbox": [
+        55.439998626708984,
+        345.47235107421875,
+        541.4408569335938,
+        354.37890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al. (2024) propose an ensemble filter where the update step was replaced by a conditional version of the diffusion in",
+      "bbox": [
+        55.439998626708984,
+        357.4273681640625,
+        541.4407958984375,
+        366.33392333984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Equation (13). This too targets at Equation (30) but additionally contains errors from likelihood score approximation.",
+      "bbox": [
+        55.439998626708984,
+        369.3823547363281,
+        522.9248657226562,
+        378.2889099121094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "P. Take-away messages",
+      "bbox": [
+        55.439998626708984,
+        396.4529113769531,
+        172.1107940673828,
+        407.20062255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We here provide a TL;DR summary of the main findings, with Table 20 giving an overall comparison among commonly",
+      "bbox": [
+        54.97200012207031,
+        417.32037353515625,
+        541.785888671875,
+        426.2269287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "used differentiable resampling schemes.",
+      "bbox": [
+        55.439998626708984,
+        429.2753601074219,
+        215.110595703125,
+        438.1819152832031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• Diffusion resampling largely excels for parameter estimation in state-space models (SSMs) and is useful for practical",
+      "bbox": [
+        66.89199829101562,
+        456.1743469238281,
+        541.444091796875,
+        465.0809020996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applications. It is computationally fast, and provides consistent and stable gradient estimates.",
+      "bbox": [
+        75.36100006103516,
+        468.13037109375,
+        446.5076599121094,
+        477.03692626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• Diffusion resampling is useful not only for differentiation, but also for reducing resampling error in general. The",
+      "bbox": [
+        66.89199829101562,
+        488.05535888671875,
+        541.4345703125,
+        496.9619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "primary reason for this is that diffusion resampling can take additional information (e.g., πref) of the target into account.",
+      "bbox": [
+        75.36100006103516,
+        499.8509826660156,
+        543.1839599609375,
+        509.6119079589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "When we have a complete information πref = π, the diffusion resampling becomes an optimal resampling algorithm.",
+      "bbox": [
+        74.89199829101562,
+        511.8059387207031,
+        543.1826171875,
+        522.147705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Corollary 1 explicitly shows how the resampling error can be controlled depending on how well πref approximates",
+      "bbox": [
+        75.36100006103516,
+        523.7609252929688,
+        541.4411010742188,
+        534.3218994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "π, calibrated by b. In contrast, multinomial resampling only uses information from the given samples {(wi, Xi)}N",
+      "bbox": [
+        75.36100006103516,
+        534.1751708984375,
+        534.3472900390625,
+        552.195068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        528.0360107421875,
+        540.3841552734375,
+        540.9445190429688,
+        546.576904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which contains incomplete and less information compared to diffusion resampling using the continuous distribution",
+      "bbox": [
+        75.00199890136719,
+        547.8313598632812,
+        541.4392700195312,
+        556.7379150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximation.",
+      "bbox": [
+        75.36100006103516,
+        559.786376953125,
+        135.96347045898438,
+        568.6929321289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• For pure filtering tasks, even without focusing on parameter estimation, the diffusion resampling generally outperforms",
+      "bbox": [
+        66.89199829101562,
+        579.7113647460938,
+        541.4437866210938,
+        588.617919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the peer methods.",
+      "bbox": [
+        75.36100006103516,
+        591.6663818359375,
+        145.9160919189453,
+        600.5729370117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "• If a good reference distribution is hard to construct, diffusion resampling may not be optimal for a pure resampling",
+      "bbox": [
+        66.89199829101562,
+        611.5923461914062,
+        541.44482421875,
+        620.4989013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "problem outside the SSM context. For instance, as shown in the Gaussian mixture experiment, the large discrepancy",
+      "bbox": [
+        75.36100006103516,
+        623.54736328125,
+        541.7855834960938,
+        632.4539184570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "between the Gaussian reference and the highly non-Gaussian target may prolong the diffusion time. However, for",
+      "bbox": [
+        75.36100006103516,
+        635.5023803710938,
+        541.607177734375,
+        644.408935546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SSMs, thanks to their sequential structure, constructing an effective reference becomes straightforward.",
+      "bbox": [
+        75.36100006103516,
+        647.4573974609375,
+        487.4140930175781,
+        656.3639526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "31",
+      "bbox": [
+        293.4590148925781,
+        733.2123413085938,
+        303.4216003417969,
+        742.118896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Diffusion differentiable resampling",
+      "author": "Jennifer Rosina Andersson; Zheng Zhao",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:a6404ea)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/diffusion-resampling-paper/documents/.pdf-skill-scan-jt_x1kkl/review/source.pdf",
+      "page_count": 32,
+      "page_number": 31
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          231,
+          47,
+          366,
+          56
+        ],
+        "pos": [
+          0,
+          42
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          55,
+          70,
+          543,
+          128
+        ],
+        "pos": [
+          42,
+          654
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          55,
+          145,
+          228,
+          156
+        ],
+        "pos": [
+          654,
+          694
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          55,
+          165,
+          544,
+          259
+        ],
+        "pos": [
+          694,
+          1613
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          55,
+          276,
+          194,
+          286
+        ],
+        "pos": [
+          1613,
+          1648
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          55,
+          297,
+          543,
+          379
+        ],
+        "pos": [
+          1648,
+          2501
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          55,
+          396,
+          173,
+          408
+        ],
+        "pos": [
+          2501,
+          2531
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          54,
+          417,
+          542,
+          439
+        ],
+        "pos": [
+          2531,
+          2685
+        ]
+      },
+      {
+        "index": 8,
+        "class": "list-item",
+        "bbox": [
+          66,
+          456,
+          542,
+          478
+        ],
+        "pos": [
+          2685,
+          2904
+        ]
+      },
+      {
+        "index": 9,
+        "class": "list-item",
+        "bbox": [
+          66,
+          488,
+          544,
+          569
+        ],
+        "pos": [
+          2904,
+          3665
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          66,
+          579,
+          542,
+          601
+        ],
+        "pos": [
+          3665,
+          3807
+        ]
+      },
+      {
+        "index": 11,
+        "class": "list-item",
+        "bbox": [
+          66,
+          611,
+          542,
+          657
+        ],
+        "pos": [
+          3807,
+          4258
+        ]
+      },
+      {
+        "index": 12,
+        "class": "page-footer",
+        "bbox": [
+          293,
+          733,
+          304,
+          741
+        ],
+        "pos": [
+          4258,
+          4263
+        ]
+      }
+    ],
+    "text": "**Diffusion differentiable resampling** \n\nFor a more comprehensive comparison, there are limitations to address, such as the limited number of independent runs, choice of evaluation metric and the amount of data used for training. A simple MSE against the ground truth does not fully capture the predictive distribution quality and may not fully capture the forecasting performance in terms of fine-grained details and long forecasting windows. In both settings, the diffusion resampler achieves a performance comparable to the baselines. Training is stable across seeds, which shows that the diffusion resampler scales at latent dimension _d_ = 2048. \n\n# **N. Choosing the hyperparameters** \n\nAlthough the diffusion resampling is powerful, it comes with a variety of hyperparameters to tune: the diffusion coefficients _b_ and _π_ ref , the diffusion time _T_ , the integrator, and integration step _K_ . Ideally, _π_ ref should well approximate the underlying continuous distribution, and the choice _b_ should correspondingly reflect the approximation error as in Corollary 1. The setting of diffusion time _T_ is arbitrary if one can sample _pT_ exactly, but smaller _T_ leads to potentially lower integration steps required. As for the integrator and integration steps, our empirical results indicate that Jentzen–Kloeden and Euler– Maruyama are often a good start, and _K ≤_ 8 is often sufficient for learning large neural network-parametrised systems. To retain a good computational complexity, it is suggested that the number of integration steps should be smaller than the number of samples: _K < N_ . \n\n# **O. Additional related work** \n\nIn addition to the discussion in Section 5, there are also connections to other, less central, lines of work. For instance, the ensemble score estimator is related to the kernel projection used in Stein variational gradient flow (Liu, 2017). The controlled gain term in Yang et al. (2013) also plays a role analogous to resampling in a continuous-time limit, but involves a computationally demanding PDE-solving step. While there are interesting connections to our work, the approach focuses on continuous-time flow filtering (cf. Kang et al., 2025) and leads to algorithms that are no longer standard SMC. Bao et al. (2024) propose an ensemble filter where the update step was replaced by a conditional version of the diffusion in Equation (13). This too targets at Equation (30) but additionally contains errors from likelihood score approximation. \n\n# **P. Take-away messages** \n\nWe here provide a TL;DR summary of the main findings, with Table 20 giving an overall comparison among commonly used differentiable resampling schemes. \n\n- Diffusion resampling largely excels for parameter estimation in state-space models (SSMs) and is useful for practical applications. It is computationally fast, and provides consistent and stable gradient estimates. \n\n- Diffusion resampling is useful not only for differentiation, but also for reducing resampling error in general. The primary reason for this is that diffusion resampling can take additional information (e.g., _π_ ref ) of the target into account. When we have a complete information _π_ ref = _π_ , the diffusion resampling becomes an optimal resampling algorithm. Corollary 1 explicitly shows how the resampling error can be controlled depending on how well _π_ ref approximates _π_ , calibrated by _b_ . In contrast, multinomial resampling only uses information from the given samples _{_ ( _wi, Xi_ ) _}_<sup>_N_</sup> _i_ =1 which contains incomplete and less information compared to diffusion resampling using the continuous distribution approximation. \n\n- For pure filtering tasks, even without focusing on parameter estimation, the diffusion resampling generally outperforms the peer methods. \n\n- If a good reference distribution is hard to construct, diffusion resampling may not be optimal for a pure resampling problem outside the SSM context. For instance, as shown in the Gaussian mixture experiment, the large discrepancy between the Gaussian reference and the highly non-Gaussian target may prolong the diffusion time. However, for SSMs, thanks to their sequential structure, constructing an effective reference becomes straightforward. \n\n31 \n\n"
+  }
+}

@@ -1,0 +1,753 @@
+{
+  "page": 10,
+  "lines": [
+    {
+      "text": "SAMPLING-BASED REACHABILITY ANALYSIS",
+      "bbox": [
+        210.07200622558594,
+        41.200374603271484,
+        399.2085876464844,
+        50.106937408447266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Figure 6: Application of ϵ-RANDUP to safely control a free-ﬂyer robot in a cluttered environment (left).",
+      "bbox": [
+        90.00003051757812,
+        207.55995178222656,
+        521.9954223632812,
+        216.62591552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Using a model predictive controller that does not account for the uncertain dynamics (middle) leads to unsafe",
+      "bbox": [
+        90.00006103515625,
+        219.7640380859375,
+        521.9981079101562,
+        228.35179138183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "behavior, colliding with an obstacle and causing the optimization problem to be infeasible at run-time (right).",
+      "bbox": [
+        90.00006103515625,
+        231.72003173828125,
+        521.9979858398438,
+        240.3077850341797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "R6 and its control inputs are given as ut ∈R3. We use an auxiliary linear feedback controller (Lew",
+      "bbox": [
+        90.00006103515625,
+        244.33367919921875,
+        522.0047607421875,
+        259.4413757324219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al., 2022) and an uncertain linear model xt+1 = f(xt, ut, m, F) that depends on an uncertain",
+      "bbox": [
+        90.00006103515625,
+        261.6671142578125,
+        521.9983520507812,
+        272.9903869628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mass m ∈[10, 18] kg (depending on the payload transported by the robot and the current weight",
+      "bbox": [
+        90.0,
+        274.605224609375,
+        522.001708984375,
+        285.1434020996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of the gas tanks) and an unknown force F = (Fx, Fy) ∈[−0.015, 0.015]2 N that accounts for the",
+      "bbox": [
+        90.00000762939453,
+        284.9806823730469,
+        521.9969482421875,
+        299.5192565917969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tilt of the table. To control the system from an initial state x0 ∈Rn to a goal region Xgoal ⊂Rn",
+      "bbox": [
+        90.00009155273438,
+        298.53070068359375,
+        521.5048217773438,
+        313.679443359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "while minimizing fuel consumption and remaining in a feasible set Xfree (i.e., avoiding obstacles",
+      "bbox": [
+        90.00009155273438,
+        315.25323486328125,
+        521.9969482421875,
+        327.46942138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and respecting velocity bounds), we consider the following MPC formulation:",
+      "bbox": [
+        90.00009155273438,
+        329.58770751953125,
+        430.74566650390625,
+        339.3404235839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "min",
+      "bbox": [
+        96.87808990478516,
+        353.8576965332031,
+        113.85265350341797,
+        363.61041259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(µ,ν)",
+      "bbox": [
+        96.00708770751953,
+        363.517822265625,
+        114.72273254394531,
+        370.59527587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "PN",
+      "bbox": [
+        125.6330337524414,
+        351.2236633300781,
+        142.9551544189453,
+        359.6993103027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=1(µt −xgoal)⊤Q(µt −xgoal) + PN",
+      "bbox": [
+        136.57229614257812,
+        350.77142333984375,
+        301.4050598144531,
+        367.4721984863281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=1ν⊤",
+      "bbox": [
+        295.022216796875,
+        350.77142333984375,
+        321.3463439941406,
+        365.78668212890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t Rνt,",
+      "bbox": [
+        314.06903076171875,
+        353.6830749511719,
+        342.1927490234375,
+        366.0673522949219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s.t.",
+      "bbox": [
+        354.91802978515625,
+        353.8576354980469,
+        367.64892578125,
+        363.6103515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µ0 = x0,",
+      "bbox": [
+        380.37603759765625,
+        353.6830749511719,
+        420.22674560546875,
+        365.00634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(4a)",
+      "bbox": [
+        504.4370422363281,
+        353.8576354980469,
+        522.0006713867188,
+        363.6103515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µt+1 = f(µt, νt, ¯m, ¯F), νt ∈U, Xt(ν) ⊂Xfree, XN(ν) ⊂Xgoal,",
+      "bbox": [
+        125.633056640625,
+        372.4390869140625,
+        420.0708312988281,
+        386.5203552246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t = 0, ..., N −1. (4b)",
+      "bbox": [
+        430.074462890625,
+        374.586181640625,
+        522.0006713867188,
+        385.1243591308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where µ = (µ0, . . . , µN) and ν = (ν0, . . . , νN−1) are optimization variables representing the",
+      "bbox": [
+        90.0001220703125,
+        399.4670715332031,
+        521.999267578125,
+        410.2721862792969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nominal state and control trajectories, ( ¯m, ¯Fx, ¯Fy) = (14, 0, 0) are nominal parameter values,",
+      "bbox": [
+        90.00016784667969,
+        410.2580871582031,
+        522.0030517578125,
+        423.7691955566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xgoal ∈Xgoal is the center of the goal set, and the reachable sets Xt(ν) ⊂Rn are deﬁned as",
+      "bbox": [
+        90.00021362304688,
+        422.7806396484375,
+        521.996826171875,
+        438.1703796386719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xt(ν) = {xt = f(·, νt−1, m, F)◦· · ·◦f(x0, ν0, m, F) : (m, F) ∈[10, 18]×[−0.015, 0.015]}. The",
+      "bbox": [
+        90.000244140625,
+        439.5032043457031,
+        522.004150390625,
+        451.4383850097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "numerical implementation is described in (Lew and Pavone, 2020). With a Python implementation,",
+      "bbox": [
+        90.00018310546875,
+        453.8376770019531,
+        522.0003662109375,
+        463.59039306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϵ = 0.03, and M = 103, our MPC controller runs at 10Hz which is sufﬁcient for this platform and",
+      "bbox": [
+        90.00018310546875,
+        465.29376220703125,
+        521.9962768554688,
+        477.140380859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "could be improved, e.g., by parallelizing computations on a GPU. We compare with a MPC baseline",
+      "bbox": [
+        90.00018310546875,
+        480.9366760253906,
+        522.0003662109375,
+        490.68939208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that does not consider uncertainty over the parameters (i.e., assumes (m, F) ∈{14}×{(0, 0)}). As",
+      "bbox": [
+        90.00018310546875,
+        493.7002258300781,
+        522.0,
+        504.2384033203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shown in Figure 6 and in the attached video, this baseline is unsafe and collides with an obstacle.",
+      "bbox": [
+        90.00018310546875,
+        508.03466796875,
+        522.00048828125,
+        517.7874145507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In contrast, our reachability-aware controller is recursively feasible, satisﬁes all constraints, and al-",
+      "bbox": [
+        90.00018310546875,
+        521.583740234375,
+        522.0004272460938,
+        531.3364868164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lows safely reaching the goal. These experiments motivate the development of efﬁcient reachability",
+      "bbox": [
+        90.00018310546875,
+        535.1337280273438,
+        522.0001831054688,
+        544.886474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms that can be embedded in generic control frameworks to account for uncertain parameters.",
+      "bbox": [
+        90.00018310546875,
+        548.6827392578125,
+        522.000244140625,
+        558.4354858398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7. Conclusion",
+      "bbox": [
+        90.00018310546875,
+        579.0189819335938,
+        162.07809448242188,
+        589.7667236328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We derived new asymptotic and ﬁnite-sample statistical guarantees for ϵ-RANDUP, a simple yet",
+      "bbox": [
+        90.00018310546875,
+        600.4461669921875,
+        522.001953125,
+        610.3734741210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "efﬁcient algorithm for reachability analysis of general systems. We demonstrated its efﬁcacy for a",
+      "bbox": [
+        90.00021362304688,
+        614.1707153320312,
+        522.0003662109375,
+        623.9234619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "neural network veriﬁcation task and its applicability to robust model predictive control. In future",
+      "bbox": [
+        90.00021362304688,
+        627.7197265625,
+        522.0003662109375,
+        637.4724731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "work, we will investigate tighter ﬁnite-sample bounds by leveraging further information about the",
+      "bbox": [
+        90.00021362304688,
+        641.2686767578125,
+        522.00048828125,
+        651.0214233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "smoothness of the input set boundary ∂X. Of practical interest is investigating which sampling",
+      "bbox": [
+        90.00021362304688,
+        654.0322265625,
+        522.0055541992188,
+        664.5704345703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distributions enable better sample efﬁciency, interfacing ϵ-RANDUP with Lipschitz constant com-",
+      "bbox": [
+        90.00019836425781,
+        668.192138671875,
+        522.0038452148438,
+        678.1194458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "putation methods (e.g., (Fazlyab et al., 2019) for neural networks), exploring methods to scale to",
+      "bbox": [
+        90.00018310546875,
+        681.9166870117188,
+        522.0004272460938,
+        691.66943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "high-dimensional input spaces, and applying the technique to safety-aware reinforcement learning.",
+      "bbox": [
+        90.00018310546875,
+        695.4656982421875,
+        520.54931640625,
+        705.2184448242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10",
+      "bbox": [
+        301.0191955566406,
+        725.9954223632812,
+        310.9817810058594,
+        734.9019775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20220415011442Z",
+      "modDate": "D:20220415011442Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/lew2022simple-paper/documents/.pdf-skill-scan-twl5kvid/review/source.pdf",
+      "page_count": 25,
+      "page_number": 10
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          210,
+          41,
+          400,
+          49
+        ],
+        "pos": [
+          0,
+          39
+        ]
+      },
+      {
+        "index": 1,
+        "class": "picture",
+        "bbox": [
+          90,
+          79,
+          229,
+          195
+        ],
+        "pos": [
+          39,
+          41
+        ]
+      },
+      {
+        "index": 2,
+        "class": "picture",
+        "bbox": [
+          235,
+          81,
+          348,
+          199
+        ],
+        "pos": [
+          41,
+          43
+        ]
+      },
+      {
+        "index": 3,
+        "class": "picture",
+        "bbox": [
+          353,
+          76,
+          519,
+          204
+        ],
+        "pos": [
+          43,
+          45
+        ]
+      },
+      {
+        "index": 4,
+        "class": "caption",
+        "bbox": [
+          90,
+          207,
+          522,
+          241
+        ],
+        "pos": [
+          45,
+          380
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          90,
+          246,
+          523,
+          340
+        ],
+        "pos": [
+          380,
+          1154
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          96,
+          351,
+          523,
+          387
+        ],
+        "pos": [
+          1154,
+          1156
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          90,
+          398,
+          523,
+          559
+        ],
+        "pos": [
+          1156,
+          2525
+        ]
+      },
+      {
+        "index": 8,
+        "class": "section-header",
+        "bbox": [
+          90,
+          579,
+          163,
+          588
+        ],
+        "pos": [
+          2525,
+          2547
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          90,
+          600,
+          523,
+          706
+        ],
+        "pos": [
+          2547,
+          3340
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          726,
+          311,
+          733
+        ],
+        "pos": [
+          3340,
+          3345
+        ]
+      }
+    ],
+    "text": "SAMPLING-BASED REACHABILITY ANALYSIS \n\n\n\n\n\n\n\n_Figure 6: Application of ϵ-_ RANDUP _to safely control a free-flyer robot in a cluttered environment (left). Using a model predictive controller that does not account for the uncertain dynamics (middle) leads to unsafe behavior, colliding with an obstacle and causing the optimization problem to be infeasible at run-time (right)._ \n\nR<sup>6</sup> and its control inputs are given as _ut ∈_ R<sup>3</sup> . We use an auxiliary linear feedback controller (Lew et al., 2022) and an uncertain linear model _xt_ +1 = _f_ ( _xt, ut, m, F_ ) that depends on an uncertain mass _m ∈_ [10 _,_ 18] kg (depending on the payload transported by the robot and the current weight of the gas tanks) and an unknown force _F_ = ( _Fx, Fy_ ) _∈_ [ _−_ 0 _._ 015 _,_ 0 _._ 015]<sup>2</sup> N that accounts for the tilt of the table. To control the system from an initial state _x_ 0 _∈_ R<sup>_n_</sup> to a goal region _X_ goal _⊂_ R<sup>_n_</sup> while minimizing fuel consumption and remaining in a feasible set _X_ free (i.e., avoiding obstacles and respecting velocity bounds), we consider the following MPC formulation: \n\n\n\nwhere _µ_ = ( _µ_ 0 _, . . . , µN_ ) and _ν_ = ( _ν_ 0 _, . . . , νN −_ 1) are optimization variables representing the nominal state and control trajectories, ( ¯ _m, F_<sup>¯</sup> _x, F_<sup>¯</sup> _y_ ) = (14 _,_ 0 _,_ 0) are nominal parameter values, _x_ goal _∈X_ goal is the center of the goal set, and the reachable sets _Xt_ ( _ν_ ) _⊂_ R<sup>_n_</sup> are defined as _Xt_ ( _ν_ ) = _{xt_ = _f_ ( _·, νt−_ 1 _, m, F_ ) _◦· · ·◦f_ ( _x_ 0 _, ν_ 0 _, m, F_ ) : ( _m, F_ ) _∈_ [10 _,_ 18] _×_ [ _−_ 0 _._ 015 _,_ 0 _._ 015] _}_ . The numerical implementation is described in (Lew and Pavone, 2020). With a Python implementation, _ϵ_ = 0 _._ 03, and _M_ = 10<sup>3</sup> , our MPC controller runs at 10Hz which is sufficient for this platform and could be improved, e.g., by parallelizing computations on a GPU. We compare with a MPC baseline that does not consider uncertainty over the parameters (i.e., assumes ( _m, F_ ) _∈{_ 14 _}×{_ (0 _,_ 0) _}_ ). As shown in Figure 6 and in the attached video, this baseline is unsafe and collides with an obstacle. In contrast, our reachability-aware controller is recursively feasible, satisfies all constraints, and allows safely reaching the goal. These experiments motivate the development of efficient reachability algorithms that can be embedded in generic control frameworks to account for uncertain parameters. \n\n# **7. Conclusion** \n\nWe derived new asymptotic and finite-sample statistical guarantees for _ϵ_ -RANDUP, a simple yet efficient algorithm for reachability analysis of general systems. We demonstrated its efficacy for a neural network verification task and its applicability to robust model predictive control. In future work, we will investigate tighter finite-sample bounds by leveraging further information about the smoothness of the input set boundary _∂X_ . Of practical interest is investigating which sampling distributions enable better sample efficiency, interfacing _ϵ_ -RANDUP with Lipschitz constant computation methods (e.g., (Fazlyab et al., 2019) for neural networks), exploring methods to scale to high-dimensional input spaces, and applying the technique to safety-aware reinforcement learning. \n\n10 \n\n"
+  }
+}

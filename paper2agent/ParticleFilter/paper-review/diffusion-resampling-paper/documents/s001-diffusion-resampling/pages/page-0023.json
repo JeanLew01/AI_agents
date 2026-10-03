@@ -1,0 +1,225 @@
+{
+  "page": 23,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0023.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and crops of Figure 7, Table 11, equation (37) and section K (200-220 dpi). Running header and page number omitted. The extractor had produced one 'table' item covering both the network diagram and Table 11 (rows mixing diagram labels with table cells); split into figure item p0023-b001 (Figure 7, figure-7, bbox [91, 63, 268, 270], all labels 'Concat', 'Z_j, epsilon_j', three MLP boxes, 'x Delta', '+', 'Output' and the skip-connection arc checked inside the crop; diagram text comes from figs/lokta-nn.tex) and new table item p0023-b001t (Table 11, table-11, 12 x 3, bbox [339, 125, 541, 281] incl. top and bottom rules; values from main.tex checked against the crop). Reading order: prose first - 'where we set alpha = gamma = 6 ...' (continues the sentence of equation (36) on page 21; not joined because the previous item is a display block and page 22's tables intervene, see report), (37), the Milstein paragraph, 'Results are shown in Tables 11 and 12 ...' - then Figure 7 + caption and Table 11 caption + table, then '## K. Vision-based pendulum dynamics tracking' (section K also starts on this page). Equation (37) converted from a formula image to LaTeX from main.tex (\\tag{37}, \\coloneqq -> :=). Repairs: Figure 7 caption 'preypredator' -> 'prey-predator' (real compound hyphen at a line break); inline maths in LaTeX (lambda: R x R -> R^2_{>0}, Z_{j+1} = f(Z_j, epsilon_j), sigma_obs, Z_0 = [pi/4 0] as a bmatrix, Lambda_zeta = sigma_zeta^2 I_2, sigma_train = 10 sigma_obs). Run-in '**Experiment settings**' kept as bold text. Typos kept: 'dicretisation', 'three-layers'. The last paragraph ends '... In particular,' and continues on page 24 (page 24's first prose item p0024-b003 needs join_previous=space). [coordinator] caption label italics removed (2) so that all captions use the same plain \"Table N.\" / \"Figure N.\" style (verifier minor M2).",
+  "warnings": [
+    "Review possible header/footer: p0023-b000"
+  ],
+  "items": [
+    {
+      "id": "p0023-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0023-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        324.0,
+        522.0,
+        336.0
+      ],
+      "markdown": "where we set $\\alpha=\\gamma=6$, $\\beta=2$, $\\zeta=4$, and $\\sigma=0.15$. The observation rate function $\\lambda\\colon \\mathbb{R}\\times\\mathbb{R}\\to\\mathbb{R}^2_{>0}$ is defined by"
+    },
+    {
+      "id": "p0023-b005",
+      "kind": "text",
+      "bbox": [
+        222.0,
+        339.0,
+        548.0,
+        392.0
+      ],
+      "markdown": "$$\\lambda(c, r) := \\frac{5}{1 + \\exp\\Biggl(\\begin{bmatrix} -5\\, c \\\\ - c \\, r\\end{bmatrix} + 4 \\Biggr) }. \\tag{37}$$"
+    },
+    {
+      "id": "p0023-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        396.0,
+        544.0,
+        490.0
+      ],
+      "markdown": "We simulate the model with Milstein’s method and generate data at $t\\in[0, 3]$ with 256 dicretisation steps. The discretisation results in an SSM $Z_{j+1} = f(Z_j, \\epsilon_j)$, where $Z_j\\in\\mathbb{R}^2$ encodes $C(t_j)$ and $R(t_j)$, and $\\epsilon_j\\in\\mathbb{R}^2$ stands for Brownian motion increment. We train a neural network to approximate the SDE dynamics by minimising the negative log-likelihood, estimated by a particle filter with resampling. The neural network is simply a three-layers fully connected network with residual connection, see Figure 7, mimicking a discrete SDE solver. No prior knowledge of the dynamics is incorporated into the neural network. We train the neural network at a fixed 1,000 iterations by the Adam optimiser with learning rate 0.005. At testing, we make 100 independent predictions from the learnt model and compute the root mean square error (RMSE) with respect to a reference trajectory generated using the true dynamics. We use 64 particles, and repeat the experiments 20 times."
+    },
+    {
+      "id": "p0023-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        498.0,
+        543.0,
+        556.0
+      ],
+      "markdown": "Results are shown in Tables 11 and 12. Since learning this model is challenging, most methods have experienced divergent runs. Notably, the diffusion resampling exhibits significantly less divergence, nearly a factor of two lower than the other methods. Moreover, the prediction error with diffusion resampling is substantially superior than the other methods; approximately two to five times better. This table is also consistent with that of the LGSSM experiment that the exponential integrators may not propagate SDE gradients effectively, except for Tweedie."
+    },
+    {
+      "id": "p0023-b001",
+      "kind": "figure",
+      "bbox": [
+        91.0,
+        63.0,
+        268.0,
+        270.0
+      ],
+      "markdown": "",
+      "label": "Figure 7",
+      "asset_name": "figure-7"
+    },
+    {
+      "id": "p0023-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        273.0,
+        276.0,
+        303.0
+      ],
+      "markdown": "Figure 7. The neural network used for learning the prey-predator model. At the input, $Z_j$ and $\\epsilon$ are concatenated to a four-dimensional vector."
+    },
+    {
+      "id": "p0023-b002",
+      "kind": "caption",
+      "bbox": [
+        341.0,
+        92.0,
+        542.0,
+        122.0
+      ],
+      "markdown": "Table 11. Prediction error (RMSE) and the number of successful runs (out of 20) for the prey-predator model experiment."
+    },
+    {
+      "id": "p0023-b001t",
+      "kind": "table",
+      "bbox": [
+        339.0,
+        125.0,
+        541.0,
+        281.0
+      ],
+      "markdown": "",
+      "label": "Table 11",
+      "asset_name": "table-11",
+      "rows": [
+        [
+          "Method",
+          "RMSE",
+          "Number of success"
+        ],
+        [
+          "OT (ε = 0.3)",
+          "2.35 ± 0.95",
+          "19"
+        ],
+        [
+          "OT (ε = 0.5)",
+          "2.72 ± 1.60",
+          "20"
+        ],
+        [
+          "OT (ε = 1.0)",
+          "3.27 ± 2.71",
+          "20"
+        ],
+        [
+          "OT (ε = 1.5)",
+          "3.52 ± 3.65",
+          "20"
+        ],
+        [
+          "Gumbel (0.1)",
+          "9.05 ± 8.65",
+          "15"
+        ],
+        [
+          "Gumbel (0.3)",
+          "2.09 ± 1.13",
+          "20"
+        ],
+        [
+          "Gumbel (0.5)",
+          "2.40 ± 1.05",
+          "20"
+        ],
+        [
+          "Soft (0.5)",
+          "3.29 ± 4.83",
+          "17"
+        ],
+        [
+          "Soft (0.7)",
+          "2.13 ± 0.87",
+          "17"
+        ],
+        [
+          "Soft (0.9)",
+          "1.89 ± 0.64",
+          "16"
+        ],
+        [
+          "Stopped",
+          "1.96 ± 0.55",
+          "20"
+        ]
+      ]
+    },
+    {
+      "id": "p0023-b008",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        573.0,
+        289.0,
+        585.0
+      ],
+      "markdown": "## K. Vision-based pendulum dynamics tracking"
+    },
+    {
+      "id": "p0023-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        594.0,
+        543.0,
+        664.0
+      ],
+      "markdown": "**Experiment settings** We assume that the pendulum dynamics evolve according to Equation (16), with parameters $g=9.81$ and $l=0.4$. Using the known dynamics and the observation model specified in Equation (16) with observation noise $\\sigma_{\\mathrm{obs}} = 0.01$, we generate a single sequence of observational data over $t \\in [0,4]$ using 256 discretisation steps (which is $j=0,1,\\ldots, 256$ in discrete time) and starting from the initial state $Z_0 = \\begin{bmatrix} \\pi \\, / \\, 4 & 0 \\end{bmatrix}$. During training, we jointly optimise the two neural networks, $f_\\theta$ and $r_\\phi$, parameterising the transition function and the decoder, respectively, by minimising the negative log-likelihood (NLL) estimated by the particle filter."
+    },
+    {
+      "id": "p0023-b010",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        672.0,
+        543.0,
+        720.0
+      ],
+      "markdown": "For completeness, we consider two experiment settings: in the first setting we employ effective sample size (ESS)-based adaptive resampling under a tempered observation likelihood. Although the tempering modifies the original model, it is a common practice in deep learning for training complex models (see, e.g., Ng et al., 2025). Here, the process noise covariance is fixed by $\\Lambda_{\\zeta} = \\sigma_{\\zeta}^2 \\, I_2$, where $\\sigma_{\\zeta}^2=0.01$. We use $\\sigma_{\\mathrm{train}} = 10 \\, \\sigma_{\\mathrm{obs}}$ and scale the observation log-likelihood. In particular,"
+    },
+    {
+      "id": "p0023-b011",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "23",
+      "reason": "Printed page number '23' in the footer; page furniture."
+    }
+  ]
+}

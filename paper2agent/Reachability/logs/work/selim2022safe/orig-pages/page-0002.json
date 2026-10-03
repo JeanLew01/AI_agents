@@ -1,0 +1,231 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0002-b001"
+  ],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        26.0,
+        53.0,
+        32.0
+      ],
+      "markdown": "2",
+      "source_class": "page-header",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        265.0,
+        26.0,
+        564.0,
+        33.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED JUNE, 2022",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        175.0
+      ],
+      "markdown": "utilize constrained MDPs [7] to enforce safety in various RL settings, either online or offline. Online methods learn by coupling the iteration of numerical optimization algorithms (such as primal-dual gradient updates) with data collection [8], [9], [10], [11]. These algorithms have also been studied in exploration-based settings [12], [13]. However, they provide no guarantees on safety during training. On the other hand, offline schemes separate optimization and data collection [14], [15]. They conservatively enforce safety constraints on every policy iteration but are more challenging to scale up.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        178.0,
+        301.0,
+        499.0
+      ],
+      "markdown": "Exploration-based methods modify the agent’s exploration process instead of its optimization criterion. Exploration is the process of learning about unexplored states by trying random actions or actions that are not expected to yield maximum reward (for example, an _ϵ_ -greedy strategy). However, visiting unexplored states na¨ıvely can harm a robot or its environment. To avoid this, one can aim to guarantee safety during both exploration and exploitation, in both training and testing, by modifying the exploration strategy to incorporate risk metrics [16]. One can also use prior knowledge as an inductive bias for the exploration process [3], [17]; for example, one can provide a finite set of demonstrations as guidance on the task [18]. Other approaches use control theory to guide or constrain the RL agent’s actions. Most of these approaches use system models with Lyapunov or control barrier functions (CBFs) to guarantee safety (or stability) of the system [19], [20], [21]. One can also combine data-driven approaches with model-free barrier or intervention functions [22], [23], [24], or use robust CBFs to model uncertain parts of a system [25], [26]. Although these approaches can provide strong guarantees, most assume the system is control-affine, and need prior knowledge on some or all of the system model [27], [28], [29], which may not always be feasible. Finally, our method is most similar to [30], which learns a safety signal from data offline, then uses it to adjust an RL agent’s controls at runtime. This method uses a first-order safety approximation for fast adjustment, but (as we show) can be conservative.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        503.0,
+        301.0,
+        692.0
+      ],
+      "markdown": "Safe navigation is a fundamental challenge in robotics, because robots typically have uncertain, nonlinear dynamics. Classical techniques such as A<sup>_∗_</sup> or RRT [31, Ch. 5] have been proposed to solve the navigation problem without learning. With these methods, safety has been enforced at different levels of the planning hierarchy, such as trajectory planning [32], or low-level control [33]. More recently, however, learningbased methods have been proposed [27], [28], [29]. Some safe RL navigation approaches depend on learning a value function of the expected time that an agent takes to reach the desired goal [34], [35]. Other approaches depend on learning the actions of the robot in an end-to-end manner [36], [37], [38], meaning that the agent attempts to convert raw sensor inputs (e.g., camera or LIDAR) into actuator commands. The key advantage of RL over traditional planners is in accelerating computation time and solution quality.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        698.0,
+        212.0,
+        708.0
+      ],
+      "markdown": "# _B. Proposed Method and Contributions_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "We propose a Black-box Reachability-based Safety Layer (BRSL), illustrated in Fig. 1, to enable strict safety guarantees for RL in an entirely data-driven way, addressing the above",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        57.0,
+        564.0,
+        187.0
+      ],
+      "markdown": "challenges of lacking robot and environment models _a priori_ and of enforcing safety for uncertain systems. We note that the main advantage of BRSL is the use of data-driven methods to provide safety guarantees for black-box system dynamics. BRSL enforces safety by computing a system’s forward reachable set, which is the union of all trajectories that the system can realize within a finite or infinite time when starting from a bounded set of initial states, subject to a set of possible input signals [39]. Then, if the reachable set does not intersect with unsafe sets, the system is verified as safe, following similar arguments as in [32], [33], [40].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        190.0,
+        564.0,
+        308.0
+      ],
+      "markdown": "**Limitations.** Our method requires an approximation for the upper bound of a system’s Lipschitz constant, similar to [29], [41], [42]. This results in a curse of dimensionality with respect to number of samples required to approximate the constant; note other sampling-based approaches scale similarly [29], [28]. Furthermore, we focus on a discrete-time setting, assume our robot can brake to a stop, and assume accurate perception of the robot’s surroundings. We leave continuous-time (which can be addressed with similar reachability methods to ours [28], [40]) and perception uncertainty to future work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        311.0,
+        535.0,
+        321.0
+      ],
+      "markdown": "**Contributions.** We show the following with BRSL:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        324.0,
+        564.0,
+        358.0
+      ],
+      "markdown": "- 1) We propose a safety layer by integrating data-driven reachability analysis with a differentiable polytope collision check and a trajectory rollout planner.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        360.0,
+        564.0,
+        429.0
+      ],
+      "markdown": "- 2) We demonstrate BRSL on robot navigation, where it outperforms a baseline RL agent, Reachability-based Trajectory Safeguard (RTS) [28], Safe Advantage-based Intervention for Learning policies with Reinforcement (SAILR) [24], and Safe Exploration in Continuous Action Spaces (SECAS) [30]. Our code is <u>online.</u>",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        433.0,
+        564.0,
+        477.0
+      ],
+      "markdown": "Next, in Section II, we provide preliminaries and formulate our safe RL problem. Sections III and IV discuss and evaluate the proposed approach. Finally, Section V presents concluding remarks and discusses future work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "heading",
+      "bbox": [
+        330.0,
+        485.0,
+        545.0,
+        493.0
+      ],
+      "markdown": "# II. PRELIMINARIES AND PROBLEM FORMULATION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        502.0,
+        564.0,
+        536.0
+      ],
+      "markdown": "This section presents the notation, set representations, system dynamics, and reachable set definitions used in this work. We then pose our safe RL problem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        541.0,
+        462.0,
+        551.0
+      ],
+      "markdown": "# _A. Notation and Set Representations_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        558.0,
+        564.0,
+        676.0
+      ],
+      "markdown": "The _n_ -dimensional real numbers are R<sup>_n_</sup> , the natural numbers are N, and the integers from _n_ to _m_ are _n_ : _m_ . We denote the element at row _i_ and column _j_ of matrix **A** by ( **A** ) _i,j_ , column _j_ of **A** by ( **A** ): _,j_ , and the element _i_ of vector **a** by ( **a** ) _i_ . An _n × m_ matrix of ones is **1** _n×m_ . For **A** _∈_ R<sup>_n×m_</sup> and **x** _∈_ R<sup>_n_</sup> , we use the shorthand **A** _−_ **x** = **A** _−_ **x1** 1 _×m_ . The diag( _·_ ) operator places its arguments block-diagonally in a matrix of zeros. For a pair of sets _A_ and _B_ , the Minkowski sum is _A_ + _B_ = _{_ **a** + **b** _|_ **a** _∈ A,_ **b** _∈ B}_ , and the Cartesian product is _A × B_ = _{_ ( **a** _,_ **b** ) _|_ **a** _∈ A,_ **b** _∈ B}_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        679.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "We represent sets using constrained zonotopes, zonotopes, and intervals, because they enable efficient Minkowski sum computation (a key part of reachability analysis) [40] and collision checking via linear programming (critical to safe motion planning) [43]. A _constrained zonotope_ [43] is a convex set parameterized by a center **c** _∈_ R<sup>_n_</sup> , generator matrix",
+      "source_class": "text"
+    }
+  ]
+}

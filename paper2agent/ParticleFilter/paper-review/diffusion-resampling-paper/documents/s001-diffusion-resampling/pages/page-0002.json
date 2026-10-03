@@ -1,0 +1,220 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 2, 220-dpi crops of equations (2)-(4), the native text lines and main.tex (end of Section 1 and the start of Section 2). Equations (2) (entropic-OT ensemble transformation), (3) (forward Langevin SDE with $X(0)\\sim\\pi$) and (4) (reverse-time SDE; printed on two lines with '+ \\sqrt{2} b dW(t),' on the second line, number (4) on that line, then $U(0)\\sim p_T.$) converted from formula images to $$...$$ blocks with \\tag{2}, \\tag{3}, \\tag{4}; the extractor had split (4) into two formula items (b014, b015), merged into b014. Maths taken from main.tex with \\diff -> \\mathrm{d}, \\grad -> \\nabla, \\refmeasure -> \\pi_{\\mathrm{ref}}, \\R -> \\mathbb{R}, \\expecbig -> \\mathbb{E}\\bigl[...\\bigr]; checked symbol by symbol against the crops (comma after dW(t) in (3) and period after p_T in (4) as printed). Inline maths ($P^\\varepsilon\\in\\mathbb{R}^{N\\times N}$, $1/\\varepsilon$, $\\pi_{\\mathrm{ref}}$, $p_t$, $t\\to\\infty$, $T>0$, $q_T$, contribution-bullet derivatives) rewritten in LaTeX. Text repairs: 'nonlinear' -> 'non-linear' and 'forwardtime' -> 'forward-time' (the hyphens are printed at line ends but are real compound hyphens, confirmed in main.tex); stray emphasis markers removed. '2. Diffusion differentiable resampling' made a level-2 heading. The three contribution bullets kept as '- ' list items. 'See Table 20' is as printed (the comparison table is in the appendix). Footnote 1 ('To simplify later analysis ...') written as 'Footnote 1: ...' with marker [^1] after 'reverse-time SDE', placed directly before the last paragraph because 'At time $T$, ... solve the same' continues on page 3. Joins: (2) and 'where $P^\\varepsilon$ ...', (3) and 'initialised at ...', (4) and 'At time $T$ ...' all join_previous=space. Omitted: running header and page number 2. Page 1 ends with a complete paragraph, so the first item has no join. Authors' wording kept ('it needs not to be computed', 'this class of methods rely on').",
+  "warnings": [
+    "Review possible header/footer: p0002-b000"
+  ],
+  "items": [
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        70.0,
+        292.0,
+        211.0
+      ],
+      "markdown": "The perhaps first fully-differentiable-by-construction reparametrisation with consistency guarantees is due to Malik & Pitt (2011), who make a smooth approximation of the empirical cumulative distribution function (CDF) of the weighted samples. However, their method focuses on univariate $X$. This was later generalised by Li et al. (2024) using kernel jittering to approximate the CDF gradient. In a similar vein, Corenflos et al. (2021) propose an optimal transport (OT) based resampling method. The idea is to learn a (linear) transportation map between the target distribution $\\pi$ and the proposal, and approximate the resampling by an ensemble transformation (Reich, 2013)"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        85.0,
+        223.0,
+        296.0,
+        264.0
+      ],
+      "markdown": "$$\nX_i^* = N \\, \\sum_{j=1}^N P_{i, j}^{\\varepsilon} \\, X_{j}, \\quad i=1,2,\\ldots, N,\n\\tag{2}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        276.0,
+        292.0,
+        441.0
+      ],
+      "markdown": "where $P^\\varepsilon\\in\\mathbb{R}^{N\\times N}$ denotes the $\\varepsilon$-regularised entropic optimal coupling. The main problem of OT-based resampling lies in computation, since one has to compute for the transportation plan $P^{\\varepsilon}$. The cost scales quadratically in the number of samples $N$ with a Sinkhorn implementation, which in turn depends exponentially on the entropy parameter $1\\,/\\,\\varepsilon$ (Luo et al., 2023a; Burns & Liang, 2025) to converge. In the context of SMC, the method may not work well when the proposal/reference does not well approximate the target. Li et al. (2024, Fig. 1) also show a (hypothetical) case when linear transformation of OT is insufficient for exploiting the distribution manifold. Nevertheless, this line of work has inspired us to develop a new transportation-based resampling method that avoids these issues.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        451.0,
+        292.0,
+        580.0
+      ],
+      "markdown": "Other than making the resampling differentiable, one can also modify the SMC algorithm itself to produce smooth estimates of the marginal log likelihood of SSMs. For instance, Klaas et al. (2005) introduce a mixture of SMC proposals to marginalise out the need for resampling, however, in practice, drawing samples from mixture distributions typically also requires discrete sampling. This was addressed by Lai et al. (2022) using implicit reparametrisation, but the approach remains restricted to structured proposals. Overall, this class of methods rely on customised SMC samplers, potentially limiting their applicability in general."
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        588.0,
+        292.0,
+        718.0
+      ],
+      "markdown": "Therefore, our main motivation in this paper is to develop a differentiable resampling method that can be generically applied *as is*, without altering the SMC (or SSMs) construction, sacrificing consistency, or increasing computational cost. We take inspiration from the transportation-based approach (Corenflos et al., 2021), but our key departure here is the transport map construction: it needs not to be *computed* but rather *specified*, thereby mitigating the computation issue. Moreover, our construction allows for integrating additional information of the target into the map to make it statistically more efficient. Our contributions are as follows."
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        70.0,
+        544.0,
+        141.0
+      ],
+      "markdown": "- We introduce *diffusion resampling*, a new reparametrisation paradigm that instantly enables automatic differentiation for $\\partial X_i^{\\theta, *} / \\, \\partial \\theta$, and consequently also for the expectation $\\partial \\mathbb{E}\\bigl[X_i^{\\theta, *}\\bigr] / \\, \\partial \\theta$. We apply the method for filtering and gradient-based parameter estimation in state-space models with SMC samplers."
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        150.0,
+        544.0,
+        196.0
+      ],
+      "markdown": "- We prove that our diffusion resampling method is consistent in the number of samples. We show an informative error bound in Wasserstein distance, explicitly quantifying the error propagation of the resampling."
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        205.0,
+        544.0,
+        287.0
+      ],
+      "markdown": "- We empirically validate our method through both ablation and comparison experiments. The results show that our method consistently outperforms the commonly used differentiable resampling methods for both filtering and parameter estimation problems. Notably, our method is computationally efficient and stable, allowing for practical and robust usage in applications."
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        301.0,
+        542.0,
+        323.0
+      ],
+      "markdown": "See Table 20 for a comparison of diffusion resampling to the commonly used differentiable resampling schemes."
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "heading",
+      "bbox": [
+        307.0,
+        340.0,
+        499.0,
+        352.0
+      ],
+      "markdown": "## 2. Diffusion differentiable resampling"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        361.0,
+        544.0,
+        454.0
+      ],
+      "markdown": "In this section we show how we can make use of a diffusion model (without training, cf. Baker et al., 2025; Wan & Zhao, 2025) to construct a differentiable resampling scheme and apply it for sequential Monte Carlo. The idea is akin to Equation (2), which *computes* a linear transportation map, but here we instead use a diffusion model to *construct* a non-linear map. We define the diffusion model via a (forward-time) Langevin stochastic differential equation (SDE)"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        320.0,
+        456.0,
+        548.0,
+        496.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathrm{d} X(t) &= b^2 \\nabla \\log \\pi_{\\mathrm{ref}}(X(t)) \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\\\\nX(0) &\\sim \\pi\n\\end{aligned}\n\\tag{3}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        499.0,
+        544.0,
+        603.0
+      ],
+      "markdown": "initialised at the target $\\pi$, where $\\pi_{\\mathrm{ref}}$ is a user-chosen reference distribution from which we can easily sample (e.g., Gaussian), $W$ is a Brownian motion, and $b$ is a dispersion constant. Under mild conditions (Meyn & Tweedie, 2009), the marginal distribution $p_t$ of $X(t)$ converges to $\\pi_{\\mathrm{ref}}$ geometrically fast as $t\\to\\infty$. Importantly, Song et al. (2021); Anderson (1982) show that we can leverage this construction to sample from $\\pi$ if we can sample $p_T$ at some terminal time $T>0$ and simulate the reverse-time SDE[^1]",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        304.0,
+        607.0,
+        548.0,
+        664.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathrm{d} U(t) &= b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(U(t)) + 2\\nabla\\log p_{T - t}(U(t)) \\bigr] \\, \\mathrm{d} t \\\\\n&\\quad + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\\\\nU(0) &\\sim p_T.\n\\end{aligned}\n\\tag{4}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        697.0,
+        543.0,
+        718.0
+      ],
+      "markdown": "Footnote 1: To simplify later analysis we assume that the Brownian motions in Equations (3) and (4) are the same."
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        666.0,
+        542.0,
+        689.0
+      ],
+      "markdown": "At time $T$, the marginal distribution $q_T$ of $U(T)$ equals $\\pi$ by construction, since $X(T - t)$ and $U(t)$ solve the same",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header (paper title) at the top of the page; page furniture."
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        740.0
+      ],
+      "markdown": "2",
+      "reason": "Printed page number '2' at the bottom centre; page furniture."
+    }
+  ]
+}

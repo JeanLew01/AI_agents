@@ -1,0 +1,31 @@
+% In this section, we improve the scalability and the accuracy of the proposed approach for data driven reachability in \citep{hashemi2023data}. This research has been also extended in \citep{hashemi2024statistical} to include distribution shift and also remove the union bound, which was a major source of conservatism in \cite{hashemi2023data}. However, this approach is still suffering from lack of accuracy and scalability over longer time horizon and higher dimensional systems that is the problem we have addressed in this paper.
+
+% As it is discussed before, in the Introduction and Preliminaries section, the authors in \cite{hashemi2024statistical} suggest simulating a set of trajectories, $\trajsim_{\statee_0} \sim \distzero, \statee_0 \sim \mathcal{W}$ and training a $\relu$ NN surrogate model $\overallf(\statee_0 ; \theta)$ on this dataset. This model will be utilized to compute for its surrogate reachset, $\bar{X}\subset \mathbb{R}^{n\horizon}$. They also sample a new set of trajectories $\trajsim_{\statee_0} \sim \distzero, \statee_0 \sim \mathcal{W}$ for error analysis on $\overallf(\statee_0 ; \theta)$ through robust conformal inference to compute for another hypercube $\delta X \subset \mathbb{R}^{n\horizon}$, known as the inflating hypercube, that covers the prediction errors $R^j , j\in[n\horizon]$ for trajectories $\trajreal_{\statee_0} \sim \dist$, with a provable probabilistic guarantee, and finally they propose the following lemma to compute for the $\delta$-confident flowpipe on $\trajreal_{\statee_0} \sim \dist, \statee_0 \sim \mathcal{W}$. 
+% \begin{lemma}\label{lem:inclusion_conformal}
+% Let $\bar{X}$ be a surrogate flowpipe of the surrogate model $\overallf$ for the set of initial conditions $\init$. Let $\PEreal:=\left[ \errreal{1} , \errreal{2}, \ldots , \errreal{n\horizon} \right] $ be the sequence of prediction errors for $\trajreal_{\statee_0} \sim \dist$, where $\statee_0 \sim \mathcal{W}$, and  let $\delta X$ be the inflating hypercube for $\PEreal$ such that $\Pr[\PEreal \in \delta X] > \delta$. Then the inflated reachset $X = \bar{X} \oplus \delta X $ is a $\delta$-confident flowpipe for $\trajreal_{\statee_0} \sim \dist$ where $\statee_0 \sim \mathcal{W}$.
+% \end{lemma}
+% \begin{proof}
+%     see \cite{hashemi2024statistical}.
+% \end{proof}
+
+% The primary sources of conservatism and inaccuracy in the methodology described in \cite{hashemi2024statistical} stem from the training process for the surrogate model $\overallf(\statee_0\ ; \theta)$ and the method used to compute the inflating hypercube $\delta X$. In the following sections, we address both issues and propose solutions to improve the accuracy and scalability of this approach for the reachability analysis.
+
+% The major source of conservatism and inaccuracy in the mentioned methodology in \cite{hashemi2023data, hashemi2024statistical} is the way they train for the surrogate model $\overallf(\statee_0\ ;\theta)$ and the approach they take to compute for the inflating hypercube $\delta X$. Over the reset of this section, we address both of these issues and propose two novel ideas to enhance the accuracy and the also the scalability of this reachability analysis.
+% The probabilistic guarantee on the hypercube $\delta X$ provided in \cite{hashemi2023data, hashemi2024statistical} is based on conformal inference. However, the methods these studies use to integrate conformal inference are overly conservative. To address this issue, we combine conformal inference (CI) with Principal Component Analysis (PCA), resulting in tighter inflating hypercubes. This approach has proven effective in reducing the conservatism of reachability analysis.
+
+% The approaches outlined in \cite{hashemi2024statistical, hashemi2023data} also encounters scalability challenges when dealing with longer horizon trajectories. This problem stems from their training strategy for the surrogate model $\overallf$. For example, the authors in \cite{hashemi2023data} propose training a one-step model that maps the state $\statee_{\timeid-1}$ at time step $\timeid-1$ to the next state $\statee_{\timeid}$. This model is then unrolled over the time horizon and used for surrogate reachability and error analysis. Even if the one-step model is highly accurate, the resulting deep unrolled model faces scalability issues for extended horizons due to several reasons:
+% \begin{itemize}[wide, labelwidth=!, labelindent=0pt]
+% \item The unrolled deep model accumulates errors over the time horizon, leading to significantly large prediction errors.
+% \item It may fail to capture the periodic behavior of the trajectory.
+% \item The depth of the model makes using the exact-star method nearly impossible, forcing the reliance on the approx-star method, which introduces additional conservatism.
+% \end{itemize}
+
+% Conversely, in \cite{hashemi2024statistical}, the authors assume a single model to map the initial state to the entire trajectory\footnote{ To address the problem of cumulative prediction error}. However, this results in a large model, limiting scalability for extended horizons due to several factors:
+% \begin{itemize}[wide, labelwidth=!, labelindent=0pt]
+% \item Training such a model is impractical for longer time horizons or higher system dimensions.
+% \item Using the exact-star method for the surrogate model becomes nearly impossible, necessitating the use of the approx-star method, which leads to conservative flowpipes.
+% \end{itemize}
+
+% To address these challenges, we present a new training strategy that effectively resolves for all of these problems.
+
+In this section, we introduce two key adjustments to the methodology of \cite{hashemi2024statistical} to enhance scalability and reduce conservatism.

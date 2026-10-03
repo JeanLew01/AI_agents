@@ -1,0 +1,52 @@
+{
+ "x64": true,
+ "key": {
+  "description": "jax.random.PRNGKey(666) split 4 times as in cells 2/4/6 (raw uint32[2] key)",
+  "value": [
+   700162660,
+   1620510799
+  ],
+  "key_before_cell6": [
+   1135221684,
+   2132524459
+  ],
+  "construct": "jnp.asarray(np.load(inputs)[\"key\"])  # dtype uint32"
+ },
+ "diffusion_resampling": {
+  "function": "diffres.resampling.diffusion_resampling",
+  "call": "diffusion_resampling(key, log_ws, prior_samples, a, ts, integrator=integrator, ode=ode)",
+  "a": -2,
+  "T": 1.0,
+  "nsteps": 32,
+  "ts": "jnp.linspace(0., T, nsteps + 1) (saved as inputs ts, float64, 33 points)",
+  "integrator": "jentzen_and_kloeden",
+  "ode": true,
+  "jitter": 0.0,
+  "einsum": false,
+  "defaults_used": [
+   "jitter",
+   "einsum"
+  ]
+ },
+ "ensemble_ot": {
+  "function": "diffres.resampling.ensemble_ot",
+  "call": "ensemble_ot(key, log_ws, prior_samples, eps=0.3)",
+  "eps": 0.3,
+  "implicit_diff": true,
+  "defaults_used": [
+   "implicit_diff"
+  ]
+ },
+ "multinomial": {
+  "function": "diffres.resampling.multinomial",
+  "call": "multinomial(key, log_ws, prior_samples)"
+ },
+ "notes": "log_ws already normalised by logsumexp in cell 4; all three calls share the same key.",
+ "notebook_constants": {
+  "nsamples": 1024,
+  "c": 5,
+  "d": 10,
+  "dy": 2,
+  "seed": 666
+ }
+}

@@ -1,0 +1,261 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "Compared the 220 dpi renders of all four quadrants with the text; prose and math taken from the authors' TeX and checked on the render. First item continues the \"Sample Complexity.\" paragraph of page 4 (join_previous: space); its numbers were checked on the render (N + M = 2000, N = M = 1000, epsilon = 0.0263, 1%, 1000 fewer samples, 3000 samples). Table II transcribed as an 11 x 5 CSV; every cell compared with the render and with the TeX tabular; printed precision (e.g. 11.50, 0.280, 27.30, 27.80) kept; caption (\"TABLE II\" printed on its own line above the caption text) placed before the table as printed, followed by a conversion note on the row-group label. Formula images converted to LaTeX: the unnumbered reachable-tube program and (14). Inline math rewritten as LaTeX; the tube symbol is a script R with a hat (TeX \\hat{\\mathcal{R}}). The paragraph \"The set of initial states ... every individual trajectory.\" is split in print by the column break and by Figure 3; it was merged, and Figure 3 with its caption follows it. Figure 3 crop [318, 58, 552, 232] pt checked on a 200 dpi render (both axis labels x_1, x_2 and all tick labels inside; caption excluded). Tube example numbers checked: [1, 1.25], [0, 10], beta = 10^{-9}, N = M = 1500, 138 violations, epsilon = 0.144, 4.92 min. Authors' wording and notation kept: \"critize\" (typo), \"duffing oscillator\" in lower case; in the tube definition t denotes the end of the time interval, the upper limit of the sum over tau, and the transition function is declared with domain R x X_0 x D; sigma_{avg} is printed with an italic text subscript; the tube constraint sums over tau as printed. The last paragraph (Section V) continues on page 6.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-r001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        124.0
+      ],
+      "markdown": "improvements in sample complexity, let us examine the duffing oscillator example with sample size $N + M = 2000$ where $N = 1000$ and $M = 1000$. We apply the holdout method and calculate $\\epsilon = 0.0263$, achieving a 1% increase in accuracy with 1000 fewer samples when compared to the wait-and-judge approach on 3000 samples.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-r002",
+      "kind": "caption",
+      "bbox": [
+        64.0,
+        135.0,
+        288.0,
+        166.0
+      ],
+      "markdown": "TABLE II. Quadrotor: Calculation of $\\epsilon$ for the Holdout Method using a Binomial Tail Inversion."
+    },
+    {
+      "id": "p0005-r003",
+      "kind": "table",
+      "bbox": [
+        49.0,
+        175.0,
+        295.0,
+        300.0
+      ],
+      "markdown": "",
+      "label": "Table II",
+      "asset_name": "table-2",
+      "rows": [
+        [
+          "Holdout Method:",
+          "Training (N)",
+          "Testing (M)",
+          "Vol(R̂(θ))",
+          "ε"
+        ],
+        [
+          "",
+          "N = 10",
+          "M = 2990",
+          "11.50",
+          "0.765"
+        ],
+        [
+          "",
+          "N = 50",
+          "M = 2950",
+          "22.97",
+          "0.280"
+        ],
+        [
+          "",
+          "N = 100",
+          "M = 2900",
+          "24.29",
+          "0.120"
+        ],
+        [
+          "",
+          "N = 1000",
+          "M = 2000",
+          "27.74",
+          "0.019"
+        ],
+        [
+          "",
+          "N = 1500",
+          "M = 1500",
+          "27.19",
+          "0.026"
+        ],
+        [
+          "",
+          "N = 2000",
+          "M = 1000",
+          "27.85",
+          "0.031"
+        ],
+        [
+          "",
+          "N = 2900",
+          "M = 100",
+          "27.81",
+          "0.187"
+        ],
+        [
+          "",
+          "N = 2950",
+          "M = 50",
+          "27.30",
+          "0.384"
+        ],
+        [
+          "",
+          "N = 2990",
+          "M = 10",
+          "28.27",
+          "0.874"
+        ],
+        [
+          "Wait and Judge:",
+          "N = 3000",
+          "",
+          "27.80",
+          "0.051"
+        ]
+      ]
+    },
+    {
+      "id": "p0005-r004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        301.0,
+        299.0,
+        311.0
+      ],
+      "markdown": "*Conversion note on Table II: the cells are copied as printed; the last two column headers are $\\mathrm{Vol}(\\hat{R}(\\theta))$ (the volume proxy) and $\\epsilon$, written in plain Unicode in the table. The first header cell, \"Holdout Method:\", is the row-group label of the nine rows below it, whose first cells are blank in print; the last row, \"Wait and Judge:\", is the wait-and-judge baseline, for which no testing set size is printed.*"
+    },
+    {
+      "id": "p0005-r005",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        315.0,
+        137.0,
+        323.0
+      ],
+      "markdown": "### B. Reachable Tubes"
+    },
+    {
+      "id": "p0005-r006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        327.0,
+        299.0,
+        519.0
+      ],
+      "markdown": "We define a forward estimated reachable tube as $\\hat{\\mathcal{R}}(t) = \\{\\Phi(t_i; t_0, x_0, d) : \\forall t_i \\in [t_0, t], x_0 \\in X_0, d \\in D\\}$ where $[t_0, t]$ is a finite time interval, $X_0 \\subseteq \\mathbb{R}^{n_x}$ is the set of initial states, $D$ is the set of disturbance signals $d : [t_0, t] \\rightarrow \\mathbb{R}^{n_d}$, and $\\Phi : \\mathbb{R} \\times X_0 \\times D \\rightarrow \\mathbb{R}^{n_x}$ is the state transition function. $\\hat{\\mathcal{R}}(t)$ is the set of all states to which the system can transition within a duration of time $[t_0, t]$ for finite time steps $t_i$ from $X_0$ subject to disturbances in $D$. The reachable tube accounts for all time steps in interval $[t_0, t]$, while the reachable sets presented in Section II only consider one specific time instant. We generalize the nonconvex scenario reachability method presented above and pose the problem of finding a reachable tube directly from data as a chance-constrained optimization problem with regularization over time. In particular, we propose an approach in which we construct a smoothed, finite set of time-varying RBFs:"
+    },
+    {
+      "id": "p0005-r007",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        521.0,
+        296.0,
+        604.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n& \\underset{\\mu, \\sigma}{\\text{minimize}} & & \\sum_{\\tau=0}^{t} \\sum_{i=1}^{m} \\sigma_i(\\tau)^2 + \\lambda \\| \\sigma_{avg} - \\sigma_i(\\tau) \\|^2 \\\\\n& \\text{subject to} & & \\sum_{\\tau=0}^{t} \\sum_{i=1}^{m} e^{-\\frac{1}{2}\\frac{(\\delta^{(j)}(\\tau) - \\mu_i(\\tau))^2}{\\sigma_i(\\tau)^2}} - \\gamma \\geq 0, j = 1, \\dots, N, \\\\\n& & & \\sigma(\\tau) \\in [0, \\infty)^m.\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0005-r008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        606.0,
+        299.0,
+        640.0
+      ],
+      "markdown": "where $\\mu$ is the center of an RBF, $\\sigma$ is the width of an RBF, $\\lambda$ and $\\gamma$ are user-specified parameters, $\\delta$ is a scenario, and $\\sigma_{avg}$ is the average width over all $\\sigma_i$."
+    },
+    {
+      "id": "p0005-r009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        642.0,
+        299.0,
+        663.0
+      ],
+      "markdown": "To illustrate scenario-based reachable tubes, we investigate a simple linear system: $\\dot{x} = Ax$ with"
+    },
+    {
+      "id": "p0005-r010",
+      "kind": "text",
+      "bbox": [
+        129.0,
+        664.0,
+        299.0,
+        699.0
+      ],
+      "markdown": "$$\nA = \\begin{bmatrix}\n-0.7 & -1.0 \\\\\n1.0 & -0.7\n\\end{bmatrix}. \\tag{14}\n$$"
+    },
+    {
+      "id": "p0005-r011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        700.0,
+        299.0,
+        735.0
+      ],
+      "markdown": "The set of initial states is the interval such that $x_1(0), x_2(0) \\in [1, 1.25]$, and we take $\\mu_{X_0}$ to be the uniform random variable over this interval. The time range is $[t_0, t] = [0, 10]$. We calculate the reachable tube estimate using one radial basis function for every time instant. To apply the holdout method, we partition our data set of trajectories into a training and test set, as was done in the previous section, and take $\\beta = 10^{-9}$. We consider a boundary violation to be any trajectory that falls outside the reachable tube at any time instant. We present one example, as can be seen in Fig. 3, given $N = 1500$ and $M = 1500$. We observed 138 boundary violations, resulting in $\\epsilon = 0.144$ and a runtime of 4.92 min. Note that by adjusting $\\lambda$, we could influence the widths of our RBFs, e.g. increase the size, thereby decreasing the number of violations at later time instances. Further, we do not provide comparisons with the wait-and-judge approach due to its computational cost, as it requires recalculation of the reachable tube upon removal of every individual trajectory."
+    },
+    {
+      "id": "p0005-r012",
+      "kind": "figure",
+      "bbox": [
+        318.0,
+        58.0,
+        552.0,
+        232.0
+      ],
+      "markdown": "",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0005-r013",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        238.0,
+        559.0,
+        264.0
+      ],
+      "markdown": "Fig. 3. Reachable tube of linear system: The progression of time can be seen as the color of the reachable sets gets darker. The small blue dots indicate the 138 boundary violations that arose from the holdout method."
+    },
+    {
+      "id": "p0005-r014",
+      "kind": "heading",
+      "bbox": [
+        383.0,
+        480.0,
+        488.0,
+        487.0
+      ],
+      "markdown": "## V. De-randomization"
+    },
+    {
+      "id": "p0005-r015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        497.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "In this work, we have advocated for the use of a general purpose, practical, and sharp method for data-driven reachability: the holdout method. Data-driven reachability offers probabilistic guarantees that are comprised of two “layers” of probability (cf. Theorem 1): the bound on the violation probability, and the bound in probability, with respect to the probability law of the sample generation (in other words, the confidence that the samples have yielded enough information to construct a reachable set estimate for which the violation probability holds). These types of Probably Approximately Correct (PAC) bounds [32] are ubiquitous in statistical learning theory and data-driven approaches to probabilistic verification. They are generally recognized as the strongest type of guarantee that can be made while placing minimal assumptions on the random variable verified. Nevertheless, it is reasonable to critize two layers of probability on the grounds of interpretability and soundness, compared to conventional control-theoretic guarantees, which provide 100% certainty given accurate modeling information. To that end, several works have made attempts to “de-randomize” data-driven"
+    }
+  ]
+}

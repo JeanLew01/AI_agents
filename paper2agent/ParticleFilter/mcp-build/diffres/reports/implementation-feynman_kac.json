@@ -1,0 +1,461 @@
+{
+ "module": "feynman_kac",
+ "role": "tool implementer (stage 3a)",
+ "upstream": {
+  "package": "diffres (editable repo/diffres)",
+  "commit": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "repo_modified": false
+ },
+ "production_files": {
+  "src/tools/feynman_kac.py": {
+   "sha256": "90ce5e1cc24b0595c4117e2afb5530d1386faa1e9eb0cc0cafc611b18668056a",
+   "instance": "feynman_kac_mcp = FastMCP(name='feynman_kac')",
+   "pyflakes": "clean (uvx pyflakes, exit 0)"
+  }
+ },
+ "tools": {
+  "diffres_run_lgssm_particle_filter": {
+   "upstream_calls": {
+    "smc": "diffres.feynman_kac.smc_feynman_kac(key, m0_sampler, log_g0, m_log_g, ys, nparticles, nsteps=T, resampling=<callable>, resampling_threshold, return_path=True) (https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/feynman_kac.py lines 22-115), called unchanged",
+    "resamplers": {
+     "multinomial/stratified/systematic/multinomial_stopped": "diffres.resampling.<fn> passed directly (tests/test_filters.py test_smc, experiments/lgssm/baselines.py)",
+     "diffusion": "diffusion_resampling(k, lw, s, a, jnp.linspace(0, T, K+1), integrator, ode, jitter) (tests/test_filters.py test_diffres, experiments/lgssm/diffusion.py lines 59-60, demos/gradient_variance2.py jitter=1e-5)",
+     "ensemble_ot": "ensemble_ot(k, lw, s, eps, implicit_diff=...) (experiments/lgssm/ot.py; tests use implicit_diff default True)",
+     "soft": "soft_resampling(k, lw, s, alpha) (experiments/lgssm/soft.py); returns non-uniform normalised log weights, which smc_feynman_kac adds to the next potential (works with its (key, log_ws, samples) -> (log_ws, samples) signature unchanged)",
+     "gumbel_softmax": "gumbel_softmax(k, lw, s, tau) (experiments/lgssm/gumbel.py; upstream additionally jax.jit-wraps it, no semantic difference)"
+    },
+    "gradient": "jax.value_and_grad(run_smc, argnums=(F, H), has_aux=True) of the smc nll, as demos/gradient_variance2.py lines 82-89 (there w.r.t. scalar params); nll returned from the same call",
+    "moments": "PF weighted filtering means/covs via the einsums of experiments/lgssm/diffusion.py lines 118-120",
+    "kalman_comparison": "diffres.gaussian_filters.kf(ys, m0, P0, F, Q, H, R); per-step jax.vmap(diffres.tools.kl)(mfs_kf, vfs_kf, mfs_pf, vfs_pf) and bures likewise; means over all T+1 steps (experiments/lgssm/diffusion.py lines 116-122)",
+    "ess": "returned by smc_feynman_kac (compute_ess)"
+   },
+   "extracted_code": {
+    "source": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/tests/test_filters.py lines 59-73; experiments/lgssm/diffusion.py lines 63-80",
+    "what": "bootstrap m0_sampler, log_g0, m_log_g closures, bound to the user's matrices instead of module constants",
+    "generalisation_to_matrices": [
+     "m0 sampler: m0 + normal(key,(N,dx)) @ chol(P0).T (identical to the test).",
+     "transition: samples @ F.T + normal(key,(N,dx)) @ chol(Q).T; the test uses the elementwise (trans_cov ** 0.5).T, which equals chol(Q) for diagonal Q (bitwise equal on the test model); Cholesky as in diffres.tools.simulate_lgssm.",
+     "observation potential: diagonal R -> sum of univariate jax.scipy.stats.norm.logpdf(y, x @ H.T, sqrt(diag R)) exactly as upstream; non-diagonal R -> jax.vmap of diffres.tools.logpdf_mvn_chol(y, H x, chol(R)) (the density used by gaussian_filters.kf). Same random-number order and shapes as upstream, so test/experiment keys reproduce."
+    ],
+    "no_new_maths": true
+   },
+   "parameters_and_defaults": {
+    "model_path": "required; JSON F,Q,H,R,m0,P0 (shared LGSSM contract)",
+    "observations_path": "required; .npz 'ys' (T+1, dy); (T+1,) accepted when dy=1 and read as (T+1,1) (the test passes 1-D ys; per-step values identical)",
+    "nparticles": "32 (experiments/lgssm default)",
+    "resampling_method": "'diffusion' (the paper's method); Literal of 8 methods",
+    "resampling_threshold": "1.0 (upstream default); validated in [0,1]",
+    "diffusion_a/T/steps/integrator/ode": "-0.5 / 3.0 / 8 / 'euler' / True = experiments/lgssm/diffusion.py CLI defaults; ts = linspace(0, T, steps+1) as every upstream caller; integrators euler, lord_and_rougemont, jentzen_and_kloeden, tweedie (ode=False only), diffrax (ode=True only) -- unsupported combinations rejected with a clear ValueError instead of upstream's trace-time NotImplementedError('Unknown integrator')",
+    "diffusion_jitter": "0.0 (upstream default; gradient demo uses 1e-5)",
+    "ot_eps": "None -> upstream default 1/log(N) (reported as resolved eps); tests use 0.1, experiments/lgssm/ot.py default 1.0",
+    "ot_implicit_diff": "False, as experiments/lgssm/ot.py (PF gradient use; upstream docstring warns implicit diff may be unstable, issue #5); forward values identical to True on the test model (smoke)",
+    "soft_alpha": "0.5 (experiments/lgssm/soft.py default), validated in [0,1]",
+    "gumbel_tau": "0.5 (experiments/lgssm/gumbel.py default), validated > 0",
+    "seed/prng_key": "shared contract; key used returned as prng_key",
+    "save_particle_path": "False; True adds samples_path (T+1,N,dx) and log_weights_path (T+1,N)",
+    "compute_gradient": "False",
+    "compare_to_kalman": "False",
+    "output_dir": "None -> PROJECT_ROOT/tmp/outputs/diffres_run_lgssm_particle_filter/<uuid4>"
+   },
+   "io_adaptations": [
+    "smc_feynman_kac is always called with return_path=True (as tests/test_filters.py and the experiments' filtering-error code) so per-step filtering moments and ESS can be returned; save_particle_path only controls what is written. return_path=False would give the same nll up to ~1e-14 (executor lgssm_diffusion_experiment).",
+    "Single artifact particle_filter.npz: final-step 'samples' (N,dx) and normalised 'log_weights' (N,) -- same names as the resampling tools' particles_path contract so the output can be fed to them; ess, filtering_means, filtering_covs, nll, nll_plus_log_n, prng_key; optional path, grad_F/grad_H, kf_* and kl/bures per step.",
+    "Returned JSON: nll (raw upstream), nll_plus_log_n (= nll + log N, documented convenience; upstream omits +log N in the time-0 term, feynman_kac.py lines 82-85), ESS summary (final/min/mean, number of resampling steps = count of ess[k-1] < threshold*N for k=1..T, i.e. the upstream lax.cond predicate), final filtering mean, gradient Frobenius norms + finiteness + per-method gradient-semantics note, KF comparison (kf_nll, nll_plus_log_n - kf_nll, mean/max KL and Bures).",
+    "KL direction and scale documented, not changed: diffres.tools.kl(m_KF, P_KF, m_PF, P_PF) = 2 * KL(N_KF || N_PF) (no 1/2 factor upstream); bures = squared 2-Wasserstein distance.",
+    "Input checks: required JSON keys, shapes, finiteness, Q/R/P0 symmetric and positive definite (numpy Cholesky), m0 shape, ys shape/finiteness, nparticles>=1, threshold in [0,1], method-parameter ranges, prng_key format."
+   ],
+   "not_exposed": [
+    "jaxopt L-BFGS optimisation and 128x128 loss grids of experiments/lgssm (benchmark-only; upstream L-BFGS did not move at reduced settings)",
+    "diffusion_resampling einsum switch (GPU utilisation only)",
+    "bootstrap_backward_smoother (deferred by scanner)"
+   ],
+   "memory_note": "diffusion, ensemble_ot and gumbel_softmax build (N,N[,dx]) float64 arrays per resampling step; no guard added (upstream has none). Smoke peak for N=1000 runs incl. OT: 964 MB."
+  }
+ },
+ "smoke_checks": {
+  "how": "fastmcp.Client(feynman_kac_mcp).call_tool on saved executor inputs/keys; script tmp/impl-feynman_kac/smoke.py (sha256 7ab7c754ac900fc50e4f56e5f928a0f6cc4f41289aafe7f495603947ffb15811)",
+  "runs": [
+   {
+    "attempt": 1,
+    "command": "heavy.sh --limit-mb 1200 --timeout 1200 --log tmp/impl-feynman_kac/smoke_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python tmp/impl-feynman_kac/smoke.py multinomial lgssm_diffusion",
+    "exit_status": 0,
+    "peak_memory_mb": 543,
+    "results": "tmp/impl-feynman_kac/smoke_results_multinomial_lgssm_diffusion.json"
+   },
+   {
+    "attempt": 2,
+    "command": "heavy.sh --limit-mb 1200 --timeout 1200 --log tmp/impl-feynman_kac/smoke_attempt2.log -- ... smoke.py stratified diffusion_euler diffusion_tweedie ensemble_ot_eps0.1 ensemble_ot_eps0.1_unrolled gradient_demo misc",
+    "exit_status": 0,
+    "peak_memory_mb": 964,
+    "results": "tmp/impl-feynman_kac/smoke_results_stratified_diffusion_euler_diffusion_tweedie_ensemble_ot_eps0.1_ensemble_ot_eps0.1_unrolled_gradient_demo_misc.json"
+   }
+  ],
+  "tools_listed": [
+   "diffres_run_lgssm_particle_filter"
+  ],
+  "filters_tests (N=1000, T=100, key PRNGKey(666)=[0,666], compare_to_kalman, save_particle_path)": {
+   "multinomial": {
+    "nll": 134.37630492977596,
+    "ref_nll": 134.37630492977596,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 3.552713678800501e-15
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.7053025658242404e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": -0.13759049919968902,
+    "seconds": 6.037200212478638
+   },
+   "stratified": {
+    "nll": 134.46348753518532,
+    "ref_nll": 134.46348753518532,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 3.552713678800501e-15
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.2505552149377763e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": -0.05040789379032162,
+    "seconds": 6.240228891372681
+   },
+   "diffusion_euler": {
+    "nll": 135.2238321733969,
+    "ref_nll": 135.2238321733969,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.9984014443252818e-15
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 3.552713678800501e-15
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.7053025658242404e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": 0.7099367444212419,
+    "seconds": 6.9601523876190186
+   },
+   "diffusion_tweedie": {
+    "nll": 134.38883265953868,
+    "ref_nll": 134.38883265953868,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.7763568394002505e-15
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 3.552713678800501e-15
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.7053025658242404e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": -0.12506276943696548,
+    "seconds": 5.645637273788452
+   },
+   "ensemble_ot_eps0.1": {
+    "nll": 131.56582173632722,
+    "ref_nll": 131.56582173632722,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 8.43769498715119e-15
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 2.842170943040401e-14
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.8189894035458565e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": -2.9480736926484212,
+    "seconds": 10.356276273727417
+   },
+   "ensemble_ot_eps0.1_unrolled": {
+    "nll": 131.56582173632722,
+    "ref_nll": 131.56582173632722,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "samples_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 8.43769498715119e-15
+    },
+    "log_ws_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 2.842170943040401e-14
+    },
+    "ess_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.8189894035458565e-12
+    },
+    "kf_nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "nll_plus_log_n_minus_kf": -2.9480736926484212,
+    "seconds": 10.580843210220337
+   }
+  },
+  "lgssm_diffusion_experiment (N=16, T=32, diffusion a=-1,T=1,K=4,jentzen_and_kloeden,SDE, key_pf, gradient + KF)": {
+   "seconds": 5.468759536743164,
+   "nll": 51.65626932766265,
+   "nll_vs_nll_pf_true(value_and_grad)": {
+    "bitwise": true,
+    "max_abs_diff": 0.0
+   },
+   "nll_vs_nll_pf_true_path(plain)": {
+    "bitwise": false,
+    "max_abs_diff": 7.105427357601002e-15
+   },
+   "grad_vs_grad_pf_true": {
+    "bitwise": false,
+    "max_abs_diff": 1.7763568394002505e-15
+   },
+   "samples_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 6.661338147750939e-16
+   },
+   "log_ws_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 7.105427357601002e-15
+   },
+   "ess_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 1.2434497875801753e-14
+   },
+   "mfs_pf_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 4.440892098500626e-16
+   },
+   "vfs_pf_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 2.7755575615628914e-16
+   },
+   "kf_nll_cmp": {
+    "bitwise": true,
+    "max_abs_diff": 0.0
+   },
+   "kl_per_step_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 3.552713678800501e-15
+   },
+   "bures_per_step_cmp": {
+    "bitwise": false,
+    "max_abs_diff": 4.996003610813204e-16
+   },
+   "mean_kl_vs_err_filtering_kl": {
+    "bitwise": false,
+    "max_abs_diff": 1.1102230246251565e-16
+   },
+   "mean_bures_vs_err_filtering_bures": {
+    "bitwise": false,
+    "max_abs_diff": 6.938893903907228e-18
+   }
+  },
+  "lgssm_gradient_demo (N=8, T=16, F=0.2, H=0.2, keys[0..1]; diffusion a=-1,T=2,K=128,euler,ODE,jitter=1e-5 and multinomial_stopped; grads via chain rule sum(dF), sum(dH))": {
+   "key0/diffusion": {
+    "seconds": 6.14968729019165,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "grad_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.7763568394002505e-15
+    },
+    "note": "pathwise gradient through diffusion resampling (the paper's method)"
+   },
+   "key0/multinomial_stopped": {
+    "seconds": 0.9907300472259521,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "grad_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "note": "stopped-gradient multinomial (REINFORCE-type estimator, unbiased, high variance)"
+   },
+   "key1/diffusion": {
+    "seconds": 3.033771276473999,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "grad_cmp": {
+     "bitwise": false,
+     "max_abs_diff": 1.9539925233402755e-14
+    },
+    "note": "pathwise gradient through diffusion resampling (the paper's method)"
+   },
+   "key1/multinomial_stopped": {
+    "seconds": 0.9461164474487305,
+    "nll_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "grad_cmp": {
+     "bitwise": true,
+     "max_abs_diff": 0.0
+    },
+    "note": "stopped-gradient multinomial (REINFORCE-type estimator, unbiased, high variance)"
+   }
+  },
+  "misc (other resamplers with gradient + KF on lgssm_diffusion data, seed 3; full-R 2-D model; error contracts)": {
+   "{\"resampling_method\": \"soft\", \"soft_alpha\": 0.5}": {
+    "seconds": 4.9159300327301025,
+    "nll": 52.386564759681804,
+    "ess": {
+     "final": 10.295120879941386,
+     "min": 2.1730196208126293,
+     "mean": 6.809095216760395,
+     "resampling_steps": 32,
+     "nsteps": 32
+    },
+    "settings": {
+     "alpha": 0.5
+    },
+    "grad_finite": true,
+    "nll+logN-kf": 1.3370651374618632
+   },
+   "{\"resampling_method\": \"gumbel_softmax\"}": {
+    "seconds": 4.277132749557495,
+    "nll": 51.128816565641564,
+    "ess": {
+     "final": 11.859376687441118,
+     "min": 2.6016375757909556,
+     "mean": 8.519015020467863,
+     "resampling_steps": 32,
+     "nsteps": 32
+    },
+    "settings": {
+     "tau": 0.5
+    },
+    "grad_finite": true,
+    "nll+logN-kf": 0.07931694342162388
+   },
+   "{\"resampling_method\": \"systematic\", \"resampling_threshold\": 0.5}": {
+    "seconds": 1.3386976718902588,
+    "nll": 50.85791861796431,
+    "ess": {
+     "final": 12.45697126002352,
+     "min": 3.303813025742212,
+     "mean": 7.6311454891871495,
+     "resampling_steps": 19,
+     "nsteps": 32
+    },
+    "settings": {},
+    "grad_finite": true,
+    "nll+logN-kf": -0.19158100425563163
+   },
+   "{\"resampling_method\": \"ensemble_ot\"}": {
+    "seconds": 3.668442726135254,
+    "nll": 50.4204774849266,
+    "ess": {
+     "final": 12.761773721830487,
+     "min": 3.1078996501900455,
+     "mean": 8.752397539159203,
+     "resampling_steps": 32,
+     "nsteps": 32
+    },
+    "settings": {
+     "eps": 0.36067376022224085,
+     "eps_from_upstream_default": true,
+     "implicit_diff": false
+    },
+    "grad_finite": true,
+    "nll+logN-kf": -0.6290221372933402
+   },
+   "{\"resampling_method\": \"multinomial_stopped\"}": {
+    "seconds": 2.821268081665039,
+    "nll": 51.45809266023861,
+    "ess": {
+     "final": 11.703415628241576,
+     "min": 2.977163834452734,
+     "mean": 8.61167315278717,
+     "resampling_steps": 32,
+     "nsteps": 32
+    },
+    "settings": {},
+    "grad_finite": true,
+    "nll+logN-kf": 0.4085930380186724
+   },
+   "full_R_multinomial_N2000": {
+    "seconds": 6.557467699050903,
+    "density": "multivariate normal via diffres.tools.logpdf_mvn_chol (full R)",
+    "nll+logN-kf": -0.07801746241137408,
+    "mean_kl": 0.005944299431463425
+   },
+   "errors": {
+    "R not PD": "ToolError: Error calling tool 'diffres_run_lgssm_particle_filter': R must be positive definite",
+    "tweedie+ode": "ToolError: Error calling tool 'diffres_run_lgssm_particle_filter': upstream diffusion_resampling implements integrator 'tweedie' only with ode=False",
+    "bad prng_key": "ToolError: Error calling tool 'diffres_run_lgssm_particle_filter': prng_key must be exactly two uint32 integers (raw jax.random.PRNGKey data)",
+    "wrong dy": "ToolError: Error calling tool 'diffres_run_lgssm_particle_filter': ys must have shape (T+1, 2) with ys[0] the time-0 observation, got (33, 1)"
+   }
+  },
+  "summary": "All saved PF nll values reproduced BITWISE (filters_tests multinomial, stratified, diffusion euler, diffusion tweedie, ensemble_ot eps=0.1 with implicit_diff True and False; lgssm_diffusion_experiment value_and_grad nll; gradient demo losses for diffusion and multinomial_stopped, keys 0 and 1). Multinomial/stratified particle paths bitwise; other arrays (log-weights, ESS, diffusion particles, moments, KL/Bures, gradients) within 3e-14 abs (ESS, of order N=1000, within 2e-12 abs, ~1e-15 relative) (different op fusion: the tool's value_and_grad / non-jitted call vs jitted references). multinomial_stopped gradients bitwise. KF nll bitwise. Full-R path: nll + log N - kf_nll = -0.078 with N=2000, mean KL 0.006. Contract errors raise clear ToolErrors."
+ },
+ "attempts": "1 implementation attempt; no production edits needed after smoke checks (one pre-smoke refactor of the PD check).",
+ "deviations": "None from upstream computation. Generalisations to full matrices (Cholesky for Q, logpdf_mvn_chol for non-diagonal R) are as the scanner's tool_review specifies; for diagonal Q/R they coincide with the upstream code (verified bitwise on nll).",
+ "notes_for_verifier": [
+  "Import as src.tools.feynman_kac with PROJECT_ROOT on sys.path; jax_enable_x64 is set at import.",
+  "To reproduce filters_tests diffusion: diffusion_T=2.0, diffusion_steps=7 (linspace(0,2,8)), diffusion_ode=False, diffusion_a=-0.5; ensemble_ot: ot_eps=0.1, ot_implicit_diff=True (test default).",
+  "Raw nll is ~log(N) below the KF nll by construction; compare nll_plus_log_n with the KF nll."
+ ]
+}

@@ -1,0 +1,167 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 130 dpi render and a 190 dpi crop of PDF page 5, and with sections/verification.tex. Inline and display mathematics rewritten in LaTeX from the TeX source with macros expanded (\\overallf -> \\mathcal{F}, \\traj -> \\sigma, \\init -> \\mathcal{I}, \\horizon -> \\mathrm{K}; the macro \\relu prints an upright 'ReLU' and is written as the plain word ReLU) and checked against the crop; TeX and PDF agree. The two extractor 'formula' image items were replaced by $$ text items; neither display is numbered in the paper. In the display of the predicted trajectory the component functions are sans-serif $\\mathsf{F}^j$ (distinct from the calligraphic surrogate model $\\mathcal{F}$), with superscripts 1, n, (n-1)K and nK as printed. The extractor's text box for the paragraph before that display overlapped the display; the boxes were separated at y = 234 pt. Headings: '3.1 Computing Reachsets for Surrogate Models' level 3, '3.1.1 ReLU Surrogate Model' level 4, '3.2 Computation of a guaranteed $\\Delta$-confident flowpipe' level 3, with printed numbers. 'Definition 2 (Surrogate flowpipe).' label in bold; the definition ends at '$\\mathcal{F}(s_0) \\in \\bar{X}$.' (end of the definition environment in the TeX source; italic body not reproduced in italics); 'for all, $s_0\\in\\mathcal{I}$' with the comma as printed. Citations [21, 34, 35], [21] (twice) checked on the page. Line-wrap hyphen removed in 'reachability' ('reach-ability'); printed compounds kept: exact-star, approx-star, over-approximation, runtime-efficient, sub-partitions, sub-region, set-partitioning. The last paragraph ends in the middle of a sentence ('when predicting the trajectory'); it continues on page 6.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        125.0
+      ],
+      "markdown": "In this work, we are interested in computing $X$ while our access to $M$ is limited to the datasets $D_{\\text{train}}$ and $D_{\\text{test}}$. We will show that we can compute $X$ with valid guarantees by employing reachability analysis on the surrogate model trained from $D_{\\text{train}}$ and error analysis of this model by applying conformal prediction on $D_{\\text{test}}$."
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        142.0,
+        360.0,
+        154.0
+      ],
+      "markdown": "### 3.1 Computing Reachsets for Surrogate Models"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        163.0,
+        239.0,
+        174.0
+      ],
+      "markdown": "#### 3.1.1 ReLU Surrogate Model"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        181.0,
+        540.0,
+        234.0
+      ],
+      "markdown": "We start with training a neural network surrogate model $\\mathcal{F}: \\mathbb{R}^n \\to \\mathbb{R}^{n(\\mathrm{K}+1)}$ over the training dataset $D_{\\text{train}}$. The surrogate model is trained to approximate the trajectory $\\sigma_{s_{0}} \\in \\mathbb{R}^{n(\\mathrm{K}+1)}$ of the stochastic system $M$ sampled with initial state $s_0 \\stackrel{\\mathcal{W}}{\\sim} \\mathcal{I}$. We denote the prediction $\\bar{\\sigma}_{s_{0}} \\in \\mathbb{R}^{n(\\mathrm{K}+1)}$ of $\\sigma_{s_{0}}$ as,"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        121.0,
+        234.0,
+        491.0,
+        266.0
+      ],
+      "markdown": "$$\n\\bar{\\sigma}_{s_{0}} = \\mathcal{F}(s_{0}) = \\left[ s_0^\\top ,\\ \\mathsf{F}^1(s_0) , \\ \\cdots ,\\ \\mathsf{F}^n(s_0), \\ \\cdots , \\ \\mathsf{F}^{(n-1)\\mathrm{K}}(s_0) ,\\ \\cdots ,\\ \\mathsf{F}^{n\\mathrm{K}}(s_0)\\right]^\\top\n$$"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        267.0,
+        366.0,
+        280.0
+      ],
+      "markdown": "where $\\mathsf{F}^j(s_0)$ is the $(j+n)$-th component of the vector $\\mathcal{F}(s_0)$."
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        281.0,
+        540.0,
+        345.0
+      ],
+      "markdown": "Recent works in the literature have had great success on obtaining accurate bounds for the reachability analysis of ReLU neural networks using polyhedral sets [21, 34, 35]. The accuracy of these techniques motivates us to use ReLU activation functions for training neural networks as the surrogate models. These surrogate models will be used for deterministic reachability analysis which provides surrogate flowpipes which we formally define next."
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        354.0,
+        540.0,
+        381.0
+      ],
+      "markdown": "**Definition 2 (Surrogate flowpipe).** The surrogate flowpipe $\\bar{X}\\subset \\mathbb{R}^{n(\\mathrm{K}+1)}$ contains the image of $\\mathcal{F}(\\mathcal{I})$. Formally, for all, $s_0\\in \\mathcal{I}$ it has to hold that $\\mathcal{F}(s_0) \\in \\bar{X}$."
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        391.0,
+        540.0,
+        507.0
+      ],
+      "markdown": "The reachability analysis methodology for ReLU neural networks in [21] introduces two different approaches known as the exact-star and approx-star techniques. These are used to compute a surrogate flowpipe $\\bar{X}$. The exact-star technique proposes exact reachability analysis using star sets, but can be slower due to its inherent computational complexity. On the other hand, the approx-star technique computes over-approximation of the flowpipe and is thus runtime-efficient, although it may make the surrogate model reachable set estimation conservative. The computational complexity of the exact-star technique and the conservatism of the approx-star technique can both be noticeably reduced using the idea of set partitioning [21]. In this approach, we partition the set of initial conditions $\\mathcal{I}$ into $N$ different sub-partitions,"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        253.0,
+        514.0,
+        359.0,
+        557.0
+      ],
+      "markdown": "$$\n\\mathcal{I}_i \\subset \\mathcal{I} , \\quad \\bigcup_{i=1}^N \\mathcal{I}_i =\\mathcal{I},\n$$"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        564.0,
+        540.0,
+        601.0
+      ],
+      "markdown": "and perform reachability analysis on every single sub-region with parallel computing. The inclusion of set-partitioning results in noticeable improvement in the computational efficiency and helps us compute more accurate $\\Delta$-confident flowpipes."
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "heading",
+      "bbox": [
+        71.0,
+        618.0,
+        402.0,
+        630.0
+      ],
+      "markdown": "### 3.2 Computation of a guaranteed $\\Delta$-confident flowpipe"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        639.0,
+        540.0,
+        689.0
+      ],
+      "markdown": "When we train neural network surrogate models, typically we minimize a loss function defined as the difference between the $\\mathrm{K}$-step trajectory predicted by the surrogate model and the actual trajectory. Depending on the dynamics of the underlying stochastic system $M$ and depending on how well the surrogate model is trained, there is potential for error when predicting the trajectory"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        721.0
+      ],
+      "markdown": "5",
+      "reason": "Printed page number '5' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

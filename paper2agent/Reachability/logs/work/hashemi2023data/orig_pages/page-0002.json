@@ -1,0 +1,73 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        74.0,
+        541.0,
+        360.0
+      ],
+      "markdown": "learn non-parameteric surrogates (using neural networks), which are not restricted to Markovian dynamics, and quantify uncertainty using conformal inference. In [16], the authors use an interesting approach based on a Gaussian process-based classifier to separate reachable states from unreachable states, and approximate the reach set by computing the sublevel set of the classifier. We note that this approach uses adaptive sampling of initial states where states are chosen to reduce uncertainty of the surrogate. This may require solving a high-dimensional optimization problem and does not give probability guarantees. The authors also propose an interval abstraction of the reach set, where sample complexity bounds are provided; however, this approach may suffer from conservatism and high computational cost in high-dimensional systems. In [17], the authors assume partial knowledge of the model, while using data to deal with Lipschitz-continuous state dependent uncertainty. The authors in [18] propose a method called DeepReach that uses a neural PDE solver to perform Hamilton-Jacobi method-based reachability analysis for high-dimensional systems. Here, the complexity of the flowpipe computation scales with the complexity of the flowpipe itself rather than the system dimension. While this method uses neural methods to perform reachability analysis, it still requires access to the system dynamics. In [19], the authors combine simulation-guided reachability analysis techniques with data-driven techniques. Here, the authors estimate a discrepancy function using system trajectories using a probably-approximately-correct learning algorithm. The discrepancy function bounds the distance between system trajectories as a function of the distance between their initial states. This function is then used to inflate the simulation trajectories to obtain reachtubes that are then used to compute the approximate reachable set of states. We remark that such an approach requires a parametric form of the discrepancy function which could be hard to obtain.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        364.0,
+        540.0,
+        454.0
+      ],
+      "markdown": "Our approach to compute probabilistic reachable sets for stochastic systems has the following main steps: (1) we sample a number of system trajectories according to the user-provided distribution on the set of initial states, (2) we learn a data-driven surrogate model that predicts the next K states of the system from a given state, (3) we perform traditional set propagation-based reachability analysis on the surrogate model, and (4) we inflate the resulting reachable sets in a systematic fashion to account for the uncertainty induced by sampling from the user-provided distribution on the set of initial states and system stochasticity.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        456.0,
+        541.0,
+        651.0
+      ],
+      "markdown": "While our general technique can work with arbitrary regression-based surrogate models, in this paper, we choose feedforward neural networks as a data-driven model of the system dynamics<sup>1</sup> . A key reason for choosing feedforward neural networks is to use recently developed techniques to perform set-propagation through neural networks [21]. However, since the surrogate model is learned by sampling, we still need to account for this uncertainty. To do this, we rely on conformal inference (CI) or conformal prediction [22,23]. In the machine learning community, CI is a well-known data-efficient framework for error analysis of predictive models. Recently, CI has been employed for data-driven stochastic verification [24–27]. For instance, in [25–27], the authors obtain confidence intervals on the robustness degree of system behaviors (for example based on the quantitative satisfaction of a given signal temporal logic (STL) property). A naïve adaptation of existing techniques for STL robustness verification to reachability analysis would require training surrogate models to predict each state variable independently (effectively discarding the rich correlation between the state variables) resulting in an analysis that is too conservative. Instead, our approach preserves the structure of the dynamics through our usage of a surrogate model, while still accounting for uncertainty in a systematic fashion using CI.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        660.0,
+        541.0,
+        692.0
+      ],
+      "markdown": "> 1There are many techniques to identify probably approximately correct surrogate models, for example, using concentration bounds for system identification [20]. In this paper, we eschew such methods, instead preferring the data-efficient approach for uncertainty quantification provided by conformal inference.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        720.0
+      ],
+      "markdown": "2",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

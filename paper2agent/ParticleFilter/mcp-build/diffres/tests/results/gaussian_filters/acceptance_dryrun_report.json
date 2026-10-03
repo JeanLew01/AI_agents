@@ -1,0 +1,197 @@
+{
+  "success": true,
+  "mode": "calls",
+  "require_all_tools": true,
+  "server": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/gf_server.py",
+  "cwd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres",
+  "python": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python",
+  "python_version": "3.11.17",
+  "fastmcp": "4.0.3",
+  "expected": [
+    "diffres_run_lgssm_kalman_filter",
+    "diffres_simulate_lgssm_data"
+  ],
+  "actual": [
+    "diffres_run_lgssm_kalman_filter",
+    "diffres_simulate_lgssm_data"
+  ],
+  "missing": [],
+  "unexpected": [],
+  "schemas": {
+    "diffres_run_lgssm_kalman_filter": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "model_path": {
+            "description": "LGSSM JSON with keys F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx)",
+            "type": "string"
+          },
+          "observations_path": {
+            "description": ".npz with ys of shape (T+1, dy), ys[0] observed at time 0; (T+1,) allowed if dy=1",
+            "type": "string"
+          },
+          "smooth": {
+            "default": false,
+            "description": "Also run the Rauch-Tung-Striebel smoother (diffres.gaussian_filters.rts)",
+            "type": "boolean"
+          },
+          "compute_gradient": {
+            "default": false,
+            "description": "Also compute the gradient of the KF nll w.r.t. the full matrices F and H (jax.grad)",
+            "type": "boolean"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Base output directory; a fresh subdirectory is created per call"
+          }
+        },
+        "required": [
+          "model_path",
+          "observations_path"
+        ]
+      },
+      "output": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    },
+    "diffres_simulate_lgssm_data": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "model_path": {
+            "description": "LGSSM JSON with keys F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx)",
+            "type": "string"
+          },
+          "nsteps": {
+            "description": "Number of transitions T; T+1 states and observations (times 0..T) are returned",
+            "type": "integer"
+          },
+          "seed": {
+            "default": 0,
+            "description": "Seed for jax.random.PRNGKey(seed); ignored if prng_key is given",
+            "type": "integer"
+          },
+          "prng_key": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional raw PRNGKey data (two uint32 values) used instead of seed"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Base output directory; a fresh subdirectory is created per call"
+          }
+        },
+        "required": [
+          "model_path",
+          "nsteps"
+        ]
+      },
+      "output": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "gaussian_filters-simulate-demo-key",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true,
+      "artifacts_checked": 2
+    },
+    {
+      "name": "gaussian_filters-simulate-demo-key-repeat",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true,
+      "artifacts_checked": 2
+    },
+    {
+      "name": "gaussian_filters-simulate-multivariate-seed7",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true,
+      "artifacts_checked": 2
+    },
+    {
+      "name": "gaussian_filters-simulate-error-asymmetric-Q",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-simulate-error-negative-nsteps",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-simulate-error-nonpd-Q",
+      "tool": "diffres_simulate_lgssm_data",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-kf-demo-theta-smooth-gradient",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "gaussian_filters-kf-demo-theta-smooth-gradient-repeat",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "gaussian_filters-kf-ou-1d-observations-smooth",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "gaussian_filters-kf-error-wrong-dy",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-kf-error-1d-ys-for-dy2",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-kf-error-nonpd-R",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true
+    },
+    {
+      "name": "gaussian_filters-kf-error-no-ys",
+      "tool": "diffres_run_lgssm_kalman_filter",
+      "success": true
+    }
+  ]
+}

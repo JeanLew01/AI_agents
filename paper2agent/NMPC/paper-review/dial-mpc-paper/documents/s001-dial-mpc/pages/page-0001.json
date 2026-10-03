@@ -1,0 +1,183 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and a 150-dpi crop of Fig. 1, using 10intro.tex and root.tex as an aid. Items: title, author line (asterisk superscripts written as $^{*}$), abstract (IEEE run-in \"Abstract—\" kept as text; the abstract is printed in bold, bold styling dropped except for the run-in label; italics kept on \"without any training\" and \"training-free\"), heading \"I. INTRODUCTION\", five introduction paragraphs, Fig. 1 with caption, first-page footnote block. Repairs: split decimal \"13 . 4\" -> \"13.4\"; glued line-wrap compounds restored (real-world, high-dimensional, reduced-order, full-order, DIAL-MPC, dual-loop); <sup>/<u> tags and stray emphasis removed; $u_H$ in the caption written in LaTeX. The paragraph \"Sampling-based MPC [15–18] ...\" runs from the foot of the left column to below Fig. 1 in the right column; its second part (\"Specifically, ...\") has join_previous=space and Fig. 1 (image box [313.2,157.7,558.0,358.9] plus 2 pt margin, checked by crop) with its caption is placed after that paragraph. The two unnumbered first-page footnotes (equal-contribution note marked \"*\", and the affiliation/e-mail/website note printed without a marker) are placed before the last paragraph because that paragraph continues onto page 2. In print the initial letters D, I, A, L, M, P, C of \"Diffusion-Inspired Annealing for Legged Model Predictive Control\" are underlined (not reproduced). The plain numbers 13.4 and 50% are printed in math font and kept as plain text. Authors' wording kept as printed: \"nature, leads to\", \"horizion\" (caption), \"50Hz\". No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "heading",
+      "bbox": [
+        127.0,
+        74.0,
+        485.0,
+        109.0
+      ],
+      "markdown": "# Full-Order Sampling-Based MPC for Torque-Level Locomotion Control via Diffusion-Style Annealing",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "text",
+      "bbox": [
+        151.0,
+        128.0,
+        450.0,
+        139.0
+      ],
+      "markdown": "Haoru Xue$^{*}$, Chaoyi Pan$^{*}$, Zeji Yi, Guannan Qu, and Guanya Shi",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        163.0,
+        299.0,
+        391.0
+      ],
+      "markdown": "***Abstract*—** Due to high dimensionality and non-convexity, real-time optimal control using full-order dynamics models for legged robots is challenging. Therefore, Nonlinear Model Predictive Control (NMPC) approaches are often limited to reduced-order models. Sampling-based MPC has shown potential in nonconvex even discontinuous problems, but often yields suboptimal solutions with high variance, which limits its applications in high-dimensional locomotion. This work introduces DIAL-MPC (Diffusion-Inspired Annealing for Legged MPC), a sampling-based MPC framework with a novel diffusion-style annealing process. Such an annealing process is supported by the theoretical landscape analysis of Model Predictive Path Integral Control (MPPI) and the connection between MPPI and single-step diffusion. Algorithmically, DIAL-MPC iteratively refines solutions online and achieves both global coverage and local convergence. In quadrupedal torque-level control tasks, DIAL-MPC reduces the tracking error of standard MPPI by 13.4 times and outperforms reinforcement learning (RL) policies by 50% in challenging climbing tasks *without any training*. In particular, DIAL-MPC enables precise real-world quadrupedal jumping with payload. To the best of our knowledge, DIAL-MPC is the first *training-free* method that optimizes over full-order quadruped dynamics in real-time.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "heading",
+      "bbox": [
+        130.0,
+        400.0,
+        223.0,
+        408.0
+      ],
+      "markdown": "## I. INTRODUCTION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        415.0,
+        299.0,
+        485.0
+      ],
+      "markdown": "Legged robots have demonstrated great potential in navigating through complex environments thanks to their agility and mobility [1–6]. However, the online control of articulated legged systems remains challenging because of their high-dimensional, underactuated and contact-rich nature, leads to non-convex and non-smooth optimization landscapes.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        487.0,
+        299.0,
+        604.0
+      ],
+      "markdown": "Reinforcement learning (RL) has become a popular approach for learning control policies for legged robots, thanks to its ease of implementation and strong performance in contact-rich problems [7–13]. However, RL suffers from time-consuming training and tedious tuning, and the resulting policies heavily depend on the training setup, limiting their test-time generalization to unseen tasks and environments. In the meanwhile, NMPC [5, 6, 14] is often limited to reduced-order models due to the intractability of solving full-order problems involving contacts and nonlinear dynamics.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        606.0,
+        299.0,
+        688.0
+      ],
+      "markdown": "Sampling-based MPC [15–18] has been applied to various nonlinear and hybrid dynamical systems because of its flexibility in handling arbitrary dynamics and constraints, as well as parallelizability. Nonetheless, these algorithms are sensitive to hyperparameters in high-dimensional and non-convex optimization problems, particularly the sampling kernel, leading to high variance and suboptimal performance.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        484.0,
+        559.0,
+        542.0
+      ],
+      "markdown": "Specifically, a large sampling range provides better global coverage but may result in solutions far from the optimum, while a small sampling range enhances local search ability but is more susceptible to local minima and initial guesses, leading to increased variance.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        155.5,
+        560.0,
+        361.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        366.0,
+        559.0,
+        470.0
+      ],
+      "markdown": "Fig. 1: Diffusion-inspired annealing for legged MPC (DIAL-MPC). To achieve both global coverage and local convergence, DIAL-MPC involves a bi-level diffusion-inspired annealing process. Trajectory-wise annealing is performed with different sampling variance. Action-wise annealing is performed on control input at different horizion. Over time, $u_H$ will be gradually refined by the two diffusion-inspired annealing processes, leading to a robust and efficient full-order online control.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        545.0,
+        559.0,
+        662.0
+      ],
+      "markdown": "In this paper, we address these challenges by unveiling the intrinsic connection between sampling-based MPC and diffusion processes. Following the key iterative refinement idea of the diffusion model, we introduce a novel sampling-based MPC method, Diffusion-Inspired Annealing for Legged Model Predictive Control (DIAL-MPC). DIAL-MPC optimizes control sequences iteratively in a dual-loop manner. Specifically, DIAL-MPC starts optimizing the control sequence with smooth but inaccurate objectives and gradually shifts to more accurate local objectives.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        698.0,
+        225.0,
+        706.0
+      ],
+      "markdown": "Footnote *: These authors contributed equally to this work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        706.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Footnote (printed without a marker): The authors are with Carnegie Mellon University, USA. {haorux, chaoyip, zejiy, gqu, guanyas}@andrew.cmu.edu. Paper website: https://lecar-lab.github.io/dial-mpc/",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        664.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Compared with MPPI, DIAL-MPC enables on-the-fly, full-order torque-level locomotion control by effectively balancing global coverage and local convergence. We evaluate DIAL-MPC on a quadrupedal robot with full-order dynamics and show that it can achieve real-time 50Hz control with both robustness and efficiency. As a training-free and purely",
+      "source_class": "text"
+    }
+  ]
+}

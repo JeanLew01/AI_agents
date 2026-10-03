@@ -1,0 +1,199 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        163.0,
+        40.0,
+        445.0,
+        49.0
+      ],
+      "markdown": "Data-driven Reachability using Christoffel Functions",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        116.0
+      ],
+      "markdown": "ments that we outline below. Further work on conformal prediction will be cited in the text.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        127.0,
+        421.0,
+        138.0
+      ],
+      "markdown": "- **Contributions** In this paper, we make the following contributions:",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        145.0,
+        523.0,
+        170.0
+      ],
+      "markdown": "- We use conformal prediction to provide stronger and more sample-efficient guarantees on reach set approximation than those given by Devonport et al. (2021).",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        176.0,
+        523.0,
+        201.0
+      ],
+      "markdown": "- We propose a version of reach set approximation that is robust to outliers, in contrast to the approach of Devonport et al. (2021).",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        206.0,
+        523.0,
+        242.0
+      ],
+      "markdown": "- We exploit an incremental form of the Christoffel function for transductive conformal prediction, thanks to which we don’t need to split the data set into training and calibration sets.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        251.0,
+        523.0,
+        289.0
+      ],
+      "markdown": "- To the best of our knowledge, this is the first use of the Christoffel function in conformal prediction. The particular properties of the Christoffel function in set and density approximation make it an excellent candidate for a nonconformity function.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        296.0,
+        523.0,
+        429.0
+      ],
+      "markdown": "**Structure of the paper** The paper is organized as follows. Section 2 presents the data-driven framework for reachability analysis using Christoffel functions. It describes the theoretical developments related to the reach set approximation and to Christoffel functions. In Section 3, we introduce our proposed approach to the reach set approximation with conformal prediction, whose statistical guarantees are presented in Section 3.1. Section 3.2 presents a technique to avoid the calibration set by using transductive conformal prediction and an incremental version of the Christoffel function. In Section 4, we discuss the robustness of our methodology to outliers. Section 5 provides numerical experiments on simulated data to support our theoretical results, and to highlight the effectiveness and potential of the proposed approach.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        447.0,
+        492.0,
+        459.0
+      ],
+      "markdown": "# **2. Data-driven Reach Set Approximation with Christoffel Functions**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        469.0,
+        523.0,
+        507.0
+      ],
+      "markdown": "Reachability analysis aims to determine the possible future states of a dynamical system starting from a given initial state. For our purposes, we consider the system to be defined (explicitly or implicitly) by a transition function",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "formula",
+      "bbox": [
+        269.0,
+        510.0,
+        343.0,
+        531.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (11)",
+      "asset_name": "formula-p0003-010"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        534.0,
+        523.0,
+        599.0
+      ],
+      "markdown": "which maps a state **_x_** _∈_ R<sup>_n_</sup> to its successor state. We forego extending the notation to nondeterministic or stochastic systems, since our focus is on estimating the image of _f_ applied to a set of initial states; in the case of a stochastic system we are interested in approximating the support of the image distribution. Beginning with a given initial set of states _I_ , we are interested in computing the reachable set",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "formula",
+      "bbox": [
+        253.0,
+        602.0,
+        359.0,
+        624.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (13)",
+      "asset_name": "formula-p0003-012"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        627.0,
+        523.0,
+        705.0
+      ],
+      "markdown": "When _f_ is not precisely known or complex, obtaining the exact solution may not be possible or economical. Instead, we compute an approximation _S_<sup>ˆ</sup> that covers most of _S_ . Every set _S_ can be represented by a probability measure _µ_ such as _S_ is the support of _µ_ . This motivated Devonport et al. (2021) to use the Christoffel function to approximate the set _S_ . In the following subsection, we introduce the Christoffel function, its empirical counterpart, and discuss how to compute it.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

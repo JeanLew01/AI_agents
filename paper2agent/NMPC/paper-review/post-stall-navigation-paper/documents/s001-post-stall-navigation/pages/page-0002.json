@@ -1,0 +1,182 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Prose-only page; every item compared with the page render (130 dpi overlay), with a punctuation-preserving diff against the native text lines, and with intro.tex/approach.tex. Reading order left column then right column confirmed. Joins: p0002-b000 continues the last paragraph of page 1 (\"...online mapping,\" / \"as well as ...\", join_previous=space); p0002-b004 continues the left-column paragraph \"Here, we build on ...\" across the column break (space); the last item p0002-b013 continues on page 3. Headings: \"## III. APPROACH\", \"### A. Mapping\", \"### B. RRT Generation\" (printed numbering kept). Citations kept as printed ([4], [23], [24], [25], [26] etc.). Line-wrap hyphens removed: LIDAR, representation, explored, proposed, perform; compound hyphens at line wraps kept: real-time (twice), perception-aware, post-stall, point-cloud. \"Bézier\" written with the precomposed accent. \"K-nearest\" is upright text in the PDF and in the TeX source, so it is not set as maths. Authors' wording kept as printed: \"most of approaches cited above\", \"we show in the importance of\", \"constrained-space\". No mathematics, figures or tables on this page. Verifier check: OK.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        255.0
+      ],
+      "markdown": "as well as the challenges posed by large amounts of state uncertainty. [12] utilizes Gaussian Mixture Model (GMM) based mapping to reduce the memory requirements of storing and transmitting mapping data. [13] addresses the mapping challenge by maintaining a KD-tree representation of LIDAR measurements, generating a valid flight corridor, and optimizing trajectories within that corridor. Similarly, [14] utilizes a trajectory library approach on a KD-tree representation of current depth camera measurements to minimize the probability of collision. The authors then extend this work with a lightweight mapping data structure, NanoMap [2], which maintains a history of sensor measurements. For control and planning, most of approaches cited above exploit differential flatness to generate multirotor trajectories in real-time. More recent work has begun to explore NMPC for quadcopter flight, especially in the context of perception-aware control [15].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        258.0,
+        299.0,
+        352.0
+      ],
+      "markdown": "Several efforts have explored the use of onboard sensing for fixed-wing navigation. In [16], the authors demonstrated the ability to fly in a constrained-space using a scanning LIDAR. Their work focused on the state-estimation problem and used a differentially flat model valid for a reduced flight envelope. In [17], authors demonstrated fixed-wing flight using onboard stereo vision and a trajectory-library approach limited to conventional angle-of-attack regimes.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        354.0,
+        299.0,
+        603.0
+      ],
+      "markdown": "A number of researchers have also focused solely on the fixed-wing planning and control problem, assuming external sensing and known environments. These efforts have placed a greater emphasis on maneuvering across unconventional attitudes and flow regimes. Early work [18] and [19] explored post-stall flight as well as transitions to-and-from a prop-hang configuration. In [20], a library of trajectories was used to enable robust post-stall perching performance. Motion planning for fixed-wing UAVs was also explored in [21], where a library of funnels was used to navigate through a known obstacle field in real-time. [22] explored real-time trajectory motion-planning of fixed-wing UAVs using simplified models restricted to low angle-of-attack domains. In [4], [23], [24], [25], [26], researchers have developed motion planners for aerobatic fixed-wing UAVs using trajectory libraries generated offline using high fidelity physics models. In some cases, especially in the presence of high winds, NMPC has been utilized to control fixed-wing UAVs [27]. In [1], a receding-horizon NMPC approach was demonstrated that enabled fixed-wing UAVs to execute post-stall maneuvers to navigate constrained environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        605.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Here, we build on the work done in [1] and develop an NMPC-based navigation approach capable of running in real-time using stereo vision. Our method is distinct from other approaches in that it allows seamless exploitation of the full flight envelope for navigation via NMPC, leverages a point-cloud map to maintain a history of sensor data, and provides a means for handling uncertainty in sensor data and state estimates. Through simulation, we show in the importance of compensating for sensor uncertainty, as well as the necessity of reasoning about field-of-view history, especially in the context of aggressive post-stall turns. We demonstrate our",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        124.0
+      ],
+      "markdown": "results in hardware, and to our knowledge, this is the first demonstration of NMPC for post-stall fixed-wing flight and collision avoidance using onboard vision. We also present a framework which allows for hardware flight testing with a simulated point cloud sensor, to facilitate safe at-altitude testing in virtual environments.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        402.0,
+        137.0,
+        469.0,
+        145.0
+      ],
+      "markdown": "## III. APPROACH",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        155.0,
+        559.0,
+        224.0
+      ],
+      "markdown": "In this paper, we expand upon the control strategy proposed in [1]. This control strategy consists of four major stages: RRT generation and pruning, spline-based smoothing, direct trajectory optimization, and local linear feedback. We make use of the same dynamics model for a larger 42-inch wingspan vehicle.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        227.0,
+        559.0,
+        332.0
+      ],
+      "markdown": "We assume the use of a mounted depth camera to perform sensing, and light-weight mapping is performed with NanoMap. RRT paths are reused whenever possible to reduce computational load and to maintain consistency between control iterations. Horizon point selection is constrained to known regions of the map to prevent trajectory generation through unobserved obstacles. Constraints on the distance to obstacles and estimated probability of collision are both evaluated for trajectory generation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        345.0,
+        363.0,
+        355.0
+      ],
+      "markdown": "### A. Mapping",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        362.0,
+        559.0,
+        417.0
+      ],
+      "markdown": "NanoMap was chosen in place of OctoMap because it has a low map maintenance cost and is less likely to propagate odometry error due to its local map structure. It is also able to propagate state uncertainty through a local history of depth measurements.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        422.0,
+        559.0,
+        480.0
+      ],
+      "markdown": "A few adjustments were made to NanoMap to better suit our control strategy. Query replies were modified to include the transformation from the query body frame to the current body frame. This transformation is necessary for calculating the obstacle constraint gradients.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        482.0,
+        559.0,
+        623.0
+      ],
+      "markdown": "NanoMap query replies include information about the field of view status of the query point. This information specifies if the query point is in free space, occluded space, or outside of the field of view of depth measurements. If the query point was not within the field of view free space of any prior depth measurements, it had no valid corresponding depth measurement. In this case, the obstacle points are pulled from the most recent depth measurement. We modified NanoMap to return the K-nearest obstacle points from the most recent occluded field of view instead. This yielded more accurate nearest obstacle points, especially while planning through occluded space.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        636.0,
+        394.0,
+        644.0
+      ],
+      "markdown": "### B. RRT Generation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        652.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "In the base controller proposed in [1], a rapidly-exploring random tree (RRT) was used to generate global paths to the goal for horizon point selection. The RRT was expanded until the goal point was connected to the tree, and the path from the current position to the goal position was extracted. This path was iteratively pruned, smoothed with Bézier curves, and parameterized in terms of time. We refer to this final",
+      "source_class": "text"
+    }
+  ]
+}

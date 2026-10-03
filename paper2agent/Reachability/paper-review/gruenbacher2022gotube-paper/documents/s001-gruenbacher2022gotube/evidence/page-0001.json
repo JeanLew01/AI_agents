@@ -1,0 +1,1471 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "GoTube: Scalable Stochastic Veriﬁcation of Continuous-Depth Models",
+      "bbox": [
+        91.38300323486328,
+        98.98509216308594,
+        520.6215209960938,
+        111.88232421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sophie Gruenbacher 1* , Mathias Lechner 2, Ramin Hasani 3,",
+      "bbox": [
+        152.85800170898438,
+        130.5909423828125,
+        462.1308288574219,
+        143.9156951904297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Daniela Rus 3, Thomas A. Henzinger 2, Scott A. Smolka 4, Radu Grosu 1",
+      "bbox": [
+        124.28204345703125,
+        145.49481201171875,
+        487.2181396484375,
+        157.8636932373047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract",
+      "bbox": [
+        154.71502685546875,
+        219.08888244628906,
+        191.78587341308594,
+        228.04525756835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We introduce a new stochastic veriﬁcation algorithm that",
+      "bbox": [
+        63.96302795410156,
+        236.6788330078125,
+        282.5368957519531,
+        244.69479370117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formally quantiﬁes the behavioral robustness of any time-",
+      "bbox": [
+        63.96302795410156,
+        246.64080810546875,
+        282.5369873046875,
+        254.65676879882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous process formulated as a continuous-depth model.",
+      "bbox": [
+        63.96302795410156,
+        256.60382080078125,
+        282.5369873046875,
+        264.6197814941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our algorithm solves a set of global optimization (Go) prob-",
+      "bbox": [
+        63.96302795410156,
+        266.56683349609375,
+        282.5369567871094,
+        274.5827941894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lems over a given time horizon to construct a tight enclosure",
+      "bbox": [
+        63.96302795410156,
+        276.5288391113281,
+        282.5369567871094,
+        284.5447998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Tube) of the set of all process executions starting from a",
+      "bbox": [
+        63.96302795410156,
+        286.4918518066406,
+        282.53692626953125,
+        294.5078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ball of initial states. We call our algorithm GoTube. Through",
+      "bbox": [
+        63.96302795410156,
+        296.4548645019531,
+        282.5369873046875,
+        304.4708251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "its construction, GoTube ensures that the bounding tube is",
+      "bbox": [
+        63.96302795410156,
+        306.4168701171875,
+        282.5369567871094,
+        314.4328308105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conservative up to a desired probability and up to a desired",
+      "bbox": [
+        63.96302795410156,
+        316.3798828125,
+        282.53692626953125,
+        324.3958435058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tightness. GoTube is implemented in JAX and optimized to",
+      "bbox": [
+        63.96302795410156,
+        326.3428955078125,
+        282.53692626953125,
+        334.3588562011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scale to complex continuous-depth neural network models.",
+      "bbox": [
+        63.96302795410156,
+        336.3049011230469,
+        282.53692626953125,
+        344.32086181640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Compared to advanced reachability analysis tools for time-",
+      "bbox": [
+        63.96302795410156,
+        346.2679138183594,
+        282.5368957519531,
+        354.28387451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous neural networks, GoTube does not accumulate",
+      "bbox": [
+        63.96302795410156,
+        356.2309265136719,
+        282.53692626953125,
+        364.24688720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "overapproximation errors between time steps and avoids the",
+      "bbox": [
+        63.96302795410156,
+        366.19293212890625,
+        282.536865234375,
+        374.2088928222656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "infamous wrapping effect inherent in symbolic techniques.",
+      "bbox": [
+        63.96302795410156,
+        376.15594482421875,
+        282.5369567871094,
+        384.1719055175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We show that GoTube substantially outperforms state-of-the-",
+      "bbox": [
+        63.96302795410156,
+        386.1179504394531,
+        282.5368957519531,
+        394.1339111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "art veriﬁcation tools in terms of the size of the initial ball,",
+      "bbox": [
+        63.96302795410156,
+        396.0809631347656,
+        282.5368957519531,
+        404.096923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "speed, time-horizon, task completion, and scalability on a",
+      "bbox": [
+        63.96302795410156,
+        406.0439758300781,
+        282.5369567871094,
+        414.0599365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "large set of experiments. GoTube is stable and sets the state-",
+      "bbox": [
+        63.96302795410156,
+        416.0059814453125,
+        282.5368957519531,
+        424.0219421386719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of-the-art in terms of its ability to scale to time horizons well",
+      "bbox": [
+        63.96302795410156,
+        425.968994140625,
+        282.53692626953125,
+        433.9849548339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "beyond what has been previously possible.",
+      "bbox": [
+        63.96302795410156,
+        435.9320068359375,
+        217.010498046875,
+        443.9479675292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Introduction",
+      "bbox": [
+        140.81002807617188,
+        461.12615966796875,
+        205.69090270996094,
+        471.8738708496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The use of deep-learning systems powered by continu-",
+      "bbox": [
+        54.000030517578125,
+        476.41259765625,
+        292.504638671875,
+        485.31915283203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ous-depth models continues to grow, especially due to the",
+      "bbox": [
+        54.000030517578125,
+        487.37060546875,
+        292.504638671875,
+        496.27716064453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "revival of neural ordinary differential equations (Neural",
+      "bbox": [
+        54.000030517578125,
+        498.32958984375,
+        292.5046691894531,
+        507.23614501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ODEs) (Chen et al. 2018). These models parametrize the",
+      "bbox": [
+        54.000030517578125,
+        509.28857421875,
+        292.5046081542969,
+        518.1951293945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "derivative of the hidden states by a neural network. The re-",
+      "bbox": [
+        54.000030517578125,
+        520.24755859375,
+        292.5046691894531,
+        529.1541137695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sulting system of differential equations can perform strong",
+      "bbox": [
+        54.000030517578125,
+        531.20654296875,
+        292.50469970703125,
+        540.1130981445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "function approximation and generative modeling. Ensuring",
+      "bbox": [
+        54.000030517578125,
+        542.16552734375,
+        292.5046081542969,
+        551.0720825195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "their safety and robustness in any of these fronts is a ma-",
+      "bbox": [
+        54.000030517578125,
+        553.1245727539062,
+        292.50469970703125,
+        562.0311279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "jor imperative, particularly in high-stakes decision-making",
+      "bbox": [
+        54.000030517578125,
+        564.0835571289062,
+        292.5046691894531,
+        572.9901123046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applications such as medicine, automation, and ﬁnance.",
+      "bbox": [
+        54.000030517578125,
+        575.0425415039062,
+        275.6379699707031,
+        583.9490966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A particularly appealing approach is to construct a tight",
+      "bbox": [
+        63.96303176879883,
+        586.0015869140625,
+        292.5050048828125,
+        594.9081420898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "overapproximation of the set of states reached over time ac-",
+      "bbox": [
+        54.000030517578125,
+        596.9595947265625,
+        292.5046691894531,
+        605.8661499023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cording to the neural network’s dynamics (a bounding tube)",
+      "bbox": [
+        54.000030517578125,
+        607.9185791015625,
+        292.5046081542969,
+        616.8251342773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and provide deterministic or stochastic guarantees for the",
+      "bbox": [
+        54.000030517578125,
+        618.8775634765625,
+        292.5046691894531,
+        627.7841186523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conservativeness of the tube’s bounds.",
+      "bbox": [
+        54.000030517578125,
+        629.8365478515625,
+        206.3679962158203,
+        638.7431030273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "*1TU Wien, 2IST Austria, 3CSAIL MIT, 4Stony Brook Uni-",
+      "bbox": [
+        66.65299987792969,
+        645.0885620117188,
+        292.5023193359375,
+        654.9827880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "versity.",
+      "bbox": [
+        54.0,
+        656.9287719726562,
+        79.93083190917969,
+        664.9447631835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Correspondence to: sophie.gruenbacher@tuwien.ac.at",
+      "bbox": [
+        54.0,
+        666.8917846679688,
+        291.9140625,
+        674.9077758789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Code: https://github.com/DatenVorsprung/GoTube",
+      "bbox": [
+        54.0,
+        676.8547973632812,
+        235.39027404785156,
+        684.8707885742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Copyright © 2022, Association for the Advancement of Artiﬁcial",
+      "bbox": [
+        54.0,
+        685.957763671875,
+        292.4972229003906,
+        693.9737548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Intelligence (www.aaai.org). All rights reserved.",
+      "bbox": [
+        54.0,
+        695.9207763671875,
+        227.41912841796875,
+        703.936767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x2",
+      "bbox": [
+        511.3108215332031,
+        354.50018310546875,
+        525.0596923828125,
+        364.2524108886719
+      ],
+      "direction": [
+        0.20779697597026825,
+        -0.9781720042228699
+      ]
+    },
+    {
+      "text": "0.50",
+      "bbox": [
+        505.85040283203125,
+        325.87603759765625,
+        521.9952392578125,
+        338.1768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.25",
+      "bbox": [
+        503.931396484375,
+        335.5794677734375,
+        520.0762329101562,
+        347.8802795410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.00",
+      "bbox": [
+        498.9188232421875,
+        345.56451416015625,
+        515.0636596679688,
+        357.8653564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.25",
+      "bbox": [
+        496.885986328125,
+        355.8436279296875,
+        513.0308227539062,
+        368.14447021484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.50",
+      "bbox": [
+        494.7923889160156,
+        366.4300537109375,
+        510.9372253417969,
+        378.7308654785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.75",
+      "bbox": [
+        492.63525390625,
+        377.337646484375,
+        508.7801208496094,
+        389.6384582519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x1",
+      "bbox": [
+        426.94720458984375,
+        381.2311706542969,
+        436.0235595703125,
+        394.3783874511719
+      ],
+      "direction": [
+        0.9938216209411621,
+        0.11098843812942505
+      ]
+    },
+    {
+      "text": "1.0",
+      "bbox": [
+        384.3229064941406,
+        366.4112548828125,
+        395.8549499511719,
+        378.71209716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.5",
+      "bbox": [
+        406.2796630859375,
+        368.873779296875,
+        417.81170654296875,
+        381.17462158203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.0",
+      "bbox": [
+        425.34942626953125,
+        371.353271484375,
+        436.8815002441406,
+        383.6540832519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0.5",
+      "bbox": [
+        447.609619140625,
+        373.84979248046875,
+        459.1416931152344,
+        386.150634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1.0",
+      "bbox": [
+        470.0238952636719,
+        376.3636474609375,
+        481.5559387207031,
+        388.66448974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Time (s)",
+      "bbox": [
+        347.4466857910156,
+        324.6241149902344,
+        362.5091552734375,
+        357.6853942871094
+      ],
+      "direction": [
+        0.05124012753367424,
+        0.9986863136291504
+      ]
+    },
+    {
+      "text": "0",
+      "bbox": [
+        364.7482604980469,
+        365.96490478515625,
+        369.361083984375,
+        378.2657165527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        363.96728515625,
+        353.075927734375,
+        368.5801086425781,
+        365.37677001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        363.1703186035156,
+        339.922607421875,
+        367.78314208984375,
+        352.2234191894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        362.3568115234375,
+        326.49664306640625,
+        366.9696350097656,
+        338.7974548339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8",
+      "bbox": [
+        361.5262451171875,
+        312.78948974609375,
+        366.1390686035156,
+        325.09033203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10",
+      "bbox": [
+        358.3703918457031,
+        298.79229736328125,
+        367.5960388183594,
+        311.0931091308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LRT-NG",
+      "bbox": [
+        376.2945556640625,
+        219.09536743164062,
+        403.47100830078125,
+        231.3961944580078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "GoTube (ours)",
+      "bbox": [
+        376.2945556640625,
+        229.73768615722656,
+        428.21044921875,
+        242.03851318359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sample traces",
+      "bbox": [
+        376.2945556640625,
+        240.3800048828125,
+        428.2974853515625,
+        252.6808319091797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Figure 1: Reachtubes of LRT-NG (Gruenbacher et al. 2020)",
+      "bbox": [
+        319.5,
+        404.599365234375,
+        558.0046997070312,
+        413.50592041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and GoTube for a CT-RNN controlling CartPole-v1 envi-",
+      "bbox": [
+        319.5,
+        415.558349609375,
+        558.0046997070312,
+        424.46490478515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ronment. CAPD (Kapela et al. 2020) and Flow* (Chen,",
+      "bbox": [
+        319.5,
+        426.517333984375,
+        558.0046997070312,
+        435.42388916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "´Abrah´am, and Sankaranarayanan 2013) failed.",
+      "bbox": [
+        319.5,
+        436.4643249511719,
+        504.7539978027344,
+        447.5428771972656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Deterministic veriﬁcation approaches ensure conserva-",
+      "bbox": [
+        329.4629821777344,
+        473.87530517578125,
+        558.0050048828125,
+        482.7818603515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tive bounds (Chen, ´Abrah´am, and Sankaranarayanan 2013;",
+      "bbox": [
+        319.4999694824219,
+        483.8222961425781,
+        558.002685546875,
+        494.9008483886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Gowal et al. 2018; Mirman, Gehr, and Vechev 2018; Bunel",
+      "bbox": [
+        319.4999694824219,
+        496.95330810546875,
+        558.0047607421875,
+        505.85986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al. 2020a; Kapela et al. 2020; Gruenbacher et al. 2020),",
+      "bbox": [
+        319.4999694824219,
+        507.91229248046875,
+        558.0046997070312,
+        516.81884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "but often sacriﬁce speed and accuracy (Ehlers 2017), and",
+      "bbox": [
+        319.4999694824219,
+        518.8712768554688,
+        558.0046997070312,
+        527.77783203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "thus scalability; see CAPD, Flow*, and LRT-NG in Fig. 1",
+      "bbox": [
+        319.4999694824219,
+        529.8302612304688,
+        558.004638671875,
+        538.73681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Fig. 3. Stochastic methods, on the other hand, only",
+      "bbox": [
+        319.4999694824219,
+        540.789306640625,
+        558.004638671875,
+        549.6958618164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ensure a weaker notion of conservativeness in the form of",
+      "bbox": [
+        319.4999694824219,
+        551.748291015625,
+        558.004638671875,
+        560.6548461914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conﬁdence intervals (stochastic bounds). This, however, al-",
+      "bbox": [
+        319.4999694824219,
+        562.707275390625,
+        558.004638671875,
+        571.6138305664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lows them to achieve much more accurate and faster veri-",
+      "bbox": [
+        319.4999694824219,
+        573.665283203125,
+        558.0047607421875,
+        582.5718383789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬁcation algorithms that scale up to much larger dynamical",
+      "bbox": [
+        319.4999694824219,
+        584.624267578125,
+        558.0045776367188,
+        593.5308227539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system (Shmarov and Zuliani 2015b; Bortolussi and San-",
+      "bbox": [
+        319.4999694824219,
+        595.583251953125,
+        558.0045776367188,
+        604.4898071289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guinetti 2014; Gruenbacher et al. 2021).",
+      "bbox": [
+        319.4999694824219,
+        606.5422973632812,
+        479.1505432128906,
+        615.4488525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "It was recently shown theoretically that stochastic ver-",
+      "bbox": [
+        329.4629821777344,
+        618.5332641601562,
+        558.0048828125,
+        627.4398193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "iﬁcation approaches based on Lagrangian reachability",
+      "bbox": [
+        319.4999694824219,
+        629.4923095703125,
+        558.004638671875,
+        638.3988647460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(SLR) could provably guarantee conﬁdence intervals for",
+      "bbox": [
+        319.4999694824219,
+        640.4503173828125,
+        558.004638671875,
+        649.3568725585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous-depth models (Gruenbacher et al. 2021). The",
+      "bbox": [
+        319.4999694824219,
+        651.4093017578125,
+        558.0045776367188,
+        660.3158569335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposed theoretical framework suggests performing both",
+      "bbox": [
+        319.4999694824219,
+        662.3682861328125,
+        558.0045776367188,
+        671.2748413085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stochastic global optimization and local differential op-",
+      "bbox": [
+        319.4999694824219,
+        673.3272705078125,
+        558.0045166015625,
+        682.2338256835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "timization (Zhigljavsky and Zilinskas 2008; Pontryagin",
+      "bbox": [
+        319.4999694824219,
+        684.2862548828125,
+        558.0045166015625,
+        693.1928100585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2018), and uses interval arithmetic to symbolically bound",
+      "bbox": [
+        319.4999694824219,
+        695.2453002929688,
+        558.000244140625,
+        704.15185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2107.08467v2  [cs.LG]  2 Dec 2021",
+      "bbox": [
+        10.940000534057617,
+        215.05999755859375,
+        37.619998931884766,
+        555.0
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20211203025556Z",
+      "modDate": "D:20211203025556Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/gruenbacher2022gotube-paper/documents/.pdf-skill-scan-h4qem1aw/review/source.pdf",
+      "page_count": 13,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          18,
+          215,
+          36,
+          555
+        ],
+        "pos": [
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "class": "title",
+        "bbox": [
+          91,
+          98,
+          521,
+          112
+        ],
+        "pos": [
+          0,
+          76
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          124,
+          131,
+          488,
+          158
+        ],
+        "pos": [
+          76,
+          310
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          154,
+          219,
+          192,
+          227
+        ],
+        "pos": [
+          310,
+          329
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          63,
+          236,
+          283,
+          444
+        ],
+        "pos": [
+          329,
+          1562
+        ]
+      },
+      {
+        "index": 5,
+        "class": "picture",
+        "bbox": [
+          349,
+          215,
+          529,
+          394
+        ],
+        "pos": [
+          1562,
+          1779
+        ]
+      },
+      {
+        "index": 6,
+        "class": "caption",
+        "bbox": [
+          319,
+          404,
+          559,
+          448
+        ],
+        "pos": [
+          1779,
+          1988
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          140,
+          461,
+          206,
+          470
+        ],
+        "pos": [
+          1988,
+          2010
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          54,
+          476,
+          293,
+          584
+        ],
+        "pos": [
+          2010,
+          2584
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          54,
+          585,
+          293,
+          637
+        ],
+        "pos": [
+          2584,
+          2860
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          54,
+          645,
+          293,
+          665
+        ],
+        "pos": [
+          2860,
+          2969
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          54,
+          666,
+          293,
+          704
+        ],
+        "pos": [
+          2969,
+          3183
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          319,
+          473,
+          559,
+          616
+        ],
+        "pos": [
+          3183,
+          3917
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          319,
+          618,
+          559,
+          705
+        ],
+        "pos": [
+          3917,
+          4366
+        ]
+      }
+    ],
+    "text": "# **GoTube: Scalable Stochastic Verification of Continuous-Depth Models** \n\n**Sophie Gruenbacher**<sup>1*</sup> **, Mathias Lechner**<sup>2</sup> **, Ramin Hasani**<sup>3</sup> **, Daniela Rus**<sup>3</sup> **, Thomas A. Henzinger**<sup>2</sup> **, Scott A. Smolka**<sup>4</sup> **, Radu Grosu**<sup>1</sup> \n\n### **Abstract** \n\nWe introduce a new stochastic verification algorithm that formally quantifies the behavioral robustness of any timecontinuous process formulated as a continuous-depth model. Our algorithm solves a set of global optimization (Go) problems over a given time horizon to construct a tight enclosure (Tube) of the set of all process executions starting from a ball of initial states. We call our algorithm GoTube. Through its construction, GoTube ensures that the bounding tube is conservative up to a desired probability and up to a desired tightness. GoTube is implemented in JAX and optimized to scale to complex continuous-depth neural network models. Compared to advanced reachability analysis tools for timecontinuous neural networks, GoTube does not accumulate overapproximation errors between time steps and avoids the infamous wrapping effect inherent in symbolic techniques. We show that GoTube substantially outperforms state-of-theart verification tools in terms of the size of the initial ball, speed, time-horizon, task completion, and scalability on a large set of experiments. GoTube is stable and sets the stateof-the-art in terms of its ability to scale to time horizons well beyond what has been previously possible. \n\n\n\n<!-- Start of picture text -->\nLRT-NG<br>GoTube (ours)<br>Sample traces<br>10<br>8<br>6 0.50<br>0.25<br>4<br>0.00<br>2 0.25<br>0 1.0 0.5 0.0 0.5 1.0 0.750.50<br>x1<br>x2<br>Time (s)<br><!-- End of picture text -->\n\nFigure 1: Reachtubes of LRT-NG (Gruenbacher et al. 2020) and GoTube for a CT-RNN controlling CartPole-v1 environment. CAPD (Kapela et al. 2020) and Flow* (Chen, ´Abrah´am, and Sankaranarayanan 2013) failed. \n\n## **Introduction** \n\nThe use of deep-learning systems powered by continuous-depth models continues to grow, especially due to the revival of neural ordinary differential equations (Neural ODEs) (Chen et al. 2018). These models parametrize the derivative of the hidden states by a neural network. The resulting system of differential equations can perform strong function approximation and generative modeling. Ensuring their safety and robustness in any of these fronts is a major imperative, particularly in high-stakes decision-making applications such as medicine, automation, and finance. \n\nA particularly appealing approach is to construct a tight overapproximation of the set of states reached over time according to the neural network’s dynamics (a bounding tube) and provide deterministic or stochastic guarantees for the conservativeness of the tube’s bounds. \n\n*<sup>1</sup> TU Wien,<sup>2</sup> IST Austria,<sup>3</sup> CSAIL MIT,<sup>4</sup> Stony Brook University. \n\nCorrespondence to: sophie.gruenbacher@tuwien.ac.at Code: https://github.com/DatenVorsprung/GoTube Copyright © 2022, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved. \n\nDeterministic verification approaches ensure conservative bounds (Chen, Abrah´am,<sup>´</sup> and Sankaranarayanan 2013; Gowal et al. 2018; Mirman, Gehr, and Vechev 2018; Bunel et al. 2020a; Kapela et al. 2020; Gruenbacher et al. 2020), but often sacrifice speed and accuracy (Ehlers 2017), and thus scalability; see CAPD, Flow*, and LRT-NG in Fig. 1 and Fig. 3. Stochastic methods, on the other hand, only ensure a weaker notion of conservativeness in the form of confidence intervals (stochastic bounds). This, however, allows them to achieve much more accurate and faster verification algorithms that scale up to much larger dynamical system (Shmarov and Zuliani 2015b; Bortolussi and Sanguinetti 2014; Gruenbacher et al. 2021). \n\nIt was recently shown theoretically that stochastic verification approaches based on Lagrangian reachability (SLR) could provably guarantee confidence intervals for continuous-depth models (Gruenbacher et al. 2021). The proposed theoretical framework suggests performing both stochastic global optimization and local differential optimization (Zhigljavsky and Zilinskas 2008; Pontryagin 2018), and uses _interval arithmetic_ to symbolically bound \n\n"
+  }
+}

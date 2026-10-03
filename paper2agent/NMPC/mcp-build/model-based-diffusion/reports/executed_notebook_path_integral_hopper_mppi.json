@@ -1,0 +1,302 @@
+{
+  "execution_id": "path_integral_hopper_mppi",
+  "status": "failed",
+  "status_summary": "The unmodified upstream script exits with status 1 at path_integral.py line 101 (`env.sys.replace(dt=env.dt)`, statement spanning lines 100-102) with `TypeError: System.__init__() got an unexpected keyword argument 'dt'`, after printing only `override temp_sample to 0.1`. No optimisation step runs, no `rew:` line is printed, no file is written. The same traceback (byte-identical stdout/stderr) is obtained for `--env_name ant` and for `--update_method cem`, so the failure does not depend on these arguments.",
+  "source": {
+    "path": "mbd/planners/path_integral.py",
+    "project_path": "repo/model-based-diffusion/mbd/planners/path_integral.py",
+    "sha256": "3a332d5f2015d5b4bbd90b8e46f7d0caf5323165441fcb0e6c6211e1f43ea8cd",
+    "sha256_at_scan": "3a332d5f2015d5b4bbd90b8e46f7d0caf5323165441fcb0e6c6211e1f43ea8cd",
+    "commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+    "source_url": "https://github.com/LeCAR-Lab/model-based-diffusion",
+    "source_url_basis": "`git remote -v` of the pinned checkout (origin https://github.com/LeCAR-Lab/model-based-diffusion.git)",
+    "private_copy": {
+      "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source",
+      "created_with": "git -C repo/model-based-diffusion archive c1eb913783f1713f7a1ebb657b34e0188d52cd8b | tar -x -C notebooks/path_integral_hopper_mppi/source",
+      "identity_check": "For all 34 tracked files (all mode 100644 blobs) the blob id from `git ls-tree -r <commit>` equals `git hash-object --no-filters` of the file in the copy, and the two sorted file lists are equal (`diff` is empty). Repeated after the three runs: still identical; the only additions in the copy are three `__pycache__` directories (mbd, mbd/envs, mbd/planners).",
+      "expected_list": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source_verification_expected.txt",
+        "sha256": "65a3c21b071e4d719ce077727b80bffeced31e87bc183865f033ea8e586f4d4a"
+      },
+      "actual_list": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source_verification_actual.txt",
+        "sha256": "65a3c21b071e4d719ce077727b80bffeced31e87bc183865f033ea8e586f4d4a"
+      },
+      "tracked_files": 34,
+      "import_resolution_check": {
+        "command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 300 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/import-check.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python -c import\\ mbd\\,\\ jax\\,\\ brax\\,\\ mujoco\\,\\ tyro\\,\\ sys\\;\\ from\\ mujoco\\ import\\ mjx\\;\\ print\\(\\'mbd\\'\\,\\ mbd.__file__\\)\\;\\ print\\(\\'python\\'\\,\\ sys.version.split\\(\\)\\[0\\]\\)\\;\\ print\\(\\'jax\\'\\,\\ jax.__version__\\,\\ \\'brax\\'\\,\\ brax.__version__\\,\\ \\'mujoco\\'\\,\\ mujoco.__version__\\,\\ \\'tyro\\'\\,\\ tyro.__version__\\)\\;\\ print\\(\\'devices\\'\\,\\ jax.devices\\(\\)\\)\\;\\ print\\(\\'default_backend\\'\\,\\ jax.default_backend\\(\\)\\)",
+        "exit_status": 0,
+        "output": [
+          "mbd /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/__init__.py",
+          "python 3.11.17",
+          "jax 0.4.30 brax 0.10.5 mujoco 3.1.6 tyro 0.8.5",
+          "devices [cuda(id=0)]",
+          "default_backend gpu"
+        ],
+        "log": {
+          "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/import-check.log",
+          "sha256": "eee419889d59bbf686c30ec43b8f2885d43833098ed775aa2488c48fd2437bf6"
+        }
+      }
+    },
+    "pinned_checkout_untouched": "`git -C repo/model-based-diffusion status --porcelain --ignored` after the runs lists only three ignored `__pycache__` directories, the state the coordinator's feasibility probe had already recorded. This executor only read the checkout (`git archive`, `git ls-tree`, `git status`, `sha256sum`)."
+  },
+  "execution_mode": "native-command",
+  "execution_path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/run.sh",
+  "execution_path_sha256": "ed6d6bcf16e2d91b938732eb0cfe62bb0f7121c70a576ba467b7cf8831d4b040",
+  "documented_command": {
+    "cwd_documented": "repo/model-based-diffusion/mbd/planners",
+    "cwd_used": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners",
+    "argv": [
+      "$PROJECT_PYTHON",
+      "path_integral.py",
+      "--env_name",
+      "hopper",
+      "--update_method",
+      "mppi",
+      "--seed",
+      "0"
+    ],
+    "environment": {
+      "PYTHONPATH": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source",
+      "XLA_PYTHON_CLIENT_PREALLOCATE": "false (set by heavy.sh)",
+      "MPLBACKEND": "Agg (set by heavy.sh)"
+    },
+    "launcher": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log <log> -- env PYTHONPATH=<copy> $PROJECT_PYTHON path_integral.py <args>"
+  },
+  "commands": [
+    {
+      "label": "run1",
+      "role": "documented command",
+      "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners",
+      "upstream_argv": [
+        "$PROJECT_PYTHON",
+        "path_integral.py",
+        "--env_name",
+        "hopper",
+        "--update_method",
+        "mppi",
+        "--seed",
+        "0"
+      ],
+      "full_command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/run1.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python path_integral.py --env_name hopper --update_method mppi --seed 0",
+      "exit_status": 1,
+      "start_utc_driver": "2026-10-02T14:49:55Z",
+      "end_utc_driver": "2026-10-02T14:50:38Z",
+      "wall_seconds_including_lock_wait": 43.445780367,
+      "process_seconds_from_launcher_lines": 20,
+      "launcher_lines": [
+        "heavy.sh: start 2026-10-02T14:50:18Z MemAvailable=2213MB MemoryMax=1513MB timeout=1500s gpu_used_before=1255MiB",
+        "heavy.sh: end 2026-10-02T14:50:38Z exit=1 gpu_used_after=1234MiB MemAvailable=2484MB"
+      ],
+      "scope_memory_peak_mb": 446,
+      "oom_kills": 0,
+      "log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/run1.log",
+        "sha256": "7434e98c5c7affbbfc497057350be5beb48179060d1463e2ca2901c5bca674ba"
+      },
+      "meta": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/run1.meta",
+        "sha256": "10fd5dd8d944128bdb3a724fada7bee1f3d22d816ae41335bb88b1c645f83885"
+      },
+      "launcher_log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/run1.launcher.log",
+        "sha256": "b9e4b2a4d0192f97e81e5be3f9cda57040cf631e3ce2cf100a706e95009dfe58"
+      },
+      "stdout_stderr_without_launcher_line_sha256": "df4418caf6958a4134287b3789d7901f3581b27dcfd9136d709221ac095852de",
+      "printed_before_failure": [
+        "override temp_sample to 0.1"
+      ],
+      "rew_line_present": false,
+      "tqdm_progress_present": false,
+      "exception": "TypeError: System.__init__() got an unexpected keyword argument 'dt'",
+      "failing_frame": "path_integral.py line 101 in run_path_integral: `mbd.utils.render_us, step_env_jit, env.sys.replace(dt=env.dt)`",
+      "files_written_by_upstream_in_copy": []
+    },
+    {
+      "label": "variant_ant_mppi",
+      "role": "argument-dependence check: other environment",
+      "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners",
+      "upstream_argv": [
+        "$PROJECT_PYTHON",
+        "path_integral.py",
+        "--env_name",
+        "ant",
+        "--update_method",
+        "mppi",
+        "--seed",
+        "0"
+      ],
+      "full_command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_ant_mppi.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python path_integral.py --env_name ant --update_method mppi --seed 0",
+      "exit_status": 1,
+      "start_utc_driver": "2026-10-02T14:50:44Z",
+      "end_utc_driver": "2026-10-02T14:52:51Z",
+      "wall_seconds_including_lock_wait": 127.751607737,
+      "process_seconds_from_launcher_lines": 37,
+      "launcher_lines": [
+        "heavy.sh: start 2026-10-02T14:52:14Z MemAvailable=2339MB MemoryMax=1639MB timeout=1500s gpu_used_before=1299MiB",
+        "heavy.sh: end 2026-10-02T14:52:51Z exit=1 gpu_used_after=1339MiB MemAvailable=2418MB"
+      ],
+      "scope_memory_peak_mb": 467,
+      "oom_kills": 0,
+      "log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_ant_mppi.log",
+        "sha256": "c19b4ebaf32269c520020243cabab3ca0418e859184d3be874380bfbdaa9c788"
+      },
+      "meta": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_ant_mppi.meta",
+        "sha256": "ceffdb9a60a606adc5eff2b5623eedadbadce22916a500b0c19a627d009a303b"
+      },
+      "launcher_log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_ant_mppi.launcher.log",
+        "sha256": "fdec865f96a59c084c04a82b8a45429d8128d1e70bc28971efb62bf3bb1e915c"
+      },
+      "stdout_stderr_without_launcher_line_sha256": "df4418caf6958a4134287b3789d7901f3581b27dcfd9136d709221ac095852de",
+      "printed_before_failure": [
+        "override temp_sample to 0.1"
+      ],
+      "rew_line_present": false,
+      "tqdm_progress_present": false,
+      "exception": "TypeError: System.__init__() got an unexpected keyword argument 'dt'",
+      "failing_frame": "path_integral.py line 101 in run_path_integral: `mbd.utils.render_us, step_env_jit, env.sys.replace(dt=env.dt)`",
+      "files_written_by_upstream_in_copy": []
+    },
+    {
+      "label": "variant_hopper_cem",
+      "role": "argument-dependence check: other update method",
+      "cwd": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners",
+      "upstream_argv": [
+        "$PROJECT_PYTHON",
+        "path_integral.py",
+        "--env_name",
+        "hopper",
+        "--update_method",
+        "cem",
+        "--seed",
+        "0"
+      ],
+      "full_command": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/heavy.sh --timeout 1500 --log /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_hopper_cem.log -- env PYTHONPATH=/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source /home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python path_integral.py --env_name hopper --update_method cem --seed 0",
+      "exit_status": 1,
+      "start_utc_driver": "2026-10-02T14:52:52Z",
+      "end_utc_driver": "2026-10-02T14:58:37Z",
+      "wall_seconds_including_lock_wait": 345.04928143,
+      "process_seconds_from_launcher_lines": 15,
+      "launcher_lines": [
+        "heavy.sh: start 2026-10-02T14:58:22Z MemAvailable=2478MB MemoryMax=1778MB timeout=1500s gpu_used_before=1253MiB",
+        "heavy.sh: end 2026-10-02T14:58:37Z exit=1 gpu_used_after=1262MiB MemAvailable=2252MB"
+      ],
+      "scope_memory_peak_mb": 385,
+      "oom_kills": 0,
+      "log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_hopper_cem.log",
+        "sha256": "9a555b1c257018a30d1f652c8633e97add53b1e788447689c938b0afb5615c65"
+      },
+      "meta": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_hopper_cem.meta",
+        "sha256": "7c2e0a68f9dec2b135ce53274e5a6b409f2d3fbe54a5cd085caa0471adb1f736"
+      },
+      "launcher_log": {
+        "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/logs/variant_hopper_cem.launcher.log",
+        "sha256": "c8a3eeaa7e1ae884acf38fb8ded28f1d93a8a28ad63cbcb61aea7fb47328d454"
+      },
+      "stdout_stderr_without_launcher_line_sha256": "df4418caf6958a4134287b3789d7901f3581b27dcfd9136d709221ac095852de",
+      "printed_before_failure": [
+        "override temp_sample to 0.1"
+      ],
+      "rew_line_present": false,
+      "tqdm_progress_present": false,
+      "exception": "TypeError: System.__init__() got an unexpected keyword argument 'dt'",
+      "failing_frame": "path_integral.py line 101 in run_path_integral: `mbd.utils.render_us, step_env_jit, env.sys.replace(dt=env.dt)`",
+      "files_written_by_upstream_in_copy": []
+    }
+  ],
+  "failure": {
+    "exception_type": "TypeError",
+    "exception_message": "System.__init__() got an unexpected keyword argument 'dt'",
+    "raised_at": "path_integral.py line 101 (statement on lines 100-102), called from line 152; inner frames mujoco/mjx/_src/dataclasses.py line 61 (`dataclasses.replace(self, **updates)`) and CPython dataclasses.py line 1503",
+    "stage": "environment set-up: after `mbd.envs.get_env` (line 93), before `reset_env_jit` (line 105) and before the first `update_once`; the tqdm bar 'Path Integrating' never appears",
+    "complete_stdout_stderr_of_documented_command": "override temp_sample to 0.1\nTraceback (most recent call last):\n  File \"/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners/path_integral.py\", line 152, in <module>\n    rew = run_path_integral(args=tyro.cli(Args))\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners/path_integral.py\", line 101, in run_path_integral\n    mbd.utils.render_us, step_env_jit, env.sys.replace(dt=env.dt)\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/lib/python3.11/site-packages/mujoco/mjx/_src/dataclasses.py\", line 61, in replace\n    return dataclasses.replace(self, **updates)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/dataclasses.py\", line 1503, in replace\n    return obj.__class__(**changes)\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: System.__init__() got an unexpected keyword argument 'dt'\n",
+    "depends_on_arguments": false,
+    "argument_dependence_evidence": "stdout/stderr without the launcher's peak-memory line has the same SHA-256 (df4418caf6958a4134287b3789d7901f3581b27dcfd9136d709221ac095852de) for hopper/mppi, ant/mppi and hopper/cem.",
+    "argument_dependence_not_executed": "`--update_method cma-es` and the other environments were not run. Reading the source only: line 101 is evaluated before `update_fn` is used, for any environment object that has a `sys` attribute.",
+    "matches_prediction": true,
+    "prediction_sources": [
+      "reports/tutorial-scanner-include-in-tools.json (execution_risk of this entry)",
+      "reports/environment-manager_results.md (section 'Source/dependency disagreements found')"
+    ],
+    "scanner_rule_if_it_fails": "record the real traceback and defer the tool with the blocker 'upstream defect: stale Brax API in an unused line'; do not patch the upstream file, do not re-implement the update rules in the wrapper; also restrict mbd_evaluate_seeds and mbd_sweep_temperature to algo=mbd",
+    "action_taken": "None beyond recording. Upstream not patched, no other Brax/JAX version installed or tried, no size fallback applied (not a resource failure: peak memory 385-467 MB, 0 OOM kills, no timeout)."
+  },
+  "runtime": {
+    "interpreter": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/model-based-diffusion-env/bin/python",
+    "interpreter_resolves_to": "/home/jixia/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+    "python_version": "3.11.17",
+    "package_versions": {
+      "jax": "0.4.30",
+      "brax": "0.10.5",
+      "mujoco": "3.1.6",
+      "tyro": "0.8.5",
+      "mujoco-mjx": "3.1.6"
+    },
+    "package_versions_basis": "jax, brax, mujoco, tyro: printed by the import check in this namespace (logs/import-check.log). mujoco-mjx: not printed here, taken from reports/environment-manager_results.md.",
+    "device": "cuda:0",
+    "device_basis": "jax.devices() = [cuda(id=0)], jax.default_backend() = gpu (logs/import-check.log). The upstream script itself failed before running any simulation step.",
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU, 8188 MiB, driver 581.04",
+    "os": "Linux 6.6.114.1-microsoft-standard-WSL2"
+  },
+  "seed_and_data_provenance": {
+    "seed": 0,
+    "seed_flag": "--seed (path_integral.py line 19, used on line 57)",
+    "data": "No external data. The environment is built by `mbd.envs.get_env(env_name)` from the pinned source and the installed Brax assets.",
+    "note": "The seed was passed, but the script failed before any sample was drawn, so it influenced no result."
+  },
+  "inputs": [
+    {
+      "path": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/source/mbd/planners/path_integral.py",
+      "sha256": "3a332d5f2015d5b4bbd90b8e46f7d0caf5323165441fcb0e6c6211e1f43ea8cd"
+    }
+  ],
+  "outputs": [],
+  "outputs_explanation": "Upstream wrote no file in any of the three runs (path_integral.py has no save call, and here it also failed before optimisation). `outputs/` is empty; `<copy>/results/` does not exist.",
+  "parsed_reference_values": null,
+  "parsed_reference_values_explanation": "No `rew:` line was printed in any run, so there is no reference value for mppi, cem or cma-es.",
+  "replay_comparison": null,
+  "replay_comparison_explanation": "Not applicable: there is no numerical result to replay. The failure itself occurred in three separate processes with identical traceback text.",
+  "figures": [],
+  "limitations": [
+    "Only brax 0.10.5 / mujoco 3.1.6 / jax 0.4.30 was executed, as instructed. Whether an older Brax would let this script run was not tested.",
+    "`--update_method cma-es`, the environments halfcheetah, humanoidstandup, humanoidrun, walker2d, pushT and car2d, and the README's `--mode` spelling were not executed.",
+    "`mbd/scripts/run_mbd.py --algo path_integral` was not executed. Read only: it calls `mbd.planners.path_integral.run_path_integral` (run_mbd.py lines 22-26 and 46-50), the function that fails here.",
+    "Execution gives no information about the baselines' rewards, runtime or memory at script defaults."
+  ],
+  "attempts": {
+    "count": 3,
+    "max_allowed": 5,
+    "list": [
+      {
+        "n": 1,
+        "label": "run1",
+        "what": "documented command",
+        "exit_status": 1
+      },
+      {
+        "n": 2,
+        "label": "variant_ant_mppi",
+        "what": "same command with --env_name ant (argument-dependence check requested in the assignment)",
+        "exit_status": 1
+      },
+      {
+        "n": 3,
+        "label": "variant_hopper_cem",
+        "what": "same command with --update_method cem (argument-dependence check requested in the assignment)",
+        "exit_status": 1
+      }
+    ],
+    "not_counted": "import-check (exit 0): not an execution of the source"
+  },
+  "decisions_for_coordinator": [
+    "Record an explicit exclusion of the tool `mbd_run_baseline_planner` with the scanner's blocker 'upstream defect: stale Brax API in an unused line' (path_integral.py lines 100-102 with brax 0.10.5).",
+    "The scanner's rule also asks to restrict `mbd_evaluate_seeds` and `mbd_sweep_temperature` to algo=mbd; that belongs to other assignments and is the coordinator's decision."
+  ],
+  "evidence_readme": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/notebooks/path_integral_hopper_mppi/README.md"
+}

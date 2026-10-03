@@ -1,0 +1,40 @@
+from pagelib import *
+
+PX = r"\mathbb{P}\left((g(X)^2 > \eta\right)"
+Px = r"\mathbb{P}\left((g(x)^2 > \eta\right)"
+E2 = r"\mathbb{E}\left[(g(x)^2\right]"
+INT = r"\int_{\mathcal{X}}"
+
+items = [
+    running_header(20),
+    text("p0020-b002", [71.0, 99.0, 442.0, 289.0],
+         r"**Proof of Lemma 3.8.** As in the proof of Lemma 3.10 we apply the Seeger PAC-Bayes Theorem 3.5, this time to the prior and posterior measures $P$ and $Q$ induced by $C_{P}$ and $C_{Q}$ as defined in (3.3). These measures are defined by the Gaussian processes $g_p$ and $g_q$ which act as the concept class parameters $W_P$ and $W_Q$ respectively in the statement of Theorem 3.5. To compute the KL divergence between $W_P$ and $W_Q$, we use another result due to Seeger, described in Section 2.2 of [29], which states that the KL divergence between a prior Gaussian process $g_p$ and the posterior Gaussian processes $g_q$ obtained after conditioning on data $x_1,\dotsc,x_N$ is equal to the KL divergence between the restriction of the two Gaussian processes to the data points, that is the KL divergence between the multivariate normal random vectors $(g_p(x_1),\dotsc,g_p(x_N))$ and $(g_q(x_1),\dotsc,g_q(x_N))$. The mean and covariance of these random variables are simply the restrictions of the mean and covariance functions of their defining processes to $(x_1,\dotsc,x_N)$. Both random vectors have mean zero. The covariance matrix of the prior random vector $(g_p(x_1),\dotsc,g_p(x_N))$ is $K_p(X,X)=K(X,X)$ as discussed in Section A. By (A.1) and an application of the matrix inversion lemma, the covariance of the posterior random vector $(g_q(x_1),\dotsc,g_q(x_N))$ is"),
+    text("p0020-b004", [66.0, 291.0, 442.0, 334.0], r"""
+$$\begin{aligned} K_q(X,X) &= K(X,X) - K(X,X)\left(\sigma_0^2 I + K(X,X)\right)^{-1}K(X,X)\\ &= \left(K(X,X)^{-1} + \sigma_0^{-2} I\right)^{-1}. \end{aligned} \tag{B.3}$$
+
+$\square$
+"""),
+    text("p0020-b005", [72.0, 340.0, 442.0, 372.0],
+         r"**Proof of Lemma 3.9.** Consider a point $x\in\mathcal{X}$ outside of the central concept, that is such that $\bar{c}_\eta(x) = " + E2 + r" > \eta$. The probability that $W_Q^\top z_m(x)$ also exceeds $\eta$ is bounded as"),
+    text("p0020-b006", [67.0, 373.0, 440.0, 409.0],
+         r"$$\mathbb{P}\left((g(x)^2 \ge \eta\right) \le \mathbb{P}\left((g(x)^2 \ge " + E2 + r"\right) =\mathbb{P}\left(\frac{(g(x)^2}{" + E2 + r"} > 1\right) =1-F_1(1). \tag{B.4}$$"),
+    text("p0020-b007", [72.0, 411.0, 442.0, 447.0],
+         r"Next, let us consider the risk of the stochastic estimator, that is $r_Q=" + PX + r"$. Applying the law of total probability with respect to the random variable $X$, we divide $r_Q$ into two integrals according to whether the central concept exceeds $\eta$:"),
+    text("p0020-b008", [66.0, 449.0, 396.0, 535.0],
+         "$$" + PX + " = " + INT + " " + Px + r" dP_x(x) \tag{B.5}$$" + "\n\n"
+         "$$= " + INT + " " + Px + r" \mathbb{1}\{" + E2 + r" > \eta\} dP_x(x) \tag{B.6}$$" + "\n\n"
+         "$$+ " + INT + " " + Px + r" \mathbb{1}\{" + E2 + r" \le \eta\} dP_x(x). \tag{B.7}$$"),
+    text("p0020-b009", [71.0, 537.0, 442.0, 572.0],
+         "We have that $" + PX + r" \ge " + INT + " " + Px + r" \mathbb{1}\{" + E2 + r" > \eta\} dP_x(x)$, since all three integrands are nonnegative. To find an upper bound on this probability in terms of the empirical classifier, we combine the two inequalities above to find"),
+    text("p0020-b010", [66.0, 574.0, 420.0, 680.0],
+         "$$" + PX + " = " + INT + " " + Px + r" dP_x(x) \tag{B.8}$$" + "\n\n"
+         r"$$\ge " + INT + " " + Px + r" \mathbb{1}\{" + E2 + r" > \eta\} dP_x(x) \tag{B.9}$$" + "\n\n"
+         r"$$\ge (1-F_1(1)) " + INT + r" \mathbb{1}\{" + E2 + r" > \eta\} dP_x(x) \tag{B.10}$$" + "\n\n"
+         r"$$= (1-F_1(1))\mathbb{P}\left(" + E2 + r" > \eta\right) = (1-F_1(1)) r(\hat{c}_\eta), \tag{B.11}$$"),
+    text("p0020-last", [71.0, 682.0, 442.0, 699.0],
+         r"which we rearrange to yield $r(\bar{c}_\eta) \le \frac{1}{1-F_1(1)}r_{Q_\eta}$. $\square$"),
+]
+
+save(20, items, r"""
+Compared with the 130-dpi render and two 220-dpi crops (upper and lower half). Proofs of Lemma 3.8 and Lemma 3.9 written with bold labels ('**Proof of Lemma 3.8.**', '**Proof of Lemma 3.9.**'), text verbatim from the authors' TeX, compared with the page. (B.3) is a two-line display with one number (aligned + one \tag); the end-of-proof box of the proof of Lemma 3.8 is printed at the right margin of display (B.3) and is written as $\square$ after it; the proof text stops at (B.3) as printed (it does not return to the KL divergence). (B.4) single line. (B.5)-(B.7) and (B.8)-(B.11) are aligned multi-line displays with one printed number per line: each numbered line is its own $$ block with its \tag inside one item; continuation lines therefore start with '=', '+' or '\ge' as printed. All checked symbol by symbol on the 220-dpi crops; five extractor formula images replaced by LaTeX. Source errors kept exactly as printed: throughout the proof of Lemma 3.9 the squared process is typeset with an unmatched opening parenthesis, '$(g(x)^2$' and '$(g(X)^2$' (macro arguments like \Pr{(g(x)^2 > \eta} in the source); the central concept is written $\bar{c}_\eta(x)$ and equated to an expectation; 'The probability that $W_Q^\top z_m(x)$ also exceeds $\eta$' (polynomial notation in a proof otherwise written with $g$); the measure is written $dP_x(x)$ with lower-case subscript; (B.4) starts with '$\ge \eta$' while the following lines use '$> \eta$'; (B.11) ends with $r(\hat{c}_\eta)$ (hat) while the final line has $r(\bar{c}_\eta)$ (bar) and $r_{Q_\eta}$; 'all three integrands'; 'the posterior Gaussian processes $g_q$'; 'Section A' for Appendix A; 'in terms of the empirical classifier'. The TeX ties around '>' in the inline formula after (B.7) (printed as wide spaces) were written as normal spaces. References resolved: Lemma 3.8, Lemma 3.10, Theorem 3.5 (twice), (3.3), [29], Section A, (A.1), Lemma 3.9. No line-wrap hyphen repairs needed except 'PAC-/Bayes' (real hyphen, kept). This is the last page. Omitted: running header (page number 20 and author short list).
+""")

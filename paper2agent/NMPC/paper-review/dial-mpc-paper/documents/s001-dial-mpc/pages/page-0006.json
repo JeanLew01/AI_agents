@@ -1,0 +1,265 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and with 180-200 dpi crops of Fig. 6, Table II and Fig. 7; text checked with 40experiments.tex and 50conclusion.tex. The page has no display equations; the only numbers in math font are plain values (3.9, 3.5%, 92%, 126%, 10 kg, 2 kg, 7 kg), kept as plain text. Reading order rebuilt: the page starts with the continuation of the last paragraph of page 5 (\"Compared\" + \"with NMPC, DIAL-MPC is able to solve ...\", join_previous=space), which is printed below Fig. 6; Fig. 6 (top of the left column) and its caption are placed after that paragraph. The paragraph \"Dynamic-level generalizability. ... Without explicit\" at the foot of the left column continues at the top of the right column (\"conditioning on the physical parameters ...\", join_previous=space); Table II and Fig. 7 follow it. Fig. 6 box [52,48.1,301,177]: the embedded image is placed up to x=331 but is clipped in print at the column edge; the visible plot (two panels $v_x$ m/s and $\\omega_z$ rad/s, time axis, legend with DIAL-MPC, DIAL-MPC + 10 kg, target $\\omega_z, v_x$, GCRL, GCRL + 10 kg) ends near x=297 (checked by crop); the extractor's box had reached into the right column and captured words of its text. Fig. 7 box [311,262.8,560,395.8] (image 313.2,264.8-558.0,393.8). Table II: 3 rows x 3 columns compared cell by cell with the crop and native lines; DIAL-MPC row is bold in print. Headings: \"B. Test-Time Generalizability\", \"C. Robustness to Model Mismatch\" (###), \"V. CONCLUSION\" (##). Repairs: split decimals 3.9 and 3.5%; glued line-wrap compounds restored (DIAL-MPC four times, training-free, test-time). Kept as printed: \"10kg\" without a space in the Fig. 6 caption, the space in \"DIAL-MPC ’s robustness\", \"DIAL-MPC outperform GCRL\", \"due to the heavy payload leads to\", \"shows the DIAL-MPC control a Unitree Go2 robot\", \"finetuning\". The last item (Conclusion paragraph) continues on page 7. No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        229.0,
+        299.0,
+        275.0
+      ],
+      "markdown": "with NMPC, DIAL-MPC is able to solve tasks requiring higher agility and non-smooth costs, such as sequential jumping and crate climbing, where NMPC is more likely to get stuck in local minima and fail to converge.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0006-b000",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        48.1,
+        301.0,
+        177.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 6",
+      "asset_name": "figure-6"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        182.0,
+        299.0,
+        216.0
+      ],
+      "markdown": "Fig. 6: The linear and angular velocity tracking performance of DIAL-MPC and GCRL in the walking task test in simulation. GCRL fails with a 10kg payload.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        277.0,
+        299.0,
+        381.0
+      ],
+      "markdown": "The superior convergence of DIAL-MPC is further demonstrated when compared with GCRL, where DIAL-MPC consistently outperforms GCRL in all tasks even if we use a lower-level leg position controller for RL and DIAL-MPC directly outputs the torque. Although DIAL-MPC is training-free, making a direct comparison potentially unfair, these results showcase the advantage of the annealing process in generating finer solutions compared to the Gaussian exploration in RL.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        385.0,
+        299.0,
+        455.0
+      ],
+      "markdown": "**Coverage of DIAL-MPC.** DIAL-MPC is also capable of searching for non-trivial solutions and generating diverse motions. As examples, we visualize the solutions in the crate climbing task and a humanoid jogging task in Figure 5. DIAL-MPC generates diverse solutions in high-dimensional spaces, thanks to the annealing process.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        467.0,
+        175.0,
+        477.0
+      ],
+      "markdown": "### B. Test-Time Generalizability",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        484.0,
+        299.0,
+        518.0
+      ],
+      "markdown": "As a training-free method, DIAL-MPC offers better test-time generalizability. Given a new task or model, DIAL-MPC can generate solutions in real time without finetuning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b012",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        520.0,
+        299.0,
+        602.0
+      ],
+      "markdown": "**Task-level generalizability.** Compared with GCRL, DIAL-MPC reduces the tracking error by 3.9 times in the walking task and improves the contact reward by 3.5% given different goals. Figure 6 visualizes the tracking performance of both methods. DIAL-MPC achieves higher tracking accuracy thanks to its explicit conditioning on each task, whereas GCRL uses a universal policy for all tasks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b013",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        605.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "**Dynamic-level generalizability.** Another advantage of DIAL-MPC is its explicit conditioning on the dynamics model, enabling better adaptation to new dynamics given updated models. Figure 6 illustrates the tracking performance of both methods with a 10 kg payload attached to the robot’s base. The crate-climbing task is deprecated due to the heavy payload leads to infeasible solutions. The GCRL policy is augmented with domain randomization of mass, actuator gain, and friction to improve robustness to model parameters. Table II shows the performance comparison of GCRL and DIAL-MPC under a 10 kg payload. Without explicit",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        160.0
+      ],
+      "markdown": "conditioning on the physical parameters, GCRL performs poorly in tracking and completely fails after adding the payload. In contrast, DIAL-MPC outperform GCRL with a larger margin in the jumping task, demonstrating the advantage of explicitly conditioning on the dynamics model. While RL can be enhanced by conditioning on physical parameters or history, this requires additional training time and engineering effort. Conversely, the training-free DIAL-MPC can be instantly deployed with an updated model.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "table",
+      "bbox": [
+        353.4,
+        170.5,
+        517.8,
+        212.1
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 2",
+      "asset_name": "table-2",
+      "rows": [
+        [
+          "",
+          "Walk Track ↓",
+          "Seq Jump ↑"
+        ],
+        [
+          "GCRL",
+          "0.517",
+          "0.150"
+        ],
+        [
+          "DIAL-MPC",
+          "0.036",
+          "0.815"
+        ]
+      ]
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        218.0,
+        559.0,
+        239.0
+      ],
+      "markdown": "TABLE II: Performance comparison of GCRL and DIAL-MPC under 10 kg payload.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        262.8,
+        560.0,
+        395.8
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 7",
+      "asset_name": "figure-7"
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        401.0,
+        559.0,
+        447.0
+      ],
+      "markdown": "Fig. 7: Velocity tracking task and sequential jumping task with a 7 kg payload on Go2 quadruped in real world with DIAL-MPC for direct torque control. DIAL-MPC enables both precise and agile motion.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0006-b014",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        470.0,
+        455.0,
+        478.0
+      ],
+      "markdown": "### C. Robustness to Model Mismatch",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        485.0,
+        559.0,
+        627.0
+      ],
+      "markdown": "When dealing with unknown dynamics models, DIAL-MPC ’s robustness stems from the noise injection process in the diffusion-inspired annealing. By controlling the final noise level, we can achieve a suboptimal but robust solution given a mismatched model. Since the sampling-based MPC baselines fail to operate effectively in the real world, we compare the performance of DIAL-MPC with the baseline in simulation with mismatched mass parameters. Table III shows the performance comparison of different methods under 2 kg base mass mismatch in simulation, where DIAL-MPC still outperforms the best sampling-based MPC baselines by 92% in the walking task and 126% in the jumping.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        629.0,
+        559.0,
+        663.0
+      ],
+      "markdown": "Figure 7 shows the DIAL-MPC control a Unitree Go2 robot to walk and jump. The robot is able to walk smoothly and jump precisely with direct torque control.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b017",
+      "kind": "heading",
+      "bbox": [
+        394.0,
+        673.0,
+        478.0,
+        681.0
+      ],
+      "markdown": "## V. CONCLUSION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "This work presents DIAL-MPC, a sampling-based MPC method with a diffusion-inspired annealing process to balance coverage and convergence in real-world legged locomotion. DIAL-MPC can solve the full-order control problem",
+      "source_class": "text"
+    }
+  ]
+}

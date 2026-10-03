@@ -1,0 +1,701 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "arXiv:2309.09187v1  [eess.SY]  17 Sep 2023",
+      "bbox": [
+        10.940000534057617,
+        185.699951171875,
+        37.619998931884766,
+        549.0
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "text": "Data-Driven Reachability Analysis of Stochastic Dynamical",
+      "bbox": [
+        94.68009948730469,
+        113.69149780273438,
+        517.13330078125,
+        129.34030151367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Systems with Conformal Inference",
+      "bbox": [
+        184.56008911132812,
+        134.93130493164062,
+        427.49603271484375,
+        150.58010864257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Navid Hashemi1, Xin Qin1, Lars Lindemann1, and Jyotirmoy V. Deshmukh1",
+      "bbox": [
+        110.27999114990234,
+        167.32408142089844,
+        500.792236328125,
+        179.42684936523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Thomas Lord Department of Computer Science, University of Southern California",
+      "bbox": [
+        93.1201171875,
+        191.6838836669922,
+        518.84765625,
+        203.78701782226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "September 19, 2023",
+      "bbox": [
+        255.96018981933594,
+        228.6795654296875,
+        356.1123352050781,
+        239.54684448242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract",
+      "bbox": [
+        284.0398864746094,
+        269.8759460449219,
+        327.7436828613281,
+        276.8996276855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We consider data-driven reachability analysis of discrete-time stochastic dynamical systems",
+      "bbox": [
+        114.23988342285156,
+        286.99810791015625,
+        512.708251953125,
+        296.9607238769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "using conformal inference. We assume that we are not provided with a symbolic representation",
+      "bbox": [
+        99.2398681640625,
+        298.6379089355469,
+        513.0018310546875,
+        308.60052490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of the stochastic system, but instead have access to a dataset of K-step trajectories.",
+      "bbox": [
+        99.2398681640625,
+        310.2777099609375,
+        486.5979309082031,
+        320.25030517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The",
+      "bbox": [
+        495.59124755859375,
+        310.2777099609375,
+        512.7300415039062,
+        320.2403259277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability problem is to construct a probabilistic ﬂowpipe such that the probability that a",
+      "bbox": [
+        99.24005126953125,
+        321.7980041503906,
+        512.68408203125,
+        331.7606201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "K-step trajectory can violate the bounds of the ﬂowpipe does not exceed a user-speciﬁed failure",
+      "bbox": [
+        99.24005126953125,
+        333.43780517578125,
+        512.7044677734375,
+        343.410400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "probability threshold. The key ideas in this paper are: (1) to learn a surrogate predictor model",
+      "bbox": [
+        99.24008178710938,
+        344.95770263671875,
+        512.7694091796875,
+        354.9203186035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from data, (2) to perform reachability analysis using the surrogate model, and (3) to quantify",
+      "bbox": [
+        99.24008178710938,
+        356.597900390625,
+        512.749267578125,
+        366.5605163574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the surrogate model’s incurred error using conformal inference in order to give probabilistic",
+      "bbox": [
+        99.24008178710938,
+        368.2377014160156,
+        512.8623657226562,
+        378.2003173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability guarantees. We focus on learning-enabled control systems with complex closed-",
+      "bbox": [
+        99.24008178710938,
+        379.7575988769531,
+        512.82470703125,
+        389.72021484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "loop dynamics that are diﬃcult to model symbolically, but where state transition pairs can be",
+      "bbox": [
+        99.24008178710938,
+        391.3977966308594,
+        512.6152954101562,
+        401.36041259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "queried, e.g., using a simulator. We demonstrate the applicability of our method on examples",
+      "bbox": [
+        99.24008178710938,
+        403.03759765625,
+        512.8377685546875,
+        413.0002136230469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from the domain of learning-enabled cyber-physical systems.",
+      "bbox": [
+        99.24008178710938,
+        414.5574951171875,
+        363.3672790527344,
+        424.5201110839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        72.00106811523438,
+        445.80859375,
+        79.8914794921875,
+        458.7488708496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Introduction",
+      "bbox": [
+        95.64274597167969,
+        445.80859375,
+        182.29525756835938,
+        458.7488708496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Reachability analysis of stochastic nonlinear dynamical systems is a challenging problem that has",
+      "bbox": [
+        72.00106811523438,
+        470.45416259765625,
+        539.8958740234375,
+        482.6069030761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "been extensively studied in the literature [1–13]. Most of the prior work is model-based, i.e., it",
+      "bbox": [
+        72.00106811523438,
+        483.53387451171875,
+        539.99951171875,
+        495.6866149902344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "requires a symbolic model of the dynamical system which can then be over-approximated to obtain",
+      "bbox": [
+        72.00146484375,
+        496.73388671875,
+        539.8778076171875,
+        508.8866271972656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬂowpipes or the set of reachable states of the system over a given time horizon. In this paper, we",
+      "bbox": [
+        72.00146484375,
+        509.81402587890625,
+        539.8712768554688,
+        521.966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "explore the notion of model-free reachability analysis, i.e., to compute reachable sets of the stochastic",
+      "bbox": [
+        72.00146484375,
+        523.0139770507812,
+        539.8624267578125,
+        535.166748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamical system even when we do not have the symbolic system dynamics, but have access to a",
+      "bbox": [
+        72.00180053710938,
+        536.0941162109375,
+        540.0055541992188,
+        548.2468872070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "numeric simulator or actual behaviors sampled from the system. A signiﬁcant advantage of such a",
+      "bbox": [
+        72.00180053710938,
+        549.2941284179688,
+        539.9761962890625,
+        561.4468994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data-driven technique is that we obtain not only (probabilistic) reachable sets for the system or the",
+      "bbox": [
+        72.00180053710938,
+        562.3742065429688,
+        539.8834228515625,
+        574.5269775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simulation model from which the trajectories are sampled, but we can get results over the possibly",
+      "bbox": [
+        72.00180053710938,
+        575.5741577148438,
+        540.0556030273438,
+        587.7269287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inﬁnite set of models/systems consistent with the set of sampled trajectories. This provides us the",
+      "bbox": [
+        72.00180053710938,
+        588.654296875,
+        539.8682861328125,
+        600.8070678710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "opportunity for an analysis technique that is robust to model uncertainty.",
+      "bbox": [
+        72.00189208984375,
+        601.8543090820312,
+        422.6424865722656,
+        614.007080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "There is growing literature on computing probabilistically approximate reachable sets directly",
+      "bbox": [
+        88.921875,
+        614.9339599609375,
+        539.818603515625,
+        627.0867309570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from data. The authors in [14] utilize level sets of Christoﬀel functions and provide a technique to",
+      "bbox": [
+        72.00189208984375,
+        628.1339721679688,
+        539.976806640625,
+        640.2867431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "compute a high accuracy probabilistic reach-set for general nonlinear systems. On the other hand,",
+      "bbox": [
+        72.00189208984375,
+        641.2140502929688,
+        539.8365478515625,
+        653.3668212890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as a comparison, we only have access to sampled trajectories. The authors in [15] propose speciﬁc",
+      "bbox": [
+        72.00189208984375,
+        654.4140625,
+        539.9705810546875,
+        666.5668334960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parametric models (linear or polynomial), to identify the Markovian stochastic dynamics of the",
+      "bbox": [
+        72.00189208984375,
+        667.494140625,
+        539.8660278320312,
+        679.6469116210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system from data, and then perform reachability analysis on the identiﬁed models. In contrast, we",
+      "bbox": [
+        72.00189208984375,
+        680.6941528320312,
+        539.8607177734375,
+        692.846923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        303.2417907714844,
+        710.5742797851562,
+        308.6636047363281,
+        722.72705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "dvips + GPL Ghostscript GIT PRERELEASE 9.22",
+      "creationDate": "D:20230918214413-04'00'",
+      "modDate": "D:20230918214413-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hashemi2023data-paper/documents/.pdf-skill-scan-iympfb69/review/source.pdf",
+      "page_count": 15,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          18,
+          185,
+          37,
+          549
+        ],
+        "pos": [
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "class": "title",
+        "bbox": [
+          94,
+          113,
+          518,
+          151
+        ],
+        "pos": [
+          0,
+          95
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          110,
+          167,
+          501,
+          180
+        ],
+        "pos": [
+          95,
+          214
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          93,
+          191,
+          519,
+          204
+        ],
+        "pos": [
+          214,
+          297
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          255,
+          228,
+          357,
+          240
+        ],
+        "pos": [
+          297,
+          318
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          284,
+          269,
+          328,
+          277
+        ],
+        "pos": [
+          318,
+          337
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          99,
+          287,
+          514,
+          425
+        ],
+        "pos": [
+          337,
+          1432
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          72,
+          445,
+          183,
+          456
+        ],
+        "pos": [
+          1432,
+          1456
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          72,
+          472,
+          541,
+          614
+        ],
+        "pos": [
+          1456,
+          2524
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          72,
+          616,
+          540,
+          693
+        ],
+        "pos": [
+          2524,
+          3114
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          712,
+          309,
+          720
+        ],
+        "pos": [
+          3114,
+          3118
+        ]
+      }
+    ],
+    "text": "# Data-Driven Reachability Analysis of Stochastic Dynamical Systems with Conformal Inference \n\nNavid Hashemi<sup>1</sup> , Xin Qin<sup>1</sup> , Lars Lindemann<sup>1</sup> , and Jyotirmoy V. Deshmukh<sup>1</sup> \n\n> 1Thomas Lord Department of Computer Science, University of Southern California \n\nSeptember 19, 2023 \n\n### **Abstract** \n\nWe consider data-driven reachability analysis of discrete-time stochastic dynamical systems using conformal inference. We assume that we are not provided with a symbolic representation of the stochastic system, but instead have access to a dataset of K-step trajectories. The reachability problem is to construct a probabilistic flowpipe such that the probability that a K-step trajectory can violate the bounds of the flowpipe does not exceed a user-specified failure probability threshold. The key ideas in this paper are: (1) to learn a surrogate predictor model from data, (2) to perform reachability analysis using the surrogate model, and (3) to quantify the surrogate model’s incurred error using conformal inference in order to give probabilistic reachability guarantees. We focus on learning-enabled control systems with complex closedloop dynamics that are difficult to model symbolically, but where state transition pairs can be queried, e.g., using a simulator. We demonstrate the applicability of our method on examples from the domain of learning-enabled cyber-physical systems. \n\n## **1 Introduction** \n\nReachability analysis of stochastic nonlinear dynamical systems is a challenging problem that has been extensively studied in the literature [1–13]. Most of the prior work is model-based, i.e., it requires a symbolic model of the dynamical system which can then be over-approximated to obtain flowpipes or the set of reachable states of the system over a given time horizon. In this paper, we explore the notion of model-free reachability analysis, i.e., to compute reachable sets of the stochastic dynamical system even when we do not have the symbolic system dynamics, but have access to a numeric simulator or actual behaviors sampled from the system. A significant advantage of such a data-driven technique is that we obtain not only (probabilistic) reachable sets for the system or the simulation model from which the trajectories are sampled, but we can get results over the possibly infinite set of models/systems consistent with the set of sampled trajectories. This provides us the opportunity for an analysis technique that is robust to model uncertainty. \n\nThere is growing literature on computing probabilistically approximate reachable sets directly from data. The authors in [14] utilize level sets of Christoffel functions and provide a technique to compute a high accuracy probabilistic reach-set for general nonlinear systems. On the other hand, as a comparison, we only have access to sampled trajectories. The authors in [15] propose specific parametric models (linear or polynomial), to identify the Markovian stochastic dynamics of the system from data, and then perform reachability analysis on the identified models. In contrast, we \n\n1 \n\n"
+  }
+}

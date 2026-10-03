@@ -1,0 +1,1797 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "Problem 1 (Approximate Reachability Problem). For any",
+      "bbox": [
+        48.95899963378906,
+        59.0808219909668,
+        300.0207824707031,
+        68.10694122314453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "given ε ∈(0, 1), generate a ﬁnite subset S ⊂X such that",
+      "bbox": [
+        48.959014892578125,
+        70.4380874633789,
+        300.0204162597656,
+        79.84278106689453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1 −ε)µ(F(X)) ≤µ(F(S)) ≤µ(F(X)).",
+      "bbox": [
+        89.15402221679688,
+        94.3490982055664,
+        259.8255920410156,
+        103.75379180908203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        288.4020080566406,
+        95.06640625,
+        300.01837158203125,
+        103.97296905517578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "IV. METHOD",
+      "bbox": [
+        146.23500061035156,
+        114.75140380859375,
+        202.74533081054688,
+        123.65796661376953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we present our algorithm for generating",
+      "bbox": [
+        58.9219970703125,
+        135.87640380859375,
+        300.016845703125,
+        144.782958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable sets that are provably competitive with the ground-",
+      "bbox": [
+        48.9589958190918,
+        147.8314208984375,
+        300.01641845703125,
+        156.73797607421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "truth reachable set to any desired accuracy. We show that our",
+      "bbox": [
+        48.9589958190918,
+        159.78741455078125,
+        300.0164794921875,
+        168.6939697265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "main method (Alg. 2) can easily be used as a sub-procedure to",
+      "bbox": [
+        48.9589958190918,
+        171.742431640625,
+        300.0165100097656,
+        180.64898681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "obtain an anytime, asymptotically-optimal algorithm (Alg. 3)",
+      "bbox": [
+        48.9589958190918,
+        183.69744873046875,
+        300.0165100097656,
+        192.60400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for reachability analysis.",
+      "bbox": [
+        48.9589958190918,
+        195.6524658203125,
+        149.17279052734375,
+        204.55902099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. Overview",
+      "bbox": [
+        48.9589958190918,
+        222.96710205078125,
+        100.54533386230469,
+        231.5548553466797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Accurate construction of the ground-truth reachable set",
+      "bbox": [
+        58.9219970703125,
+        241.48944091796875,
+        300.016845703125,
+        250.39599609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "F(X) requires the evaluation of the reachable set f(x) for",
+      "bbox": [
+        48.9589958190918,
+        252.72811889648438,
+        300.01837158203125,
+        262.35198974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "all initial states x ∈X in the worst case. However, the set of",
+      "bbox": [
+        48.96000671386719,
+        264.6831359863281,
+        300.0146484375,
+        274.3070068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial states X is uncountably inﬁnite, which renders straight-",
+      "bbox": [
+        48.96000671386719,
+        276.63812255859375,
+        300.01922607421875,
+        286.2619934082031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "forward evaluation of F(X) computationally intractable. To",
+      "bbox": [
+        48.96000671386719,
+        288.5931091308594,
+        300.0227966308594,
+        298.21697998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "address this challenge, we take a sampling-based approach to",
+      "bbox": [
+        48.959999084472656,
+        301.2654113769531,
+        300.0174560546875,
+        310.1719665527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability analysis.",
+      "bbox": [
+        48.959999084472656,
+        313.22039794921875,
+        134.07046508789062,
+        322.126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our method is based on the premise that evaluating the",
+      "bbox": [
+        58.9219970703125,
+        326.181396484375,
+        300.01690673828125,
+        335.08795166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability of a carefully constructed ﬁnite subset S ⊂X",
+      "bbox": [
+        48.959999084472656,
+        337.4190673828125,
+        298.5579833984375,
+        347.0429382324219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of the initial states can serve as an accurate approximation of",
+      "bbox": [
+        48.959991455078125,
+        350.09136962890625,
+        300.01751708984375,
+        358.9979248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the ground-truth reachable set. The crux of our approach lies",
+      "bbox": [
+        48.959991455078125,
+        362.0463562011719,
+        300.0174865722656,
+        370.9529113769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in generating a set S containing points that are sufﬁciently",
+      "bbox": [
+        48.959991455078125,
+        373.2850341796875,
+        300.0152893066406,
+        382.9089050292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diverse, i.e., far-apart from one another, to ensure that that the",
+      "bbox": [
+        48.959991455078125,
+        385.95733642578125,
+        300.0174865722656,
+        394.8638916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "union of the reachable sets F(S) covers as much of F(X) as",
+      "bbox": [
+        48.959991455078125,
+        397.19500732421875,
+        300.0178527832031,
+        406.8188781738281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "possible. To this end, we use the GREEDYPACK [35] algorithm",
+      "bbox": [
+        48.959991455078125,
+        409.8673095703125,
+        300.02178955078125,
+        418.77386474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Alg. 1) to construct a δ-packing for X, i.e., a subset S ⊂X",
+      "bbox": [
+        48.959991455078125,
+        421.10498046875,
+        298.5669250488281,
+        430.7288513183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "such that the minimum pairwise distances between the points",
+      "bbox": [
+        48.95997619628906,
+        433.77728271484375,
+        300.0174865722656,
+        442.683837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in S is greater than δ (see Sec. V), for an appropriate δ > 0.",
+      "bbox": [
+        48.95997619628906,
+        445.0159606933594,
+        299.4636535644531,
+        454.63983154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Approximately-optimal Algorithm",
+      "bbox": [
+        48.959991455078125,
+        473.0479431152344,
+        198.3889923095703,
+        481.6357116699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our algorithm for approximately-optimal reachability anal-",
+      "bbox": [
+        58.92198944091797,
+        491.5702819824219,
+        300.0168762207031,
+        500.4768371582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ysis is shown as APPROXIMATEREACHABILITY (Alg. 2). We",
+      "bbox": [
+        48.959991455078125,
+        503.5252685546875,
+        300.01458740234375,
+        512.4318237304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "give an overview of our method, which follows directly from",
+      "bbox": [
+        48.96000671386719,
+        515.480224609375,
+        300.0174865722656,
+        524.3867797851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the constructive proofs presented in Sec. V. In particular, for",
+      "bbox": [
+        48.96000671386719,
+        527.4352416992188,
+        300.0174865722656,
+        536.341796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "any desired approximation accuracy ε ∈(0, 1), our analysis",
+      "bbox": [
+        48.96000671386719,
+        538.6729736328125,
+        300.022705078125,
+        548.2968139648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "establishes an appropriate value of δ to be used in constructing",
+      "bbox": [
+        48.96000671386719,
+        551.1868286132812,
+        300.0145568847656,
+        560.2528076171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the δ-packing for X. Lines 1-4 of Alg. 2 generate upper bounds",
+      "bbox": [
+        48.96000671386719,
+        562.583984375,
+        300.01763916015625,
+        572.2078247070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on the system-speciﬁc constraints, which are then used, along",
+      "bbox": [
+        48.96000671386719,
+        575.2562255859375,
+        300.01751708984375,
+        584.1627807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with ε, to set the appropriate δ parameter for the packing (Line",
+      "bbox": [
+        48.96000671386719,
+        587.0518188476562,
+        300.01910400390625,
+        596.1177978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6). The δ-packing, S, is then constructed (Line 7) and the",
+      "bbox": [
+        48.96000671386719,
+        598.448974609375,
+        300.0140380859375,
+        608.0728149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachability of S is computed and returned (Lines 8-12).",
+      "bbox": [
+        48.96000671386719,
+        610.4049682617188,
+        282.009521484375,
+        620.02880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C. Anytime, Asymptotically-optimal Algorithm",
+      "bbox": [
+        48.96000671386719,
+        638.4368896484375,
+        238.47854614257812,
+        647.024658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our anytime, asymptotically-optimal algorithm is shown as",
+      "bbox": [
+        58.92200469970703,
+        656.959228515625,
+        300.0169372558594,
+        665.8657836914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ANYTIMEAPPROXIMATEREACHABILITY (Alg. 3). The main",
+      "bbox": [
+        49.20900344848633,
+        668.9142456054688,
+        300.0133972167969,
+        677.82080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "idea behind our algorithm is that if Alg. 2 is iteratively invoked",
+      "bbox": [
+        48.96000671386719,
+        680.8692626953125,
+        300.0174560546875,
+        689.7758178710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with increasingly small values of ε as input, then the generated",
+      "bbox": [
+        48.96000671386719,
+        692.664794921875,
+        300.0167236328125,
+        701.7307739257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable sets will converge to the ground-truth reachable set",
+      "bbox": [
+        48.96000671386719,
+        704.7792358398438,
+        300.01751708984375,
+        713.685791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as the number of iterations i tends to inﬁnity.",
+      "bbox": [
+        48.96000671386719,
+        716.5758056640625,
+        235.99176025390625,
+        725.6417846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1 GREEDYPACK",
+      "bbox": [
+        311.9729919433594,
+        56.7797966003418,
+        427.9294738769531,
+        65.80591583251953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Input: X ⊂Rd: d-dimensional set of input states,",
+      "bbox": [
+        340.0870056152344,
+        72.0602035522461,
+        546.283203125,
+        82.66693878173828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "δ ∈R+: packing precision",
+      "bbox": [
+        340.0870056152344,
+        84.99906158447266,
+        448.68585205078125,
+        95.31794738769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Output: S: a δ-packing for X",
+      "bbox": [
+        340.0870361328125,
+        98.94608306884766,
+        464.1993408203125,
+        108.56995391845703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: S ←Random point chosen from X;",
+      "bbox": [
+        317.72802734375,
+        112.89408111572266,
+        477.7486267089844,
+        122.51795196533203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: while ∃x ∈X : ∀y ∈S, ∥x −y∥≥δ do",
+      "bbox": [
+        317.72802734375,
+        124.8490982055664,
+        494.695556640625,
+        134.40322875976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        317.72802734375,
+        138.87232971191406,
+        323.92877197265625,
+        145.9976043701172
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "S ←S ∪{x};",
+      "bbox": [
+        343.8540344238281,
+        136.80410766601562,
+        402.4066162109375,
+        146.427978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4: return S;",
+      "bbox": [
+        317.72802734375,
+        151.25009155273438,
+        369.28363037109375,
+        160.87396240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 2 APPROXIMATEREACHABILITY",
+      "bbox": [
+        311.9729919433594,
+        180.9688262939453,
+        496.2648620605469,
+        189.99493408203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Input: X ⊂Rd: a d-dimensional set of input states,",
+      "bbox": [
+        340.0870056152344,
+        196.24917602539062,
+        554.1942138671875,
+        206.85693359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ε ∈(0, 1): desired approximation accuracy",
+      "bbox": [
+        340.08697509765625,
+        209.18807983398438,
+        514.4107666015625,
+        218.81195068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Output:",
+      "bbox": [
+        340.08697509765625,
+        223.7328643798828,
+        374.40814208984375,
+        232.68923950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆFS: approximate reachable set such that",
+      "bbox": [
+        381.2929992675781,
+        221.1750030517578,
+        563.0309448242188,
+        233.45497131347656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µ( ˆFS) ≥(1 −ε)µ(F(X))",
+      "bbox": [
+        340.0870056152344,
+        233.13002014160156,
+        446.8368835449219,
+        245.4099884033203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: α ←UPPERSURFAREATOVOLUME(X);",
+      "bbox": [
+        317.72796630859375,
+        251.42910766601562,
+        495.4285888671875,
+        261.052978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: K ←UPPERLIPSCHITZCONSTANT(X);",
+      "bbox": [
+        317.7279968261719,
+        265.7751159667969,
+        493.8976135253906,
+        275.39898681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        317.72802734375,
+        282.1903381347656,
+        323.92877197265625,
+        289.3155822753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "▷Approximate the universal constant from Lemma 3",
+      "bbox": [
+        344.78204345703125,
+        280.6800231933594,
+        563.0325317382812,
+        289.7459716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4: c ←UPPERUNIVERSALCONSTANT(X);",
+      "bbox": [
+        317.72802734375,
+        294.4681091308594,
+        494.2056579589844,
+        304.09197998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5:",
+      "bbox": [
+        317.72808837890625,
+        310.8823547363281,
+        323.9288330078125,
+        318.0075988769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "▷Set packing precision as established in Theorem 7",
+      "bbox": [
+        348.090087890625,
+        309.3720397949219,
+        563.0330810546875,
+        318.43798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6: δ ←d",
+      "bbox": [
+        317.72808837890625,
+        323.1601257324219,
+        354.4026184082031,
+        332.5648193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        356.05810546875,
+        322.16357421875,
+        360.6209716796875,
+        328.5396423339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1 −ε)−1/d −1",
+      "bbox": [
+        360.6241149902344,
+        319.5451354980469,
+        426.2594299316406,
+        332.5648193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        426.2591247558594,
+        322.16357421875,
+        430.8219909667969,
+        328.5396423339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "/(αKc);",
+      "bbox": [
+        432.4861145019531,
+        323.7180480957031,
+        467.88067626953125,
+        332.78399658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7: S ←GREEDYPACK(X, δ); ▷Generate a δ-packing for X",
+      "bbox": [
+        317.72808837890625,
+        337.5061340332031,
+        561.5704956054688,
+        347.1300048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8: ˆFS ←∅;",
+      "bbox": [
+        317.7281494140625,
+        349.8920593261719,
+        364.4627685546875,
+        362.7518310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9: for x ∈S do ▷Evaluate the reachable set for each x ∈S",
+      "bbox": [
+        317.7281799316406,
+        366.1981506347656,
+        562.2952270507812,
+        375.822021484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10:",
+      "bbox": [
+        313.7431945800781,
+        382.6133728027344,
+        323.9289855957031,
+        389.7386169433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆf(x) ←EVALUATEREACHABILITY(x);",
+      "bbox": [
+        343.8542175292969,
+        378.47406005859375,
+        506.1278076171875,
+        390.16900634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11:",
+      "bbox": [
+        313.74322509765625,
+        396.9593811035156,
+        323.92901611328125,
+        404.0846252441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆFS ←ˆFS ∪ˆf(x);",
+      "bbox": [
+        343.854248046875,
+        392.820068359375,
+        417.1908874511719,
+        405.7898254394531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12: return ˆFS;",
+      "bbox": [
+        313.7432861328125,
+        409.7670593261719,
+        374.8078918457031,
+        422.0469970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "V. ANALYSIS",
+      "bbox": [
+        408.71099853515625,
+        454.71636962890625,
+        466.30072021484375,
+        463.6229248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We prove under mild assumptions that for any speciﬁed",
+      "bbox": [
+        321.93597412109375,
+        473.6873779296875,
+        563.0308837890625,
+        482.59393310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "error ε ∈(0, 1), Alg. 2 generates an approximately optimal",
+      "bbox": [
+        311.97296142578125,
+        484.9260559082031,
+        563.0343627929688,
+        494.5499267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reachable set by computing the reachable sets of only ﬁnitely",
+      "bbox": [
+        311.97296142578125,
+        497.5983581542969,
+        563.0303955078125,
+        506.5049133300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "many initial states. As a corollary, we prove that the anytime",
+      "bbox": [
+        311.97296142578125,
+        509.5533447265625,
+        563.0304565429688,
+        518.4598999023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "variant of our approximation algorithm, Alg. 3, is asymp-",
+      "bbox": [
+        311.97296142578125,
+        521.50830078125,
+        563.0303955078125,
+        530.4148559570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "totically optimal. For brevity, some of the proofs have been",
+      "bbox": [
+        311.97296142578125,
+        533.4633178710938,
+        563.0303344726562,
+        542.369873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "omitted from this manuscript.",
+      "bbox": [
+        311.97296142578125,
+        545.4183349609375,
+        433.4070129394531,
+        554.3248901367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The intuition behind our analysis is as follows. Assum-",
+      "bbox": [
+        321.93597412109375,
+        558.0203247070312,
+        563.0306396484375,
+        566.9268798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing that the reachability function is Lipschitz continuous,",
+      "bbox": [
+        311.97296142578125,
+        569.975341796875,
+        563.0303955078125,
+        578.8818969726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we expect similar states to map to similar reachable sets.",
+      "bbox": [
+        311.97296142578125,
+        581.9303588867188,
+        563.0304565429688,
+        590.8369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 3 ANYTIMEAPPROXIMATEREACHABILITY",
+      "bbox": [
+        311.9729919433594,
+        615.6687622070312,
+        537.8978881835938,
+        624.6948852539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Input: X ⊂Rd: d-dimensional set of input states",
+      "bbox": [
+        340.0870056152344,
+        630.9491577148438,
+        543.7925415039062,
+        641.5569458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Output: ˆFS: asymptotically-optimal reachable set",
+      "bbox": [
+        340.0870056152344,
+        643.919921875,
+        545.0974731445312,
+        656.1998901367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: ε ←1/2;",
+      "bbox": [
+        317.72802734375,
+        659.8280639648438,
+        366.7666015625,
+        669.451904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆFS ←∅;",
+      "bbox": [
+        375.4010314941406,
+        657.867919921875,
+        410.9536437988281,
+        670.7277221679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: while allotted time remains do",
+      "bbox": [
+        317.7280578613281,
+        672.3807983398438,
+        455.2145690917969,
+        681.4069213867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        317.7280578613281,
+        685.8072509765625,
+        323.9288024902344,
+        692.9325561523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆFS ←APPROXIMATEREACHABILITY(X, ε);",
+      "bbox": [
+        343.85406494140625,
+        681.7779541015625,
+        527.6207275390625,
+        694.6377563476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4:",
+      "bbox": [
+        317.7281494140625,
+        697.7622680664062,
+        323.92889404296875,
+        704.8875732421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ε ←ε/2;",
+      "bbox": [
+        343.8541564941406,
+        695.694091796875,
+        381.374755859375,
+        705.3179321289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5: return ˆFS;",
+      "bbox": [
+        317.7281494140625,
+        708.178955078125,
+        374.8077697753906,
+        720.4589233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20101201120000",
+      "modDate": "D:20180525141144Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/liebenwein2018sampling-paper/documents/.pdf-skill-scan-hcebbhhl/review/source.pdf",
+      "page_count": 10,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          48,
+          59,
+          301,
+          81
+        ],
+        "pos": [
+          0,
+          131
+        ]
+      },
+      {
+        "index": 1,
+        "class": "formula",
+        "bbox": [
+          89,
+          94,
+          301,
+          105
+        ],
+        "pos": [
+          131,
+          133
+        ]
+      },
+      {
+        "index": 2,
+        "class": "formula",
+        "bbox": [
+          146,
+          114,
+          203,
+          122
+        ],
+        "pos": [
+          133,
+          135
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          48,
+          135,
+          301,
+          205
+        ],
+        "pos": [
+          135,
+          466
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          48,
+          222,
+          101,
+          230
+        ],
+        "pos": [
+          466,
+          484
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          241,
+          301,
+          323
+        ],
+        "pos": [
+          484,
+          896
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          48,
+          326,
+          301,
+          455
+        ],
+        "pos": [
+          896,
+          1602
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          311,
+          56,
+          428,
+          66
+        ],
+        "pos": [
+          1602,
+          1633
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          340,
+          72,
+          547,
+          109
+        ],
+        "pos": [
+          1633,
+          1777
+        ]
+      },
+      {
+        "index": 9,
+        "class": "list-item",
+        "bbox": [
+          317,
+          113,
+          478,
+          123
+        ],
+        "pos": [
+          1777,
+          1821
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          317,
+          124,
+          495,
+          161
+        ],
+        "pos": [
+          1821,
+          1912
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          311,
+          180,
+          497,
+          190
+        ],
+        "pos": [
+          1912,
+          1956
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          340,
+          196,
+          564,
+          246
+        ],
+        "pos": [
+          1956,
+          2203
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          317,
+          251,
+          496,
+          262
+        ],
+        "pos": [
+          2203,
+          2244
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          317,
+          265,
+          494,
+          276
+        ],
+        "pos": [
+          2244,
+          2288
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          317,
+          280,
+          564,
+          305
+        ],
+        "pos": [
+          2288,
+          2385
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          317,
+          309,
+          564,
+          335
+        ],
+        "pos": [
+          2385,
+          2519
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          317,
+          337,
+          562,
+          361
+        ],
+        "pos": [
+          2519,
+          2617
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          313,
+          366,
+          563,
+          405
+        ],
+        "pos": [
+          2617,
+          2779
+        ]
+      },
+      {
+        "index": 19,
+        "class": "text",
+        "bbox": [
+          313,
+          409,
+          375,
+          421
+        ],
+        "pos": [
+          2779,
+          2818
+        ]
+      },
+      {
+        "index": 20,
+        "class": "section-header",
+        "bbox": [
+          408,
+          454,
+          467,
+          462
+        ],
+        "pos": [
+          2818,
+          2834
+        ]
+      },
+      {
+        "index": 21,
+        "class": "section-header",
+        "bbox": [
+          48,
+          472,
+          199,
+          482
+        ],
+        "pos": [
+          2834,
+          2875
+        ]
+      },
+      {
+        "index": 22,
+        "class": "text",
+        "bbox": [
+          48,
+          491,
+          301,
+          621
+        ],
+        "pos": [
+          2875,
+          3570
+        ]
+      },
+      {
+        "index": 23,
+        "class": "section-header",
+        "bbox": [
+          48,
+          638,
+          239,
+          648
+        ],
+        "pos": [
+          3570,
+          3621
+        ]
+      },
+      {
+        "index": 24,
+        "class": "text",
+        "bbox": [
+          48,
+          656,
+          301,
+          726
+        ],
+        "pos": [
+          3621,
+          3979
+        ]
+      },
+      {
+        "index": 25,
+        "class": "text",
+        "bbox": [
+          311,
+          473,
+          564,
+          555
+        ],
+        "pos": [
+          3979,
+          4374
+        ]
+      },
+      {
+        "index": 26,
+        "class": "text",
+        "bbox": [
+          311,
+          557,
+          564,
+          591
+        ],
+        "pos": [
+          4374,
+          4549
+        ]
+      },
+      {
+        "index": 27,
+        "class": "text",
+        "bbox": [
+          311,
+          615,
+          546,
+          720
+        ],
+        "pos": [
+          4549,
+          4918
+        ]
+      }
+    ],
+    "text": "**Problem 1** (Approximate Reachability Problem) **.** _For any given ε ∈_ (0 _,_ 1) _, generate a finite subset S ⊂X such that_ \n\n\n\n\n\nIn this section, we present our algorithm for generating reachable sets that are provably competitive with the groundtruth reachable set to any desired accuracy. We show that our main method (Alg. 2) can easily be used as a sub-procedure to obtain an anytime, asymptotically-optimal algorithm (Alg. 3) for reachability analysis. \n\n# _A. Overview_ \n\nAccurate construction of the ground-truth reachable set _F_ ( _X_ ) requires the evaluation of the reachable set _f_ ( _x_ ) for all initial states _x ∈X_ in the worst case. However, the set of initial states _X_ is uncountably infinite, which renders straightforward evaluation of _F_ ( _X_ ) computationally intractable. To address this challenge, we take a sampling-based approach to reachability analysis. \n\nOur method is based on the premise that evaluating the reachability of a carefully constructed finite subset _S ⊂X_ of the initial states can serve as an accurate approximation of the ground-truth reachable set. The crux of our approach lies in generating a set _S_ containing points that are sufficiently diverse, i.e., far-apart from one another, to ensure that that the union of the reachable sets _F_ ( _S_ ) covers as much of _F_ ( _X_ ) as possible. To this end, we use the GREEDYPACK [35] algorithm (Alg. 1) to construct a _δ_ -packing for _X_ , i.e., a subset _S ⊂X_ such that the minimum pairwise distances between the points in _S_ is greater than _δ_ (see Sec. V), for an appropriate _δ >_ 0. \n\n# **Algorithm 1** GREEDYPACK \n\n**Input:** _X ⊂_ R<sup>_d_</sup> : _d_ -dimensional set of input states, _δ ∈_ R+: packing precision **Output:** _S_ : a _δ_ -packing for _X_ \n\n- 1: _S ←_ Random point chosen from _X_ ; \n\n- 2: **while** _∃x ∈X_ : _∀y ∈S, ∥x − y∥≥ δ_ **do** 3: _S ←S ∪{x}_ ; 4: **return** _S_ ; \n\n# **Algorithm 2** APPROXIMATEREACHABILITY \n\n**Input:** _X ⊂_ R<sup>_d_</sup> : a _d_ -dimensional set of input states, _ε ∈_ (0 _,_ 1): desired approximation accuracy **Output:** _F_ ˆ _S_ : approximate reachable set such that _µ_ ( _F_<sup>ˆ</sup> _S_ ) _≥_ (1 _− ε_ ) _µ_ ( _F_ ( _X_ )) \n\n1: _α ←_ UPPERSURFAREATOVOLUME( _X_ ); \n\n- 2: _K ←_ UPPERLIPSCHITZCONSTANT( _X_ ); \n\n3: _▷_ Approximate the universal constant from Lemma 3 4: _c ←_ UPPERUNIVERSALCONSTANT( _X_ ); \n\n5: _▷_ Set packing precision as established in Theorem 7 6: _δ ← d_ �(1 _− ε_ )<sup>_−_1</sup><sup>_/d_</sup> _−_ 1� _/_ ( _αKc_ ); \n\n7: _S ←_ GREEDYPACK( _X , δ_ ); _▷_ Generate a _δ_ -packing for _X_ 8: _F_<sup>ˆ</sup> _S ←∅_ ; \n\n9: **for** _x ∈S_ **do** _▷_ Evaluate the reachable set for each _x ∈S_ 10: _f_ ˆ( _x_ ) _←_ EVALUATEREACHABILITY( _x_ ); 11: _F_ ˆ _S ← F_ ˆ _S ∪ f_ ˆ( _x_ ); \n\n12: **return** _F_<sup>ˆ</sup> _S_ ; \n\n# V. ANALYSIS \n\n# _B. Approximately-optimal Algorithm_ \n\nOur algorithm for approximately-optimal reachability analysis is shown as APPROXIMATEREACHABILITY (Alg. 2). We give an overview of our method, which follows directly from the constructive proofs presented in Sec. V. In particular, for any desired approximation accuracy _ε ∈_ (0 _,_ 1), our analysis establishes an appropriate value of _δ_ to be used in constructing the _δ_ -packing for _X_ . Lines 1-4 of Alg. 2 generate upper bounds on the system-specific constraints, which are then used, along with _ε_ , to set the appropriate _δ_ parameter for the packing (Line 6). The _δ_ -packing, _S_ , is then constructed (Line 7) and the reachability of _S_ is computed and returned (Lines 8-12). \n\n# _C. Anytime, Asymptotically-optimal Algorithm_ \n\nOur anytime, asymptotically-optimal algorithm is shown as ANYTIMEAPPROXIMATEREACHABILITY (Alg. 3). The main idea behind our algorithm is that if Alg. 2 is iteratively invoked with increasingly small values of _ε_ as input, then the generated reachable sets will converge to the ground-truth reachable set as the number of iterations _i_ tends to infinity. \n\nWe prove under mild assumptions that for any specified error _ε ∈_ (0 _,_ 1), Alg. 2 generates an approximately optimal reachable set by computing the reachable sets of only finitely many initial states. As a corollary, we prove that the anytime variant of our approximation algorithm, Alg. 3, is asymptotically optimal. For brevity, some of the proofs have been omitted from this manuscript. \n\nThe intuition behind our analysis is as follows. Assuming that the reachability function is Lipschitz continuous, we expect similar states to map to similar reachable sets. \n\n**Algorithm 3** ANYTIMEAPPROXIMATEREACHABILITY **Input:** _X ⊂_ R<sup>_d_</sup> : _d_ -dimensional set of input states **Output:** _F_<sup>ˆ</sup> _S_ : asymptotically-optimal reachable set 1: _ε ←_ 1 _/_ 2; _F_ ˆ _S ←∅_ ; 2: **while** allotted time remains **do** 3: _F_ ˆ _S ←_ APPROXIMATEREACHABILITY( _X , ε_ ); 4: _ε ← ε/_ 2; 5: **return** _F_<sup>ˆ</sup> _S_ ; \n\n"
+  }
+}

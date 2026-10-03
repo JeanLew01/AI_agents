@@ -1,0 +1,170 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "figure",
+      "bbox": [
+        49.0,
+        48.0,
+        301.0,
+        202.0
+      ],
+      "markdown": "<!-- Start of picture text -->\nLipschitz cap Continuous-depth model 𝒳(𝑡!, 𝑥)<br>𝑟\"<br>𝜕$𝑥= 𝑓(𝑥)<br>𝑥 𝛿! = 𝜇max\"∈𝔅% 𝑑!(𝑥)<br>𝒳(𝑡!, 𝑥&)<br>𝑥! 𝑑!(𝑦)<br>𝛿!<br>𝑥% 𝑥%<br>𝑥& 𝑦 𝑥& 𝒳(𝑡!, 𝑦)<br>𝑥\" 𝑥\"<br>Initial ball  Bounding ball 𝔅# with<br>initial  𝔅! Propagated  desired probability ≥1 −𝛾<br>perturbation ball<br>perturbation<br>𝑡! 𝑡#<br>Time<br>𝑑(𝑥)!<br><!-- End of picture text -->",
+      "source_class": "picture",
+      "label": "Figure on PDF page 2 (1)",
+      "asset_name": "figure-p0002-000"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "caption",
+      "bbox": [
+        53.0,
+        207.0,
+        293.0,
+        315.0
+      ],
+      "markdown": "Figure 2: GoTube in a nutshell. The center _x_ 0 of ball _B_ 0 = _B_ ( _x_ 0 _, δ_ 0), with _δ_ 0 the initial perturbation, and samples _x_ drawn uniformly from _B_ 0’s surface, are numerically integrated in time to _χ_ ( _tj, x_ 0) and _χ_ ( _tj, x_ ), respectively. The Lipschitz constant of _χ_ ( _tj, x_ ) and their distance _dj_ ( _x_ ) to _χ_ ( _tj, x_ 0) are then used to compute Lipschitz caps around samples _x_ , and the radius _δj_ of bounding ball _Bj_ depending on the chosen tightness factor _µ_ . The ratio between the caps’ surfaces and _B_ 0’s surface are correlated to the desired confidence 1 _− γ_ .",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        321.0,
+        293.0,
+        386.0
+      ],
+      "markdown": "the Lipschitz constant. Thus, it can construct a bounding ball of the reachable states at every time step, and over time, a tight bounding Tube. Although these theoretical results suggest an elegant way to avoid compounding errors, the SLR algorithm has not been implemented, so is this approach computationally tractable in practice?",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        388.0,
+        293.0,
+        551.0
+      ],
+      "markdown": "We implemented the SLR algorithm as instructed in (Gruenbacher et al. 2021). We observed that even after resolving the first-occurring inefficient sampling and their vanishing gradient problems, the algorithm still blew up in time, even for low-dimensional benchmarks such as the Dubins Car. There are three fundamental algorithmic constraints of the symbolic techniques such as stochastic Lagrangian reachability that result in them being computationally intractable: 1) the use of interval arithmetic for computing a conservative upper bound for the Lipschitz constant of the system fundamentally limits the scalability of reachability-based verification methods, 2) the use of local gradient descent to search for local maxima in practice is more expensive than a simple local search, and 3) the computational overhead due to the propagation of many initial states is high.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        552.0,
+        293.0,
+        705.0
+      ],
+      "markdown": "In this work, we propose technical solutions for these fundamental issues and introduce a practical stochastic verification algorithm for continuous-time models. In particular, to tackle the first fundamental challenge introduced above, we develop a new theory that allows us to compute stochastic bounds for the Lipschitz constant in order to define a spherical cap around each sample, where the maximum perturbation is stochastically bounded (Lipschitz cap). As such, we are able to remove the conservative interval-based computation of the Lipschitz constant. Furthermore, we provide convergence guarantees for computing the upper bound of the confidence interval for the maximum perturbation at time _tj_ with confidence level 1 _− γ_ and tube tightness _µ_ , using the estimation of the Lipschitz constant. This eliminates the",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        57.0,
+        559.0,
+        100.0
+      ],
+      "markdown": "dependence on the propagation horizon and considerably reduces computational complexity in the number of samples. We directly use this new Lipschitz constant computation framework instead of the costly interval arithmetic.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        100.0,
+        559.0,
+        187.0
+      ],
+      "markdown": "We supply our global optimization scheme with a simple sampling process to propagate the initial states in parallel, according to the neural network’s dynamics. This compensates for local differential optimization with additional samples. Our algorithm is called GoTube, as it solves a set of global optimization problems to construct a tight and computationally tractable enclosure (Tube) of all possible evolutions of the system for a given time horizon.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        188.0,
+        559.0,
+        284.0
+      ],
+      "markdown": "GoTube takes advantage of advanced automatic differential toolboxes such as JAX to perform highly parallel and tensorized operations to further enhance the runtime of the verification suite. On a large set of experiments with continuous-depth models, GoTube substantially outperforms state-of-the-art verification tools in terms of the size of the initial ball, speed, time-horizon, task completion, and scalability. We summarize the contributions of our paper as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        290.0,
+        559.0,
+        333.0
+      ],
+      "markdown": "- A novel and efficient theory for computing stochastic bounds for the Lipschitz constant of the system, which helps us achieve tight reachtubes for continuous-time dynamical systems.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        336.0,
+        559.0,
+        379.0
+      ],
+      "markdown": "- We prove convergence guarantees for the GoTube Algorithm, thus ensuring that the algorithm terminates in finite time even using stochastic Lipschitz caps around the samples instead of deterministic local balls.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        382.0,
+        559.0,
+        422.0
+      ],
+      "markdown": "- We perform a diverse set of experiments on continuoustime models with increasing complexity and demonstrate that GoTube considerably outperforms state-of-the-art verification tools.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "heading",
+      "bbox": [
+        403.0,
+        439.0,
+        475.0,
+        448.0
+      ],
+      "markdown": "# **Related Work**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        454.0,
+        559.0,
+        705.0
+      ],
+      "markdown": "**Global Optimization.** Efficient local optimization methods such as gradient descent cannot be used for global optimization since such problems are typically non-convex. Thus, many advanced verification algorithms tend to use global optimization schemes (Bunel et al. 2018, 2020a). Depending on the properties of the objective function, e.g. smoothness, various types of global optimization techniques exist. For instance, interval-based branch-and-bound (BaB) algorithms (Neumaier 2004; Hansen and Walster 2003) work well on differentiable objectives up to a certain scale, which has recently been improved (De Palma et al. 2021). There are also Lipschitz-global optimization methods for satisfying Lipschitz conditions (Malherbe and Vayatis 2017; Kvasov and Sergeyev 2013). For example, a method for computing the Lipschitz constant of deep neural networks to assist with their robustness and verification analyses was recently proposed in (Fazlyab et al. 2019) and (Bhowmick, D’Souza, and Raghavan 2021). Additionally, there are evolutionary strategies for global optimization using the covariance matrix computation (Hansen and Ostermeier 2001; Igel, Hansen, and Roth 2007). In our approach, for global optimization, we use random sampling and compute neighborhoods (Lipschitz caps) of the samples, where we have probabilistic",
+      "source_class": "text"
+    }
+  ]
+}

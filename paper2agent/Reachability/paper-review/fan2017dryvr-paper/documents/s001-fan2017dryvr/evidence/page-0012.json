@@ -1,0 +1,879 @@
+{
+  "page": 12,
+  "lines": [
+    {
+      "text": "curv (Line 5). For each possible initial set Sinit corresponding to curv in VerInit,",
+      "bbox": [
+        133.76800537109375,
+        127.85096740722656,
+        477.4815979003906,
+        138.1917724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the algorithm computes a discrepancy function (Line 7) and uses it to compute",
+      "bbox": [
+        133.76800537109375,
+        139.0889434814453,
+        477.5076599121094,
+        147.93572998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a reachtube from Sinit up to time dt (Line 8). For each successor nextv of curv,",
+      "bbox": [
+        133.76800537109375,
+        150.32594299316406,
+        477.4815979003906,
+        160.667724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the restriction of the computed reachtube RT to the corresponding transition",
+      "bbox": [
+        133.76800537109375,
+        161.5639190673828,
+        477.508544921875,
+        170.41070556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time interval elab((curv, nextv)) is set as an initial set for nextv (Lines 11–12).",
+      "bbox": [
+        133.76803588867188,
+        172.80189514160156,
+        476.5576171875,
+        181.648681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1: GraphReach(H) computes bounded time reachtubes for",
+      "bbox": [
+        141.24000549316406,
+        199.94003295898438,
+        462.5487365722656,
+        209.3447265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "each vertex of the transition G of hybrid system H.",
+      "bbox": [
+        141.24000549316406,
+        211.17800903320312,
+        366.2196044921875,
+        220.58270263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 RS ←∅; VerInit ←{⟨Θ, vinit⟩}; Order ←TopSort(G);",
+      "bbox": [
+        139.2169952392578,
+        225.76406860351562,
+        383.8910827636719,
+        236.0829620361328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 for ptr = 0 : len(Order) −1 do",
+      "bbox": [
+        139.21702575683594,
+        237.00204467773438,
+        287.2815856933594,
+        246.40673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        139.2169952392578,
+        250.87216186523438,
+        143.7290496826172,
+        257.06488037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "curv ←Order[ptr] ;",
+      "bbox": [
+        164.05499267578125,
+        248.24002075195312,
+        249.8587646484375,
+        257.64471435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        139.2169952392578,
+        262.1101379394531,
+        143.7290496826172,
+        268.3028564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ℓ←vlab(curv);",
+      "bbox": [
+        164.05499267578125,
+        259.4779968261719,
+        231.90505981445312,
+        268.8826904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5",
+      "bbox": [
+        139.2169952392578,
+        273.3471374511719,
+        143.7290496826172,
+        279.53985595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dt ←max{t′ ∈R≥0|∃vs ∈V, (curv, vs) ∈E, (t, t′) ←elab ((curv, vs))};",
+      "bbox": [
+        164.05499267578125,
+        267.1000061035156,
+        469.6105651855469,
+        281.03485107421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        139.21697998046875,
+        284.58514404296875,
+        143.72903442382812,
+        290.7778625488281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for Sinit ∈{S | ⟨S, curv⟩∈VerInit} do",
+      "bbox": [
+        164.0549774169922,
+        281.9530029296875,
+        334.54754638671875,
+        292.8526916503906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7",
+      "bbox": [
+        139.2169952392578,
+        295.82318115234375,
+        143.7290496826172,
+        302.0158996582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "β ←LearnDiscrepancy(Sinit, dt, ℓ);",
+      "bbox": [
+        179.39700317382812,
+        293.1910400390625,
+        328.36505126953125,
+        303.5108947753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8",
+      "bbox": [
+        139.2169952392578,
+        307.0611877441406,
+        143.7290496826172,
+        313.25390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "RT ←ReachComp(Sinit, dt, β);",
+      "bbox": [
+        179.39700317382812,
+        304.4290466308594,
+        312.9560852050781,
+        314.7478942871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9",
+      "bbox": [
+        139.217041015625,
+        318.2991943359375,
+        143.72909545898438,
+        324.4919128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "RS ←RS ∪⟨RT, curv⟩;",
+      "bbox": [
+        179.39703369140625,
+        315.66705322265625,
+        283.63861083984375,
+        325.0717468261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10",
+      "bbox": [
+        134.7040252685547,
+        329.5372009277344,
+        143.72813415527344,
+        335.72991943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for nextv ∈curv.succ do",
+      "bbox": [
+        179.39703369140625,
+        326.9050598144531,
+        289.5766296386719,
+        336.30975341796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11",
+      "bbox": [
+        134.70399475097656,
+        340.7751770019531,
+        143.7281036376953,
+        346.9678955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(t, t′) ←elab ((curv, nextv));",
+      "bbox": [
+        194.739990234375,
+        336.7686462402344,
+        318.9924621582031,
+        347.5477294921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12",
+      "bbox": [
+        134.70394897460938,
+        352.01318359375,
+        143.72805786132812,
+        358.2059020996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "VerInit ←VerInit ∪⟨Restr(RT, (t, t′)), nextv⟩;",
+      "bbox": [
+        194.7399444580078,
+        348.00665283203125,
+        398.3395080566406,
+        358.7857360839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "13 return RS ;",
+      "bbox": [
+        134.70391845703125,
+        362.1729736328125,
+        204.321533203125,
+        371.0197448730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The invariant veriﬁcation algorithm VerifySafety decides safety of H with",
+      "bbox": [
+        148.71200561523438,
+        391.467041015625,
+        477.4852294921875,
+        400.8717346191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "respect to a given unsafe set U and uses GraphReach.",
+      "bbox": [
+        133.76797485351562,
+        402.7050476074219,
+        383.39959716796875,
+        412.1097412109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The detailed pseu-",
+      "bbox": [
+        393.1031799316406,
+        403.2629699707031,
+        477.4764709472656,
+        412.1097412109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "docode appears in Appendix A.3. This algorithm proceeds in a way similar",
+      "bbox": [
+        133.76800537109375,
+        414.5009765625,
+        477.5174560546875,
+        423.3477478027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to the simulation-based veriﬁcation algorithms for dynamical and hybrid sys-",
+      "bbox": [
+        133.76800537109375,
+        425.7389831542969,
+        477.5374755859375,
+        434.58575439453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tems [22, 30]. Given initial set Θ and transition graph G of H, this algorithm",
+      "bbox": [
+        133.76800537109375,
+        436.4180603027344,
+        477.4924621582031,
+        445.82275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "partitions Θ into several subsets, and then for each subset S it checks whether",
+      "bbox": [
+        133.76800537109375,
+        448.2139892578125,
+        477.4715576171875,
+        457.0607604980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the computed over-approximate reachtube RS from S intersects with U: (a) If",
+      "bbox": [
+        133.76800537109375,
+        458.8940734863281,
+        477.4850158691406,
+        468.29876708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "RS is disjoint, the system is safe starting from S; (b) if certain part of a reach-",
+      "bbox": [
+        133.76803588867188,
+        470.69000244140625,
+        477.5054626464844,
+        479.5367736816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tube RT is contained in U, the system is declared as unsafe and RT with the",
+      "bbox": [
+        133.76805114746094,
+        481.3700866699219,
+        477.4844665527344,
+        490.7747802734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the corresponding path of the graph are returned as counter-example witnesses;",
+      "bbox": [
+        133.76803588867188,
+        493.166015625,
+        477.5076904296875,
+        502.0127868652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(c) if neither of the above conditions hold, then the algorithm performs re-",
+      "bbox": [
+        133.76803588867188,
+        504.4040222167969,
+        477.52764892578125,
+        513.2507934570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬁnement to get a more precise over-approximation of RS. Several reﬁnement",
+      "bbox": [
+        133.76803588867188,
+        515.6419677734375,
+        477.48309326171875,
+        524.48876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "strategies are implemented in DryVR to accomplish the last step. Broadly,",
+      "bbox": [
+        133.76803588867188,
+        526.8800048828125,
+        477.4870910644531,
+        535.726806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "these strategies rely on splitting the initial set S into smaller sets (this gives",
+      "bbox": [
+        133.76805114746094,
+        538.1170043945312,
+        477.4716491699219,
+        546.9638061523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tighter discrepancy in the subsequent vertices) and splitting the edge labels of",
+      "bbox": [
+        133.76803588867188,
+        549.35498046875,
+        477.5177307128906,
+        558.2017822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "G into smaller intervals (this gives smaller initial sets in the vertices).",
+      "bbox": [
+        133.76803588867188,
+        560.593017578125,
+        438.0018005371094,
+        569.4398193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The above description focuses on invariant properties, but the algorithm and",
+      "bbox": [
+        148.7120361328125,
+        571.8310546875,
+        477.5376281738281,
+        580.6778564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "our implementation in DryVR can verify a useful class of temporal properties.",
+      "bbox": [
+        133.76803588867188,
+        583.0690307617188,
+        477.4938659667969,
+        591.9158325195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "These are properties in which the time constraints only refer to the time since",
+      "bbox": [
+        133.76805114746094,
+        594.3070068359375,
+        477.48773193359375,
+        603.15380859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the last mode transition. For example, for the Powertrn benchmark the tool",
+      "bbox": [
+        133.76805114746094,
+        605.5450439453125,
+        477.4853210449219,
+        614.391845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "veriﬁes requirements like “after 4s in normal mode, the air-fuel ratio should be",
+      "bbox": [
+        133.76806640625,
+        616.7830810546875,
+        477.5073547363281,
+        625.6298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "contained in [14.6, 14.8] and after 4s in powerup it should be in [12.4, 12.6]”.",
+      "bbox": [
+        133.76806640625,
+        628.0210571289062,
+        463.9798583984375,
+        636.8678588867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Correctness",
+      "bbox": [
+        133.76809692382812,
+        643.237060546875,
+        192.67697143554688,
+        652.0838623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given a correct discrepancy function for each mode, we can",
+      "bbox": [
+        202.6240997314453,
+        643.237060546875,
+        477.4923400878906,
+        652.0838623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "prove the soundness and relative completeness of Algorithm 2. This analysis",
+      "bbox": [
+        133.76809692382812,
+        654.4740600585938,
+        477.4977111816406,
+        663.3208618164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "closely follows the proof of Theorem 19 and Theorem 21 in [20]. Combining",
+      "bbox": [
+        133.76809692382812,
+        665.7120361328125,
+        477.5075988769531,
+        674.558837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12",
+      "bbox": [
+        300.6430969238281,
+        695.7210693359375,
+        310.6056823730469,
+        704.56787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20170223012647Z",
+      "modDate": "D:20170223012647Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/fan2017dryvr-paper/documents/.pdf-skill-scan-5_j6hizf/review/source.pdf",
+      "page_count": 25,
+      "page_number": 12
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          133,
+          127,
+          478,
+          183
+        ],
+        "pos": [
+          0,
+          439
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          141,
+          199,
+          463,
+          221
+        ],
+        "pos": [
+          439,
+          573
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          139,
+          225,
+          384,
+          236
+        ],
+        "pos": [
+          573,
+          652
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          134,
+          237,
+          470,
+          372
+        ],
+        "pos": [
+          652,
+          1286
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          133,
+          391,
+          478,
+          570
+        ],
+        "pos": [
+          1286,
+          2561
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          133,
+          571,
+          478,
+          676
+        ],
+        "pos": [
+          2561,
+          3283
+        ]
+      },
+      {
+        "index": 6,
+        "class": "page-footer",
+        "bbox": [
+          300,
+          696,
+          311,
+          703
+        ],
+        "pos": [
+          3283,
+          3288
+        ]
+      }
+    ],
+    "text": "_curv_ (Line 5). For each possible initial set _S_ init corresponding to _curv_ in _VerInit_ , the algorithm computes a discrepancy function (Line 7) and uses it to compute a reachtube from _S_ init up to time _dt_ (Line 8). For each successor _nextv_ of _curv_ , the restriction of the computed reachtube _RT_ to the corresponding transition time interval _elab_ (( _curv , nextv_ )) is set as an initial set for _nextv_ (Lines 11–12). \n\n**Algorithm 1:** _GraphReach_ ( _H_ ) computes bounded time reachtubes for each vertex of the transition _G_ of hybrid system _H_ . \n\n**1** _RS ←_ ∅; _VerInit ←{⟨_ Θ _, v_ init _⟩}_ ; _Order ← TopSort_ ( _G_ ); \n\n**2 for** _ptr_ = 0 : _len_ ( _Order_ ) _−_ 1 **do 3** _curv ←_ Order[ _ptr_ ] ; **4** _ℓ ← vlab_ ( _curv_ ); **5** _dt ←_ max _{t_<sup>_′_</sup> _∈_ R _≥_ 0 _|∃vs ∈V,_ ( _curv , vs_ ) _∈E,_ ( _t, t_<sup>_′_</sup> ) _← elab_ (( _curv , vs_ )) _}_ ; **6 for** _S_ init _∈{S | ⟨S, curv ⟩∈ VerInit}_ **do 7** _β ← LearnDiscrepancy_ ( _S_ init _, dt, ℓ_ ); **8** _RT ← ReachComp_ ( _S_ init _, dt, β_ ); **9** _RS ← RS ∪⟨RT, curv ⟩_ ; **10 for** _nextv ∈ curv .succ_ **do 11** ( _t, t_<sup>_′_</sup> ) _← elab_ (( _curv , nextv_ )); **12** _VerInit ← VerInit ∪⟨Restr_ ( _RT,_ ( _t, t_<sup>_′_</sup> )) _, nextv⟩_ ; **13 return** _RS_ ; \n\nThe invariant verification algorithm _VerifySafety_ decides safety of _H_ with respect to a given unsafe set _U_ and uses _GraphReach_ . The detailed pseudocode appears in Appendix A.3. This algorithm proceeds in a way similar to the simulation-based verification algorithms for dynamical and hybrid systems [22, 30]. Given initial set Θ and transition graph _G_ of _H_ , this algorithm partitions Θ into several subsets, and then for each subset _S_ it checks whether the computed over-approximate reachtube _RS_ from _S_ intersects with _U_ : (a) If _RS_ is disjoint, the system is safe starting from _S_ ; (b) if certain part of a reachtube _RT_ is contained in _U_ , the system is declared as unsafe and _RT_ with the the corresponding path of the graph are returned as counter-example witnesses; (c) if neither of the above conditions hold, then the algorithm performs refinement to get a more precise over-approximation of _RS_ . Several refinement strategies are implemented in DryVR to accomplish the last step. Broadly, these strategies rely on splitting the initial set _S_ into smaller sets (this gives tighter discrepancy in the subsequent vertices) and splitting the edge labels of _G_ into smaller intervals (this gives smaller initial sets in the vertices). \n\nThe above description focuses on invariant properties, but the algorithm and our implementation in DryVR can verify a useful class of temporal properties. These are properties in which the time constraints only refer to the time since the last mode transition. For example, for the Powertrn benchmark the tool verifies requirements like “after 4s in normal mode, the air-fuel ratio should be contained in [14 _._ 6 _,_ 14 _._ 8] and after 4s in powerup it should be in [12 _._ 4 _,_ 12 _._ 6]”. **Correctness** Given a correct discrepancy function for each mode, we can prove the soundness and relative completeness of Algorithm 2. This analysis closely follows the proof of Theorem 19 and Theorem 21 in [20]. Combining \n\n12 \n\n"
+  }
+}

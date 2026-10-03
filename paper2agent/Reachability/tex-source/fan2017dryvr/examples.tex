@@ -1,0 +1,82 @@
+% !TEX root = main2.tex
+%\section{Other examples}
+%\mitras{Created this section for describing the other examples. Could be merged with the modeling section or moved later.}
+
+\subsection{ADAS and autonomous vehicle benchmarks}
+\label{ssec:adas}
+This is a suite of benchmarks we have created representing various common scenarios used for testing ADAS and Autonomous driving control systems. 
+%
+The hybrid system for a scenario is  constructed by putting together several individual vehicles.
+The higher-level decisions (paths) followed by the vehicles are captured by transition graphs
+while the detailed dynamics of each vehicle comes from a black-box 
+\Simulink \ simulator from \Mathworks~\cite{simulinkcar}.
+
+Each vehicle has several continuous variables including the $x,
+y$-coordinates of the vehicle on the road, its velocity, heading, and
+steering angle. The vehicle can be controlled by two input signals,
+namely the throttle (acceleration or brake) and the steering speed.
+%
+By choosing appropriate values for these input signals, we have
+defined the following modes for each vehicle ---
+\Lmode{cruise}: move forward at constant speed, 
+\Lmode{speedup}: constant acceleration,
+\Lmode{brake}: constant (slow) deceleration,
+\Lmode{em\_brake}: constant (hard) deceleration.
+In addition, we have designed lane switching modes \Lmode{ch\_left} and \Lmode{ch\_right} in which the acceleration and steering are controlled in such a manner that the vehicle switches to its left (resp. right) lane in a certain amount of time. 
+
+For each vehicle, we mainly analyze four variables: absolute position
+($sx$) and velocity ($vx$) orthogonal to the road direction
+($x$-axis), and absolute position ($sy$) and velocity ($vy$) along the
+road direction ($y$-axis). The throttle and steering are captured using
+the four variables. We will use subscripts to distinguish between
+different vehicles.  The following scenarios are constructed by
+defining appropriate sets of initial states and transitions graphs
+labeled by the modes of two or more vehicles. In all of these
+scenarios a primary safety requirement is that the vehicles maintain
+safe separation. See Appendix~\ref{app:adas} for more details on
+initial states and transition graphs of each scenario.
+ %
+\begin{description} 
+\itemsep0em 
+\item[$\auto{Merge}$:] 
+Vehicle A in the left lane is behind   vehicle B  in the right lane. A switches through modes  \Lmode{cruise}, \Lmode{speedup}, \Lmode{ch\_right}, and \Lmode{cruise} over  specified intervals to merge behind B.
+Variants of this scenario involve $B$ also switching to \Lmode{speedup} or \Lmode{brake}.
+% within a time bound and maintains at least a given safe separation.
+%%
+%%%%
+%%%%
+%%
+%\item[$\auto{MergeAhead}$:] 
+%Initial condition: same as  $\auto{MergeBehind}$ with 
+%except that B is in \Lmode{cruise} or \Lmode{brake} mode.
+%Transition graph: same structure as  $\auto{MergeBehind}$ with different  timing parameters.
+%
+%Requirement: A merges ahead of B and maintains at least a given safe separation. 
+%%
+%%%%
+%%%%
+%%
+\item[$\auto{AutoPassing}$:]
+Vehicle A starts behind  B in the same lane, and  goes through a sequence of modes to  overtake B. If B switches to \Lmode{speedup} before A enters \Lmode{speedup} then A aborts and changes back to right lane. 
+%Requirement: A maintains safe separation with  B.
+\item[$\auto{Merge3}$:]
+Same as $\auto{AutoPassing}$ with a third car C always ahead of $B$.
+\item[$\auto{AEB}$:]
+Vehicle A cruises behind B and B stops.
+A transits from \Lmode{cruise} to \Lmode{em\_brake} possibly over several different time intervals as governed by different sensors and reaction times.
+
+\end{description}
+
+
+
+% source
+% brief description
+%% dynamics
+%% graph
+%% requirements
+
+% results
+
+% remarks
+
+ 

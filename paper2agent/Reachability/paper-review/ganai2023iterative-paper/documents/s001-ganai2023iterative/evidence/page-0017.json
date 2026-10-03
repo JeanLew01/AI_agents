@@ -1,0 +1,754 @@
+{
+  "page": 17,
+  "lines": [
+    {
+      "text": "Figure 7: The predicted feasible set converges to a safest policy’s feasible set since the misclassified regions X",
+      "bbox": [
+        108.0,
+        223.6221923828125,
+        502.68341064453125,
+        232.28372192382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Y are corrected over time.",
+      "bbox": [
+        108.0,
+        233.58416748046875,
+        217.18896484375,
+        242.24569702148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C.4.1",
+      "bbox": [
+        108.0,
+        264.2337646484375,
+        130.1368865966797,
+        273.1901550292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Intuition behind REF convergence",
+      "bbox": [
+        140.0994873046875,
+        264.2337646484375,
+        286.46002197265625,
+        273.1901550292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The approach can be explained by considering what happens in the individual regions of space.",
+      "bbox": [
+        107.69100189208984,
+        282.9833679199219,
+        505.7411804199219,
+        291.8899230957031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Consider a deterministic environment for simplicity. As seen in Figure 7, there are two subsets of the",
+      "bbox": [
+        108.0,
+        293.8923645019531,
+        503.997802734375,
+        302.7989196777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial state space: a safest policy’s \"true\" feasible set ShI and REF predicted feasible set SpI, and",
+      "bbox": [
+        108.0,
+        304.08404541015625,
+        504.00286865234375,
+        315.2029113769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "they create 4 regions in the initial state space SI: W = ShI ∩SpI, X = ShI ∩SpI, Y = ShI ∩SpI,",
+      "bbox": [
+        108.0,
+        316.7310485839844,
+        505.24578857421875,
+        327.6307373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Z = ShI ∩SpI. Consider a point during training when the lagrange multiplier λ is sufficiently large.",
+      "bbox": [
+        108.0,
+        327.6400451660156,
+        505.7467956542969,
+        338.53973388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For states in W, the set of correctly classified infeasible states, the algorithm will simply minimize",
+      "bbox": [
+        108.0,
+        338.5490417480469,
+        503.9977722167969,
+        348.17291259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cumulative violations V πθ",
+      "bbox": [
+        108.0,
+        348.4751892089844,
+        214.7373504638672,
+        359.0829162597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "c (s), and thereby remain as safe as possible since the policy and critics",
+      "bbox": [
+        204.49301147460938,
+        350.0169677734375,
+        503.99688720703125,
+        361.32574462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "learning rates are faster than that of REF. X, which is the set of infeasible states that are misclassified,",
+      "bbox": [
+        108.0,
+        360.3680419921875,
+        505.2463684082031,
+        369.9919128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is very small if we ensure the policy and REF are trained at much faster time scales than the multiplier",
+      "bbox": [
+        108.0,
+        371.9943542480469,
+        504.16748046875,
+        380.9009094238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and so when the agent starts in true infeasible states, it will by definition reach violations and therefore",
+      "bbox": [
+        108.0,
+        382.9033508300781,
+        504.0015869140625,
+        391.8099060058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be labeled as infeasible. In Y, the set of truly feasible states that are misclassified, the algorithm also",
+      "bbox": [
+        108.0,
+        393.09503173828125,
+        503.99859619140625,
+        402.7189025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "minimizes cumulative violations, which by the definition of feasibility should be 0. It will then have",
+      "bbox": [
+        108.0,
+        404.5619812011719,
+        503.99798583984375,
+        413.6279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "no violations and enter the correctly predicted feasible set Z. And when starting in states in Z, the",
+      "bbox": [
+        108.0,
+        414.9130554199219,
+        504.0039978027344,
+        424.53692626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithm will optimize the lagrangian, and since the multiplier λ is sufficiently large, it will converge",
+      "bbox": [
+        108.0,
+        426.3799743652344,
+        503.9956970214844,
+        435.4459228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to a policy that optimizes for reward while ensuring safety, i.e. no future violations, and therefore the",
+      "bbox": [
+        108.0,
+        437.4483642578125,
+        503.99932861328125,
+        446.35491943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state will stay predictably feasible in Z. In this manner, REF’s predicted feasible set will converge",
+      "bbox": [
+        108.0,
+        447.6400451660156,
+        503.99774169921875,
+        457.263916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to the optimal feasible set, and the agent will be safe and have optimal performance in the feasible",
+      "bbox": [
+        108.0,
+        459.266357421875,
+        503.99774169921875,
+        468.17291259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set and be the safest behavior outside the feasible set. Thereby, the algorithm finds a locally optimal",
+      "bbox": [
+        108.0,
+        470.1763610839844,
+        503.99609375,
+        479.0829162597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "solution to the proposed optimization formulation.",
+      "bbox": [
+        108.0,
+        481.0853576660156,
+        308.9156799316406,
+        489.9919128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C.4.2",
+      "bbox": [
+        108.0,
+        503.61077880859375,
+        130.1368865966797,
+        512.567138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Proof Overview",
+      "bbox": [
+        140.0994873046875,
+        503.61077880859375,
+        206.9485321044922,
+        512.567138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We show our algorithm convergence to the optimal policy by utilizing the proof framework of",
+      "bbox": [
+        107.53199768066406,
+        522.361328125,
+        503.9967041015625,
+        531.2678833007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "multi-time scale presented in [8, 10, 53, 27]. Specifically, we have 4 time scales for (1) the critics,",
+      "bbox": [
+        108.0,
+        533.1109619140625,
+        505.24945068359375,
+        542.1769409179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2) policy, (3) REF function, and (4) lagrange multiplier, listed in order from fastest to slowest. The",
+      "bbox": [
+        107.6709976196289,
+        544.1793823242188,
+        504.0029602050781,
+        553.0859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "overview of each timescale proof step is as follows:",
+      "bbox": [
+        108.0,
+        555.08837890625,
+        313.6081848144531,
+        563.9949340820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 We demonstrate the almost sure convergence of the critics to the corresponding fixed point",
+      "bbox": [
+        133.9029998779297,
+        574.42333984375,
+        504.00128173828125,
+        583.3298950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimal critic functions of the policy.",
+      "bbox": [
+        143.86599731445312,
+        585.3323974609375,
+        291.3921813964844,
+        594.2389526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 Using multi-timescale theory, we demonstrate the policy almost surely converges to a",
+      "bbox": [
+        133.9029998779297,
+        599.7063598632812,
+        504.002197265625,
+        608.6129150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stationary point of a continuous time system, which we show has a Lyapunov function",
+      "bbox": [
+        143.86599731445312,
+        610.6153564453125,
+        504.00225830078125,
+        619.5219116210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "certifying its locally asymptotic stability at the stationary point.",
+      "bbox": [
+        143.86599731445312,
+        621.525390625,
+        396.5274353027344,
+        630.4319458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3 We demonstrate the almost sure convergence of the REF function to the REF of the policy",
+      "bbox": [
+        133.9029998779297,
+        635.8993530273438,
+        504.3446044921875,
+        644.805908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that is safe insofar as the lagrange multiplier is sufficiently large.",
+      "bbox": [
+        143.86599731445312,
+        646.808349609375,
+        401.49884033203125,
+        655.7149047851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4 We demonstrate the almost sure convergence of the lagrange multiplier to a stationary point",
+      "bbox": [
+        133.9029998779297,
+        661.183349609375,
+        503.9960021972656,
+        670.0899047851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "similar to the proof in the policy timecale.",
+      "bbox": [
+        143.86599731445312,
+        672.0923461914062,
+        311.40704345703125,
+        680.9989013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Finally, we demonstrate that the stationary points for the policy and lagrange multiplier form a saddle",
+      "bbox": [
+        108.0,
+        691.4273681640625,
+        504.0015869140625,
+        700.3339233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "point, and so by local saddle point theorem we almost surely achieve the locally optimal policy of our",
+      "bbox": [
+        108.0,
+        702.3363647460938,
+        504.1675109863281,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposed optimization.",
+      "bbox": [
+        108.0,
+        713.245361328125,
+        199.87509155273438,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "17",
+      "bbox": [
+        301.01898193359375,
+        743.1333618164062,
+        310.9815673828125,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20230926012150Z",
+      "modDate": "D:20230926012150Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/ganai2023iterative-paper/documents/.pdf-skill-scan-vfb5qpau/review/source.pdf",
+      "page_count": 33,
+      "page_number": 17
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "picture",
+        "bbox": [
+          207,
+          72,
+          405,
+          224
+        ],
+        "pos": [
+          0,
+          2
+        ]
+      },
+      {
+        "index": 1,
+        "class": "caption",
+        "bbox": [
+          108,
+          224,
+          503,
+          242
+        ],
+        "pos": [
+          2,
+          154
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          108,
+          264,
+          287,
+          274
+        ],
+        "pos": [
+          154,
+          201
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          282,
+          506,
+          491
+        ],
+        "pos": [
+          201,
+          2188
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          108,
+          503,
+          207,
+          511
+        ],
+        "pos": [
+          2188,
+          2217
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          107,
+          522,
+          506,
+          565
+        ],
+        "pos": [
+          2217,
+          2572
+        ]
+      },
+      {
+        "index": 6,
+        "class": "list-item",
+        "bbox": [
+          133,
+          574,
+          505,
+          595
+        ],
+        "pos": [
+          2572,
+          2709
+        ]
+      },
+      {
+        "index": 7,
+        "class": "list-item",
+        "bbox": [
+          133,
+          599,
+          505,
+          631
+        ],
+        "pos": [
+          2709,
+          2953
+        ]
+      },
+      {
+        "index": 8,
+        "class": "list-item",
+        "bbox": [
+          133,
+          635,
+          505,
+          656
+        ],
+        "pos": [
+          2953,
+          3118
+        ]
+      },
+      {
+        "index": 9,
+        "class": "list-item",
+        "bbox": [
+          133,
+          661,
+          504,
+          682
+        ],
+        "pos": [
+          3118,
+          3261
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          108,
+          691,
+          505,
+          723
+        ],
+        "pos": [
+          3261,
+          3493
+        ]
+      },
+      {
+        "index": 11,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          743,
+          311,
+          750
+        ],
+        "pos": [
+          3493,
+          3498
+        ]
+      }
+    ],
+    "text": "\n\nFigure 7: The predicted feasible set converges to a safest policy’s feasible set since the misclassified regions _X_ and _Y_ are corrected over time. \n\n# **C.4.1 Intuition behind REF convergence** \n\nThe approach can be explained by considering what happens in the individual regions of space. Consider a deterministic environment for simplicity. As seen in Figure 7, there are two subsets of the initial state space: a safest policy’s \"true\" feasible set _ShI_ and REF predicted feasible set _SpI_ , and they create 4 regions in the initial state space _SI_ : _W_ = _ShI ∩ SpI_ , _X_ = _ShI ∩SpI_ , _Y_ = _ShI ∩ SpI_ , _Z_ = _ShI ∩SpI_ . Consider a point during training when the lagrange multiplier _λ_ is sufficiently large. For states in _W_ , the set of correctly classified infeasible states, the algorithm will simply minimize cumulative violations _Vc_<sup>_πθ_(</sup><sup>_s_), and thereby remain as safe as possible since the policy and critics</sup> learning rates are faster than that of REF. _X_ , which is the set of infeasible states that are misclassified, is very small if we ensure the policy and REF are trained at much faster time scales than the multiplier and so when the agent starts in true infeasible states, it will by definition reach violations and therefore be labeled as infeasible. In _Y_ , the set of truly feasible states that are misclassified, the algorithm also minimizes cumulative violations, which by the definition of feasibility should be 0. It will then have no violations and enter the correctly predicted feasible set _Z_ . And when starting in states in _Z_ , the algorithm will optimize the lagrangian, and since the multiplier _λ_ is sufficiently large, it will converge to a policy that optimizes for reward while ensuring safety, i.e. no future violations, and therefore the state will stay predictably feasible in _Z_ . In this manner, REF’s predicted feasible set will converge to the optimal feasible set, and the agent will be safe and have optimal performance in the feasible set and be the safest behavior outside the feasible set. Thereby, the algorithm finds a locally optimal solution to the proposed optimization formulation. \n\n# **C.4.2 Proof Overview** \n\nWe show our algorithm convergence to the optimal policy by utilizing the proof framework of multi-time scale presented in [8, 10, 53, 27]. Specifically, we have 4 time scales for (1) the critics, (2) policy, (3) REF function, and (4) lagrange multiplier, listed in order from fastest to slowest. The overview of each timescale proof step is as follows: \n\n- 1 We demonstrate the almost sure convergence of the critics to the corresponding fixed point optimal critic functions of the policy. \n\n- 2 Using multi-timescale theory, we demonstrate the policy almost surely converges to a stationary point of a continuous time system, which we show has a Lyapunov function certifying its locally asymptotic stability at the stationary point. \n\n- 3 We demonstrate the almost sure convergence of the REF function to the REF of the policy that is safe insofar as the lagrange multiplier is sufficiently large. \n\n- 4 We demonstrate the almost sure convergence of the lagrange multiplier to a stationary point similar to the proof in the policy timecale. \n\nFinally, we demonstrate that the stationary points for the policy and lagrange multiplier form a saddle point, and so by local saddle point theorem we almost surely achieve the locally optimal policy of our proposed optimization. \n\n17 \n\n"
+  }
+}

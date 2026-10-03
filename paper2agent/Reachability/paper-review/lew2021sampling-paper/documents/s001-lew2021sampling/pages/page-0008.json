@@ -1,0 +1,114 @@
+{
+  "page": 8,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 130 dpi render, a 260 dpi zoom of the dynamics/bounds lines, a 200 dpi crop of Figure 6 and the TeX source. The extractor had interleaved the Figure 6 caption with the wrapped paragraph \"Robust planning for a spacecraft\" and produced no image for Figure 6; the paragraph was rebuilt from TeX and checked word by word against the page, the plot is cropped as figure-6 [424,175,506,315] (y tick labels 0-5, x tick labels 0 and 2 below the bottom axis, x_N, x_0 and the three X_obs discs inside; bottom edge re-checked on a 300 dpi crop after an independent verifier found the first crop, which ended at y=306, cut the x tick labels; the caption starts at about y=320 and is outside) and placed with its caption after the paragraph. Spacecraft math rewritten in LaTeX and checked on the zoom: state in $\\mathbb{R}^{13}$, input in $\\mathbb{R}^{6}$, upright bold p, v, q, F, M, J, S and bold Omega/omega, $\\Delta t = 5$ s, bounds $m\\in[7.1,7.3]$, $J_i\\in[0.065,0.075]$, $|w_{ki}|\\leq 10^{-4}$ for $i=1,\\ldots,13$ and $|w_{ki}|\\leq 5\\times10^{-4}$ for $i=4,5,6$ (as printed; the two index ranges overlap in the source), $N=21$, 3 SCP iterations, 875 ms. As printed, the discretised dynamics are written with $\\boldsymbol{\\theta}_k$ and the inertia as italic $J=\\mathrm{diag}([J_x,J_y,J_z])$; both kept. Reference \"(see C.1)\" as printed. Authors' wording \"opens news avenues\" kept. Footnote marker written as $^4$; Footnote 4 kept at the end of the page. Restored \"planning algorithm\" and \"sampling-based\" where the extractor glued caption fragments into words.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0008-b000",
+      "kind": "text",
+      "bbox": [
+        108,
+        75,
+        505,
+        172
+      ],
+      "markdown": "Methods leveraging the Lipschitz constant of the system are capable of conservatively approximating reachable sets. In this experiment, we provide comparisons with the method in [13]$^4$ (see C.1), which propagates a sequence of ellipsoidal sets that are guaranteed to contain the true system. Results in Figure 5 show that even in situations where the true Lipschitz constant is available, [13] is still too conservative. This is due to the outer-bounding of rectangles with ellipsoids, and to the conservative approximation of the Minkowski sum of ellipsoids, neglecting time correlations of the trajectory on the uncertainty (see Section 2). Although this method works well for short horizons and low-dimensional systems, it is too conservative for longer horizons and high-dimensional nonlinear systems, whereas our approach scales well to more challenging systems, as we show next."
+    },
+    {
+      "id": "p0008-b001",
+      "kind": "text",
+      "bbox": [
+        107,
+        177,
+        420,
+        503
+      ],
+      "markdown": "**Robust planning for a spacecraft** Since our methods have asymptotic convergence guarantees (as $M\\rightarrow\\infty$) to the (conservative) convex hull of the reachable sets, we present an application for the quick selection of feasible homotopy classes for robust planning. Providing feasibility with respect to the convex hull is sufficient, since many optimization-based algorithms linearize constraints to find solutions [8]. Our approach has connections to algorithms boosting the convergence speed of sampling-based motion planning with reachability analysis [43, 47], with the difference that our method can account for uncertainty over parameters and disturbances. Specifically, we consider a spacecraft under uncertainty, whose state and control inputs are $\\boldsymbol{x}=[\\mathbf{p},\\mathbf{v},\\mathbf{q},\\boldsymbol{\\omega}]\\in\\mathbb{R}^{13}$, $\\boldsymbol{u}=[\\mathbf{F},\\mathbf{M}]\\in\\mathbb{R}^{6}$, and whose dynamics are $\\dot{\\mathbf{p}} = \\mathbf{v}$, $m\\dot{\\mathbf{v}} = \\mathbf{F}$, $\\dot{\\mathbf{q}} = \\frac{1}{2}\\boldsymbol{\\Omega}(\\boldsymbol{\\omega})\\mathbf{q}$, and $\\mathbf{J}\\dot{\\boldsymbol{\\omega}} = \\mathbf{M} - \\mathbf{S}(\\boldsymbol{\\omega})\\mathbf{J}\\boldsymbol{\\omega}$, with $J = \\mathrm{diag}([J_x,J_y,J_z])$ [8]. We use a zero-order hold on the controls, an Euler discretization scheme with $\\Delta t = 5\\mathrm{s}$, and an additive disturbance term $\\boldsymbol{w}_k$ such that $\\boldsymbol{x}_{k+1} = \\boldsymbol{f}(\\boldsymbol{x}_k,\\boldsymbol{u}_k,\\boldsymbol{\\theta}_k) + \\boldsymbol{w}_k$. We assume the mass and inertia are unknown with known bounds $m \\in [7.1,7.3]$, $J_i \\in [0.065,0.075]$, $|w_{ki}| \\leq 10^{-4}$ for $i=1,\\ldots,13$, and $|w_{ki}| \\leq 5\\times10^{-4}$ for $i=4,5,6$. We perform randomized experiments to choose $M$ and $n_{\\mathrm{adv}}$, which effectively trade off computation time and accuracy (see the Appendix). We decide to use (**robUP!**) with $M = 100$ and $n_{\\mathrm{adv}} = 1$, as we observe reduced returns over more adversarial steps and samples. We extend the SCP-based planning algorithm from [8] to leverage our uncertainty propagation schemes, and use outer rectangular confidence sets to reformulate all constraints. Planning results for a problem with three cylindrical obstacles are shown in Figure 6. Solving this problem with $N=21$ requires 3 SCP iterations and $875\\mathrm{ms}$ on a laptop with an i7-6700 CPU (2.60 GHz) and 8 GB of RAM. If the planner is initialized with a trajectory within the homotopy class on the left, the optimizer does not converge and returns an unfeasible trajectory. This is not the case with a straight-line initialization, in which case convergence is achieved within the correct homotopy class. Although we cannot guarantee that this trajectory is safe for any possible parameters since our guarantees only hold as $M\\rightarrow\\infty$, our approach can be used to rapidly invalidate an unfeasible homotopy class of paths, and thus avoids spending additional computational resources to compute a robust solution to this problem."
+    },
+    {
+      "id": "p0008-n01",
+      "kind": "figure",
+      "bbox": [
+        424,
+        175,
+        506,
+        315
+      ],
+      "markdown": "",
+      "label": "Figure 6",
+      "asset_name": "figure-6"
+    },
+    {
+      "id": "p0008-n02",
+      "kind": "caption",
+      "bbox": [
+        426,
+        315,
+        505,
+        398
+      ],
+      "markdown": "**Figure 6:** (**robUP!**) can be used to quickly invalidate unfeasible homotopy classes (red), and provide robust paths for a 13D nonlinear spacecraft system (blue)."
+    },
+    {
+      "id": "p0008-b002",
+      "kind": "heading",
+      "bbox": [
+        108,
+        512,
+        184,
+        521
+      ],
+      "markdown": "## 7 Conclusion"
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        108,
+        530,
+        505,
+        605
+      ],
+      "markdown": "Current approaches for reachability analysis have limitations which prevent their use for complex systems and learning-based robotic applications. To fill this gap, this paper presented a simple but theoretically justified sampling-based approach to perform real-time uncertainty propagation. It makes minimal assumptions about the system, can handle general types of uncertainty, scales well to high-dimensional systems, and out-performs current approaches. As such, it can be combined with conventional uncertainty-aware planners, and used for model-based reinforcement learning with learned dynamics for which no real-time alternatives exist, e.g., Bayesian neural networks [19]."
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "text",
+      "bbox": [
+        108,
+        611,
+        505,
+        686
+      ],
+      "markdown": "Our new interpretation with random set theory opens news avenues for research. Firstly, it could motivate new methods to perform robust neural network training and verification, and design neural network models predicting reachable sets. Secondly, existing results for random set-valued martingales could provide further insights for reachability analysis. Thirdly, using concentration bounds and smoothness properties of reachable sets could help provide rates of convergence, probabilistic and robust outer-approximations, as long as these assumptions can be verified in practice. Finally, our approach is amenable to parallelization and thus could be further accelerated using GPUs."
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "text",
+      "bbox": [
+        108,
+        692,
+        505,
+        722
+      ],
+      "markdown": "Footnote 4: In [13], uncertainty comes in the form of a Gaussian process representing the dynamics, whereas uncertainty is in the initial state in this experiment. Since computing tight upper bounds on Lipschitz constants of neural networks is a rapidly evolving field of research, we implement [13] using the true constant of the system."
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "omit",
+      "bbox": [
+        296,
+        740,
+        316,
+        753
+      ],
+      "markdown": "",
+      "reason": "Page number \"8\" in the footer."
+    }
+  ]
+}

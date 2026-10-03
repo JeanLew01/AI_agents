@@ -1,0 +1,47 @@
+\begin{algorithm}[t]
+\caption{Black-box System Reachability \cite{alanwar2020data_conf}}\label{alg:LipReachability}
+\KwInput{initial reachable set $\hat{\reachset}_0$, actions $(\action_j)_{j=k}^{k+\nplan}$} %, time-varying action space $(\actionspace_k)_{k=0}^{n}$
+
+\KwInOut{state/action data $\data$, noise zonotope $\noisespace = \zono{\ctr_\noise,\Gen_\noise}$, Lipschitz constant $L^\star$, covering radius $\delta$}
+    
+% $\reachapprox_{0} \leftarrow \statespace_0$ // init. reachable set
+
+\tbold{
+$Z_\epsilon \leftarrow \zono{\zeros,\diag{\arridx{\vc{L^\star}}{1} \arridx{\vc{\delta}}{1}/2,\cdots,\arridx{\vc{L^\star}}{n} \arridx{\vc{\delta}}{n}/2}}$ \label{ln:alglipZeps}
+}
+\For{$j = k:(k+\nplan)$}{      
+    % $\vc{M}_j \leftarrow \left(\statedata_+ - [\ctr_\noise,\cdots,\ctr_\noise] \right)\begin{bmatrix} 
+    % \ones_{1 \times t\total}\\ \statedata_--1 \otimes \vcstate^\star_j \\ \actiondata-1 \otimes\action_j
+    % \end{bmatrix}^\dagger$ \label{ln:alglipMtilde}
+    
+    \tbold{$\vc{M}_j \leftarrow \left(\statedata_+ - \ctr_\noise\right)
+        \begin{bmatrix} 
+            \ones_{1 \times t\total} \\
+            \statedata_- - \vcstate^\star_j \\
+            \actiondata - \action_j
+        \end{bmatrix}^\dagger$ \label{ln:alglipMtilde}}
+    
+    % $\lb  \leftarrow \min_j \Bigg( {(\statedata_{+})}_{:\,,j} - \vc{M}_j \begin{bmatrix} \ones \\
+    % {(\statedata_-)}_{:\,,j} -  \vcstate^\star_j\\ {(\actiondata)}_{:\,,j} - \action_j \end{bmatrix} \Bigg)$
+    
+    $\lb  \leftarrow \min_j \Bigg( {(\statedata_{+})}_{:\,,j} - \vc{M}_j
+        \begin{bmatrix}
+            1 \\
+            {(\statedata_-)}_{:\,,j} -  \vcstate^\star_j \\
+            {(\actiondata)}_{:\,,j} - \action_j
+    \end{bmatrix} \Bigg)$
+    
+    $\ub \leftarrow$ same as $\lb$, but use max instead of min  \label{ln:alglipupper}
+    
+    %$\ub \leftarrow$ same as $\lb$, but use max instead of min
+    
+    %  $\lb  \leftarrow\min_j \Bigg( {(\statedata_{+})}_{:\,,j} - \vc{M}_j \begin{bmatrix} \ones \\ 
+    % {(\statedata_-)}_{:\,,j} -  \vcstate^\star_j\\ {(\actiondata)}_{:\,,j} - \action_j \end{bmatrix} \Bigg)$. \label{ln:algliplower}
+    
+     $Z_{L} \leftarrow \zono{\lb,\ub} - \noisespace$ and $\actionspace_j \leftarrow \zono{\action_j,\zeros}$ \label{ln:alglipZl}
+     
+     $\reachapprox_{j+1} {\leftarrow} \vc{M}_j (\ones \times (\reachapprox_j-\vcstate^\star_j)  \times (U_j- \action_j)) +  \noisespace +  Z_L + Z_\epsilon$. \label{ln:alglipRhat}
+}
+\textbf{return} $(\reachapprox_j)_{j=k}^{k+\nplan}$ // overapproximates \eqref{eq:reachable_set_k}
+\end{algorithm}
+

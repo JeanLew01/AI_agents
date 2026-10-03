@@ -1,0 +1,1093 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "problems, where gradient-based optimizers such as Augmented Lagrangian [32], Interior Point [36],",
+      "bbox": [
+        108.0,
+        75.2083740234375,
+        505.2453308105469,
+        84.11493682861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Sequential Quadratic Programming [3, 48] are employed. To leverage the parallelism of modern",
+      "bbox": [
+        108.0,
+        86.11737060546875,
+        503.99835205078125,
+        95.02393341064453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hardware and improve global convergence properties, sampling-based methods like Cross-Entropy",
+      "bbox": [
+        108.0,
+        97.0263671875,
+        504.35113525390625,
+        105.93292999267578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Motion Planning (CEM) [37] and Model Predictive Path Integral (MPPI) [58, 62] have been proposed",
+      "bbox": [
+        108.0,
+        107.93536376953125,
+        504.0027160644531,
+        116.84192657470703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to solve TO by sampling from target distributions. To solve stochastic optimal control problems,",
+      "bbox": [
+        108.0,
+        118.8443603515625,
+        505.2471618652344,
+        127.75092315673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory optimization has also been framed as an inference problem in a probabilistic graphical",
+      "bbox": [
+        108.0,
+        129.75335693359375,
+        503.9973449707031,
+        138.659912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model, where system dynamics defines the graph structure [35, 39]. This perspective extends methods",
+      "bbox": [
+        108.0,
+        140.662353515625,
+        503.99761962890625,
+        149.56890869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "such as iLQG by integrating approximate inference techniques to improve trajectory optimization [55].",
+      "bbox": [
+        108.0,
+        151.57135009765625,
+        505.7430114746094,
+        160.4779052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The connection between diffusion and optimal control has been explored in [10], which motivates us",
+      "bbox": [
+        107.69100189208984,
+        162.4803466796875,
+        504.0032043457031,
+        171.38690185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to use diffusion models as solvers for trajectory optimization.",
+      "bbox": [
+        108.0,
+        173.38934326171875,
+        352.4920959472656,
+        182.2958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion for Planning. Diffusion-based planners have been used to perform human motion gener-",
+      "bbox": [
+        108.0,
+        189.65882873535156,
+        505.6568298339844,
+        198.6849365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ation [12, 54] and multi-agent motion prediction [34]. Diffusion models are capable of generating",
+      "bbox": [
+        108.0,
+        200.6873779296875,
+        504.0007019042969,
+        209.59393310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "complete trajectories by folding both dynamics and optimization processes into a single framework,",
+      "bbox": [
+        108.0,
+        211.59637451171875,
+        505.2401123046875,
+        220.5029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "thus mitigating compounding errors and allowing flexible conditioning [33, 40, 5]. In addition, they",
+      "bbox": [
+        108.0,
+        222.50537109375,
+        504.3473205566406,
+        231.41192626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have been adeptly applied to policy generation, enhancing the capability to capture multimodal",
+      "bbox": [
+        108.0,
+        233.41436767578125,
+        503.9974060058594,
+        242.3209228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstration data in high-dimensional spaces for long-horizon tasks [46, 15]. These works assume",
+      "bbox": [
+        108.0,
+        244.3233642578125,
+        504.0008239746094,
+        253.22991943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "no access to the underlying dynamics, limiting the generalization to new environments. To enforce",
+      "bbox": [
+        108.0,
+        255.23333740234375,
+        503.9986572265625,
+        264.139892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics constraints, SafeDiffuser [60] integrates control barrier functions into the learned diffusion",
+      "bbox": [
+        108.0,
+        266.142333984375,
+        503.9978332519531,
+        275.04888916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "process, while Diffusion-CCSP [61] composes the learned geometric and physical conditions to",
+      "bbox": [
+        108.0,
+        277.0513610839844,
+        504.0025329589844,
+        285.9579162597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guarantee constraint compliance. Our approach uses diffusion models directly as solvers, rather than",
+      "bbox": [
+        108.0,
+        287.9603576660156,
+        503.99530029296875,
+        296.8669128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simply distilling solutions from demonstrations.",
+      "bbox": [
+        108.0,
+        298.8693542480469,
+        299.2519836425781,
+        307.7759094238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Langevin-based Markov Chain Monte Carlo for Global Optimization. Gradient-based sampling",
+      "bbox": [
+        108.0,
+        315.1377868652344,
+        503.9988708496094,
+        324.1639099121094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms have been widely used in global optimization, where the energy function J is optimized",
+      "bbox": [
+        108.0,
+        325.44903564453125,
+        503.99517822265625,
+        335.4116516113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by sampling from the Boltzmann distribution p ∝exp(−J",
+      "bbox": [
+        108.0,
+        335.6096496582031,
+        340.2424621582031,
+        347.3826599121094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "λ) [57, 43]. By annealing the temperature",
+      "bbox": [
+        336.0050048828125,
+        336.9219055175781,
+        503.9963684082031,
+        350.24444580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "λ to zero, the sampling process converges to the global minimum of the energy function J [31].",
+      "bbox": [
+        108.0,
+        348.32904052734375,
+        505.7433776855469,
+        358.2916564941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The convergence of Langevin-based MCMC methods has been well studied in both continuous and",
+      "bbox": [
+        107.69100189208984,
+        359.9553527832031,
+        503.9975891113281,
+        368.8619079589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "discretized settings [16, 21], showing that the distribution will converge in probability to the target",
+      "bbox": [
+        108.0,
+        370.8643493652344,
+        504.0040283203125,
+        379.7709045410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distribution with certain decreasing schedule of the step size and temperature λ. In practice, the most",
+      "bbox": [
+        108.0,
+        381.0560607910156,
+        503.9975280761719,
+        391.0186767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "common Langevin-based MCMC methods are unadjusted Langevin Monte Carlo (ULMC) [17] and",
+      "bbox": [
+        108.0,
+        392.682373046875,
+        503.99603271484375,
+        401.58892822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Underdamped Langevin Monte Carlo (UdLMC) [14], with convergence rates of O( 1",
+      "bbox": [
+        108.0,
+        401.06463623046875,
+        450.2090759277344,
+        412.837646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϵ2 log( 1",
+      "bbox": [
+        444.614990234375,
+        401.06463623046875,
+        476.9600830078125,
+        415.6994323730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϵ )) and",
+      "bbox": [
+        473.3110046386719,
+        402.37689208984375,
+        504.00006103515625,
+        415.9485168457031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "O( 1",
+      "bbox": [
+        108.0,
+        414.21563720703125,
+        125.47306823730469,
+        425.9886474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϵ ) given strongly convex and smooth energy functions, respectively. Recently, Langevin-based",
+      "bbox": [
+        121.8239974975586,
+        415.5279235839844,
+        504.0018005371094,
+        429.10052490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MCMC methods have been integrated into diffusion processes to improve global convergence and",
+      "bbox": [
+        108.0,
+        427.6523742675781,
+        503.997802734375,
+        436.5589294433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling efficiency [30, 6], where the score function is estimated by Monte Carlo to accelerate and",
+      "bbox": [
+        108.0,
+        438.5623474121094,
+        503.99468994140625,
+        447.4689025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stabilize the diffusion process. Our work differs from these methods in that we aim to sample from",
+      "bbox": [
+        108.0,
+        449.47137451171875,
+        504.00433349609375,
+        458.3779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the high-probability region of the target distribution without assuming access to the gradient of the",
+      "bbox": [
+        108.0,
+        460.38037109375,
+        503.9988708496094,
+        469.28692626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "energy function, and without assuming the energy function is smooth or convex.",
+      "bbox": [
+        108.0,
+        471.28936767578125,
+        427.6499328613281,
+        480.1959228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        108.0,
+        498.1479187011719,
+        113.97760009765625,
+        508.8956298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem Statement and Background",
+      "bbox": [
+        125.93280029296875,
+        498.1479187011719,
+        312.46978759765625,
+        508.8956298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Notations: We use lower (upper) scripts to specify the time (diffusion) step, e.g., xt,ut,yt represent",
+      "bbox": [
+        108.0,
+        521.9990844726562,
+        504.0007629394531,
+        533.1168823242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the state, control and state-control pair at time t, and Y (i) represents the diffusion state at step i.",
+      "bbox": [
+        108.0,
+        531.1263427734375,
+        490.441650390625,
+        544.181640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper focuses on a class of trajectory optimization (TO) problems whose objective is to find the",
+      "bbox": [
+        107.69100189208984,
+        551.3253784179688,
+        504.00152587890625,
+        560.23193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sequences {xt} and {ut} that minimize the cost function J(x1∶T ;u1∶T ) subject to the dynamics and",
+      "bbox": [
+        108.0,
+        561.0189208984375,
+        504.0017395019531,
+        572.9736938476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "constraints. The optimization problem 1 can be formulated as follows:",
+      "bbox": [
+        108.0,
+        570.3933715820312,
+        387.3804626464844,
+        583.1099243164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "min",
+      "bbox": [
+        216.23101806640625,
+        599.56005859375,
+        232.8386688232422,
+        609.5226440429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x1∶T ,u1∶TJ(x1∶T ;u1∶T ) = lT (xT ) +",
+      "bbox": [
+        208.46401977539062,
+        599.0618896484375,
+        343.8555603027344,
+        615.7874755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T −1",
+      "bbox": [
+        345.8220520019531,
+        591.3956298828125,
+        360.1461181640625,
+        598.3694458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∑",
+      "bbox": [
+        347.67803955078125,
+        599.8369140625,
+        358.2882080078125,
+        609.7994995117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=0",
+      "bbox": [
+        347.373046875,
+        611.2796630859375,
+        358.5951232910156,
+        618.2534790039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lt(xt,ut)",
+      "bbox": [
+        361.6180419921875,
+        599.0618896484375,
+        399.6034240722656,
+        610.2694702148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1a)",
+      "bbox": [
+        488.6280212402344,
+        600.27734375,
+        504.66778564453125,
+        609.1838989257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s.t.",
+      "bbox": [
+        219.0150146484375,
+        622.3733520507812,
+        230.64137268066406,
+        631.2799072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x0 = xinit",
+      "bbox": [
+        240.60401916503906,
+        621.1578979492188,
+        276.111083984375,
+        632.614501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1b)",
+      "bbox": [
+        488.07000732421875,
+        622.3733520507812,
+        504.66766357421875,
+        631.2799072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xt+1 = ft(xt,ut),",
+      "bbox": [
+        240.60400390625,
+        635.054931640625,
+        311.35858154296875,
+        646.511474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∀t = 0,1,...,T −1,",
+      "bbox": [
+        322.7939758300781,
+        635.054931640625,
+        403.53857421875,
+        645.5156860351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1c)",
+      "bbox": [
+        488.62799072265625,
+        636.2703857421875,
+        504.6677551269531,
+        645.1769409179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "gt(xt,ut) ≤0,",
+      "bbox": [
+        240.60398864746094,
+        648.952880859375,
+        298.46954345703125,
+        660.1604614257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∀t = 0,1,...,T −1.3",
+      "bbox": [
+        309.90594482421875,
+        648.952880859375,
+        395.6292419433594,
+        659.4136352539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1d)",
+      "bbox": [
+        488.0699462890625,
+        650.1683349609375,
+        504.6676025390625,
+        659.0748901367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where xt ∈Rnx and ut ∈Rnu are the state and control at time t, ft ∶Rnx ×Rnu →Rnx represents the",
+      "bbox": [
+        107.64099884033203,
+        669.2808837890625,
+        504.00286865234375,
+        683.551513671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics, gt ∶Rnx × Rnu →Rng are the constraint functions and lt ∶Rnx × Rnu →R are the stage",
+      "bbox": [
+        108.0,
+        680.18994140625,
+        504.0031433105469,
+        694.4605102539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1We assume deterministic dynamics for simplicity to sample the dynamically feasible trajectory. The",
+      "bbox": [
+        120.65299987792969,
+        702.0081787109375,
+        503.9974365234375,
+        711.9737548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "extension to stochastic dynamics is straightforward.",
+      "bbox": [
+        108.0,
+        713.9207763671875,
+        293.5597229003906,
+        721.936767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        303.5090026855469,
+        743.1333618164062,
+        308.49029541015625,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250117174028Z",
+      "modDate": "D:20260927011225-05'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/model-based-diffusion-paper/documents/.pdf-skill-scan-6fk4cmtz/review/source.pdf",
+      "page_count": 30,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          107,
+          75,
+          506,
+          183
+        ],
+        "pos": [
+          0,
+          948
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          108,
+          189,
+          506,
+          308
+        ],
+        "pos": [
+          948,
+          1983
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          107,
+          315,
+          506,
+          481
+        ],
+        "pos": [
+          1983,
+          3548
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          108,
+          498,
+          313,
+          509
+        ],
+        "pos": [
+          3548,
+          3591
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          108,
+          522,
+          505,
+          544
+        ],
+        "pos": [
+          3591,
+          3839
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          107,
+          551,
+          505,
+          584
+        ],
+        "pos": [
+          3839,
+          4147
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          208,
+          591,
+          505,
+          617
+        ],
+        "pos": [
+          4147,
+          4149
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          219,
+          622,
+          505,
+          631
+        ],
+        "pos": [
+          4149,
+          4151
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          240,
+          635,
+          505,
+          646
+        ],
+        "pos": [
+          4151,
+          4153
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          240,
+          649,
+          505,
+          660
+        ],
+        "pos": [
+          4153,
+          4155
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          107,
+          673,
+          505,
+          694
+        ],
+        "pos": [
+          4155,
+          4498
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          108,
+          702,
+          504,
+          722
+        ],
+        "pos": [
+          4498,
+          4655
+        ]
+      },
+      {
+        "index": 12,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          751
+        ],
+        "pos": [
+          4655,
+          4659
+        ]
+      }
+    ],
+    "text": "problems, where gradient-based optimizers such as Augmented Lagrangian [32], Interior Point [36], and Sequential Quadratic Programming [3, 48] are employed. To leverage the parallelism of modern hardware and improve global convergence properties, sampling-based methods like Cross-Entropy Motion Planning (CEM) [37] and Model Predictive Path Integral (MPPI) [58, 62] have been proposed to solve TO by sampling from target distributions. To solve stochastic optimal control problems, trajectory optimization has also been framed as an inference problem in a probabilistic graphical model, where system dynamics defines the graph structure [35, 39]. This perspective extends methods such as iLQG by integrating approximate inference techniques to improve trajectory optimization [55]. The connection between diffusion and optimal control has been explored in [10], which motivates us to use diffusion models as solvers for trajectory optimization. \n\n**Diffusion for Planning.** Diffusion-based planners have been used to perform human motion generation [12, 54] and multi-agent motion prediction [34]. Diffusion models are capable of generating complete trajectories by folding both dynamics and optimization processes into a single framework, thus mitigating compounding errors and allowing flexible conditioning [33, 40, 5]. In addition, they have been adeptly applied to policy generation, enhancing the capability to capture multimodal demonstration data in high-dimensional spaces for long-horizon tasks [46, 15]. These works assume no access to the underlying dynamics, limiting the generalization to new environments. To enforce dynamics constraints, SafeDiffuser [60] integrates control barrier functions into the learned diffusion process, while Diffusion-CCSP [61] composes the learned geometric and physical conditions to guarantee constraint compliance. Our approach uses diffusion models directly as solvers, rather than simply distilling solutions from demonstrations. \n\n**Langevin-based Markov Chain Monte Carlo for Global Optimization.** Gradient-based sampling algorithms have been widely used in global optimization, where the energy function _J_ is optimized by sampling from the Boltzmann distribution _p_ ∝ exp(−<sup>_<u>J</u>_</sup> _λ_<sup>) [57, 43].By annealing the temperature</sup> _λ_ to zero, the sampling process converges to the global minimum of the energy function _J_ [31]. The convergence of Langevin-based MCMC methods has been well studied in both continuous and discretized settings [16, 21], showing that the distribution will converge in probability to the target distribution with certain decreasing schedule of the step size and temperature _λ_ . In practice, the most common Langevin-based MCMC methods are unadjusted Langevin Monte Carlo (ULMC) [17] and Underdamped Langevin Monte Carlo (UdLMC) [14], with convergence rates of _O_ ( _ϵ_<sup><u>12</u>log(</sup><sup><u>1</u></sup> _ϵ_<sup>)) and</sup> _O_ (<sup><u>1</u></sup> _ϵ_<sup>) given strongly convex and smooth energy functions, respectively.Recently, Langevin-based</sup> MCMC methods have been integrated into diffusion processes to improve global convergence and sampling efficiency [30, 6], where the score function is estimated by Monte Carlo to accelerate and stabilize the diffusion process. Our work differs from these methods in that we aim to sample from the high-probability region of the target distribution without assuming access to the gradient of the energy function, and without assuming the energy function is smooth or convex. \n\n# **3 Problem Statement and Background** \n\n**Notations** : We use lower (upper) scripts to specify the time (diffusion) step, e.g., _xt,ut,yt_ represent the state, control and state-control pair at time _t_ , and _Y_<sup>(</sup><sup>_i_)</sup> represents the diffusion state at step _i_ . \n\nThis paper focuses on a class of trajectory optimization (TO) problems whose objective is to find the sequences { _xt_ } and { _ut_ } that minimize the cost function _J_ ( _x_ 1∶ _T_ ; _u_ 1∶ _T_ ) subject to the dynamics and constraints. The optimization problem<sup>1</sup> can be formulated as follows: \n\n\n\n\n\n\n\n\n\nwhere _xt_ ∈ R<sup>_nx_</sup> and _ut_ ∈ R<sup>_nu_</sup> are the state and control at time _t_ , _ft_ ∶ R<sup>_nx_</sup> × R<sup>_nu_</sup> → R<sup>_nx_</sup> represents the dynamics, _gt_ ∶ R<sup>_nx_</sup> × R<sup>_nu_</sup> → R<sup>_ng_</sup> are the constraint functions and _lt_ ∶ R<sup>_nx_</sup> × R<sup>_nu_</sup> → R are the stage \n\n> 1We assume deterministic dynamics for simplicity to sample the dynamically feasible trajectory. The extension to stochastic dynamics is straightforward. \n\n3 \n\n"
+  }
+}

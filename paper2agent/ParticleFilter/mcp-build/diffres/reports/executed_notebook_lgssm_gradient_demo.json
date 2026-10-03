@@ -1,0 +1,248 @@
+{
+ "lgssm_gradient_demo": {
+  "execution_id": "lgssm_gradient_demo",
+  "module": "gaussian_filters",
+  "supports_tools": [
+   "diffres_simulate_lgssm_data (diffres.tools.simulate_lgssm)",
+   "diffres_run_lgssm_kalman_filter (diffres.gaussian_filters.kf / rts, nll and gradient)",
+   "diffres_run_lgssm_particle_filter (supporting: PF value_and_grad with diffusion_resampling and multinomial_stopped)"
+  ],
+  "source_path": "repo/diffres/demos/gradient_variance2.py",
+  "source_sha256": "95401a97cd85d3d37ad816db85d261167108642bac66537789f9702bef33a600",
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/demos/gradient_variance2.py",
+  "repo_modified": false,
+  "repo_status_after": "git status --short --ignored in repo/diffres: empty",
+  "status": "success",
+  "execution_mode": "native script (unmodified) + capture driver (runpy of the unmodified script) + replay driver",
+  "execution_path": "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stdout (native run); full-precision capture via notebooks/lgssm_gradient_demo/capture_run.py",
+  "runtime_environment": {
+   "python": "CPython 3.11.17",
+   "PROJECT_PYTHON": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python",
+   "jax": "0.7.2",
+   "jaxlib": "0.7.2 (CPU)",
+   "numpy": "2.3.3",
+   "diffres": "0.0.1 editable from repo/diffres",
+   "device": "CPU only (heavy.sh: JAX_PLATFORMS=cpu); GPU memory 0 MiB before/after",
+   "x64": "enabled by the script (jax_enable_x64=True)"
+  },
+  "settings": {
+   "upstream_defaults": {
+    "--nsteps": 128,
+    "--nparticles": 8
+   },
+   "used": {
+    "--nsteps": 16,
+    "--nparticles": 8
+   },
+   "changed_vs_upstream": "--nsteps 128 -> 16 (smallest-settings rule); --nparticles left at default 8. Everything else hard-coded in the script and unchanged: PRNGKey(666), F=0.5, Q=1, H=1, R=1, m0=0, P0=1, theta=(0.2,0.2), nmcs=1000, diffusion a=-1, T=2, dsteps=128, integrator=euler, ode=True, jitter=1e-5, resampling_threshold=1.",
+   "monte_carlo_loop": "The hard-coded 1000-iteration loop (2 jitted value_and_grad PF calls per iteration) ran in full; no part of the script was skipped. ~54 s inside the heavy.sh scope for the native run."
+  },
+  "attempts": [
+   {
+    "n": 1,
+    "what": "native run of the unmodified script",
+    "cwd": "notebooks/lgssm_gradient_demo/run_cwd (script writes no files)",
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/demos/gradient_variance2.py --nsteps 16 --nparticles 8",
+    "exit_status": 0,
+    "scope_start_end_utc": [
+     "2026-10-03T00:51:42Z",
+     "2026-10-03T00:52:36Z"
+    ],
+    "runtime_s_in_scope": 54,
+    "wall_s_incl_lock_wait": 162,
+    "peak_memory_mb": 446,
+    "logs": [
+     "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stdout",
+     "notebooks/lgssm_gradient_demo/logs/attempt1_native_nsteps16_np8.stderr"
+    ]
+   },
+   {
+    "n": "-",
+    "what": "capture driver, first try: NOT STARTED by heavy.sh (exit 75, MemAvailable=3090 MB < 1200+2000); not an execution attempt",
+    "exit_status": 75,
+    "logs": [
+     "notebooks/lgssm_gradient_demo/logs/notstarted_capture_exit75.stderr"
+    ]
+   },
+   {
+    "n": 2,
+    "what": "capture driver: runpy.run_path of the unmodified script with the same argv, then saves its globals and extra kf/rts outputs at full precision",
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON ../capture_run.py --nsteps 16 --nparticles 8 --out ../data/reference_nsteps16_np8.npz --summary ../data/reference_nsteps16_np8_summary.json  (cwd notebooks/lgssm_gradient_demo/run_cwd)",
+    "exit_status": 0,
+    "scope_start_end_utc": [
+     "2026-10-03T00:55:37Z",
+     "2026-10-03T00:57:55Z"
+    ],
+    "runtime_s_script_part": 131.0,
+    "peak_memory_mb": 488,
+    "logs": [
+     "notebooks/lgssm_gradient_demo/logs/attempt2_capture_nsteps16_np8.stdout",
+     "notebooks/lgssm_gradient_demo/logs/attempt2_capture_nsteps16_np8.stderr"
+    ]
+   },
+   {
+    "n": 3,
+    "what": "replay driver in a fresh process (direct upstream calls on saved inputs; PF via the script's own pre-loop source executed verbatim)",
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 1800 -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_PYTHON ../replay.py  (cwd notebooks/lgssm_gradient_demo/run_cwd)",
+    "exit_status": 0,
+    "scope_start_end_utc": [
+     "2026-10-03T01:03:57Z",
+     "2026-10-03T01:05:05Z"
+    ],
+    "runtime_s": {
+     "keys_sim_kf_rts": 7.890201568603516,
+     "pf_1000x2_with_compile": 52.145747423172
+    },
+    "peak_memory_mb": 477,
+    "logs": [
+     "notebooks/lgssm_gradient_demo/logs/attempt3_replay.stdout",
+     "notebooks/lgssm_gradient_demo/logs/attempt3_replay.stderr"
+    ]
+   }
+  ],
+  "peak_memory_mb_max": 488,
+  "data_and_seed_provenance": {
+   "data": "Synthetic. ys/xs are produced by diffres.tools.simulate_lgssm inside the script (line 97); no external data.",
+   "key": "jax.random.PRNGKey(666) = [0, 666] (uint32)",
+   "key_simulation": "jax.random.split(key)[0] = [2482698485, 3875352609]",
+   "mc_keys": "jax.random.split(key, num=1000), shape (1000,2) uint32; keys[0] equals key_simulation (the script reuses it)",
+   "model": {
+    "F (semigroup)": [
+     [
+      0.5
+     ]
+    ],
+    "Q (trans_cov)": [
+     [
+      1.0
+     ]
+    ],
+    "H (obs_op)": [
+     [
+      1.0
+     ]
+    ],
+    "R (obs_cov)": [
+     [
+      1.0
+     ]
+    ],
+    "m0": [
+     0.0
+    ],
+    "P0 (v0)": [
+     [
+      1.0
+     ]
+    ],
+    "dx": 1,
+    "dy": 1,
+    "nsteps": 16,
+    "ys_shape": [
+     17,
+     1
+    ],
+    "xs_shape": [
+     17,
+     1
+    ]
+   },
+   "evaluation_point": "theta=(0.2,0.2): F_theta = 0.2*I, H_theta = 0.2*ones((dy,dx)); Q, R, m0, P0 kept at the true values (script lines 40-43)"
+  },
+  "reference_results": {
+   "kf_nll_at_theta (loss_true)": "34.829210096507474",
+   "kf_grad_wrt_theta (grad_true)": [
+    "-0.8709261160639918",
+    "-5.527063010352865"
+   ],
+   "kf_grad_wrt_full_matrices_at_theta": {
+    "dF": "[[-0.8709261160639918]]",
+    "dH": "[[-5.527063010352865]]",
+    "chain_rule": "d/dtheta0 = sum(dF*I), d/dtheta1 = sum(dH*ones) reproduce grad_true bitwise"
+   },
+   "kf_nll_at_true_parameters": "29.828975391167102",
+   "pf_mc_mean_nll_diffusion": "32.84181518915767",
+   "pf_mc_mean_grad_diffusion": [
+    "-0.7360584028226624",
+    "-4.479919188992926"
+   ],
+   "pf_mc_mean_nll_multinomial_stopped": "32.843304623174475",
+   "pf_mc_mean_grad_multinomial_stopped": [
+    "-0.7080282237571349",
+    "-4.327154516102288"
+   ],
+   "pf_grad_rmse_vs_kf_diffusion": [
+    "0.7492157996378205",
+    "2.819570062333505"
+   ],
+   "pf_grad_rmse_vs_kf_multinomial_stopped": [
+    "1.2442323756925324",
+    "5.426991997886331"
+   ],
+   "pf_first_key_values": {
+    "loss_dp": "32.549968268303935",
+    "grad_dp": [
+     "-0.8481210063122013",
+     "-5.693409567105228"
+    ],
+    "loss_stopped": "32.764519627497",
+    "grad_stopped": [
+     "1.852732518792451",
+     "-3.228118095990052"
+    ]
+   },
+   "nonfinite_pf_gradients": {
+    "grads_dp": 0,
+    "grads_rein": 0
+   },
+   "native_stdout_lines": "34.829210096507474 [-0.87092612 -5.52706301] / 32.84181518915767 [-0.7360584  -4.47991919] / 32.843304623174475 [-0.70802822 -4.32715452] / [0.7492158  2.81957006] / [1.24423238 5.426992  ]",
+   "diffusion_vs_stopped": "At nsteps=16, nparticles=8 the diffusion-resampling PF gradient has lower RMSE w.r.t. the exact KF gradient than multinomial_stopped (0.749 vs 1.244 for theta0; 2.820 vs 5.427 for theta1), the qualitative point of the demo."
+  },
+  "outputs": {
+   "notebooks/lgssm_gradient_demo/data/reference_nsteps16_np8.npz": {
+    "sha256": "19de5274c7b2ee5f9c569ac4e26e04f3e528ed3c61c3812459e36aa4edfc5681",
+    "contents": "float64/uint32 at full precision: key, key_simulation, keys(1000,2), semigroup, trans_cov, obs_op, obs_cov, m0, v0, xs(17,1), ys(17,1), params, loss_true, grad_true, losses_dp/grads_dp (diffusion, 1000 / 1000x2), losses_rein/grads_rein (multinomial_stopped), kf_theta_{mfs,vfs,nll,mps,vps}, rts_theta_{mss,vss}, kf_true_*, rts_true_*, kf_theta_nll_via_FH, kf_theta_dF, kf_theta_dH, plus scalar settings (nsteps, nparticles, a, T, dsteps, ts, integrator, ode, jitter, nmcs, p1, p2, sig, xi, v0_scalar, script_sha256). Note: 'rein' is the script's own name for multinomial_stopped."
+   },
+   "notebooks/lgssm_gradient_demo/data/reference_nsteps16_np8_summary.json": {
+    "sha256": "8ec06cff1bae11eb8e974b3adadbd41ef00e8f8e514afe773f9fde926f18a94d",
+    "contents": "repr()-precision scalars, xs/ys values, MC summaries"
+   },
+   "notebooks/lgssm_gradient_demo/data/replay_comparison.json": {
+    "sha256": "717b0d545bb2039223044a289612f1790c5c3986ba6db62c4b8bf1d03646e46f",
+    "contents": "per-check comparison results"
+   }
+  },
+  "drivers": {
+   "notebooks/lgssm_gradient_demo/capture_run.py": {
+    "sha256": "e0512d169661ea5440fa3b9b7ba239cc8312a7ed432669d98c10116cb7e676ea",
+    "role": "runs the unmodified script via runpy.run_path (sys.argv = script --nsteps 16 --nparticles 8) and saves its globals; afterwards calls upstream kf/rts/value_and_grad once more to record full filter/smoother outputs and the dF/dH gradient. No algorithm re-implemented."
+   },
+   "notebooks/lgssm_gradient_demo/replay.py": {
+    "sha256": "a408dabcb94d5ccdc429015c6332faca2692fc141a6ba0be9c43dd0528a46599",
+    "role": "fresh-process replay: direct calls to jax.random, diffres.tools.simulate_lgssm, diffres.gaussian_filters.kf/rts on saved inputs; PF replay by executing the script's source text verbatim up to (excluding) 'nmcs = 1000' (102 lines, sha256 b9ebeb795e0d7e714a7dec4136adfd8db1533f519d8119d55c6d249de22afc63) and calling its jitted diffpf_diff/diffpf_stopped for all 1000 saved keys; compares native printed values too."
+   }
+  },
+  "replay_comparison": {
+   "all_pass": true,
+   "n_checks": 40,
+   "n_bitwise_equal": 35,
+   "tolerances": "keys/simulation: exact; KF/RTS/gradients: rtol=atol=1e-12; PF: rtol=atol=1e-9; native 8-digit printout vs captured: rtol 1e-7, atol 1e-8 (print rounding)",
+   "observed": "All 35 numerical replays (keys, xs, ys, KF nll/grad, kf/rts outputs at theta and at true params, dF/dH, chain rule, all 1000x2 PF losses and gradients) were BITWISE equal on CPU with x64. The 5 non-bitwise checks are the native run's 8-digit printed arrays vs full-precision captured values (max abs diff 4.3e-9 = print rounding), which also shows the native run and the runpy capture produced the same numbers.",
+   "details_file": "notebooks/lgssm_gradient_demo/data/replay_comparison.json"
+  },
+  "figures": "not applicable: the script produces no plots (prints only)",
+  "findings_for_tool_builders": [
+   "smc_feynman_kac's nll is offset from the KF nll by the parameter-independent constant -log(nparticles): nll0 = -logsumexp(log_g0) without subtracting log(s) (diffres/feynman_kac.py, after the m0 sampling). Here KF nll 34.8292 - log(8)=2.0794 -> 32.7498; MC mean PF nll 32.8418 (diffusion) / 32.8433 (stopped) is above it by ~0.09, consistent with Jensen bias. The gradient is unaffected. A PF tool reporting 'log-likelihood' should state this (or document the offset) rather than silently compare raw PF nll with KF nll.",
+   "The KF tool in matrix form reproduces the demo exactly: value_and_grad of kf(...)[2] w.r.t. (F,H) at F=0.2I, H=0.2*ones gives dF=-0.8709261160639918, dH=-5.527063010352865, equal bitwise to grad_true w.r.t. theta via the chain rule (1-D case).",
+   "For the simulate tool: ys from simulate_lgssm with key = jax.random.split(PRNGKey(666))[0] and nsteps=16 equal the saved ys exactly; simulate_lgssm internally splits that key three times (x0, y0, step noise), so a tool must pass the key through unchanged to match.",
+   "The script's PF uses ys[0] at time 0 (log_g0) and kf also updates on ys[0]; both treat ys as length nsteps+1."
+  ],
+  "limitations": [
+   "Run at --nsteps 16 instead of the upstream default 128 (smallest-settings rule); the default-size reference values (128 steps) were not computed. Monte Carlo loop, particle count (8) and all other hard-coded settings are at upstream values.",
+   "No independent closed-form check of the KF here (that is covered by tests/test_filters.py::test_kf, executor filters_tests); the KF gradient is checked against itself on replay and against the chain-rule matrix form.",
+   "PF MC statistics are from 1000 keys at nsteps=16 only; they are reference values for this configuration, not convergence evidence."
+  ],
+  "blockers": []
+ }
+}

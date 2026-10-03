@@ -1,0 +1,159 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        277.0,
+        41.0,
+        332.0,
+        49.0
+      ],
+      "markdown": "LIN BANSAL",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        93.0,
+        523.0,
+        209.0
+      ],
+      "markdown": "_X, V_ ( _x,_ 0) _≤_ 0 _}_ . The value function in Equation (1) can be computed using dynamic programming, resulting in the following final value Hamilton-Jacobi-Bellman Variational Inequality (HJB-VI): min _DtV_ ( _x, t_ ) + _H_ ( _x, t_ ) _, l_ ( _x_ ) _− V_ ( _x, t_ ) = 0, with the terminal value function _V_ ( _x, T_ ) = _l_ ( _x_ ). � � _Dt_ and _∇_ represent the time and spatial gradients of _V_ . _H_ is the Hamiltonian that encodes the role of dynamics and the optimal control: _H_ ( _x, t_ ) = max _u⟨∇V_ ( _x, t_ ) _, f_ ( _x, u_ ) _⟩_ . The value function in Equation (1) induces the optimal safety controller: _u_<sup>_∗_</sup> ( _x, t_ ) = arg max _⟨∇V_ ( _x, t_ ) _, f_ ( _x, u_ ) _⟩_ . _u_ Intuitively, the safety controller aligns the system dynamics in the direction of the value function’s gradient, thus steering the system towards higher-value states, i.e., away from _L_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        211.0,
+        523.0,
+        263.0
+      ],
+      "markdown": "We have just explained the case where _L_ represents a set of undesirable states. When the system instead wants to reach _L_ , an infimum is used instead of a supremum in Equation (1). The control wants to reach _L_ , hence there is a minimum instead of a maximum in the Hamiltonian and optimal safety controller equations. See Bansal et al. (2017) for details on other reachability cases.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        265.0,
+        523.0,
+        330.0
+      ],
+      "markdown": "Traditionally, the value function is computed by solving the HJB-VI over a discretized grid in the state space. Unfortunately, doing so involves computation whose memory and time complexity scales exponentially with respect to the system dimension, making these methods practically intractable for high-dimensional systems, such as those beyond 5D. Fortunately, a deep learning approach, DeepReach, has been proposed to enable HJ reachability for high-dimensional systems.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        336.0,
+        507.0,
+        347.0
+      ],
+      "markdown": "## **3.2. DeepReach and an Iterative Scenario-Based Probabilistic Safety Verification Method**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        350.0,
+        523.0,
+        443.0
+      ],
+      "markdown": "Instead of solving the HJB-VI over a grid, DeepReach (Bansal and Tomlin, 2021) learns a parameterized approximation of the value function using a sinusoidal deep neural network (DNN). Thus, memory and complexity requirements for training scale with the value function complexity rather than the grid resolution, allowing it to obtain BRTs for high-dimensional systems. DeepReach trains the DNN via self-supervision on the HJB-VI itself. Ultimately, it takes as input a state _x_ and time _t_ , and it outputs a learned value function _V_<sup>˜</sup> ( _x, t_ ). _V_<sup>˜</sup> ( _x, t_ ) also induces a corresponding safe policy _π_ ˜( _x, t_ ), as well as a BRT (referred to as the neural reachable tube from hereon).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        443.0,
+        523.0,
+        567.0
+      ],
+      "markdown": "However, the neural reachable tube will only be as accurate as _V_<sup>˜</sup> ( _x, t_ ). To obtain a provably safe BRT, Lin and Bansal (2023) propose a uniform value correction bound which is defined, for the avoid case, as the maximum learned value of an unsafe state under the induced policy: _δ_ ˜ _V ,π_ ˜ := max _x∈X {V_<sup>˜</sup> ( _x,_ 0) : _Jπ_ ˜( _x,_ 0) _≤_ 0 _}_ . The authors show that the super- _δ_ ˜ _V ,π_ ˜ level set of _V_ ˜ ( _x,_ 0) is provably safe under the policy _π_ ˜( _x, t_ ). They also propose an iterative scenario-based probabilistic verification method for computing an approximation of _δ_ ˜ _V ,π_ ˜ from finite random samples that satisfies a desired confidence level and violation rate. However, the method is sensitive to outlier errors in the neural reachable tube and can result in very conservative safe sets. Specifically, it does not provide safety assurances for safe sets with nonzero empirical safety violations.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        570.0,
+        523.0,
+        608.0
+      ],
+      "markdown": "In this work, we propose probabilistic safety verification methods that allow nonzero empirical safety violations at the cost of the probabilistic strength of safety. This enables a direct trade-off between resilience to outlier errors and the strength of the safety guarantee.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        616.0,
+        523.0,
+        653.0
+      ],
+      "markdown": "**Remark 1** _Although we work with DeepReach solutions in particular for our problem setup, our proposed approaches can verify any general V_<sup>˜</sup> ( _x, t_ ) _and_ ˜ _π_ ( _x, t_ ) _, regardless of whether DeepReach, a numerical PDE solver, or some other tool is used to obtain them._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        665.0,
+        432.0,
+        677.0
+      ],
+      "markdown": "# **4. Robust Scenario-Based Probabilistic Safety Verification Method**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        681.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "Here, we propose a robust scenario-based probabilistic safety verification method for neural reachable tubes. The new method is a straightforward application of a scenario-based sampling-and-",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

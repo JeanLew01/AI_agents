@@ -1,0 +1,445 @@
+[
+ {
+  "name": "resampling-diffusion-gm-notebook",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gm_demo_particles.npz",
+   "a": -2.0,
+   "T": 1.0,
+   "nsteps": 32,
+   "integrator": "jentzen_and_kloeden",
+   "ode": true,
+   "prng_key": [
+    700162660,
+    1620510799
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1024,
+   "sample_shape": [
+    10
+   ],
+   "input_weight_field": "log_weights",
+   "prng_key": [
+    700162660,
+    1620510799
+   ],
+   "settings": {
+    "a": -2.0,
+    "T": 1.0,
+    "nsteps": 32,
+    "integrator": "jentzen_and_kloeden",
+    "ode": true,
+    "jitter": 0.0,
+    "ts": "linspace(0, T, nsteps + 1)",
+    "jit": true,
+    "x64": true
+   },
+   "reference": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py"
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-diffusion-gms-euler-sde",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "a": -1.0,
+   "T": 1.0,
+   "nsteps": 8,
+   "integrator": "euler",
+   "ode": false,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1000,
+   "sample_shape": [
+    8
+   ],
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "settings": {
+    "integrator": "euler",
+    "ode": false,
+    "nsteps": 8
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-diffusion-gms-euler-sde-repeat",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "a": -1.0,
+   "T": 1.0,
+   "nsteps": 8,
+   "integrator": "euler",
+   "ode": false,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1000,
+   "sample_shape": [
+    8
+   ],
+   "prng_key": [
+    1100985983,
+    1476939598
+   ]
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-diffusion-defaults-1d-unnormalised",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/toy1d_unnormalised.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 400,
+   "sample_shape": [],
+   "prng_key": [
+    0,
+    0
+   ],
+   "settings": {
+    "a": -2.0,
+    "T": 1.0,
+    "nsteps": 32,
+    "integrator": "euler",
+    "ode": true,
+    "jitter": 0.0
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-diffusion-error-positive-a",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "a": 1.0,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "a must be negative"
+ },
+ {
+  "name": "resampling-diffusion-error-diffrax-sde",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "integrator": "diffrax",
+   "ode": false,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "diffrax"
+ },
+ {
+  "name": "resampling-diffusion-error-all-zero-weights",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/invalid_all_neginf.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "All weights are zero"
+ },
+ {
+  "name": "resampling-diffusion-error-zero-variance",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms200_zero_variance_dim.npz",
+   "nsteps": 8,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "jitter"
+ },
+ {
+  "name": "resampling-diffusion-error-missing-file",
+  "tool": "diffres_resample_particles_diffusion",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/does_not_exist.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "not found"
+ },
+ {
+  "name": "resampling-baseline-gms-ot-eps0.3",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "method": "ensemble_ot",
+   "eps": 0.3,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1000,
+   "sample_shape": [
+    8
+   ],
+   "output_weights_uniform": true,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "settings": {
+    "method": "ensemble_ot",
+    "eps": 0.3,
+    "eps_source": "user",
+    "jit": true,
+    "x64": true
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-gms-soft-alpha0.9-weights",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles_weights.npz",
+   "method": "soft",
+   "alpha": 0.9,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1000,
+   "input_weight_field": "weights",
+   "output_weights_uniform": false,
+   "settings": {
+    "method": "soft",
+    "alpha": 0.9
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-gms-gumbel-tau0.1",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "method": "gumbel_softmax",
+   "tau": 0.1,
+   "prng_key": [
+    1100985983,
+    1476939598
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1000,
+   "output_weights_uniform": true,
+   "settings": {
+    "method": "gumbel_softmax",
+    "tau": 0.1
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-systematic-1d",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/toy1d_unnormalised.npz",
+   "method": "systematic",
+   "seed": 3,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 400,
+   "sample_shape": [],
+   "output_weights_uniform": true,
+   "settings": {
+    "method": "systematic"
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-systematic-1d-repeat",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/toy1d_unnormalised.npz",
+   "method": "systematic",
+   "seed": 3,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 400,
+   "sample_shape": []
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-default-multinomial",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gm_demo_particles.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "expected_subset": {
+   "n_particles": 1024,
+   "sample_shape": [
+    10
+   ],
+   "prng_key": [
+    0,
+    0
+   ],
+   "settings": {
+    "method": "multinomial"
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "resampling-baseline-error-eps-wrong-method",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "method": "multinomial",
+   "eps": 0.3,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "do not apply"
+ },
+ {
+  "name": "resampling-baseline-error-tau-zero",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms_particles.npz",
+   "method": "gumbel_softmax",
+   "tau": 0.0,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "tau must be positive"
+ },
+ {
+  "name": "resampling-baseline-error-ot-3d",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms50_3d_samples.npz",
+   "method": "ensemble_ot",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "point cloud"
+ },
+ {
+  "name": "resampling-baseline-error-both-weight-fields",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/invalid_both_fields.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "exactly one of"
+ },
+ {
+  "name": "resampling-baseline-error-gumbel-3d",
+  "tool": "diffres_resample_particles_baseline",
+  "arguments": {
+   "particles_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/resampling/gms50_3d_samples.npz",
+   "method": "gumbel_softmax",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "particles_path"
+  ],
+  "error_contains": "(N,) or (N, d)"
+ }
+]

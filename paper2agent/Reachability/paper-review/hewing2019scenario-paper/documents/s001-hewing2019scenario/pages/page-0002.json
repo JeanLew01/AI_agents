@@ -1,0 +1,199 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "First page of the paper itself (IEEE two-column), compared with 200 dpi and 300 dpi renders. The printed title is the single '#' heading (extractor's bold markers removed). Reading order fixed: left column, then right column; the paragraph 'This paper presents a stochastic MPC scheme ...' is split by the column break after 'offline computation of' and was merged with its right-column continuation 'probabilistic reachable sets (PRS). ...' into one item (p0002-b006; former item p0002-b009 merged into it). The unnumbered first-page footnote (funding: Swiss National Science Foundation grant no. 'PP00P2 157601 / 1', printed with a space inside the grant number; affiliation and e-mail pattern '[lhewing|mzeilinger]@ethz.ch', printed in typewriter type) is printed at the bottom of the left column; it is placed directly after the author line so that it does not interrupt the sentence that runs across the column break, and each of its two paragraphs is prefixed 'Footnote (unnumbered, first page):'. Added a '## Abstract' heading (the page prints 'Abstract—'); the abstract and index terms are printed in bold, bold dropped, italic emphasis (*scenario approach*, *hard*) kept. Line-wrap hyphens repaired: 'tube-based' (real compound, restored from extractor's 'tubebased'), 'closed-loop' (real compound, restored from 'closedloop'), 'requirements', 'constraint', 'particular', 'disturbance', 'computational', 'definitions', 'treatment'. Section headings: small caps written in title case ('I. Introduction', 'II. Preliminaries'), subsection 'A. Problem Formulation' as '###'. Equation (1) and all inline math transcribed to LaTeX from the render (no TeX source available): \\bar{w}, \\bar{\\mathcal{W}}, \\bar{N}, \\mathbb{R}^{n_u}, sans-serif transpose written \\mathsf{T}, W ~ \\mathcal{Q}. The last sentence ('The system is subject to') continues on PDF page 3.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "heading",
+      "bbox": [
+        51.0,
+        60.0,
+        561.0,
+        96.0
+      ],
+      "markdown": "# Scenario-based Probabilistic Reachable Sets for Recursively Feasible Stochastic Model Predictive Control"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        222.0,
+        107.0,
+        390.0,
+        118.0
+      ],
+      "markdown": "Lukas Hewing, Melanie N. Zeilinger"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        713.0,
+        301.0,
+        730.0
+      ],
+      "markdown": "Footnote (unnumbered, first page): This work was supported by the Swiss National Science Foundation under grant no. PP00P2 157601 / 1."
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        731.0,
+        301.0,
+        748.0
+      ],
+      "markdown": "Footnote (unnumbered, first page): The authors are members of the Institute for Dynamic Systems and Control, ETH Zurich. `[lhewing|mzeilinger]@ethz.ch`"
+    },
+    {
+      "id": "p0002-abstract-heading",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        153.0,
+        301.0,
+        164.0
+      ],
+      "markdown": "## Abstract"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        153.0,
+        301.0,
+        282.0
+      ],
+      "markdown": "*Abstract*—This paper presents a stochastic model predictive control approach (MPC) for linear discrete-time systems subject to unbounded and correlated additive disturbance sequences, which makes use of the *scenario approach* for offline computation of probabilistic reachable sets. These sets are used in a tube-based MPC formulation, resulting in low computational requirements. Using a recently proposed MPC initialization scheme and nonlinear tube controllers, we provide recursive feasibility and closed-loop chance constraint satisfaction, as well as *hard* input constraint guarantees, which are typically challenging in tube-based formulations with unbounded noise. The approach is demonstrated in simulation for the control of an overhead crane system."
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        289.0,
+        301.0,
+        308.0
+      ],
+      "markdown": "*Index Terms*—Predictive control for linear systems; Constrained control; Stochastic optimal control"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "heading",
+      "bbox": [
+        135.0,
+        328.0,
+        214.0,
+        336.0
+      ],
+      "markdown": "## I. Introduction"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        344.0,
+        301.0,
+        665.0
+      ],
+      "markdown": "Stochastic MPC techniques can be broadly classified into *analytic approximation*, and *randomized* formulations [1]. *Analytic approximation* formulations rely on distributional information, e.g. disturbance mean and variance, to formulate a (conservative) approximation of the chance constrained optimal control problem. Many closed-loop properties such as convergence, recursive feasibility and closed-loop chance constraint satisfaction can be established with these approaches for linear systems, both for bounded (e.g. [2], [3], [4]) and unbounded additive disturbances (e.g. [5], [6], [7]). They typically rely on specific disturbance distributions, in particular the Gaussian distribution, or are subject to considerable conservatism, e.g. by making use of Chebyshev-type bounds. The treatment of *hard* input constraints presents a challenge under unbounded noise, since the methods usually rely on linear tube controllers to reduce uncertainty in the prediction. *Randomized* approaches, on the other hand, rely on disturbance samples or *scenarios* and make use of guarantees from scenario optimization [8], [9]. This offers great flexibility and applicability to a wide class of problems, with the additional benefit that no disturbance distribution has to be known, provided that samples can be obtained. The approaches are, however, typically computationally intensive and closed-loop properties are not well-established. In particular, recursive feasibility guarantees are often not provided [10], [11], [12], or established for soft constraints [13], compromising closed-loop chance constraint satisfaction guarantees."
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        667.0,
+        301.0,
+        701.0
+      ],
+      "markdown": "This paper presents a stochastic MPC scheme that combines properties of both *analytic approximation* and *randomized* approaches, by using scenarios for offline computation of probabilistic reachable sets (PRS). These take a similar role to error tubes in tube-based MPC, keeping the online computational complexity of the approach comparable to nominal MPC. For the case of bounded independent and identically distributed (i.i.d.) multiplicative uncertainty, a related approach was presented in [14], which similarly samples scenarios offline and guarantees feasibility through a first step constraint and computation of a control invariant set. In contrast, we guarantee recursive feasibility and closed-loop chance constraint satisfaction based on an MPC initialization introduced in [7], enabling the treatment of unbounded non-i.i.d. additive disturbances. Compared to *analytic approximation* methods, the proposed approach facilitates handling a wide variety of disturbance classes by requiring only access to samples of the disturbance sequence. In addition, the scenario-based tube computation allows for the use of nonlinear tube controllers, in particular controllers with limited control authority, enabling the treatment of hard input constraints also under unbounded disturbances."
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        380.0,
+        564.0,
+        484.0
+      ],
+      "markdown": "The paper is organized as follows: In Section II we present the problem formulation and state definitions for PRS, as well as results from scenario optimization. Using the PRS definitions, we present the resulting recursively feasible stochastic MPC approach in Section III. The specific scenario-based computation of PRS is shown in Section IV, enabling the treatment of hard input constraints. We demonstrate the approach in simulation on an overhead crane in Section V and conclude in Section VI."
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "heading",
+      "bbox": [
+        396.0,
+        506.0,
+        480.0,
+        514.0
+      ],
+      "markdown": "## II. Preliminaries"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        524.0,
+        413.0,
+        532.0
+      ],
+      "markdown": "### A. Problem Formulation"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        541.0,
+        497.0,
+        551.0
+      ],
+      "markdown": "We consider a linear time-invariant system"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        343.0,
+        556.0,
+        569.0,
+        577.0
+      ],
+      "markdown": "$$x(k+1) = Ax(k) + Bu(k) + \\bar{w}(k) + w(k) \\tag{1}$$"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        582.0,
+        564.0,
+        653.0
+      ],
+      "markdown": "with state $x(k) \\in \\mathbb{R}^n$ and input $u(k) \\in \\mathbb{R}^{n_u}$. The system is subject to additive disturbances taking values in $\\mathbb{R}^n$, which we split into a known part in a compact set $\\bar{w}(k) \\in \\bar{\\mathcal{W}}$ (e.g. a known mean) and a stochastic component $w(k)$. Introducing this distinction facilitates the design of tube controllers, which can be carried out with respect to $w(k)$."
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        655.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "The goal is to control this system for large, but finite, run times $\\bar{N}$, where we assume the stochastic disturbance sequence to be distributed according to $W = [w(0)^{\\mathsf{T}}, \\ldots, w(\\bar{N})^{\\mathsf{T}}]^{\\mathsf{T}} \\sim \\mathcal{Q}$. We consider general non-i.i.d. disturbance sequences with potentially unbounded support, such that at each time step $w(k)$ can take values in all of $\\mathbb{R}^n$. While the distribution does not need to be known, we assume access to samples of the (conditional) disturbance sequence. The system is subject to"
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render of PDF page 3 and with the TeX source. Running header and page number omitted. The first item completes the word split by the page break ('improve-' | 'ments', join_previous: none). 'Contributions' and 'Structure of the paper' are run-in \\paragraph headings, kept as bold run-in labels; the extractor's spurious list marker before 'Contributions' was removed. The four contributions are one list item each. Line-wrap hyphens removed: 'confor-mal', 'func-tions', 'Sec-tion'; 'sample-efficient' and 'data-driven' are printed compound hyphens. Section cross-references are written with the printed numbers (Section 2, 3, 3.1, 3.2, 4, 5). '2. Data-driven Reach Set Approximation with Christoffel Functions' is a level-2 heading (the extractor had made it level 1). DIFFERENCE FROM THE arXiv TeX SOURCE: the PMLR PDF prints the transition function as a displayed formula 'f : R^n -> R^n,' after 'by a transition function'; the arXiv TeX has no such display ('by a transition function which maps a state ...'). The PDF is followed. Both displays on this page (the transition function and the reachable set S = {f(x) : x in I}) are unnumbered and were transcribed to LaTeX and checked on the render; the extractor's two formula images were replaced. Inline mathematics from the TeX source with the jmlr macros expanded (\\Vec{x} -> \\boldsymbol{x}, printed bold italic; \\set{S} -> \\mathcal{S}). As printed, the sentence 'Every set S can be represented ...' uses a plain italic S twice (not calligraphic) and reads 'such as S is the support'. 'reachable set' is underlined in the PDF (\\emph) and written in italics.",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        163.0,
+        40.0,
+        445.0,
+        49.0
+      ],
+      "markdown": "",
+      "reason": "Running header 'Data-driven Reachability using Christoffel Functions' (short title, small caps); page furniture repeated on odd pages."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        116.0
+      ],
+      "markdown": "ments that we outline below. Further work on conformal prediction will be cited in the text.",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        127.0,
+        421.0,
+        138.0
+      ],
+      "markdown": "**Contributions** In this paper, we make the following contributions:"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        145.0,
+        523.0,
+        170.0
+      ],
+      "markdown": "- We use conformal prediction to provide stronger and more sample-efficient guarantees on reach set approximation than those given by Devonport et al. (2021)."
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        176.0,
+        523.0,
+        201.0
+      ],
+      "markdown": "- We propose a version of reach set approximation that is robust to outliers, in contrast to the approach of Devonport et al. (2021)."
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        206.0,
+        523.0,
+        242.0
+      ],
+      "markdown": "- We exploit an incremental form of the Christoffel function for transductive conformal prediction, thanks to which we don’t need to split the data set into training and calibration sets."
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        251.0,
+        523.0,
+        289.0
+      ],
+      "markdown": "- To the best of our knowledge, this is the first use of the Christoffel function in conformal prediction. The particular properties of the Christoffel function in set and density approximation make it an excellent candidate for a nonconformity function."
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        296.0,
+        523.0,
+        429.0
+      ],
+      "markdown": "**Structure of the paper** The paper is organized as follows. Section 2 presents the data-driven framework for reachability analysis using Christoffel functions. It describes the theoretical developments related to the reach set approximation and to Christoffel functions. In Section 3, we introduce our proposed approach to the reach set approximation with conformal prediction, whose statistical guarantees are presented in Section 3.1. Section 3.2 presents a technique to avoid the calibration set by using transductive conformal prediction and an incremental version of the Christoffel function. In Section 4, we discuss the robustness of our methodology to outliers. Section 5 provides numerical experiments on simulated data to support our theoretical results, and to highlight the effectiveness and potential of the proposed approach."
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        447.0,
+        492.0,
+        459.0
+      ],
+      "markdown": "## 2. Data-driven Reach Set Approximation with Christoffel Functions"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        469.0,
+        523.0,
+        507.0
+      ],
+      "markdown": "Reachability analysis aims to determine the possible future states of a dynamical system starting from a given initial state. For our purposes, we consider the system to be defined (explicitly or implicitly) by a transition function"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        269.0,
+        510.0,
+        343.0,
+        531.0
+      ],
+      "markdown": "$$\nf : \\mathbb{R}^n \\rightarrow \\mathbb{R}^n,\n$$"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        534.0,
+        523.0,
+        599.0
+      ],
+      "markdown": "which maps a state $\\boldsymbol{x} \\in \\mathbb{R}^{n}$ to its successor state. We forego extending the notation to nondeterministic or stochastic systems, since our focus is on estimating the image of $f$ applied to a set of initial states; in the case of a stochastic system we are interested in approximating the support of the image distribution. Beginning with a given initial set of states $\\mathcal{I}$, we are interested in computing the *reachable set*"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        253.0,
+        602.0,
+        359.0,
+        624.0
+      ],
+      "markdown": "$$\n\\mathcal{S} = \\{ f(\\boldsymbol{x}) : \\boldsymbol{x} \\in \\mathcal{I} \\}.\n$$"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        627.0,
+        523.0,
+        705.0
+      ],
+      "markdown": "When $f$ is not precisely known or complex, obtaining the exact solution may not be possible or economical. Instead, we compute an approximation $\\hat{\\mathcal{S}}$ that covers most of $\\mathcal{S}$. Every set $S$ can be represented by a probability measure $\\mu$ such as $S$ is the support of $\\mu$. This motivated Devonport et al. (2021) to use the Christoffel function to approximate the set $\\mathcal{S}$. In the following subsection, we introduce the Christoffel function, its empirical counterpart, and discuss how to compute it."
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "",
+      "reason": "Printed page number '3' in the footer (the PDF numbers its pages 1-20, equal to the PDF page index; the proceedings pagination 194-213 is not printed)."
+    }
+  ]
+}

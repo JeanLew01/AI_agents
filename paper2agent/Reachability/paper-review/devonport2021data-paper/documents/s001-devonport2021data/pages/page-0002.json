@@ -1,0 +1,266 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render and 240-260 dpi crops of PDF page 2 and with the TeX source. All inline and display mathematics rewritten in LaTeX from the TeX source with the authors' macros expanded (\\R -> \\mathbb{R}, \\initialset -> \\mathcal{X}_0, \\distset -> \\mathcal{D}, \\rs -> R_{[t_0,t_1]}, \\ars -> \\hat{R}_{[t_0,t_1]}) and checked symbol by symbol against the page; no difference between TeX and PDF was found. The first item continues the inline formula from page 1 (join_previous 'none'): the glyphs 'b}' printed at the top of this page are transcribed at the end of page 1. In the monomial example the authors' '~~' spacing was written as \\quad (same printed appearance; '~~' would be read as Markdown strikethrough). The six extractor 'formula' image items were replaced by $$...$$ text items; none of the displays on this page carries a printed equation number (the paper numbers only the three displays it refers to), so no \\tag was added. Section headings: 'II. PRELIMINARIES' in title case, subsections A and B as level 3. 'Remark 1:' and 'Problem 1:' start their items with the printed label in bold. The paragraph crossing from the left to the right column ('... than $B$, in | the sense that ...') was merged. The extractor had scrambled the last paragraph ('ismatrixcalled M-hat theis positive ...'); it is restored from the page. Authors' wording kept as printed, including: 'the standard partial order $\\mathbb{R}^n$' (no 'on'), 'a set $A\\in\\mathbb{R}^n$' (printed with the element sign, later $A\\subseteq\\mathbb{R}^n$), $\\Phi(t_1;t_0,x_0,u)$ with $u$ in Problem 1 (elsewhere $d$), 'several important application', 'samples $x^{(i)}$, $i=1,\\dots,N$ samples from $\\mu$'.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        54.0,
+        299.0,
+        186.0
+      ],
+      "markdown": ", where $\\le$ is the standard partial order $\\mathbb{R}^n$. Given a vector $x$, a subscript $x_i$ denotes the $i^{th}$ element of $x$. Given an ordered multiset of vectors (a collection of points in $\\mathbb{R}^n$ for instance), a superscript $x^{(i)}$ denotes the $i^{th}$ member of the multiset. For $x\\in\\mathbb{R}^n$, the vector $z_k(x)\\in\\mathbb{R}^{\\binom{n+k}{n}}$ denotes the vector of monomials of degree $\\le k$, including degree zero, evaluated at $x$: for instance, if $n=2$ and $k=2$, then $z_k(x)=[1 \\quad x_1 \\quad x_2 \\quad x_1x_2 \\quad x_1^2 \\quad x_2^2]^\\top$. The space of polynomials of degree $\\le d$ in $n$ variables is denoted $\\mathbb{R}[x]^n_d$: note that elements of $z_d$, treated as polynomials, form a basis for $\\mathbb{R}[x]^n_d$.",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "heading",
+      "bbox": [
+        134.0,
+        197.0,
+        218.0,
+        204.0
+      ],
+      "markdown": "## II. Preliminaries"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        213.0,
+        211.0,
+        223.0
+      ],
+      "markdown": "### A. Probabilistic Reachability Analysis"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        229.0,
+        299.0,
+        357.0
+      ],
+      "markdown": "Consider a dynamical system with a state transition function $\\Phi(t_1;t_0, x_0, d)$ that maps an initial state $x(t_0)=x_0\\in\\mathbb{R}^n$ at time $t_0$ to a unique final state at time $t_1$, under a disturbance $d:[t_0,t_1]\\to\\mathbb{R}^{w}$. For instance, when the system state dynamics $\\dot{x}(t) = f(t,x(t),d(t))$ are known and have unique solutions on the interval $[t_0,t_1]$, then $\\Phi(t_1;t_0, x_0, d)$ is just $x(t_1)$, where $x$ is the solution of the state dynamics with initial condition $x(t_0)=x_0$. In addition to representing exogenous disturbances, the disturbance signal $d$ may account for deviations of an input from a nominal control law."
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        361.0,
+        299.0,
+        430.0
+      ],
+      "markdown": "For the problem of forward reachability analysis, we are also given an *initial set* $\\mathcal{X}_0\\subset\\mathbb{R}^n$, a set $\\mathcal{D}$ of allowed disturbances and a time range $[t_0,t_1]$. The *forward reachable set* is then defined as the set of all states to which the system can transition in the time range $[t_0,t_1]$ with initial states in $\\mathcal{X}_0$ and disturbances in $\\mathcal{D}$, that is the set"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        78.0,
+        435.0,
+        275.0,
+        457.0
+      ],
+      "markdown": "$$\nR_{[t_0,t_1]} = \\{\\Phi(t_1;t_0,x_0, d) : x_0\\in\\mathcal{X}_0, d\\in\\mathcal{D}\\}.\n$$"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        461.0,
+        299.0,
+        554.0
+      ],
+      "markdown": "To tackle the problem of estimating the forward reachable set by statistical means, we add probabilistic structure to the reachability problem that corresponds to taking random independent samples from the reachable set. Specifically, we take random variables $X_0$ and $D$ that take values on $\\mathcal{X}_0$ and $\\mathcal{D}$ respectively. These random variables then induce a random variable $\\Phi(t_1;t_0, X_0, D)$ over the forward reachable set, whose probability measure we denote as $\\mu$."
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        557.0,
+        299.0,
+        636.0
+      ],
+      "markdown": "**Remark 1:** The random variables $X_0$ and $D$ may have a physical significance, if the initial states, inputs, or disturbances are known to behave randomly in the problem at hand. However, they do not need to: they may be considered as *instrumental distributions* whose purpose is to provide a consistent rule for selecting initial states and disturbances at random."
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        640.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "The measure $\\mu(A)$ of a set $A\\in\\mathbb{R}^n$ has an intuitive interpretation: if we take samples $x_0$ and $d$ of the random variables $X_0$ and $D$, then the vector $\\Phi(t_1;t_0,x_0,d)$ lies in $A$ with probability $\\mu(A)$. Additionally, the smallest set of measure 1 is the reachable set. This interpretation motivates $\\mu(A)$ as a measure of *probabilistic accuracy*: if a set $A\\subseteq\\mathbb{R}^n$ has a greater measure $\\mu(A)$ than a set $B\\subseteq\\mathbb{R}^n$, then $A$ is a more accurate approximation of the reachable set than $B$, in the sense that it “misses” less of the probability mass than $B$ does. In the probabilistic version of the forward reachability problem, our goal is to find reachable set approximations $\\hat{R}_{[t_0,t_1]}$ such that $\\mu(\\hat{R}_{[t_0,t_1]})$ is close to 1. Formally, we look to solve the following problem."
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        115.0,
+        559.0,
+        175.0
+      ],
+      "markdown": "**Problem 1:** Given the state transition function $\\Phi(t_1;t_0, x_0, u)$, time range $[t_0,t_1]$, initial set $\\mathcal{X}_0$, and disturbance set $\\mathcal{D}$, the random variables $X_0$ and $D$, and an *accuracy level* $\\epsilon\\in(0,1)$, compute a set $\\hat{R}_{[t_0,t_1]}$ such that $\\mu(\\hat{R}_{[t_0,t_1]}) \\ge 1-\\epsilon$."
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        175.0,
+        559.0,
+        234.0
+      ],
+      "markdown": "Selecting a set with high measure under $\\mu$ is not sufficient to ensure a reasonable estimate, since the trivial solution $\\hat{R}_{[t_0,t_1]}=\\mathbb{R}^n$ satisfies $\\mu(\\hat{R}_{[t_0,t_1]})=1$. To avoid this problem we require some regularization, such as requiring that $\\hat{R}_{[t_0,t_1]}$ be compact and penalizing estimates with high volume."
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        243.0,
+        413.0,
+        253.0
+      ],
+      "markdown": "### B. Christoffel Functions"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        259.0,
+        559.0,
+        279.0
+      ],
+      "markdown": "Given a finite measure $\\mu$ on $\\mathbb{R}^n$ and a positive integer $k$, the Christoffel function of order $k$ is defined as the ratio"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        374.0,
+        279.0,
+        497.0,
+        313.0
+      ],
+      "markdown": "$$\n\\kappa(x) = \\frac{1}{z_k(x)^\\top M^{-1}z_k(x)},\n$$"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        314.0,
+        459.0,
+        322.0
+      ],
+      "markdown": "where $M$ is the matrix of moments"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        371.0,
+        323.0,
+        501.0,
+        357.0
+      ],
+      "markdown": "$$\nM = \\int_{\\mathbb{R}^n}z_k(x) z_k(x)^\\top d\\mu(x)\n$$"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        358.0,
+        559.0,
+        440.0
+      ],
+      "markdown": "and $z_k(x)$ is the vector of monomials of degree $\\le k$. We assume throughout that $M$ is positive definite, ensuring that $M^{-1}$ exists. The Christoffel function has several important application in approximation theory, where its asymptotic properties are used to prove the regularity and consistency of Fourier series of orthogonal polynomials. For our purposes, it is more convenient to use the *inverse Christoffel function*"
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "text",
+      "bbox": [
+        370.0,
+        441.0,
+        501.0,
+        464.0
+      ],
+      "markdown": "$$\n{\\kappa(x)}^{-1} = z_k(x)^\\top M^{-1}z_k(x),\n$$"
+    },
+    {
+      "id": "p0002-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        468.0,
+        559.0,
+        549.0
+      ],
+      "markdown": "which is a polynomial of degree $2k$. In Problem 1, and more generally in the problem of estimating a probability distribution from samples, $\\mu$ is a probability measure which we do not *a priori* know. In this case, we instead use an empirical estimate of $\\mu$ constructed from a collection of independently and identically distributed (iid) samples $x^{(i)}$, $i=1,\\dots,N$ samples from $\\mu$, namely"
+    },
+    {
+      "id": "p0002-b020",
+      "kind": "text",
+      "bbox": [
+        395.0,
+        551.0,
+        476.0,
+        591.0
+      ],
+      "markdown": "$$\n\\hat{\\mu}=\\frac{1}{N}\\sum_{i=1}^N \\delta_{x^{(i)}},\n$$"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        593.0,
+        559.0,
+        626.0
+      ],
+      "markdown": "where $\\delta_x$ is the *Dirac measure* satisfying $\\int f(y)d\\delta_x(y)=f(x)$. The measure $\\hat{\\mu}$ itself defines a Christoffel function, whose inverse"
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "text",
+      "bbox": [
+        320.0,
+        627.0,
+        551.0,
+        687.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nC(x)&= \\hat{\\kappa}^{-1}(x)= z_k(x)^\\top \\hat{M}^{-1}z_k(x)\\\\\n&= z_k(x)^\\top \\left( \\frac{1}{N} \\sum_{i=1}^N z_k(x^{(i)}) z_k(x^{(i)})^\\top \\right)^{-1}z_k(x),\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0002-b023",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "is called the *empirical inverse Christoffel function*. The matrix $\\hat{M}$ is positive definite (and hence $\\hat{M}^{-1}$ exists) if $N \\ge \\binom{n+k}{n}$ and the $x^{(i)}$ do not all belong to the zero set of a single degree $k$ polynomial."
+    }
+  ]
+}

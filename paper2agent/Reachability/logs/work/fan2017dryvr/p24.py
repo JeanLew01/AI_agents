@@ -1,0 +1,24 @@
+from pagelib import *
+
+items = [
+    text("p0024-b000", [158.0, 127.0, 478.0, 149.0],
+         "of time. Requirement: Vehicle A stops behind B and maintains at least a given safe separation.",
+         join_previous="space"),
+    text("p0024-b001", [133.0, 158.0, 478.0, 246.0],
+         r"**$\mathsf{MergeBetween}$:** Initial condition: Vehicle A, B, C are all in the same lane, with A behind B, B behind C, and in the $\mathsf{cruise}$ mode, initial positions and speeds are in some range. Transition graph: A goes through the mode sequence $\mathsf{ch\_left}$, $\mathsf{speedup}$, $\mathsf{brake}$, and $\mathsf{ch\_right}$, $\mathsf{cruise}$ with specified time intervals in each mode to overtake B. C transits from $\mathsf{cruise}$ to $\mathsf{speedup}$ then transits back to $\mathsf{cruise}$, so C is always ahead of A. Requirement: Vehicle A merges between B and C and any two vehicles maintain at least a given safe separation."),
+    heading("p0024-b002", [133.0, 262.0, 354.0, 271.0], "### A.2 Automatic transmission control"),
+    text("p0024-b003", [133.0, 281.0, 478.0, 314.0],
+         "We provide some details about the Automatic transmission control benchmark that we have modeled as a hybrid system that combine white-box and black-box components and we have verified using DryVR’s safety verification algorithm."),
+    text("p0024-b004", [133.0, 315.0, 478.0, 370.0],
+         "This is a slightly modified version of the Automatic Transmission model provided by Mathworks® as a Simulink® demo [46]. It is a model of an automatic transmission controller that exhibits both continuous and discrete behavior. The model has been previously used by S-taliro [26] for falsifying certain requirements. We are not aware of any verification results for this system."),
+    text("p0024-b005", [133.0, 369.0, 478.0, 493.0],
+         r"For our experiments, we made some minor modifications to the Simulink® model to create the hybrid system $\mathsf{ATS}$. This allows us to simulate the vehicle from any one of the four modes, namely, $\mathsf{gear1}$, $\mathsf{gear2}$, $\mathsf{gear3}$ and $\mathsf{gear4}$. Although the system has many variables, we are primarily interested in the car Speed ($v$), engine RPM (Erpm), impeller torque ($T_i$), output torque ($T_o$), and transmission RPM (Trpm), and therefore, use simulations that record these. Transition graph of $\mathsf{ATS}$ encodes transition sequences and intervals for shifting from $\mathsf{gear1}$ through to $\mathsf{gear4}$. Requirement of interest is that the engine RPM is less than a specified maximum value, which in turn is important for limiting the thermal and mechanical stresses on the cylinders and camshafts. Typical unsafe set $\mathcal{U}_t$ could be Erpm $>4000$."),
+    heading("p0024-b006", [133.0, 509.0, 336.0, 521.0], "### A.3 Safety verification algorithm"),
+    text("p0024-b007", [133.0, 528.0, 478.0, 550.0],
+         "The safety verification algorithm is shown in 2. It proceeds along the line of the simulation-based verification algorithms presented in [22, 29, 23]."),
+    pageno(24, [300.0, 695.0, 311.0, 703.0]),
+]
+
+save(24, items, r"""
+Compared with a 190-dpi render of the text block and with appendix.tex. First item continues the AEB list item from page 23 (join_previous 'space'). 'MergeBetween' is the fifth item of the description list of Appendix A.1 (label in sans-serif with bold colon, kept in bold). 'A.2 Automatic transmission control' and 'A.3 Safety verification algorithm' are lettered subsections of the appendix (###). Mode names in sans-serif written $\mathsf{gear1}$ ... $\mathsf{gear4}$, $\mathsf{ch\_left}$, $\mathsf{ch\_right}$ (printed underscores; the extractor had strikethrough fragments); system name $\mathsf{ATS}$; 'Erpm', 'Trpm' are upright text as printed; $T_i$, $T_o$, $v$, $\mathcal{U}_t$ from the TeX, checked on the render; 'Erpm $>4000$'. 'Mathworks®', 'Simulink®' carry superscript registered signs. Source slips kept as printed: 'The safety verification algorithm is shown in 2.' (bare number, the word 'Algorithm' is missing; it refers to Algorithm 2 on page 25); 'that combine'; 'Vehicle A, B, C are'; 'car Speed'. Note: Section 2.5 calls the scenario with three cars 'Merge3', the appendix 'MergeBetween'; Section 2.5 has 'Merge', the appendix 'MergeBehind' and 'MergeAhead' (source, kept). Citations [46], [26], [22, 29, 23] checked. Line-wrap hyphens removed (auto-matic, behav-ior, transmis-sion). The rest of the page is blank; Algorithm 2 is printed alone on page 25. Omitted: page number 24.
+""")

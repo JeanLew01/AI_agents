@@ -1,0 +1,134 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview and 260-dpi crops (equation block, Langevin paragraph) with the items; prose checked against 70related.tex and 20formulation.tex. First item continues the page-2 paragraph (join_previous=space). TeX vs PDF: the paragraph 'Langevin-based Markov Chain Monte Carlo for Global Optimization.' exists only in the camera-ready PDF (absent from the arXiv v1 TeX); it was transcribed from the page crop, including $p \\propto \\exp(-\\frac{J}{\\lambda})$, $O(\\frac{1}{\\epsilon^2}\\log(\\frac{1}{\\epsilon}))$ and $O(\\frac{1}{\\epsilon})$. Display equations (1a)-(1d) converted from a formula image to one text item with four $$ blocks tagged (1a), (1b), (1c), (1d), taken from 20formulation.tex and checked on the crop. Printed oddity kept: line (1d) ends with 'T - 1.3' in the PDF (a stray '3' after the final period; the arXiv TeX has 'T-1.'); transcribed as printed. Inline maths rewritten in LaTeX (Notations paragraph, problem statement, 'where $x_t \\in \\mathbb{R}^{n_x}$ ...' paragraph); footnote marker written as '[^1]' (Markdown footnote-reference form, so that it cannot be read as an exponent). Footnote 1 is placed before the last item because that item ('where ... are the stage') continues on page 4 ('costs.'), where join_previous=space is set. Page number 3 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        75.0,
+        506.0,
+        183.0
+      ],
+      "markdown": "problems, where gradient-based optimizers such as Augmented Lagrangian [32], Interior Point [36], and Sequential Quadratic Programming [3, 48] are employed. To leverage the parallelism of modern hardware and improve global convergence properties, sampling-based methods like Cross-Entropy Motion Planning (CEM) [37] and Model Predictive Path Integral (MPPI) [58, 62] have been proposed to solve TO by sampling from target distributions. To solve stochastic optimal control problems, trajectory optimization has also been framed as an inference problem in a probabilistic graphical model, where system dynamics defines the graph structure [35, 39]. This perspective extends methods such as iLQG by integrating approximate inference techniques to improve trajectory optimization [55]. The connection between diffusion and optimal control has been explored in [10], which motivates us to use diffusion models as solvers for trajectory optimization.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        189.0,
+        506.0,
+        308.0
+      ],
+      "markdown": "**Diffusion for Planning.** Diffusion-based planners have been used to perform human motion generation [12, 54] and multi-agent motion prediction [34]. Diffusion models are capable of generating complete trajectories by folding both dynamics and optimization processes into a single framework, thus mitigating compounding errors and allowing flexible conditioning [33, 40, 5]. In addition, they have been adeptly applied to policy generation, enhancing the capability to capture multimodal demonstration data in high-dimensional spaces for long-horizon tasks [46, 15]. These works assume no access to the underlying dynamics, limiting the generalization to new environments. To enforce dynamics constraints, SafeDiffuser [60] integrates control barrier functions into the learned diffusion process, while Diffusion-CCSP [61] composes the learned geometric and physical conditions to guarantee constraint compliance. Our approach uses diffusion models directly as solvers, rather than simply distilling solutions from demonstrations.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        315.0,
+        506.0,
+        481.0
+      ],
+      "markdown": "**Langevin-based Markov Chain Monte Carlo for Global Optimization.** Gradient-based sampling algorithms have been widely used in global optimization, where the energy function $J$ is optimized by sampling from the Boltzmann distribution $p \\propto \\exp(-\\frac{J}{\\lambda})$ [57, 43]. By annealing the temperature $\\lambda$ to zero, the sampling process converges to the global minimum of the energy function $J$ [31]. The convergence of Langevin-based MCMC methods has been well studied in both continuous and discretized settings [16, 21], showing that the distribution will converge in probability to the target distribution with certain decreasing schedule of the step size and temperature $\\lambda$. In practice, the most common Langevin-based MCMC methods are unadjusted Langevin Monte Carlo (ULMC) [17] and Underdamped Langevin Monte Carlo (UdLMC) [14], with convergence rates of $O(\\frac{1}{\\epsilon^2} \\log(\\frac{1}{\\epsilon}))$ and $O(\\frac{1}{\\epsilon})$ given strongly convex and smooth energy functions, respectively. Recently, Langevin-based MCMC methods have been integrated into diffusion processes to improve global convergence and sampling efficiency [30, 6], where the score function is estimated by Monte Carlo to accelerate and stabilize the diffusion process. Our work differs from these methods in that we aim to sample from the high-probability region of the target distribution without assuming access to the gradient of the energy function, and without assuming the energy function is smooth or convex.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        498.0,
+        313.0,
+        509.0
+      ],
+      "markdown": "## 3 Problem Statement and Background",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        522.0,
+        505.0,
+        544.0
+      ],
+      "markdown": "**Notations**: We use lower (upper) scripts to specify the time (diffusion) step, e.g., $x_t, u_t, y_t$ represent the state, control and state-control pair at time $t$, and $Y^{(i)}$ represents the diffusion state at step $i$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        551.0,
+        505.0,
+        584.0
+      ],
+      "markdown": "This paper focuses on a class of trajectory optimization (TO) problems whose objective is to find the sequences $\\{x_t\\}$ and $\\{u_t\\}$ that minimize the cost function $J(x_{1:T}; u_{1:T})$ subject to the dynamics and constraints. The optimization problem [^1] can be formulated as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        205.0,
+        589.0,
+        507.0,
+        662.5
+      ],
+      "markdown": "$$\n\\min_{x_{1:T}, u_{1:T}} J(x_{1:T}; u_{1:T}) = l_T(x_T) + \\sum_{t=0}^{T-1} l_t(x_t, u_t) \\tag{1a}\n$$\n\n$$\n\\text{s.t.} \\quad x_0 = x_{\\text{init}} \\tag{1b}\n$$\n\n$$\nx_{t+1} = f_t(x_t, u_t), \\quad \\forall t = 0, 1, \\dots, T-1, \\tag{1c}\n$$\n\n$$\ng_t(x_t, u_t) \\leq 0, \\quad \\forall t = 0, 1, \\dots, T-1.3 \\tag{1d}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        702.0,
+        504.0,
+        722.0
+      ],
+      "markdown": "Footnote 1: We assume deterministic dynamics for simplicity to sample the dynamically feasible trajectory. The extension to stochastic dynamics is straightforward.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        673.0,
+        505.0,
+        694.0
+      ],
+      "markdown": "where $x_t \\in \\mathbb{R}^{n_x}$ and $u_t \\in \\mathbb{R}^{n_u}$ are the state and control at time $t$, $f_t : \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_u} \\rightarrow \\mathbb{R}^{n_x}$ represents the dynamics, $g_t : \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_u} \\rightarrow \\mathbb{R}^{n_g}$ are the constraint functions and $l_t : \\mathbb{R}^{n_x} \\times \\mathbb{R}^{n_u} \\rightarrow \\mathbb{R}$ are the stage",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page number 3 in the footer (verified on the preview)."
+    }
+  ]
+}

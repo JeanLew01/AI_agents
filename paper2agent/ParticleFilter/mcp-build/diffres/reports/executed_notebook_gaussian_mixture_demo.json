@@ -1,0 +1,293 @@
+{
+ "gaussian_mixture_demo": {
+  "execution_id": "gaussian_mixture_demo",
+  "module": "resampling",
+  "tools_supported": [
+   "diffres_resample_particles_diffusion",
+   "diffres_resample_particles_baseline"
+  ],
+  "source_path": "repo/diffres/demos/gaussian_mixture.ipynb",
+  "source_sha256": "52d2c7fc97fe8ddeacb84e4dd4204869dec34d0092b5060653412cf599e3e295",
+  "source_repository": "https://github.com/zgbkdlm/diffres",
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/demos/gaussian_mixture.ipynb",
+  "status": "success",
+  "execution_mode": "notebook (papermill, unchanged notebook) + capture/replay driver calling upstream functions directly",
+  "execution_path": "notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb",
+  "inspection_copy": "notebooks/gaussian_mixture_demo/gaussian_mixture_inspection.ipynb",
+  "runtime": {
+   "python": "CPython 3.11.17",
+   "PROJECT_PYTHON": "$PROJECT_ROOT/diffres-env/bin/python",
+   "kernel": "diffres-p2a (diffres-env/share/jupyter/kernels/diffres-p2a, argv[0]=PROJECT_PYTHON)",
+   "jax": "0.7.2 (CPU, device TFRT_CPU_0; JAX_PLATFORMS=cpu via heavy.sh)",
+   "jax_enable_x64": true,
+   "ott-jax": "0.5.2",
+   "matplotlib": "3.10.6",
+   "papermill": "2.7.0",
+   "nbclient": "0.11.0",
+   "ipykernel": "7.4.0",
+   "IPython": "9.17.1",
+   "matplotlib_inline": "0.2.2",
+   "diffres": "0.0.1 editable from repo/diffres @767effe"
+  },
+  "parameters_changed_vs_upstream": "None. Notebook executed unchanged (nsamples=1024, c=5, d=10, dy=2, PRNGKey(666), a=-2, T=1., nsteps=32, integrator=jentzen_and_kloeden, ode=True, ensemble_ot eps=0.3, multinomial). Only environment: MPLBACKEND overridden from heavy.sh default Agg to module://matplotlib_inline.backend_inline so the figure is embedded (attempt 1 under Agg produced no image output).",
+  "attempts": [
+   {
+    "n": 1,
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1500 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/papermill_run1.log -- env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python -m papermill $PROJECT_ROOT/repo/diffres/demos/gaussian_mixture.ipynb $PROJECT_ROOT/notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb --kernel diffres-p2a --cwd $PROJECT_ROOT/notebooks/gaussian_mixture_demo/work --log-output",
+    "exit_status": 0,
+    "peak_memory_mb": 739,
+    "papermill_duration_s": 43.2,
+    "outcome": "all cells ran, but cell 7 had no display output because heavy.sh sets MPLBACKEND=Agg, which overrides the inline backend; notebook kept as attempts/attempt1_no_figure_Agg_backend.ipynb (sha256 6a1781f2...) and not used as reference"
+   },
+   {
+    "n": 2,
+    "command": "same as 3 with --limit-mb 1500",
+    "exit_status": 75,
+    "outcome": "heavy.sh NOT STARTED (MemAvailable=3127 MB < 1500+2000); nothing ran"
+   },
+   {
+    "n": 3,
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/papermill_run2.log -- env PYTHONDONTWRITEBYTECODE=1 MPLBACKEND=module://matplotlib_inline.backend_inline $PROJECT_ROOT/diffres-env/bin/python -m papermill $PROJECT_ROOT/repo/diffres/demos/gaussian_mixture.ipynb $PROJECT_ROOT/notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb --kernel diffres-p2a --cwd $PROJECT_ROOT/notebooks/gaussian_mixture_demo/work --log-output",
+    "exit_status": 0,
+    "peak_memory_mb": 723,
+    "wall_s": 55,
+    "papermill_duration_s": 51.1,
+    "cell_durations_s": {
+     "cell2_imports": 5.36,
+     "cell4_model_and_IS": 8.4,
+     "cell6_resampling": 29.87,
+     "cell7_plot": 2.49
+    },
+    "outcome": "reference run; papermill exception=None; one image/png output in cell 7"
+   },
+   {
+    "n": 4,
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1100 --timeout 1800 --log notebooks/gaussian_mixture_demo/logs/driver_capture_replay.log -- bash -c \"cd notebooks/gaussian_mixture_demo/work && env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py capture && env PYTHONDONTWRITEBYTECODE=1 $PROJECT_ROOT/diffres-env/bin/python notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py replay\"",
+    "exit_status": 0,
+    "peak_memory_mb": 681,
+    "wall_s": 83,
+    "outcome": "capture exit 0, replay exit 0 (all comparisons bitwise equal)"
+   }
+  ],
+  "notes_on_execution": [
+   "Papermill log shows \"Notebook JSON is invalid: Additional properties are not allowed (jetTransient ...)\" for the INPUT notebook (stored upstream output in cell 7); warning only, execution proceeded.",
+   "Executed notebook metadata.kernelspec still reads python3 (copied from the input; papermill 2.7.0 did not rewrite it), but the papermill log records \"Executing notebook with kernel: diffres-p2a\".",
+   "No GPU used (gpu_used_before/after 0 MiB in every heavy.sh run). repo/diffres git status clean after all runs."
+  ],
+  "data_and_seed_provenance": {
+   "data": "synthetic, generated inside the notebook (cell 4): 5-component Gaussian mixture prior in d=10, linear Gaussian likelihood dy=2 with obs_op=ones((2,10)), obs_cov=I2, y = obs_op @ (gm_weights @ ms); importance weights = likelihood of 1024 prior samples, normalised by logsumexp. No external data.",
+   "seed": "jax.random.PRNGKey(666) (cell 2); key split 3x in cell 4 and once in cell 6; the resampling key (raw uint32[2]) = [700162660, 1620510799]; all three resamplers use this same key.",
+   "how_inputs_were_obtained": "gaussian_mixture_driver.py capture reads the unchanged upstream notebook (sha256 checked) and exec()s the verbatim source of code cells 2, 4, 6 and 7 in one namespace (the notebook's own code), then saves arrays. Its figure re-render is byte-identical to the papermill figure, which ties the saved arrays to the papermill run."
+  },
+  "inputs": {
+   "inputs_resampling.npz": {
+    "path": "notebooks/gaussian_mixture_demo/data/inputs_resampling.npz",
+    "sha256": "ebac589df2d46d5b5eeb341c633db4550542c0bf3a7186ef225dfc0b6319d529",
+    "contents": {
+     "key": "uint32 (2,)",
+     "log_ws": "float64 (1024,), normalised (sum exp = 1 - 3e-16)",
+     "prior_samples": "float64 (1024, 10)",
+     "ts": "float64 (33,) = linspace(0,1,33)"
+    }
+   },
+   "resampling_arguments.json": {
+    "path": "notebooks/gaussian_mixture_demo/data/resampling_arguments.json",
+    "sha256": "db61007e0328c1aca3c149e8c5f3371e5b0d3ea83d57c4cc3fd4c4775a9cfee0",
+    "summary": "diffusion_resampling(key, log_ws, prior_samples, a=-2, ts=linspace(0,1.,33), integrator=\"jentzen_and_kloeden\", ode=True) [jitter=0., einsum=False defaults]; ensemble_ot(key, log_ws, prior_samples, eps=0.3) [implicit_diff=True default]; multinomial(key, log_ws, prior_samples); jax_enable_x64=True"
+   },
+   "notebook_context.npz": {
+    "path": "notebooks/gaussian_mixture_demo/data/notebook_context.npz",
+    "sha256": "d0f5dd6848345bc5e371f1123c40dd87e0b365c2014edaaadf72852d6367c9a6",
+    "contents": "true_post_samples (1024,10) exact posterior samples used in the figure, ms, covs, y, post_vs, post_ms, post_covs"
+   }
+  },
+  "outputs": {
+   "outputs_capture.npz": {
+    "path": "notebooks/gaussian_mixture_demo/data/outputs_capture.npz",
+    "sha256": "d13724746fdffdc14adcae763bef5bcd4ed2fefb0a9440f956645a60ec500770",
+    "contents": "approx_post_samples (diffusion), approx_post_samples_ot, approx_post_samples_multinomial; float64 (1024,10) each, as produced by notebook cell 6 code"
+   },
+   "outputs_replay.npz": {
+    "path": "notebooks/gaussian_mixture_demo/data/outputs_replay.npz",
+    "sha256": "4862876a390a476c3c778f43cb2cecd696c07a3e8e31ad8c569c64454392a1f1",
+    "contents": "same three arrays from direct upstream calls on the saved inputs, plus returned log weights (all = -log 1024)"
+   }
+  },
+  "reference_numbers": {
+   "input_ess": 178.1133018276936,
+   "weighted_mean_prior_dims01": [
+    2.167282607202751,
+    2.009248454884421
+   ],
+   "true_post_mean_dims01": [
+    2.2526719300186953,
+    1.5028771572185402
+   ],
+   "resample_means_dims01": {
+    "approx_post_samples": [
+     2.1624622484472833,
+     1.935391156871063
+    ],
+    "approx_post_samples_ot": [
+     2.1650274602625506,
+     1.9926674760046998
+    ],
+    "approx_post_samples_multinomial": [
+     2.181883212960594,
+     2.1480267964241415
+    ]
+   },
+   "resample_mean_all_std_all": {
+    "approx_post_samples": [
+     0.3524554415821253,
+     3.020282821755952
+    ],
+    "approx_post_samples_ot": [
+     0.35189476809068376,
+     2.9974086917085043
+    ],
+    "approx_post_samples_multinomial": [
+     0.3473942186072557,
+     3.0686517366326505
+    ]
+   },
+   "multinomial_unique_ancestors": 214,
+   "multinomial_rows_are_exact_input_particles": true,
+   "output_log_weights_uniform_minus_log_n": true,
+   "replay_timings_s": {
+    "diffusion_resampling": 9.6119384765625,
+    "ensemble_ot": 16.707470655441284,
+    "multinomial": 0.8558483123779297
+   }
+  },
+  "replay_comparisons": {
+   "method": "fresh process loads only inputs_resampling.npz + resampling_arguments.json, calls diffres.resampling.diffusion_resampling / ensemble_ot / multinomial directly (CPU, x64), compares with captured notebook-code outputs",
+   "tolerance": "exact (bitwise) required; observed exact",
+   "results": {
+    "approx_post_samples": {
+     "bitwise_equal": true,
+     "max_abs_diff": 0.0,
+     "dtype": "float64",
+     "shape": [
+      1024,
+      10
+     ]
+    },
+    "approx_post_samples_ot": {
+     "bitwise_equal": true,
+     "max_abs_diff": 0.0,
+     "dtype": "float64",
+     "shape": [
+      1024,
+      10
+     ]
+    },
+    "approx_post_samples_multinomial": {
+     "bitwise_equal": true,
+     "max_abs_diff": 0.0,
+     "dtype": "float64",
+     "shape": [
+      1024,
+      10
+     ],
+     "all_rows_are_input_particles": true,
+     "n_unique_ancestors": 214
+    },
+    "log_ws_diffusion_uniform": true,
+    "log_ws_ot_uniform": true,
+    "log_ws_multinomial_uniform": true
+   },
+   "figure": {
+    "replay_vs_papermill_figure_1": {
+     "png_bytes_equal": true,
+     "same_shape": true,
+     "pixels_equal": true,
+     "max_abs_pixel_diff": 0.0,
+     "shape_replay": [
+      517,
+      1217,
+      4
+     ],
+     "shape_papermill": [
+      517,
+      1217,
+      4
+     ]
+    },
+    "capture_vs_papermill_figure_1": {
+     "same_shape": true,
+     "png_bytes_equal": true,
+     "pixels_equal": true,
+     "shape_capture": [
+      517,
+      1217,
+      4
+     ],
+     "shape_papermill": [
+      517,
+      1217,
+      4
+     ]
+    },
+    "note": "notebook cell-7 plotting code re-run on the replayed arrays and rendered via IPython print_figure (the inline backend call) gives a PNG byte-identical to images/figure_1.png from the papermill run (sha256 38ef4f21...)"
+   },
+   "driver": "notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py",
+   "driver_sha256": "fd9c4b0540e0da6bb61913fcca3f879a21b3704a12008c2ca0c0d7cd1dc9964e",
+   "comparison_json": "notebooks/gaussian_mixture_demo/data/replay_comparison.json"
+  },
+  "figures": [
+   {
+    "path": "notebooks/gaussian_mixture_demo/images/figure_1.png",
+    "sha256": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+    "cell_index": 7,
+    "size": "1217x517 RGBA",
+    "manifest": "notebooks/gaussian_mixture_demo/images/image-manifest.json",
+    "description": "three panels, dims 0-1: true posterior samples vs diffusion resamples / OT resamples / multinomial resamples"
+   }
+  ],
+  "comparison_with_upstream_stored_output": {
+   "stored_figure": "notebooks/gaussian_mixture_demo/upstream_stored_figure/figure_1.png",
+   "stored_sha256": "193640c2062756520d92d108182b75322c7ce505e7d86abec0eea3c24014aab9",
+   "differing_pixels_per_panel": {
+    "panel1_diffusion": 50599,
+    "panel2_ot": 50,
+    "panel3_multinomial": 4270
+   },
+   "total_pixels": 629189,
+   "assessment": "Same size and layout. True-posterior points and the OT panel match visually (50 differing pixels in the OT third). The multinomial panel differs in a few points (4270 differing pixels, 707 with change > 0.3). The diffusion panel differs visibly (50599 px): the same multimodal coverage of the three posterior clusters, but a different realisation. The upstream author's run environment (JAX version, platform) is not recorded in the notebook, and the diffusion_resampling default path has had no algorithmic change since the notebook commit 6aa3e1f (only jitter=0./einsum=False switches were added). The cause is therefore unknown. This is a qualitative difference from the stored output only; the tool references are the locally executed results above."
+  },
+  "limitations": [
+   "The notebook prints no numbers. The only notebook output is the figure; the numeric references come from the capture driver, which runs the same notebook code, and are tied to the papermill run by a byte-identical figure.",
+   "Bitwise replay was observed on this CPU / jax 0.7.2 / x64 setup. Other platforms or JAX versions may differ (see the stored-output comparison).",
+   "diffusion_resampling uses exp(log_ws) directly; the saved log_ws are already logsumexp-normalised, as in the notebook.",
+   "Sliced-Wasserstein accuracy checks (tests/test_resampling.py) are not part of this source and were not run here."
+  ],
+  "attempts_used": 4,
+  "max_peak_memory_mb": 739,
+  "evidence_files": {
+   "notebooks/gaussian_mixture_demo/attempts/attempt1_no_figure_Agg_backend.ipynb": "6a1781f296e735f854f6ddeb65033a559bb3313f46734c420051475087e4f42d",
+   "notebooks/gaussian_mixture_demo/data/capture_info.json": "b2cdd7b7d0b84108f616e1cf0342dac1e962d7aeb86cc6e05fcd1c88d2ec46cb",
+   "notebooks/gaussian_mixture_demo/data/figure_vs_upstream_stored_output.json": "725da66332f9396ce0f66fef81e0666ba3a7caafbc4d1e18d92ddc42d155900c",
+   "notebooks/gaussian_mixture_demo/data/inputs_resampling.npz": "ebac589df2d46d5b5eeb341c633db4550542c0bf3a7186ef225dfc0b6319d529",
+   "notebooks/gaussian_mixture_demo/data/notebook_context.npz": "d0f5dd6848345bc5e371f1123c40dd87e0b365c2014edaaadf72852d6367c9a6",
+   "notebooks/gaussian_mixture_demo/data/outputs_capture.npz": "d13724746fdffdc14adcae763bef5bcd4ed2fefb0a9440f956645a60ec500770",
+   "notebooks/gaussian_mixture_demo/data/outputs_replay.npz": "4862876a390a476c3c778f43cb2cecd696c07a3e8e31ad8c569c64454392a1f1",
+   "notebooks/gaussian_mixture_demo/data/replay_comparison.json": "46987576e4debad6ebb9d687ad2bd640229766024e10de8e4525cd38f065027b",
+   "notebooks/gaussian_mixture_demo/data/resampling_arguments.json": "db61007e0328c1aca3c149e8c5f3371e5b0d3ea83d57c4cc3fd4c4775a9cfee0",
+   "notebooks/gaussian_mixture_demo/gaussian_mixture_driver.py": "fd9c4b0540e0da6bb61913fcca3f879a21b3704a12008c2ca0c0d7cd1dc9964e",
+   "notebooks/gaussian_mixture_demo/gaussian_mixture_execution_final.ipynb": "4b0be2dc406e84acd48108b6e7bd590e574cee0a386be646cab3554b765b43c6",
+   "notebooks/gaussian_mixture_demo/gaussian_mixture_inspection.ipynb": "0d75573264ad036dab4a90808927721bb19d58003b5b5e7b3c5293b382b8a55c",
+   "notebooks/gaussian_mixture_demo/images/figure_1.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+   "notebooks/gaussian_mixture_demo/images/image-manifest.json": "a2bc6bbb980b0bbfd8bd7fa1c0178f3933aa4c306386b8da7b14c4999e7ce497",
+   "notebooks/gaussian_mixture_demo/images_driver/capture_cell7.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+   "notebooks/gaussian_mixture_demo/images_driver/replay_cell7.png": "38ef4f21eebc34639be6bf843956d64fd16df2be46b75d0f49ffc1e310967887",
+   "notebooks/gaussian_mixture_demo/logs/driver_capture_replay.log": "47ac82c39ce72bca16402878eaf5042ddf02de7d69434802819e66772469f2b8",
+   "notebooks/gaussian_mixture_demo/logs/papermill_run1.log": "cb84bff51921025f02a968e8e3139568b71c17526c35953a211a14a61d9842f6",
+   "notebooks/gaussian_mixture_demo/logs/papermill_run2.log": "d829405fedb1be34e5b6a1c3fca8b1696c1662b3590e900abf40a7c17dde9399",
+   "notebooks/gaussian_mixture_demo/logs/papermill_time.txt": "8c3dfcfd0be24ce39bd2ce3d133d3df6f5d3cf8a748222087a91ba375df00dd3",
+   "notebooks/gaussian_mixture_demo/upstream_stored_figure/figure_1.png": "193640c2062756520d92d108182b75322c7ce505e7d86abec0eea3c24014aab9",
+   "notebooks/gaussian_mixture_demo/upstream_stored_figure/image-manifest.json": "0aec52fb6ecf5b2a1dbdeb28aab16fd1e0042a55a97f149a152502e08529c349"
+  }
+ }
+}

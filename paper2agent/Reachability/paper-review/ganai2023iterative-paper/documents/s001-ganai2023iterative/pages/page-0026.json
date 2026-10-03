@@ -1,0 +1,82 @@
+{
+  "page": 26,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0026.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 26, a 120 dpi crop of Figure 8, and with main.tex (D.4). Figure 8 (appendix figure, printed directly under the heading): phase-plane plot on $[-10,10]^2$ with a yellow background labelled 'Infeasible Set', a blue region labelled 'Feasible Set' with a black boundary, a dashed purple square (corners at about +-5) and two trajectories from the point marked 'Start' (near (2.7, 2.5)): a red arrow leaving to the right (RCRL) and a green curve that loops back into the blue region (RESPO); legend 'RESPO (ours)', 'RCRL', 'Safe set boundry' (sic, spelling inside the figure). Asset name 'supplementary-figure-8', category supp_figs, printed label 'Figure 8' kept; the extractor's box overlapped the caption, bbox reset from the evidence line positions and checked on the crop (all tick labels and the legend inside). Caption: extractor text compared with render and TeX and used unchanged. First paragraph rewritten from the TeX source with LaTeX mathematics checked on the render: observation space $[x_1,x_2]$, action space $a\\in[-0.5,0.5]$ (ASCII minus in LaTeX), dynamics $\\dot{s}=[x_2,a]$ with a dot over s, constraint $||s||_\\infty\\leq 5$, cost $1$ if $||s||_\\infty>5$ and $0$ otherwise; the plain numerals in '2 dimensional' and '1 dimension' are text in the source. Second paragraph: extractor text checked and used with the space before the full stop after bold 'RESPO' removed and the math-mode '$1$' restored. Bold RCRL / RESPO as printed. Authors' wording kept: 'feasiblity set', '1 dimension action space', 'constraint as', 'magnitude same or less', 'reentering' and 're-entering' (both spellings occur). Reference 'Figure 8' as printed. The lower third of the page is blank (page break in the source). Heading D.4 level 3. Omitted: printed page number 26.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0026-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        75.0,
+        210.0,
+        85.0
+      ],
+      "markdown": "### D.4 Double Integrator"
+    },
+    {
+      "id": "p0026-fig8",
+      "kind": "figure",
+      "bbox": [
+        188.0,
+        99.0,
+        424.0,
+        314.5
+      ],
+      "markdown": "",
+      "label": "Figure 8",
+      "asset_name": "supplementary-figure-8",
+      "asset_category": "supp_figs"
+    },
+    {
+      "id": "p0026-b002",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        316.5,
+        505.0,
+        366.0
+      ],
+      "markdown": "Figure 8: Comparison of the trajectories in the Double Integrator Environment of an agent controlled by policies obtained by RCRL (in red) and our proposed algorithm RESPO (in green) when starting from the infeasible set (but still within the safe set). Notice how our approach actively enters the feasible set (blue region), while RCRL fails to do so. The level set demarcating the feasible/infeasible set boundary is in black. The safe set (i.e. the set of states that have no violations) is the region within the dashed purple square. The infeasible set is in yellow."
+    },
+    {
+      "id": "p0026-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        380.0,
+        506.0,
+        444.0
+      ],
+      "markdown": "We use the Double Integrator environment as a motivating example to demonstrate how performing constrained optimization using solely reachability-based value functions as in **RCRL** can produce nonoptimal behavior when the agent is outside the feasiblity set. Double Integrator has a 2 dimensional observation space $[x_1, x_2]$, 1 dimension action space $a\\in[-0.5,0.5]$, system dynamics is $\\dot{s} = [x_2, a]$, and constraint as $||s||_\\infty \\leq 5$. Particularly, we make the cost as $1$ if $||s||_\\infty > 5$, and $0$ otherwise to emphasize the importance of capturing the frequency of violation during training."
+    },
+    {
+      "id": "p0026-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        450.0,
+        505.0,
+        548.0
+      ],
+      "markdown": "We train an **RCRL** controller and **RESPO** controller in this environment, and the results are visualized in Figure 8. The color scheme indicates the learned reachability value across the state space while the black line demarcates the border of the zero level set. We present the behavior of the trajectories of **RCRL** and **RESPO**. Because the **RCRL** optimizes for reachability value function when outside the feasible set, it simply minimizes the maximum violation, which as can be seen does not result in the agent reentering the feasible set since it is uniformly equal to or near $1$ in the infeasible set. This is since it permits many violations of magnitude same or less than that of the maximum violation. On the other hand, **RESPO** optimizes for cumulative damage by considering total sum of costs, thereby re-entering the feasible set."
+    },
+    {
+      "id": "p0026-b005",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "26",
+      "reason": "Printed page number '26' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

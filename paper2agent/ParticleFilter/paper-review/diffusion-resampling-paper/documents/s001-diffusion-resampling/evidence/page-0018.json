@@ -1,0 +1,1344 @@
+{
+  "page": 18,
+  "lines": [
+    {
+      "text": "Diffusion differentiable resampling",
+      "bbox": [
+        231.35499572753906,
+        47.92219161987305,
+        365.52813720703125,
+        55.98298645019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Gumbel-Softmax resampling",
+      "bbox": [
+        55.439998626708984,
+        70.14881896972656,
+        180.59140014648438,
+        79.10519409179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The seminal work by Jang et al. (2017) did not formulate how the Gumbel trick can be",
+      "bbox": [
+        190.55076599121094,
+        70.26837158203125,
+        541.4410400390625,
+        79.17493438720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applied for resampling. We here make it explicit. The gist is to approximate the discrete indexing of multinomial resampling",
+      "bbox": [
+        55.439998626708984,
+        82.224365234375,
+        541.4401245117188,
+        91.13092803955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by a matrix-vector multiplication which is differentiable. Recall our weighted samples {(wi, Xi)}N",
+      "bbox": [
+        55.439998626708984,
+        92.4781723022461,
+        452.8902587890625,
+        110.49811553955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1, and define a matrix",
+      "bbox": [
+        446.5789794921875,
+        94.17938232421875,
+        541.6881713867188,
+        104.87989807128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X ∈RN×d aggregating all the N samples. For each i, draw N independent samples {ui,j ∼Uniform[0, 1]}N",
+      "bbox": [
+        55.005001068115234,
+        102.518310546875,
+        515.5902709960938,
+        123.94709014892578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1 and",
+      "bbox": [
+        509.27899169921875,
+        106.13433837890625,
+        541.4407348632812,
+        117.63385772705078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "compute gi,j = −log log ui,j. Then, the i-th re-sample is",
+      "bbox": [
+        55.439998626708984,
+        117.12297821044922,
+        284.3258972167969,
+        134.40809631347656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X∗",
+      "bbox": [
+        260.7799987792969,
+        147.9156494140625,
+        273.8946838378906,
+        159.19171142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i =",
+      "bbox": [
+        269.03399658203125,
+        150.3449249267578,
+        284.9139099121094,
+        161.65472412109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        291.3450012207031,
+        139.96615600585938,
+        297.6562805175781,
+        146.1588897705078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        287.67901611328125,
+        147.396484375,
+        302.0749816894531,
+        153.7725372314453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1",
+      "bbox": [
+        287.98101806640625,
+        164.17416381835938,
+        301.77520751953125,
+        170.3668975830078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Si,j Xj,",
+      "bbox": [
+        303.7300109863281,
+        150.3449249267578,
+        336.1036071777344,
+        160.68670654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where Si ∈R1×N is a Softmax vector with elements Si,j = Si,j / PN",
+      "bbox": [
+        55.082000732421875,
+        182.120361328125,
+        336.5002746582031,
+        203.5491485595703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1 Si,j, where Si,j = exp((log wj + gi,j) / τ). This",
+      "bbox": [
+        330.1889953613281,
+        185.5769805908203,
+        541.4409790039062,
+        197.41180419921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is independently repeated for i = 1, 2, . . . , N to generate the re-samples {X∗",
+      "bbox": [
+        55.439998626708984,
+        197.36663818359375,
+        370.398681640625,
+        215.77711486816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i }N",
+      "bbox": [
+        365.5369873046875,
+        197.75711059570312,
+        382.1922607421875,
+        218.3700714111328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1. Upon the limit τ →0, this recovers",
+      "bbox": [
+        375.8809814453125,
+        198.49200439453125,
+        541.4378051757812,
+        215.77711486816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "multinomial resampling, but the variance of the gradient estimation will grow too. See also Rosato et al. (2022).",
+      "bbox": [
+        55.439998626708984,
+        211.41339111328125,
+        501.6846923828125,
+        220.3199462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Soft resampling",
+      "bbox": [
+        55.439998626708984,
+        236.3908233642578,
+        123.92072296142578,
+        245.34719848632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The approach by Karkus et al. (2018) view the samples {(wi, Xi)}N",
+      "bbox": [
+        133.88949584960938,
+        234.81021118164062,
+        411.98223876953125,
+        252.82911682128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 as a discrete distribution with",
+      "bbox": [
+        405.67095947265625,
+        236.5103759765625,
+        541.4425048828125,
+        248.00994873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "probability given by their normalised weights. Denote this discrete distribution by πD. Directly sampling from πD using",
+      "bbox": [
+        55.439998626708984,
+        244.850341796875,
+        541.4401245117188,
+        257.37188720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "weighted random choice will result in undefined gradients. Soft resampling mitigates this issue by introducing another",
+      "bbox": [
+        55.082000732421875,
+        260.42034912109375,
+        541.6112060546875,
+        269.326904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposal (discrete) distribution qD defined by qD(Xi) := α wi + (1 −α) 1",
+      "bbox": [
+        55.439998626708984,
+        268.76031494140625,
+        355.21905517578125,
+        288.695068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N for i = 1, 2, . . . , N. Then, sampling from πD",
+      "bbox": [
+        349.70098876953125,
+        270.6751403808594,
+        540.9414672851562,
+        284.7179260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can be achieved by an importance sampling as follows.",
+      "bbox": [
+        55.439971923828125,
+        284.3313293457031,
+        274.75665283203125,
+        293.2378845214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. Draw Ii ∼Categorical",
+      "bbox": [
+        62.9069709777832,
+        309.657958984375,
+        170.09744262695312,
+        328.43804931640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        170.09597778320312,
+        308.9114685058594,
+        174.65884399414062,
+        315.28753662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "wq",
+      "bbox": [
+        174.66197204589844,
+        307.7521667480469,
+        185.7172393798828,
+        319.3127136230469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1, wq",
+      "bbox": [
+        181.7949676513672,
+        307.7521667480469,
+        201.9452362060547,
+        321.3888854980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2, . . . , wq",
+      "bbox": [
+        198.02296447753906,
+        307.7521667480469,
+        235.8842315673828,
+        321.3888854980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        231.9619598388672,
+        315.4671630859375,
+        238.27325439453125,
+        321.6598815917969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        239.5189666748047,
+        308.9114685058594,
+        244.0818328857422,
+        315.28753662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ", where wq",
+      "bbox": [
+        244.0849609375,
+        307.7521667480469,
+        286.9502258300781,
+        319.5318908691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i := qD(Xi) = α wi + (1 −α) 1",
+      "bbox": [
+        283.0279541015625,
+        308.6171875,
+        417.3740539550781,
+        326.944091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N .",
+      "bbox": [
+        411.8550109863281,
+        310.6243591308594,
+        422.59967041015625,
+        322.9669189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. Indexing X∗",
+      "bbox": [
+        62.907012939453125,
+        329.24066162109375,
+        126.23468780517578,
+        340.2389221191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i = XIi. Until here, we have sampled from the proposal qD.",
+      "bbox": [
+        121.37301635742188,
+        329.6312255859375,
+        364.0066833496094,
+        342.6127624511719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3. Weight w∗",
+      "bbox": [
+        62.907012939453125,
+        349.94769287109375,
+        117.39568328857422,
+        360.9459533691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i = πD(X∗",
+      "bbox": [
+        113.04801177978516,
+        349.9477233886719,
+        160.70266723632812,
+        363.3197937011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i ) / qD(X∗",
+      "bbox": [
+        155.84100341796875,
+        349.94775390625,
+        201.67066955566406,
+        363.31982421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i ) = wIi / wq",
+      "bbox": [
+        196.8090057373047,
+        349.16632080078125,
+        253.00326538085938,
+        363.3198547363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ii and then normalise.",
+      "bbox": [
+        249.0800018310547,
+        352.03948974609375,
+        337.0620422363281,
+        364.87005615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4. Return {(w∗",
+      "bbox": [
+        62.90800476074219,
+        372.0018005371094,
+        125.30567932128906,
+        390.4112243652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i , X∗",
+      "bbox": [
+        120.9580078125,
+        372.0018310546875,
+        143.3486785888672,
+        385.3728942871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i )}N",
+      "bbox": [
+        138.4870147705078,
+        372.39239501953125,
+        159.0163116455078,
+        390.4112854003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1.",
+      "bbox": [
+        152.70501708984375,
+        374.09259033203125,
+        168.59967041015625,
+        384.7931213378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Clearly, we can see that when α = 0, the gradient is fully defined but the resampling and the gradient completely discard",
+      "bbox": [
+        55.439998626708984,
+        400.2269592285156,
+        541.436279296875,
+        409.29290771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information from the weights {wi}N",
+      "bbox": [
+        55.439998626708984,
+        410.6412048339844,
+        204.55128479003906,
+        428.66009521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1, resulting in high variance. The setting α = 1 recovers the standard multinomial",
+      "bbox": [
+        198.239990234375,
+        412.1819763183594,
+        541.4390258789062,
+        423.04193115234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "resampling, but the gradient becomes undefined. The gradient produced by method is thus always biased. Furthermore,",
+      "bbox": [
+        55.439998626708984,
+        424.2963562011719,
+        542.6807861328125,
+        433.2029113769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we can also see that the soft resampling does not return uniform resampling weights unlike other methods, which to some",
+      "bbox": [
+        55.082000732421875,
+        436.2513732910156,
+        541.44091796875,
+        445.1579284667969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "extents, contradicts the purpose of resampling.",
+      "bbox": [
+        55.439998626708984,
+        448.20635986328125,
+        240.9535369873047,
+        457.1129150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We will compare to the soft resampling and Gumbel-Softmax resampling with different settings of their tuning parameters.",
+      "bbox": [
+        54.97200012207031,
+        466.1393737792969,
+        543.1809692382812,
+        475.0459289550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "G. Gaussian mixture resampling",
+      "bbox": [
+        55.439998626708984,
+        493.2099304199219,
+        221.06735229492188,
+        503.9576416015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Recall the model",
+      "bbox": [
+        55.439998626708984,
+        514.077392578125,
+        122.95651245117188,
+        522.9839477539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϕ(x) =",
+      "bbox": [
+        248.43099975585938,
+        541.8199462890625,
+        278.3387451171875,
+        550.666748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "c",
+      "bbox": [
+        286.50799560546875,
+        531.440185546875,
+        290.07159423828125,
+        537.6329345703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        281.0929870605469,
+        538.8705444335938,
+        295.48895263671875,
+        545.24658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        281.8349914550781,
+        555.648193359375,
+        294.7434997558594,
+        561.8409423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ωi N(x; mi, vi),",
+      "bbox": [
+        297.14398193359375,
+        541.8199462890625,
+        361.072998046875,
+        552.1607666015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p(y | x) = N(y; H x, Ξ),",
+      "bbox": [
+        235.80995178222656,
+        566.1170043945312,
+        336.2827453613281,
+        583.402099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(34)",
+      "bbox": [
+        525.5099487304688,
+        550.58935546875,
+        542.1077270507812,
+        559.4959106445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where x ∈Rd, y ∈R, d = 8, and the number of components c = 5. The posterior distribution π(x) ∝ϕ(x) p(y | x) is also",
+      "bbox": [
+        55.082000732421875,
+        588.7781372070312,
+        541.4371337890625,
+        606.797119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a Gaussian mixture π(x) = Pc",
+      "bbox": [
+        55.439998626708984,
+        599.3391723632812,
+        181.69361877441406,
+        615.16552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 Ωi N(x; Mi, Vi) (Zhao, 2025), given by",
+      "bbox": [
+        178.1300048828125,
+        601.4669799804688,
+        353.519775390625,
+        618.7520751953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Gi = H vi HT + Ξ,",
+      "bbox": [
+        227.98101806640625,
+        621.4559326171875,
+        308.53228759765625,
+        635.9107666015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ωi = ωi N(y; H mi, Gi),",
+      "bbox": [
+        228.61900329589844,
+        641.94091796875,
+        329.64703369140625,
+        652.28271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ωi = Ωi /",
+      "bbox": [
+        228.61898803710938,
+        665.9649658203125,
+        269.56829833984375,
+        676.3057250976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "c",
+      "bbox": [
+        278.30401611328125,
+        655.586181640625,
+        281.86761474609375,
+        661.7789306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        272.8890075683594,
+        663.0155029296875,
+        287.28497314453125,
+        669.3915405273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1",
+      "bbox": [
+        273.1910095214844,
+        679.794189453125,
+        286.9851989746094,
+        685.9869384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ωj,",
+      "bbox": [
+        288.94000244140625,
+        665.9649658203125,
+        303.10260009765625,
+        675.7258911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mi = mi + vi HT G−1",
+      "bbox": [
+        223.85000610351562,
+        688.8999633789062,
+        320.1266784667969,
+        709.4910888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        309.92401123046875,
+        697.8641357421875,
+        312.7414245605469,
+        704.056884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(y −H mi),",
+      "bbox": [
+        322.281005859375,
+        692.2059936523438,
+        373.0340576171875,
+        709.4910888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Vi = vi −vi HT G−1",
+      "bbox": [
+        229.70901489257812,
+        705.4279174804688,
+        316.20867919921875,
+        727.5140991210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        306.0060119628906,
+        714.3921508789062,
+        308.82342529296875,
+        720.5848999023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "H vi.",
+      "bbox": [
+        318.3630065917969,
+        709.5409545898438,
+        340.0295715332031,
+        719.3029174804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "18",
+      "bbox": [
+        293.0849914550781,
+        733.2123413085938,
+        303.0475769042969,
+        742.118896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Diffusion differentiable resampling",
+      "author": "Jennifer Rosina Andersson; Zheng Zhao",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:a6404ea)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/diffusion-resampling-paper/documents/.pdf-skill-scan-jt_x1kkl/review/source.pdf",
+      "page_count": 32,
+      "page_number": 18
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          231,
+          47,
+          366,
+          56
+        ],
+        "pos": [
+          0,
+          42
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          55,
+          70,
+          542,
+          128
+        ],
+        "pos": [
+          42,
+          685
+        ]
+      },
+      {
+        "index": 2,
+        "class": "formula",
+        "bbox": [
+          260,
+          140,
+          337,
+          171
+        ],
+        "pos": [
+          685,
+          687
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          55,
+          182,
+          542,
+          221
+        ],
+        "pos": [
+          687,
+          1177
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          55,
+          234,
+          542,
+          294
+        ],
+        "pos": [
+          1177,
+          1882
+        ]
+      },
+      {
+        "index": 5,
+        "class": "formula",
+        "bbox": [
+          62,
+          308,
+          423,
+          321
+        ],
+        "pos": [
+          1882,
+          1884
+        ]
+      },
+      {
+        "index": 6,
+        "class": "list-item",
+        "bbox": [
+          62,
+          329,
+          365,
+          341
+        ],
+        "pos": [
+          1884,
+          2010
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          62,
+          350,
+          338,
+          363
+        ],
+        "pos": [
+          2010,
+          2012
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          62,
+          372,
+          169,
+          384
+        ],
+        "pos": [
+          2012,
+          2014
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          55,
+          400,
+          543,
+          458
+        ],
+        "pos": [
+          2014,
+          2582
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          54,
+          466,
+          544,
+          476
+        ],
+        "pos": [
+          2582,
+          2705
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          55,
+          493,
+          222,
+          504
+        ],
+        "pos": [
+          2705,
+          2744
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          55,
+          514,
+          123,
+          521
+        ],
+        "pos": [
+          2744,
+          2763
+        ]
+      },
+      {
+        "index": 13,
+        "class": "formula",
+        "bbox": [
+          235,
+          533,
+          543,
+          577
+        ],
+        "pos": [
+          2763,
+          2765
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          55,
+          588,
+          542,
+          613
+        ],
+        "pos": [
+          2765,
+          3082
+        ]
+      },
+      {
+        "index": 15,
+        "class": "formula",
+        "bbox": [
+          223,
+          623,
+          374,
+          720
+        ],
+        "pos": [
+          3082,
+          3084
+        ]
+      },
+      {
+        "index": 16,
+        "class": "page-footer",
+        "bbox": [
+          293,
+          733,
+          304,
+          741
+        ],
+        "pos": [
+          3084,
+          3089
+        ]
+      }
+    ],
+    "text": "**Diffusion differentiable resampling** \n\n**Gumbel-Softmax resampling** The seminal work by Jang et al. (2017) did not formulate how the Gumbel trick can be applied for resampling. We here make it explicit. The gist is to approximate the discrete indexing of multinomial resampling by a matrix-vector multiplication which is differentiable. Recall our weighted samples _{_ ( _wi, Xi_ ) _}_<sup>_N_</sup> _i_ =1<sup>, and define a matrix</sup> **X** _∈_ R<sup>_N×d_</sup> aggregating all the _N_ samples. For each _i_ , draw _N_ independent samples _{ui,j ∼_ Uniform[0 _,_ 1] _}_<sup>_N_</sup> _j_ =1<sup>and</sup> compute _gi,j_ = _−_ log log _ui,j_ . Then, the _i_ -th re-sample is \n\n\n\nwhere _Si ∈_ R<sup>1</sup><sup>_×N_</sup> is a Softmax vector with elements _Si,j_ = _Si,j /_<sup>�</sup><sup>_N_</sup> _j_ =1 _Si,j_ , where _Si,j_ = exp((log _wj_ + _gi,j_ ) _/ τ_ ). This is independently repeated for _i_ = 1 _,_ 2 _, . . . , N_ to generate the re-samples _{Xi_<sup>_∗}_</sup> _i_<sup>_N_</sup> =1<sup>.Upon the limit</sup><sup>_τ→_0, this recovers</sup> multinomial resampling, but the variance of the gradient estimation will grow too. See also Rosato et al. (2022). \n\n**Soft resampling** The approach by Karkus et al. (2018) view the samples _{_ ( _wi, Xi_ ) _}_<sup>_N_</sup> _i_ =1<sup>as a discrete distribution with</sup> probability given by their normalised weights. Denote this discrete distribution by _π_<sup>D</sup> . Directly sampling from _π_<sup>D</sup> using weighted random choice will result in undefined gradients. Soft resampling mitigates this issue by introducing another proposal (discrete) distribution _q_<sup>D</sup> defined by _q_<sup>D</sup> ( _Xi_ ) := _α wi_ + (1 _− α_ ) _N_<sup><u>1</u>for</sup><sup>_i_= 1</sup><sup>_,_2</sup><sup>_, . . . , N_.Then, sampling from</sup><sup>_π_D</sup> can be achieved by an importance sampling as follows. \n\n\n\n2. Indexing _Xi_<sup>_∗_=</sup><sup>_XI_</sup> _i_<sup>.Until here, we have sampled from the proposal</sup><sup>_q_D.</sup> \n\n\n\n\n\nClearly, we can see that when _α_ = 0, the gradient is fully defined but the resampling and the gradient completely discard information from the weights _{wi}_<sup>_N_</sup> _i_ =1<sup>, resulting in high variance.The setting</sup><sup>_α_=1 recovers the standard multinomial</sup> resampling, but the gradient becomes undefined. The gradient produced by method is thus always biased. Furthermore, we can also see that the soft resampling does not return uniform resampling weights unlike other methods, which to some extents, contradicts the purpose of resampling. \n\nWe will compare to the soft resampling and Gumbel-Softmax resampling with different settings of their tuning parameters. \n\n# **G. Gaussian mixture resampling** \n\nRecall the model \n\n\n\nwhere _x ∈_ R<sup>_d_</sup> , _y ∈_ R, _d_ = 8, and the number of components _c_ = 5. The posterior distribution _π_ ( _x_ ) _∝ ϕ_ ( _x_ ) _p_ ( _y | x_ ) is also a Gaussian mixture _π_ ( _x_ ) =<sup>�</sup><sup>_c_</sup> _i_ =1<sup>Ω</sup><sup>_i_N(</sup><sup>_x_;</sup><sup>_Mi, Vi_) (Zhao, 2025), given by</sup> \n\n\n\n18 \n\n"
+  }
+}

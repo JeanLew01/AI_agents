@@ -1,0 +1,118 @@
+{
+ "page": 10,
+ "width": 612.0,
+ "height": 792.0,
+ "mode": "native",
+ "preview": "previews/page-0010.png",
+ "reviewed": true,
+ "review_notes": "Text and mathematics taken from the authors' TeX (main.tex lines 1208-1334), macros expanded (\\Xgoal -> \\mathcal{X}_{\\mathrm{goal}}, \\Xsafe -> \\mathcal{X}_{\\mathrm{free}}, \\U -> \\mathcal{U}), and compared with the 150-dpi render and two 240-dpi crops of the Section 6.3 text and the MPC problem. First text item continues the sentence from page 9: the page break falls inside the formula 'x_t in R^6'; the glyphs 'R^6' printed at the top of this page are transcribed on page 9 as part of $x_t\\in\\mathbb{R}^6$, and this page continues with 'and its control inputs ...' (join_previous=space). The MPC problem (4a)-(4b) was an extractor formula image; it is now two LaTeX displays with the printed tags (4a) and (4b): cost sum_{t=1}^N (mu_t - x_goal)^T Q (mu_t - x_goal) + sum_{t=1}^N nu_t^T R nu_t, s.t. mu_0 = x_0; mu_{t+1} = f(mu_t, nu_t, \\bar m, \\bar F), nu_t in U, X_t(nu) subset X_free, X_N(nu) subset X_goal, t = 0,...,N-1; checked against the page. Numbers checked: m in [10,18] kg, F in [-0.015,0.015]^2 N, nominal (14,0,0), eps = 0.03, M = 10^3, 10 Hz, {14} x {(0,0)}. Printed peculiarity kept: the inline definition of X_t(nu) prints '(m,F) in [10,18] x [-0.015,0.015]' WITHOUT the square on the force interval (the TeX source has the same). Figure 6 is printed at the top of the page above the continuing paragraph; it is placed after the paragraph that cites it ('As shown in Figure 6 ...') and before the Conclusion heading so that the cross-page sentence is not interrupted. Crop [88,76,520,203.5] checked on a 250-dpi crop: photo with X_goal label, the two rendered panels (RandUP / Baseline, X_goal, X_t), and the force plot with legend (F_x UP, F_y UP, F_x Base, F_y Base), annotations (Baseline Infeasible, Baseline brakes, Baseline collides), axis labels Force [N], Time [s] and tick labels 10...40 (the first crop cut the x tick labels; bottom edge lowered to 203.5). Heading fixed to '## 7. Conclusion'. Running header and page number 10 omitted.",
+ "warnings": [
+  "Review possible header/footer: p0010-b000"
+ ],
+ "items": [
+  {
+   "id": "p0010-r000",
+   "kind": "omit",
+   "bbox": [
+    200.0,
+    36.0,
+    412.0,
+    54.0
+   ],
+   "markdown": "SAMPLING-BASED REACHABILITY ANALYSIS",
+   "reason": "Running header 'SAMPLING-BASED REACHABILITY ANALYSIS' (page furniture repeated on every page after the first); checked on the page image."
+  },
+  {
+   "id": "p0010-r001",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    245.0,
+    523.0,
+    339.0
+   ],
+   "markdown": "and its control inputs are given as $u_t\\in\\mathbb{R}^3$. We use an auxiliary linear feedback controller (Lew et al., 2022) and an uncertain linear model $x_{t+1}=f(x_t,u_t,m,F)$ that depends on an uncertain mass $m\\in[10,18]\\,\\mathrm{kg}$ (depending on the payload transported by the robot and the current weight of the gas tanks) and an unknown force $F=(F_x,F_y)\\in[-0.015,0.015]^2\\,\\mathrm{N}$ that accounts for the tilt of the table. To control the system from an initial state $x_0\\in\\mathbb{R}^n$ to a goal region $\\mathcal{X}_{\\mathrm{goal}}\\subset\\mathbb{R}^n$ while minimizing fuel consumption and remaining in a feasible set $\\mathcal{X}_{\\mathrm{free}}$ (i.e., avoiding obstacles and respecting velocity bounds), we consider the following MPC formulation:",
+   "join_previous": "space"
+  },
+  {
+   "id": "p0010-r002",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    349.0,
+    523.0,
+    388.0
+   ],
+   "markdown": "$$\n\\min_{(\\mu,\\nu)} \\quad \\sum_{t=1}^{N} (\\mu_t-x_{\\mathrm{goal}})^\\top Q(\\mu_t-x_{\\mathrm{goal}}) + \\sum_{t=1}^{N} \\nu_t^\\top R \\nu_t, \\quad \\mathrm{s.t.} \\quad\\, \\mu_0=x_0, \\tag{4a}\n$$\n\n$$\n\\mu_{t+1} = f(\\mu_t,\\nu_t, \\bar{m}, \\bar{F}), \\ \\ \\nu_t\\in\\mathcal{U}, \\ \\ \\mathcal{X}_t(\\nu) \\subset \\mathcal{X}_{\\mathrm{free}}, \\ \\ \\mathcal{X}_N(\\nu) \\subset \\mathcal{X}_{\\mathrm{goal}}, \\ \\ \\ t=0, \\dots,N-1. \\tag{4b}\n$$"
+  },
+  {
+   "id": "p0010-r003",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    397.0,
+    523.0,
+    560.0
+   ],
+   "markdown": "where $\\mu=(\\mu_0,\\dots,\\mu_N)$ and $\\nu=(\\nu_0,\\dots,\\nu_{N-1})$ are optimization variables representing the nominal state and control trajectories, $(\\bar{m},\\bar{F}_x, \\bar{F}_y)=(14,0,0)$ are nominal parameter values, $x_{\\mathrm{goal}}\\in\\mathcal{X}_{\\mathrm{goal}}$ is the center of the goal set, and the reachable sets $\\mathcal{X}_t(\\nu)\\subset\\mathbb{R}^n$ are defined as $\\mathcal{X}_t(\\nu) = \\{ x_t=f(\\cdot,\\nu_{t-1},m,F) \\circ\\dots\\circ f(x_0,\\nu_0,m,F): \\ (m,F)\\in[10,18]\\times[-0.015,0.015] \\}$. The numerical implementation is described in (Lew and Pavone, 2020). With a Python implementation, $\\epsilon=0.03$, and $M=10^3$, our MPC controller runs at $10$Hz which is sufficient for this platform and could be improved, e.g., by parallelizing computations on a GPU. We compare with a MPC baseline that does not consider uncertainty over the parameters (i.e., assumes $(m,F)\\in\\{14\\}\\times\\{(0,0)\\}$). As shown in Figure 6 and in the attached video, this baseline is unsafe and collides with an obstacle. In contrast, our reachability-aware controller is recursively feasible, satisfies all constraints, and allows safely reaching the goal. These experiments motivate the development of efficient reachability algorithms that can be embedded in generic control frameworks to account for uncertain parameters."
+  },
+  {
+   "id": "p0010-r004",
+   "kind": "figure",
+   "bbox": [
+    88.0,
+    76.0,
+    520.0,
+    203.5
+   ],
+   "markdown": "",
+   "label": "Figure 6",
+   "asset_name": "figure-6"
+  },
+  {
+   "id": "p0010-r005",
+   "kind": "caption",
+   "bbox": [
+    90.0,
+    205.0,
+    523.0,
+    241.0
+   ],
+   "markdown": "Figure 6: Application of $\\epsilon$-RandUP to safely control a free-flyer robot in a cluttered environment (left). Using a model predictive controller that does not account for the uncertain dynamics (middle) leads to unsafe behavior, colliding with an obstacle and causing the optimization problem to be infeasible at run-time (right)."
+  },
+  {
+   "id": "p0010-r006",
+   "kind": "heading",
+   "bbox": [
+    90.0,
+    577.0,
+    162.0,
+    590.0
+   ],
+   "markdown": "## 7. Conclusion"
+  },
+  {
+   "id": "p0010-r007",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    598.0,
+    523.0,
+    706.0
+   ],
+   "markdown": "We derived new asymptotic and finite-sample statistical guarantees for $\\epsilon$-RandUP, a simple yet efficient algorithm for reachability analysis of general systems. We demonstrated its efficacy for a neural network verification task and its applicability to robust model predictive control. In future work, we will investigate tighter finite-sample bounds by leveraging further information about the smoothness of the input set boundary $\\partial\\mathcal{X}$. Of practical interest is investigating which sampling distributions enable better sample efficiency, interfacing $\\epsilon$-RandUP with Lipschitz constant computation methods (e.g., (Fazlyab et al., 2019) for neural networks), exploring methods to scale to high-dimensional input spaces, and applying the technique to safety-aware reinforcement learning."
+  },
+  {
+   "id": "p0010-r008",
+   "kind": "omit",
+   "bbox": [
+    295.0,
+    722.0,
+    317.0,
+    737.0
+   ],
+   "markdown": "10",
+   "reason": "Printed page number 10 at the bottom centre (page furniture); checked on the page image."
+  }
+ ]
+}

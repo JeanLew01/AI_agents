@@ -1,0 +1,48 @@
+from pagelib import *
+
+items = [
+    running_header(11),
+    text("p0011-b002", [72.0, 99.0, 442.0, 134.0],
+         r"evaluated, the supremum $\overline{r}$ can be computed using a scalar root-finding procedure to solve $D_{\text{ber}}(\hat{r}_Q || \beta) - (D_{KL}(\mathcal{N}\left(0,(K^{-1}+\sigma_0^{-2}I)^{-1}\right) || \mathcal{N}\left(0,K\right)) + \log\frac{N+1}{\delta} )/N = 0$ over the interval $\beta\in[\hat{r}_Q,1)$.",
+         join_previous="space"),
+    text("p0011-b003", [89.0, 134.0, 315.0, 146.0],
+         r"Finally, we relate the statistical risk of $r(\bar{c}_Q)$ to $r_Q$."),
+    text("p0011-b004", [71.0, 150.0, 442.0, 188.0],
+         r"**Lemma 3.9.** The statistical risk $r(\bar{c}_\eta)$ of the posterior central concept and the stochastic risk $r_Q$ of the posterior stochastic estimator satisfy the bound $r(\bar{c}_Q) \le \frac{1}{1-F_1(1)}r_Q\approx 3.15r_Q$."),
+    text("p0011-b005", [71.0, 192.0, 442.0, 238.0],
+         "When combined, the sequence of bounds, the sequence of bounds above provide a bound of the form (2.2) that holds independently for each iteration of Algorithm 3.6. Applying a union bound argument to provide a guarantee that holds uniformly over iterations forms the central argument of the proof of Theorem 3.6."),
+    text("p0011-b006", [71.0, 243.0, 442.0, 354.0],
+         r"**Proof (of Theorem 3.6).** The bound is trivially satisfied at the beginning of execution, since $\epsilon^0\gets1$. Next, let $i>0$, and let $C^i_Q$ denote the stochastic classifier $\{g^i_Q(x)^2 \leq \eta\}$, where $g^i_Q(x) \sim \mathcal{N}(0, k(x,x) - k_{D^i}(x)^\top (\sigma_0^2 I + K^i) k_{D^i}(x))$, with the $i$ superscripts signifying using the dataset accumulated so far at iteration $i$. Let $r^i_Q$ denote the risk of $C^i_Q$. By Lemma 3.7, we have $\forall i\geq 1,\; \mathbb{P}(r^i_Q > (1-F_1(1))\epsilon^i) \leq \frac{6\delta}{\pi^2 i^2}$. By a union bound, $\mathbb{P}(\exists i,\, r_Q^i > (1-F_1(1))\epsilon^i) \leq \sum_{i\geq 1} \frac{6\delta}{\pi^2 i^2} = \delta$. Thus, with probability at least $1-\delta$, every $r_Q^i \leq \epsilon^i$. On this event, by Lemma 3.8, we have $\forall i \geq 1,\, P_X(\{x: C^i(x) > \eta\}) \leq \frac{r_Q^i}{1-F_1(1)} = \epsilon^i$ as desired. $\square$"),
+    heading("p0011-b007", [90.0, 359.0, 247.0, 380.0], "### 3.3. Bayesian PAC Analysis: the Polynomial Case"),
+    figure("p0011-alg33", [250.0, 380.0, 435.0, 690.0], "Algorithm 3.3", "algorithm-3-3"),
+    text("p0011-alg33-text", [256.0, 387.0, 427.0, 684.0], r"""
+**Algorithm 3.3** To estimate a support set by a polynomial empirical inverse Christoffel function satisfying a Bayesian PAC bound.
+
+- inputs: random variable $X$ with support in $\mathcal{X}$; Christoffel function order $m$; PAC parameters $\epsilon,\delta\in(0,1)$; noise parameter $\sigma_0^2\in\mathbb{R}_{++}$; initial sample size $N_0$; batch size $N_b$;
+- $N\gets N_0$
+- $D\gets (x_1,\dotsc,x_{N})\overset{\textrm{i.i.d.}}{\sim} X$
+- $i\gets0$
+- $\epsilon^0\gets 1$
+- **while** $\epsilon^i > \epsilon$ **do**
+    - $i\gets i + 1$
+    - append $(x_{N+1},\dotsc,x_{N+N_b})\overset{\textrm{i.i.d.}}{\sim} X$ to $D$
+    - $N\gets N+N_b$
+    - define $C:\mathcal{X}\to\mathbb{R}_{+}$ to be $C(x)=z_m(x)^\top\hat{M}_{m,\sigma_0}^{-1}z_m(x)$;
+    - evaluate $\overline{r}$ as in (3.11)
+    - $\epsilon_i \gets \frac{\bar r + \frac{2}{N}\log (\frac{\pi^2i^2}{6 \delta})}{1-F_1(1)}$, $F_1$ as in (3.7)
+- **end while**
+- **return** $\mathbb{1}\{C(x)\le\eta\}$
+"""),
+    text("p0011-b008", [72.0, 371.0, 247.0, 559.0],
+         r"With the general kernel case settled, we now consider the polynomial case in particular. Since the kernel case reduces to the polynomial case by the kernel $k(x,y)=z_m(x)^\top z_m(y)$, we have in a sense already provided a bound for the polynomial empirical inverse Christoffel function by means of Bayesian PAC analysis. However, we can construct a prior and posterior stochastic estimator for the polynomial case which avoids direct use of the $N\times N$ kernel Gramian, which can be computationally advantageous. The special prior and posterior stochastic estimators are"),
+    text("p0011-b009", [71.0, 566.0, 247.0, 600.0],
+         r"$$\begin{aligned} C_{P} &= \{x: (W_P^\top z_m(x))^2 \le \eta\}, \\ C_{Q} &= \{x: (W_Q^\top z_m(x))^2 \le \eta\}, \end{aligned} \tag{3.9}$$"),
+    text("p0011-where", [71.0, 604.0, 247.0, 635.0],
+         r"where $W_P\sim\mathcal{N}\left(0,\sigma_0^{-2} I\right)$, $W_Q\sim\mathcal{N}\left(0, \hat{M}_{m,\sigma_0}^{-1}\right)$."),
+    text("p0011-b010", [71.0, 636.0, 247.0, 695.0],
+         r"Notice that $W_P^\top z_m$ and $W_Q^\top z_m$ are Gaussian processes: indeed, they correspond to the prior and posterior of a general Gaussian process regression model with prior kernel $k(x,y)=z_m(x)^\top z_m(y)$"),
+]
+
+save(11, items, r"""
+Compared with the 130-dpi render, a 220-dpi crop of the upper half and a 300-dpi crop of the Algorithm 3.3 box. First item continues the sentence from page 10 (join_previous 'space'). Lemma 3.9 (italic, small-caps label) and the proof 'Proof (of Theorem 3.6).' written with bold labels, text verbatim, math from the authors' TeX with macros expanded and checked against the 220-dpi crop. Source errors/peculiarities kept exactly as printed: Lemma 3.9 names the central concept $\bar{c}_\eta$ in its first clause and $\bar{c}_Q$ in the bound; constant printed as '$\approx 3.15 r_Q$'; 'When combined, the sequence of bounds, the sequence of bounds above provide' (duplicated words); 'each iteration of Algorithm 3.6' (the TeX reference points to the label of Theorem 3.6; the algorithm meant is Algorithm 3.2); in the proof the variance of $g_Q^i(x)$ is printed with $(\sigma_0^2 I + K^i)$ WITHOUT an inverse; the proof cites 'Lemma 3.7' and 'Lemma 3.8' in plain text (hard-coded numbers in the TeX source; by content the PAC-Bayes risk bound is Lemma 3.8 and the central-concept bound is Lemma 3.9); 'every $r_Q^i \le \epsilon^i$' (without the factor $(1-F_1(1))$ of the preceding line). End-of-proof box written as $\square$. Section title '3.3. Bayesian PAC Analysis: the Polynomial Case.' (bold run-in, wrapped over two lines) written as ### heading. Algorithm 3.3 is a wrapped float in the right half of the column: kept as image crop 'algorithm-3-3' (edges checked on the 300-dpi crop: top rule, caption, inputs, 13 statement lines, bottom rule; no body text inside) plus a transcription from the TeX source checked line by line against the crop, placed directly after the section heading so that the body text reads continuously. The box has no printed line numbers; the transcription has one paragraph per statement and the while-loop body is marked with '&emsp;&emsp;' (one nesting level); the input list wraps over five printed lines and is one paragraph; 'append' + sample tuple and 'define C ... to be' + formula are each printed on two lines and joined. Peculiarities of the box kept as printed: the input list has NO threshold $\eta$ (Algorithm 3.2 lists 'threshold $\eta$') although the return line uses $\eta$; the input list ends with a semicolon; $\hat{M}_{m,\sigma_0}$ is used but its computation is not a step of the box; the loop test uses $\epsilon^i$ (superscript) while the update assigns $\epsilon_i$ (subscript); update line checked on the crop: $\epsilon_i \gets (\bar r + \frac{2}{N}\log(\frac{\pi^2 i^2}{6\delta}))/(1-F_1(1))$, 'evaluate $\overline{r}$ as in (3.11)', '$F_1$ as in (3.7)'. (3.9) is a two-line display with one number, written as aligned with one \tag; the sentence 'where $W_P \sim ...$, $W_Q \sim ...$.' follows it. The last sentence of the page breaks inside an inline formula: the page prints 'prior kernel k(x,y) =' and page 12 starts with 'z_m(x)^T z_m(y), conditioned ...'. To keep the formula one LaTeX expression, the part 'z_m(x)^T z_m(y)' printed at the top of page 12 is transcribed here, and the first item of page 12 continues with ', conditioned on ...' using join_previous 'none'. References resolved to printed values: (2.2), Algorithm 3.6, Theorem 3.6 (twice), (3.11), (3.7). Line-wrap hyphens of the narrow column removed (ex-ecution, prob-ability, gen-eral, con-sider, particu-lar, How-ever, pos-terior, poly-nomial, es-timators, cor-respond, regres-sion, sup-port, in-verse, or-der). Omitted: running header (short title and page number 11).
+""")

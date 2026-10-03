@@ -1,0 +1,289 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and a 200-dpi crop of the lower right column, using 10intro.tex, 60related.tex and 30algo.tex as an aid. Items: continuation of the page-1 paragraph (join_previous=space, \"purely\" + \"online method\"), the three contribution bullets (bold run-in titles), headings \"II. RELATED WORK\" with subsections A-C and \"III. METHOD\" with subsection \"A. Sampling-Based MPC as Single-stage Diffusion\", their paragraphs, the unnumbered optimal-control problem, and the first MPPI paragraph. Heading levels corrected (extractor emitted all as \"#\"). The unnumbered display (optimal control problem: objective, dynamics constraint, state/control constraints) was a formula image item; it is now a text item with a $$ aligned block taken from the TeX source and checked symbol by symbol against the crop (no equation number is printed). The \"where ...\" sentence after the display is kept as its own item without a join so that the $$ block stays on its own lines. Inline maths of the last two paragraphs rewritten in LaTeX from TeX and checked against the crop ($x_{t+h}$, $u_{t+h}$, $c_f$, $\\mathcal{X}$, $\\mathcal{U}$, $N_W$, $[W]_i \\sim \\mathcal{N}(0,\\Sigma_{t:t+H})$, $[W]_{1:N_W}$, $J(u_{t:t+H})$, $U=u_{t:t+H}$). Glued line-wrap compounds restored: whole-body, zeroth-order, sample-hungry, diffusion-inspired, \"III-B\" (printed \"III-\" / \"B\" across a line break); citation range \"21– 24\" -> \"21–24\". Cross-references are printed as \"section III-A\", \"section III-B\", \"section III-C\". The last paragraph (\"... Finally, update the control sequence\") continues on page 3. No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        89.0
+      ],
+      "markdown": "online method, DIAL-MPC enables precise jumping with payload and outperforms RL methods. The contribution of this paper is three-fold:",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        92.0,
+        299.0,
+        138.0
+      ],
+      "markdown": "- **Novel Diffusion-Inspired Annealing Framework**: We propose a diffusion-inspired annealing framework for sampling-based MPC by revealing the connection between sampling-based MPC and diffusion processes.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        140.0,
+        299.0,
+        210.0
+      ],
+      "markdown": "- **Full-Order Torque-Level Control of Legged Robot**: We develop and implement DIAL-MPC for full-order torque-level control of legged robots based on the proposed annealing framework. To our knowledge, this is the first framework achieving both real-time flexibility and RL-level agility in legged locomotion.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        212.0,
+        299.0,
+        258.0
+      ],
+      "markdown": "- **Real-World Validation**: We validate the performance of DIAL-MPC for quadruped control, showing that it achieves real-time 50 Hz control with robustness and efficiency.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "heading",
+      "bbox": [
+        127.0,
+        266.0,
+        226.0,
+        274.0
+      ],
+      "markdown": "## II. RELATED WORK",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        281.0,
+        189.0,
+        291.0
+      ],
+      "markdown": "### A. Agility in Legged Locomotion",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        296.0,
+        299.0,
+        378.0
+      ],
+      "markdown": "Nonlinear Model Predictive Control (NMPC), particularly gradient-based methods, has demonstrated significant success in real-time control of legged locomotion with closed-loop stability [1, 6, 19, 20]. These approaches typically employ reduced-order models to mitigate the burden of planning over full-order hybrid dynamics, necessitating lower-level whole-body controllers for motion execution [2, 3, 5, 14].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        380.0,
+        299.0,
+        472.0
+      ],
+      "markdown": "However, reduced-order models can lead to sub-optimal performance and constraint violations, particularly under high agility demands. For instance, [4] introduces a tailored solver for full-order NMPC online, yet remains constrained by predefined contact sequences, limiting motion agility and robustness. In contrast, our method enables full-order model MPC without redundant constraints, allowing adaptation to real-time feedback and environmental interactions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        476.0,
+        299.0,
+        545.0
+      ],
+      "markdown": "Model-free Reinforcement Learning (RL) has also been explored to address full-order control by learning optimal policies directly from high-fidelity simulations [11, 13, 21–24]. While these approaches eliminate the need for explicit modeling, they suffer from limited generalization to new tasks and dynamic environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        547.0,
+        299.0,
+        617.0
+      ],
+      "markdown": "Goal-conditioned RL [25, 26] enhances task-level generalization but still struggles with unseen dynamics and novel task classes. Our approach overcomes these limitations by enabling rapid motion generation through training-free online optimization, thereby combining the agility of RL with the robustness and generalization capabilities of MPC.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        625.0,
+        189.0,
+        635.0
+      ],
+      "markdown": "### B. Sampling-Based Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        641.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Sampling-based or zeroth-order optimization methods, including Bayesian Optimization [27, 28], the Cross-Entropy Method [29], and Evolutionary Algorithms [30], are widely utilized for solving non-convex and non-smooth optimization problems. They differ from first-order methods as the gradient information is no longer required. These methods are particularly effective in applications such as hyperparameter tuning [31, 32] and generative modeling [33].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        148.0
+      ],
+      "markdown": "In the context of real-time robot control, Model Predictive Path Integral (MPPI) control [15] and its variants [16–18] have gained popularity for online motion planning [34–36], due to their inherent parallelizability and flexibility. Given a high-stiffness problem like legged locomotion, zeroth-order methods including policy gradient [37] have shown better convergence properties both empirically and theoretically [38] from their smoothing nature.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        151.0,
+        559.0,
+        207.0
+      ],
+      "markdown": "Despite their advantages, sampling-based methods are plagued by the curse of dimensionality and high variance, especially under constrained online sampling budgets. This is particularly problematic in high-dimensional, contact-rich environments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        222.0,
+        433.0,
+        230.0
+      ],
+      "markdown": "### C. Parallel Robot Simulation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        240.0,
+        559.0,
+        321.0
+      ],
+      "markdown": "Massively parallelizable simulation environments, such as Isaac Gym [39], Brax [40], and MuJoCo [41], have become essential tools in the development of zeroth-order optimization methods for robot control. These simulators facilitate the rapid generation of data required by sample-hungry algorithms like PPO [42], enabling efficient training of complex policies.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "heading",
+      "bbox": [
+        403.0,
+        335.0,
+        468.0,
+        343.0
+      ],
+      "markdown": "## III. METHOD",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        354.0,
+        559.0,
+        435.0
+      ],
+      "markdown": "In this section, we present our method by establishing the equivalence between MPPI and a single-stage diffusion process (section III-A). The connection then explains why the annealing process in diffusion helps MPPI to optimize over a non-smooth landscape, as discussed in section III-B. Leveraging this equivalence, we introduce a diffusion-inspired annealing technique for MPPI in section III-C.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        449.0,
+        522.0,
+        459.0
+      ],
+      "markdown": "### A. Sampling-Based MPC as Single-stage Diffusion",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        466.0,
+        558.0,
+        488.0
+      ],
+      "markdown": "**Optimal control problem.** Sampling-based MPC aims to solve the following optimization problem:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b020",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        490.0,
+        554.0,
+        564.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\min_{u_{t:t+H}} J(u_{t:t+H}) &= \\sum_{h=0}^{H} c(x_{t+h}, u_{t+h}) + c_f(x_{t+H+1}), \\\\\n\\text{s.t.} \\quad x_{t+h+1} &= f(x_{t+h}, u_{t+h}) \\quad \\forall h \\in \\{0, \\ldots, H\\}, \\\\\nx_{t:t+H+1} &\\in \\mathcal{X}, \\ u_{t:t+H} \\in \\mathcal{U}\n\\end{aligned}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        568.0,
+        559.0,
+        614.0
+      ],
+      "markdown": "where $x_{t+h}$ is the state at time $t+h$, $u_{t+h}$ is the control input at time $t+h$, $f$ is the system dynamics, $c$ and $c_f$ are the cost function and terminal cost function, $\\mathcal{X}$ and $\\mathcal{U}$ are the state and control constraints, respectively.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        617.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "MPPI estimates the optimal control sequence through the following steps: First, draw $N_W$ perturbations from a Gaussian distribution $[W]_{i} \\sim \\mathcal{N}(0, \\Sigma_{t:t+H}), i=1,\\ldots, N_W$ (which we collectively denote as $[W]_{1:N_W}$). Then the cost function $J(u_{t:t+H})$ is evaluated for each sampled control sequence by rolling out the system dynamics and cumulatively summing the cost. For each perturbed control sequence $U+[W]_{i}$, where $U=u_{t:t+H}$, evaluate the cost function $J(U + [W]_i)$ by simulating the system dynamics and accumulating the costs. Finally, update the control sequence",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the page with related_work.tex, notation.tex (Section III lead-in), ispo.tex and pac.tex, and with 220-dpi crops of all mathematics. Left column (Related Work paragraphs, \"## III. BACKGROUND\", \"### A. Iterative Stochastic Policy Optimization\") is prose and unchanged from the extraction apart from the first item, which continues the last sentence block of PDF page 2 (same paragraph: join_previous=space). All inline maths rewritten in LaTeX with the authors' macros expanded (\\bX -> \\boldsymbol{\\tau}, \\bU -> \\boldsymbol{\\xi}, \\bnu -> \\boldsymbol{\\nu}, \\bx/\\bu -> \\mathbf{x}/\\mathbf{u}, \\bpi -> \\boldsymbol{\\pi}, \\argmin -> \\operatorname*{arg\\,min}). Equations (1), (2), (3) converted from formula images to $$ blocks with \\tag, taken from the TeX source and checked symbol by symbol against the crops (label/asset_name removed; the \\! spacing commands of the source in (2) were dropped). Algorithm 1 (top of right column) kept as image algorithm-1, box [310,53.5,565,165] checked by crop (both rules and all 8 lines inside), moved after the paragraph that cites it (\"Alg. 1 is a general framework for ISPO.\"), followed by a line-by-line transcription (indentation shown with &emsp;, markdown hard line breaks). Paragraph \"Consider the stochastic dynamics ...\" is split by the column break: join_previous=space on p0003-b010. Printed peculiarities kept as printed: the trajectory density product runs to T (\"\\prod^T_{t=0}\") while the trajectory sequence uses N_T; the policy is \\pi_t(x_t, \\xi) in the first paragraph and \\pi(x_t, \\xi) after Eq. (1); \"u_1..., u_{N_T}\" with plain dots; \"is hand-tuned weight\" (no article); line 7 of Algorithm 1 has no terminating semicolon. \"Eq. 1\" and \"Alg. 1\" are printed without parentheses. The page ends with Eq. (3), which closes its sentence with a full stop; the next sentence starts PDF page 4. Running header and page number \"2\" omitted (extractor warning on p0003-b001 resolved: running header).",
+  "warnings": [
+    "Review possible header/footer: p0003-b001"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        47.0,
+        25.0,
+        55.0,
+        34.0
+      ],
+      "markdown": "2",
+      "reason": "Printed page number \"2\" in the running header."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "omit",
+      "bbox": [
+        254.0,
+        25.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED AUGUST, 2023",
+      "reason": "Running header \"IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED AUGUST, 2023\" (repeats on PDF pages 2, 5, 7, 9)."
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        222.0
+      ],
+      "markdown": "RNMPC represents uncertainty in the system as bounded disturbances. While min-max tube NMPC methods [6], [12], [13] and multi-stage NMPC approaches [14] have been proposed, constraint-tightening based tube NMPC [15] has proved to be the most common and computationally tractable RNMPC approach. Most of these approaches rely on tube size derived from a computed Lipschitz constant [16], [17], CCMs [7], [18], [19], or bounds on incremental stability [20]. These methods for computing invariant sets are often complex, may place significant restrictions on the dynamics, and can lead to overly conservative results. Recent work has proposed sampling-based reachability analysis for arbitrary continuously differentiable dynamics with less conservative results [21], [22].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        225.0,
+        301.0,
+        426.0
+      ],
+      "markdown": "Stochastic NMPC represents uncertainty as a probability distribution and optimizes the expectation over costs and constraint violations. Oftentimes, they optimize a feedback policy, rather than a control sequence. Our method, PAC-NMPC, falls into this category of approaches. Early approaches focused on a local iterative solution to the stochastic Hamilton-Jacobi-Bellman equation [23], [24], which relies on a first order approximation of the dynamics for noise propagation. Stochastic differential dynamic programming approaches [25] would later allow for second order approximation of the dynamics. More recent methods utilize the unscented transform to propagate noise through nonlinear dynamics [8], [26]. In [27], the authors leverage path integral control to generate open-loop trajectories and create a sampling-based NMPC algorithm. More recent extensions [9], [28] include a feedback policy for robust performance, [29] provides guarantees on free-energy growth, and [30] penalizes Conditional Value-at-Risk (CVaR).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        428.0,
+        301.0,
+        617.0
+      ],
+      "markdown": "Sampling-based stochastic optimal control methods are closely related to policy search in reinforcement learning. A general background and survey of common policy search methods can be found in [31]. In [11], researchers developed an approach for robust policy search using a Probably Approximately Correct (PAC) learning framework called PAC Robust Policy Search (PROPS) based on recently derived sample complexity bounds in [10]. Researchers have also recently explored (PAC)-Bayes theory to generate collision-avoidance policies with performance guarantees in novel environments [32] and achieve vision-based planning with motion primitives [33]. Our PAC-NMPC method builds on the work in [10] and [11] to develop a highly generalizable sampling-based stochastic feedback motion-planning algorithm that can provide statistical performance guarantees for a large class of uncertain dynamical systems.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "heading",
+      "bbox": [
+        134.0,
+        633.0,
+        215.0,
+        641.0
+      ],
+      "markdown": "## III. BACKGROUND",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        648.0,
+        301.0,
+        694.0
+      ],
+      "markdown": "Before presenting our approach for Probably Approximately Correct NMPC, we first review the recently derived PAC bounds for Iterative Stochastic Policy Optimization which are the foundation for our approach.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        711.0,
+        225.0,
+        721.0
+      ],
+      "markdown": "### A. Iterative Stochastic Policy Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        726.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Consider the stochastic dynamics given by $p(\\mathbf{x}_{t+1}|\\mathbf{x}_{t}, \\mathbf{u}_{t})$ defined by a vector of state values $\\mathbf{x}_{t}\\in\\mathbb{R}^{N_x}$, a vector of"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        170.0,
+        564.0,
+        254.0
+      ],
+      "markdown": "control inputs $\\mathbf{u}_{t}\\in\\mathbb{R}^{N_u}$, and probability density $p$. Iterative Stochastic Policy Optimization (ISPO) [10] formulates the search for a control policy $\\mathbf{u}_{t}= \\boldsymbol{\\pi}_t(\\mathbf{x}_t,\\boldsymbol{\\xi})$ as a stochastic optimization problem, where $\\boldsymbol{\\xi}$ is a set of policy parameters. Specifically, ISPO introduces a surrogate distribution $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$ where policy parameters $\\boldsymbol{\\xi}$ are dependent on distribution hyper-parameters $\\boldsymbol{\\nu}$. This induces a joint distribution",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        382.0,
+        259.0,
+        565.0,
+        275.0
+      ],
+      "markdown": "$$p(\\boldsymbol{\\tau}, \\boldsymbol{\\xi}|\\boldsymbol{\\nu}) = p(\\boldsymbol{\\tau}|\\boldsymbol{\\xi})p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu}) \\tag{1}$$"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        280.0,
+        564.0,
+        339.0
+      ],
+      "markdown": "where $p(\\boldsymbol{\\tau}|\\boldsymbol{\\xi})$ represents the natural stochasticity of the system and is given as $p(\\boldsymbol{\\tau}|\\boldsymbol{\\xi})=p(\\mathbf{x}_0)\\prod^T_{t=0}p(\\mathbf{x}_{t+1}|\\mathbf{x}_{t},\\mathbf{u}_t)$, where $\\mathbf{u}_t=\\boldsymbol{\\pi}(\\mathbf{x}_t,\\boldsymbol{\\xi})$. Here $\\boldsymbol{\\tau}$ represents the discrete time trajectory sequence $\\{\\mathbf{x}_0,\\mathbf{u}_0, \\mathbf{x}_1,\\mathbf{u}_1 ..., \\mathbf{u}_{N_T}, \\mathbf{x}_{N_T+1} \\}$, where $N_T$ is the number of timesteps."
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        341.0,
+        564.0,
+        460.0
+      ],
+      "markdown": "In general, the objective of ISPO is to solve the optimization problem $\\boldsymbol{\\nu}^* = \\operatorname*{arg\\,min}_{\\boldsymbol{\\nu}} \\mathcal{J}(\\boldsymbol{\\nu})$ where $\\mathcal{J}(\\boldsymbol{\\nu}) = \\mathbb{E}_{\\boldsymbol{\\tau}, \\boldsymbol{\\xi} \\sim p(\\cdot, \\cdot|\\boldsymbol{\\nu})}[J(\\boldsymbol{\\tau})]$. To do this, ISPO iteratively samples from Eq. 1 and solves the optimization problem $\\widehat{\\boldsymbol{\\nu}}_{i+1}^* = \\arg \\min_{\\boldsymbol{\\nu}} \\widehat{\\mathcal{J}}(\\boldsymbol{\\nu}) + \\alpha D(\\boldsymbol{\\nu},\\widehat{\\boldsymbol{\\nu}}_{i}^*)$ for each iteration $i$ until convergence. Here $\\widehat{\\mathcal{J}}(\\boldsymbol{\\nu})$ is an empirical approximation of the expected cost, $D$ is a distance between distributions, often the $\\mathcal{KL}$-divergence, and $\\alpha>0$ is hand-tuned weight or Lagrange multiplier [34] computed for a constraint on $D(\\boldsymbol{\\nu},\\widehat{\\boldsymbol{\\nu}}_{i}^*)$. Alg. 1 is a general framework for ISPO."
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        165.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0003-alg1text",
+      "kind": "text",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        165.0
+      ],
+      "markdown": "**Algorithm 1:** Episodic ISPO  \n1 Inputs: $\\widehat{\\boldsymbol{\\nu}}_{0}^*$, $i\\leftarrow 0$;  \n2 **while** *termination condition not met* **do**  \n3 &emsp;**for** $j=1,\\dots,M$ **do**  \n4 &emsp;&emsp;Sample Trajectory: $(\\boldsymbol{\\tau}_j, \\boldsymbol{\\xi}_j) \\sim p(\\cdot, \\cdot |\\widehat{\\boldsymbol{\\nu}}_{i}^*)$;  \n5 &emsp;&emsp;Evaluate Cost: $J_j = J(\\boldsymbol{\\tau}_j)$;  \n6 &emsp;$\\widehat{\\boldsymbol{\\nu}}_{i+1}^* = \\arg \\min_{\\boldsymbol{\\nu}} \\widehat{\\mathcal{J}}(\\boldsymbol{\\nu}) + \\alpha D(\\boldsymbol{\\nu},\\widehat{\\boldsymbol{\\nu}}_{i}^*)$;  \n7 &emsp;$i\\leftarrow i+1$  \n8 **return** $\\widehat{\\boldsymbol{\\nu}}^*_i$"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        478.0,
+        495.0,
+        488.0
+      ],
+      "markdown": "### B. PAC Bounds for Stochastic Policy Search"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        493.0,
+        564.0,
+        586.0
+      ],
+      "markdown": "Instead of directly minimizing an empirical approximation of the expected cost, it can be beneficial to minimize *an upper confidence bound* on the expected cost. Not only does such an approach encourage robust policies, but it also can provide guarantees on future performance. In this paper, we directly optimize the PAC bounds derived in [10]. While these bounds are derived in [10] and discussed in [11], we review them here since they are fundamental to our approach."
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        586.5,
+        564.0,
+        600.5
+      ],
+      "markdown": "In [10] the presented PAC bound $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$ takes the form"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        364.0,
+        602.0,
+        565.0,
+        623.5
+      ],
+      "markdown": "$$\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu}) \\triangleq \\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu}) + \\alpha d(\\boldsymbol{\\nu}) + \\Phi_{\\alpha}(\\delta) \\tag{2}$$"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        624.0,
+        564.0,
+        709.0
+      ],
+      "markdown": "where $\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu})$ is a robust estimator [35] of the expected cost, $d(\\boldsymbol{\\nu})$ is a distance between distributions, and $\\Phi_{\\alpha}(\\delta)$ is a concentration-of-measure term which accounts for discrepancies between the true mean, $\\mathcal{J}(\\boldsymbol{\\nu})$, and the robust estimator, $\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu})$. For a particular choice of $\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu})$, $d(\\boldsymbol{\\nu})$, and $\\Phi_{\\alpha}(\\delta)$, [10] proves that $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$ bounds the expected cost $\\mathcal{J}(\\boldsymbol{\\nu})$ with a probability of $1-\\delta$."
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        709.0,
+        564.0,
+        724.0
+      ],
+      "markdown": "To derive an expression for $\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu})$, we must estimate"
+    },
+    {
+      "id": "p0003-b020",
+      "kind": "text",
+      "bbox": [
+        357.0,
+        725.0,
+        565.0,
+        755.0
+      ],
+      "markdown": "$$\\mathcal{J}(\\boldsymbol{\\nu}) =\\mathbb{E}_{\\boldsymbol{\\tau}, \\boldsymbol{\\xi} \\sim p(\\cdot, \\cdot|\\boldsymbol{\\nu}_0)}\\bigg[J(\\boldsymbol{\\tau})\\frac{p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})}{p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu}_0)}\\bigg]. \\tag{3}$$"
+    }
+  ]
+}

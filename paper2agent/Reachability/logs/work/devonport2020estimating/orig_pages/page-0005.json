@@ -1,0 +1,200 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        93.0,
+        339.0,
+        105.0
+      ],
+      "markdown": "# **4. Scenario-Based Reachability with Norm Balls**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        115.0,
+        523.0,
+        137.0
+      ],
+      "markdown": "The method presented here uses trajectory data to approximate the reachable set with a _p-norm ball_ , that is a set of the form",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "formula",
+      "bbox": [
+        217.0,
+        134.0,
+        527.0,
+        159.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (3)",
+      "asset_name": "formula-p0005-002"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        161.0,
+        523.0,
+        210.0
+      ],
+      "markdown": "where _x, b ∈_ R<sup>_n_</sup> , _A ∈_ R<sup>_n×n_</sup> , and _p_ may be either any real _≥_ 1 or _∞_ . The class of _p_ -norm balls encompasses several types of sets that are popular in reachability analysis. For instance, choosing _p_ = 2 leads to the class of ellipsoids, and choosing _p_ = _∞_ and restricting _A_ to be diagonal leads to the class of multidimensional intervals.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        229.0,
+        237.0,
+        238.0
+      ],
+      "markdown": "## **4.1. Unconstrained Norm Balls**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        248.0,
+        523.0,
+        312.0
+      ],
+      "markdown": "We first consider the general case, where _A_ may be any symmetric matrix. We use _−_ log det _A_ as a proxy for the volume of _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]( _A, b_ ). The value _−_ log det( _A_ ) is directly proportional to the volume of a 2-norm ball; by the equivalence of norms, it is a suitable proxy for the volume of other _p_ -norm balls as well. Using this proxy, the minimum-volume _ϵ_ -accurate reachable set problem (2) becomes",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "formula",
+      "bbox": [
+        197.0,
+        308.0,
+        528.0,
+        354.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (7)",
+      "asset_name": "formula-p0005-006"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        355.0,
+        523.0,
+        394.0
+      ],
+      "markdown": "where _Z_ is a random variable whose support is _R_ [ _t_ 0 _,t_ 1]. Since _−_ log det _A_ and _||AZ − b||p −_ 1 are convex in _A_ and _b_ , (7) is a convex chance-constrained optimization problem, meaning that it can be solved using scenario optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        397.0,
+        523.0,
+        435.0
+      ],
+      "markdown": "We use the transition function Φ to construct a suitable _Z_ . Specifically, let _X_ 0, _U_ , and _D_ be given random variables whose supports are the initial set, input set, and disturbance set. Then the support of the random variable _Z_ = Φ( _t_ 1; _t_ 0 _, X_ 0 _, U, D_ ) is exactly the reachable set.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        437.0,
+        523.0,
+        475.0
+      ],
+      "markdown": "The approach is outlined in Algorithm 1. The output is a matrix _A_ and vector _b_ for a norm ball reachable set estimate that is _ϵ_ -accurate with high probability with respect to _Z_ . This is the probabilistic guarantee of correctness, which we formally present with Theorem 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        485.0,
+        523.0,
+        556.0
+      ],
+      "markdown": "**Theorem 2** _Let ϵ, δ ∈_ (0 _,_ 1) _, and let X_ 0 _, U , and D be random variables over X_ 0 _, U, and D respectively, and let Z_ = Φ( _t_ 1; _t_ 0 _, X_ 0 _, U, D_ ) _. Denote by PS the probability measure corresponding to the multisample of N_ = <u>1</u> _ϵ e−e_ 1 �log<sup><u>1</u></sup> _δ_<sup>+</sup><sup>_n_(</sup><sup>_n_+ 1)</sup><sup>_/_2 +</sup><sup>_n_</sup> _points taken from X_ 0 _, U , and D, and_ � �<sup>�</sup> _by PZ the probability measure corresponding to Z. Then the output_ ( _A, b_ ) _of Algorithm 1 satisfies the following probability inequality:_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "formula",
+      "bbox": [
+        211.0,
+        561.0,
+        528.0,
+        587.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (12)",
+      "asset_name": "formula-p0005-011"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        592.0,
+        170.0,
+        602.0
+      ],
+      "markdown": "_or, in other words,_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "formula",
+      "bbox": [
+        173.0,
+        608.0,
+        528.0,
+        633.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (14)",
+      "asset_name": "formula-p0005-013"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        638.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "**Proof** If ( _A, b_ ) is a feasible solution to (7), then _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]( _A, b_ ) is by construction an _ϵ_ -accurate estimate. Algorithm 1 finds a solution to (8), which is the scenario problem corresponding to (7). The decision variables of (7) are a symmetric _n × n_ real matrix and a real _n_ -vector, so _nθ_ = _n_ ( _n_ + 1) _/_ 2 + _n_ . The _N_ chosen in Algorithm 1 satisfies the sample bound in Theorem 1 for this _nθ_ . Therefore, the _A_ and _b_ that minimize (8) is a feasible solution to (7) with probability 1 _− δ_ .",
+      "source_class": "text"
+    }
+  ]
+}

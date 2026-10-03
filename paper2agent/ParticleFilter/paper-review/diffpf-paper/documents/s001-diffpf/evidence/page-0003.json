@@ -1,0 +1,1991 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "WAN et al.: DIFFPF: DIFFERENTIABLE PARTICLE FILTERING VIA DIFFUSION MODELS",
+      "bbox": [
+        48.9640007019043,
+        26.49277114868164,
+        328.93414306640625,
+        32.72734832763672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        559.5490112304688,
+        26.49277114868164,
+        563.035888671875,
+        32.72734832763672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 2: At time t, the estimated particles from time t−1 are propagated through the process model to obtain a prior distribution over the",
+      "bbox": [
+        48.9640007019043,
+        167.02423095703125,
+        563.0346069335938,
+        175.68576049804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "current state. Simultaneously, the observation ot is encoded into a feature representation. These two sources of information jointly condition",
+      "bbox": [
+        48.9640007019043,
+        177.48934936523438,
+        563.0402221679688,
+        186.64474487304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a diffusion model, which iteratively refines a set of noisy latent samples to generate equally weighted particles that approximate the filtering",
+      "bbox": [
+        48.96400451660156,
+        187.59478759765625,
+        563.0346069335938,
+        195.61074829101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "posterior. Unlike DnD Filter [29], which uses a diffusion model in a Kalman filter–like manner to fuse prior and observation into a single",
+      "bbox": [
+        48.96400451660156,
+        197.55780029296875,
+        563.0346069335938,
+        205.57376098632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory, DiffPF maintains a full set of particles to explicitly represent the posterior distribution.",
+      "bbox": [
+        48.96400451660156,
+        207.52081298828125,
+        409.4041442871094,
+        215.53677368164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. Prediction and Perception Modeling",
+      "bbox": [
+        48.96400451660156,
+        229.071044921875,
+        210.35809326171875,
+        237.65879821777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given a set of N particles {x(i)",
+      "bbox": [
+        58.927005767822266,
+        241.47024536132812,
+        204.1870574951172,
+        253.636962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t−1}N",
+      "bbox": [
+        195.1490020751953,
+        243.02920532226562,
+        220.1472930908203,
+        255.4939727783203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 representing the",
+      "bbox": [
+        213.83599853515625,
+        244.7303466796875,
+        300.02008056640625,
+        256.22991943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "posterior at time t−1, we apply a process model to obtain",
+      "bbox": [
+        48.96400451660156,
+        255.96804809570312,
+        300.0214538574219,
+        265.5919189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "predicted particles ˆχt := {ˆx(i)",
+      "bbox": [
+        48.96400451660156,
+        265.9872131347656,
+        187.3310546875,
+        279.42877197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t }N",
+      "bbox": [
+        178.29299926757812,
+        267.5472106933594,
+        199.12930297851562,
+        280.38677978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 for the current step.",
+      "bbox": [
+        192.81800842285156,
+        269.24737548828125,
+        300.0256652832031,
+        280.7469482421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Specifically, each particle is propagated through a learnable",
+      "bbox": [
+        48.96400451660156,
+        281.2023620605469,
+        300.021484375,
+        290.1089172363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "or given process model fdyn as:",
+      "bbox": [
+        48.96400451660156,
+        292.9979553222656,
+        178.12547302246094,
+        303.55889892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆx(i)",
+      "bbox": [
+        129.36500549316406,
+        310.24517822265625,
+        144.9680633544922,
+        322.1927185058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t",
+      "bbox": [
+        135.9300079345703,
+        317.8721923828125,
+        138.94268798828125,
+        324.0649108886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= fdyn(x(i)",
+      "bbox": [
+        148.2410125732422,
+        310.2452087402344,
+        194.0720672607422,
+        323.2603454589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t−1, at),",
+      "bbox": [
+        185.0340118408203,
+        313.3459777832031,
+        219.6250762939453,
+        324.2689208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        288.4068603515625,
+        313.50537109375,
+        300.0232238769531,
+        322.41192626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where at is the action at time t. Through this step, the",
+      "bbox": [
+        48.96400451660156,
+        332.2389831542969,
+        300.0179138183594,
+        342.7989196777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "relevant information from the action sequence a1:t and past",
+      "bbox": [
+        48.96400451660156,
+        344.1939697265625,
+        300.02398681640625,
+        354.75390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "observations o1:t−1 is encoded into the predicted particle set",
+      "bbox": [
+        48.964019775390625,
+        356.1489562988281,
+        300.02716064453125,
+        366.70989990234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{ˆx(i)",
+      "bbox": [
+        48.964012145996094,
+        365.7781982421875,
+        69.5490493774414,
+        377.7257385253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t }N",
+      "bbox": [
+        60.511009216308594,
+        367.3382263183594,
+        81.34729766845703,
+        380.1777648925781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1. The process model fdyn can be defined using either",
+      "bbox": [
+        75.0360107421875,
+        368.8790283203125,
+        300.019775390625,
+        379.73895263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parametric forms based on system knowledge, or learned from",
+      "bbox": [
+        48.96400451660156,
+        380.993408203125,
+        300.0214538574219,
+        389.89996337890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data using neural networks such as Multi-Layer Perceptrons",
+      "bbox": [
+        48.96400451660156,
+        392.94940185546875,
+        300.02154541015625,
+        401.85595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(MLPs), stochastic models [31], or generative approaches like",
+      "bbox": [
+        48.96400451660156,
+        404.9043884277344,
+        300.021484375,
+        413.8109436035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "normalizing flows [32].",
+      "bbox": [
+        48.96400451660156,
+        416.859375,
+        144.51528930664062,
+        425.76593017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In parallel, the current observation ot is processed by a",
+      "bbox": [
+        58.927005767822266,
+        428.7029724121094,
+        300.01837158203125,
+        439.2629089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "neural sensor model gobs to extract observation features:",
+      "bbox": [
+        48.96400451660156,
+        440.657958984375,
+        278.8140869140625,
+        451.2189025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ft = gobs(ot).",
+      "bbox": [
+        145.875,
+        459.55096435546875,
+        203.1150665283203,
+        469.8927307128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2)",
+      "bbox": [
+        288.4049072265625,
+        459.7103576660156,
+        300.0212707519531,
+        468.6169128417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This feature representation encodes perceptual information",
+      "bbox": [
+        48.96400451660156,
+        478.6033630371094,
+        300.0215148925781,
+        487.5099182128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "relevant to the latent state.",
+      "bbox": [
+        48.96400451660156,
+        490.5593566894531,
+        157.31724548339844,
+        499.4659118652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Unlike conventional differentiable filters that rely on prede-",
+      "bbox": [
+        58.927005767822266,
+        502.5623474121094,
+        300.0219421386719,
+        511.4689025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fined distribution families or manually specified noise models",
+      "bbox": [
+        48.96400451660156,
+        514.517333984375,
+        300.0215148925781,
+        523.4238891601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to represent the dynamics and observation processes, our",
+      "bbox": [
+        48.96400451660156,
+        526.4722900390625,
+        300.0215148925781,
+        535.3788452148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approach imposes fewer assumptions and offers better gen-",
+      "bbox": [
+        48.96400451660156,
+        538.4273071289062,
+        300.0215148925781,
+        547.3338623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "eralization across scenarios.",
+      "bbox": [
+        48.96400451660156,
+        550.38232421875,
+        162.44796752929688,
+        559.2888793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To combine the information from the prior and observation",
+      "bbox": [
+        58.927005767822266,
+        562.3853149414062,
+        300.02191162109375,
+        571.2918701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ot, we incorporate a learnable fusion mechanism that aggre-",
+      "bbox": [
+        48.96400451660156,
+        574.181884765625,
+        300.01959228515625,
+        583.94287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "gates the predicted particles and perceptual embeddings:",
+      "bbox": [
+        48.96400451660156,
+        586.2963256835938,
+        280.1062927246094,
+        595.202880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ct = Fusion(ft, {ˆx(i)",
+      "bbox": [
+        108.81500244140625,
+        602.84814453125,
+        201.18905639648438,
+        616.2896728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t }N",
+      "bbox": [
+        192.1510009765625,
+        603.9091186523438,
+        212.9873046875,
+        617.2467041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1),",
+      "bbox": [
+        206.67601013183594,
+        605.9489135742188,
+        226.72508239746094,
+        616.6788330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(3)",
+      "bbox": [
+        288.406005859375,
+        605.1893310546875,
+        300.0223693847656,
+        614.0958862304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where ct aggregates temporal information from o1:t and",
+      "bbox": [
+        48.96400451660156,
+        623.9229125976562,
+        300.0229797363281,
+        634.4828491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a1:t via the process and sensor models, and serves as the",
+      "bbox": [
+        48.9639892578125,
+        635.8779296875,
+        300.0274963378906,
+        646.4389038085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditioning input for the subsequent diffusion process.",
+      "bbox": [
+        48.963985443115234,
+        647.9923095703125,
+        276.8983154296875,
+        656.8988647460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Update Step",
+      "bbox": [
+        48.963985443115234,
+        676.135986328125,
+        112.49547576904297,
+        684.7237548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Update step refines the prior belief over the current state",
+      "bbox": [
+        58.92698669433594,
+        691.3073120117188,
+        300.02191162109375,
+        700.2138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by incorporating the latest observation. In conventional DPFs,",
+      "bbox": [
+        48.963985443115234,
+        703.2633056640625,
+        300.02154541015625,
+        712.1698608398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the update is typically implemented by assigning importance",
+      "bbox": [
+        48.963985443115234,
+        715.2183227539062,
+        300.021484375,
+        724.1248779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "weights to particles based on an observation model, followed",
+      "bbox": [
+        48.963985443115234,
+        727.17333984375,
+        300.0213928222656,
+        736.0798950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by resampling to mitigate particle degeneracy. However, these",
+      "bbox": [
+        48.963985443115234,
+        739.1283569335938,
+        300.02154541015625,
+        748.034912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "procedures often require carefully designed likelihood func-",
+      "bbox": [
+        311.9779968261719,
+        228.9813232421875,
+        563.0355224609375,
+        237.88787841796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tions and involve non-differentiable operations. In contrast, our",
+      "bbox": [
+        311.9779968261719,
+        240.93634033203125,
+        563.035400390625,
+        249.8428955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "method performs the update implicitly through a conditional",
+      "bbox": [
+        311.9779968261719,
+        252.891357421875,
+        563.0354614257812,
+        261.79791259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion model. Specifically, we make an assumption that",
+      "bbox": [
+        311.9779968261719,
+        264.84637451171875,
+        551.2298583984375,
+        273.7529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "post(xt) ≈p(xt | ct).",
+      "bbox": [
+        390.64398193359375,
+        283.04705810546875,
+        480.8869934082031,
+        293.94573974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(4)",
+      "bbox": [
+        551.419921875,
+        283.8643798828125,
+        563.036376953125,
+        292.77093505859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This assumption is justified because ct captures all temporal",
+      "bbox": [
+        311.9779052734375,
+        302.72198486328125,
+        563.0403442382812,
+        313.28192138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information from o1:t and a1:t. Instead of sampling directly",
+      "bbox": [
+        311.9779052734375,
+        314.6769714355469,
+        563.039794921875,
+        325.2369079589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from the intractable posterior distribution p(xt | o1:t, a1:t), we",
+      "bbox": [
+        311.9779052734375,
+        326.07403564453125,
+        563.032958984375,
+        336.97271728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "choose to sample from the approximated distribution p(xt |",
+      "bbox": [
+        311.97784423828125,
+        338.0290222167969,
+        563.0384521484375,
+        348.9287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ct). This yields a set of particles {x(i)",
+      "bbox": [
+        311.97784423828125,
+        348.3821716308594,
+        474.4078674316406,
+        361.244873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t }N",
+      "bbox": [
+        465.36981201171875,
+        349.94219970703125,
+        486.2060852050781,
+        362.78173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1, from which we",
+      "bbox": [
+        479.8948059082031,
+        351.64239501953125,
+        563.0369873046875,
+        362.3429260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can obtain:",
+      "bbox": [
+        311.977783203125,
+        363.5973815917969,
+        356.9688415527344,
+        372.5039367675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "post(xt) ≈1",
+      "bbox": [
+        367.2327880859375,
+        382.07501220703125,
+        423.17706298828125,
+        398.575927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        416.1409912109375,
+        395.6489562988281,
+        424.1509094238281,
+        404.4957275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        431.7539978027344,
+        378.4351806640625,
+        438.0652770996094,
+        384.6278991699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        428.0880126953125,
+        385.8655090332031,
+        442.4839782714844,
+        392.2415771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        428.83001708984375,
+        402.6431884765625,
+        441.738525390625,
+        408.8359069824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "δ(xt −x(i)",
+      "bbox": [
+        444.1390075683594,
+        385.7142028808594,
+        490.6710510253906,
+        399.1557312011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t ),",
+      "bbox": [
+        481.63299560546875,
+        388.81500244140625,
+        497.8220520019531,
+        400.11376953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(5)",
+      "bbox": [
+        551.4199829101562,
+        388.7323913574219,
+        563.0364379882812,
+        397.6389465332031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where δ(·) denotes the Dirac function. This indicates that all",
+      "bbox": [
+        311.97796630859375,
+        415.54107666015625,
+        563.0352783203125,
+        425.1649475097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampled particles share equal weights, thereby eliminating the",
+      "bbox": [
+        311.97796630859375,
+        428.2143859863281,
+        563.0354614257812,
+        437.1209411621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "need for weighting or resampling.",
+      "bbox": [
+        311.97796630859375,
+        440.16937255859375,
+        451.26495361328125,
+        449.075927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion models have been shown to approximate arbi-",
+      "bbox": [
+        321.9399719238281,
+        452.20037841796875,
+        563.034912109375,
+        461.10693359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trarily complex probability distributions by learning time-",
+      "bbox": [
+        311.97796630859375,
+        464.1553649902344,
+        563.0352783203125,
+        473.0619201660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dependent score functions that guide the reversal of a noise-",
+      "bbox": [
+        311.97796630859375,
+        476.1103515625,
+        563.035400390625,
+        485.01690673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "perturbed process [33]. In our case, a conditional diffusion",
+      "bbox": [
+        311.97796630859375,
+        488.0653381347656,
+        563.035400390625,
+        496.9718933105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model is trained to approximate p(xt | ct) and generate",
+      "bbox": [
+        311.97796630859375,
+        499.30401611328125,
+        563.0332641601562,
+        510.20269775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "particle samples. Specifically, we instantiate a reverse diffu-",
+      "bbox": [
+        311.97796630859375,
+        511.976318359375,
+        563.0355224609375,
+        520.8828735351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sion process with a Denoising Diffusion Probabilistic Model",
+      "bbox": [
+        311.97796630859375,
+        523.9312744140625,
+        563.0352783203125,
+        532.8378295898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(DDPM), which iteratively refines a random Gaussian sample",
+      "bbox": [
+        311.97796630859375,
+        535.8862915039062,
+        563.0354614257812,
+        544.7928466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "toward the target posterior distribution. We begin by drawing",
+      "bbox": [
+        311.97796630859375,
+        547.84130859375,
+        563.0355224609375,
+        556.7478637695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an initial Gaussian sample:",
+      "bbox": [
+        311.97796630859375,
+        559.7963256835938,
+        422.6125793457031,
+        568.702880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(i)",
+      "bbox": [
+        403.6899719238281,
+        576.1611328125,
+        419.29302978515625,
+        588.1087036132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,K ∼N(0, I),",
+      "bbox": [
+        410.2549743652344,
+        578.7040405273438,
+        471.33905029296875,
+        591.0357055664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(6)",
+      "bbox": [
+        551.4383544921875,
+        579.4213256835938,
+        563.0548095703125,
+        588.327880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where K is the total number of reverse diffusion steps. At each",
+      "bbox": [
+        311.97796630859375,
+        598.2788696289062,
+        563.0354614257812,
+        607.3448486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "step k, the model predicts the noise component ϵθ(x(i)",
+      "bbox": [
+        311.97796630859375,
+        607.7401123046875,
+        532.4530029296875,
+        620.6018676757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k, k, ct),",
+      "bbox": [
+        523.4149780273438,
+        610.8408813476562,
+        563.0370483398438,
+        622.1128540039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which subsequently serves to infer a cleaner approximation of",
+      "bbox": [
+        311.97796630859375,
+        622.955322265625,
+        563.0354614257812,
+        631.8618774414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the sample at timestep k −1:",
+      "bbox": [
+        311.97796630859375,
+        634.1929931640625,
+        432.7146911621094,
+        643.8168334960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(i)",
+      "bbox": [
+        321.6479797363281,
+        655.3151245117188,
+        337.2520446777344,
+        667.2626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k−1 =",
+      "bbox": [
+        328.2139892578125,
+        658.4158935546875,
+        359.2069091796875,
+        670.2677001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        368.0329895019531,
+        651.6759033203125,
+        373.0142822265625,
+        660.522705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "√α",
+      "bbox": [
+        363.1679992675781,
+        657.55908203125,
+        377.8460693359375,
+        674.1397705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0012",
+      "bbox": [
+        380.7359924316406,
+        650.8834838867188,
+        388.0684814453125,
+        657.259521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(i)",
+      "bbox": [
+        388.07000732421875,
+        655.315185546875,
+        403.6730651855469,
+        667.2627563476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t.k −1 −α",
+      "bbox": [
+        394.635009765625,
+        651.1180419921875,
+        445.9676818847656,
+        670.2677612304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "√1 −¯αϵθ(x(i)",
+      "bbox": [
+        418.2850036621094,
+        655.315185546875,
+        479.3790588378906,
+        674.7897338867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k, k, ct)",
+      "bbox": [
+        470.34100341796875,
+        658.4159545898438,
+        507.4734802246094,
+        669.6879272460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0013",
+      "bbox": [
+        507.4720153808594,
+        650.884521484375,
+        514.8045043945312,
+        657.2605590820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "+ σz,",
+      "bbox": [
+        517.01904296875,
+        658.4159545898438,
+        541.7462158203125,
+        667.2627563476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ":= β(x(i)",
+      "bbox": [
+        351.4560546875,
+        678.1741333007812,
+        390.3791198730469,
+        690.1217651367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k + γϵθ(x(i)",
+      "bbox": [
+        381.341064453125,
+        678.1741333007812,
+        437.53509521484375,
+        693.126708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k, k, ct)) + σz.",
+      "bbox": [
+        428.4970397949219,
+        681.2749633789062,
+        496.44281005859375,
+        692.546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(7)",
+      "bbox": [
+        551.4200439453125,
+        667.453369140625,
+        563.0364990234375,
+        676.3599243164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Here z ∼N(0, I), and x(i)",
+      "bbox": [
+        311.97802734375,
+        700.003173828125,
+        422.7720642089844,
+        712.169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t,k refers to the i-th corrupted sample",
+      "bbox": [
+        413.7340087890625,
+        703.1039428710938,
+        563.0368041992188,
+        715.1749267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "at diffusion step k. α, ¯α, σ are fixed noise schedule parameters",
+      "bbox": [
+        311.9779968261719,
+        715.0589599609375,
+        563.0455322265625,
+        724.1249389648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as defined in [34], while β and γ are scaling terms introduced",
+      "bbox": [
+        311.9779968261719,
+        727.013916015625,
+        563.0454711914062,
+        736.0798950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for simplicity. This stochastic refinement continues recursively",
+      "bbox": [
+        311.9779968261719,
+        739.1283569335938,
+        563.035400390625,
+        748.034912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "DiffPF: Differentiable Particle Filtering with Generative Sampling via Conditional Diffusion Models",
+      "author": "Ziyu Wan; Lin Zhao",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:57610bf)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/diffpf-paper/documents/.pdf-skill-scan-j5ne_irv/review/source.pdf",
+      "page_count": 8,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          48,
+          26,
+          329,
+          32
+        ],
+        "pos": [
+          0,
+          80
+        ]
+      },
+      {
+        "index": 1,
+        "class": "page-header",
+        "bbox": [
+          559,
+          26,
+          564,
+          32
+        ],
+        "pos": [
+          80,
+          84
+        ]
+      },
+      {
+        "index": 2,
+        "class": "picture",
+        "bbox": [
+          48,
+          56,
+          564,
+          161
+        ],
+        "pos": [
+          84,
+          86
+        ]
+      },
+      {
+        "index": 3,
+        "class": "caption",
+        "bbox": [
+          48,
+          167,
+          564,
+          216
+        ],
+        "pos": [
+          86,
+          773
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          48,
+          228,
+          211,
+          238
+        ],
+        "pos": [
+          773,
+          817
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          241,
+          301,
+          303
+        ],
+        "pos": [
+          817,
+          1246
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          129,
+          309,
+          301,
+          324
+        ],
+        "pos": [
+          1246,
+          1248
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          48,
+          332,
+          301,
+          426
+        ],
+        "pos": [
+          1248,
+          1809
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          48,
+          428,
+          301,
+          450
+        ],
+        "pos": [
+          1809,
+          1939
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          145,
+          458,
+          301,
+          469
+        ],
+        "pos": [
+          1939,
+          1941
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          48,
+          478,
+          301,
+          498
+        ],
+        "pos": [
+          1941,
+          2032
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          48,
+          502,
+          301,
+          558
+        ],
+        "pos": [
+          2032,
+          2301
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          48,
+          562,
+          301,
+          596
+        ],
+        "pos": [
+          2301,
+          2486
+        ]
+      },
+      {
+        "index": 13,
+        "class": "formula",
+        "bbox": [
+          108,
+          602,
+          301,
+          616
+        ],
+        "pos": [
+          2486,
+          2488
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          48,
+          624,
+          301,
+          657
+        ],
+        "pos": [
+          2488,
+          2689
+        ]
+      },
+      {
+        "index": 15,
+        "class": "section-header",
+        "bbox": [
+          48,
+          675,
+          113,
+          685
+        ],
+        "pos": [
+          2689,
+          2710
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          48,
+          691,
+          301,
+          749
+        ],
+        "pos": [
+          2710,
+          3018
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          311,
+          228,
+          564,
+          274
+        ],
+        "pos": [
+          3018,
+          3263
+        ]
+      },
+      {
+        "index": 18,
+        "class": "formula",
+        "bbox": [
+          390,
+          283,
+          564,
+          294
+        ],
+        "pos": [
+          3263,
+          3265
+        ]
+      },
+      {
+        "index": 19,
+        "class": "text",
+        "bbox": [
+          311,
+          302,
+          564,
+          371
+        ],
+        "pos": [
+          3265,
+          3739
+        ]
+      },
+      {
+        "index": 20,
+        "class": "formula",
+        "bbox": [
+          367,
+          378,
+          564,
+          408
+        ],
+        "pos": [
+          3739,
+          3741
+        ]
+      },
+      {
+        "index": 21,
+        "class": "text",
+        "bbox": [
+          311,
+          415,
+          564,
+          450
+        ],
+        "pos": [
+          3741,
+          3910
+        ]
+      },
+      {
+        "index": 22,
+        "class": "text",
+        "bbox": [
+          311,
+          452,
+          564,
+          569
+        ],
+        "pos": [
+          3910,
+          4493
+        ]
+      },
+      {
+        "index": 23,
+        "class": "formula",
+        "bbox": [
+          403,
+          575,
+          564,
+          591
+        ],
+        "pos": [
+          4493,
+          4495
+        ]
+      },
+      {
+        "index": 24,
+        "class": "text",
+        "bbox": [
+          311,
+          598,
+          564,
+          644
+        ],
+        "pos": [
+          4495,
+          4813
+        ]
+      },
+      {
+        "index": 25,
+        "class": "formula",
+        "bbox": [
+          321,
+          650,
+          564,
+          693
+        ],
+        "pos": [
+          4813,
+          4815
+        ]
+      },
+      {
+        "index": 26,
+        "class": "text",
+        "bbox": [
+          311,
+          699,
+          564,
+          749
+        ],
+        "pos": [
+          4815,
+          5148
+        ]
+      }
+    ],
+    "text": "WAN _et al._ : DIFFPF: DIFFERENTIABLE PARTICLE FILTERING VIA DIFFUSION MODELS \n\n3 \n\n\n\nFig. 2: At time _t_ , the estimated particles from time _t−_ 1 are propagated through the process model to obtain a prior distribution over the current state. Simultaneously, the observation **_o_** _t_ is encoded into a feature representation. These two sources of information jointly condition a diffusion model, which iteratively refines a set of noisy latent samples to generate equally weighted particles that approximate the filtering posterior. Unlike DnD Filter [29], which uses a diffusion model in a Kalman filter–like manner to fuse prior and observation into a single trajectory, DiffPF maintains a full set of particles to explicitly represent the posterior distribution. \n\n# _A. Prediction and Perception Modeling_ \n\nGiven a set of _N_ particles _{_ **_x_**<sup>(</sup> _t−_<sup>_i_)</sup> 1<sup>_}_</sup> _i_<sup>_N_</sup> =1<sup>representingthe</sup> posterior at time _t−_ 1, we apply a process model to obtain predicted particles **_χ_** ˆ _t_ := _{_ **_x_** ˆ<sup>(</sup> _t_<sup>_i_)</sup><sup>_}N_</sup> _i_ =1<sup>forthecurrentstep.</sup> Specifically, each particle is propagated through a learnable or given process model _f_ dyn as: \n\n\n\nwhere **_a_** _t_ is the action at time _t_ . Through this step, the relevant information from the action sequence **_a_** 1: _t_ and past observations **_o_** 1: _t−_ 1 is encoded into the predicted particle set _{_ **_x_** ˆ<sup>(</sup> _t_<sup>_i_)</sup><sup>_}N_</sup> _i_ =1<sup>. The process model</sup><sup>_f_dyncan be defined using either</sup> parametric forms based on system knowledge, or learned from data using neural networks such as Multi-Layer Perceptrons (MLPs), stochastic models [31], or generative approaches like normalizing flows [32]. \n\nIn parallel, the current observation **_o_** _t_ is processed by a neural sensor model _g_ obs to extract observation features: \n\n\n\nThis feature representation encodes perceptual information relevant to the latent state. \n\nUnlike conventional differentiable filters that rely on predefined distribution families or manually specified noise models to represent the dynamics and observation processes, our approach imposes fewer assumptions and offers better generalization across scenarios. \n\nTo combine the information from the prior and observation **_o_** _t_ , we incorporate a learnable fusion mechanism that aggregates the predicted particles and perceptual embeddings: \n\n\n\nwhere **_c_** _t_ aggregates temporal information from **_o_** 1: _t_ and **_a_** 1: _t_ via the process and sensor models, and serves as the conditioning input for the subsequent diffusion process. \n\n# _B. Update Step_ \n\nUpdate step refines the prior belief over the current state by incorporating the latest observation. In conventional DPFs, the update is typically implemented by assigning importance weights to particles based on an observation model, followed by resampling to mitigate particle degeneracy. However, these \n\nprocedures often require carefully designed likelihood functions and involve non-differentiable operations. In contrast, our method performs the update implicitly through a conditional diffusion model. Specifically, we make an assumption that \n\n\n\nThis assumption is justified because **_c_** _t_ captures all temporal information from **_o_** 1: _t_ and **_a_** 1: _t_ . Instead of sampling directly from the intractable posterior distribution _p_ ( **_x_** _t |_ **_o_** 1: _t,_ **_a_** 1: _t_ ), we choose to sample from the approximated distribution _p_ ( **_x_** _t |_ **_c_** _t_ ). This yields a set of particles _{_ **_x_**<sup>(</sup> _t_<sup>_i_)</sup><sup>_}N_</sup> _i_ =1<sup>,fromwhichwe</sup> can obtain: \n\n\n\nwhere _δ_ ( _·_ ) denotes the Dirac function. This indicates that all sampled particles share equal weights, thereby eliminating the need for weighting or resampling. \n\nDiffusion models have been shown to approximate arbitrarily complex probability distributions by learning timedependent score functions that guide the reversal of a noiseperturbed process [33]. In our case, a conditional diffusion model is trained to approximate _p_ ( **_x_** _t |_ **_c_** _t_ ) and generate particle samples. Specifically, we instantiate a reverse diffusion process with a Denoising Diffusion Probabilistic Model (DDPM), which iteratively refines a random Gaussian sample toward the target posterior distribution. We begin by drawing an initial Gaussian sample: \n\n\n\nwhere _K_ is the total number of reverse diffusion steps. At each step _k_ , the model predicts the noise component **_ϵ_** _θ_ ( **_x_**<sup>(</sup> _t,k_<sup>_i_)</sup><sup>_, k,_</sup><sup>**_c_**</sup><sup>_t_),</sup> which subsequently serves to infer a cleaner approximation of the sample at timestep _k −_ 1: \n\n\n\nHere **_z_** _∼N_ (0 _, I_ ), and **_x_**<sup>(</sup> _t,k_<sup>_i_)refers to the</sup><sup>_i_-th corrupted sample</sup> at diffusion step _k_ . _α_ , _α_ ¯, _σ_ are fixed noise schedule parameters as defined in [34], while _β_ and _γ_ are scaling terms introduced for simplicity. This stochastic refinement continues recursively \n\n"
+  }
+}

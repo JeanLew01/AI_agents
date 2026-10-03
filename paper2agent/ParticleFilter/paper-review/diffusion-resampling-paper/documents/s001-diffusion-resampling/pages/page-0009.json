@@ -1,0 +1,202 @@
+{
+  "page": 9,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, 150-dpi crops of Figures 5 and 6 and main.tex (end of Section 4.4, Sections 5-6). Page starts mid-sentence (\"over $J=256$ steps\", continuing page 8's last item): join_previous=space on p0009-b003, placed first. Figure 5 (SSIM/PSNR plot, both y-axes and rotated x-ticks inside) kept as figure-5 [62,62,283,213]; Figure 6 was split by the extractor into eight snapshot tiles (b007-b014): merged into one figure-6 [316,64,533,179] and the seven duplicates deleted. Both floats with verbatim captions are placed after the completed first paragraph. Headings set to \"## 5. Related work\" and \"## 6. Conclusion\"; the run-in \"**Limitations and future work**.\" stays bold text. The Related-work paragraph is split by the column break (\"We further consider\" / \"the case when ...\"): join_previous=space on p0009-b016. Inline maths rewritten in LaTeX from TeX ($Z_j = f_\\theta(Z_{j-1}, \\zeta_{j})$, $r \\approx r_\\phi$, $\\lbrace X_i \\rbrace_{i=1}^N$, $\\mathbb{R}^d$, $N\\to\\infty$); italics (*trained*, *under the categorical measure*, *under the underlying continuous measure*) restored; \"differentiable-by-construction\" de-wrapped keeping the real hyphens; Section/Appendix references resolved as printed (Section 4.3, Appendix K, L, M; Figure 5, Figure 6). Picture-text dump removed from Figure 5. Running header and page number omitted. Page ends with a complete paragraph (no join needed on page 10). [coordinator] caption label italics removed (2) so that all captions use the same plain \"Table N.\" / \"Figure N.\" style (verifier minor M2).",
+  "warnings": [
+    "Review possible header/footer: p0009-b000"
+  ],
+  "items": [
+    {
+      "id": "p0009-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "source_class": "page-header",
+      "reason": "Running header (paper short title) repeated on every page."
+    },
+    {
+      "id": "p0009-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        271.0,
+        292.0,
+        425.0
+      ],
+      "markdown": "over $J=256$ steps. In contrast to Section 4.3, we learn both the underlying dynamics and the observation model, and we parametrise both the state transition, $Z_j = f_\\theta(Z_{j-1}, \\zeta_{j})$, and the decoder, $r \\approx r_\\phi$, by neural networks. Parameters $\\theta$ and $\\phi$ are learnt by minimising the negative log-likelihood estimated by the particle filter with resampling. For completeness, we run experiments in two regimes: the first uses adaptive resampling under a tempered observation likelihood, and the second is a more challenging setting with resampling at nearly every filtering step. The learnt models are evaluated using the average structural similarity index (SSIM) and peak signal-to-noise ratio (PSNR) on their predicted image sequences.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-b001",
+      "kind": "figure",
+      "bbox": [
+        62.0,
+        62.0,
+        283.0,
+        213.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 5",
+      "asset_name": "figure-5"
+    },
+    {
+      "id": "p0009-b002",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        215.0,
+        291.0,
+        244.0
+      ],
+      "markdown": "Figure 5. Mean prediction SSIM and PSNR for the best (by mean) model configuration of each resampler in the first experiment setting. Individual runs are shown as scatter points.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0009-b007",
+      "kind": "figure",
+      "bbox": [
+        316.0,
+        64.0,
+        533.0,
+        179.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 6",
+      "asset_name": "figure-6"
+    },
+    {
+      "id": "p0009-b015",
+      "kind": "caption",
+      "bbox": [
+        306.0,
+        183.0,
+        543.0,
+        242.0
+      ],
+      "markdown": "Figure 6. Qualitative comparison of the learnt pendulum dynamics. The ground truth (green) is overlaid with model predictions (purple). White pixels indicate perfect alignment, while coloured regions highlight positional discrepancies (e.g., phase lag). Snapshots are shown at eight evenly spaced time points over the 4 second simulation (read from left to right and top to bottom).",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0009-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        433.0,
+        292.0,
+        598.0
+      ],
+      "markdown": "Our results demonstrate that diffusion resampling integrates effectively into this complex, high-dimensional SMC learning pipeline, enabling stable optimisation and achieving competitive performance relative to state-of-the-art differentiable resampling baselines. Figure 6 shows an accurate and high-fidelity mean image sequence reconstructed from a latent pendulum dynamics model and decoder learnt with diffusion resampling embedded in the optimisation process. The comparative results in Figure 5 show that, among the strongest configurations of each resampling class, diffusion resampling achieves mean SSIM and PSNR at least comparable to the baselines. See Appendix K for further details and results. We also include additional large-scale experiments in Appendix L and Appendix M.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b005",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        615.0,
+        137.0,
+        625.0
+      ],
+      "markdown": "## 5. Related work",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        636.0,
+        292.0,
+        718.0
+      ],
+      "markdown": "In concurrent work, Gourevitch et al. (2026) propose a differentiable reparameterisation of categorical distributions using stochastic interpolants. While our diffusion resampler similarly constitutes a differentiable relaxation of categorical sampling, the key departure is that their closed-form denoiser is derived under one-hot encoded samples $\\lbrace X_i \\rbrace_{i=1}^N$, whereas we focus on samples in $\\mathbb{R}^d$. We further consider",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b016",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        265.0,
+        544.0,
+        359.0
+      ],
+      "markdown": "the case when the empirical measure approximates an underlying continuous distribution as $N\\to\\infty$, while Gourevitch et al. (2026) mostly focus on discrete categorical distributions. There exists no exact reparametrisation producing the true expectation gradient *under the categorical measure*, however, a consistent reparametrisation (e.g., ours) exists converging to the true expectation gradient *under the underlying continuous measure*.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-b017",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        367.0,
+        544.0,
+        496.0
+      ],
+      "markdown": "Another work closely related to ours is that by Wan & Zhao (2025), who also leverages a diffusion model for differentiable resampling within the SMC framework. While empirically powerful, their approach relies on a *trained* conditional diffusion model, which introduces bias, breaks consistency guarantees, and adds substantial computational cost. In addition, their method introduces a further challenge in that the resampling gradient should also be propagated through the diffusion training. In contrast, our method focuses on a statistically grounded diffusion resampling scheme without training, and is more informative.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b018",
+      "kind": "heading",
+      "bbox": [
+        307.0,
+        514.0,
+        377.0,
+        523.0
+      ],
+      "markdown": "## 6. Conclusion",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b019",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        534.0,
+        544.0,
+        628.0
+      ],
+      "markdown": "In this paper we have proposed a new differentiable-by-construction, computationally efficient, and informative resampling method built on diffusion models. We have explicitly quantified a convergent error bound in the sample size and diffusion parameters. Our experiments verify that the proposed method outperforms the state-of-the-art differentiable resampling methods for filtering and parameter estimation of state-space models.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b020",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        636.0,
+        544.0,
+        718.0
+      ],
+      "markdown": "**Limitations and future work**. We observe that propagating gradients through the diffusion resampling can be numerically sensitive to the SDE solver. This could potentially be mitigated by, e.g., reversible adjoint Heun’s method (Kidger et al., 2021) or related variants. We also note that the ensemble score may not be the only choice to achieve diffusion resampling.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b021",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        741.0
+      ],
+      "markdown": "9",
+      "source_class": "page-footer",
+      "reason": "Page number footer \"9\" (verified against preview)."
+    }
+  ]
+}

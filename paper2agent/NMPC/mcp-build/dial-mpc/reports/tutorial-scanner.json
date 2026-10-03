@@ -1,0 +1,542 @@
+{
+  "scan_metadata": {
+    "repository_name": "dial-mpc",
+    "repository_url": "https://github.com/LeCAR-Lab/dial-mpc",
+    "repository_commit": "871c84f1cefbe9fa9d83a06b05ab4f0243c1a05c",
+    "repository_path": "repo/dial-mpc",
+    "paper_name": "Full-Order Sampling-Based MPC for Torque-Level Locomotion Control via Diffusion-Style Annealing (DIAL-MPC)",
+    "route": "cli",
+    "cli_backend": "python",
+    "scan_date": "2026-10-02",
+    "requested_filter": null,
+    "evaluated_source_files": 33,
+    "included_source_files": 5,
+    "proposed_tool_count": 2,
+    "execution_assignment_count": 5,
+    "optional_execution_candidates": 3,
+    "review_passes_used": 2,
+    "success": true,
+    "explanation": "No user filter; whole repository considered (129 tracked files: 25 Python files, 10 example YAML files, README, setup.py, one CI workflow, MuJoCo model assets). There are no notebooks, no tests (the pytest step in .github/workflows/python-package.yml:38-40 is commented out), no docs directory and no stored reference outputs. The user interface is six console scripts (setup.py:23-32). One of them, `dial-mpc`, is a bounded headless file-producing operation and yields two proposed tools; the seven packaged synchronous examples are merged into one rollout tool, with four assigned for execution and three kept as optional supporting examples. Asynchronous simulation, real-robot deployment and the two helper entry points are deferred or omitted with concrete blockers. Selection does not establish that execution passes on the 8 GB GPU / 7.5 GB RAM machine; the environment result decides feasibility and problem size.",
+    "paths_note": "`path` is relative to the repository checkout repo/dial-mpc; `project_path` is relative to the project root. sha256 values were computed from the checkout at scan time with sha256sum."
+  },
+  "tutorials": [
+    {
+      "path": "README.md",
+      "project_path": "repo/dial-mpc/README.md",
+      "sha256": "cd47241407c9f46e2587322183ee08e416ee3143388d2e8721a0b21a65eb8f40",
+      "title": "DIAL-MPC README",
+      "description": "Install (`pip3 install -e .`, README.md:54-58), synchronous simulation commands (60-78), asynchronous simulation with two terminals (80-105), real Go2 deployment (108-221), custom environment skeleton and YAML template (223-312), pointer to a `render` branch for Blender (314-316).",
+      "type": "markdown",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documentation index. Its runnable commands are bound through the example entries below (list_examples, sync_unitree_h1_jog, sync_allegro_reorient); the remaining sections describe deferred or omitted work."
+    },
+    {
+      "path": "setup.py",
+      "project_path": "repo/dial-mpc/setup.py",
+      "sha256": "1f288bf2d82e0e69f7f887eddcd8ce64e58f76558a95413d9937d7ac1401ce43",
+      "title": "Package metadata and console entry points",
+      "description": "Registers dial-mpc, dial-mpc-sim2sim, dial-mpc-sim2real, dial-mpc-sim, dial-mpc-real, dial-mpc-plan (setup.py:23-32). Dependencies are unpinned except numpy<2.0.0 (setup.py:9-21).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Setup, not a user task. Source of the entry-point bindings used in tool_review."
+    },
+    {
+      "path": "dial_mpc/examples/__init__.py",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/__init__.py",
+      "sha256": "82b2ff1961980786a48ed09cda678cfdba79eec8fa2fe5eb63d018d6ed0bcc04",
+      "title": "List packaged synchronous examples (dial-mpc --list-examples)",
+      "description": "Defines `examples` (seven names, lines 1-9) printed by `dial-mpc --list-examples` (dial_core.py:196-200) and `deploy_examples` (three names, lines 11-15) printed by the deploy commands.",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_id": "list_examples",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Owning source of dial_mpc_list_examples: documented, bounded, stdout-only discovery command."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_go2_trot.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_trot.yaml",
+      "sha256": "5eaae6666bcc8a0276e07dd1795f1ff8faccf385ce2965b149097f0be9c88d40",
+      "title": "Synchronous DIAL-MPC rollout: Unitree Go2 trot (primary reference)",
+      "description": "env unitree_go2_walk; n_steps 400, Nsample 2048, Hsample 16, Hnode 4, Ndiffuse 2, Ndiffuse_init 10, temp_sample 0.05, torque control, default_vx 0.8, ramp_up_time 1.0, gait trot.",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_id": "sync_unitree_go2_trot",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Owning source of dial_mpc_run_sync_simulation. Smallest locomotion example; exercises the velocity/gait parameter family."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_h1_jog.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_h1_jog.yaml",
+      "sha256": "cfa9480069e1e839a090faf5bd6a86527ef67c3adf36cf4a6ed3a18d30cd4766",
+      "title": "Synchronous DIAL-MPC rollout: Unitree H1 jog (README command)",
+      "description": "env unitree_h1_walk; n_steps 400, Nsample 2048, Hsample 25, Hnode 5, Ndiffuse 4, default_vx 2.0, ramp_up_time 3.0, gait jog.",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_id": "sync_unitree_h1_jog",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: the command printed in README.md:72-76 and the humanoid config class."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_go2_seq_jump.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_seq_jump.yaml",
+      "sha256": "2a9d63cf753fd5b13999a1e6a266c8c0c91ed4f3fbdca66b5b29d5678b6112d1",
+      "title": "Synchronous DIAL-MPC rollout: Unitree Go2 sequential jumping",
+      "description": "env unitree_go2_seq_jump; n_steps 400, Nsample 2048, Hsample 20, Hnode 5, Ndiffuse 2; jump_dt 1.0, five pose targets 0.4 m apart, five yaw targets.",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_id": "sync_unitree_go2_seq_jump",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: only example with array-valued task parameters (jump targets)."
+    },
+    {
+      "path": "dial_mpc/examples/allegro_reorient.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/allegro_reorient.yaml",
+      "sha256": "6b5ce63a7e610e4ac85807e2d0047b43bbb402cf3550a3fef5373bb15a4f3946",
+      "title": "Synchronous DIAL-MPC rollout: Allegro hand ball reorientation",
+      "description": "env allegro_reorient; n_steps 200, Nsample 2048, Hsample 20, Hnode 4, Ndiffuse 2; position control, timestep 0.005.",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_id": "sync_allegro_reorient",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Supporting execution for dial_mpc_run_sync_simulation: manipulation task, position control, substepping (README.md:26)."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_h1_loco.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_h1_loco.yaml",
+      "sha256": "7fd5de5e84ecf893fd3ed13abcea75bd67cb6560c7f56d010a800b8fb4a64769",
+      "title": "Synchronous DIAL-MPC rollout: Unitree H1 lower-body walking",
+      "description": "env unitree_h1_loco (UnitreeH1LocoEnv, unitree_h1_env.py:609-902, 11-actuator model mjx_scene_h1_loco.xml); n_steps 400, Nsample 2048, Hsample 20, Hnode 5, Ndiffuse 1, default_vx 0.6, gait walk.",
+      "type": "script",
+      "include_in_tools": false,
+      "reserved_execution_id": "sync_unitree_h1_loco",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Same operation as the assigned examples (merged into dial_mpc_run_sync_simulation); same parameter family as go2_trot/h1_jog. Not assigned by default to keep the number of heavy jobs small on this machine. Promote to an execution assignment if the coordinator wants every packaged example to have evidence."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_h1_push_crate.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_h1_push_crate.yaml",
+      "sha256": "5186b6c3d61501469a5ed629df85b2b44d35cb92e4a04e7e446707120296b06f",
+      "title": "Synchronous DIAL-MPC rollout: Unitree H1 pushing a crate",
+      "description": "env unitree_h1_push_crate (UnitreeH1PushCrateEnv, unitree_h1_env.py:382-567); n_steps 300, Nsample 2048, Hsample 24, Hnode 6, Ndiffuse 4, default_vx 0.8, gait slow_walk.",
+      "type": "script",
+      "include_in_tools": false,
+      "reserved_execution_id": "sync_unitree_h1_push_crate",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Same operation; optional supporting example. Heaviest packaged config (humanoid plus crate contacts, Ndiffuse 4). Its reward indexes the contact array by fixed positions (wanted contacts 26-27, unwanted 14-25, unitree_h1_env.py:522-527; feet 2:4 and 6:8, lines 467-472), which depends on the contact ordering of the installed MuJoCo/MJX version and cannot be checked against any upstream reference output."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_go2_crate_climb.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_crate_climb.yaml",
+      "sha256": "7b0ff2b28ded443e5e57a84876b9b9415b26591193fae37f294a52c1cd03078c",
+      "title": "Synchronous DIAL-MPC rollout: Unitree Go2 climbing onto a crate",
+      "description": "env unitree_go2_crate_climb (UnitreeGo2CrateEnv, unitree_go2_env.py:653-803, model mjx_scene_force_crate.xml); n_steps 100, Nsample 2048, Hsample 25, Hnode 5, Ndiffuse 4. Target position is fixed in reset (unitree_go2_env.py:797-803); the YAML has no task parameters.",
+      "type": "script",
+      "include_in_tools": false,
+      "reserved_execution_id": "sync_unitree_go2_crate_climb",
+      "module": "cli_wrapper",
+      "reason_for_include_or_exclude": "Same operation; optional supporting example. No typed task parameter beyond the common DIAL-MPC ones. Reward uses fixed contact indices 16-19 (unitree_go2_env.py:750-766), version-sensitive in the same way as push_crate."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_go2_trot_deploy.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_trot_deploy.yaml",
+      "sha256": "c47333d72bcf149701164130df4bb969c4df2d5e1e563aea9256df494d693ed8",
+      "title": "Deploy config: Go2 trot (asynchronous simulation / real robot)",
+      "description": "Adds simulator keys (robot_name, scene_name, sim_leg_control, plot, record, real_time_factor, sim_dt, sync_mode) and real-robot keys (network_interface, real_kp, real_kd, initial_position_ctrl, low_cmd_pub_dt, localization plugin settings).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Input of the deferred asynchronous-simulation and real-robot commands (GUI viewer, unbounded loops, hardware)."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_go2_seq_jump_deploy.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_go2_seq_jump_deploy.yaml",
+      "sha256": "b1cec2da22b4d602cfd1e1d30d3607e456622314882d395d2b4221c4ad561d2d",
+      "title": "Deploy config: Go2 sequential jumping (README asynchronous example)",
+      "description": "Config of the README asynchronous example `dial-mpc-sim --example unitree_go2_seq_jump_deploy` plus `dial-mpc-plan --example unitree_go2_seq_jump_deploy` (README.md:94-105) and of the real-robot example (README.md:202-221).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Input of the deferred asynchronous-simulation and real-robot commands."
+    },
+    {
+      "path": "dial_mpc/examples/unitree_h1_loco_deploy.yaml",
+      "project_path": "repo/dial-mpc/dial_mpc/examples/unitree_h1_loco_deploy.yaml",
+      "sha256": "901fa54f7c9a8f5afb3ce4e144a1a04ccf5a6caecef58488dea02618a6c7a8be",
+      "title": "Deploy config: H1 lower-body walking (asynchronous simulation)",
+      "description": "Simulator keys only (no real-robot section); Nsample 3000.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Input of the deferred asynchronous-simulation command."
+    },
+    {
+      "path": "dial_mpc/core/dial_core.py",
+      "project_path": "repo/dial-mpc/dial_mpc/core/dial_core.py",
+      "sha256": "a4471963c53b04ee2d8c67c7cefbe0aeced83fa3d2b97338c42e69d7238ba64c",
+      "title": "Synchronous command implementation (dial-mpc)",
+      "description": "MBDPI planner class (51-172) and `main` (175-329): argument parsing (183-194), list branch (196-200), custom-env import (202-204), config loading (206-218), rollout loop (242-268), artifact writing (277-323), blocking Flask server (325-329).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Implementation behind both proposed tools; bound through the example entries. Not a separate execution source."
+    },
+    {
+      "path": "dial_mpc/core/dial_config.py",
+      "project_path": "repo/dial-mpc/dial_mpc/core/dial_config.py",
+      "sha256": "ff378a45e39960e3be4904d4b9f97d8b3ec64423f436e57b0e46ff675f89aca6",
+      "title": "DialConfig dataclass",
+      "description": "Planner/experiment fields and defaults (lines 5-23).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Parameter definitions for dial_mpc_run_sync_simulation; internal."
+    },
+    {
+      "path": "dial_mpc/core/dial_sim2sim.py",
+      "project_path": "repo/dial-mpc/dial_mpc/core/dial_sim2sim.py",
+      "sha256": "1bae4c60c6b43835a365a599e45e475c40ee43ff4e8c0762784c79bcaa271822",
+      "title": "dial-mpc-sim2sim launcher",
+      "description": "Runs `dial-mpc-sim` with blocking subprocess.run, sleeps 2 s, then runs `dial-mpc-plan` (lines 6-12).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: not documented in the README, and the planner is started only after the simulator process has exited, so the pair never runs together."
+    },
+    {
+      "path": "dial_mpc/config/base_env_config.py",
+      "project_path": "repo/dial-mpc/dial_mpc/config/base_env_config.py",
+      "sha256": "d82c4c457d7c0229da4b1b4c0abfda1fadf49a191951222d8ec707a991d8ce7c",
+      "title": "BaseEnvConfig dataclass",
+      "description": "task_name, randomize_tasks, kp, kd, debug, dt, timestep, backend, leg_control, action_scale (lines 5-20).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Parameter definitions; internal."
+    },
+    {
+      "path": "dial_mpc/envs/__init__.py",
+      "project_path": "repo/dial-mpc/dial_mpc/envs/__init__.py",
+      "sha256": "3a0770350cf23260a9340e188a4c75954988e7ded8127efa2816c3624d555b0a",
+      "title": "Environment config registry",
+      "description": "Maps seven env names to config dataclasses (14-22); register_config/get_config (25-30).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal registry; defines which env names and config fields the rollout tool can accept."
+    },
+    {
+      "path": "dial_mpc/envs/base_env.py",
+      "project_path": "repo/dial-mpc/dial_mpc/envs/base_env.py",
+      "sha256": "6c640605be77b86b1609328541cdec7bcaf2a0d9a3887a69b01f6b8afcc9ec1d",
+      "title": "BaseEnv",
+      "description": "Brax PipelineEnv base: dt/timestep check (16), action-to-joint-target and PD torque mapping (37-66).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal library code."
+    },
+    {
+      "path": "dial_mpc/envs/unitree_go2_env.py",
+      "project_path": "repo/dial-mpc/dial_mpc/envs/unitree_go2_env.py",
+      "sha256": "3cd4bc7501850edcb8d789c470f9ecf0f9072f1dbf7bcc70965b9c772c1482fa",
+      "title": "Unitree Go2 environments",
+      "description": "UnitreeGo2Env (walk/trot), UnitreeGo2SeqJumpEnv, UnitreeGo2CrateEnv and their config dataclasses; registered at 806-808.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal environment definitions used by the rollout tool; source of the Go2 typed parameters."
+    },
+    {
+      "path": "dial_mpc/envs/unitree_h1_env.py",
+      "project_path": "repo/dial-mpc/dial_mpc/envs/unitree_h1_env.py",
+      "sha256": "cf2e4c340af9c84b9043c0396253c1e49d4e294f48c5e0148591c3b11e594689",
+      "title": "Unitree H1 environments",
+      "description": "UnitreeH1WalkEnv, UnitreeH1PushCrateEnv, UnitreeH1LocoEnv and config dataclasses; registered at 904-906.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal environment definitions; source of the H1 typed parameters."
+    },
+    {
+      "path": "dial_mpc/envs/manipulation.py",
+      "project_path": "repo/dial-mpc/dial_mpc/envs/manipulation.py",
+      "sha256": "58f8c0837caea6b148589ad93e5683b862e0634fcf8953747dad3064e69e62e8",
+      "title": "Allegro reorientation environment",
+      "description": "AllegroReorientEnv and config (kp, kd only); registered at 117.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal environment definition."
+    },
+    {
+      "path": "dial_mpc/deploy/dial_sim.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/dial_sim.py",
+      "sha256": "f55881fa1446dec6b82474abbd673df965c9cee77c2f42155c5b4b4072448c30",
+      "title": "Asynchronous simulator command (dial-mpc-sim)",
+      "description": "MuJoCo simulator process that exchanges state and plans with dial-mpc-plan through named shared-memory blocks.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Deferred: always opens a MuJoCo viewer window (156-158), loops forever (179), uses fixed global shared-memory names (84-123), writes a file only with `record: true` and only after Ctrl-C (346-355)."
+    },
+    {
+      "path": "dial_mpc/deploy/dial_plan.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/dial_plan.py",
+      "sha256": "043e8e475c470e5f6afd446bae947f4d738cefe1de08f72ee0f3f693ac023330",
+      "title": "Asynchronous planner command (dial-mpc-plan)",
+      "description": "DIAL-MPC planner process that attaches to the simulator's or robot's shared memory.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Deferred: needs a running dial-mpc-sim or dial-mpc-real (attaches with create=False, 92-134), loops forever (172), writes no output file."
+    },
+    {
+      "path": "dial_mpc/deploy/dial_real.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/dial_real.py",
+      "sha256": "0d07610249e66687fa321995e5bf8932ce30ef97d77e92421b3bcd26268139c5",
+      "title": "Real Unitree Go2 bridge (dial-mpc-real)",
+      "description": "Publishes low-level motor commands to a Unitree Go2 over CycloneDDS and reads its state plus an external localization source.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: requires robot hardware, `unitree_sdk2py` (imported at 19-31, not in setup.py), a localization source (ROS 2 or Vicon) and a viewer window (101-103)."
+    },
+    {
+      "path": "dial_mpc/deploy/localization/__init__.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/localization/__init__.py",
+      "sha256": "ce3f8b542ed389fa72ab07c5d835ecb58b3313b37b6903d8d318a711afcead7d",
+      "title": "Localization plugin registry",
+      "description": "register_plugin / load_plugin / get_available_plugins for dial-mpc-real.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: only used by the real-robot command."
+    },
+    {
+      "path": "dial_mpc/deploy/localization/base_plugin.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/localization/base_plugin.py",
+      "sha256": "feec031372d22adc3f57004682282ac12fc6ffb797858b1d9d6df991afe17e94",
+      "title": "BaseLocalizationPlugin interface",
+      "description": "Abstract get_state / get_last_update_time.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: interface for the real-robot command."
+    },
+    {
+      "path": "dial_mpc/deploy/localization/ros2_odometry_plugin.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/localization/ros2_odometry_plugin.py",
+      "sha256": "b60d8b77661d6bdaaf813a97bfcb6de4fe247d28e05dd1fd91348e8e616e522a",
+      "title": "ROS 2 odometry localization plugin",
+      "description": "Subscribes to a nav_msgs/Odometry topic with rclpy.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: needs ROS 2 (rclpy, nav_msgs; lines 4-6) and a live odometry publisher."
+    },
+    {
+      "path": "dial_mpc/deploy/localization/vicon_shm_plugin.py",
+      "project_path": "repo/dial-mpc/dial_mpc/deploy/localization/vicon_shm_plugin.py",
+      "sha256": "d9e03a5786bc1165ccaab55e126d9335057d7a2264772d89097e2b5127b71776",
+      "title": "Vicon localization plugin",
+      "description": "Reads a Vicon DataStream tracker (pyvicon_datastream, line 9) into shared memory; ViconDemo (13) and ViconPlugin (186).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: needs a Vicon motion-capture system and `pyvicon_datastream`."
+    },
+    {
+      "path": "dial_mpc/utils/function_utils.py",
+      "project_path": "repo/dial-mpc/dial_mpc/utils/function_utils.py",
+      "sha256": "b7da09aa1e5fb6b878e18b6adc5d6712b2fc266e261c5789904ff192d06013d8",
+      "title": "Velocity frame transforms and gait foot-height reference",
+      "description": "global_to_body_velocity, body_to_global_velocity (7-15), get_foot_step (18-43).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal helpers of the environment rewards; no command-line interface and no standalone user task in the README."
+    },
+    {
+      "path": "dial_mpc/utils/io_utils.py",
+      "project_path": "repo/dial-mpc/dial_mpc/utils/io_utils.py",
+      "sha256": "c0ff49e9bc1a7d45dfe9c41e4af709906691d692cde5e52863ab8c28ec5d12cf",
+      "title": "Path and config loading helpers",
+      "description": "get_model_path, get_example_path (5-12), load_dataclass_from_dict (15-24).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal loading. Relevant behaviour for the wrapper: load_dataclass_from_dict keeps only keys that the dataclass defines (line 16), so unknown or misspelled config keys are dropped without any message."
+    },
+    {
+      "path": "dial_mpc/utils/unitree_legged_const.py",
+      "project_path": "repo/dial-mpc/dial_mpc/utils/unitree_legged_const.py",
+      "sha256": "7685d8c384f268ebfebd569dea5b6f1e40ba6ec3ae29e8535334193f257d1034",
+      "title": "Unitree motor constants",
+      "description": "Leg index table and stop constants for the real robot.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal constants of the real-robot command."
+    },
+    {
+      "path": ".github/workflows/python-package.yml",
+      "project_path": "repo/dial-mpc/.github/workflows/python-package.yml",
+      "sha256": "4e30675a45872e820cb25ce08f7b7d063208faf42394fbad525cc23f38097aeb",
+      "title": "CI workflow",
+      "description": "Installs the package on Python 3.10; lint and pytest steps are commented out (32-40).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "No tests exist to use as a verification source. Only evidence that upstream targets Python 3.10."
+    }
+  ],
+  "tool_review": [
+    {
+      "candidate": "Run a synchronous DIAL-MPC rollout",
+      "decision": "expose",
+      "tool_name": "dial_mpc_run_sync_simulation",
+      "module": "cli_wrapper",
+      "owning_execution_id": "sync_unitree_go2_trot",
+      "supporting_execution_ids": ["sync_unitree_h1_jog", "sync_unitree_go2_seq_jump", "sync_allegro_reorient"],
+      "optional_supporting_execution_ids": ["sync_unitree_h1_loco", "sync_unitree_h1_push_crate", "sync_unitree_go2_crate_climb"],
+      "task": "Simulate a robot under closed-loop DIAL-MPC control for n_steps control steps and obtain the executed state/control trajectory, the planner's predicted link trajectories and an interactive HTML visualization.",
+      "implementation": {
+        "executable": "dial-mpc (console script -> dial_mpc.core.dial_core:main, setup.py:25)",
+        "bound_command": ["dial-mpc", "--config", "<per-call YAML>"],
+        "equivalent_documented_command": ["dial-mpc", "--example", "<name>"],
+        "equivalence": "`--example NAME` only resolves NAME + '.yaml' inside the package and loads it with yaml.safe_load; `--config FILE` loads FILE the same way (dial_core.py:206-209). Everything after that is shared.",
+        "source_lines": {
+          "arguments": "dial_mpc/core/dial_core.py:183-194 (mutually exclusive required group --config | --example | --list-examples; optional --custom-env)",
+          "config_loading": "dial_core.py:206-218; dial_mpc/utils/io_utils.py:15-24",
+          "environment_creation": "dial_core.py:220-227; registries dial_mpc/envs/__init__.py:14-22 and unitree_go2_env.py:806-808, unitree_h1_env.py:904-906, manipulation.py:117",
+          "planner": "class MBDPI dial_core.py:51-172 (reverse_once 103-145, shift 160-166)",
+          "rollout_loop": "dial_core.py:242-268",
+          "outputs": "dial_core.py:270-271 (stdout mean reward), 277-281 (output dir and timestamp), 293-302 (HTML), 305-323 (states and predictions arrays)",
+          "blocking_server": "dial_core.py:290-292, 325-329"
+        }
+      },
+      "inputs": {
+        "selection": "Exactly one of `example` (packaged name) or `config_path` (user YAML). Resolve user paths to absolute before changing the subprocess working directory.",
+        "typed_overrides_recommended": [
+          {"name": "seed", "type": "int", "upstream": "DialConfig.seed, dial_config.py:7; used at dial_core.py:212", "note": "Seeds the JAX PRNG for reset and sampling. Run-to-run repeatability on the GPU must be measured by the executor before any promise is made."},
+          {"name": "n_steps", "type": "int", "upstream": "DialConfig.n_steps, dial_config.py:9; dial_core.py:235", "note": "Number of control steps; each is 0.02 s in all packaged examples (dt)."},
+          {"name": "Nsample", "type": "int", "upstream": "dial_config.py:13; dial_core.py:107-114", "note": "Parallel sampled rollouts per diffusion iteration; main memory lever."},
+          {"name": "Hsample", "type": "int", "upstream": "dial_config.py:14; dial_core.py:75", "note": "Planning horizon in control steps."},
+          {"name": "Hnode", "type": "int", "upstream": "dial_config.py:15; dial_core.py:76", "note": "Number of spline control nodes minus one."},
+          {"name": "Ndiffuse", "type": "int", "upstream": "dial_config.py:16; dial_core.py:253", "note": "Annealing iterations per control step after the first."},
+          {"name": "Ndiffuse_init", "type": "int", "upstream": "dial_config.py:17; dial_core.py:254-255", "note": "Annealing iterations at the first step."},
+          {"name": "temp_sample", "type": "float", "upstream": "dial_config.py:18; dial_core.py:126", "note": "Softmax temperature."},
+          {"name": "horizon_diffuse_factor", "type": "float", "upstream": "dial_config.py:20; dial_core.py:66-68", "note": "Noise decay along the horizon."},
+          {"name": "traj_diffuse_factor", "type": "float", "upstream": "dial_config.py:21; dial_core.py:259-261", "note": "Noise decay across annealing iterations."},
+          {"name": "sigma_scale", "type": "float", "upstream": "dial_config.py:23; dial_core.py:63-70", "note": "Global noise scale."},
+          {"name": "default_vx / default_vy / default_vyaw", "type": "float", "upstream": "UnitreeGo2EnvConfig unitree_go2_env.py:29-31; UnitreeH1WalkEnvConfig unitree_h1_env.py:73-75; UnitreeH1LocoEnvConfig unitree_h1_env.py:602-604", "note": "Commanded base velocity. Effective only in env unitree_go2_walk, unitree_h1_walk, unitree_h1_push_crate, unitree_h1_loco (used at unitree_go2_env.py:142-146 and the matching H1 code)."},
+          {"name": "ramp_up_time", "type": "float", "upstream": "unitree_go2_env.py:32, 156-162; unitree_h1_env.py:76, 605", "note": "Seconds over which the velocity command ramps from zero."},
+          {"name": "gait", "type": "str", "upstream": "unitree_go2_env.py:33, 43-57; unitree_h1_env.py:77, 103-115, 606, 632-644", "note": "Go2: stand, walk, trot, canter, gallop. H1: stand, slow_walk, walk, jog. An unknown name fails upstream with KeyError when the step function is traced."},
+          {"name": "jump_dt", "type": "float", "upstream": "UnitreeGo2SeqJumpEnvConfig unitree_go2_env.py:320, 512-515", "note": "Seconds per jump stage; env unitree_go2_seq_jump only."},
+          {"name": "pose_target_sequence", "type": "list of [x, y, z]", "upstream": "unitree_go2_env.py:323, 332-340, 434-437", "note": "Base position target per stage; env unitree_go2_seq_jump only."},
+          {"name": "yaw_target_sequence", "type": "list of float", "upstream": "unitree_go2_env.py:324, 443-446, 567", "note": "Yaw target per stage, same length as pose_target_sequence (assert at unitree_go2_env.py:567)."}
+        ],
+        "config_file_only": "leg_control, kp, kd, action_scale, dt, timestep, backend, debug, task_name, randomize_tasks, contact_targets, contact_target_radius: defined by the dataclasses but tied to the model files (the Go2/H1 scenes use torque actuators; Allegro implements only position control, manipulation.py:68-71) or unused by the packaged examples. They stay reachable through `config_path`; no typed parameter proposed.",
+        "not_exposed": "update_method (only `mppi` exists, dial_core.py:57-59); env_name as an override (it decides which other keys are valid; change it through `config_path`); output_dir (set by the wrapper to a fresh per-call directory, since file names depend only on a one-second timestamp, dial_core.py:281).",
+        "source_backed_contract_check": "Because load_dataclass_from_dict silently drops keys that the target dataclass does not define (io_utils.py:16), an override for a field that the selected env's config class does not have would be ignored without error. The wrapper should reject such an override, using the field lists of the dataclasses cited above, rather than return a result that looks as if the parameter had been applied.",
+        "custom_environment": "`--custom-env MODULE` (dial_core.py:188-193, 202-204) imports MODULE from the working directory. See the separate candidate below; not part of the default parameter set."
+      },
+      "native_outputs": {
+        "files": [
+          "<output_dir>/<YYYYmmdd-HHMMSS>_brax_visualization.html : brax.io.html.render of the executed rollout (dial_core.py:293-302)",
+          "<output_dir>/<ts>_states.npy : shape (n_steps, 1 + nq + nv + nu), row = [step index, qpos, qvel, ctrl] (dial_core.py:305-322)",
+          "<output_dir>/<ts>_predictions.npy : shape (n_steps, Hsample+1, n_links, 3), reward-weighted mean of predicted link positions from the last annealing iteration of each step (dial_core.py:124, 135, 319-323)"
+        ],
+        "stdout": "`mean reward = <value in %.2e>` (dial_core.py:270-271); progress bars go to stderr (tqdm).",
+        "write_timing": "All files are written only after the whole rollout has finished; an interrupted run leaves nothing."
+      },
+      "process_handling": "The command never exits by itself because of `app.run(port=5000)` (dial_core.py:329). Proposed handling without touching upstream code: set FLASK_RUN_FROM_CLI=true in the child environment, which makes Flask.run return immediately (flask/app.py:611 in the project environment, flask 3.1.1 at scan time), so the process ends with status 0 and port 5000 is never opened. Fallback: poll for `*_predictions.npy`, then SIGINT (werkzeug/serving.py:817-823 swallows KeyboardInterrupt). If port 5000 is busy the unmodified command exits non-zero after the artifacts are already written. Whichever mechanism is used must be the one the executor actually observed.",
+      "verification_source": {
+        "basis": "Direct standalone execution of the documented commands (execution assignments in reports/tutorial-scanner-include-in-tools.json). The repository ships no expected outputs, so the reference is the executor's retained run on the same config and seed.",
+        "compared": "Exit status; one file of each kind; dtypes and shapes; step-index column; finiteness; mean reward from stdout; maximum absolute difference of both arrays between wrapper call and standalone command at the same seed, with a tolerance taken from the executor's same-seed replay.",
+        "changed_input_checks": "n_steps changes the row count exactly; a different seed changes the arrays; default_vx changes the reached base displacement in the commanded direction (property of the velocity-tracking reward, unitree_go2_env.py:214), each confirmed by an independent direct `dial-mpc --config` run.",
+        "failure_checks": "`--example` with an unknown name fails at dial_core.py:207 before any compilation; neither/both of example and config_path; a gait name not in the env's table; a typed override not defined for the env; timeout."
+      },
+      "feasibility_notes": "Memory grows with (Nsample+1) x (Hsample+1) simulator states per annealing iteration (dial_core.py:114-120); all examples use Nsample 2048. Whether these fit an 8 GB GPU and 7.5 GB RAM is for the environment manager and executors to establish; any reduction must go through the config fields above and be recorded."
+    },
+    {
+      "candidate": "List packaged synchronous examples",
+      "decision": "expose",
+      "tool_name": "dial_mpc_list_examples",
+      "module": "cli_wrapper",
+      "owning_execution_id": "list_examples",
+      "task": "Find out which example names the rollout tool accepts.",
+      "implementation": {
+        "executable": "dial-mpc",
+        "bound_command": ["dial-mpc", "--list-examples"],
+        "source_lines": "dial_mpc/core/dial_core.py:187, 196-200; list in dial_mpc/examples/__init__.py:1-9; README.md:66-70"
+      },
+      "inputs": "None.",
+      "native_outputs": "stdout: banner (dial_core.py:182), `Examples:`, then seven lines of two spaces plus a name. No files.",
+      "verification_source": "Run the command; parsed names must equal dial_mpc.examples.examples in order, and each must have a YAML file in dial_mpc/examples/.",
+      "reason": "Documented first command of the README; cheap; lets a client discover valid inputs instead of relying on names hard-coded in the wrapper. It is a discovery helper, not a scientific computation."
+    },
+    {
+      "candidate": "Brax HTML visualization of a rollout and its Flask page on port 5000",
+      "decision": "merge into dial_mpc_run_sync_simulation (HTML file); server omitted",
+      "implementation": "dial_core.py:290-302 (render and save), 325-329 (serve)",
+      "reason": "The HTML file is written by the same command and is returned as an artifact of the rollout tool. The Flask page serves the identical HTML string, blocks forever and opens a port, which the workspace rules forbid; there is no separate command that renders a saved rollout."
+    },
+    {
+      "candidate": "Custom environment through --custom-env",
+      "decision": "defer as a parameter of dial_mpc_run_sync_simulation",
+      "implementation": "dial_core.py:188-193, 202-204 (appends the working directory to sys.path and imports the named module); README.md:223-302",
+      "blocker": "No runnable upstream reference: the README environment is a skeleton whose reset and step are TODO comments and which lacks imports (README.md:233-266). It also executes arbitrary user Python.",
+      "evidence_needed": "A real custom environment module to execute. A plumbing-only check is possible without new science (a module that registers an existing upstream class under a new name with brax_envs.register_environment and dial_envs.register_config, then `dial-mpc --config <yaml> --custom-env <module>` from that directory); the coordinator decides whether that is enough to expose the parameter."
+    },
+    {
+      "candidate": "Asynchronous simulation (dial-mpc-sim + dial-mpc-plan)",
+      "decision": "defer",
+      "implementation": "dial_mpc/deploy/dial_sim.py:293-357 and dial_mpc/deploy/dial_plan.py:232-290; README.md:80-105",
+      "blocker": "dial-mpc-sim always calls mujoco.viewer.launch_passive (dial_sim.py:156-158) and there is no display server; both processes run `while True` with no step limit (dial_sim.py:179, dial_plan.py:172) and stop only on Ctrl-C; they communicate through shared-memory blocks with fixed global names (dial_sim.py:84-123) so only one pair can exist per machine; the planner writes no file and the simulator writes `sim_<env>_<task>_<timestamp>/states.npy` only when the config has `record: true` (dial_sim.py:346-355); results depend on wall-clock timing unless `sync_mode: true`.",
+      "evidence_needed": "A display or an upstream headless option, plus an upstream-defined bounded run with a declared output, before a reference execution and comparison are possible.",
+      "includes": "`dial-mpc-sim --list-examples`, `dial-mpc-plan --list-examples` (deploy example names) are deferred together with these commands."
+    },
+    {
+      "candidate": "Real Unitree Go2 deployment (dial-mpc-real) and localization plugins",
+      "decision": "omit",
+      "implementation": "dial_mpc/deploy/dial_real.py:295-378; dial_mpc/deploy/localization/*.py; README.md:108-221",
+      "blocker": "Needs a Unitree Go2, unitree_sdk2py and CycloneDDS (dial_real.py:19-31, 157-174; not in setup.py), a ROS 2 odometry topic or a Vicon system, and a viewer window (dial_real.py:101-103). It sends motor commands to hardware and has no simulation mode."
+    },
+    {
+      "candidate": "dial-mpc-sim2sim",
+      "decision": "omit",
+      "implementation": "dial_mpc/core/dial_sim2sim.py:6-12; setup.py:26",
+      "reason": "Undocumented. It starts dial-mpc-sim with a blocking subprocess.run and launches dial-mpc-plan only after the simulator has exited, so it inherits the asynchronous blockers and cannot run the pair concurrently."
+    },
+    {
+      "candidate": "dial-mpc-sim2real",
+      "decision": "omit",
+      "implementation": "setup.py:27 points to dial_mpc.core.dial_sim2real:main",
+      "reason": "The module dial_mpc/core/dial_sim2real.py does not exist at the pinned commit; the entry point cannot be imported."
+    },
+    {
+      "candidate": "Planner Python API (MBDPI.reverse_once, node2u, u2node, shift)",
+      "decision": "keep internal",
+      "implementation": "dial_mpc/core/dial_core.py:51-172",
+      "reason": "Not reachable through any command except inside the rollout loop; the route is CLI and the user-level task is the whole rollout."
+    },
+    {
+      "candidate": "Helper functions (get_foot_step, velocity frame transforms, path/config loaders, Unitree constants)",
+      "decision": "keep internal",
+      "implementation": "dial_mpc/utils/function_utils.py:7-43; dial_mpc/utils/io_utils.py:5-24; dial_mpc/utils/unitree_legged_const.py",
+      "reason": "Reward and loading helpers without a command or a documented standalone use."
+    },
+    {
+      "candidate": "Read a packaged example config",
+      "decision": "keep internal (path metadata only)",
+      "implementation": "dial_mpc/utils/io_utils.py:10-12; dial_core.py:207",
+      "reason": "Loading step with no command of its own. The need is covered by returning the packaged YAML paths from dial_mpc_list_examples and the effective per-call YAML from dial_mpc_run_sync_simulation."
+    },
+    {
+      "candidate": "Planned-reward plot",
+      "decision": "omit",
+      "implementation": "dial_core.py:283-286 (commented out)",
+      "reason": "Not executed by the pinned code."
+    },
+    {
+      "candidate": "Blender rendering of rollouts",
+      "decision": "omit",
+      "implementation": "README.md:314-316 refers to a `render` branch",
+      "reason": "Not present at the pinned commit."
+    }
+  ],
+  "notes_for_environment_and_executors": [
+    "Install mode: setup.py:7 uses find_packages(include=[\"dial_mpc\"]), which matches only the top-level package, and package_data is keyed by \"dial-mpc\" (setup.py:22). A non-editable install would therefore miss the subpackages, models and example YAML files; the README's editable install from the checkout (README.md:57) is the layout to keep and to document for delivery.",
+    "flask is imported at dial_core.py:290, after the rollout and before any file is written, but is not listed in setup.py; it arrives through brax. Without it a run would lose all results.",
+    "dial_mpc/utils and dial_mpc/models/* have no __init__.py; get_model_path relies on importlib.resources with namespace packages (io_utils.py:5-7).",
+    "dial_core.py:31-33 appends `--xla_gpu_triton_gemm_any=True` to XLA_FLAGS on import; whether the installed jaxlib accepts that flag is something the first real run shows.",
+    "Dependencies are unpinned upstream; at scan time the project environment contained brax 0.12.3, jax/jaxlib 0.6.1, mujoco and mujoco_mjx 3.3.2, numpy 1.26.4, flask 3.1.1, werkzeug 3.1.3 (directory listing only, nothing executed by the scanner).",
+    "MBDPI fixes its control period to 0.02 s (dial_core.py:74) regardless of the config `dt`; all packaged examples use dt 0.02.",
+    "The scanner executed no repository command; every statement above comes from reading the cited lines."
+  ],
+  "open_questions": [
+    "Is the FLASK_RUN_FROM_CLI=true mechanism acceptable to the coordinator as the way to make `dial-mpc` terminate, or should the wrapper use wait-for-artifacts plus SIGINT? Either needs an observed standalone run.",
+    "Do the unchanged example sizes (Nsample 2048, 100-400 steps) fit the machine? If not, the reference runs and the tool's documented defaults need the recorded reduced sizes.",
+    "Should the three unassigned synchronous examples (h1_loco, h1_push_crate, go2_crate_climb) get executors, or be documented as accepted but not executed here?",
+    "Should --custom-env be exposed on the strength of a re-registration check only, or stay deferred?",
+    "Is dial_mpc_list_examples wanted as a separate tool, or should its names be folded into the rollout tool's parameter documentation?"
+  ]
+}

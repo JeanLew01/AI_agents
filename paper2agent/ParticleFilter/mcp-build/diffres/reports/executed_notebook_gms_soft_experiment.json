@@ -1,0 +1,133 @@
+{
+ "gms_soft_experiment": {
+  "execution_id": "gms_soft_experiment",
+  "status": "success",
+  "source_path": "repo/diffres/experiments/gms/soft.py",
+  "source_sha256": "e06dc2b8f06cfd4c8f7fa0c67de8b55e1af4c55acc19c0878d0a58ed33437d34",
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/soft.py",
+  "module": "resampling",
+  "supports_tool": "diffres_resample_particles_baseline (method='soft', parameter alpha)",
+  "upstream_function": "diffres.resampling.soft_resampling(key, log_ws, samples, alpha) -> (normalised log weights (n,), particles (n,d)); repo/diffres/diffres/resampling.py lines 122-157",
+  "execution_mode": "native script (unmodified, invoked by absolute path in repo/) + in-process capture driver (runpy of the same script) + fresh-process replay driver; no notebook",
+  "execution_path": "notebooks/gms_soft_experiment/run_direct (cwd) running repo/diffres/experiments/gms/soft.py",
+  "runtime_environment": {
+   "python": "notebooks run with diffres-env/bin/python (CPython 3.11.17)",
+   "jax": "0.7.2 (CPU backend, x64 enabled by the script)",
+   "ott_jax": "0.5.2",
+   "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, no GPU used: gpu_used 0 MiB before/after)"
+  },
+  "arguments": {
+   "used": {"id_l": 0, "id_u": 0, "nsamples": 1000, "alpha": 0.9, "dx": 8, "dy": 1, "c": 5, "offset": 0.0},
+   "upstream_defaults": {"nsamples": 10000, "alpha": 0.5, "dx": 8, "dy": 1, "c": 5, "offset": 0.0, "id_l": null, "id_u": null},
+   "upstream_run_gms_sh": "python ./gms/soft.py --id_l=0 --id_u=99 --alpha={0.2,0.4,0.8,1.} --nsamples=10000",
+   "changes_vs_run_gms_sh": "id_u 99 -> 0 (single MC run, mc_id 0); nsamples 10000 -> 1000; alpha=0.9 (argument name --alpha)",
+   "note_on_alpha": "run_gms.sh at this commit does not run alpha=0.9 (it runs 0.2, 0.4, 0.8, 1.), but experiments/summary/print_gms_errs.py tabulates alphas [0., 0.2, 0.4, 0.8, 0.9], and the paper's GMS baseline table reports 'Soft 0.9' (SWD 0.83 +- 0.24, scaled by 10^-1, 100 MC runs, n=10000, per paper-review transcription paper-review/_scratch/diffres-16-23/p19.py). alpha=0.9 was used as assigned; the table number given in the assignment ('Table 1') was not independently checked."
+  },
+  "commands": [
+   {
+    "attempt": 1,
+    "purpose": "direct native run of the unmodified upstream script",
+    "cwd": "notebooks/gms_soft_experiment/run_direct (contains copy of experiments/rnd_keys.npy and empty gms/results/)",
+    "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log ../logs/attempt1_direct_soft.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/soft.py --id_l=0 --id_u=0 --nsamples=1000 --alpha=0.9",
+    "exit_status": 0,
+    "runtime_s": 20,
+    "runtime_note": "job 00:52:37Z-00:52:57Z; total wall 179 s including waiting for the shared heavy-job lock",
+    "peak_memory_mb": 651,
+    "stdout": "Soft (id=0) with alp=0.9 has err 0.20833637779043834.",
+    "log": "notebooks/gms_soft_experiment/logs/attempt1_direct_soft.log"
+   },
+   {
+    "attempt": 2,
+    "purpose": "capture run: same unmodified script executed via runpy.run_path with identical argv; module-level variables saved (inputs to the resampler, keys, outputs, metrics)",
+    "cwd": "notebooks/gms_soft_experiment/run_capture",
+    "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log ../logs/attempt2_capture.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python ../capture_soft_gms.py ../data",
+    "exit_status": 0,
+    "runtime_s": 16,
+    "peak_memory_mb": 650,
+    "stdout": "Soft (id=0) with alp=0.9 has err 0.20833637779043834. (+ metadata JSON)",
+    "log": "notebooks/gms_soft_experiment/logs/attempt2_capture.log"
+   },
+   {
+    "attempt": 3,
+    "purpose": "replay in a fresh process: soft_resampling from saved inputs (jit wrapper as in the script, and unjitted), metric via the same ott sliced_wasserstein call; comparison against capture and direct native outputs",
+    "cwd": "notebooks/gms_soft_experiment",
+    "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log logs/attempt3_replay.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python replay_soft_gms.py <abs path notebooks/gms_soft_experiment>",
+    "exit_status": 0,
+    "runtime_s": 11,
+    "peak_memory_mb": 556,
+    "log": "notebooks/gms_soft_experiment/logs/attempt3_replay.log"
+   }
+  ],
+  "attempts_total": 3,
+  "failed_attempts": 0,
+  "data_and_seed_provenance": {
+   "rnd_keys": "repo/diffres/experiments/rnd_keys.npy (sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df), copied unchanged into run_direct/ and run_capture/; row 0 used",
+   "key_mc": [2482698485, 3875352609],
+   "key_resampling_uint32": [1100985983, 1476939598],
+   "key_note": "legacy uint32 raw keys (jax.random.split of the numpy row); key_resampling is the exact key passed to soft_resampling",
+   "data_generation": "the script's own synthetic data: 5-component Gaussian mixture prior in d=8 (means U(-5,5), covs a a^T + I), 1000 prior samples via diffres.tools.sampling_gm, linear Gaussian likelihood (obs_op ones(1,8), obs_cov I, y = obs_op @ sum_c v_c m_c), exact posterior via diffres.tools.gm_lin_posterior and 1000 posterior samples; normalised log importance weights log_ws",
+   "dtype": "float64 everywhere (x64), keys uint32"
+  },
+  "inputs": {
+   "file": "notebooks/gms_soft_experiment/data/soft_gms_inputs.npz",
+   "sha256": "2df1f7c15c1121e1b233406919200e2e752d7dd6f8593c887331a25a53c9d570",
+   "contents": "key_mc (2,) uint32, key_resampling (2,) uint32, log_ws (1000,), ws (1000,), prior_samples (1000,8), alpha 0.9, y (1,), obs_op (1,8), obs_cov (1,1), vs (5,), ms (5,8), covs (5,8,8), post_vs (5,), post_ms (5,8), post_covs (5,8,8), post_samples (1000,8); all float64",
+   "resampler_call": "soft_resampling(key_resampling, log_ws, prior_samples, 0.9) under jax.jit with jax_enable_x64=True on CPU",
+   "input_ess": 129.5428088717271
+  },
+  "outputs": {
+   "native_result_file": {
+    "path": "notebooks/gms_soft_experiment/run_direct/gms/results/soft-0.9-0.npz",
+    "sha256": "18d1942e70eff97cf2198e928e26b2db08eba0bd5864445dade2636cedb66cfc",
+    "keys": "post_samples (1000,8), approx_post_log_ws (1000,), approx_post_samples (1000,8), err (), residual (8,)",
+    "note": "capture run wrote a byte-identical file run_capture/gms/results/soft-0.9-0.npz (same sha256)"
+   },
+   "capture_outputs": {
+    "path": "notebooks/gms_soft_experiment/data/soft_gms_outputs.npz",
+    "sha256": "7f35f841d74add78ccbbcb362bc0966412cbf4f2455c3301c3e81bbc652ba4e1",
+    "contents": "approx_post_log_ws (1000,), approx_post_weights = exp(log ws) (1000,), approx_post_samples (1000,8), err, residual (8,), approx_m (8,), true_m (8,)"
+   },
+   "capture_meta": {"path": "notebooks/gms_soft_experiment/data/soft_gms_capture_meta.json", "sha256": "75c3cc17c49e1a6cf75c1c683ba1d9fbf4be77d87daf97a40a93c4bf3c9eee0a"},
+   "resample_indices": {
+    "path": "notebooks/gms_soft_experiment/data/soft_gms_resample_indices.npy",
+    "sha256": "cb13a640bd7331afa56df43e80e27064cf7e4a8cddbd992fcf93c797f873c157",
+    "note": "soft_resampling does not return indices; recovered post hoc by exact row matching of approx_post_samples against the (all-unique) prior_samples. 241 unique ancestors, range 6..995"
+   },
+   "replay_outputs": {"path": "notebooks/gms_soft_experiment/data/soft_gms_replay_outputs.npz", "sha256": "3de4362eabced07210b3ab496b15b4c2e48909adbe3bbafc9a1717c7cda88c37"}
+  },
+  "reference_numbers": {
+   "err_swd": 0.20833637779043834,
+   "err_definition": "ott sliced_wasserstein(post_samples, approx_post_samples, wy=exp(approx_post_log_ws), cost_fn=PNormP(p=1), n_proj=1000)[0]",
+   "residual": [-0.1342481337260648, -0.01595940459944452, 0.14856285111850825, 0.2914666502730545, -0.06433388071766033, -0.11298015090427094, 0.11574962294317737, -0.1968024557345251],
+   "residual_sq_sum": 0.19433353745912868,
+   "output_weights": {"sum": 1.0, "ess": 935.9255006137976, "min": 2.2936734695133113e-119, "max": 0.0010839488776138225, "uniform": false},
+   "comparability_to_paper": "single MC run at n=1000; not comparable with the paper's 100-run n=10000 mean (SWD 0.083 for Soft 0.9 in unscaled units). No claim of reproducing the paper's table is made."
+  },
+  "replay_comparisons": {
+   "file": "notebooks/gms_soft_experiment/data/soft_gms_replay_comparison.json",
+   "sha256": "3efebfac7003e9a663cba6bbac2b1b5007139fb298cf878b26948f207fd2b937",
+   "tolerance": "exact (bitwise) expected: same key, same float64 inputs, same x64 CPU setting",
+   "results": {
+    "replay_jit_vs_capture": "log_ws, samples, err, residual: bitwise equal (max abs diff 0.0)",
+    "replay_jit_vs_direct_native": "log_ws, samples, err, residual: bitwise equal (max abs diff 0.0)",
+    "replay_nojit_vs_jit": "log_ws, samples: bitwise equal",
+    "capture_native_vs_direct_native": "all 5 arrays bitwise equal; files byte-identical",
+    "capture_inputs_vs_direct_native": "post_samples bitwise equal (inputs captured are those of the direct run)",
+    "resample_indices": "replay indices identical to direct-run indices (exact integer match)"
+   }
+  },
+  "drivers": {
+   "capture": {"path": "notebooks/gms_soft_experiment/capture_soft_gms.py", "sha256": "cd4774715443e2b550cb5c25fcd9ca1bce6e68cca5b4530efd1cd38825742d18"},
+   "replay": {"path": "notebooks/gms_soft_experiment/replay_soft_gms.py", "sha256": "9671db84897033d32c3d3f89fade70d3362172e4058af31dbffe90f2a60cbc84"},
+   "note": "drivers only run the upstream script (runpy) or call diffres.resampling.soft_resampling / ott sliced_wasserstein directly; no algorithm re-implemented"
+  },
+  "figures": "not applicable: the script produces no plots",
+  "repo_unmodified": "git -C repo/diffres status --short --ignored is empty after all runs; HEAD 767effe3e755067eb8a04422597fbf37eb8ab754",
+  "limitations": [
+   "Reduced size (n=1000, one MC id) relative to run_gms.sh (n=10000, 100 MC ids); metric values are a single-seed reference, not the paper's averages.",
+   "alpha=0.9 is not among the alphas launched by run_gms.sh at this commit, although the summary script and paper table include it.",
+   "Resample indices are inferred by row matching, since upstream returns only particles and log weights."
+  ]
+ }
+}

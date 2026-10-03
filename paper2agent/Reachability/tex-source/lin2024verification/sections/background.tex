@@ -1,0 +1,56 @@
+\section{Background: Hamilton-Jacobi Reachability, DeepReach, and Safety Verification} \label{sec:hj_reachability}
+\vspace{-0.5em}
+Here, we provide a quick overview of Hamilton-Jacobi reachability analysis, a specific toolbox, DeepReach, to compute high-dimensional neural reachable tubes, and an iterative scenario-based method for recovering probabilistically safe tubes from learning-based methods like DeepReach.
+
+\vspace{-0.5em}
+\subsection{Hamilton-Jacobi (HJ) Reachability} \label{sec:background_reachability}
+\vspace{-0.5em}
+In HJ reachability, computing $\BRT$ is formulated as an optimal control problem. We will explain it in the context of $\targetset$ being a set of undesirable states. In the end, we will comment on when $\targetset$ is a set of desirable states and refer interested readers to \citet{bansal2017hamilton} for other cases.
+
+We first define a target function $\targetfunc(\state)$ such that the sub-zero level of $\targetfunc(\state)$ yields $\targetset$: $\targetset = \{\state: \targetfunc(\state) \le 0\}$.
+$\targetfunc(\state)$ is commonly a signed distance function to $\targetset$. For example, we can choose $\targetfunc(\state) = \min\{d(\veh_1, \veh_2), d(\veh_1, \veh_3), d(\veh_2, \veh_3)\}-R$ for our running example in \sectionref{sec:problem_setup}.
+Next, we define the cost function of a state corresponding to some policy $\cfunc$ to be the minimum of $\targetfunc(\state)$ over its trajectory: $\costfunctional_{\cfunc}(\state,\tvar) = \min_{\tdummy \in [\tvar, \horizon]} \targetfunc(\trajstandard(\tdummy))$.
+Since the system wants to avoid $\targetset$, our goal is to maximize $\costfunctional_{\cfunc}(\state,\tvar)$.  
+Thus, the value function corresponding to this optimal control problem is:
+% 
+\vspace{-0.5em}
+\begin{equation}
+    \label{eq:valuefunc}
+    \vfunc(\state,\tvar) = \sup_{\cfunc} \costfunctional_{\cfunc}(\state,\tvar)
+    \vspace{-0.5em}
+\end{equation}
+% 
+By defining our optimal control problem in this way, we can recover $\BRT$ using the value function. In particular, the value function being sub-zero implies that the target function is sub-zero somewhere along the optimal trajectory, or in other words, that the system has reached $\targetset$. Thus, $\BRT$ is given as the sub-zero level set of the value function at the initial time: $\BRT = \{\state: \state\in X, \vfunc(\state,0) \le 0 \}$.
+The value function in Equation \eqref{eq:valuefunc} can be computed using dynamic programming, resulting in the following final value Hamilton-Jacobi-Bellman Variational Inequality (HJB-VI): $\min\Big\{D_\tvar \vfunc(\state,\tvar)+ H(\state,\tvar), \targetfunc(\state)-\vfunc(\state,\tvar)\Big\} = 0$, with the terminal value function $\vfunc(\state,\horizon) = \targetfunc(\state)$. 
+$D_\tvar$ and $\nabla$ represent the time and spatial gradients of $\vfunc$. 
+$H$ is the Hamiltonian that encodes the role of dynamics and the optimal control: $H(\state,\tvar) = \max_\ctrl \langle \nabla \vfunc(\state,\tvar), \dyn(\state,\ctrl)\rangle$.
+The value function in Equation \eqref{eq:valuefunc} induces the optimal safety controller: $u^*(\state,\tvar) = \underset{\ctrl}{\arg\max} \langle \nabla \vfunc(\state,\tvar), \dyn(\state,\ctrl)\rangle$.
+Intuitively, the safety controller aligns the system dynamics in the direction of the value function's gradient, thus steering the system towards higher-value states, i.e., away from $\targetset$.
+
+We have just explained the case where $\targetset$ represents a set of undesirable states. When the system instead wants to reach $\targetset$, an infimum is used instead of a supremum in Equation $\eqref{eq:valuefunc}$.
+The control wants to reach $\targetset$, hence there is a minimum instead of a maximum in the Hamiltonian and optimal safety controller equations. See \citet{bansal2017hamilton} for details on other reachability cases.
+
+Traditionally, the value function is computed by solving the HJB-VI over a discretized grid in the state space. Unfortunately, doing so involves computation whose memory and time complexity scales exponentially with respect to the system dimension, making these methods practically intractable for high-dimensional systems, such as those beyond 5D. Fortunately, a deep learning approach, DeepReach, has been proposed to enable HJ reachability for high-dimensional systems. 
+
+\vspace{-1em}
+\subsection{DeepReach and an Iterative Scenario-Based Probabilistic Safety Verification Method} \label{sec:deepreach_iterative_verification}
+\vspace{-0.5em}
+Instead of solving the HJB-VI over a grid, DeepReach \citep{bansal2021deepreach} learns a parameterized approximation of the value function using a sinusoidal deep neural network (DNN). Thus, memory and complexity requirements for training scale with the value function complexity rather than the grid resolution, allowing it to obtain BRTs for high-dimensional systems.
+DeepReach trains the DNN via self-supervision on the HJB-VI itself. 
+Ultimately, it takes as input a state $\state$ and time $\tvar$, and it outputs a learned value function $\Tilde{\vfunc}(\state,\tvar)$.
+$\Tilde{\vfunc}(\state,\tvar)$ also induces a corresponding safe policy $\Tilde{\policy}(\state,\tvar)$, as well as a $\BRT$ (referred to as the neural reachable tube from hereon).
+%We refer interested readers to \citet{bansal2021deepreach} for further details.
+
+However, the neural reachable tube will only be as accurate as $\Tilde{\vfunc}(\state,\tvar)$. To obtain a provably safe $\BRT$, \citet{lin2023generating} propose a uniform value correction bound which is defined, for the avoid case, as the maximum learned value of an unsafe state under the induced policy: $\safetyMetric \coloneqq \max_{x\in X}\{\Tilde{\vfunc}(\state,0): \costFunction(\state,0) \le 0\}$.
+The authors show that the super-$\safetyMetric$ level set of $\Tilde{\vfunc}(\state,0)$ is provably safe under the policy $\Tilde{\policy}(\state,\tvar)$.
+They also propose an iterative scenario-based probabilistic verification method for computing an approximation of $\safetyMetric$ from finite random samples that satisfies a desired confidence level and violation rate.
+However, the method is sensitive to outlier errors in the neural reachable tube and can result in very conservative safe sets.
+Specifically, it does not provide safety assurances for safe sets with nonzero empirical safety violations.
+
+In this work, we propose probabilistic safety verification methods that allow nonzero empirical safety violations at the cost of the probabilistic strength of safety.
+This enables a direct trade-off between resilience to outlier errors and the strength of the safety guarantee.
+\vspace{-0.25em}
+\begin{remark}
+    Although we work with DeepReach solutions in particular for our problem setup, our proposed approaches can verify any general $\Tilde{\vfunc}(\state,\tvar)$ and $\Tilde{\policy}(\state,\tvar)$, regardless of whether DeepReach, a numerical PDE solver, or some other tool is used to obtain them.
+\end{remark}
+\vspace{-1.5em}

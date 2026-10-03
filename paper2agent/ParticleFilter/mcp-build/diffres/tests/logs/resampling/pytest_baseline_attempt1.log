@@ -1,0 +1,171 @@
+.........................F..........................                     [100%]
+=================================== FAILURES ===================================
+________________________ test_three_dimensional_samples ________________________
+
+out_base = '/tmp/pytest-of-jixia/pytest-4/test_three_dimensional_samples0/out'
+
+    async def test_three_dimensional_samples(out_base):
+        """Index/softmax-based methods accept (N, ...) particles; ensemble_ot (point cloud) rejects them."""
+>       res = await call(TOOL, {"particles_path": str(DATA / "gms50_3d_samples.npz"), "method": "gumbel_softmax",
+                                "tau": 0.2, "seed": 1, "output_dir": out_base})
+
+tests/code/resampling/test_diffres_resample_particles_baseline.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/code/resampling/conftest.py:48: in call
+    result = await client.call_tool(tool, arguments)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+diffres-env/lib/python3.11/site-packages/fastmcp/client/mixins/tools.py:336: in call_tool
+    return await self._parse_call_tool_result(
+diffres-env/lib/python3.11/site-packages/fastmcp/client/mixins/tools.py:272: in _parse_call_tool_result
+    return await _parse_call_tool_result(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'diffres_resample_particles_baseline'
+result = CallToolResult(meta={'io.modelcontextprotocol/serverInfo': {'name': 'resampling', 'version': '4.0.3'}}, content=[TextC...e, got (50,) and (2,).", annotations=None, meta=None)], structured_content=None, is_error=True, result_type='complete')
+tool_output_schemas = {}
+list_tools_fn = <bound method ClientSession.list_tools of <mcp.client.session.ClientSession object at 0x7bfb000ff690>>
+client_name = 'Client-00fe', raise_on_error = True
+
+    async def _parse_call_tool_result(
+        name: str,
+        result: mcp_types.CallToolResult,
+        tool_output_schemas: dict[str, dict[str, Any] | None],
+        list_tools_fn: Any,  # Callable[[], Awaitable[None]]
+        client_name: str | None = None,
+        raise_on_error: bool = False,
+    ) -> CallToolResult:
+        """Parse an mcp_types.CallToolResult into our CallToolResult dataclass.
+    
+        Args:
+            name: Tool name (for schema lookup)
+            result: Raw MCP protocol result
+            tool_output_schemas: Dictionary mapping tool names to their output schemas
+            list_tools_fn: Async function to refresh tool schemas if needed
+            client_name: Optional client name for logging
+            raise_on_error: Whether to raise ToolError on errors
+    
+        Returns:
+            CallToolResult: Parsed result with structured data
+        """
+        # Local import: CallToolResult is under TYPE_CHECKING at module level to
+        # avoid a circular import (client.client -> mixins.tools -> client.client),
+        # but we need the concrete class here to construct the return value.
+        from fastmcp.client.client import CallToolResult
+    
+        data = None
+        if result.is_error and raise_on_error:
+            if result.content and isinstance(result.content[0], mcp_types.TextContent):
+                msg = result.content[0].text
+            else:
+                msg = f"Tool '{name}' returned an error"
+>           raise ToolError(msg)
+E           fastmcp.exceptions.ToolError: Error calling tool 'diffres_resample_particles_baseline': dot_general requires contracting dimensions to have the same shape, got (50,) and (2,).
+
+diffres-env/lib/python3.11/site-packages/fastmcp/client/mixins/tools.py:373: ToolError
+----------------------------- Captured stderr call -----------------------------
+[10/02/26 21:36:37] Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 14 frames hidden ...                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/jax/ │
+                    │ _src/numpy/array_methods.py:604 in deferring_binary_op   │
+                    │                                                          │
+                    │    601 │     other = other.__jax_array__()               │
+                    │    602 │   args = (other, self) if swap else (self, othe │
+                    │    603 │   if isinstance(other, _accepted_binop_types):  │
+                    │ ❱  604 │     return binary_op(*args)                     │
+                    │    605 │   # Note: don't use isinstance here, because we │
+                    │    606 │   # subclasses, e.g. NamedTuple objects that ma │
+                    │    607 │   if type(other) in _rejected_binop_types:      │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/jax/ │
+                    │ _src/numpy/tensor_contractions.py:254 in matmul          │
+                    │                                                          │
+                    │   251                                                    │
+                    │   252   a = lax.squeeze(a, tuple(a_squeeze))             │
+                    │   253   b = lax.squeeze(b, tuple(b_squeeze))             │
+                    │ ❱ 254   out = lax.dot_general(                           │
+                    │   255 │   a, b, (((np.ndim(a) - 1,), (np.ndim(b) - 1 - b │
+                    │   256 │   precision=precision, preferred_element_type=pr │
+                    │   257 │   out_sharding=out_sharding)                     │
+                    ╰──────────────────────────────────────────────────────────╯
+                    TypeError: dot_general requires contracting dimensions to   
+                    have the same shape, got (50,) and (2,).                    
+                    [NOTE] --------------------                                 
+                    For simplicity, JAX has removed its internal frames from the
+                    traceback of the following exception. Set                   
+                    JAX_TRACEBACK_FILTERING=off to include these.               
+------------------------------ Captured log call -------------------------------
+ERROR    fastmcp.server.server:server.py:1541 Error calling tool 'diffres_resample_particles_baseline'
+Traceback (most recent call last):
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/server/server.py", line 1492, in call_tool
+    return await tool._run(arguments or {})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/tools/base.py", line 440, in _run
+    return await self.run(arguments)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/tools/function_tool.py", line 389, in run
+    result = await self._run_body(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/tools/function_tool.py", line 430, in _run_body
+    result = await self._execute(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/tools/function_tool.py", line 477, in _execute
+    result = await call_sync_fn_in_threadpool(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/utilities/async_utils.py", line 34, in call_sync_fn_in_threadpool
+    return await run_sync_in_threadpool(functools.partial(fn, *args, **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/anyio/to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/pydantic/type_adapter.py", line 441, in validate_python
+    return self.validator.validate_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/fastmcp/tools/function_tool.py", line 89, in wrapper
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/src/tools/resampling.py", line 216, in diffres_resample_particles_baseline
+    log_ws_out, samples_out = resampling(key, log_ws, data)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/src/tools/resampling.py", line 214, in resampling
+    return fn(key_, log_ws_, samples_, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/diffres/resampling.py", line 192, in gumbel_softmax
+    return jnp.full((n,), -jnp.log(n)), jax.vmap(one_sample)(keys)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/diffres/resampling.py", line 189, in one_sample
+    return jax.nn.softmax((gs + log_ws) / tau) @ samples
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/jax/_src/numpy/array_methods.py", line 1141, in op
+    return getattr(self.aval, f"_{name}")(self, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/jax/_src/numpy/array_methods.py", line 604, in deferring_binary_op
+    return binary_op(*args)
+           ^^^^^^^^^^^^^^^^
+  File "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/lib/python3.11/site-packages/jax/_src/numpy/tensor_contractions.py", line 254, in matmul
+    out = lax.dot_general(
+          ^^^^^^^^^^^^^^^^
+TypeError: dot_general requires contracting dimensions to have the same shape, got (50,) and (2,).
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+=========================== short test summary info ============================
+FAILED tests/code/resampling/test_diffres_resample_particles_baseline.py::test_three_dimensional_samples
+1 failed, 51 passed in 114.53s (0:01:54)
+heavy.sh: scope memory.peak=798MB oom_kills=0

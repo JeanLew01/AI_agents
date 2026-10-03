@@ -1,0 +1,555 @@
+{
+  "scan_metadata": {
+    "repository_name": "model-based-diffusion",
+    "repository_url": "https://github.com/LeCAR-Lab/model-based-diffusion",
+    "repository_commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+    "repository_path": "repo/model-based-diffusion",
+    "paper_name": "Model-Based Diffusion for Trajectory Optimization (NeurIPS 2024, arXiv:2407.01573)",
+    "scan_date": "2026-10-02",
+    "route": "cli",
+    "cli_backend": "python",
+    "module": "cli_wrapper",
+    "user_filter": null,
+    "evaluated_source_files": 12,
+    "included_source_files": 3,
+    "included_execution_assignments": 6,
+    "proposed_tools": 4,
+    "success": true,
+    "explanation": "Static scan only (nothing was installed or executed by the scanner). Three scripts with tyro argument dataclasses give four independently useful tools; six execution assignments (one command each) are proposed. Entries that share a source file have distinct execution_id values; each tool is owned by exactly one entry, the others are supporting executions. Feasibility of every command is decided by real execution, not by this selection. One tool (mbd_run_baseline_planner) carries a high execution risk described in its entry."
+  },
+  "tutorials": [
+    {
+      "execution_id": "mbd_planner_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "project_path": "repo/model-based-diffusion/mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD trajectory optimisation, car2d (owner of mbd_optimize_trajectory)",
+      "description": "README lines 33-40: run model-based diffusion to optimise one open-loop action trajectory for a named environment.",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "owner",
+      "reason_for_include_or_exclude": "Main documented user task of the repository. car2d is the cheapest environment (analytic RK4 dynamics in mbd/envs/car2d.py:10-27, no Brax pipeline) and is in no 'recommended' override dictionary, so the documented defaults apply unchanged.",
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/planners",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "mbd_planner.py",
+          "--env_name",
+          "car2d",
+          "--seed",
+          "0"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "MPLBACKEND": "Agg"
+        },
+        "heavy_job": true,
+        "effective_parameters": "Nsample 2048, Hsample 50, Ndiffuse 100, temp_sample 0.1, beta0 1e-4, betaT 1e-2 (dataclass defaults, mbd_planner.py:29-34; car2d is absent from the override dictionaries at lines 45-63)"
+      },
+      "native_outputs": {
+        "stdout": [
+          "override temp_sample to <value> (line 69)",
+          "init sigma = <x.xxe-xx> (line 93)",
+          "final reward = <x.xxe+xx> (line 187)"
+        ],
+        "stderr": "tqdm progress bar 'Diffusing' with the mean sample reward per step (lines 141-147)",
+        "files": [
+          "repo/model-based-diffusion/results/car2d/mu_0ts.npy (array [Ndiffuse-1, Hsample, Nu] = [99, 50, 2]; last slice is the final plan; lines 152-156)",
+          "repo/model-based-diffusion/results/car2d/rollout.png (lines 157-169)"
+        ]
+      },
+      "verification_basis": "Run the command, keep exit status, stdout, stderr and copies of both files (copy them out before the next car2d run overwrites them). Compare through the MCP tool with identical arguments: parsed final reward, mu_0ts.npy shape and values, PNG exists and is non-empty. Run the standalone command twice to establish whether the array is bitwise reproducible on this device; otherwise use numpy.allclose. Randomness comes only from jax.random.PRNGKey(seed) (line 40).",
+      "suggested_tools": [
+        {
+          "tool_name": "mbd_optimize_trajectory",
+          "source_section": "mbd/planners/mbd_planner.py: Args (lines 18-35), run_diffusion (lines 38-182), __main__ (lines 185-187)",
+          "description": "Optimise an open-loop action trajectory for one of the repository's environments with Model-Based Diffusion (Monte-Carlo score ascent over a reverse diffusion schedule), optionally steering the samples with the bundled demonstration trajectory, and return the final mean reward, the per-diffusion-step action trajectories and the rendered rollout.",
+          "primary_input": "env_name (one of hopper, halfcheetah, walker2d, ant, humanoidrun, humanoidstandup, humanoidtrack, car2d, pushT per README line 42)",
+          "parameters": [
+            {
+              "name": "env_name",
+              "cli_flag": "--env_name",
+              "type": "str enum",
+              "upstream_default": "ant",
+              "source": "mbd_planner.py:25-27; mbd/envs/__init__.py:13-33"
+            },
+            {
+              "name": "seed",
+              "cli_flag": "--seed",
+              "type": "int",
+              "upstream_default": 0,
+              "source": "mbd_planner.py:21, 40"
+            },
+            {
+              "name": "Nsample",
+              "cli_flag": "--Nsample",
+              "type": "int",
+              "upstream_default": 2048,
+              "source": "mbd_planner.py:29"
+            },
+            {
+              "name": "Hsample",
+              "cli_flag": "--Hsample",
+              "type": "int",
+              "upstream_default": 50,
+              "source": "mbd_planner.py:30"
+            },
+            {
+              "name": "Ndiffuse",
+              "cli_flag": "--Ndiffuse",
+              "type": "int",
+              "upstream_default": 100,
+              "source": "mbd_planner.py:31"
+            },
+            {
+              "name": "temp_sample",
+              "cli_flag": "--temp_sample",
+              "type": "float",
+              "upstream_default": 0.1,
+              "source": "mbd_planner.py:32"
+            },
+            {
+              "name": "beta0",
+              "cli_flag": "--beta0",
+              "type": "float",
+              "upstream_default": 0.0001,
+              "source": "mbd_planner.py:33"
+            },
+            {
+              "name": "betaT",
+              "cli_flag": "--betaT",
+              "type": "float",
+              "upstream_default": 0.01,
+              "source": "mbd_planner.py:34"
+            },
+            {
+              "name": "enable_demo",
+              "cli_flag": "--enable_demo (boolean flag)",
+              "type": "bool",
+              "upstream_default": false,
+              "source": "mbd_planner.py:35, 117-125"
+            },
+            {
+              "name": "disable_recommended_params",
+              "cli_flag": "--disable_recommended_params (boolean flag)",
+              "type": "bool",
+              "upstream_default": false,
+              "source": "mbd_planner.py:22, 64-69"
+            }
+          ],
+          "parameters_kept_internal": [
+            {
+              "name": "not_render",
+              "reason": "Keep at the upstream default False: mu_0ts.npy and the rollout file are written only inside `if not args.not_render` (mbd_planner.py:152-178), so disabling rendering removes every file output."
+            }
+          ],
+          "contract_notes": [
+            "Unless disable_recommended_params is set, user values are silently replaced for the listed environments: temp_sample for ant, halfcheetah, hopper, humanoidstandup, humanoidrun, walker2d, pushT; Ndiffuse for pushT (200) and humanoidrun (300); Nsample for humanoidrun (8192); Hsample for pushT (40) (mbd_planner.py:45-68). The wrapper must document this and must not claim the user's value was used.",
+            "enable_demo is only implemented for car2d and humanoidtrack: eval_xref_logpd and rew_xref exist only in mbd/envs/car2d.py:71, 96-102 and mbd/envs/humanoidtrack.py:44, 98-106. For other environments line 118 would raise AttributeError (read from source, not executed); reject that combination with a tool error.",
+            "car2d needs Hsample 50 when rendering (mbd/envs/car2d.py:46 and 127 colour the scatter with range(H+1)) and when enable_demo is set (reference mbd/assets/car2d_xref.npy has shape (50, 2); car2d.py:66, 97). humanoidtrack with enable_demo needs Hsample 50 (humanoidtrack.py:17, 36-43, 100-101). Read from source, not executed.",
+            "Output files go to a fixed directory inside the checkout, <mbd package dir>/../results/<env_name>/ (mbd_planner.py:153), and are overwritten by every run for the same environment. The wrapper must serialise calls and copy the artefacts into a per-call directory before returning them.",
+            "The printed final reward has three significant digits (line 187); the full-precision result is the saved array."
+          ],
+          "outputs": [
+            "final_reward (float parsed from the stdout line `final reward = ...`, mbd_planner.py:187)",
+            "mu_0ts.npy: action trajectories after every reverse step, shape [Ndiffuse-1, Hsample, action_size] (lines 138-148, 156)",
+            "rollout.png for car2d (lines 157-169) or rollout.html (Brax viewer page) for the other environments (lines 170-178)",
+            "bounded stdout/stderr log including the `override temp_sample to` and `init sigma` lines"
+          ],
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New inputs are the environment choice, the seed and the diffusion hyper-parameters. The environments themselves are fixed by the repository; the CLI has no way to load a user-defined model."
+        }
+      ]
+    },
+    {
+      "execution_id": "mbd_planner_car2d_demo",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "project_path": "repo/model-based-diffusion/mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD with demonstration, car2d (supporting execution for mbd_optimize_trajectory)",
+      "description": "README lines 44-51: model-based diffusion combined with demonstrations. Same script as mbd_planner_car2d with the demonstration flag.",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "supporting",
+      "supports_tool": "mbd_optimize_trajectory",
+      "reason_for_include_or_exclude": "Documented variant of the same command; merged into mbd_optimize_trajectory as the enable_demo parameter. Executed separately because it exercises a different code path (mbd_planner.py:117-125, 166-167) and the bundled reference mbd/assets/car2d_xref.npy.",
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/planners",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "mbd_planner.py",
+          "--env_name",
+          "car2d",
+          "--seed",
+          "0",
+          "--enable_demo"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "MPLBACKEND": "Agg"
+        },
+        "heavy_job": true,
+        "flag_note": "The README writes `--enable_demos` (README.md:48); the dataclass field is `enable_demo` (mbd_planner.py:35). Use the field name. tyro 0.8.5 in the project environment rewrites underscores to hyphens before parsing (tyro/_cli.py:342-361, read), so `--enable_demo` and `--enable-demo` are both expected to work; record the form actually used."
+      },
+      "native_outputs": {
+        "stdout": [
+          "override temp_sample to 0.1",
+          "init sigma = ...",
+          "final reward = ..."
+        ],
+        "files": [
+          "repo/model-based-diffusion/results/car2d/mu_0ts.npy ([99, 50, 2])",
+          "repo/model-based-diffusion/results/car2d/rollout.png (with the green dashed 'RRT path' reference, lines 166-167)"
+        ]
+      },
+      "verification_basis": "Same comparison as mbd_planner_car2d through the MCP tool with enable_demo=true. The result must differ from the run without the flag (different mu_0ts.npy), which shows the flag is passed through. This run overwrites results/car2d, so the executor of mbd_planner_car2d must have copied its outputs first; do not run the two car2d assignments at the same time.",
+      "suggested_tools": []
+    },
+    {
+      "execution_id": "mbd_planner_hopper",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "project_path": "repo/model-based-diffusion/mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD trajectory optimisation, Brax hopper (supporting execution for mbd_optimize_trajectory)",
+      "description": "README lines 33-42 on a Brax environment: exercises the Brax positional pipeline (mbd/envs/hopper.py:11-18) and the HTML rollout branch (mbd_planner.py:170-178).",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "supporting",
+      "supports_tool": "mbd_optimize_trajectory",
+      "reason_for_include_or_exclude": "The paper's main use is contact-rich Brax locomotion; car2d alone would not show that the tool works for the Brax environments or that rollout.html is produced. hopper is a small Brax locomotion model (three actuators in brax/envs/assets/hopper.xml of the installed brax 0.10.5, lines 51-53) and only its temperature is overridden (to 0.1, the default).",
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/planners",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "mbd_planner.py",
+          "--env_name",
+          "hopper",
+          "--seed",
+          "0"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "MPLBACKEND": "Agg"
+        },
+        "heavy_job": true,
+        "effective_parameters": "Nsample 2048, Hsample 50, Ndiffuse 100, temp_sample 0.1 (override at mbd_planner.py:48, 65). Each sample is 50 environment steps of 20 physics frames (hopper.py:18).",
+        "size_fallback": "If the run is killed or the GPU runs out of memory, add `--Nsample 1024`, then 512, then 256. Nsample is not overridden for hopper (only humanoidrun, mbd_planner.py:58-60), so the flag is honoured. Record the value that was used; the MCP comparison must use the same value. If the environment report shows that a different Brax environment is the one that fits, substitute it and record the change."
+      },
+      "native_outputs": {
+        "stdout": [
+          "override temp_sample to 0.1",
+          "init sigma = ...",
+          "final reward = ..."
+        ],
+        "files": [
+          "repo/model-based-diffusion/results/hopper/mu_0ts.npy ([Ndiffuse-1, 50, 3] expected; confirm by the run)",
+          "repo/model-based-diffusion/results/hopper/rollout.html"
+        ]
+      },
+      "verification_basis": "Exit status, final reward, mu_0ts.npy shape and values, rollout.html exists and is non-empty. Compare through the MCP tool with identical arguments on the same device. Contact simulation is sensitive to floating-point differences, so establish the tolerance from two standalone runs on the same device before fixing the test threshold; do not compare GPU against CPU.",
+      "suggested_tools": []
+    },
+    {
+      "execution_id": "path_integral_hopper_mppi",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/path_integral.py",
+      "project_path": "repo/model-based-diffusion/mbd/planners/path_integral.py",
+      "sha256_at_scan": "3a332d5f2015d5b4bbd90b8e46f7d0caf5323165441fcb0e6c6211e1f43ea8cd",
+      "title": "Zeroth-order baseline planners MPPI / CEM / CMA-ES (owner of mbd_run_baseline_planner)",
+      "description": "README lines 87-94: other zeroth-order trajectory optimisation baselines on the same environments.",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "owner",
+      "reason_for_include_or_exclude": "Documented, independently useful comparison task with its own inputs (update method, refinement steps) and output (final mean reward). Included as a candidate whose feasibility must be decided by execution: see execution_risk.",
+      "execution_risk": {
+        "level": "high",
+        "detail": "path_integral.py:100-102 builds `render_us` with `env.sys.replace(dt=env.dt)` unconditionally, before any optimisation, and never uses it afterwards. (1) Car2d has no `sys` attribute (mbd/envs/car2d.py:43-134), so car2d cannot be used with this script on any Brax version. (2) The project environment written by the environment manager during this scan (model-based-diffusion-env; reports/environment-requirements.txt lists brax==0.10.5, mujoco-mjx==3.1.6, jax==0.4.30, tyro==0.8.5) was read, not executed: brax/base.py there contains no `dt`, System derives from mjx.Model (base.py:415), and mujoco/mjx/_src/dataclasses.py:59-63 defines replace as dataclasses.replace, so `env.sys.replace(dt=env.dt)` is expected to raise TypeError in the project environment too. The same holds for brax 0.12.3 with mujoco-mjx 3.3.2 (local uv cache). The planner script was moved to `env.sys.tree_replace({\"opt.timestep\": env.dt})` in upstream commit c4508b6 (2024-06-12) while path_integral.py was last changed on 2024-05-18.",
+        "rule_if_it_fails": "If the command exits non-zero at path_integral.py:100-102, record the real traceback and defer the tool with the blocker 'upstream defect: stale Brax API in an unused line'. Do not patch the upstream file and do not re-implement the update rules in the wrapper. In that case also restrict mbd_evaluate_seeds and mbd_sweep_temperature to algo=mbd."
+      },
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/planners",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "path_integral.py",
+          "--env_name",
+          "hopper",
+          "--update_method",
+          "mppi",
+          "--seed",
+          "0"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false"
+        },
+        "heavy_job": true,
+        "effective_parameters": "Nsample 2048, Hsample 50, Nrefine 100, temp_sample 0.1 (path_integral.py:27-30, 68-92)",
+        "size_fallback": "Same ladder as mbd_planner_hopper through `--Nsample` (honoured for hopper, path_integral.py:81-83, 90).",
+        "flag_note": "The README writes `--mode $MODE` (README.md:91-94); path_integral.Args has no `mode` field, the field is `update_method` (path_integral.py:21). `--mode` is expected to be rejected by tyro as an unknown argument (not executed)."
+      },
+      "native_outputs": {
+        "stdout": [
+          "override temp_sample to 0.1 (line 92)",
+          "rew: <x.xxe+xx> (line 153)"
+        ],
+        "stderr": "tqdm progress bar 'Path Integrating' (lines 134-140)",
+        "files": []
+      },
+      "verification_basis": "Exit status and the printed `rew:` value for update_method=mppi, compared through the MCP tool with identical arguments on the same device. The verifier establishes cem and cma-es expectations by direct upstream runs with the same seed; the three methods must not all print the same value.",
+      "suggested_tools": [
+        {
+          "tool_name": "mbd_run_baseline_planner",
+          "source_section": "mbd/planners/path_integral.py: Args (lines 16-30), softmax_update / cma_es_update / cem_update (lines 33-52), run_path_integral (lines 55-148), __main__ (lines 151-153)",
+          "description": "Optimise an open-loop action trajectory for a Brax environment with one of the repository's zeroth-order baselines (MPPI, CEM or CMA-ES) and return the final mean reward, for comparison with Model-Based Diffusion.",
+          "primary_input": "env_name (Brax environments only; car2d is not supported by this script) and update_method",
+          "parameters": [
+            {
+              "name": "env_name",
+              "cli_flag": "--env_name",
+              "type": "str enum",
+              "upstream_default": "ant",
+              "source": "path_integral.py:23-25"
+            },
+            {
+              "name": "update_method",
+              "cli_flag": "--update_method",
+              "type": "str enum: mppi, cem, cma-es",
+              "upstream_default": "mppi",
+              "source": "path_integral.py:21, 59-63"
+            },
+            {
+              "name": "seed",
+              "cli_flag": "--seed",
+              "type": "int",
+              "upstream_default": 0,
+              "source": "path_integral.py:19, 57"
+            },
+            {
+              "name": "Nsample",
+              "cli_flag": "--Nsample",
+              "type": "int",
+              "upstream_default": 2048,
+              "source": "path_integral.py:27"
+            },
+            {
+              "name": "Hsample",
+              "cli_flag": "--Hsample",
+              "type": "int",
+              "upstream_default": 50,
+              "source": "path_integral.py:28"
+            },
+            {
+              "name": "Nrefine",
+              "cli_flag": "--Nrefine",
+              "type": "int",
+              "upstream_default": 100,
+              "source": "path_integral.py:29"
+            },
+            {
+              "name": "temp_sample",
+              "cli_flag": "--temp_sample",
+              "type": "float",
+              "upstream_default": 0.1,
+              "source": "path_integral.py:30"
+            },
+            {
+              "name": "disable_recommended_params",
+              "cli_flag": "--disable_recommended_params (boolean flag)",
+              "type": "bool",
+              "upstream_default": false,
+              "source": "path_integral.py:20, 87-92"
+            }
+          ],
+          "contract_notes": [
+            "The script saves no file: the optimised actions stay in memory (lines 143-148). The only native result is the printed reward with three significant digits.",
+            "The same silent override of temp_sample / Nrefine / Nsample / Hsample applies as in the MBD planner (path_integral.py:68-91).",
+            "CEM uses a fixed elite count of 10 (line 50)."
+          ],
+          "outputs": [
+            "final_reward (float parsed from the stdout line `rew: ...`, path_integral.py:153)",
+            "bounded stdout/stderr log"
+          ],
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New inputs are the environment, update method, seed and sampling parameters."
+        }
+      ]
+    },
+    {
+      "execution_id": "run_mbd_seeds_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/scripts/run_mbd.py",
+      "project_path": "repo/model-based-diffusion/mbd/scripts/run_mbd.py",
+      "sha256_at_scan": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+      "title": "Multi-seed evaluation (owner of mbd_evaluate_seeds)",
+      "description": "README lines 53-58: run the planner for multiple seeds and report mean and standard deviation of the final reward and of the wall time.",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "owner",
+      "reason_for_include_or_exclude": "Documented evaluation protocol with a distinct output (reward mean and spread over eight seeds). It cannot be reproduced by one call of the planner tool and the aggregation is upstream code.",
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/scripts",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "run_mbd.py",
+          "--env_name",
+          "car2d",
+          "--algo",
+          "mbd",
+          "--mode",
+          "seed"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "MPLBACKEND": "Agg"
+        },
+        "heavy_job": true,
+        "effective_parameters": "Eight sequential planner runs with seeds 0..7 (run_mbd.py:20), each with the planner defaults and not_render=True (lines 28-31). The script exposes no size parameter, so the cost is always eight full-size runs; car2d keeps that small. For Brax environments the tool needs a generous timeout."
+      },
+      "native_outputs": {
+        "stdout": [
+          "eight times `override temp_sample to ...` and `init sigma = ...` from the planner",
+          "rew: <mean> \\pm <std> (line 38, two decimals, literal backslash-pm)",
+          "time: <mean> \\pm <std> (line 39, seconds)"
+        ],
+        "files": []
+      },
+      "verification_basis": "Exit status and the parsed reward mean and standard deviation, compared through the MCP tool with identical arguments. The `time:` line is wall-clock time and must not be compared numerically (only presence and positivity).",
+      "suggested_tools": [
+        {
+          "tool_name": "mbd_evaluate_seeds",
+          "source_section": "mbd/scripts/run_mbd.py: Args (lines 9-14), run_multiple_seed (lines 17-39), __main__ (lines 67-72)",
+          "description": "Run the selected planner on one environment for eight seeds (0 to 7) with the upstream default settings and return the mean and standard deviation of the final reward and of the run time.",
+          "primary_input": "env_name",
+          "parameters": [
+            {
+              "name": "env_name",
+              "cli_flag": "--env_name",
+              "type": "str enum",
+              "upstream_default": "ant",
+              "source": "run_mbd.py:14"
+            },
+            {
+              "name": "algo",
+              "cli_flag": "--algo",
+              "type": "str enum: mbd, path_integral",
+              "upstream_default": "mbd",
+              "source": "run_mbd.py:11, 22-33",
+              "condition": "Offer path_integral only if path_integral_hopper_mppi executes successfully."
+            },
+            {
+              "name": "update_method",
+              "cli_flag": "--update_method",
+              "type": "str enum: mppi, cem, cma-es",
+              "upstream_default": "mppi",
+              "source": "run_mbd.py:12, 23-25",
+              "condition": "Used only when algo=path_integral. The source comment lists `softmax`, which is not a key of the update table (path_integral.py:59-63)."
+            }
+          ],
+          "parameters_kept_internal": [
+            {
+              "name": "mode",
+              "reason": "Fixed to `seed` for this tool (run_mbd.py:13, 69-70); the other value is the separate tool mbd_sweep_temperature."
+            }
+          ],
+          "contract_notes": [
+            "Seed count (8) and planner sizes are fixed in the source; they are not parameters.",
+            "No file is written (not_render=True, run_mbd.py:29)."
+          ],
+          "outputs": [
+            "reward_mean and reward_std (parsed from `rew: ...`, run_mbd.py:38)",
+            "time_mean_s and time_std_s (parsed from `time: ...`, run_mbd.py:39)",
+            "bounded stdout/stderr log"
+          ],
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New inputs are the environment and the algorithm choice."
+        }
+      ]
+    },
+    {
+      "execution_id": "run_mbd_temp_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/scripts/run_mbd.py",
+      "project_path": "repo/model-based-diffusion/mbd/scripts/run_mbd.py",
+      "sha256_at_scan": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+      "title": "Sampling-temperature sweep (owner of mbd_sweep_temperature)",
+      "description": "run_mbd.py `--mode temp`: run the planner once per temperature in a fixed grid and report the rewards and the best temperature. Present in the argument dataclass (run_mbd.py:13) but not shown in the README.",
+      "type": "script",
+      "include_in_tools": true,
+      "role": "owner",
+      "reason_for_include_or_exclude": "Distinct analysis task (sensitivity of the result to the sampling temperature) with its own output, implemented upstream and selectable through a declared argument. Same source file as run_mbd_seeds_car2d; the two entries are separated by execution_id.",
+      "command": {
+        "cwd": "repo/model-based-diffusion/mbd/scripts",
+        "argv": [
+          "$PROJECT_PYTHON",
+          "run_mbd.py",
+          "--env_name",
+          "car2d",
+          "--algo",
+          "mbd",
+          "--mode",
+          "temp"
+        ],
+        "environment": {
+          "XLA_PYTHON_CLIENT_PREALLOCATE": "false",
+          "MPLBACKEND": "Agg"
+        },
+        "heavy_job": true,
+        "effective_parameters": "Eight sequential planner runs with seed 0 and temp_sample in [0.01, 0.03, 0.06, 0.1, 0.2, 0.4, 0.6, 0.8] (run_mbd.py:43), disable_recommended_params=True and not_render=True (lines 52-58)."
+      },
+      "native_outputs": {
+        "stdout": [
+          "eight times `init sigma = ...`",
+          "rews: [<8 values>] (line 63, numpy print format)",
+          "best_temp: <x.xx> (line 64)"
+        ],
+        "files": []
+      },
+      "verification_basis": "Exit status, the eight parsed rewards and best_temp, compared through the MCP tool with identical arguments on the same device. Fully seeded (seed 0 for every run).",
+      "suggested_tools": [
+        {
+          "tool_name": "mbd_sweep_temperature",
+          "source_section": "mbd/scripts/run_mbd.py: Args (lines 9-14), run_multiple_temp (lines 42-64), __main__ (lines 67-72)",
+          "description": "Run the planner on one environment for the eight sampling temperatures of the upstream grid (seed 0) and return the final reward per temperature and the best temperature.",
+          "primary_input": "env_name",
+          "parameters": [
+            {
+              "name": "env_name",
+              "cli_flag": "--env_name",
+              "type": "str enum",
+              "upstream_default": "ant",
+              "source": "run_mbd.py:14"
+            },
+            {
+              "name": "algo",
+              "cli_flag": "--algo",
+              "type": "str enum: mbd, path_integral",
+              "upstream_default": "mbd",
+              "source": "run_mbd.py:11, 46-59",
+              "condition": "Recommend exposing only `mbd`: for path_integral the script does not pass disable_recommended_params (run_mbd.py:47-49), so the requested temperature is replaced by the recommended one for the listed environments (path_integral.py:68-88) and the sweep is not a sweep there; update_method is also not forwarded in this mode."
+            }
+          ],
+          "parameters_kept_internal": [
+            {
+              "name": "mode",
+              "reason": "Fixed to `temp` for this tool (run_mbd.py:13, 71-72)."
+            }
+          ],
+          "contract_notes": [
+            "The temperature grid and the seed are fixed in the source (run_mbd.py:43, 48, 53).",
+            "An unknown algo value is not rejected in this mode: both branches are skipped and the script fails later on an undefined name (run_mbd.py:46-60, read from source). Validate the enum in the wrapper."
+          ],
+          "outputs": [
+            "temperatures (the fixed grid, run_mbd.py:43)",
+            "rewards (eight floats parsed from `rews: [...]`, run_mbd.py:63)",
+            "best_temp (parsed from `best_temp: ...`, run_mbd.py:64)",
+            "bounded stdout/stderr log"
+          ],
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New inputs are the environment (and algorithm)."
+        }
+      ]
+    }
+  ]
+}

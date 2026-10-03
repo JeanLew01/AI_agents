@@ -1,0 +1,260 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 4, 200/220-dpi crops of Algorithm 2 and of equations (9)-(12) and the transition display, the native text lines and main.tex (end of Section 2.1, Sections 2.2 and 2.3 up to (12)). First item 'sition $p_\\theta(z_j\\mid z_{j-1})$ ...' continues the word 'tran-sition' from page 3: join_previous=none (hyphen removed on page 3). Algorithm 2: the extractor had a caption text item and two formula fragments (b002, b003, b004); replaced by one figure crop [42,178,294,480] (asset algorithm-2; ruled caption, Inputs/Outputs, line numbers 1-16 and both rules inside, checked with crop) and a line-by-line transcription p0004-alg2-text with printed numbering, indentation via &emsp;, the comment '// i = 1,2,...,N' on line 4 and LaTeX maths from main.tex checked against the crop. The algorithm sits between two complete paragraphs. Authors' typo 'Feyman–Kac model' in the Inputs line kept (caption says 'Feynman–Kac'). Equations (9), (10), (11), (12) and the unnumbered transition display ($p_{t|0}$, $m_t(x_0)$, $V_t$) converted from formula images to $$...$$ blocks (\\tag{9}-\\tag{12}; the transition display has no number, as printed); the extractor's formula box for (10) also contained the prose line 'whose forward transition required in Equation (6) is', now a separate text item p0004-b011a. Macros expanded: \\trans -> ^{\\mathsf{T}}, \\expp -> \\mathrm{e}, \\diff -> \\mathrm{d}, \\grad -> \\nabla, \\refmeasure -> \\pi_{\\mathrm{ref}}. Equation (11) is printed as 'dU(t) = A U(t) + f(U(t), t) dt + ...' (no bracket/dt around the drift sum); transcribed as printed. Joins (space): '... where $\\mu_N \\coloneqq \\sum w_i X_i$' (bottom of left column) -> 'and $\\Sigma_N$ ...' (top of right column); (9), 'resulting in ...', (10), 'whose forward transition ...', transition display, 'To combine with ...' (no blank line in main.tex, same paragraph); (11), 'where in our scenario ...', (12). Page 5 continues after (12) with 'Provided that $A$ is invertible ...' (join space set there). Headings: '### 2.2. Mean-reverting Gaussian reference', '### 2.3. Exponential integrators'. Text repairs: 'multimode' -> 'multi-mode', 'semilinear' -> 'semi-linear' (real compound hyphens at line ends, confirmed in main.tex). Omitted: running header, page number 4.",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        69.0,
+        292.0,
+        165.0
+      ],
+      "markdown": "sition $p_\\theta(z_j \\mid z_{j-1})$ and measurement $p_\\theta(y_j \\mid z_j)$ for example. In this case a bootstrap construction of the corresponding Feynman–Kac model is simply $M_j^\\theta(z_j \\mid z_{j-1}) = p_\\theta(z_j \\mid z_{j-1})$ and $G_j^\\theta(z_j, \\cdot) = p_\\theta(y_j \\mid z_j)$. One can draw samples of a Feynman–Kac model with an SMC sampler as in Algorithm 2. For detailed exposition of Feynman–Kac models and SMC samplers, we refer the readers to Chopin & Papaspiliopoulos (2020); Del Moral (2004).",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0004-alg2",
+      "kind": "figure",
+      "bbox": [
+        42.0,
+        178.0,
+        294.0,
+        480.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0004-alg2-text",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        178.0,
+        294.0,
+        480.0
+      ],
+      "markdown": "**Algorithm 2: Differentiable sequential Monte Carlo (SMC) for sampling Feynman–Kac model $Q_{0:J}$.**\n\n**Inputs:** Feyman–Kac model $Q_{0:J}^\\theta$, number of samples $N$, and `diffres`.\n\n**Outputs:** Weighted samples of $Q_{0:J}^\\theta$ and marginal likelihood estimate $L(\\theta)$.\n\n**1**&ensp;Draw i.i.d. samples $\\{ Z_{0, i} \\}_{i=1}^N \\sim M_0^\\theta$.\n\n**2**&ensp;$L_0(\\theta) \\gets \\sum_{i=1}^N G^\\theta_0(Z_{0, i})$\n\n**3**&ensp;Weight $w_{0, i} \\gets G_0^\\theta(Z_{0, i}) \\, / \\, L_0(\\theta)$\n\n**4**&ensp;**for** $j=1,2,\\ldots, J$ **do** &emsp;&emsp; `//` $i=1,2,\\ldots, N$\n\n**5**&ensp;&emsp;&emsp; **if** *resampling needed* **then**\n\n**6**&ensp;&emsp;&emsp;&emsp;&emsp; $Z_{j-1, i}^* \\gets \\texttt{diffres}\\Bigl(\\bigl\\{ (w_{j-1, i}, Z_{j-1, i}) \\bigr\\}_{i=1}^N \\Bigr)$\n\n**7**&ensp;&emsp;&emsp;&emsp;&emsp; $w_{j-1, i} \\gets 1 \\, / \\, N$\n\n**8**&ensp;&emsp;&emsp; **else**\n\n**9**&ensp;&emsp;&emsp;&emsp;&emsp; $Z_{j-1, i}^* \\gets Z_{j-1, i}$\n\n**10**&ensp;&emsp;&emsp; **end**\n\n**11**&ensp;&emsp;&emsp; Draw $Z_{j, i} \\sim M^\\theta_{j}(\\cdot \\mid Z^*_{j-1, i})$\n\n**12**&ensp;&emsp;&emsp; $\\overline{w}_{j, i} \\gets w_{j-1, i} \\, G_j^\\theta(Z_{j, i}, Z_{j-1, i}^*)$\n\n**13**&ensp;&emsp;&emsp; $L_j(\\theta) \\gets \\sum_{i=1}^N \\overline{w}_{j, i}$\n\n**14**&ensp;&emsp;&emsp; Weight $w_{j, i} \\gets \\overline{w}_{j, i} \\, / \\, L_j(\\theta)$\n\n**15**&ensp;**end**\n\n**16**&ensp;$L(\\theta) \\gets \\prod_{j=0}^J L_j(\\theta)$"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        495.0,
+        292.0,
+        577.0
+      ],
+      "markdown": "This choice of reference $\\pi_{\\mathrm{ref}}$ is more flexible compared to that of Corenflos et al. (2021) who explicitly use the predictive samples $\\{ (w_{j-1, i}, Z_{j, i}) \\}_{i=1}^N$ at the $j$-th SMC step as the reference to resample $\\{ (w_{j, i}, Z_{j, i}) \\}_{i=1}^N$. In contrast, diffusion resampling allows to use, e.g., the posterior samples $\\{ (w_{j, i}, Z_{j, i}) \\}_{i=1}^N$ to establish the reference, which can be more informative than the predictive one."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        592.0,
+        224.0,
+        602.0
+      ],
+      "markdown": "### 2.2. Mean-reverting Gaussian reference"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        611.0,
+        292.0,
+        719.0
+      ],
+      "markdown": "A remaining question is how to choose the reference distribution $\\pi_{\\mathrm{ref}}$. In generative sampling, the reference is usually a unit Normal. However, this becomes suboptimal for resampling when the target distribution $\\pi$ is geometrically far away from $\\mathrm{N}(0, I_d)$, and as a consequence we would need large enough $T$ for convergence. A more informative choice of $\\pi_{\\mathrm{ref}}$ is a Gaussian approximation of $\\pi$. Given that we have access to the target samples $\\{ (w_i, X_i) \\}_{i=1}^N \\sim \\pi$, we can make use of moment matching, where $\\mu_N \\coloneqq \\sum_{i=1}^N w_i \\, X_i$"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        67.0,
+        543.0,
+        113.0
+      ],
+      "markdown": "and $\\Sigma_N \\coloneqq \\sum_{i=1}^N w_i \\, (X_i - \\mu_N) \\, (X_i - \\mu_N)^{\\mathsf{T}}$ stand for the empirical mean and covariance, respectively (Yang et al., 2013; Kang et al., 2025). We can then choose the reference measure to be",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        352.0,
+        123.0,
+        548.0,
+        146.0
+      ],
+      "markdown": "$$\n\\nabla\\log \\pi_{\\mathrm{ref}}(x) = -\\Sigma_N^{-1} \\, (x - \\mu_N),\n\\tag{9}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        155.0,
+        478.0,
+        165.0
+      ],
+      "markdown": "resulting in a mean-reverting forward SDE",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        302.0,
+        172.0,
+        548.0,
+        197.0
+      ],
+      "markdown": "$$\n\\mathrm{d} X(t) = -b^2 \\, \\Sigma_N^{-1} \\, (X(t) - \\mu_N) \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t)\n\\tag{10}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b011a",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        200.0,
+        530.0,
+        214.0
+      ],
+      "markdown": "whose forward transition required in Equation (6) is",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        219.0,
+        540.0,
+        279.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\np_{t|0}(x_t \\mid x_0) &= \\mathrm{N}(x_t ; m_t(x_0), V_t), \\\\\nm_t(x_0) &\\coloneqq x_0 \\, \\mathrm{e}^{-b^2 \\, \\Sigma_N^{-1} \\, t} + \\mu_N \\, \\bigl(1 - \\mathrm{e}^{-b^2 \\, \\Sigma_N^{-1} \\, t}\\bigr), \\\\\nV_t &\\coloneqq \\Sigma_N \\, \\bigl( 1 - \\mathrm{e}^{-2\\,b^2 \\, \\Sigma_N^{-1} \\, t} \\bigr).\n\\end{aligned}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        285.0,
+        544.0,
+        417.0
+      ],
+      "markdown": "To combine with the SMC in Algorithm 2, we compute $\\mu_N$ and $\\Sigma_N$ based on $\\bigl\\{ (w_{j-1, i}, Z_{j-1, i}) \\bigr\\}_{i=1}^N$, see Appendix A for details. It is also possible to leverage any Gaussian filter which is commonly used for approximating the optimal proposal (van der Merwe et al., 2000), to establish the reference. The gist here is to exploit the sequential structure of SMC to adaptively and informatively choose the reference, instead of assuming a static and uninformative one, such as $\\mathrm{N}(0, I_d)$. Using mean-reverting SDEs for informative generative sampling have also been used in domain applications, such as image restoration (Luo et al., 2023b; 2025).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        423.0,
+        544.0,
+        518.0
+      ],
+      "markdown": "In practice, to avoid solving the inversion $\\Sigma_N^{-1}$, we can approximate it as a diagonal, or directly estimate an empirical precision matrix (Yuan & Lin, 2007; Fan et al., 2016). When the Gaussian construction is insufficient for multi-mode targets, one may use a Gaussian mixture, although the associated semigroup needs to be approximated. Another option is to transform with a diffeomorphism to obtain a flexible yet tractable reference process (Deng et al., 2020)."
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "heading",
+      "bbox": [
+        307.0,
+        533.0,
+        426.0,
+        543.0
+      ],
+      "markdown": "### 2.3. Exponential integrators"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        552.0,
+        544.0,
+        622.0
+      ],
+      "markdown": "When a Gaussian reference $\\pi_{\\mathrm{ref}}$ is chosen, the reversal corresponding to the forward Equation (10) will have a semi-linear structure. Hence, we can leverage this structure by applying exponential integrators to accelerate the sampling so as to reduce the computation caused by discretisation. Consider any semi-linear SDE of the form"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        314.0,
+        628.0,
+        548.0,
+        650.0
+      ],
+      "markdown": "$$\n\\mathrm{d} U(t) = A \\, U(t) + f(U(t), t) \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t),\n\\tag{11}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        658.0,
+        544.0,
+        680.0
+      ],
+      "markdown": "where in our scenario the linear and non-linear parts respectively correspond to",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        335.0,
+        686.0,
+        548.0,
+        725.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nA &= b^2 \\, \\Sigma_N^{-1}, \\\\\nf(u, t) &= b^2 (2\\nabla\\log p_{T - t}(u) - \\Sigma_N^{-1} \\, \\mu_N).\n\\end{aligned}\n\\tag{12}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header (paper title) at the top of the page; page furniture."
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        740.0
+      ],
+      "markdown": "4",
+      "reason": "Printed page number '4' at the bottom centre; page furniture."
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        93.0,
+        522.0,
+        118.0
+      ],
+      "markdown": "Since Pr[ _P_<sup>_∗_</sup> = _⊤_ ] _≥ δ_ , this star set serves as such a bounding region for PE. We refer to this bounding region as inflating hypercube.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        124.0,
+        523.0,
+        288.0
+      ],
+      "markdown": "_δ_ **-Confident Flowpipe & Probabilistic Reachability** . For a given confidence probability _δ ∈_ (0 _,_ 1), and _s_ 0 _∼W_ , we say that _X ⊆_ R<sup>_n_K</sup> is a _δ_ -confident flowpipe if for any random trajectory _σs_<sup>real</sup> 0 _∼DS,_<sup>real</sup> K<sup>,wehavePr[</sup><sup>_σ_</sup> _s_<sup>real</sup> 0 _∈ X_ ] _≥ δ_ . In this paper, our ultimate goal is to propose a _δ_ -confident flowpipe. To compute such a flowpipe, the authors in Hashemi et al. (2024b) suggest simulating a set of trajectories, _σs_<sup>sim</sup> 0 _∼DS,_<sup>sim</sup> K<sup>_, s_0</sup><sup>_∼W_andtraining</sup> a ReLU NN surrogate model _F_ ( _s_ 0; _θ_ ) on this dataset. This model will be utilized to compute for its surrogate reachset, _X_<sup>¯</sup> _⊂_ R<sup>_n_K</sup> . They also sample a new set of trajectories _σ_<sup>sim</sup> _∼D_<sup>sim</sup> _s_ 0 _S,_ K<sup>_, s_0</sup><sup>_∼W_forerroranalysison</sup><sup>_F_(</sup><sup>_s_0;</sup><sup>_θ_)throughrobustconformalinferenceto</sup> compute for another hypercube _δX ⊂_ R<sup>_n_K</sup> , known as the inflating hypercube, that covers the prediction errors _R_<sup>_j_</sup> _, j ∈_ [ _n_ K] for trajectories _σs_<sup>real</sup> 0 _∼DS,_<sup>real</sup> K<sup>,withaprovableprobabilistic</sup> guarantee, and finally they propose the following lemma to compute for the _δ_ -confident flowpipe on _σs_<sup>real</sup> 0 _∼DS,_<sup>real</sup> K<sup>_, s_0</sup><sup>_∼W_.SeeHashemietal.(2024b)fortheproof.</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        298.0,
+        524.0,
+        366.0
+      ],
+      "markdown": "**Lemma 3.** _Let X_<sup>¯</sup> _be a surrogate flowpipe of the surrogate model F for the set of initial conditions I. Let_ PE := � _R_<sup>1</sup> _, R_<sup>2</sup> _, . . . , R_<sup>_n_K�</sup> _be the sequence of prediction errors for σs_<sup>real</sup> 0 _∼ DS,_<sup>real</sup> K<sup>_,wheres_0</sup><sup>_∼W,andlet δXbetheinflatinghypercubefor_PE</sup><sup>_suchthat_Pr[PE</sup><sup>_∈δX_]</sup><sup>_> δ._</sup> _Then the inflated reachset X_ = _X_<sup>¯</sup> _⊕ δX is a δ-confident flowpipe for σs_<sup>real</sup> 0 _∼DS,_<sup>real</sup> K<sup>_where_</sup> _s_ 0 _∼W._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        387.0,
+        217.0,
+        398.0
+      ],
+      "markdown": "## **2.4 Problem Definition**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        399.0,
+        524.0,
+        481.0
+      ],
+      "markdown": "We are interested in computing a _δ_ -confident flowpipe _X_ from a set of trajectories _σs_<sup>sim</sup> 0 collected from _D_<sup>sim</sup> _∼D_<sup>real</sup> _S,_ K<sup>sothat</sup><sup>_X_isalsovalidforalltrajectories</sup><sup>_σ_</sup> _s_<sup>real</sup> 0 _S,_ K<sup>whenthetotal</sup> variation between _JS,_<sup>real</sup> K<sup>and</sup><sup>_J_</sup> _S,_<sup>sim</sup> K<sup>islessthan</sup><sup>_τ>_0.Whilewearemotivatedbytheresults</sup> in Hashemi et al. (2024b) which propose a solution to the stated problem, we note that their solution lacks scalability and accuracy that results in sometimes large levels of conservatism, i.e., the set _X_ is unnecessarily large.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        484.0,
+        524.0,
+        549.0
+      ],
+      "markdown": "The primary sources of conservatism and inaccuracy in the methodology described in Hashemi et al. (2024b) stem from the training process for the surrogate model _F_ ( _s_ 0 ; _θ_ ) and the method used to compute the inflating hypercube _δX_ . In the following sections, we address both issues and propose solutions to improve the accuracy and scalability of this approach for the reachability analysis.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        569.0,
+        442.0,
+        581.0
+      ],
+      "markdown": "# **3 Scalable and Accurate Data Driven Reachability Analysis**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        591.0,
+        524.0,
+        616.0
+      ],
+      "markdown": "In this section, we introduce two key adjustments to the methodology of Hashemi et al. (2024b) to enhance scalability and reduce conservatism.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        627.0,
+        470.0,
+        638.0
+      ],
+      "markdown": "## **3.1 Improved Scalabilty and Accuracy for Training Surrogate Models**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        640.0,
+        522.0,
+        707.0
+      ],
+      "markdown": "In this section, we introduce a new training strategy for the model _F_ ( _s_ 0 ; _θ_ ) that avoids the scalability issues arising from the surrogate model’s large size when handling long time horizons, as encountered in Hashemi et al. (2024b). Figure 1 illustrates a realization of a trajectory _σs_<sup>sim</sup> 0<sup>:=</sup><sup>_s_1</sup><sup>_, . . . , s_KoverthehorizonK.Inthisfigure,wedividethetimehorizon</sup> into _N_ segments, each with length _Tq_ , where _q ∈_ [ _N_ ]. We denote each trajectory segment as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        725.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "6",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

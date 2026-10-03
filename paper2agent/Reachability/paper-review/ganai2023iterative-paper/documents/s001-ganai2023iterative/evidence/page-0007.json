@@ -1,0 +1,1404 @@
+{
+  "page": 7,
+  "lines": [
+    {
+      "text": "Algorithm 1 RESPO Actor Critic",
+      "bbox": [
+        107.64099884033203,
+        74.77980041503906,
+        243.24154663085938,
+        83.80591583251953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Require: Randomly initialized policy πθ’s parameters θ0, reward critic Q’s parameters η0, cost critic",
+      "bbox": [
+        108.0,
+        90.05696105957031,
+        504.0001525878906,
+        99.81794738769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Qc’s parameters κ0, REF p’s parameters ξ0, Lagrange multiplier λ’s parameters ω0, horizon T",
+      "bbox": [
+        124.93599700927734,
+        100.96595764160156,
+        499.7511291503906,
+        110.72694396972656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Require: Convex projection operators ΓΘ and ΓΩ, and reward and cost critic learning rate ζ1(k),",
+      "bbox": [
+        107.99996948242188,
+        111.87495422363281,
+        505.2454528808594,
+        122.43494415283203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policy learning rate ζ2(k), REF learning rate ζ3(k), lagrange multiplier learning rate ζ4(k)",
+      "bbox": [
+        124.93599700927734,
+        122.78395080566406,
+        485.41143798828125,
+        132.54493713378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: for k = 0, 1, 2, ... do",
+      "bbox": [
+        112.97897338867188,
+        133.6929473876953,
+        208.22445678710938,
+        142.68917846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2:",
+      "bbox": [
+        112.97896575927734,
+        145.436767578125,
+        119.95482635498047,
+        153.45272827148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for i = 0, 1, 2, ... do",
+      "bbox": [
+        129.91796875,
+        144.60194396972656,
+        211.13845825195312,
+        153.59817504882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        112.97896575927734,
+        156.34576416015625,
+        119.95482635498047,
+        164.36172485351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sample trajectories τi : {(sj, aj, s′",
+      "bbox": [
+        134.8989715576172,
+        153.57965087890625,
+        273.0123291015625,
+        165.85272216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j, rj, hj)} ∼πθ",
+      "bbox": [
+        270.71795654296875,
+        154.95303344726562,
+        334.0137023925781,
+        166.3709259033203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4:",
+      "bbox": [
+        112.97894287109375,
+        168.76373291015625,
+        119.95480346679688,
+        176.77969360351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rew. Update ηk+1 = ηk −ζ1(k)∇ηQ(st, at) · [Q(st, at) −(r(st, at) + γQ(st+1, at+1))]",
+      "bbox": [
+        134.89894104003906,
+        167.37100219726562,
+        498.18450927734375,
+        178.26971435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5:",
+      "bbox": [
+        112.97900390625,
+        179.6727294921875,
+        119.95486450195312,
+        187.68869018554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Cost Update κk+1 = κk −ζ1(k)∇κQc(st, at) · [Qc(st, at) −(h(st) + γQc(st+1, at+1))]",
+      "bbox": [
+        134.8990020751953,
+        178.27999877929688,
+        498.1895446777344,
+        189.1787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6:",
+      "bbox": [
+        112.97903442382812,
+        190.58172607421875,
+        119.95489501953125,
+        198.59768676757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Policy Update θk+1 =",
+      "bbox": [
+        134.89903259277344,
+        189.7469024658203,
+        226.8709259033203,
+        200.08770751953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7:",
+      "bbox": [
+        112.9790267944336,
+        208.3487548828125,
+        119.95488739013672,
+        216.36471557617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ΓΘ",
+      "bbox": [
+        134.89903259277344,
+        207.51393127441406,
+        147.2420654296875,
+        217.27491760253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0012",
+      "bbox": [
+        147.7400360107422,
+        199.98150634765625,
+        155.072509765625,
+        206.35755920410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "θk−ζ2(k)γt",
+      "bbox": [
+        155.07302856445312,
+        205.97213745117188,
+        203.4656982421875,
+        217.27491760253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0014",
+      "bbox": [
+        203.96002197265625,
+        199.9814453125,
+        209.22027587890625,
+        206.3574981689453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−Q(st, at)[1−p(st)]+Qc(st, at)[λ(1−p(st))+p(st)]",
+      "bbox": [
+        209.3500213623047,
+        206.95596313476562,
+        424.758056640625,
+        217.2748565673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0015",
+      "bbox": [
+        424.7550048828125,
+        199.9814453125,
+        430.0152587890625,
+        206.3574981689453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∇θ log πθ(at|st)",
+      "bbox": [
+        430.01300048828125,
+        206.95596313476562,
+        496.66741943359375,
+        217.85467529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0013",
+      "bbox": [
+        496.66595458984375,
+        199.9814453125,
+        503.9984436035156,
+        206.3574981689453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8:",
+      "bbox": [
+        112.97894287109375,
+        226.28173828125,
+        119.95480346679688,
+        234.29769897460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "REF Update ξk+1 = ξk −ζ3(k)∇ξp(st) · [p(st) −max{1h(st)>0, γp(st+1)}]",
+      "bbox": [
+        134.89894104003906,
+        224.88900756835938,
+        450.7215270996094,
+        236.122314453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9:",
+      "bbox": [
+        112.97894287109375,
+        239.2877197265625,
+        119.95480346679688,
+        247.30368041992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lagrange multiplier Update ωk+1 = ΓΩ",
+      "bbox": [
+        134.89894104003906,
+        238.45289611816406,
+        303.3305358886719,
+        248.794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        303.825927734375,
+        236.8994140625,
+        308.3887939453125,
+        243.2754669189453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ωk −ζ4(k)Qc(st, at)(1 −p(st))∇ωλ",
+      "bbox": [
+        308.3919372558594,
+        237.89498901367188,
+        460.53411865234375,
+        248.794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        460.53692626953125,
+        236.89947509765625,
+        465.09979248046875,
+        243.27552795410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10:",
+      "bbox": [
+        108.49594116210938,
+        250.19775390625,
+        119.95500183105469,
+        258.2137145996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end for",
+      "bbox": [
+        129.91793823242188,
+        249.4027862548828,
+        160.38356018066406,
+        258.3591613769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11: end for",
+      "bbox": [
+        108.49594116210938,
+        260.311767578125,
+        155.4015655517578,
+        269.2681579589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Figure 1: We compare the performance of our algorithm with other SOTA baselines in Safety Gym (left two",
+      "bbox": [
+        107.99996948242188,
+        340.0387878417969,
+        504.0008544921875,
+        348.05474853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "figures), Safety PyBullet (middle two figures), and Safety MuJoCo (right two figures).",
+      "bbox": [
+        107.99996948242188,
+        350.00177001953125,
+        417.14361572265625,
+        358.0177307128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5.4",
+      "bbox": [
+        107.99996948242188,
+        370.5807800292969,
+        120.45321655273438,
+        379.53717041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Convergence Analysis",
+      "bbox": [
+        130.4158172607422,
+        370.5807800292969,
+        223.6259002685547,
+        379.53717041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We provide convergence analysis of our algorithm for Finite MDPs (finite bounded state and action",
+      "bbox": [
+        107.53196716308594,
+        390.67535400390625,
+        503.9983215332031,
+        399.5819091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "space sizes, maximum horizon T, reward bounded by Rmax, and cost bounded by Hmax) under",
+      "bbox": [
+        107.99996948242188,
+        401.4249572753906,
+        504.16778564453125,
+        411.1868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reasonable assumptions. We demonstrate our algorithm almost surely finds a locally optimal policy",
+      "bbox": [
+        107.99996948242188,
+        412.4943542480469,
+        504.3465881347656,
+        421.4009094238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for our RESPO formulation, based on the following assumptions:",
+      "bbox": [
+        107.99996948242188,
+        423.4033508300781,
+        368.71112060546875,
+        432.3099060058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "•",
+      "bbox": [
+        107.99996948242188,
+        433.59503173828125,
+        112.98126983642578,
+        442.9997253417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A1 (Step size): Step sizes follow schedules {ζ1(k)}, {ζ2(k)}, {ζ3(k)}, {ζ4(k)} where:",
+      "bbox": [
+        123.97596740722656,
+        433.59503173828125,
+        470.5130310058594,
+        443.91387939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        109.5858154296875,
+        443.62548828125,
+        123.98177337646484,
+        450.0015563964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k",
+      "bbox": [
+        114.57881164550781,
+        460.6321716308594,
+        118.81190490722656,
+        466.82489013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ζi(k) = ∞and",
+      "bbox": [
+        125.63681030273438,
+        446.01702880859375,
+        186.6837921142578,
+        456.33587646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        190.83480834960938,
+        443.62548828125,
+        205.2307586669922,
+        450.0015563964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k",
+      "bbox": [
+        195.8288116455078,
+        460.6321716308594,
+        200.06190490722656,
+        466.82489013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ζi(k)2 < ∞, ∀i ∈{1, 2, 3, 4},",
+      "bbox": [
+        206.8858184814453,
+        442.4609375,
+        327.03839111328125,
+        456.33587646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and",
+      "bbox": [
+        336.8558044433594,
+        446.7343444824219,
+        351.2417907714844,
+        455.6408996582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ζj(k) = o(ζj−1(k)), ∀j ∈{2, 3, 4}.",
+      "bbox": [
+        359.40179443359375,
+        446.01702880859375,
+        502.4163513183594,
+        456.33587646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The reward returns and cost returns critic value functions must follow the fastest schedule ζ1(k),",
+      "bbox": [
+        107.69097137451172,
+        466.5959777832031,
+        505.24542236328125,
+        476.3569030761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the policy must follow the second fastest schedule ζ2(k), the REF must follow the second slowest",
+      "bbox": [
+        107.99996948242188,
+        477.5049743652344,
+        503.998046875,
+        487.2658996582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "schedule ζ3(k), and finally, the lagrange multiplier should follow the slowest schedule ζ4(k).",
+      "bbox": [
+        107.99996948242188,
+        488.4139709472656,
+        478.3576354980469,
+        498.1759033203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "•",
+      "bbox": [
+        107.99996948242188,
+        498.7650451660156,
+        112.98126983642578,
+        508.16973876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A2 (Strict Feasibility): ∃π(·|·; θ) such that ∀s ∈SI where ϕ∗(s) = 0, V πθ",
+      "bbox": [
+        123.97596740722656,
+        497.39166259765625,
+        419.8563232421875,
+        509.8839111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "c (s) ≤0.",
+      "bbox": [
+        409.6119689941406,
+        498.7650451660156,
+        454.20062255859375,
+        510.63275146484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "•",
+      "bbox": [
+        107.99996948242188,
+        509.6740417480469,
+        112.98126983642578,
+        519.0787353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A3 (Differentiability and Lipschitz Continuity): For all state-action pairs (s, a), we assume value",
+      "bbox": [
+        123.98097229003906,
+        510.2319641113281,
+        504.00286865234375,
+        519.2979125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and cost Q functions Q(s, a; η), Qc(s, a; κ), policy π(a|s; θ), and REF p(s, a; ξ) are continuously",
+      "bbox": [
+        107.99996948242188,
+        520.5830688476562,
+        504.3515930175781,
+        530.9028930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "differentiable in η, κ, θ, ξ respectively. Furthermore, ∇ωλω and, for all state-action pairs (s, a),",
+      "bbox": [
+        107.99996948242188,
+        531.4920654296875,
+        505.24542236328125,
+        542.6109008789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∇θπ(a|s; θ) are Lipschitz continuous functions in ω and θ respectively.",
+      "bbox": [
+        107.99996948242188,
+        542.402099609375,
+        392.3797912597656,
+        552.7208862304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The detailed proof of the following result is provided in the appendix.",
+      "bbox": [
+        107.69096374511719,
+        559.50732421875,
+        385.6573791503906,
+        568.4138793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Theorem 2. Given Assumptions A1-A3, the policy updates in Algorithm 1 will almost surely",
+      "bbox": [
+        107.67096710205078,
+        573.5127563476562,
+        504.3459167480469,
+        582.5388793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "converge to a locally optimal policy for our proposed optimization in Equation RESPO.",
+      "bbox": [
+        107.99996948242188,
+        584.5413818359375,
+        457.1790466308594,
+        593.4479370117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        107.99996948242188,
+        611.0939331054688,
+        113.97756958007812,
+        621.8416748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Experiments",
+      "bbox": [
+        125.93276977539062,
+        611.0939331054688,
+        191.01687622070312,
+        621.8416748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Baselines. The baselines we compare are CMDP-based or solve for hard constraints. The CMDP",
+      "bbox": [
+        107.99996948242188,
+        635.2357788085938,
+        503.99755859375,
+        644.2619018554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "baselines are Lagrangian-based Proximal Policy Optimization (PPOLag) based on [7], Constraint-",
+      "bbox": [
+        107.99996948242188,
+        646.144775390625,
+        505.6506042480469,
+        655.1708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rectified Policy Optimization (CRPO) [35], Penalized Proximal Policy Optimization (P3O) [32],",
+      "bbox": [
+        107.99996948242188,
+        657.0537719726562,
+        505.245361328125,
+        666.0798950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Projection-Based Constrained Policy Optimization (PCPO) [3]. The hard constraints baselines",
+      "bbox": [
+        107.99996948242188,
+        667.9627685546875,
+        504.0045471191406,
+        676.9888916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are RCRL [27], CBF with constraint ˙h(s) + ν · h(s) ≤0, and Feasibile Actor-Critic (FAC) [9]. We",
+      "bbox": [
+        107.99996948242188,
+        677.7299194335938,
+        504.00445556640625,
+        689.4249267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "classify FAC among the hard constraint approaches because we make its cost threshold χ = 0 in",
+      "bbox": [
+        107.99996948242188,
+        691.2679443359375,
+        503.9998779296875,
+        700.3339233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "order to better compare using NN lagrange multiplier with our REF approach in RESPO. We include",
+      "bbox": [
+        107.99996948242188,
+        702.216796875,
+        504.0021667480469,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the unconstrained Vanilla PPO [33] baseline for reference.",
+      "bbox": [
+        107.99996948242188,
+        713.1257934570312,
+        342.0509948730469,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7",
+      "bbox": [
+        303.50897216796875,
+        743.1333618164062,
+        308.4902648925781,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20230926012150Z",
+      "modDate": "D:20230926012150Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/ganai2023iterative-paper/documents/.pdf-skill-scan-vfb5qpau/review/source.pdf",
+      "page_count": 33,
+      "page_number": 7
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "section-header",
+        "bbox": [
+          107,
+          74,
+          244,
+          84
+        ],
+        "pos": [
+          0,
+          40
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          107,
+          89,
+          506,
+          143
+        ],
+        "pos": [
+          40,
+          539
+        ]
+      },
+      {
+        "index": 2,
+        "class": "list-item",
+        "bbox": [
+          112,
+          144,
+          212,
+          154
+        ],
+        "pos": [
+          539,
+          589
+        ]
+      },
+      {
+        "index": 3,
+        "class": "list-item",
+        "bbox": [
+          112,
+          154,
+          335,
+          167
+        ],
+        "pos": [
+          589,
+          699
+        ]
+      },
+      {
+        "index": 4,
+        "class": "list-item",
+        "bbox": [
+          112,
+          167,
+          499,
+          189
+        ],
+        "pos": [
+          699,
+          986
+        ]
+      },
+      {
+        "index": 5,
+        "class": "list-item",
+        "bbox": [
+          112,
+          189,
+          504,
+          249
+        ],
+        "pos": [
+          986,
+          1438
+        ]
+      },
+      {
+        "index": 6,
+        "class": "list-item",
+        "bbox": [
+          108,
+          249,
+          161,
+          257
+        ],
+        "pos": [
+          1438,
+          1458
+        ]
+      },
+      {
+        "index": 7,
+        "class": "list-item",
+        "bbox": [
+          108,
+          260,
+          156,
+          268
+        ],
+        "pos": [
+          1458,
+          1478
+        ]
+      },
+      {
+        "index": 8,
+        "class": "picture",
+        "bbox": [
+          120,
+          284,
+          172,
+          337
+        ],
+        "pos": [
+          1478,
+          1480
+        ]
+      },
+      {
+        "index": 9,
+        "class": "picture",
+        "bbox": [
+          174,
+          284,
+          226,
+          337
+        ],
+        "pos": [
+          1480,
+          1482
+        ]
+      },
+      {
+        "index": 10,
+        "class": "picture",
+        "bbox": [
+          228,
+          285,
+          292,
+          337
+        ],
+        "pos": [
+          1482,
+          1484
+        ]
+      },
+      {
+        "index": 11,
+        "class": "picture",
+        "bbox": [
+          294,
+          285,
+          358,
+          337
+        ],
+        "pos": [
+          1484,
+          1486
+        ]
+      },
+      {
+        "index": 12,
+        "class": "picture",
+        "bbox": [
+          359,
+          282,
+          424,
+          337
+        ],
+        "pos": [
+          1486,
+          1488
+        ]
+      },
+      {
+        "index": 13,
+        "class": "picture",
+        "bbox": [
+          425,
+          285,
+          490,
+          337
+        ],
+        "pos": [
+          1488,
+          1490
+        ]
+      },
+      {
+        "index": 14,
+        "class": "caption",
+        "bbox": [
+          107,
+          339,
+          505,
+          359
+        ],
+        "pos": [
+          1490,
+          1683
+        ]
+      },
+      {
+        "index": 15,
+        "class": "section-header",
+        "bbox": [
+          107,
+          370,
+          224,
+          380
+        ],
+        "pos": [
+          1683,
+          1717
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          107,
+          390,
+          505,
+          433
+        ],
+        "pos": [
+          1717,
+          2075
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          107,
+          433,
+          506,
+          498
+        ],
+        "pos": [
+          2075,
+          2699
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          107,
+          498,
+          455,
+          509
+        ],
+        "pos": [
+          2699,
+          2863
+        ]
+      },
+      {
+        "index": 19,
+        "class": "text",
+        "bbox": [
+          107,
+          509,
+          506,
+          553
+        ],
+        "pos": [
+          2863,
+          3315
+        ]
+      },
+      {
+        "index": 20,
+        "class": "text",
+        "bbox": [
+          107,
+          559,
+          386,
+          569
+        ],
+        "pos": [
+          3315,
+          3389
+        ]
+      },
+      {
+        "index": 21,
+        "class": "text",
+        "bbox": [
+          107,
+          573,
+          505,
+          594
+        ],
+        "pos": [
+          3389,
+          3581
+        ]
+      },
+      {
+        "index": 22,
+        "class": "section-header",
+        "bbox": [
+          107,
+          611,
+          192,
+          622
+        ],
+        "pos": [
+          3581,
+          3603
+        ]
+      },
+      {
+        "index": 23,
+        "class": "text",
+        "bbox": [
+          107,
+          635,
+          506,
+          722
+        ],
+        "pos": [
+          3603,
+          4410
+        ]
+      },
+      {
+        "index": 24,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          750
+        ],
+        "pos": [
+          4410,
+          4414
+        ]
+      }
+    ],
+    "text": "## **Algorithm 1** RESPO Actor Critic \n\n**Require:** Randomly initialized policy _πθ_ ’s parameters _θ_ 0, reward critic _Q_ ’s parameters _η_ 0, cost critic _Qc_ ’s parameters _κ_ 0, REF _p_ ’s parameters _ξ_ 0, Lagrange multiplier _λ_ ’s parameters _ω_ 0, horizon _T_ **Require:** Convex projection operators ΓΘ and ΓΩ, and reward and cost critic learning rate _ζ_ 1( _k_ ), policy learning rate _ζ_ 2( _k_ ), REF learning rate _ζ_ 3( _k_ ), lagrange multiplier learning rate _ζ_ 4( _k_ ) 1: **for** _k_ = 0 _,_ 1 _,_ 2 _, ..._ **do** \n\n- 2: **for** _i_ = 0 _,_ 1 _,_ 2 _, ..._ **do** \n\n- 3: Sample trajectories _τi_ : _{_ ( _sj, aj, s_<sup>_′_</sup> _j_<sup>_, rj, hj_)</sup><sup>_} ∼πθ_</sup> \n\n- 4: **Rew. Update** _ηk_ +1 = _ηk − ζ_ 1( _k_ ) _∇ηQ_ ( _st, at_ ) _·_ [ _Q_ ( _st, at_ ) _−_ ( _r_ ( _st, at_ ) + _γQ_ ( _st_ +1 _, at_ +1))] 5: **Cost Update** _κk_ +1 = _κk − ζ_ 1( _k_ ) _∇κQc_ ( _st, at_ ) _·_ [ _Qc_ ( _st, at_ ) _−_ ( _h_ ( _st_ ) + _γQc_ ( _st_ +1 _, at_ +1))] \n\n- 6: **Policy Update** _θk_ +1 = 7: ΓΘ _θk−ζ_ 2( _k_ ) _γ_<sup>_t_</sup> _−Q_ ( _st, at_ )[1 _−p_ ( _st_ )]+ _Qc_ ( _st, at_ )[ _λ_ (1 _−p_ ( _st_ ))+ _p_ ( _st_ )] _∇θ_ log _πθ_ ( _at|st_ ) � � � � \n\n- 8: **REF Update** _ξk_ +1 = _ξk − ζ_ 3( _k_ ) _∇ξp_ ( _st_ ) _·_ [ _p_ ( _st_ ) _−_ max _{_ 1 _h_ ( _st_ ) _>_ 0 _, γp_ ( _st_ +1) _}_ ] 9: **Lagrange multiplier Update** _ωk_ +1 = ΓΩ� _ωk − ζ_ 4( _k_ ) _Qc_ ( _st, at_ )(1 _− p_ ( _st_ )) _∇ωλ_ � \n\n- 10: **end for** \n\n- 11: **end for** \n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: We compare the performance of our algorithm with other SOTA baselines in Safety Gym (left two figures), Safety PyBullet (middle two figures), and Safety MuJoCo (right two figures). \n\n## **5.4 Convergence Analysis** \n\nWe provide convergence analysis of our algorithm for Finite MDPs (finite bounded state and action space sizes, maximum horizon _T_ , reward bounded by _R_ max, and cost bounded by _H_ max) under reasonable assumptions. We demonstrate our algorithm almost surely finds a locally optimal policy for our RESPO formulation, based on the following assumptions: \n\n_•_ **A1** _(Step size):_ Step sizes follow schedules _{ζ_ 1( _k_ ) _}_ , _{ζ_ 2( _k_ ) _}_ , _{ζ_ 3( _k_ ) _}_ , _{ζ_ 4( _k_ ) _}_ where: � _ζi_ ( _k_ ) = _∞_ and � _ζi_ ( _k_ )<sup>2</sup> _< ∞, ∀i ∈{_ 1 _,_ 2 _,_ 3 _,_ 4 _},_ and _ζj_ ( _k_ ) = _o_ ( _ζj−_ 1( _k_ )) _, ∀j ∈{_ 2 _,_ 3 _,_ 4 _}. k k_ The reward returns and cost returns critic value functions must follow the fastest schedule _ζ_ 1( _k_ ), the policy must follow the second fastest schedule _ζ_ 2( _k_ ), the REF must follow the second slowest schedule _ζ_ 3( _k_ ), and finally, the lagrange multiplier should follow the slowest schedule _ζ_ 4( _k_ ). \n\n_•_ **A2** _(Strict Feasibility): ∃π_ ( _·|·_ ; _θ_ ) such that _∀s ∈SI_ where _ϕ_<sup>_∗_</sup> ( _s_ ) = 0, _Vc_<sup>_πθ_(</sup><sup>_s_)</sup><sup>_≤_0.</sup> \n\n_•_ **A3** _(Differentiability and Lipschitz Continuity):_ For all state-action pairs ( _s, a_ ), we assume value and cost Q functions _Q_ ( _s, a_ ; _η_ ) _, Qc_ ( _s, a_ ; _κ_ ), policy _π_ ( _a|s_ ; _θ_ ), and REF _p_ ( _s, a_ ; _ξ_ ) are continuously differentiable in _η, κ, θ, ξ_ respectively. Furthermore, _∇ωλω_ and, for all state-action pairs ( _s, a_ ), _∇θπ_ ( _a|s_ ; _θ_ ) are Lipschitz continuous functions in _ω_ and _θ_ respectively. \n\nThe detailed proof of the following result is provided in the appendix. \n\n**Theorem 2.** Given Assumptions **A1** - **A3** , the policy updates in Algorithm 1 will almost surely converge to a locally optimal policy for our proposed optimization in Equation RESPO. \n\n# **6 Experiments** \n\n**Baselines.** The baselines we compare are CMDP-based or solve for hard constraints. The CMDP baselines are Lagrangian-based Proximal Policy Optimization ( **PPOLag** ) based on [7], ConstraintRectified Policy Optimization ( **CRPO** ) [35], Penalized Proximal Policy Optimization ( **P3O** ) [32], and Projection-Based Constrained Policy Optimization ( **PCPO** ) [3]. The hard constraints baselines are **RCRL** [27], **CBF** with constraint _h_<sup>˙</sup> ( _s_ ) + _ν · h_ ( _s_ ) _≤_ 0, and Feasibile Actor-Critic ( **FAC** ) [9]. We classify **FAC** among the hard constraint approaches because we make its cost threshold _χ_ = 0 in order to better compare using NN lagrange multiplier with our REF approach in **RESPO** . We include the unconstrained Vanilla **PPO** [33] baseline for reference. \n\n7 \n\n"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "language": "cli",
+  "cli_backend": "python",
+  "requires_gpu": false,
+  "gpu_requirement": "optional",
+  "language_reason": "The README documents console commands as the user interface (`dial-mpc --example NAME`, `dial-mpc --config FILE`, `dial-mpc --list-examples`, `dial-mpc-sim`, `dial-mpc-plan`, `dial-mpc-real`); setup.py registers them as console_scripts. The rollout loop lives inside dial_mpc.core.dial_core:main and is not exposed as a callable library function.",
+  "gpu_reason": "setup.py installs jax[cuda12] and the README recommends CUDA >= 12.3, but the code contains no unconditional GPU operation: JAX falls back to CPU. The documented sample counts (2048 to 4096 parallel MJX rollouts) are only practical on a GPU. Device availability and feasible problem sizes are checked by the environment manager.",
+  "repository": {"url": "https://github.com/LeCAR-Lab/dial-mpc", "commit": "871c84f1cefbe9fa9d83a06b05ab4f0243c1a05c", "path": "repo/dial-mpc", "dirty_files": {}},
+  "requested_filter": null,
+  "route_override": null,
+  "evidence_paths": ["repo/dial-mpc/README.md", "repo/dial-mpc/setup.py", "repo/dial-mpc/dial_mpc/core/dial_core.py", "repo/dial-mpc/dial_mpc/core/dial_config.py"],
+  "unresolved_prerequisites": ["Real-robot commands (dial-mpc-real) need a Unitree Go2 and a localisation source; asynchronous simulation (dial-mpc-sim) opens a MuJoCo viewer window."]
+}

@@ -1,0 +1,93 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": true,
+  "review_notes": "Compared the whole page with the 130 dpi render, with a 210 dpi crop of the upper half (proof of Section B.2 with display (14)) and with sections/conformal_appendix.tex. This page continues Section B.2: the bold word 'Proof' is printed on a line of its own (the extractor had made it a level-1 heading); it is kept as a bold paragraph label followed by the proof text in the same item. All mathematics was rewritten in LaTeX from the TeX source and checked symbol by symbol on the crop; TeX and PDF agree. Checked: h = (x,y), f(h) = f((x,y)) = s(x,y); k = floor((n+1) alpha - 1); the quantile chain (n-k)/n = (n - floor((n+1) alpha - 1))/n = (n + ceil(-((n+1) alpha - 1)))/n = ceil(n - (n+1) alpha + 1)/n = ceil((n+1)(1-alpha))/n with the floor and ceiling brackets as printed; the incomplete beta function ratio I_x(n-k, k+1) = sum_{j=n-k}^{n} binom(n,j) x^j (1-x)^{n-j}; the re-indexed sums with binom(n, n-i) x^{n-i} (1-x)^{n-(n-i)} and binom(n,i) x^{n-i} (1-x)^i; and the final condition beta >= I_{1-eps}(n-k, k+1) = sum_{i=0}^{k} binom(n,i) eps^i (1-eps)^{n-i}. The extractor 'formula' image of equation (14) was replaced by a $$ block with \\tag{14}; the conditional bar is a plain '|'. Kept as printed (authors' notation, not conversion errors): the solution is written 'g*_{N,k} = \\hat{q}' with capital N although the calibration set in this section has size n; the last sum uses n while 'Equation (9)' it is identified with uses N; 'scores ... forms our set of constraints'. The star of g^*_{N,k} is written g^{\\ast}_{N,k}. The citation 'DLMF, (8.17.5)' is printed in this form (author 'DLMF', equation number as a link). Both proofs end with a filled square, written as $\\blacksquare$ (for B.2 it is printed on a line of its own below the last text line). B.3 is a level-3 heading (the extractor had level 1); its proof starts with a run-in bold 'Proof'. Printed cross-references: CCP (7), SP (8), Lemma 7, Appendix A, Equation (9), Equation (13), Equation (14), Section 5, Appendix B.2, Equation (1), Lemma 5. No line-wrap hyphen had to be removed on this page; real hyphens kept (scenario-based, upper-bound, and 'user-chosen', which is broken at a line end after 'user-'). The rest of the page is blank. Omitted: running header and page number. LaTeX source spacing only: sums such as 'k + 1' and '(n + 1)' are typed with spaces where the PDF text layer has spaces (text size) and without spaces inside small inline fractions, so that the tool's number tokens agree; this does not change the formulas.",
+  "warnings": [
+    "Review possible header/footer: p0016-b000"
+  ],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "omit",
+      "bbox": [
+        277.0,
+        41.0,
+        332.0,
+        49.0
+      ],
+      "markdown": "LIN BANSAL",
+      "reason": "Running header of an even page (author names 'LIN BANSAL' in small capitals); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        94.0,
+        523.0,
+        243.0
+      ],
+      "markdown": "**Proof**\n\nTo show that split conformal prediction reduces to a scenario-based approach, consider the CCP (7) in Lemma 7 in Appendix A, where $h=(x,y)$ and $f(h)=f\\left((x,y)\\right)=s(x,y)$. That is, we want to find a probabilistic upper-bound on samples of the score function. Then, consider the corresponding SP (8) in Lemma 7 where the $n$ sampled calibration scores $s(X_1, Y_1), ..., s(X_n, Y_n)$ forms our set of constraints. Remove the $k=\\lfloor (n + 1)\\alpha-1 \\rfloor$ largest scores, where $\\alpha$ is the user-chosen error rate in split conformal prediction. The largest remaining score will be the $\\frac{n-k}{n}$ quantile. $\\frac{n-k}{n}=\\frac{n-\\lfloor (n+1)\\alpha-1 \\rfloor}{n}=\\frac{n+\\lceil -((n+1)\\alpha-1) \\rceil}{n}=\\frac{\\lceil n -(n+1)\\alpha+1 \\rceil}{n}=\\frac{\\lceil (n+1)(1-\\alpha) \\rceil}{n}$, which is precisely the same quantile as $\\hat{q}$ in split conformal prediction. Thus, the solution to the SP is $g^{\\ast}_{N,k}=\\hat{q}$. Lemma 7 tells us that for a violation parameter $\\epsilon \\in (0, 1)$ and a confidence parameter $\\beta \\in (0, 1)$ that satisfies the relationship in Equation (9), with probability at least $1-\\beta$, the following holds:"
+    },
+    {
+      "id": "p0016-b003",
+      "kind": "text",
+      "bbox": [
+        207.0,
+        251.0,
+        528.0,
+        273.0
+      ],
+      "markdown": "$$\n\\mathbb{P}\\left( Y_{\\text{test}} \\in C(X_{\\text{test}}) | \\{ (X_i, Y_i) \\}^n_{i=1} \\right) \\ge 1-\\epsilon \\tag{14}\n$$"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        281.0,
+        523.0,
+        392.0
+      ],
+      "markdown": "This is equivalent to Equation (13). To see why, note that the cumulative distribution function of the Beta distribution in Equation (13) is given in terms of $k$ by the incomplete beta function ratio $I_x(n-k, k + 1)=\\sum^n_{j=n-k}\\binom{n}{j}x^j(1-x)^{n-j}$ from DLMF, (8.17.5). Changing the index $i=n-j$ yields $I_x(n-k, k+1)=\\sum^k_{i=0}\\binom{n}{n-i}x^{n-i}(1-x)^{n-(n-i)}=\\sum^k_{i=0}\\binom{n}{i}x^{n-i}(1-x)^{i}$. Thus, Equation (13) is equivalent to the claim that for any violation parameter $\\epsilon \\in (0, 1)$ and confidence parameter $\\beta \\in (0, 1)$, $\\mathbb{P}\\left( Y_{\\text{test}} \\in C(X_{\\text{test}}) | \\{ (X_i, Y_i) \\}^n_{i=1} \\right) \\ge 1-\\epsilon$ (Equation (14)) holds with probability at least $1-\\beta$ as long as $\\beta \\ge I_{1-\\epsilon}(n-k, k + 1)=\\sum^k_{i=0}\\binom{n}{i}\\epsilon^{i}(1-\\epsilon)^{n-i}$ (Equation (9)). $\\blacksquare$"
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        420.0,
+        198.0,
+        429.0
+      ],
+      "markdown": "### B.3. Proof of Lemma 5"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        439.0,
+        523.0,
+        518.0
+      ],
+      "markdown": "**Proof** The conformal probabilistic safety verification method in Section 5 is nothing more than a specific formulation of the general split conformal prediction method in Appendix B.2, which we have proven provides a result that is equivalent to the robust scenario optimization result in Lemma 7. The result in Lemma 7, when formulated in the context of the conformal probabilistic safety verification method in Section 5 and noting that $\\forall (x,t), J_{\\tilde{\\pi}}(x,t) \\le V(x, t)$ from Equation (1), is precisely Lemma 5. $\\blacksquare$"
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        725.0,
+        311.0,
+        733.0
+      ],
+      "markdown": "16",
+      "reason": "Page number 16 at the foot of the page; page furniture."
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+ "module": "feynman_kac",
+ "role": "independent verifier (stage 3b)",
+ "implementation_run_id": "implement-feynman-kac-attempt-1",
+ "upstream": {
+  "package": "diffres (editable repo/diffres)",
+  "commit": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "repo_modified": false
+ },
+ "tools": [
+  "diffres_run_lgssm_particle_filter"
+ ],
+ "verdict": {
+  "diffres_run_lgssm_particle_filter": "verified (after 3 documentation/validation repairs; no change to the computation)"
+ },
+ "production_files": {
+  "src/tools/feynman_kac.py": {
+   "sha256_before_verification": "90ce5e1cc24b0595c4117e2afb5530d1386faa1e9eb0cc0cafc611b18668056a",
+   "sha256_after_last_change": "433db713f10ddac37b4f0c883652138235961a25242224ce6f3a34420c6167bb"
+  }
+ },
+ "read_only_shared_dependencies": {
+  "diffres (upstream)": "diffres.feynman_kac.smc_feynman_kac, diffres.gaussian_filters.kf, diffres.resampling.*, diffres.tools.{kl,bures,logpdf_mvn_chol,simulate_lgssm}",
+  "src/tools/gaussian_filters.py": "used only in one labelled cross-tool composition test (not owned, not an oracle); sha256 at test time 780a9dc11a630600c83a87291f4d0887c2e4edd3a2286282c6319633c178d094",
+  "src/tools/resampling.py": "used only in one labelled cross-tool composition test (not owned, not an oracle); sha256 at test time 29667bd6967c05e506464fd88a64cdc6a0acc905294d4eb182085651843abef1"
+ },
+ "test_files": {
+  "tests/code/feynman_kac/test_diffres_run_lgssm_particle_filter.py": "db6e71f49499e3367c9d6db86cd6162d37ac3b87da721deceac6e42e69f62bd3",
+  "tests/code/feynman_kac/make_fixtures.py": "38429f0c3028675764ab9e8437a15b2874114b73139963891941f805f14bda88"
+ },
+ "fixtures": "tests/data/feynman_kac/ (23 files): model JSONs/ys .npz copied exactly from executor inputs (filters_tests, lgssm_diffusion_experiment, lgssm_gradient_demo), synthetic 2-D models with observations from a direct upstream diffres.tools.simulate_lgssm call, and invalid inputs; built by tests/code/feynman_kac/make_fixtures.py",
+ "source_call_review": {
+  "smc": "smc_feynman_kac called unchanged (key, m0_sampler, log_g0, m_log_g, ys, N, T, resampling, resampling_threshold, return_path=True); resamplers are the upstream functions or the same lambdas as tests/test_filters.py and experiments/lgssm/*.py.",
+  "bootstrap_closures": "Extracted from tests/test_filters.py lines 59-73 / experiments/lgssm/*.py lines 63-80. Generalisations checked: (a) transition noise rnds @ chol(Q).T: equals the test's elementwise (trans_cov ** 0.5).T for diagonal Q (asserted bitwise for a 2-D diagonal Q; PF results bitwise equal to the elementwise-root closure), Cholesky as in diffres.tools.simulate_lgssm; for non-diagonal Q the elementwise root would not be a covariance factor, so Cholesky is the correct generalisation. (b) observation density: diagonal R keeps the upstream sum of univariate norm.logpdf (bitwise vs upstream form on a 2-D diagonal-R model); non-diagonal R uses vmap(diffres.tools.logpdf_mvn_chol) (bitwise vs a direct closure using logpdf_mvn_chol and vs an independent jax.scipy.stats.multivariate_normal oracle on a dx=2, dy=3 full-R/full-Q/full-P0 model). (c) Branch switch: on the same diagonal-R model, wrapper diagonal branch vs wrapper full branch (R with 1e-300 off-diagonal) differ by 7.1e-15 in nll, 1.4e-14 in log-weights, 0 in particles; upstream-sum vs logpdf_mvn_chol closures differ identically. Both reduce exactly to the upstream code on all upstream models (all saved upstream nll values reproduced bitwise).",
+  "nll_offset": "Confirmed from feynman_kac.py lines 81-85: nll0 = -logsumexp(log g0) without +log N, later increments use normalised weights, so raw nll = -log p_hat - log N exactly. Tested: H = 0 model (all potentials equal, PF likelihood exact): nll_plus_log_n equals the closed-form/KF nll to 1e-12 and nll = KF nll - log N for N = 16 and 100. Raw nll is returned as 'nll' (upstream value); nll_plus_log_n is a correctly labelled convenience.",
+  "kl_bures": "Confirmed against diffres/tools.py lines 41-63: kl() = tr(S1^-1 S0) - d + quad + logdet S1 - logdet S0 = 2 KL(N0||N1) (tested vs numpy closed form, rel 1e-10); bures() = |m0-m1|^2 + tr(S0+S1-2(S0^1/2 S1 S0^1/2)^1/2) = squared W2 (tested vs commuting closed form). Wrapper calls kl(m_KF, P_KF, m_PF, P_PF) as experiments/lgssm/diffusion.py line 121, so the stated '2 * KL(N_KF || N_PF)' is correct.",
+  "gradient": "jax.value_and_grad w.r.t. full F, H of the same smc call; equals the scalar-parameter gradients of experiments/lgssm and demos/gradient_variance2.py for dx=dy=1 (chain rule) and the direct jax.grad of an independent matrix closure (dx=2, dy=3).",
+  "moments_kf": "einsum moments as experiments/lgssm/diffusion.py lines 118-120; kf direct upstream; per-step vmap(kl)/vmap(bures).",
+  "no_invented_maths": true
+ },
+ "repairs": [
+  {
+   "n": 1,
+   "change": "_GRADIENT_NOTES rewritten. Removed unsupported claims: multinomial_stopped 'unbiased' (the paper, Sec. 1, only classes the stop-gradient method of Scibior & Wood as REINFORCE-based with often high variance; the executor's own 1000-key gradient demo shows its mean gradient differs from the exact KF gradient: mean (-0.708, -4.327) vs (-0.871, -5.527)); '(biased)' for index resamplers replaced by the code-supported statement that jax.grad treats ancestor indices as constants (paper Table 20: multinomial not differentiable). soft/gumbel notes now cite the paper's bias statements (Appendix F, Table 20); ensemble_ot note mentions implicit vs unrolled.",
+   "reason": "scientific claims in returned notes not supported by paper/code"
+  },
+  {
+   "n": 2,
+   "change": "Parameter descriptions: ot_implicit_diff now states that its default false follows experiments/lgssm/ot.py while the upstream function default and tests/test_filters.py use true (forward values identical); diffusion_T/diffusion_steps state the experiments/lgssm defaults (3, 8) and the test settings (2, 7).",
+   "reason": "defaults differing from the test settings / upstream function default must be visible"
+  },
+  {
+   "n": 3,
+   "change": "Added a clear error for resampling_method='ensemble_ot' with ot_eps=None and nparticles < 2 (previously a bare ZeroDivisionError from the wrapper's own 1/math.log(N)).",
+   "reason": "wrapper-side crash; upstream default eps=1/log(N) undefined for N=1"
+  },
+  {
+   "n": 4,
+   "change": "Symmetry-check error text corrected (coordinator note): it claimed 'Cholesky factors use its lower triangle only', which is false for jax 0.7.2 (jnp.linalg.cholesky symmetrises its input; asserted in test_symmetry_check_rationale). The check is kept because diffres.gaussian_filters.kf uses Q/R/P0 as given (an asymmetric Q gives asymmetric KF covariances, asserted in the same test) while the PF would silently use the symmetrised matrix. New text: '<name> must be symmetric (it is a covariance matrix; diffres.gaussian_filters.kf uses it as given, while jnp.linalg.cholesky would silently symmetrise it)'.",
+   "reason": "factually wrong error message"
+  }
+ ],
+ "defaults_review": {
+  "nparticles": "32 (experiments/lgssm)",
+  "resampling_method": "diffusion",
+  "resampling_threshold": "1.0 = upstream default",
+  "diffusion": "a=-0.5, T=3, steps=8, euler, ode=True, jitter=0 = experiments/lgssm/diffusion.py CLI defaults (test_filters uses T=2, linspace(0,2,8), ode=False); verified by a default call equal to a direct upstream run with those settings",
+  "ot_eps": "None -> upstream 1/log(N)",
+  "ot_implicit_diff": "False (experiments/lgssm/ot.py) vs upstream default True; documented",
+  "soft_alpha/gumbel_tau": "0.5/0.5 = experiments defaults"
+ },
+ "scientific_comparisons": {
+  "filters_tests (N=1000, T=100, key [0,666], 9 resamplers incl. systematic, lord_and_rougemont, jentzen_and_kloeden not smoke-tested by the implementer)": "nll bitwise for all 9; particle paths bitwise (index resamplers) or <= 8.4e-15; log-weight paths <= 2.8e-14; ESS rel <= 2.7e-15; moments, KF means/covs, KL vs saved path; upstream test assertions (rtol 6e-2/5e-2/7e-2) hold",
+  "lgssm_diffusion_experiment": "nll bitwise vs value_and_grad reference, 7.1e-15 vs plain path call; dF/dH <= 1.8e-15; paths, ESS, moments, per-step KL/Bures, mean KL/Bures (= err_filtering_kl/bures) <= 1.2e-14; KF nll bitwise",
+  "lgssm_gradient_demo (keys 0-2, diffusion a=-1,T=2,K=128,ODE,jitter 1e-5 and multinomial_stopped)": "losses bitwise; gradients <= 2e-14 (diffusion), bitwise (multinomial_stopped)",
+  "direct upstream changed inputs": "full 2-D model (multinomial, diffusion + gradient + KF): bitwise; soft 0.3, gumbel 0.3, ensemble_ot default eps (unrolled, + grad), ensemble_ot eps 0.5 implicit, systematic thr 0.5 (+grad), stratified thr 0 (no resampling), multinomial thr 0.7 (+grad), diffusion lord_and_rougemont ODE, diffrax ODE, tweedie SDE + jitter (+grad): nll <= 1.4e-14, particles <= 2.7e-15, log-weights <= 4.3e-14, gradients <= 1e-16; resampling_steps equals the upstream lax.cond predicate count; T=0 (single observation) matches",
+  "full per-case maxima": "tests/results/feynman_kac/comparisons.json"
+ },
+ "changed_input_and_error_checks": "seeds vs prng_key, repeated-call artifact isolation (fresh dirs, identical results), unchanged input files (sha256), 1-D vs 2-D ys identical, 24 invalid-input cases surfacing as MCP ToolErrors (missing files/keys, non-PD R, asymmetric Q, H shape, non-finite ys, wrong dy, no 'ys', N<1, threshold, diffusion a/T/steps/jitter, tweedie+ODE, diffrax+SDE, ot_eps<=0, ot default eps with N=1, soft alpha, gumbel tau, prng_key formats, unknown method), tool schema/format",
+ "composition": {
+  "direct": "observations from a direct diffres.tools.simulate_lgssm call accepted (matches an independent oracle); PF artifact 'samples' (N,dx) + normalised 'log_weights' (N,) fed to a direct upstream diffusion_resampling call",
+  "labelled cross-tool (not an oracle)": "gaussian_filters.diffres_simulate_lgssm_data data.npz + model.json -> this tool (matches oracle) -> resampling.diffres_resample_particles_diffusion via its own Client (n_particles 40, sample_shape [2], input_log_normaliser ~ 0)"
+ },
+ "commands": [
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 600 -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python tests/code/feynman_kac/make_fixtures.py",
+   "exit": 0,
+   "peak_mb": 166
+  },
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 ... pytest tests/code/feynman_kac -x -q (foreground)",
+   "exit": 143,
+   "note": "killed after ~2 min by the Bash tool's 120 s foreground timeout (17 tests had passed); not a test failure"
+  },
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log tests/logs/feynman_kac/pytest_attempt1.log -- ... pytest tests/code/feynman_kac -q",
+   "exit": 143,
+   "note": "SIGTERM ('Terminated') after 87 s, again after 17 passed tests, no scope peak line printed; cause not established (likely memory pressure from accumulated JIT executables). Fix: autouse fixture calling jax.clear_caches() + gc between tests; limit raised to 1300 MB"
+  },
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1300 --timeout 1800 --log tests/logs/feynman_kac/pytest_attempt2.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/feynman_kac -v --junitxml=tests/results/feynman_kac/junit_attempt2.xml",
+   "exit": 0,
+   "result": "66 passed, 0 failed (304 s)",
+   "peak_mb": 1003,
+   "note": "run after repairs 1-4 (production sha256 433db713...)"
+  },
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 ... verify_mcp_server.py (stdio server of this module) --cases <all 14>",
+   "exit": null,
+   "note": "started 01:47:49Z; WSL stopped abruptly at that moment (incident in COMMON_BRIEF.md); log tests/logs/feynman_kac/acceptance_dev.log ends after server start; cause unknown"
+  },
+  {
+   "cmd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 600 --log tests/logs/feynman_kac/acceptance_dev_retry.log -- diffres-env/bin/python $SKILL/scripts/verify_mcp_server.py --server <scratch stdio server mounting feynman_kac_mcp only> --expected [diffres_run_lgssm_particle_filter] --cases <3 minimal cases from reports/mcp-acceptance-feynman_kac.json> --require-all-tools --report tests/results/feynman_kac/acceptance_dev_report.json",
+   "exit": 0,
+   "result": "success: inventory exact, 3/3 cases passed (success, repeat with unique artifacts, R-not-PD error)",
+   "peak_mb": 738,
+   "note": "the single permitted retry; the other 11 cases were not dry-run (re-run at integration)"
+  }
+ ],
+ "test_totals": {
+  "collected": 66,
+  "passed": 66,
+  "failed": 0,
+  "skipped": 0
+ },
+ "acceptance_cases": "reports/mcp-acceptance-feynman_kac.json (14 cases: 7 successful incl. a repeated call, 7 error cases); 3 dry-run over stdio",
+ "attempts_per_tool": {
+  "diffres_run_lgssm_particle_filter": "test/repair attempts: 2 test runs to completion budget (1 terminated, 1 passed) + 1 dry run retry; 4 repairs, all within ownership"
+ },
+ "exclusions": [],
+ "limitations": [
+  "Gradient notes describe what jax.grad differentiates and the paper's qualitative statements; no statistical bias/variance study was run.",
+  "No memory guard for diffusion/ensemble_ot/gumbel_softmax (N x N per step), as upstream; tests kept N <= 1000.",
+  "Matrix generalisations (full Q, full R) go beyond the upstream 1-D experiments; they are verified against independent direct-upstream closures, not against upstream-saved outputs (none exist).",
+  "Attempt-1 termination cause not established; the passing run used jax.clear_caches between tests."
+ ]
+}

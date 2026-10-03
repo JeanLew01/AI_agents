@@ -1,0 +1,156 @@
+{
+  "page": 11,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0011.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 150 dpi render and a 230 dpi crop of PDF page 11 and with the TeX source. The first item continues the last paragraph of page 10 ('... and then | compute the buffers from Lemma 4.'; join_previous 'space'). Heading '## 5 Illustrative Example: Spacecraft Rendezvous' (capitalisation as printed). All mathematics rewritten in LaTeX from the TeX source and checked on the crop; TeX and PDF agree. The extractor 'formula' images were replaced by $$ blocks with the printed numbers (23) (two equations on one line separated by \\qquad), (24), (25), (26) (two $$ blocks in one item so that each keeps its number). Every number of the example was read on the crop: $m_d=300$ kg, altitude 850 km, sampling time 20 s, noise covariance $10^{-4}\\times\\text{diag}(1,1,5\\times10^{-4},5\\times10^{-4})$, target set bounds 0.1, -0.1, 0, 0.01, 0.01, safe set bounds -1, 0.05, 0.05, $N=5$, initial position $x=y=-0.75$ km, initial velocity 0 km/s, $\\mathcal{U}=[-0.1,0.1]\\times[-0.1,0.1]$, reference probability 0.86, $K=2000$, 100 experiments, 2.8 GHz, i5, 16 GB, up to 100 cells, $\\hat{K}=20$, 2.68 s, '100 $k$-means with 1 to 100 cells', '20 to 40 cells'. Numbers that the source sets in math mode inside prose (40, 850, 20, 100, 2.8, 16, 2.68, ...) are written as plain digits. Citations checked: [4], [25], [4], [4, 10], [26], [18, Rem. 1]. References to 'Figure 4a/4b/4c', 'Algorithm 1', 'Theorem 1', 'Problem 3' resolved to the printed numbers. Kept as printed (source slips, not conversion errors): in (23) the term '$3\\omega x$' (not $3\\omega^2x$) and $\\omega$ without a factor in '$2\\omega\\dot{y}$'; '$m_d$' is called the mass of the chief; row vectors $\\zeta=[x,y,\\dot{x},\\dot{y}]$ and $u=[F_x,F_y]$ without transpose; in (26) '$|\\zeta_1|\\leq\\zeta_2$' together with '$-1\\leq\\zeta_2$'; '$\\mathcal{W}_N$' (index $N$, not $K$) in 'in each experiment $\\mathcal{W}_N$ is generated randomly'; '$WSS$' in math italics once; 'coincides the “knee”'; 'exponentially increases exponentially'; '$\\hat{K}$s'. The last paragraph breaks at the page end after 'The computed terminal time probability and the' and continues on page 12 below the Figure 4 float (page-12 item joined with a space). In the reading order Figure 4 and its caption (printed at the top of page 12, inside that sentence) follow the paragraph 'We set $K=2000$ ...' of this page, which introduces Figure 4a-4c.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0011-b000",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        59.0,
+        556.0,
+        84.0
+      ],
+      "markdown": "compute the buffers from Lemma 4. All these steps are executed offline (independent of $x_0$), while solving Problem 3 and probability reconstruction using (22) is done online (dependent on $x_0$).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0011-b001",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        105.0,
+        399.0,
+        119.0
+      ],
+      "markdown": "## 5 Illustrative Example: Spacecraft Rendezvous"
+    },
+    {
+      "id": "p0011-b002",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        131.0,
+        556.0,
+        197.0
+      ],
+      "markdown": "We consider the spacecraft rendezvous example discussed in [4]. In this example, two spacecraft are in the same elliptical orbit. One spacecraft, referred to as the deputy, must approach and dock with another spacecraft, referred to as the chief, while remaining in a line-of-sight cone, in which accurate sensing of the other vehicle is possible. The relative dynamics are described by the Clohessy-Wiltshire-Hill (CWH) equations as given in [25],"
+    },
+    {
+      "id": "p0011-b003",
+      "kind": "text",
+      "bbox": [
+        184.0,
+        203.0,
+        561.0,
+        227.0
+      ],
+      "markdown": "$$\n\\ddot{x} - 3 \\omega x - 2 \\omega \\dot{y} = m_{d}^{-1}F_{x},\\qquad\\ddot{y} + 2 \\omega \\dot{x} = m_{d}^{-1}F_{y}. \\tag{23}\n$$"
+    },
+    {
+      "id": "p0011-b004",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        234.0,
+        556.0,
+        283.0
+      ],
+      "markdown": "The position of the deputy is denoted by $x,y \\in \\mathbb{R}$ when the chief, with the mass $m_d=300$ kg, is located at the origin. For the gravitational constant $\\mu$ and the orbital radius of the spacecraft $R_{0}$, $\\omega = \\sqrt{\\mu/R_{0}^{3}}$ represents the orbital frequency. In this example, the spacecraft is in a circular orbit at an altitude of 850 km above the earth."
+    },
+    {
+      "id": "p0011-b005",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        286.0,
+        556.0,
+        313.0
+      ],
+      "markdown": "We define $\\zeta = [x,y,\\dot{x},\\dot{y}] \\in \\mathbb{R}^{4}$ as the system state and $u = [F_{x},F_{y}] \\in \\mathcal{U}\\subseteq\\mathbb{R}^{2}$ as the system input, then discretize the dynamics (23) with a sampling time of 20 s to obtain the discrete-time LTI system,"
+    },
+    {
+      "id": "p0011-b006",
+      "kind": "text",
+      "bbox": [
+        246.0,
+        320.0,
+        561.0,
+        342.0
+      ],
+      "markdown": "$$\n\\zeta_{t+1} = A \\zeta_{t} + B u_{t} + w_{t}. \\tag{24}\n$$"
+    },
+    {
+      "id": "p0011-b007",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        348.0,
+        556.0,
+        375.0
+      ],
+      "markdown": "The additive stochastic noise, modeled by the Gaussian i.i.d. disturbance $w_{t} \\in \\mathbb{R}^{4}$, with $\\mathbb{E}[w_{t}] = 0$, and $\\mathbb{E}[w_{t}w_{t}^\\top] = 10^{-4}\\times\\text{diag}(1, 1, 5 \\times 10^{-4}, 5 \\times 10^{-4})$, accounts for disturbances and model uncertainty."
+    },
+    {
+      "id": "p0011-b007b",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        376.0,
+        556.0,
+        388.0
+      ],
+      "markdown": "We define the target set and the safe set as in [4],"
+    },
+    {
+      "id": "p0011-b008",
+      "kind": "text",
+      "bbox": [
+        148.0,
+        394.0,
+        561.0,
+        436.0
+      ],
+      "markdown": "$$\n\\mathcal{T} = \\left\\{ \\zeta \\in \\mathbb{R}^{4}: |\\zeta_{1}| \\leq 0.1, -0.1 \\leq \\zeta_{2} \\leq 0, |\\zeta_{3}| \\leq 0.01, |\\zeta_{4}| \\leq 0.01 \\right\\}, \\tag{25}\n$$\n\n$$\n\\mathcal{S} = \\left\\{\\zeta \\in \\mathbb{R}^{4}: |\\zeta_{1}| \\leq \\zeta_{2}, -1\\leq \\zeta_{2}, |\\zeta_{3}| \\leq 0.05, |\\zeta_{4}| \\leq 0.05 \\right\\}, \\tag{26}\n$$"
+    },
+    {
+      "id": "p0011-b010",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        443.0,
+        556.0,
+        494.0
+      ],
+      "markdown": "with a horizon of $N = 5$. We consider the initial position $x=y=-0.75$ km, the initial velocity $\\dot{x}=\\dot{y}=0$ km/s and $\\mathcal{U} = [-0.1, 0.1]\\times [-0.1, 0.1]$. The terminal time probability for this problem using existing approaches [4, 10] is known to be 0.86, which we assume to be the best open-loop controller-based reach-avoid probability estimate."
+    },
+    {
+      "id": "p0011-b011",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        497.0,
+        556.0,
+        711.0
+      ],
+      "markdown": "We set $K=2000$ as the number of original samples to estimate the terminal time probability, with guarantees afforded by Theorem 1, and run 100 random experiments in which in each experiment $\\mathcal{W}_N$ is generated randomly. Simulations are carried out using CVX [26] on a 2.8 GHz processor Intel Core i5 with 16 GB RAM. Figure 4a shows the $\\mathrm{WSS}$ curve (mean value and standard deviation of the results of the 100 experiments) with up to 100 cells. Figure 4b shows the terminal time probability approximation provided by Algorithm 1. As proposed, the “knee” of Figure 4a coincides the “knee” of Figure 4b; improvements in the accuracy of Algorithm 1 are insignificant beyond $\\hat{K}=20$. In practice, $\\hat{K}$ can be selected from one single experiment in which $WSS$ is calculated for a random disturbance set $\\mathcal{W}_K$ for up to 100 (maximum allowable) cells. The computation of $\\mathrm{WSS}$ curve shown in Figure 4a, for one experiment using $k$-means method, took only about 2.68 s, hence is reasonable for *offline* computation to select $\\hat{K}$. The reported time includes the computation time for solving 100 $k$-means with 1 to 100 cells. This time, which is associated with offline step, can be further reduced by changing the step size of $\\hat{K}$ variation (horizontal axis) or calculating $\\mathrm{WSS}$ for arbitrary $\\hat{K}$s (e.g. finer steps at the beginning and coarser steps at the end). The run time for the online component of Algorithm 1 is shown in Figure 4c. Since Problem 3 is a mixed-integer linear program, the time complexity exponentially increases exponentially with the number of cells [18, Rem. 1]."
+    },
+    {
+      "id": "p0011-b012",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        714.0,
+        556.0,
+        738.0
+      ],
+      "markdown": "We see in Figure 4b, that partitions with 20 to 40 cells provide a reasonable estimate of the terminal time probability, without significant loss of precision. The computed terminal time probability and the"
+    }
+  ]
+}

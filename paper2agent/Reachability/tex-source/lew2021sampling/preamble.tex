@@ -1,0 +1,324 @@
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+
+% \usepackage{caption}
+% \usepackage[font=small,labelfont=bf]{caption}
+
+% \usepackage{bibspacing}
+% \setlength{\bibitemsep}{.2\baselineskip plus .05\baselineskip minus .05\baselineskip}
+
+% \usepackage{natbib}
+% \setlength{\bibsep}{0.0pt}
+
+
+% \usepackage{eufrak}
+% \usepackage{stackengine}
+% \usepackage{multirow}
+\usepackage{tabularx}
+\newcolumntype{C}{>{\centering\arraybackslash}p{19mm}}
+\newcolumntype{G}{>{\centering\arraybackslash}p{4mm}}
+\newcolumntype{S}{>{\centering\arraybackslash\scriptsize}p{4mm}}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{color}
+% \usepackage{subcaption}
+
+\usepackage{amsthm}
+
+\usepackage{cleveref} % for Cref
+
+\usepackage{xspace}
+
+\usepackage{enumitem} % for custom spacing in enumerate
+
+\usepackage{cite} % To have [1-4]
+
+% \usepackage{tabto} % for itemize and tabs
+
+\usepackage{amssymb}% # problematic with IEE aerospace?
+% \usepackage{bbm} % for fancy 1"
+% \usepackage{physics} % for norms
+% \usepackage{comment}
+    
+%\usepackage{siunitx}
+\usepackage{algorithm}
+\captionsetup[algorithm]{labelsep=period} % add preiod after Algorithm 1
+\makeatletter
+%\renewcommand{\ALG@name}{Algorithm}
+\renewcommand*{\ALG@name}{Alg.}
+\makeatother
+% \usepackage{algorithm2e} 
+\usepackage[noend]{algpseudocode}
+
+\newtheoremstyle{break}
+  {}%         Space above, empty = `usual value'
+  {}%         Space below
+  {\itshape}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {.}%        Punctuation after thm head
+  {\newline}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+  
+  
+\theoremstyle{break}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+
+% \theoremstyle{definition}
+\newtheorem{definition}{Definition}
+ 
+
+% ----- Commenting macros 
+
+\newcommand\lew[1]{\textcolor{cyan}{[TL: #1]}} 
+\newcommand\bonalli[1]{\textcolor{red}{[RB: #1]}} 
+\newcommand{\tlmargin}[2]{{\color{cyan}#1}\marginpar{\color{cyan}\raggedright\footnotesize [TL]:#2}}
+
+
+\newcommand{\mpmargin}[2]{{\color{cyan}#1}\marginpar{\color{cyan}\raggedright\footnotesize [MP]:#2}}
+
+% ----- Macros
+
+
+\newcommand\mydots{\hbox to 1em{.\hss.\hss.}}
+
+
+
+
+\newcommand{\Ninit}{N_{\textrm{init}}} % state
+
+
+\newcommand{\eq}[1]{Eq.~\ref{#1}}
+\newcommand{\fig}[1]{Fig.~\ref{#1}}
+\renewcommand{\sec}[1]{Section~\ref{#1}}
+
+\newcommand{\RCCOCP}{\textbf{R-CCOCP}}
+\newcommand{\ECCOCP}{\textbf{E-CCOCP}}
+
+\newcommand{\x}{\bm{x}} % state
+\newcommand{\bc}{\bm{c}} % center
+\newcommand{\ac}{\bm{u}} % action
+\newcommand{\z}{\bm{z}} % state-action
+\newcommand{\bmu}{\boldsymbol\mu} % mean: state
+\newcommand{\bSigma}{\boldsymbol\Sigma}
+\newcommand{\bSigmaEps}{\bSigma_{\ep}}
+\newcommand{\bQ}{\bm{Q}}
+\newcommand{\bSigmaInit}{\bSigma_{\textrm{init}}}
+\newcommand{\bSigmaTilde}{\tilde{\bSigma}}
+\newcommand{\bQInit}{\bQ_{\textrm{init}}}
+\newcommand{\bQTilde}{\tilde{\bQ}}
+\newcommand{\eptol}{\epsilon_{\textrm{tol}}}
+\newcommand{\bac}{\boldsymbol\nu} % mean: action
+\newcommand{\bz}{\bar{\bm{z}}} % mean: state-action
+\newcommand{\y}{\bm{y}} % observation
+\newcommand{\ep}{\bm{\epsilon}} % process noise
+\newcommand{\feat}{\bm{\phi}} % feature mapping
+\newcommand{\bPhi}{\bm{\Phi}} % feature mapping
+\newcommand{\w}{\bm{w}} % disturbances
+\newcommand{\btheta}{\bm{\theta}} % dynamics parameters
+\newcommand{\param}{\bm{\theta}} % dynamics parameters
+\newcommand{\lr}{\bm{\eta}} % learning rate adv sampling
+\newcommand{\bLambda}{\boldsymbol{\Lambda}} 
+\newcommand{\bbW}{\bm{W}} % dynamics latent
+\newcommand{\pol}{\bm{\pi}} % policy
+\newcommand{\cost}{l}
+\newcommand{\costf}{l_f}
+\newcommand{\f}{\bm{f}} % transition function
+\newcommand{\h}{\bm{h}} % transition function
+\newcommand{\gtheta}{\bm{\g}_{\param}} % transition function
+\newcommand{\gthetai}{\g_{\param,i}} % dimension of transition function
+\newcommand{\g}{\bm{g}} % transition function (alpaca
+\newcommand{\ghat}{\hat{\bm{g}}}
+\newcommand{\bphi}{\bm{\phi}}
+\newcommand{\bkappa}{\boldsymbol{\kappa}}
+
+
+% linear structural constraints
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\bh}{\mathbf{h}}
+
+
+
+\newcommand{\xdim}{n_{\x}}%{n}
+\newcommand{\udim}{n_{\ac}}%{m}
+\newcommand{\ydim}{n}%{n_y}
+\newcommand{\phidim}{n_{\feat}}
+
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\MN}{\mathcal{MN}}
+\newcommand{\Prob}{\mathbb{P}}
+
+\newcommand{\K}{\bm{K}} % prior mean
+\newcommand{\Kbar}{\bar{\bm{K}}} % prior mean
+\newcommand{\Kstar}{\bm{K}_*} % optimal K
+\newcommand{\Linv}{\boldsymbol{\Lambda}^{-1}} % prior covariance
+\renewcommand{\k}{\bm{k}} % row of K
+\newcommand{\kstar}{\bm{k}_*} % row of optimal K
+\newcommand{\kstari}{\bm{k}_{i}^{*}} % ith row of optimal K
+\newcommand{\kbar}{\bar{\bm{k}}} % row of Kbar
+\newcommand{\kbari}{\bar{\bm{k}}_{i}} % ith row of Kbar
+\newcommand{\confset}{\mathcal{C}} % confidence set
+
+\newcommand{\sep}{\Sigma_{\epsilon}}
+\newcommand{\px}{p_x} % policy
+\newcommand{\pu}{p_u} % policy
+
+% System-dependent macros
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bomega}{\boldsymbol\omega}
+\newcommand{\bF}{\mathbf{F}}
+\newcommand{\bM}{\mathbf{M}} 
+\newcommand{\bJ}{\mathbf{J}}
+\newcommand{\bRot}{\mathbf{R}}
+\newcommand{\bS}{\mathbf{S}}
+\newcommand{\ba}{\mathbf{a}} % vector
+\newcommand{\bpos}{\mathbf{p}} % vector
+\newcommand{\pos}{\bm{p}}
+\newcommand{\vel}{\bm{v}}
+\newcommand{\br}{\mathbf{r}} % position
+\newcommand{\thetadot}{\dot{\theta}} % position
+
+
+
+
+
+% sets
+\newcommand{\initpol}{\pi_{\text{init}}}
+\newcommand{\goalpol}{\pi_{\text{goal}}}
+
+
+\newcommand{\G}{\bm{G}}
+
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Xinit}{\mathcal{X}_{\text{init}}}
+\newcommand{\Xsafe}{\mathcal{X}_{\text{free}}}
+\newcommand{\Xgoal}{\mathcal{X}_{\text{goal}}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\xinit}{\x_{\text{init}}}
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\Loss}{\mathcal{L}}
+
+
+\newcommand{\V}{\text{Var}}
+\newcommand{\tr}{\text{tr}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\W}{\mathbb{W}}
+\newcommand{\pr}{\text{Pr}} 
+
+\newcommand{\maxeig}[1]{\lambda_\mathrm{max}(#1)}
+\newcommand{\mineig}[1]{\lambda_\mathrm{min}(#1)}
+\newcommand{\diag}{\textrm{diag}}
+\newcommand{\blckdiag}{\textrm{blockdiag}}
+
+\newcommand{\D}{D}
+\newcommand{\Dcontext}{D_\mathrm{context}}
+\newcommand{\Dquery}{D_\mathrm{query}}
+
+\newcommand{\ccocp}{\textbf{(CC-OCP)}\xspace}
+
+% -- notation
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\grad}{\boldsymbol\nabla} % gradient
+\newcommand{\F}{\bm{F}} % feedback gain
+\newcommand{\bcdot}{\boldsymbol\cdot} % gradient
+
+\newcommand{\entropy}{\mathrm{Entropy}}
+\newcommand{\reg}{\mathrm{l}_2}
+
+
+\newtheoremstyle{nolinebreakstyle}
+  {}%   Space above
+  {}%   Space below
+%  {\topsep} % Space above
+%  {\topsep} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {.} % Punctuation after theorem head
+  {.2em} % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning `normal'
+\theoremstyle{nolinebreakstyle}
+\newtheorem{mydef}{Definition}
+  
+  
+\newtheoremstyle{exampstyle}
+  {1em plus .2em minus .1em}%   Space above
+  {1em plus .2em minus .1em}%   Space below
+%  {\topsep} % Space above
+%  {\topsep} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {.} % Punctuation after theorem head
+  {.5em} % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning `normal'
+  
+%\newtheorem{mydef}{Definition}
+%use next two lines instead for non-italic alternative
+% \theoremstyle{exampstyle}
+% \newtheorem{mydef}{Definition}
+% \theoremstyle{exampstyle}
+\newtheorem{mylemma}{Lemma}[section]
+
+\theoremstyle{exampstyle}
+\newtheorem{mycorollary}{Corollary}[section]
+
+\theoremstyle{exampstyle}
+\newtheorem{myproblem}{Problem}
+
+\theoremstyle{exampstyle}
+% \newtheorem{preremark3}{Theorem}[section]
+\newtheorem{preremark3}{Theorem}
+\newenvironment{mytheorem}{\begin{preremark3}\upshape}{\end{preremark3}}
+
+
+ 
+ 
+\theoremstyle{exampstyle}
+\newtheorem{myproposition}{Proposition}[section]
+
+\theoremstyle{exampstyle}
+\newtheorem{myproperty}{Property}[section]
+
+\theoremstyle{exampstyle}
+\newtheorem{myassumption}{Assumption}[section]
+
+
+
+\newcommand{\SubItem}[1]{
+    {\setlength\itemindent{15pt} \item[-] #1}
+}
+
+
+
+
+\newcommand\Tstrut{\rule{0pt}{2.6ex}}         % = `top' strut
+\newcommand\Bstrut{\rule[-0.9ex]{0pt}{0pt}}   % = `bottom' strut
+\usepackage{multirow}
+
+
+
+
+
+%%%%% My matrix definitions
+\newcommand{\eye}{\mathrm{I}} % identity matrix
+\newcommand{\zeros}{\mathrm{0}} % zeros matrix
+\newcommand\AverageSmallMatrix[1]{{%
+  \footnotesize\arraycolsep=0.22\arraycolsep\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}}
+\newcommand\SmallMatrix[1]{{%
+  \tiny\arraycolsep=0.5\arraycolsep\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}}
+\newcommand\MegaSmallMatrix[1]{{%
+  \footnotesize\arraycolsep=0.18\arraycolsep\ensuremath{\begin{bmatrix}#1\end{bmatrix}}}}

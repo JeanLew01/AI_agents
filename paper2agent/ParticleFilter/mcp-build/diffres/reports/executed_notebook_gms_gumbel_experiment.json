@@ -1,0 +1,97 @@
+{
+ "gms_gumbel_experiment": {
+  "execution_id": "gms_gumbel_experiment",
+  "status": "success",
+  "source": {
+   "path": "experiments/gms/gumbel.py",
+   "project_path": "repo/diffres/experiments/gms/gumbel.py",
+   "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/gumbel.py",
+   "revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+   "sha256": "138738ff2784f1063b7f13b9abb9cd0032a2d75e63df81d55f26c0d439e4b975",
+   "module": "resampling",
+   "upstream_symbol": "diffres.resampling.gumbel_softmax(key, log_ws, samples, tau)",
+   "upstream_symbol_file_sha256": {"repo/diffres/diffres/resampling.py": "12b33fe23e1f62e18909cbcff9fa45db36ed65f6f943668728c9fe61795aa06e", "repo/diffres/diffres/tools.py": "54c60e1ac4f484532f51be57a63aacbdfb7a53ef8cef621495176ea7a843a5df"},
+   "supports_tool": "diffres_resample_particles_baseline (method='gumbel_softmax', parameter tau)",
+   "repo_modified": false,
+   "repo_check": "git -C repo/diffres status --short --ignored -> empty after all runs"
+  },
+  "execution_mode": "native_script_plus_capture_and_replay_drivers",
+  "execution_path": "notebooks/gms_gumbel_experiment/logs/01_native_run.log",
+  "execution_files": {
+   "native_script": "repo/diffres/experiments/gms/gumbel.py (run unmodified by absolute path, cwd notebooks/gms_gumbel_experiment/run_native)",
+   "capture_driver": "notebooks/gms_gumbel_experiment/capture_driver.py (runpy.run_path of the unmodified script with the same argv, then saves the script's module globals; no algorithm code)",
+   "replay_driver": "notebooks/gms_gumbel_experiment/replay_driver.py (loads saved inputs, calls diffres.resampling.gumbel_softmax again jitted and eager, recomputes the script's metric with the script's own swd/residual code, compares)"
+  },
+  "runtime_environment": {
+   "python": "diffres-env/bin/python (CPython 3.11.17)",
+   "jax": "0.7.2 (CPU, jax.devices()=[TFRT_CPU_0])",
+   "jax_enable_x64": true,
+   "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, PYTHONPATH unset); GPU memory used 0 MiB before/after every job",
+   "notebook_kernel": "not used (native script; no notebook created as a log container)"
+  },
+  "arguments": {
+   "used": {"id_l": 0, "id_u": 0, "nsamples": 1000, "tau": 0.1, "dx": 8, "dy": 1, "c": 5, "offset": 0.0},
+   "upstream_defaults": {"nsamples": 10000, "tau": 0.5, "dx": 8, "dy": 1, "c": 5, "offset": 0.0},
+   "run_gms_sh_settings": "nsamples=10000, --id_l=0 --id_u=99, tau in {0., 0.2, 0.4, 0.8}",
+   "changes_vs_upstream": [
+    "--id_l=0 --id_u=0 (one Monte Carlo run instead of 100)",
+    "--nsamples=1000 instead of 10000 (assignment; machine memory budget)",
+    "--tau=0.1 as assigned (paper Table 1 setting; experiments/summary/print_gms_errs.py tabulates taus [0.1, 0.2, 0.4, 0.8], while run_gms.sh launches --tau=0. instead of 0.1, which looks like an upstream typo; noted, not changed)"
+   ],
+   "offset": "default 0.0; note the script parses --offset but never uses it (y = y_likely)"
+  },
+  "attempts": [
+   {"n": 1, "what": "native run of gumbel.py", "command": "heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/01_native_run.log -- env --chdir=notebooks/gms_gumbel_experiment/run_native PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python repo/diffres/experiments/gms/gumbel.py --id_l=0 --id_u=0 --nsamples=1000 --tau=0.1", "exit_status": 0, "job_runtime_s": 17, "wall_incl_lock_wait_s": 116.6, "peak_memory_mb": 440, "oom_kills": 0, "stdout": "Gumbel-softmax (id=0) with tau=0.1 has err 0.227317260122535."},
+   {"n": 2, "what": "capture driver (first try)", "command": "same as attempt 3 but --limit-mb 1200", "exit_status": 75, "note": "heavy.sh refused to start: MemAvailable=3126 MB < 1200+2000; log logs/02a_capture_refused_exit75.stderr. Lowered limit to 900 MB (observed peak 440 MB)."},
+   {"n": 3, "what": "capture driver", "command": "heavy.sh --limit-mb 900 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/02_capture_run.log -- env --chdir=notebooks/gms_gumbel_experiment/run_capture PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python notebooks/gms_gumbel_experiment/capture_driver.py notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz notebooks/gms_gumbel_experiment/data/capture_meta.json --id_l=0 --id_u=0 --nsamples=1000 --tau=0.1", "exit_status": 0, "job_runtime_s": 14, "peak_memory_mb": 439, "oom_kills": 0},
+   {"n": 4, "what": "replay driver (fresh process)", "command": "heavy.sh --limit-mb 900 --timeout 1800 --log notebooks/gms_gumbel_experiment/logs/03_replay_run.log -- env --chdir=notebooks/gms_gumbel_experiment PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python notebooks/gms_gumbel_experiment/replay_driver.py notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz notebooks/gms_gumbel_experiment/run_native/gms/results/gumbel-0.1-0.npz notebooks/gms_gumbel_experiment/outputs/replay_outputs.npz notebooks/gms_gumbel_experiment/outputs/replay_comparison.json", "exit_status": 0, "job_runtime_s": 13, "peak_memory_mb": 355, "oom_kills": 0}
+  ],
+  "memory_note": "gumbel_softmax vmaps an n-length softmax over n keys, i.e. n x n float64 intermediates (8 MB at n=1000). Peak scope memory 440 MB (mostly JAX/XLA/ott runtime); no memory pressure at n=1000. At the upstream n=10000 one n x n float64 array is 800 MB (not run here).",
+  "data_and_seed_provenance": {
+   "rnd_keys": "repo/diffres/experiments/rnd_keys.npy (uint32 (10000,2), sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df), copied unchanged into run_native/ and run_capture/",
+   "key_mc": [2482698485, 3875352609],
+   "resampling_key": [1100985983, 1476939598],
+   "resampling_key_derivation": "row 0 of rnd_keys.npy, then the script's chain of jax.random.split(key)[0] calls (5 splits) before the resampling call",
+   "data_generation": "script's own code: 5-component GM in d=8 (ms ~ U(-5,5), covs = a a^T + I), prior samples via diffres.tools.sampling_gm, exact posterior via diffres.tools.gm_lin_posterior with y = obs_op @ mixture mean, obs_op = ones(1,8), obs_cov = I_1",
+   "weights": "log_ws = sum N(y; obs_op x, 1) log-likelihood, normalised by logsumexp; ESS = 129.54 of 1000, max weight 0.01084"
+  },
+  "inputs": {
+   "path": "notebooks/gms_gumbel_experiment/data/gumbel_inputs_outputs.npz",
+   "sha256": "f76a655a1c4702b5c0339bdbfcd0dec26de0c80fda7259d73ee1f24355294ae1",
+   "contents": "float64 unless noted: key_mc (uint32 2), resampling_key (uint32 2), tau (0.1), mc_id (int64 0), vs (5), ms (5,8), covs (5,8,8), obs_op (1,8), obs_cov (1,1), y (1), post_vs (5), post_ms (5,8), post_covs (5,8,8), prior_samples (1000,8) [resampler samples], log_ws (1000) [resampler log weights], ws (1000), post_samples (1000,8), approx_post_log_ws (1000), approx_post_samples (1000,8), err (), residual (8), approx_m (8), true_m (8)",
+   "resampler_call": "jax.jit(lambda k, lw, x: gumbel_softmax(k, lw, x, 0.1))(resampling_key, log_ws, prior_samples) with jax_enable_x64=True",
+   "meta": "notebooks/gms_gumbel_experiment/data/capture_meta.json (sha256 b11523f203e01799d94999929a6c616c6206ba1c53b66ab6f1b9a7d884982551)"
+  },
+  "outputs": {
+   "native_script_output": {"path": "notebooks/gms_gumbel_experiment/run_native/gms/results/gumbel-0.1-0.npz", "sha256": "05568892b76b7d2b6dcf5b95c4dc4c1f85c59a73d5c52d72342790170aeb9187", "keys": "post_samples, approx_post_log_ws, approx_post_samples, err, residual (float64)"},
+   "capture_run_script_output": {"path": "notebooks/gms_gumbel_experiment/run_capture/gms/results/gumbel-0.1-0.npz", "sha256": "05568892b76b7d2b6dcf5b95c4dc4c1f85c59a73d5c52d72342790170aeb9187", "note": "byte-identical to the native file"},
+   "replay_outputs": {"path": "notebooks/gms_gumbel_experiment/outputs/replay_outputs.npz", "sha256": "accb8c83fa01f146b0d4e49c10a7bcb1cecf706641f950fb834f86fc36f9b946"},
+   "replay_comparison": {"path": "notebooks/gms_gumbel_experiment/outputs/replay_comparison.json", "sha256": "ca0bfc93cdb63d1733ed9b0fe553f1f445276613d6510fcacea435480915a7a4"}
+  },
+  "reference_results": {
+   "err_swd_p1_nproj1000": 0.227317260122535,
+   "residual": [-0.13012332, 0.00789854, 0.25779259, 0.23893686, 0.00714925, -0.119703, -0.03666808, -0.18389459],
+   "residual_sq_sum": 0.19008400082698423,
+   "approx_post_log_ws": "all equal to -log(1000) = -6.907755278982137 (uniform, as documented)",
+   "approx_post_samples_shape": [1000, 8],
+   "all_finite": true,
+   "interpretation": "Single MC run at n=1000; not comparable as a Table-1 statistic (paper averages 100 runs at n=10000). Reference numbers are for exact-replay verification of the tool, not a reproduction of the paper's table."
+  },
+  "replay_comparisons": {
+   "native_vs_capture (separate processes, same script)": "post_samples, approx_post_log_ws, approx_post_samples, err, residual: bitwise equal; result .npz files byte-identical",
+   "replay_jit_vs_capture (fresh process, gumbel_softmax under jax.jit as in script)": "approx_post_log_ws, approx_post_samples, err, residual: bitwise equal (max abs diff 0.0)",
+   "replay_eager_vs_capture (gumbel_softmax without jit)": "approx_post_log_ws bitwise equal; approx_post_samples not bitwise, max abs diff 4.44e-15, max rel diff 7.49e-13 (XLA fusion/reassociation of the softmax @ samples product); within the ~1e-12 float64 tolerance",
+   "recommended_tool_test_tolerance": "exact for log weights; for particles atol 1e-12 if the tool jits like the script, otherwise atol ~1e-13 / rtol 1e-11 (eager vs jit differs at 4e-15)",
+   "metric_replay_note": "err recomputed with the script's swd definition (ott sliced_wasserstein PNormP(p=1), n_proj=1000, default rng) gives the identical value 0.227317260122535"
+  },
+  "figures": "not applicable: the script produces no plots",
+  "limitations": [
+   "Only MC id 0 at n=1000 (vs. 100 runs at n=10000 upstream); paper Table 1 statistics are not reproduced.",
+   "The capture driver obtains inputs from the script's module globals after runpy execution; they are exactly the arrays the script passed to gumbel_softmax.",
+   "The replay driver duplicates the script's 2-line metric wrappers (swd, residual einsum) to recompute metrics; the resampler itself is called from diffres.resampling.",
+   "run_gms.sh launches --tau=0. (not 0.1); tau=0 would divide by zero in gumbel_softmax. Not run."
+  ],
+  "blockers": [],
+  "date_utc": "2026-10-03"
+ }
+}

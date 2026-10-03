@@ -1,0 +1,261 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0004-b001"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        26.0,
+        53.0,
+        32.0
+      ],
+      "markdown": "4",
+      "source_class": "page-header",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        265.0,
+        26.0,
+        564.0,
+        33.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED JUNE, 2022",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        58.0,
+        198.0,
+        68.0
+      ],
+      "markdown": "# **Algorithm 1:** Safe RL with BRSL",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        45.0,
+        73.0,
+        277.0,
+        315.0
+      ],
+      "markdown": "- **1 initialize** the RL agent with a random policy _πθ_ , environment model _µφ_ , empty replay buffer _B_ , max number of time steps _n_ iter, and a safe plan **p** 0 \n\n- **2 for** _each episode_ **do 3 initialize** task with reward function _ρ_ **4 x** ˆ1 _←_ observe initial environment state **5 for** _k_ = 1 : _n_ iter **do 6 p** _k ←_ roll out a trajectory **7** _R_ ˆ _k ←Z_ ( **x** _k,_ **0** ) // init. reachable set **8** � _R_ ˆ _j_ � _kj_ =+ _kn_ plan _←_ reach� _R_ ˆ _k,_ **p** _k_ � // use Alg. 2 **9 if** _any R_<sup>ˆ</sup> _j ∩ X_ obs _̸_ = _∅_ **then** \n\n- **10 try p** _k ←_ adjust( **p** _k, X_ obs) // use Alg. 3 **11 catch** execute failsafe maneuver; continue **12 u** _k ←_ get first (safe) action from **p** _k_ **13** _rk ← ρ_ (ˆ **x** _k,_ **u** _k_ ) // get reward **14 x** ˆ _k_ +1 _←_ observe next environment state **15 add** (ˆ **x** _k,_ **u** _k, rk,_ ˆ **x** _k_ +1) to _B_ **16 train** the RL agent _πθ_ and the environment model _µφ_ using minibatch from _B_",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        346.0,
+        301.0,
+        368.0
+      ],
+      "markdown": "enable safe trajectory optimization. Theorem 1 summarizes safety via BRSL.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        371.0,
+        301.0,
+        620.0
+      ],
+      "markdown": "BRSL is summarized in Algorithm 1. It uses a recedinghorizon strategy to create a new safe plan **p** _k_ in each _k_<sup>th</sup> receding-horizon motion planning iteration. Consider a single planning iteration (that is, time step _k_ ) (Lines 4–16). Suppose the RL agent has previously created a safe plan **p** _k−_ 1 (such as staying stopped indefinitely). At the beginning of the iteration, BRSL creates a new plan **p** _k_ by rolling out the RL agent along with an environment model. Next, BRSL chooses a safe action by adjusting the rolled-out action sequence (Lines 9–11) such that the corresponding reachable set (computed with Algorithm 2) is collision-free and ends with a failsafe maneuver. If the adjustment procedure (as in Algorithm 3) fails to find a safe plan, then the robot executes the failsafe maneuver. Finally, BRSL sends the first action in the current safe plan to the robot, gets a reward, and trains the RL agent and environment model (Lines 12–16). To enable training our environment model online, we collect data in a replay buffer _B_ at each time _k_ (Line 15). We note that BRSL can be used during both training and deployment. That is, the safety layer can operate even for an untrained policy. Thus, for training, we initialize _πθ_ with random weights.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        623.0,
+        301.0,
+        645.0
+      ],
+      "markdown": "To proceed, we detail our methods for data-driven reachability and adjusting unsafe actions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        650.0,
+        205.0,
+        660.0
+      ],
+      "markdown": "# _A. Data-Driven Reachability Analysis_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        666.0,
+        301.0,
+        712.0
+      ],
+      "markdown": "BRSL performs data-driven reachability analysis of a plan **p** _k_ = ( **u** _j_ )<sup>_n_</sup> _j_ =<sup>plan</sup> _k_<sup>usingAlgorithm2,basedon[42].Algorithm</sup> 2 overapproximates the reachable set as in (3) by computing a zonotope _R_<sup>ˆ</sup> _j ⊇ Rj_ for each time step of the current plan.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Our reachability analysis uses noisy trajectory data of the black-box system model collected offline; we use data collected online only for training the policy and environment",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "heading",
+      "bbox": [
+        316.0,
+        58.0,
+        526.0,
+        68.0
+      ],
+      "markdown": "# **Algorithm 2:** Black-box System Reachability [42]",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "formula",
+      "bbox": [
+        306.0,
+        67.0,
+        554.0,
+        292.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (12)",
+      "asset_name": "formula-p0004-011"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        310.0,
+        564.0,
+        367.0
+      ],
+      "markdown": "model. We consider _q_ input-state trajectories of lengths _ti ∈_ N, _i_ = 1 _, · · · , q_ , with total duration _t_ total =<sup>�</sup><sup>_q_</sup> _i_<sup>_ti_.Wedenotethe</sup> data as ( **x**<sup>(</sup> _k_<sup>_i_))</sup><sup>_t_</sup> _k_<sup>_i_</sup> =0<sup>,(</sup><sup>**u**</sup> _k_<sup>(</sup><sup>_i_))</sup><sup>_t_</sup> _k_<sup>_i_</sup> =0<sup>_−_1,</sup><sup>_i_=1</sup><sup>_, · · ·, q_.Toeasenotation</sup> for the various matrix operations needed in Algorithm 2, we collect the data in matrices:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "formula",
+      "bbox": [
+        316.0,
+        366.0,
+        569.0,
+        415.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (14)",
+      "asset_name": "formula-p0004-013"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "formula",
+      "bbox": [
+        316.0,
+        407.0,
+        569.0,
+        436.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (15)",
+      "asset_name": "formula-p0004-014"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        434.0,
+        564.0,
+        492.0
+      ],
+      "markdown": "Note, the time steps are different in **X** _−_ and **X** + to simplify considering state transitions corresponding to the actions in **U** _−_ . Selecting enough data to sufficiently capture system behavior is a challenge that depends on the system, though specific sampling strategies exist for some systems [28].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        494.0,
+        564.0,
+        611.0
+      ],
+      "markdown": "We must approximate the Lipschitz constant of the dynamics for our reachability analysis, which we do from the data ( **X** _−,_ **X** + _,_ **U** _−_ ) with the method in [42, Section 4, Remark 1]. We also require a data covering radius _δ_ such that, for any data point **z** 1 _∈ X × U_ , there exists another data point **z** 2 _∈ X ×U_ for which _∥_ **z** 1 _−_ **z** 2 _∥_ 2 _≤ δ_ . We assume sufficiently many data points are known _a priori_ to upper-bound _L_<sup>_⋆_</sup> and lower-bound _δ_ ; and, we assume _L_<sup>_⋆_</sup> and _δ_ are the same for offline data collection and online operation. Note, prior work assumes similar bounds [41], [42].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        614.0,
+        564.0,
+        708.0
+      ],
+      "markdown": "We find that the reachable set becomes conservative (i.e., large) if the same _L_<sup>_⋆_</sup> and _δ_ are used for every dimension, because the true dynamics are typically scaled differently in each state dimension. To mitigate this source of conservativeness, we approximate a different ( _L_<sup>_⋆_</sup> ) _i_ and ( _δ_ ) _i_ for each dimension, which we then use to compute a Lipschitz zonotope _Zϵ_ (see Line 1 of Algorithm 2). Note, this is an improvement over prior work [42].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        712.0,
+        429.0,
+        721.0
+      ],
+      "markdown": "# _B. Adjusting Unsafe Actions_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        727.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "After the RL agent rolls out a plan **p** _k_ , the safety layer adjusts it to ensure it is safe. This is done by checking the",
+      "source_class": "text"
+    }
+  ]
+}

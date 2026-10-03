@@ -1,0 +1,289 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render and 200-240 dpi crops of PDF page 3 and with the TeX source. Reading order repaired: the extractor had interleaved the right column (Theorem 1 continuation, Lemma 1) with the lower half of Algorithm 1. Order is now left column (Section III heading, intro paragraph, Algorithm 1, the paragraph 'Since Algorithm 1 ...', start of Theorem 1) then right column. Algorithm 1 (ruled algorithm2e box, between two paragraphs, it does not interrupt a sentence) is kept as an image crop 'algorithm-1' (bbox checked on a 200 dpi render: both rules, title, Input/Output, the three displays and the last line are inside; no neighbouring prose is inside), followed by a text transcription taken from the TeX source and checked against the crop. The printed algorithm has no line numbers; the loop body is marked with an em-space indent; the semicolon after 'respectively' and the full stop after the sample-size display are as printed. All mathematics rewritten in LaTeX from the TeX source (macros expanded: \\ceil* -> \\left\\lceil..\\right\\rceil, \\ind -> 1, \\Ex -> \\mathbb{E}, \\ars, \\initialset, \\distset, \\R; \\dotsc written as \\dots) and checked against the page; TeX and PDF agree. Only the sample-size bound of Theorem 1 carries a printed number, (1), given as \\tag{1}; the other displays on this page are unnumbered in print (the authors use showonlyrefs). Theorem 1, Lemma 1 ([16], Theorem 7.2), Lemma 2 ([17], Corollary 4) and Remark 2 start with the printed label in bold; each statement is split into text and $$ items in printed order. Paragraph splits made from the TeX source where the PDF prints no visible break: the theorem environment ends after '... probability mass of $\\mu$.' and the sentence 'The probability $1-\\delta$ is the confidence ...' is commentary (printed in the same paragraph); Lemma 2 ends at '$\\ge 1-\\delta$.' and 'Theorem 1 follows from Lemmas 1 and 2 because ...' is the proof sketch (printed on a new line without indent). Authors' text kept as printed, including probable slips: in Lemma 2 'a sample of $M$ iid samples' and '$i=1,\\dots,n$' (the sum and the bound use $N$); in the proof sketch $\\text{Pos}(\\mathbb{R}[x]^n_d)$ and 'the dimension of $\\mathbb{R}[x]^n_d$ is $\\binom{n+2k}{n}$' (index $d$ printed, not $2k$); '$z(x)^\\top \\hat{M}^{-1} z(x)$' without the subscript $k$; and $M^{-1}$ without a hat in the constraint of the optimization problem. The optimization problem, which the extractor had turned into the text 'arg min alpha alpha>0 / subject to ...', is a $$ item. The extractor's ten 'formula' image items on this page (five of them fragments of Algorithm 1) were replaced by the algorithm crop and by $$ text items. Remark 2 continues on page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "heading",
+      "bbox": [
+        79.0,
+        55.0,
+        274.0,
+        75.0
+      ],
+      "markdown": "## III. Christoffel Function Level Sets as Reachable Set Approximations"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        85.0,
+        299.0,
+        165.0
+      ],
+      "markdown": "The ability of level sets of Christoffel functions to estimate the support of probability distributions motivates Algorithm 1 as a data-driven strategy for solving Problem 1. Specifically, Algorithm 1 computes an empirical inverse Christoffel function $C(x)$ and a level parameter $\\alpha\\in\\mathbb{R}$, and returns the sublevel set $\\{x\\in\\mathbb{R}^n : C(x) \\le \\alpha\\}$ as a proposed solution to Problem 1."
+    },
+    {
+      "id": "p0003-alg1",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        178.0,
+        301.0,
+        582.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0003-alg1-text",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        183.0,
+        284.0,
+        578.0
+      ],
+      "markdown": "**Algorithm 1:** Data-driven reachable set estimation by a sublevel set of an empirical inverse Christoffel function.\n\n**Input:** Transition function $\\Phi$ of a system with state dimension $n$; random variables $X_0$ and $D$ defined on $\\mathcal{X}_0$ and $\\mathcal{D}$ respectively; time range $[t_0, t_1]$; probabilistic guarantee parameters $\\epsilon$ and $\\delta$; Christoffel function order $k$.\n\n**Output:** Set $\\hat{R}_{[t_0,t_1]}$ representing an $\\epsilon$-accurate reachable set estimate with confidence $1-\\delta$.\n\nSet number of samples\n\n$$\nN = \\left\\lceil \\frac{5}{\\epsilon}\\left( \\log\\frac{4}{\\delta} + \\binom{n+2k}{n} \\log\\frac{40}{\\epsilon} \\right)\\right\\rceil .\n$$\n\n**forall** $i \\in \\{1,\\dots,N\\}$ **do**\n\n&emsp;Take iid samples $x_0^{(i)}$ and $d^{(i)}$ from $X_0$ and $D$ respectively;\n\n&emsp;evaluate $x_f^{(i)}=\\Phi(t_1; t_0, x_0^{(i)}, d^{(i)})$.\n\n**end**\n\nCompute the matrix $\\hat{M}^{-1}$ and level parameter $\\alpha$, where\n\n$$\n\\begin{aligned}\n\\hat{M} &= \\frac{1}{N} \\sum_{i=1}^N z_k(x_f^{(i)})z_k(x_f^{(i)})^\\top, \\\\\n\\alpha &= \\max_{i=1,\\dots,N} z_k(x_f^{(i)})^\\top \\hat{M}^{-1} z_k(x_f^{(i)}).\n\\end{aligned}\n$$\n\nRecord the set\n\n$$\n\\hat{R}_{[t_0,t_1]}=\\{x\\in\\mathbb{R}^n : z_k(x)^\\top \\hat{M}^{-1} z_k(x) \\le \\alpha\\}\n$$\n\nas the reachable set estimate."
+    },
+    {
+      "id": "p0003-b023",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        600.0,
+        299.0,
+        657.0
+      ],
+      "markdown": "Since Algorithm 1 is a randomized algorithm, it is possible that a particular run will produce an invalid solution to Problem 1. However, Theorem 1 guarantees that the probability that this occurs is no greater than $\\delta$, a parameter that the user can specify in advance."
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        660.0,
+        299.0,
+        694.0
+      ],
+      "markdown": "**Theorem 1:** Let $C$ denote the empirical inverse Christoffel function for a point cloud $x^{(1)},\\dots,x^{(N)}$ of iid samples from $\\mu$, i.e."
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        61.0,
+        697.0,
+        292.0,
+        741.0
+      ],
+      "markdown": "$$\nC(x)=z_k(x)^\\top\\left(\\frac{1}{N}\\sum_{i=1}^N z_k(x^{(i)})z_k(x^{(i)})^\\top\\right)^{-1}z_k(x),\n$$"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        53.0,
+        558.0,
+        77.0
+      ],
+      "markdown": "and let $\\alpha = \\max_i C(x^{(i)})$. Let $\\mu^N$ denote the joint probability measure corresponding to $N$ iid samples from $\\mu$. If"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        352.0,
+        77.0,
+        564.0,
+        112.0
+      ],
+      "markdown": "$$\nN \\ge \\frac{5}{\\epsilon}\\left( \\log\\frac{4}{\\delta} + \\binom{n+2k}{n} \\log\\frac{40}{\\epsilon} \\right), \\tag{1}\n$$"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        113.0,
+        331.0,
+        121.0
+      ],
+      "markdown": "then"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        325.0,
+        121.0,
+        546.0,
+        183.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mu^N\\bigg(&\\{(x^{(1)},\\dots,x^{(N)}):\\\\\n&\\mu\\left(\\{x\\in\\mathbb{R}^n : C(x) \\le \\alpha\\}\\right) \\ge 1-\\epsilon\\}\\bigg) \\ge 1-\\delta.\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        183.0,
+        559.0,
+        205.0
+      ],
+      "markdown": "This means that, with probability $\\ge 1-\\delta$, the $\\alpha$-sublevel set of $C(x)$ contains at least $1-\\epsilon$ of the probability mass of $\\mu$."
+    },
+    {
+      "id": "p0003-b013b",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        205.0,
+        559.0,
+        263.0
+      ],
+      "markdown": "The probability $1-\\delta$ is the *confidence* that the solution is valid. For instance, suppose we set $\\delta=10^{-9}$: then Theorem 1 gives us the confidence that there is less than a one in a billion chance that Algorithm 1 will fail to solve Problem 1."
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        267.0,
+        559.0,
+        289.0
+      ],
+      "markdown": "The proof of this result is based on the following two results from statistical learning theory."
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        291.0,
+        559.0,
+        323.0
+      ],
+      "markdown": "**Lemma 1 ([16], Theorem 7.2):** Let $V$ be a vector space of functions $g:\\mathbb{R}^n\\to\\mathbb{R}$ with dimension $m$. Then the class of sets"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        359.0,
+        321.0,
+        512.0,
+        342.0
+      ],
+      "markdown": "$$\n\\text{Pos}(V) = \\left\\{\\ \\{x | g(x)\\ge 0\\}, g\\in V\\right\\}\n$$"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        345.0,
+        503.0,
+        355.0
+      ],
+      "markdown": "has Vapnik–Chervonenkis (VC) dimension $m$."
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        357.0,
+        559.0,
+        416.0
+      ],
+      "markdown": "**Lemma 2 ([17], Corollary 4):** Let $\\mathcal{C}$ be a class of sets with VC dimension $m$. For a set $c\\in\\mathcal{C}$, let $\\hat{\\ell}(c)=\\frac{1}{N}\\sum_{i=1}^N 1\\{x^{(i)}\\notin c\\}$ be the empirical error from a sample of $M$ iid samples from $\\mu$, and let $\\ell(c)=\\mathbb{E}_\\mu[1\\{X\\notin c\\}]=1-\\mu(c)$ be the generalization error. If"
+    },
+    {
+      "id": "p0003-b027",
+      "kind": "text",
+      "bbox": [
+        369.0,
+        416.0,
+        502.0,
+        451.0
+      ],
+      "markdown": "$$\nN \\ge \\frac{5}{\\epsilon}\\left( \\log\\frac{4}{\\delta} + m \\log\\frac{40}{\\epsilon} \\right),\n$$"
+    },
+    {
+      "id": "p0003-b028",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        452.0,
+        559.0,
+        490.0
+      ],
+      "markdown": "and if $\\hat{\\ell}(c)=0$, that is if all of the points $x^{(i)},\\ i=1,\\dots,n$ are contained in the concept $c$, then $\\mu^N\\left(\\{x^{(1)},\\dots,x^{(N)} : \\ell(c) \\le \\epsilon\\}\\right) \\ge 1-\\delta$."
+    },
+    {
+      "id": "p0003-b028b",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        490.0,
+        559.0,
+        538.0
+      ],
+      "markdown": "Theorem 1 follows from Lemmas 1 and 2 because the set $c=\\{x\\in\\mathbb{R}^n | C(x) \\le \\alpha\\}$ belongs to the class $\\mathcal{C}=\\text{Pos}(\\mathbb{R}[x]^n_d)$ and satisfies $\\hat{\\ell}(c)=0$, and because the dimension of $\\mathbb{R}[x]^n_d$ is $\\binom{n+2k}{n}$."
+    },
+    {
+      "id": "p0003-b029",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        539.0,
+        559.0,
+        632.0
+      ],
+      "markdown": "In addition to providing a high-confidence solution to Problem 1, Algorithm 1 also achieves the regularization goals mentioned at the end of Section II-A. In particular, the estimate $\\hat{R}_{[t_0,t_1]}$ produced by Algorithm 1 is compact, since it is a sublevel set of the sum-of-squares polynomial $z(x)^\\top \\hat{M}^{-1} z(x)$. Furthermore, the level parameter $\\alpha$ can equivalently be defined as the solution to the optimization problem"
+    },
+    {
+      "id": "p0003-b030",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        636.0,
+        559.0,
+        669.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n&\\text{arg }\\underset{\\alpha > 0}{\\text{min}} & & \\alpha \\\\\n&\\text{subject to} & & z_k(x^{(i)})^\\top M^{-1} z_k(x^{(i)}) \\le \\alpha,\\ i=1,\\dots,N.\n\\end{aligned}\n$$"
+    },
+    {
+      "id": "p0003-b031",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        672.0,
+        559.0,
+        710.0
+      ],
+      "markdown": "In this problem, $\\alpha$ acts as a penalty term for the volume of the sublevel set, since the volume increases monotonically with increasing $\\alpha$."
+    },
+    {
+      "id": "p0003-b032",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        712.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "**Remark 2:** In some reachability problems, we are only interested in computing a reachable set for a subset of the state"
+    }
+  ]
+}

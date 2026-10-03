@@ -1,0 +1,179 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 130 dpi render, two 230 dpi zooms covering the whole text block, and the TeX source. First item completes the sentence begun on page 15 (join_previous=space). The centred bold titles \"Robust Optimal Control Problem\" and \"Reachability-Aware Optimal Control Problem\" label the two displayed optimisation problems; they are not section headings and are given as bold text lines (the extractor had made them \"#\" headings). The five extractor formula images are replaced by LaTeX display items: the robust problem as one item holding three display blocks tagged (19a), (19b), (19c) as printed (one block per printed number), the reachability-aware problem (20), the dimension-wise constraint (21) and its reformulation (22). Checked on the zooms: limits $k=0$ to $N-1$ and $k=1$ to $N$ of the sums and big wedges, $\\mathcal{X}_{free}$ / $\\mathcal{X}_{goal}$ subscripts, \"$\\subset$\" in (20), $\\mathbb{W}^k$ and $\\boldsymbol{w}_{0:k-1}$ in (21), signs in (22), $\\boldsymbol{Q}_k^{-1}$, $\\boldsymbol{Q}_k = s\\cdot\\mathrm{diag}(\\delta_i^2, i=1,\\ldots,s)$ and the exponent $1/2$ in the last paragraph. Cross references as printed: (2), (18), (19c), (20), (21), Section C.1, Section 6. Footnote marker written as $^5$; Footnote 5 kept at the end of the page (URL printed without scheme).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "text",
+      "bbox": [
+        108,
+        75,
+        440,
+        85
+      ],
+      "markdown": "constraints defined above. We define the following robust optimal control problem:",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "text",
+      "bbox": [
+        233,
+        96,
+        377,
+        106
+      ],
+      "markdown": "**Robust Optimal Control Problem**"
+    },
+    {
+      "id": "p0016-b002",
+      "kind": "text",
+      "bbox": [
+        118,
+        108,
+        510,
+        194
+      ],
+      "markdown": "$$\\min_{\\boldsymbol{u}_{0:N-1}} \\qquad \\sum_{k=0}^{N-1} l(\\boldsymbol{\\mu}_k, \\boldsymbol{u}_k) + l_f(\\boldsymbol{\\mu}_N) \\tag{19a}$$\n\n$$\\text{subject to}\\qquad \\boldsymbol{x}_{k+1} = \\boldsymbol{f}(\\boldsymbol{x}_k,\\boldsymbol{u}_k,\\boldsymbol{\\theta},\\boldsymbol{w}_k), \\quad \\boldsymbol{w}_k\\in\\mathbb{W}, \\ \\ \\boldsymbol{\\theta}\\in\\Theta, \\quad k=0, \\ldots,N-1, \\tag{19b}$$\n\n$$\\bigwedge_{k=1}^N\\big(\\boldsymbol{x}_{k} \\in \\mathcal{X}_{\\text{free}}\\big) \\ \\cap \\ \\bigwedge_{k=0}^{N-1}\\big(\\boldsymbol{u}_{k} \\in \\mathcal{U}\\big) \\ \\cap \\ \\big(\\boldsymbol{x}_{N} \\in \\mathcal{X}_{\\text{goal}}\\big) \\ \\cap \\ \\big(\\boldsymbol{x}_{0} \\in \\mathcal{X}_0\\big). \\tag{19c}$$"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "text",
+      "bbox": [
+        107,
+        197,
+        505,
+        219
+      ],
+      "markdown": "Using the reachable sets $\\{\\mathcal{X}_k\\}_{k=0}^N$ defined in (2), and the nominal trajectory in (18), it is possible to show that the previous problem is equivalent to the following problem:"
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "text",
+      "bbox": [
+        206,
+        231,
+        403,
+        241
+      ],
+      "markdown": "**Reachability-Aware Optimal Control Problem**"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "text",
+      "bbox": [
+        125,
+        243,
+        509,
+        275
+      ],
+      "markdown": "$$\\min_{\\boldsymbol{u}_{0:N-1}} \\ \\ \\sum_{k=0}^{N-1} l(\\boldsymbol{\\mu}_k, \\boldsymbol{u}_k)+l_f(\\boldsymbol{\\mu}_N) \\quad \\text{s.t.} \\ \\ \\bigwedge_{k=1}^N \\mathcal{X}_{k} \\subset \\mathcal{X}_{\\text{free}}, \\ \\ \\ \\bigwedge_{k=0}^{N-1}\\boldsymbol{u}_{k} \\in \\mathcal{U}, \\ \\ \\ \\mathcal{X}_{N} \\subset \\mathcal{X}_{\\text{goal}}, \\tag{20}$$"
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "text",
+      "bbox": [
+        107,
+        276,
+        504,
+        320
+      ],
+      "markdown": "where $\\{\\mathcal{X}_k\\}_{k=0}^N$ depend on the chosen sequence of controls $\\boldsymbol{u}_{0:N-1}$, and are computed from $\\mathcal{X}_{0}$. In this work, the reachable sets are approximated using either (**randUP**) or (**robUP!**), which yield convex hulls. However, we show next that computing the convex hull of the samples $\\boldsymbol{x}_k^j$ is not always necessary to reformulate common constraints found in robotic applications."
+    },
+    {
+      "id": "p0016-b008",
+      "kind": "text",
+      "bbox": [
+        107,
+        333,
+        505,
+        441
+      ],
+      "markdown": "**Sequential convex programming (SCP) and constraints reformulation** In this work, we leverage SCP to solve (20). The SCP technique consists of iteratively formulating convex approximations of (20), and solving each sub-problem using convex optimization. Specifically, at each iteration $(i+1)$, the previous nominal solution $(\\boldsymbol{\\mu}^i,\\boldsymbol{u}^i)$ is used to linearize all constraints, and reformulate (20) as a quadratic program with linear constraints which can be efficiently solved using **OSQP** [50]. The solution of this problem, denoted as $(\\boldsymbol{\\mu}^{i+1},\\boldsymbol{u}^{i+1})$, should approach the solution of (20) at convergence, which can be assessed by evaluating $\\|\\boldsymbol{\\mu}^{i+1}-\\boldsymbol{\\mu}^i\\|+\\|\\boldsymbol{u}^{i+1}-\\boldsymbol{u}^i\\|$. In this work, we use the open-source SCP procedure presented in [8]$^5$, which includes trust region constraints and additional parameter adaptation rules to encourage convergence to a locally optimal solution to the original non-convex problem."
+    },
+    {
+      "id": "p0016-b009",
+      "kind": "text",
+      "bbox": [
+        107,
+        447,
+        505,
+        467
+      ],
+      "markdown": "Next, we present simple methods to use sampling-based reachable sets to reformulate constraints. First, consider dimension-wise constraints of the form"
+    },
+    {
+      "id": "p0016-b010",
+      "kind": "text",
+      "bbox": [
+        169,
+        465,
+        509,
+        488
+      ],
+      "markdown": "$$\\boldsymbol{x}_{\\min,i}\\leq\\boldsymbol{x}_{k,i}(\\boldsymbol{u})\\leq\\boldsymbol{x}_{\\max,i}, \\ \\ \\ \\forall (\\boldsymbol{x}_0,\\boldsymbol{\\theta},\\boldsymbol{w}_{0:k-1}) \\in \\mathcal{X}_0\\times\\Theta\\times\\mathbb{W}^k, \\tag{21}$$"
+    },
+    {
+      "id": "p0016-b011",
+      "kind": "text",
+      "bbox": [
+        107,
+        486,
+        505,
+        552
+      ],
+      "markdown": "where $i\\in\\{1,\\ldots,n\\}$. For instance, such constraints can represent velocity bounds, and are incorporated within $\\boldsymbol{x}_k\\in\\mathcal{X}_{\\text{free}}$ in (19c). To reformulate such constraints using the reachable set $\\mathcal{X}_k(\\boldsymbol{u})$ and the nominal trajectory $\\boldsymbol{\\mu}$, it suffices to compute its outer-bounding rectangle $\\Delta_k(\\boldsymbol{u})$, defined as $\\Delta_k=\\{\\boldsymbol{x}_k \\,| \\, |\\boldsymbol{x}_{k,i}-\\boldsymbol{\\mu}_{k,i}|\\leq \\delta_{k,i}\\}$. Using (**randUP**) or (**robUP!**), the bounds $\\delta_{k,i}=\\max_{j}|\\boldsymbol{x}_{k,i}^j-\\boldsymbol{\\mu}_{k,i}|$ can be efficiently computed. With these rectangular sets, (21) is conservatively reformulated as"
+    },
+    {
+      "id": "p0016-b012",
+      "kind": "text",
+      "bbox": [
+        203,
+        550,
+        509,
+        572
+      ],
+      "markdown": "$$\\boldsymbol{x}_{\\min,i}+\\delta_{k,i}(\\boldsymbol{u})\\leq\\boldsymbol{\\mu}_{k,i}(\\boldsymbol{u})\\leq\\boldsymbol{x}_{\\max,i}-\\delta_{k,i}(\\boldsymbol{u}). \\tag{22}$$"
+    },
+    {
+      "id": "p0016-b013",
+      "kind": "text",
+      "bbox": [
+        107,
+        576,
+        505,
+        707
+      ],
+      "markdown": "Next, linear constraints $\\mathbf{a} \\cdot \\boldsymbol{x}_{k,1:s} \\leq b$ on the $s$ first components of $\\boldsymbol{x}_k$, with $\\mathbf{a}\\in\\mathbb{R}^s,b\\in\\mathbb{R}$ can be reformulated using outer-bounding ellipsoidal sets for the $s$ first components of $\\boldsymbol{x}$: $\\mathcal{B}^s(\\boldsymbol{\\mu}_k , \\boldsymbol{Q}_k) = \\left\\{ \\boldsymbol{x} \\mid (\\boldsymbol{x}-\\boldsymbol{\\mu}_{k,1:s})^T \\boldsymbol{Q}_k^{-1} (\\boldsymbol{x}-\\boldsymbol{\\mu}_{k,1:s}) \\leq 1 \\right\\}$. Following derivations in Section C.1, $\\boldsymbol{Q}_k$ can be computed as $\\boldsymbol{Q}_k = s \\cdot \\mathrm{diag}(\\delta_i^2, \\, i = 1,\\ldots,s)$, yielding an ellipsoidal set $\\mathcal{B}^s$ which outer-approximates the reachable set $\\mathcal{X}_k$ (projected onto its $s$ first dimensions). Using this ellipsoidal set, the linear constraint $\\mathbf{a} \\cdot \\boldsymbol{x}_{k,1:s} \\leq b$ is conservatively reformulated as $\\mathbf{a}^T\\boldsymbol{\\mu}_{k,1:s}+(\\mathbf{a}^T\\boldsymbol{Q}_k\\mathbf{a})^{1/2} \\leq b$, following similar derivations as in [8, 13]. Finally, this constraint is linearized, to yield a convex reformulation of the original constraints (19c), and obtain a convex quadratic program with linear constraints which can be solved using **OSQP**. For the spacecraft planning problem in Section 6, such linear constraints are obtained from non-convex obstacle avoidance constraints, by expressing them using the signed distance function, and linearizing the expression. This procedure is described in [8], where it is shown that it is conservative for general convex obstacles."
+    },
+    {
+      "id": "p0016-b014",
+      "kind": "text",
+      "bbox": [
+        120,
+        712,
+        407,
+        723
+      ],
+      "markdown": "Footnote 5: The implementation of [8] is available at github.com/StanfordASL/ccscp."
+    },
+    {
+      "id": "p0016-b015",
+      "kind": "omit",
+      "bbox": [
+        296,
+        740,
+        316,
+        753
+      ],
+      "markdown": "",
+      "reason": "Page number \"16\" in the footer."
+    }
+  ]
+}

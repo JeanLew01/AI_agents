@@ -1,0 +1,633 @@
+\documentclass[10pt]{article}\usepackage[margin=2cm]{geometry}\usepackage{amsmath,amssymb}\begin{document}
+\section*{Displays}
+\noindent D1:
+\[
+\dot{x} = f(x,u) = J(x)\nabla H(x) + G(x)u, \tag{1}
+\]
+\noindent D2:
+\[
+\|f(x_1,u)-f(x_2,u)\| \le L\|x_1-x_2\|, \forall x_1,x_2\in\mathcal{X}.
+\]
+\noindent D3:
+\[
+\|f(x,u)\|\le C_f, \forall x\in\mathcal{X},\ \forall u\in U. \tag{2}
+\]
+\noindent D4:
+\[
+\Sigma_E := \{x \in \mathcal{X} : H(x)=E\}.
+\]
+\noindent D5:
+\[
+\phi(t,x_0,u) \in S_{\mathrm{tgt}}.
+\]
+\noindent D6:
+\[
+K_\alpha^E := \mathrm{supp}(\mu_\alpha^E)\subseteq \Sigma_E,
+\]
+\noindent D7:
+\[
+\overline{\{\phi(t,x,0):t\ge 0\}}=K_\alpha^E.
+\]
+\noindent D8:
+\[
+\mathcal{A} := \{u_i : (0, \tau_i] \to U\}_{i=0}^{M},
+\]
+\noindent D9:
+\[
+\mathcal{K} := \{(x_i, r_i, u_i)\}_{i=1}^{N} \subseteq \mathbb{R}^n \times \mathcal{R}_{> 0} \times \mathcal{A},
+\]
+\noindent D10:
+\[
+\mathrm{Supp}(\mathcal{K}) := \bigcup_{i=1}^{N} \mathcal{B}_{r_i}(x_i),
+\]
+\noindent D11:
+\[
+\iota_{\mathcal{K}}(x):= \begin{cases} \displaystyle \arg\min_{1\le i\le N}\frac{\|x-x_i\|}{r_i}, & \rho_{\mathcal{K}}(x)\le 1,\\ 0, & \text{otherwise}. \end{cases}
+\]
+\noindent D12:
+\[
+\pi_{\mathcal{K}}:\mathcal{X}\to\mathcal{A}
+\]
+\noindent D13:
+\[
+u_{\mathcal{K},x}(t):=u_n(t-s_n),\qquad t\in[s_n,s_{n+1}).
+\]
+\noindent D14:
+\[
+H(S_{\mathrm{tgt}}) = [H_{\min}, H_{\max}],
+\]
+\noindent D15:
+\[
+S_{\mathrm{tgt}} \cap K_\alpha^E \neq \varnothing.
+\]
+\noindent D16:
+\[
+H^\star_+ := \frac{H_{\max}+H_{\min}}{2}, \qquad H^\star_- := \frac{H_{\max}-H_{\min}}{2}.
+\]
+\noindent D17:
+\[
+\Delta H(x) := |H(x)-H^\star_+| - H^\star_-.
+\]
+\noindent D18:
+\[
+H_{\mathrm{tgt}} := \{x \in \mathcal{X} : \Delta H(x) \leq 0\}.
+\]
+\noindent D19:
+\[
+H_{\mathrm{tgt}}^\epsilon := \{x \in \mathcal{X} : \Delta H(x)\leq -\epsilon\}.
+\]
+\noindent D20:
+\[
+\phi(T,x,u) \in H_{\mathrm{tgt}}^\epsilon.
+\]
+\noindent D21:
+\[
+T_\epsilon(x,u) := \inf\{t>0 : \phi(t,x,u)\in H_{\mathrm{tgt}}^\epsilon\}.
+\]
+\noindent D22:
+\[
+v_\epsilon(x,u) := \frac{\Delta H(x)-\Delta H(\phi(T_\epsilon(x,u),x,u))}{T_\epsilon(x,u)}. \tag{3}
+\]
+\noindent D23:
+\[
+v_\epsilon(x,u)=\frac{\Delta H(x)+\epsilon}{T_\epsilon(x,u)}.
+\]
+\noindent D24:
+\[
+v_\epsilon(x):=\sup_{u\in\mathcal{U}} v_\epsilon(x,u)=\frac{\Delta H(x)+\epsilon}{T_\epsilon^\star(x)}, \tag{4}
+\]
+\noindent D25:
+\[
+\underline{v_\epsilon} := \inf_{x\in \mathcal{X}\setminus H_{\mathrm{tgt}}^\epsilon} v_\epsilon(x) > 0.
+\]
+\noindent D26:
+\[
+\Delta H(x_i(\tau_i)) + v_0 \tau_i + L_H r_i e^{L \tau_i} \le \Delta H(x_i) - L_H r_i,
+\]
+\noindent D27:
+\[
+\Delta H(x)\le c \;\implies\; H(x)\in H(\mathrm{Supp}(\mathcal{K})).
+\]
+\noindent D28:
+\[
+\mathrm{int}(\mathrm{Supp}(\mathcal{K})) \cap K_\alpha^E \neq \emptyset.
+\]
+\noindent D29:
+\[
+\phi(t,x_0,\pi_{\mathcal{K}}) \in S_{\mathrm{tgt}}.
+\]
+\noindent D30:
+\[
+\|\phi(t,x_i,u_i)-\phi(t,y,u_i)\|\le r_i e^{Lt}.
+\]
+\noindent D31:
+\[
+\Delta H(\phi(\tau_i,y,u_i)) \le \Delta H(\phi(\tau_i,x_i,u_i)) + L_H r_i e^{L\tau_i}, \tag{5}
+\]
+\noindent D32:
+\[
+\Delta H(x_i) \le \Delta H(y) + L_H r_i. \tag{6}
+\]
+\noindent D33:
+\[
+\Delta H(\phi(\tau_i,y,u_i)) + v_0\tau_i \le \Delta H(y). \tag{7}
+\]
+\noindent D34:
+\[
+y':=\phi(\tau_i,y,u_i)
+\]
+\noindent D35:
+\[
+\Delta H(y') \le \Delta H(y).
+\]
+\noindent D36:
+\[
+\Delta H(y') \le c := \sup_{x\in S_0}\Delta H(x).
+\]
+\noindent D37:
+\[
+\Sigma_E, \quad E:=H(y').
+\]
+\noindent D38:
+\[
+\phi(T,y',0)\in \mathrm{Supp}(\mathcal{K}).
+\]
+\noindent D39:
+\[
+v_\epsilon(x) \le L_H C_f, \quad\text{ and }\quad T_\epsilon^\star(x) \ge \frac{\epsilon}{L_H C_f}.
+\]
+\noindent D40:
+\[
+\begin{aligned} &|\Delta H(x) - \Delta H(\phi(T,x,u))| \le L_H \|x - \phi(T,x,u)\| \\ &= L_H \Big\|\int_0^T f(\phi(t,x,u),u(t))\,dt\Big\| \le L_H C_f T. \end{aligned}
+\]
+\noindent D41:
+\[
+v_\epsilon(x,u) = \frac{\Delta H(x)-\Delta H(\phi(T_\epsilon(x,u),x,u))}{T_\epsilon(x,u)} \le L_H C_f.
+\]
+\noindent D42:
+\[
+v_\epsilon(x)=\frac{\Delta H(x)+\epsilon}{T_\epsilon^\star(x)} \le L_H C_f, \;\; \Rightarrow \;\; T_\epsilon^\star(x)\ge \frac{\Delta H(x)+\epsilon}{L_H C_f}.
+\]
+\noindent D43:
+\[
+T_\epsilon(x,u)\ge T_\epsilon^\star(x)\ge \frac{\epsilon}{L_H C_f}, \quad \forall x\in\mathcal{X}\setminus H_{\mathrm{tgt}},\ u\in\mathcal{U}.
+\]
+\noindent D44:
+\[
+\forall E \in H(\mathrm{Supp}(\mathcal{K})),\quad K_\alpha^E = \Sigma_E.
+\]
+\noindent D45:
+\[
+H(y)\ge H(x)+\nabla H(x)^\top (y-x)+\frac{\mu_H}{2}\|y-x\|^2.
+\]
+\noindent D46:
+\[
+r_i=\frac{(v_\epsilon(x_i)-v_0)T_\epsilon^\star(x_i)}{L_H(1+e^{LT_\epsilon^\star(x_i)})}>0,
+\]
+\noindent D47:
+\[
+N\leq (H_2-H_1)\frac{16L_H^2}{\mu_H (1-\frac{v_0}{\underline{v_\epsilon}})^2}\frac{\exp(\frac{2L(L_HD_{\mathcal{X}}+\epsilon)}{\underline{v_\epsilon}})}{\epsilon^2}.
+\]
+\noindent D48:
+\[
+\mathcal{X}_c:=\{x\in \mathcal{X}:\Delta H(x)\le c\}\setminus H_{\mathrm{tgt}}^\epsilon.
+\]
+\noindent D49:
+\[
+\phi(T_\epsilon^\star(x),x,u_x) \in \partial H_{\mathrm{tgt}}^\epsilon, \, v_\epsilon(x) = \frac{\Delta H(x) + \epsilon}{T_\epsilon^\star(x)}
+\]
+\noindent D50:
+\[
+r(x) := \frac{(v_\epsilon(x)-v_0) T_\epsilon^\star(x)}{L_H\bigl(1+e^{LT_\epsilon^\star(x)}\bigr)}.
+\]
+\noindent D51:
+\[
+\begin{aligned} & \Delta H(\phi(T_\epsilon^\star(x),x,u_x)) +v_0T_\epsilon^\star(x) +L_Hr(x)e^{LT_\epsilon^\star(x)}\\ = & \Delta H(x)-L_Hr(x), \end{aligned}
+\]
+\noindent D52:
+\[
+\Delta H(x)+\epsilon-v_0 T_\epsilon(x)^\star \geq (\Delta H(x)+\epsilon)\left(1-\frac{v_0}{\underline{v_\epsilon}}\right)> 0,
+\]
+\noindent D53:
+\[
+r(x) \geq \frac{ (\Delta H(x)+\epsilon)\left(1-\frac{v_0}{\underline{v_\epsilon}}\right) }{ L_H\left( 1+\exp\!\left(\frac{L(\Delta H(x)+\epsilon)}{\underline{v_\epsilon}}\right) \right) }
+\]
+\noindent D54:
+\[
+\ge \frac{ \epsilon \left(1-\frac{v_0}{\underline{v_\epsilon}}\right) }{2 L_H \exp(\frac{L(L_H D_{\mathcal{X}} +\epsilon)}{\underline{v_\epsilon}}) }, \tag{8}
+\]
+\noindent D55:
+\[
+H(x+rv)+H(x-rv)\ge2H(x)+ \mu_H r^2,
+\]
+\noindent D56:
+\[
+\max \{H(x+rv),H(x-rv)\}\geq H(x)+\frac{\mu_H }{2}r^2. \tag{9}
+\]
+\noindent D57:
+\[
+\begin{aligned} & \max_{y_1,y_2\in \mathcal{B}_{r(x)}(x)} \bigl(H(y_1)-H(y_2)\bigr)\\ & \ge \max_{y\in \mathcal{B}_{r(x)}(x)} \bigl(H(y)-H(x)\bigr)\\ & \ge \frac{\mu_{H}}{2}r(x)^2. \end{aligned}
+\]
+\noindent D58:
+\[
+\begin{aligned} &\max_{y_1,y_2\in \mathcal{B}_{r(x)}(x)} |\Delta H(y_1)-\Delta H(y_2)|\\ &=\max_{y_1,y_2\in \mathcal{B}_{r(x)}(x)} |H(y_1)-H(y_2)|\\ &\geq \frac{\mu_{H}}{2}r(x)^2. \end{aligned}
+\]
+\noindent D59:
+\[
+\max\{|H(x)-H_+^\star|,|H(x)+\frac{\mu_{H}}{2}r(x)^2-H_+^\star|\}\geq \frac{\mu_{H}}{4}r(x)^2.
+\]
+\noindent D60:
+\[
+\max_{y_1,y_2\in B_r(x)} |\Delta H(y_1)-\Delta H(y_2)|
+\]
+\noindent D61:
+\[
+\ge \max_{y_1\in B_r(x)}|H(y_1)-H_+^\star| \tag{10}
+\]
+\noindent D62:
+\[
+\geq \frac{\mu_{H}}{4}r(x)^2,
+\]
+\noindent D63:
+\[
+\max_{y_1,y_2\in \mathcal{B}_{r(x)}(x)} |\Delta H(y_1)- \Delta H(y_2)| \ge \frac{\mu_{H}}{4}r(x)^2
+\]
+\noindent D64:
+\[
+\ge \frac{\mu_{H} (1-\frac{v_0}{\underline{v_\epsilon}})^2}{16L_H^2}\frac{\epsilon^2}{\exp(\frac{2L(L_HD_{\mathcal{X}}+\epsilon)}{\underline{v_\epsilon}})} \tag{11}
+\]
+\noindent D65:
+\[
+[H_1,H_2]:=H(\mathcal{X}_c)\cup H(H_{\mathrm{tgt}}^\epsilon).
+\]
+\noindent D66:
+\[
+\begin{aligned} & \max_{y_1,y_2\in \mathcal{B}_{r(x)}(x)} |H(y_1)-H(y_2)| \geq \frac{\mu_{H}}{4}r(x)^2\\ \ge & \frac{\mu_{H} (1-\frac{v_0}{\underline{v_\epsilon}})^2}{16L_H^2}\frac{\epsilon^2}{\exp(\frac{2L(L_HD_{\mathcal{X}}+\epsilon)}{\underline{v_\epsilon}})} \end{aligned}
+\]
+\noindent D67:
+\[
+[H_1,H_2]\subseteq \bigcup_{i=1}^N \mathcal{B}_{r_i}(x_i).
+\]
+\noindent D68:
+\[
+\mathcal{K}:=\{(x_i,r_i,u_i)\}_{i=1}^N,
+\]
+\noindent D69:
+\[
+[H_1,H_2]\subseteq H(\mathrm{Supp}(\mathcal{K})),
+\]
+\noindent D70:
+\[
+\phi(t,x_0,\pi_{\mathcal{K}})\in S_{\mathrm{tgt}}.
+\]
+\noindent D71:
+\[
+\begin{aligned} & N \le \frac{H_2-H_1}{\frac{\mu_{H} (1-\frac{v_0}{\underline{v_\epsilon}})^2}{16L_H^2}\frac{\epsilon^2}{\exp(\frac{2L(L_HD_{\mathcal{X}}+\epsilon)}{\underline{v_\epsilon}})}}\\ & = (H_2-H_1)\, \frac{16L_H^2} {\mu_H\left(1-\frac{v_0}{\underline{v}_\epsilon}\right)^2} \frac{ \exp\!\left( \frac{2L(L_HD_{\mathcal{X}}+\epsilon)}{\underline{v}_\epsilon} \right)} {\epsilon^2}. \end{aligned}
+\]
+\noindent D72:
+\[
+T_{\max} \le \frac{L_H D_{\mathcal X}}{v_0}\Bigl(1+\frac{T_1}{\tau_{\min}}\Bigr) + T_2.
+\]
+\noindent D73:
+\[
+y_i = \phi(t_{1,i}, x_i, 0) \in \mathrm{Supp}(\mathcal{K}).
+\]
+\noindent D74:
+\[
+x_{i+1} = \phi(t_{2,i}, y_i, u_i),
+\]
+\noindent D75:
+\[
+\Delta H(x_{i+1}) + v_0 t_{2,i} \le \Delta H(y_i),
+\]
+\noindent D76:
+\[
+N\tau_{\min}\leq \sum_{i=1}^N t_{2,i}\leq \frac{\Delta H(x_0)}{v_{0}},
+\]
+\noindent D77:
+\[
+N\leq \left\lfloor \frac{\Delta H(x_0)}{v_{0}\tau_{\min}}\right\rfloor.
+\]
+\noindent D78:
+\[
+\forall x_0\in S_0,\ \exists\, T\leq \overline{T}\ \mathrm{s.t.}\ \phi(T,x_0,\pi_{\mathcal{K}})\in H_{\mathrm{tgt}},
+\]
+\noindent D79:
+\[
+\overline{T} \leq \sum_{i=1}^N t_{2,i}+NT_1 \tag{12}
+\]
+\noindent D80:
+\[
+\leq \frac{\Delta H(x_0)}{v_{0}} + \left\lfloor \frac{\Delta H(x_0)}{v_{0}\tau_{\min}}\right\rfloor T_1 \tag{13}
+\]
+\noindent D81:
+\[
+\leq \frac{L_{H}D_{\mathcal{X}}}{v_{0}}\Bigl(1+\frac{T_1}{\tau_{\min}}\Bigr). \tag{14}
+\]
+\noindent D82:
+\[
+T_{\max}\leq \overline{T}+T_2 \leq \frac{L_{H}D_{\mathcal{X}}}{v_{0}}\Bigl(1+\frac{T_1}{\tau_{\min}}\Bigr)+T_2.
+\]
+\noindent D83:
+\[
+r_i(t)= \frac{\Delta H(x_i)-\Delta H(\phi(t,x_i,u_{i,t}))-v_0t} {L_H+L_H e^{Lt}}.
+\]
+\noindent D84:
+\[
+\begin{aligned} x & = \begin{bmatrix} q\\ p \end{bmatrix} = \begin{bmatrix} q\\ m\dot{q} \end{bmatrix}, H(x)=\frac{p^2}{2m}+\frac{k}{2}q^2,\\ \dot{x} & = \begin{bmatrix} 0 & 1\\ -1 & 0 \end{bmatrix} \nabla H(x) + \begin{bmatrix} 0\\ 1 \end{bmatrix}u. \end{aligned}
+\]
+\noindent D85:
+\[
+\begin{aligned} x &= \begin{bmatrix} q\\ p \end{bmatrix} = \begin{bmatrix} \theta\\ m\ell^2\dot{\theta} \end{bmatrix}, H(x)=\frac{p^2}{2m\ell^2}+mg\ell(1-\cos q),\\ \dot{x} &= \begin{bmatrix} 0 & 1\\ -1 & 0 \end{bmatrix} \nabla H(x) + \begin{bmatrix} 0\\ 1 \end{bmatrix}u. \end{aligned}
+\]
+\section*{Inline}\raggedright
+\noindent I1: $\|\cdot\|$\par
+\noindent I2: $x \in \mathbb{R}^n$\par
+\noindent I3: $r>0$\par
+\noindent I4: $\mathcal{B}_r(x) := \{ w \in \mathbb{R}^n \mid \|x-w\| \le r \}$\par
+\noindent I5: $r$\par
+\noindent I6: $x$\par
+\noindent I7: $S\subseteq \mathbb{R}^n$\par
+\noindent I8: $D_S:=\sup_{x,y\in S}\|x-y\|$\par
+\noindent I9: $\overline{S}$\par
+\noindent I10: $\partial S$\par
+\noindent I11: $\operatorname{int}(S)$\par
+\noindent I12: $\forall x\in\mathbb{R}^n$\par
+\noindent I13: $S$\par
+\noindent I14: $\mathrm{d}(x,S):=\inf_{y\in S}\|x-y\|$\par
+\noindent I15: $\lceil \cdot \rceil$\par
+\noindent I16: $\lfloor \cdot \rfloor$\par
+\noindent I17: $x \in \mathcal{X} \subset \mathbb{R}^n$\par
+\noindent I18: $\mathcal{X}$\par
+\noindent I19: $H:\mathbb{R}^n \to \mathbb{R}$\par
+\noindent I20: $J(x)\in\mathbb{R}^{n\times n}$\par
+\noindent I21: $u\in U\subset \mathbb{R}^m$\par
+\noindent I22: $H(x)$\par
+\noindent I23: $J(x)$\par
+\noindent I24: $H$\par
+\noindent I25: $L_H > 0$\par
+\noindent I26: $\forall x\in\mathcal{X}, \|\nabla H(x)\|\le L_H$\par
+\noindent I27: $f(x,u)$\par
+\noindent I28: $u \in U$\par
+\noindent I29: $L>0$\par
+\noindent I30: $U$\par
+\noindent I31: $f$\par
+\noindent I32: $C_f>0$\par
+\noindent I33: $H(\cdot)$\par
+\noindent I34: $E \in H(\mathcal{X})$\par
+\noindent I35: $\Sigma_E$\par
+\noindent I36: $\mathcal{U}^{(0,t]}$\par
+\noindent I37: $(0,t]$\par
+\noindent I38: $u:(0,t]\to U$\par
+\noindent I39: $\mathcal{U}:=\mathcal{U}^{(0,\infty)}$\par
+\noindent I40: $x\in\mathcal{X}$\par
+\noindent I41: $u\in \mathcal{U}^{(0,t]}$\par
+\noindent I42: $\phi(t,x,u)$\par
+\noindent I43: $t$\par
+\noindent I44: $S_0 \subseteq \mathcal{X}$\par
+\noindent I45: $S_{\mathrm{tgt}} \subseteq \mathcal{X}$\par
+\noindent I46: $x_0 \in S_0$\par
+\noindent I47: $S_{\mathrm{tgt}}$\par
+\noindent I48: $u \in \mathcal{U}^{(0,t]}$\par
+\noindent I49: $t>0$\par
+\noindent I50: $E\in H(\mathcal{X})$\par
+\noindent I51: $\Sigma_E:=\{x\in\mathcal{X}:H(x)=E\}$\par
+\noindent I52: $\phi(t,x,0)$\par
+\noindent I53: $\mu$\par
+\noindent I54: $M$\par
+\noindent I55: $\phi$\par
+\noindent I56: $A \subseteq M$\par
+\noindent I57: $t \ge 0$\par
+\noindent I58: $\mu(\phi(t,A)) = \mu(A).$\par
+\noindent I59: $\phi(t,A,0) \subseteq A$\par
+\noindent I60: $\mu(A) \in \{0,1\}$\par
+\noindent I61: $\mu_E$\par
+\noindent I62: $\{\mu_\alpha^E\}_{\alpha\in\mathcal{A}_E}$\par
+\noindent I63: $\nu_E$\par
+\noindent I64: $\mathcal{A}_E$\par
+\noindent I65: $\mu_E = \int_{\mathcal{A}_E} \mu_\alpha^E\, d\nu_E(\alpha)$\par
+\noindent I66: $\alpha\in\mathcal{A}_E$\par
+\noindent I67: $\mathrm{supp}(\mu):=\{x\in \Sigma_E:\mu(\mathcal{B}_r(x))>0,\ \forall r>0\}$\par
+\noindent I68: $\mu_\alpha^E$\par
+\noindent I69: $K_\alpha^E$\par
+\noindent I70: $x\in K_\alpha^E$\par
+\noindent I71: $\mathcal{D}:=\{(x_j,u_j(\cdot),\tau_j)\}_{j=1}^M,$\par
+\noindent I72: $u_j:(0,\tau_j] \to U$\par
+\noindent I73: $x_j$\par
+\noindent I74: $u_0:(0,\tau_0]\to U$\par
+\noindent I75: $\tau_0>0$\par
+\noindent I76: $u_i$\par
+\noindent I77: $\tau_i > 0$\par
+\noindent I78: $x_i \in \mathbb{R}^n$\par
+\noindent I79: $u_i \in \mathcal{A}$\par
+\noindent I80: $r_i > 0$\par
+\noindent I81: $\mathcal{K}$\par
+\noindent I82: $N:=\lvert \mathcal{K} \rvert$\par
+\noindent I83: $\mathrm{Supp}(\mathcal{K})$\par
+\noindent I84: $\rho_{\mathcal{K}}(x) := \min_{1\le i\le N}\frac{\|x-x_i\|}{r_i}.$\par
+\noindent I85: $\iota_{\mathcal{K}}:\mathcal{X} \to \{0,1,\dots,N\}$\par
+\noindent I86: $x\in\mathrm{Supp}(\mathcal{K})$\par
+\noindent I87: $u_0$\par
+\noindent I88: $\pi_{\mathcal{K}}(x)=u_{\iota_{\mathcal{K}}(x)}.$\par
+\noindent I89: $x_0=x$\par
+\noindent I90: $\pi_{\mathcal{K}}$\par
+\noindent I91: $n\ge 0$\par
+\noindent I92: $u_n := \pi_{\mathcal{K}}(x_n), T_n := \tau(u_n), x_{n+1} := \phi(T_n,x_n,u_n)$\par
+\noindent I93: $\tau(u_n)$\par
+\noindent I94: $u_n$\par
+\noindent I95: $s_0:=0$\par
+\noindent I96: $s_{n+1}:=s_n+T_n$\par
+\noindent I97: $u_{\mathcal{K},x}:(0,\infty)\to U$\par
+\noindent I98: $H_{\min}:=\min_{x \in S_{\mathrm{tgt}}} H(x)$\par
+\noindent I99: $H_{\max}:=\max_{x \in S_{\mathrm{tgt}}} H(x).$\par
+\noindent I100: $E \in [H_{\min}, H_{\max}]$\par
+\noindent I101: $K_\alpha^E \subseteq \Sigma_E$\par
+\noindent I102: $H(S_{\mathrm{tgt}}) = [H_{\min}, H_{\max}]$\par
+\noindent I103: $\Delta H(x) \le 0$\par
+\noindent I104: $H(x) \in H(S_{\mathrm{tgt}})$\par
+\noindent I105: $0 < \epsilon < H^\star_-$\par
+\noindent I106: $H_{\mathrm{tgt}}^\epsilon$\par
+\noindent I107: $x \in \mathcal{X} \setminus H_{\mathrm{tgt}}^\epsilon$\par
+\noindent I108: $T > 0$\par
+\noindent I109: $u \in \mathcal{U}^{(0,T]}$\par
+\noindent I110: $x \in \mathcal{X}$\par
+\noindent I111: $u \in \mathcal{U}$\par
+\noindent I112: $\Delta H(x)$\par
+\noindent I113: $\phi(T_\epsilon(x,u),x,u)\in \partial H_{\mathrm{tgt}}^\epsilon$\par
+\noindent I114: $T^\star_\epsilon(x)$\par
+\noindent I115: $T^\star_\epsilon(x):=\inf_{u\in\mathcal U}T_\epsilon(x,u)$\par
+\noindent I116: $\epsilon>0$\par
+\noindent I117: $\mathcal{K} = \{(x_i, r_i, u_i)\}_{i=1}^N$\par
+\noindent I118: $(x_i,r_i,u_i)\in \mathcal{K}$\par
+\noindent I119: $x_i(\tau_i):=\phi(\tau_i,x_i,u_i)$\par
+\noindent I120: $\tau_{\min}=\min_i\tau_i,\ \text{and }v_0 > 0$\par
+\noindent I121: $c := \sup_{x\in S_0} \Delta H(x)$\par
+\noindent I122: $E \in H(\mathrm{Supp}(\mathcal{K}))$\par
+\noindent I123: $t<\infty$\par
+\noindent I124: $y \in \mathrm{Supp}(\mathcal{K})$\par
+\noindent I125: $i$\par
+\noindent I126: $y \in \mathcal{B}_{r_i}(x_i)$\par
+\noindent I127: $\|y-x_i\|\le r_i$\par
+\noindent I128: $\|\nabla H(x)\|\le L_H$\par
+\noindent I129: $\Delta H$\par
+\noindent I130: $L_H$\par
+\noindent I131: $y\in \mathrm{Supp}(\mathcal{K})$\par
+\noindent I132: $S_0$\par
+\noindent I133: $H(y')\in H(\mathrm{Supp}(\mathcal{K}))$\par
+\noindent I134: $y'$\par
+\noindent I135: $u\equiv 0$\par
+\noindent I136: $\mathrm{int}(\mathrm{Supp}(\mathcal{K}))$\par
+\noindent I137: $K_\alpha^E\subseteq \Sigma_E$\par
+\noindent I138: $y'\in \Sigma_E$\par
+\noindent I139: $\phi(t,y',0)$\par
+\noindent I140: $T>0$\par
+\noindent I141: $y\in H_{\mathrm{tgt}}$\par
+\noindent I142: $H(y)\in [H_{\min},H_{\max}]$\par
+\noindent I143: $\Sigma_{H(y)}$\par
+\noindent I144: $T'>0$\par
+\noindent I145: $\phi(T',y,0)\in S_{\mathrm{tgt}}.$\par
+\noindent I146: $v_0\tau_{\min}>0$\par
+\noindent I147: $N_{\ast}=\left\lceil \frac{c}{v_0\tau_{\min}} \right\rceil$\par
+\noindent I148: $H_{\mathrm{tgt}}$\par
+\noindent I149: $\phi(t,x_0,\pi_{\mathcal K}) \in S_{\mathrm{tgt}}.$\par
+\noindent I150: $\square$\par
+\noindent I151: $n$\par
+\noindent I152: $\alpha$\par
+\noindent I153: $x \in \mathcal{X}\setminus H_{\mathrm{tgt}}$\par
+\noindent I154: $v_\epsilon(x)\le L_H C_f$\par
+\noindent I155: $\Delta H(x)>0$\par
+\noindent I156: $x\in \mathcal{X}\setminus H_{\mathrm{tgt}}$\par
+\noindent I157: $\mu_H>0$\par
+\noindent I158: $x,y\in\mathcal{X}$\par
+\noindent I159: $v_0 \in (0,\underline{v_\epsilon})$\par
+\noindent I160: $\mathcal{K}=\{(x_i,r_i,u_i)\}_{i=1}^{N}$\par
+\noindent I161: $u_i:(0,T_\epsilon^\star(x_i)]\to U$\par
+\noindent I162: $\partial H_{\mathrm{tgt}}^\epsilon$\par
+\noindent I163: $x_i$\par
+\noindent I164: $T_\epsilon^\star(x_i)$\par
+\noindent I165: $x_0\in S_0$\par
+\noindent I166: $\phi(t,x_0,\pi_{\mathcal{K}})\in S_{\mathrm{tgt}}$\par
+\noindent I167: $H(\mathrm{Supp}(\mathcal{K}))=[H_1,H_2]$\par
+\noindent I168: $x \in \mathcal{X}_c$\par
+\noindent I169: $u_x:(0,T_\epsilon^\star(x)] \to U$\par
+\noindent I170: $u_x:(0, T_\epsilon^\star(x)] \to U$\par
+\noindent I171: $v_0<\underline{v}_\epsilon\le v_\epsilon(x)$\par
+\noindent I172: $r(x)>0$\par
+\noindent I173: $(x,r(x),u_x)$\par
+\noindent I174: $v_\epsilon(x)\geq \underline{v_\epsilon}>0, v_\epsilon(x)=\frac{\Delta H(x_i)+\epsilon}{T_\epsilon^\star(x)},$\par
+\noindent I175: $T_\epsilon^\star(x) \leq \frac{\Delta H(x)+\epsilon}{\underline{v_\epsilon}}$\par
+\noindent I176: $r = \frac{\Delta H(x)+\epsilon-v_0 T_\epsilon^\star(x)}{L_H\bigl(1+e^{LT_\epsilon^\star(x)}\bigr)}$\par
+\noindent I177: $0<v_0<\underline{v_\epsilon}$\par
+\noindent I178: $r(x)$\par
+\noindent I179: $x\in\mathcal{X}_c$\par
+\noindent I180: $\mathcal{B}_{r(x)}(x)$\par
+\noindent I181: $\|v\|=1$\par
+\noindent I182: $x\pm rv$\par
+\noindent I183: $y_1, y_2$\par
+\noindent I184: $y\in \mathcal{B}_{r(x)}(x)$\par
+\noindent I185: $H_+^\star\notin H(\mathcal{B}_{r(x)}(x))$\par
+\noindent I186: $H_+^\star\in H(\mathcal{B}_{r(x)}(x))$\par
+\noindent I187: $y^\star \in \mathcal{B}_{r(x)}(x)$\par
+\noindent I188: $H(x)+\frac{\mu_{H}}{2}r(x)^2 \le H(y^\star) \le \max H(\mathcal{B}_{r(x)}(x))$\par
+\noindent I189: $[H(x),H(x)+\frac{\mu_{H}}{2}r(x)^2]\subseteq H(\mathcal{B}_{r(x)}(x))$\par
+\noindent I190: $y_1, y_2 \in \mathcal{B}_{r(x)}(x)$\par
+\noindent I191: $y_2 \in \mathcal{B}_{r(x)}(x)$\par
+\noindent I192: $H(y_2) = H_+^{\ast}$\par
+\noindent I193: $\forall x \in \mathcal{X}_c$\par
+\noindent I194: $E\in[H_1,H_2]$\par
+\noindent I195: $H(x)=E$\par
+\noindent I196: $E\in H(\mathcal{B}_{r(x)}(x))$\par
+\noindent I197: $\{H(\mathcal{B}_{r(x)}(x))\}_{x\in\mathcal{X}_c}$\par
+\noindent I198: $[H_1,H_2]$\par
+\noindent I199: $r_i:=r(x_i), u_i:=u_{x_i},$\par
+\noindent I200: $\mathcal{B}_{r_i}(x_i)$\par
+\noindent I201: $\eta$\par
+\noindent I202: $\forall x$\par
+\noindent I203: $H(x)\in [H_{1},H_{2}]$\par
+\noindent I204: $T_1 > 0, \mathrm{s.t.}$\par
+\noindent I205: $\min_{t\in(0,T_1]}\mathrm{d}(\phi(t,x,0),\mathrm{Supp}(\mathcal{K}))=0$\par
+\noindent I206: $H(x) \in [H_{\min},H_{\max}]$\par
+\noindent I207: $T_2 > 0, \mathrm{s.t.}$\par
+\noindent I208: $\min_{t\in(0,T_2]}\mathrm{d}(\phi(t,x,0),S_{\mathrm{tgt}})=0$\par
+\noindent I209: $\tau_{\min}:=\min_i \tau_i$\par
+\noindent I210: $x\in S_0$\par
+\noindent I211: $T_1$\par
+\noindent I212: $\{x_i\}_{i=0,\dots N}$\par
+\noindent I213: $\{y_i\}_{i=0,\dots, N}$\par
+\noindent I214: $0 \le t_{1,i} \le T_1$\par
+\noindent I215: $y_i$\par
+\noindent I216: $u_i\in \mathcal{U}^{(0,\tau_i]}$\par
+\noindent I217: $t_{2,i}:=\tau_i$\par
+\noindent I218: $i = 0,\dots,N$\par
+\noindent I219: $x_i\xrightarrow {t_{1,i}} y_i\xrightarrow {t_{2,i}} x_{i+1}$\par
+\noindent I220: $N$\par
+\noindent I221: $x_N \in H_{\mathrm{tgt}}^\epsilon$\par
+\noindent I222: $t_{1,i}\leq T_1$\par
+\noindent I223: $\overline T$\par
+\noindent I224: $T_{\max}$\par
+\noindent I225: $\mathcal{D}=\{(x_j,u_j(\cdot),T_{j})\}_{j=1}^M$\par
+\noindent I226: $(x_j,u_j(\cdot),T_{j})\in\mathcal{D}$\par
+\noindent I227: $\phi(t,x_j,u_j)$\par
+\noindent I228: $t\in(0,T_{j}]$\par
+\noindent I229: $x_{j} \in S_0$\par
+\noindent I230: $\phi(T_{j},x_j,u_j) \in S_{\mathrm{tgt}}^\delta, \forall j = 1,\dots,M$\par
+\noindent I231: $S_{\mathrm{tgt}}^\delta \subseteq H_{\mathrm{tgt}}^\epsilon\cap S_{\mathrm{tgt}}$\par
+\noindent I232: $s\in[0,T_{j})$\par
+\noindent I233: $x_i:=\phi(s,x_j,u_j).$\par
+\noindent I234: $v_0$\par
+\noindent I235: $t\in(0,T_{j}-s]$\par
+\noindent I236: $u_{i,t}$\par
+\noindent I237: $u_j$\par
+\noindent I238: $(s,s+t]$\par
+\noindent I239: $\phi(t,x_i,u_{i,t})=\phi(s+t,x_j,u_j)$\par
+\noindent I240: $r_i(t)>0$\par
+\noindent I241: $\mathcal{B}_{r_i(t)}(x_i)$\par
+\noindent I242: $t_i\in\arg\max_{t\in(0,T_{j}-s],\,r_i(t)>0} r_i(t)$\par
+\noindent I243: $\tau_i:=t_i$\par
+\noindent I244: $u_i:=u_{i,t_i}$\par
+\noindent I245: $r_i:=r_i(t_i)$\par
+\noindent I246: $(x_i,r_i,u_i)$\par
+\noindent I247: $\sigma_i:=\inf\{\delta\in(0,\tau_i]\mid \phi(s+\delta,x_j,u_j)\in\partial\mathcal{B}_{r_i}(x_i)\},$\par
+\noindent I248: $\sigma_i:=\tau_i$\par
+\noindent I249: $x_{i+1}:=\phi(s+\sigma_i,x_j,u_j),$\par
+\noindent I250: $\mathcal{D}$\par
+\noindent I251: $\mathcal{K}=\{(x_i,r_i,u_i)\}_{i=1}^N.$\par
+\noindent I252: $\forall x \in \mathcal{X}$\par
+\noindent I253: $\mathcal{K}\gets\emptyset$\par
+\noindent I254: $j=1,\dots,M$\par
+\noindent I255: $s\gets 0$\par
+\noindent I256: $s<T_{j}$\par
+\noindent I257: $\phi(s,x_j,u_j)\notin S_{\mathrm{tgt}}$\par
+\noindent I258: $x_i\gets \phi(s,x_j,u_j)$\par
+\noindent I259: $t_i$\par
+\noindent I260: $\tau_i\gets t_i$\par
+\noindent I261: $u_i\gets u_{i,t_i}$\par
+\noindent I262: $r_i\gets r_i(t_i)$\par
+\noindent I263: $\mathcal{K}\gets\mathcal{K}\cup\{(x_i,r_i,u_i)\}$\par
+\noindent I264: $\sigma_i\gets \inf\{\delta:\|\phi(s+\delta,x_j,u_j)-x_i\|=r_i\}$\par
+\noindent I265: $\sigma_i\gets \tau_i$\par
+\noindent I266: $s\gets s+\sigma_i$\par
+\noindent I267: $x=[q^\top,p^\top]^\top$\par
+\noindent I268: $q$\par
+\noindent I269: $p$\par
+\noindent I270: $x^{\ast}$\par
+\noindent I271: $S_{\mathrm{tgt}}=\{x:\|x-x^{\ast}\|\le \varepsilon\}$\par
+\noindent I272: $\varepsilon = 0.1$\par
+\noindent I273: $(24, 24, 16)$\par
+\noindent I274: $1.2\times 10^{-3}$\par
+\noindent I275: $5\times 10^{-4}$\par
+\noindent I276: $\bar H$\par
+\noindent I277: $m=1$\par
+\noindent I278: $k=1$\par
+\noindent I279: $u\in[-20, 20]$\par
+\noindent I280: $x^{\ast}=[0, 0]^\top$\par
+\noindent I281: $M=1$\par
+\noindent I282: $M=2$\par
+\noindent I283: $M=3$\par
+\noindent I284: $\ell=2$\par
+\noindent I285: $g=9.81 \mathrm{m/s^2}$\par
+\noindent I286: $x^{\ast}=[\pi, 0]^\top$\par
+\noindent I287: $M\geq 3$\par
+\noindent I288: $M=1,\dots,5$\par
+\noindent I289: $M=5$\par
+\end{document}

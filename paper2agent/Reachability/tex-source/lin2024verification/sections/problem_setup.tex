@@ -1,0 +1,23 @@
+\section{Problem Setup} \label{sec:problem_setup}
+\vspace{-0.5em}
+Consider a dynamical system with state $\state \in X \subseteq \R^n$, control $\ctrl \in \cset$, and dynamics $\dot{\state} = \dyn(\state, \ctrl)$ governing how $\state$ evolves over time until a final time $\horizon$. 
+Let $\trajstandard(\tdummy)$ denote the state achieved at time $\tdummy \in [\tvar, \horizon]$ by starting at initial state $\state$ and time $\tvar$ and applying control $\cfunc$ over $[\tvar,\tau]$. 
+Let $\targetset$ represent a target set that the agent wants to either reach (e.g. goal states) or avoid (e.g. obstacles).
+\vspace{0.2em}
+
+\noindent \textit{\textbf{Running example: Multi-Vehicle Collision Avoidance.}}
+Consider a 9D multi-vehicle collision avoidance system with 3 independent Dubins3D cars: $\veh_1, \veh_2, \veh_3$. 
+$\veh_i$ has position $(p_{xi}, p_{yi})$, heading $\theta_i$, constant velocity $v$, and steering control $u_i \in [u_{\min}, u_{\max}]$. 
+The dynamics of $\veh_i$ are: $\dot{p}_{xi} = v\cos{\theta_i}, \quad \dot{p}_{yi} = v\sin{\theta_i}, \quad \dot{\theta_i} = u_i$.
+$\targetset$ is the set of states where any of the vehicle pairs is in collision: $\targetset = \{x: \min\{d(\veh_1, \veh_2), d(\veh_1, \veh_3), d(\veh_2, \veh_3)\} \le R\}$, where $d(\veh_i, \veh_j)$ is the distance between $\veh_i$ and $\veh_j$.
+We set: $v=0.6, \quad u_{\min}=-1.1, \quad u_{\max}=1.1, \quad R=0.25$.
+
+In this setting, we are interested in computing the system's initial-time Backward Reachable Tube, which we denote as $\BRT$. 
+We define $\BRT$ as the set of all initial states in $X$ from which the agent will eventually reach $\targetset$ within the time horizon $[0,\horizon]$, despite best control efforts: $\BRT = \{\state: \state\in X, \forall \ctrl(\cdot), \exists \tdummy \in [0, \horizon], \trajinittime(\tdummy) \in \targetset\}$.
+When $\targetset$ represents unsafe states for the system, as it does in our running example, staying outside of $\BRT$ is desirable. 
+When $\targetset$ instead represents the states that the agent wants to reach, $\BRT$ is defined as the set of all initial states in $X$ from which the agent, acting optimally, can eventually reach $\targetset$ within $[0,\horizon]$. Thus, staying within $\BRT$ is desirable.
+
+The above 9D system is intractable for traditional grid-based methods, motivating the use of DeepReach to learn a neural $\BRT$.
+Our goal in this work is to recover an approximation of the safe set with probabilistic guarantees.
+Specifically, we want to find $\safeset$ such that $\underset{\state \in \safeset}{\mathbb{P}} ( \state \in \BRT ) \le \epsilon$ for some violation parameter $\epsilon \in (0, 1)$.
+When $\targetset$ represents goal states, we want $\underset{\state \in \safeset}{\mathbb{P}} ( \state \in \BRT^C ) \le \epsilon$.

@@ -1,0 +1,1711 @@
+{
+  "page": 7,
+  "lines": [
+    {
+      "text": "6",
+      "bbox": [
+        559.5490112304688,
+        26.49277114868164,
+        563.035888671875,
+        32.72734832763672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 2: Overview of AC-PAC-NMPC.",
+      "bbox": [
+        97.73100280761719,
+        240.90838623046875,
+        251.25462341308594,
+        249.81494140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. RL-based Warm Start",
+      "bbox": [
+        48.96400451660156,
+        263.6170654296875,
+        150.49285888671875,
+        272.204833984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We initialize the PAC-NMPC decision variables using the",
+      "bbox": [
+        58.927005767822266,
+        278.30841064453125,
+        300.0218811035156,
+        287.2149658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "learned actor policy. Since the RL actor policy is trained to",
+      "bbox": [
+        48.96400451660156,
+        290.1444091796875,
+        300.0214538574219,
+        299.05096435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "minimize the expected cost-to-go, this warm-start may reduce",
+      "bbox": [
+        48.96400451660156,
+        301.9794006347656,
+        300.02154541015625,
+        310.8859558105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimization time to convergence and help avoid non-optimal",
+      "bbox": [
+        48.96400451660156,
+        313.8153991699219,
+        300.02142333984375,
+        322.7219543457031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "local minima. For high-dimensional input spaces, we have",
+      "bbox": [
+        48.96400451660156,
+        325.6513977050781,
+        300.0215148925781,
+        334.5579528808594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "found that this feature is important for keeping the SNMPC",
+      "bbox": [
+        48.96400451660156,
+        337.48638916015625,
+        300.02154541015625,
+        346.3929443359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policy within the distribution of the trained RL model. Our",
+      "bbox": [
+        48.96400451660156,
+        349.3223876953125,
+        300.021484375,
+        358.22894287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "warm-start approach is summarized in Algorithm 1.",
+      "bbox": [
+        48.96400451660156,
+        361.15838623046875,
+        261.5359802246094,
+        370.06494140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given an initial state, xt, and sensor measurement, yt, the",
+      "bbox": [
+        58.927005767822266,
+        372.6419982910156,
+        300.0215759277344,
+        382.4029235839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial input of the warm-start trajectory can be computed",
+      "bbox": [
+        48.9639892578125,
+        384.6363830566406,
+        300.0215759277344,
+        393.5429382324219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as ˆut = πϕ(xt, yt). However, subsequent actions cannot be",
+      "bbox": [
+        48.9639892578125,
+        394.772216796875,
+        300.0198059082031,
+        406.65374755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computed directly, since future states and sensor measurements",
+      "bbox": [
+        48.96398162841797,
+        408.3083801269531,
+        300.0215759277344,
+        417.2149353027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are needed to evaluate the actor along the rest of the trajectory,",
+      "bbox": [
+        48.96398162841797,
+        420.14337158203125,
+        300.021484375,
+        429.0499267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆut+k = πϕ(xt+k, ˆyt+k). To address this, we compute future",
+      "bbox": [
+        48.96398162841797,
+        430.2792053222656,
+        300.02685546875,
+        442.1607360839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "states recursively using a nominal, deterministic dynamics",
+      "bbox": [
+        48.96398162841797,
+        443.81536865234375,
+        300.0215148925781,
+        452.721923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model, xt+1 = f(xt, ut).",
+      "bbox": [
+        48.96398162841797,
+        455.490966796875,
+        151.45509338378906,
+        465.8327331542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Unlike the robot state, future sensor measurements cannot",
+      "bbox": [
+        58.92698669433594,
+        467.2933654785156,
+        300.02191162109375,
+        476.1999206542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be simulated in the same way because they depend on an",
+      "bbox": [
+        48.963985443115234,
+        479.1293640136719,
+        300.0215148925781,
+        488.0359191894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "environment which is unknown a priori. Instead, future sensor",
+      "bbox": [
+        48.963985443115234,
+        490.96435546875,
+        300.0214538574219,
+        499.87091064453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "measurements are estimated using a sensor prediction model,",
+      "bbox": [
+        48.963985443115234,
+        502.80035400390625,
+        300.021484375,
+        511.7069091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆyt+k = hη(xt, yt, xt+k). Rather than predicting the sensor",
+      "bbox": [
+        48.963985443115234,
+        512.9351806640625,
+        300.02813720703125,
+        524.8177490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model recursively, ˆyt+1 = hη(xt, yt, xt+1), we predict each",
+      "bbox": [
+        48.96397399902344,
+        524.7711181640625,
+        300.02728271484375,
+        536.6536865234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "future sensor measurements at time t + k directly from the",
+      "bbox": [
+        48.9639892578125,
+        538.14794921875,
+        300.031494140625,
+        547.2139282226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial sensor measurement. Empirically, we found that recur-",
+      "bbox": [
+        48.9639892578125,
+        550.1433715820312,
+        300.0214538574219,
+        559.0499267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sively applying sensor prediction led to error accumulation and",
+      "bbox": [
+        48.9639892578125,
+        561.9793701171875,
+        300.0215148925781,
+        570.8859252929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "degraded sensor measurement prediction.",
+      "bbox": [
+        48.9639892578125,
+        573.8143310546875,
+        217.25222778320312,
+        582.7208862304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The resulting actor warm-start initializes the mean of the",
+      "bbox": [
+        58.9269905090332,
+        585.4573974609375,
+        300.0219421386719,
+        594.3639526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SNMPC policy’s surrogate distribution, µ, while the variance,",
+      "bbox": [
+        48.9639892578125,
+        597.1339111328125,
+        300.02154541015625,
+        606.1998901367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Σ, is set to a prespecified high variance to promote explo-",
+      "bbox": [
+        48.9639892578125,
+        608.9689331054688,
+        300.0314025878906,
+        618.034912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ration. Due to runtime limitations, it is often not possible for",
+      "bbox": [
+        48.9639892578125,
+        620.96435546875,
+        300.0215148925781,
+        629.8709106445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "PAC-NMPC to fully reduce this exploration variance. How-",
+      "bbox": [
+        48.9639892578125,
+        632.8003540039062,
+        300.021484375,
+        641.7069091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ever, because we ultimately execute the maximum likelihood",
+      "bbox": [
+        48.9639892578125,
+        644.6363525390625,
+        300.0214538574219,
+        653.5429077148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "estimate of the SNMPC policy, we can perform a final PAC-",
+      "bbox": [
+        48.9639892578125,
+        656.4713745117188,
+        300.021484375,
+        665.3779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NMPC policy optimization iteration in which the variances",
+      "bbox": [
+        48.9639892578125,
+        668.307373046875,
+        300.0215148925781,
+        677.2139282226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are reduced to a prespecified small value. This produces PAC",
+      "bbox": [
+        48.9639892578125,
+        680.1433715820312,
+        300.02154541015625,
+        689.0499267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guarantees that more accurately reflect the executed policies",
+      "bbox": [
+        48.9639892578125,
+        691.9783935546875,
+        300.0215148925781,
+        700.8849487304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and are often tighter.",
+      "bbox": [
+        48.9639892578125,
+        703.8143920898438,
+        134.40322875976562,
+        712.720947265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "While PAC-NMPC can often find a feasible solution with",
+      "bbox": [
+        58.9269905090332,
+        715.4573974609375,
+        300.0218200683594,
+        724.3639526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this actor warm-start, when the warm-start produces a tra-",
+      "bbox": [
+        48.9639892578125,
+        727.2923583984375,
+        300.0215148925781,
+        736.1989135742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "jectory that is severely infeasible (e.g., due to distribution",
+      "bbox": [
+        48.9639892578125,
+        739.1283569335938,
+        300.0214538574219,
+        748.034912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1: Warm Start",
+      "bbox": [
+        316.9590148925781,
+        58.25178146362305,
+        423.1602783203125,
+        67.27790069580078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Input: xt, y(t−Ny):t",
+      "bbox": [
+        321.94000244140625,
+        71.74234771728516,
+        398.83966064453125,
+        81.3223876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 ˆut = πϕ(xt, yt);",
+      "bbox": [
+        313.84600830078125,
+        81.32756042480469,
+        387.3922119140625,
+        92.0204849243164
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 for i = t, · · · , t + NT −1 do",
+      "bbox": [
+        313.84600830078125,
+        92.42321014404297,
+        433.35400390625,
+        101.88346099853516
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        314.2439880371094,
+        104.71456146240234,
+        317.3573303222656,
+        110.31237030029297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xi+1 = f(xi, ˆui);",
+      "bbox": [
+        337.2806701660156,
+        102.6633071899414,
+        403.40814208984375,
+        111.7464370727539
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        314.24395751953125,
+        114.5775375366211,
+        317.3572998046875,
+        120.17534637451172
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆyi+1 = hη(xt, yt, xi+1);",
+      "bbox": [
+        337.282958984375,
+        110.91648864746094,
+        431.78619384765625,
+        121.60941314697266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5",
+      "bbox": [
+        314.2440185546875,
+        125.49654388427734,
+        317.35736083984375,
+        131.09434509277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆui+1 = πϕ(xi+1, ˆyi+1);",
+      "bbox": [
+        337.28302001953125,
+        121.83549499511719,
+        429.9032287597656,
+        132.52842712402344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        314.2440185546875,
+        135.35952758789062,
+        317.35736083984375,
+        140.9573211669922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "if c(xi+1, ˆui+1, y(t−Ny):t) > 0 then",
+      "bbox": [
+        337.28070068359375,
+        133.30825805664062,
+        474.0340576171875,
+        143.0133056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7",
+      "bbox": [
+        314.64300537109375,
+        145.62356567382812,
+        317.75634765625,
+        151.2213592529297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "warm-start from prior policy;",
+      "bbox": [
+        352.6266784667969,
+        143.84075927734375,
+        460.4295959472656,
+        151.85671997070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8",
+      "bbox": [
+        314.64300537109375,
+        155.48654174804688,
+        317.75634765625,
+        161.08433532714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "return",
+      "bbox": [
+        352.6266784667969,
+        153.5961456298828,
+        377.23046875,
+        161.6569366455078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9 warm-start from µ = (ˆut, · · · , ˆut+NT −1);",
+      "bbox": [
+        313.84600830078125,
+        170.8912353515625,
+        479.6592102050781,
+        181.1166229248047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shift), the PAC-NMPC policy distribution may not sample",
+      "bbox": [
+        311.9779968261719,
+        199.3023681640625,
+        563.035400390625,
+        208.20892333984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "any feasible trajectories. The lack of feasible trajectories in",
+      "bbox": [
+        311.9779968261719,
+        211.13836669921875,
+        563.0355224609375,
+        220.044921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this case will result in failed optimization. To improve out-",
+      "bbox": [
+        311.9779968261719,
+        222.973388671875,
+        563.0355834960938,
+        231.87994384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of-distribution performance, we evaluate the degree to which",
+      "bbox": [
+        311.9779968261719,
+        234.80938720703125,
+        563.0354614257812,
+        243.7159423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the actor policy warm-start violates constraints. If it does, we",
+      "bbox": [
+        311.9779968261719,
+        246.6453857421875,
+        563.035400390625,
+        255.55194091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "instead default to warm-starting using the previously optimized",
+      "bbox": [
+        311.9779968261719,
+        258.48040771484375,
+        563.0353393554688,
+        267.386962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "PAC-NMPC policy, as done in prior research [60].",
+      "bbox": [
+        311.9779968261719,
+        270.31640625,
+        519.6582641601562,
+        279.22296142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Uncertainty-Aware RL-Augmented Cost",
+      "bbox": [
+        311.9779968261719,
+        297.1360778808594,
+        486.35333251953125,
+        305.7238464355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A key limitation of NMPC is the potential myopic behavior",
+      "bbox": [
+        321.94000244140625,
+        311.9704284667969,
+        563.034912109375,
+        320.8769836425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from optimizing over a finite horizon. For online planning sce-",
+      "bbox": [
+        311.9779968261719,
+        323.8064270019531,
+        563.0353393554688,
+        332.7129821777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "narios, this horizon is frequently restricted by computational",
+      "bbox": [
+        311.9779968261719,
+        335.64141845703125,
+        563.0354614257812,
+        344.5479736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "resources, especially for robots characterized by complex",
+      "bbox": [
+        311.9779968261719,
+        347.4774169921875,
+        563.0355834960938,
+        356.38397216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics and large state spaces. Taking inspiration from [36],",
+      "bbox": [
+        311.9779968261719,
+        359.31341552734375,
+        563.0357055664062,
+        368.219970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we use the learned value function as the terminal cost",
+      "bbox": [
+        311.9779968261719,
+        371.1484069824219,
+        534.014404296875,
+        380.0549621582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ℓf(xt+NT ) = V ϕψ(xt+NT , ˆyt+NT )",
+      "bbox": [
+        364.82000732421875,
+        386.542236328125,
+        510.1944580078125,
+        399.9237976074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(13)",
+      "bbox": [
+        546.4384155273438,
+        388.74041748046875,
+        563.0361938476562,
+        397.64697265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where V ϕψ is composed of the actor, πϕ, and critic, Qψ. A",
+      "bbox": [
+        311.9779968261719,
+        402.7174377441406,
+        563.03125,
+        415.2389831542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "key difference between our approach and [36] is that our value",
+      "bbox": [
+        311.9779968261719,
+        418.1684265136719,
+        563.0354614257812,
+        427.0749816894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "function is dependent on sensor measurements and, there-",
+      "bbox": [
+        311.9779968261719,
+        430.00341796875,
+        563.0355834960938,
+        438.90997314453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fore, we predict the terminal sensor measurement, ˆyt+NT =",
+      "bbox": [
+        311.9779968261719,
+        441.5420227050781,
+        563.0379028320312,
+        453.0227966308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hη(xt, yt, xt+NT ). Consequently, the resulting trajectory cost",
+      "bbox": [
+        311.97796630859375,
+        451.9742431640625,
+        563.0361938476562,
+        464.8587951660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approximates the infinite-horizon perception-based cost-to-go",
+      "bbox": [
+        311.9779357910156,
+        465.5104064941406,
+        563.035400390625,
+        474.4169616699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "given the current state and sensor measurements.",
+      "bbox": [
+        311.9779357910156,
+        477.3464050292969,
+        512.6146850585938,
+        486.2529602050781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Also similar to [36], we learn an approximate distribution",
+      "bbox": [
+        321.93994140625,
+        489.1324157714844,
+        563.0347900390625,
+        498.0389709472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "over value functions. However, while [36] did this to facilitate",
+      "bbox": [
+        311.9779357910156,
+        500.9684143066406,
+        563.0353393554688,
+        509.8749694824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "exploration, we do this so that PAC-NMPC can reason not",
+      "bbox": [
+        311.9779357910156,
+        512.8034057617188,
+        563.0355224609375,
+        521.7099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "only about the uncertainty in the robot dynamics, but also the",
+      "bbox": [
+        311.9779357910156,
+        524.639404296875,
+        563.0352172851562,
+        533.5459594726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "uncertainty in the value function, during run-time execution.",
+      "bbox": [
+        311.9779357910156,
+        536.4754028320312,
+        559.4089965820312,
+        545.3819580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To model the stochastic value function, we implement πϕ,",
+      "bbox": [
+        321.93994140625,
+        546.5601806640625,
+        563.03662109375,
+        557.16796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Qψ, and hη as stochastic models by representing these models",
+      "bbox": [
+        311.97796630859375,
+        556.4813842773438,
+        563.0323486328125,
+        569.0029907226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as neural networks trained with Monte Carlo (MC) dropout:",
+      "bbox": [
+        311.9779968261719,
+        571.932373046875,
+        558.9209594726562,
+        580.8389282226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "r(l)",
+      "bbox": [
+        354.83599853515625,
+        586.9901733398438,
+        368.3880310058594,
+        598.937744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j",
+      "bbox": [
+        359.33099365234375,
+        594.9421997070312,
+        362.6296081542969,
+        601.1349487304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∼Bernoulli(p)",
+      "bbox": [
+        371.6600036621094,
+        589.5330810546875,
+        432.5812683105469,
+        599.1569213867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˜y(l) = r(l) ∗y(l)",
+      "bbox": [
+        452.5064697265625,
+        585.4201049804688,
+        519.6729736328125,
+        598.937744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(14)",
+      "bbox": [
+        546.4390258789062,
+        590.2503662109375,
+        563.0368041992188,
+        599.1569213867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where l ∈{1, · · · , L} indexes the hidden layers, r(l) is",
+      "bbox": [
+        311.97802734375,
+        605.370361328125,
+        563.0360107421875,
+        617.8919677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the vector of independent Bernoulli random variables that",
+      "bbox": [
+        311.9779968261719,
+        620.8214111328125,
+        563.0352783203125,
+        629.7279663085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have a probability p of being 1, y(l) denotes the vector of",
+      "bbox": [
+        311.9779968261719,
+        629.0413818359375,
+        563.0345458984375,
+        641.56396484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "outputs from layer l, ∗denotes an element-wise product, and",
+      "bbox": [
+        311.97796630859375,
+        643.775146484375,
+        563.0355834960938,
+        653.3989868164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˜y(l) denotes the post-dropout outputs. Dropout was originally",
+      "bbox": [
+        311.97686767578125,
+        652.71337890625,
+        563.0328369140625,
+        665.2349243164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposed as a way of reducing neural network overfitting [68],",
+      "bbox": [
+        311.97796630859375,
+        668.1644287109375,
+        563.0354614257812,
+        677.0709838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "but has also been shown to approximate a Bayesian neural",
+      "bbox": [
+        311.97796630859375,
+        679.9993896484375,
+        563.0355224609375,
+        688.9059448242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "network when used during inference [69].",
+      "bbox": [
+        311.97796630859375,
+        691.8353881835938,
+        483.962158203125,
+        700.741943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "One traditional shortcoming of MC dropout is that the",
+      "bbox": [
+        321.9399719238281,
+        703.6213989257812,
+        563.0347900390625,
+        712.5279541015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "network must be inferenced many times with a different",
+      "bbox": [
+        311.97796630859375,
+        715.4573974609375,
+        563.0355224609375,
+        724.3639526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dropout mask for each forward pass, thus significantly increas-",
+      "bbox": [
+        311.97796630859375,
+        727.2924194335938,
+        563.0354614257812,
+        736.198974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing inference time. However, since PAC-NMPC must already",
+      "bbox": [
+        311.97796630859375,
+        739.12841796875,
+        563.0355224609375,
+        748.0349731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "RL-Guided PAC-NMPC for Probabilistically-Safe Perception-Based Navigation in Unknown Environments",
+      "author": "Adam Polevoy; Dillon Capalongo; Katherine Tang; Mark Gonzales; Marin Kobilarov; Joseph Moore",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:0d14211)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/rl-guided-pac-nmpc-paper/documents/.pdf-skill-scan-8mlnxg3p/review/source.pdf",
+      "page_count": 20,
+      "page_number": 7
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          559,
+          26,
+          564,
+          32
+        ],
+        "pos": [
+          0,
+          4
+        ]
+      },
+      {
+        "index": 1,
+        "class": "picture",
+        "bbox": [
+          48,
+          56,
+          301,
+          237
+        ],
+        "pos": [
+          4,
+          6
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          97,
+          240,
+          252,
+          250
+        ],
+        "pos": [
+          6,
+          41
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          48,
+          263,
+          151,
+          271
+        ],
+        "pos": [
+          41,
+          70
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          48,
+          278,
+          301,
+          371
+        ],
+        "pos": [
+          70,
+          537
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          372,
+          301,
+          465
+        ],
+        "pos": [
+          537,
+          1145
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          48,
+          467,
+          301,
+          583
+        ],
+        "pos": [
+          1145,
+          1840
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          48,
+          585,
+          301,
+          713
+        ],
+        "pos": [
+          1840,
+          2472
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          48,
+          715,
+          301,
+          749
+        ],
+        "pos": [
+          2472,
+          2649
+        ]
+      },
+      {
+        "index": 9,
+        "class": "section-header",
+        "bbox": [
+          316,
+          58,
+          424,
+          68
+        ],
+        "pos": [
+          2649,
+          2681
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          313,
+          71,
+          480,
+          180
+        ],
+        "pos": [
+          2681,
+          3263
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          311,
+          199,
+          564,
+          280
+        ],
+        "pos": [
+          3263,
+          3684
+        ]
+      },
+      {
+        "index": 12,
+        "class": "section-header",
+        "bbox": [
+          311,
+          296,
+          487,
+          306
+        ],
+        "pos": [
+          3684,
+          3729
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          311,
+          311,
+          564,
+          379
+        ],
+        "pos": [
+          3729,
+          4090
+        ]
+      },
+      {
+        "index": 14,
+        "class": "formula",
+        "bbox": [
+          364,
+          386,
+          564,
+          399
+        ],
+        "pos": [
+          4090,
+          4092
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          311,
+          404,
+          564,
+          487
+        ],
+        "pos": [
+          4092,
+          4623
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          311,
+          489,
+          564,
+          546
+        ],
+        "pos": [
+          4623,
+          4930
+        ]
+      },
+      {
+        "index": 17,
+        "class": "formula",
+        "bbox": [
+          311,
+          546,
+          564,
+          602
+        ],
+        "pos": [
+          4930,
+          4932
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          311,
+          606,
+          564,
+          701
+        ],
+        "pos": [
+          4932,
+          5493
+        ]
+      },
+      {
+        "index": 19,
+        "class": "text",
+        "bbox": [
+          311,
+          703,
+          564,
+          749
+        ],
+        "pos": [
+          5493,
+          5723
+        ]
+      }
+    ],
+    "text": "6 \n\n\n\nFig. 2: Overview of AC-PAC-NMPC. \n\n# _A. RL-based Warm Start_ \n\nWe initialize the PAC-NMPC decision variables using the learned actor policy. Since the RL actor policy is trained to minimize the expected cost-to-go, this warm-start may reduce optimization time to convergence and help avoid non-optimal local minima. For high-dimensional input spaces, we have found that this feature is important for keeping the SNMPC policy within the distribution of the trained RL model. Our warm-start approach is summarized in Algorithm 1. \n\nGiven an initial state, **x** _t_ , and sensor measurement, **y** _t_ , the initial input of the warm-start trajectory can be computed as **u** ˆ _t_ = **_π_**<sup>**_ϕ_**</sup> ( **x** _t,_ **y** _t_ ). However, subsequent actions cannot be computed directly, since future states and sensor measurements are needed to evaluate the actor along the rest of the trajectory, **u** ˆ _t_ + _k_ = **_π_**<sup>**_ϕ_**</sup> ( **x** _t_ + _k,_ ˆ **y** _t_ + _k_ ). To address this, we compute future states recursively using a nominal, deterministic dynamics model, **x** _t_ +1 = **f** ( **x** _t,_ **u** _t_ ). \n\nUnlike the robot state, future sensor measurements cannot be simulated in the same way because they depend on an environment which is unknown _a priori_ . Instead, future sensor measurements are estimated using a sensor prediction model, **y** ˆ _t_ + _k_ = **h**<sup>_η_</sup> ( **x** _t,_ **y** _t,_ **x** _t_ + _k_ ). Rather than predicting the sensor model recursively, **y** ˆ _t_ +1 = **h**<sup>_η_</sup> ( **x** _t,_ **y** _t,_ **x** _t_ +1), we predict each future sensor measurements at time _t_ + _k_ directly from the initial sensor measurement. Empirically, we found that recursively applying sensor prediction led to error accumulation and degraded sensor measurement prediction. \n\nThe resulting actor warm-start initializes the mean of the SNMPC policy’s surrogate distribution, **_µ_** , while the variance, **Σ** , is set to a prespecified high variance to promote exploration. Due to runtime limitations, it is often not possible for PAC-NMPC to fully reduce this exploration variance. However, because we ultimately execute the maximum likelihood estimate of the SNMPC policy, we can perform a final PACNMPC policy optimization iteration in which the variances are reduced to a prespecified small value. This produces PAC guarantees that more accurately reflect the executed policies and are often tighter. \n\nWhile PAC-NMPC can often find a feasible solution with this actor warm-start, when the warm-start produces a trajectory that is severely infeasible (e.g., due to distribution \n\n# **Algorithm 1:** Warm Start \n\n- **Input: x** _t_ , **y** ( _t−Ny_ ): _t_ \n\n- **1 u** ˆ _t_ = **_π_**<sup>**_ϕ_**</sup> ( **x** _t,_ **y** _t_ ); **2 for** _i_ = _t, · · · , t_ + _NT −_ 1 **do 3 x** _i_ +1 = **f** ( **x** _i,_ ˆ **u** _i_ ); **4 y** ˆ _i_ +1 = **h**<sup>_η_</sup> ( **x** _t,_ **y** _t,_ **x** _i_ +1); **5 u** ˆ _i_ +1 = **_π_**<sup>**_ϕ_**</sup> ( **x** _i_ +1 _,_ ˆ **y** _i_ +1); **6 if** _c_ ( **x** _i_ +1 _,_ ˆ **u** _i_ +1 _,_ **y** ( _t−Ny_ ): _t_ ) _>_ 0 **then 7** warm-start from prior policy; **8 return 9** warm-start from **_µ_** = (ˆ **u** _t, · · · ,_ ˆ **u** _t_ + _NT −_ 1); \n\nshift), the PAC-NMPC policy distribution may not sample any feasible trajectories. The lack of feasible trajectories in this case will result in failed optimization. To improve outof-distribution performance, we evaluate the degree to which the actor policy warm-start violates constraints. If it does, we instead default to warm-starting using the previously optimized PAC-NMPC policy, as done in prior research [60]. \n\n# _B. Uncertainty-Aware RL-Augmented Cost_ \n\nA key limitation of NMPC is the potential myopic behavior from optimizing over a finite horizon. For online planning scenarios, this horizon is frequently restricted by computational resources, especially for robots characterized by complex dynamics and large state spaces. Taking inspiration from [36], we use the learned value function as the terminal cost \n\n\n\nwhere _V_<sup>**_ϕψ_**</sup> is composed of the actor, **_π_**<sup>**_ϕ_**</sup> , and critic, _Q_<sup>**_ψ_**</sup> . A key difference between our approach and [36] is that our value function is dependent on sensor measurements and, therefore, we predict the terminal sensor measurement, **y** ˆ _t_ + _NT_ = **h**<sup>_η_</sup> ( **x** _t,_ **y** _t,_ **x** _t_ + _NT_ ). Consequently, the resulting trajectory cost approximates the infinite-horizon perception-based cost-to-go given the current state and sensor measurements. \n\nAlso similar to [36], we learn an approximate distribution over value functions. However, while [36] did this to facilitate exploration, we do this so that PAC-NMPC can reason not only about the uncertainty in the robot dynamics, but also the uncertainty in the value function, during run-time execution. \n\n\n\nwhere _l ∈{_ 1 _, · · · , L}_ indexes the hidden layers, **r**<sup>(</sup><sup>_l_)</sup> is the vector of independent Bernoulli random variables that have a probability _p_ of being 1, **y**<sup>(</sup><sup>_l_)</sup> denotes the vector of outputs from layer _l_ , _∗_ denotes an element-wise product, and **˜y**<sup>(</sup><sup>_l_)</sup> denotes the post-dropout outputs. Dropout was originally proposed as a way of reducing neural network overfitting [68], but has also been shown to approximate a Bayesian neural network when used during inference [69]. \n\nOne traditional shortcoming of MC dropout is that the network must be inferenced many times with a different dropout mask for each forward pass, thus significantly increasing inference time. However, since PAC-NMPC must already \n\n"
+  }
+}

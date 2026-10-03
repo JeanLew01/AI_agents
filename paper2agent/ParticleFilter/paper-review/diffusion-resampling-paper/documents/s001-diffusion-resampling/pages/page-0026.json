@@ -1,0 +1,251 @@
+{
+  "page": 26,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0026.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with preview, 260-dpi crops of Table 15 (both halves) and a 180-dpi crop of Table 16; TeX (tbl:app-pendulum-diffusion2, tbl:app-pendulum-others2, Network architectures paragraph, app:pbnn) used for maths and cells, all agree with the PDF. Page opens with 'the velocity. ...' continuing page 25's last sentence: moved first, join_previous=space. Tables 15 and 16 placed after that completed paragraph, captions before tables as printed; Table 16 caption was mis-kinded as text, now caption. Table 15 three-level header flattened with repeated parents ('Jentzen–Kloeden SDE SSIM' ...); asterisk markers kept in cells ('0.671* ± 0.082', '0.708** ± 0.159'). Table bboxes re-measured. Heading changed from '# **L. ...**' to '## L. Bayesian neural network training'. Extractor formula image p0026-b009 replaced by text Equation (38) from TeX (split -> aligned, \\cond expanded to \\;|\\;) with \\tag{38}; it and the following 'for CIFAR10 classification, ...' continue the SSM sentence (join_previous=space on both). Inline maths rewritten in LaTeX ($Z_0$, $t>0$, bmatrix inputs in $\\mathbb{R}^5$, update rules $Z_{j+1}=...$, $\\omega_0=8.0$, $4\\times4\\times16$, $x\\mapsto f_{\\theta,z}(x)$, $D_j$, $\\rho=0.99$). Running header/page number omitted. Author grammar ('a Markovian dynamics', 'a batch data') kept.",
+  "warnings": [
+    "Review possible header/footer: p0026-b000"
+  ],
+  "items": [
+    {
+      "id": "p0026-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "**Diffusion differentiable resampling**",
+      "reason": "Running header (paper title \"Diffusion differentiable resampling\") repeated on every page"
+    },
+    {
+      "id": "p0026-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        331.0,
+        544.0,
+        461.0
+      ],
+      "markdown": "the velocity. While the system is initialised with physical coordinates $Z_0$, both networks are unconstrained and unregularised for all $t>0$. As discussed above, this means that the system is free to learn a latent manifold sufficient for image reconstruction, even if the latent representation is a non-linear transformation of the true physical coordinate system. We employ a SIREN (Sitzmann et al., 2020) architecture to model the latent dynamics. The network takes the concatenated input $\\begin{bmatrix} \\mathbf{h}(Z_j) & \\zeta_j \\end{bmatrix} \\in \\mathbb{R}^5$ and outputs the state derivative. The update rule in the first setting is $Z_{j+1} = Z_j + \\mathrm{Net}(\\begin{bmatrix} \\mathbf{h}(Z_j) & \\zeta_j \\end{bmatrix}) \\, \\Delta_j$. In the second setting, where we invoke resampling at nearly all filtering steps, we make an additional additive noise assumption, omit concatenating the input and let $Z_{j+1} = Z_j + \\mathrm{Net}(\\mathbf{h}(Z_j))\\,\\Delta_j + \\zeta_j$. Without this assumption, the neural network is free to learn to neglect the noise, and in the first setting, we indeed found that the learnt dynamics network often had this issue. This can happen in end-to-end learning since minimising the optimisation objective does not necessarily require the network to optimise for a good filtering distribution, and reducing the randomness might, for instance, help stabilise optimisation.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0026-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        67.0,
+        543.0,
+        106.0
+      ],
+      "markdown": "Table 15. Prediction quality in terms of structural similarity index (SSIM) and PSNR (higher the better) for the pendulum dynamics tracking experiment, with respect to models trained using diffusion resampling in the second experiment setting. Each result is presented in terms of mean over 9 independent runs, together with the corresponding standard deviation, recorded after 1500 training iterations. For four configurations only 8 out of 9 (*) runs, respectively, were non-divergent."
+    },
+    {
+      "id": "p0026-b002",
+      "kind": "table",
+      "bbox": [
+        52.0,
+        111.0,
+        543.0,
+        176.0
+      ],
+      "markdown": "",
+      "label": "Table 15",
+      "asset_name": "table-15",
+      "rows": [
+        [
+          "Method",
+          "Euler–Maruyama SDE SSIM",
+          "Euler–Maruyama SDE PSNR",
+          "Euler–Maruyama ODE SSIM",
+          "Euler–Maruyama ODE PSNR",
+          "Jentzen–Kloeden SDE SSIM",
+          "Jentzen–Kloeden SDE PSNR",
+          "Jentzen–Kloeden ODE SSIM",
+          "Jentzen–Kloeden ODE PSNR",
+          "Tweedie SDE SSIM",
+          "Tweedie SDE PSNR"
+        ],
+        [
+          "T = 1, K = 4",
+          "0.671* ± 0.082",
+          "17.2* ± 0.666",
+          "0.607 ± 0.091",
+          "17.2 ± 0.834",
+          "0.517* ± 0.134",
+          "16.9* ± 0.528",
+          "0.507 ± 0.048",
+          "16.5 ± 0.443",
+          "0.549* ± 0.081",
+          "16.7* ± 0.666"
+        ],
+        [
+          "T = 1, K = 8",
+          "0.576* ± 0.080",
+          "16.6* ± 0.542",
+          "0.511 ± 0.070",
+          "16.7 ± 0.554",
+          "0.599 ± 0.101",
+          "17.1 ± 0.579",
+          "0.481 ± 0.074",
+          "16.5 ± 0.253",
+          "0.503 ± 0.067",
+          "16.5 ± 0.32"
+        ],
+        [
+          "T = 1, K = 16",
+          "0.576 ± 0.082",
+          "16.6 ± 1.19",
+          "0.280 ± 0.112",
+          "16.1 ± 0.235",
+          "0.557 ± 0.101",
+          "16.9 ± 0.744",
+          "0.239 ± 0.082",
+          "16.0 ± 0.202",
+          "0.227 ± 0.074",
+          "16.1 ± 0.197"
+        ]
+      ]
+    },
+    {
+      "id": "p0026-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        185.0,
+        543.0,
+        214.0
+      ],
+      "markdown": "Table 16. Prediction quality (SSIM, PSNR) for the pendulum dynamics tracking experiment, with respect to models trained using OT, Gumbel and Soft resampling. Results correspond to the second experiment setting. For OT configurations, only 3 (**) and 4(*) runs were non-divergent."
+    },
+    {
+      "id": "p0026-b004",
+      "kind": "table",
+      "bbox": [
+        207.0,
+        218.0,
+        386.0,
+        312.0
+      ],
+      "markdown": "",
+      "label": "Table 16",
+      "asset_name": "table-16",
+      "rows": [
+        [
+          "Method",
+          "SSIM",
+          "PSNR"
+        ],
+        [
+          "OT (ε = 0.5)",
+          "0.662* ± 0.141",
+          "17.7* ± 1.782"
+        ],
+        [
+          "OT (ε = 1.0)",
+          "0.575** ± 0.303",
+          "17.5** ± 1.924"
+        ],
+        [
+          "OT (ε = 1.5)",
+          "0.708** ± 0.159",
+          "18.2** ± 2.73"
+        ],
+        [
+          "Gumbel (0.1)",
+          "0.509 ± 0.060",
+          "16.7 ± 0.400"
+        ],
+        [
+          "Gumbel (0.3)",
+          "0.593 ± 0.083",
+          "16.8 ± 0.508"
+        ],
+        [
+          "Soft (0.7)",
+          "0.720 ± 0.107",
+          "17.7 ± 0.707"
+        ],
+        [
+          "Soft (0.9)",
+          "0.704 ± 0.114",
+          "17.3 ± 0.872"
+        ]
+      ]
+    },
+    {
+      "id": "p0026-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        469.0,
+        542.0,
+        527.0
+      ],
+      "markdown": "In both settings, the network consists of 3 hidden layers of 256 units with sine activations ($\\omega_0=8.0$ in the first layer). The decoder maps $\\mathbf{h}(Z_j)$ to observations and is identical in both settings. It first processes the input via two linear layers (16 and 256 units), reshaping the output into a spatial feature map of size $4 \\times 4 \\times 16$. This is followed by three transposed convolution layers (kernel size $3 \\times 3$, stride 2) with output channels of 32, 16, and 1, respectively, to upsample to the final $32 \\times 32$ image. ReLU activations are used for all hidden layers, while the output layer is linear."
+    },
+    {
+      "id": "p0026-b007",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        544.0,
+        241.0,
+        556.0
+      ],
+      "markdown": "## L. Bayesian neural network training"
+    },
+    {
+      "id": "p0026-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        565.0,
+        543.0,
+        658.0
+      ],
+      "markdown": "We apply SMC for a larger-scale problem: training a (partial) Bayesian neural network (Zhao et al., 2024; Sharma et al., 2023, pBNN). There are two steps moving from training a classical BNN to training a pBNN with SMC sampler. First, pBNNs only have priors on a (small) subset of the neural network parameters. This results in a latent-variable model to learn from the data, where computing the posterior distribution is easier than that of the full BNN. Let us denote the pBNN by $x \\mapsto f_{\\theta, z}(x)$, where $\\theta$ and $z$ stand for deterministic and stochastic parameters, respectively. Second, the prior construction is no longer static or explicit (e.g., $z$ being a Gaussian). Instead, $z$ is assumed to follow a Markovian dynamics motivated by Zhao et al. (2024); Chang et al. (2022); Freitas et al. (2000) so that data are modelled as independent conditionally on a latent process. Specifically, we apply the pBNN setting and construct an SSM"
+    },
+    {
+      "id": "p0026-b009",
+      "kind": "text",
+      "bbox": [
+        218.0,
+        664.0,
+        548.0,
+        702.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\np(z_j \\;|\\; z_{j-1}) &= \\mathrm{N}(z_j; \\rho \\, z_{j-1}, 1 - \\rho^2), \\\\\np_\\theta(D_j \\;|\\; z_j) &= \\mathrm{Softmax}(f_{\\theta, z_j}; D_j),\n\\end{aligned}\n\\tag{38}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0026-b010",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        708.0,
+        507.0,
+        718.0
+      ],
+      "markdown": "for CIFAR10 classification, where $D_j$ is a batch data at surrogate time $j$ (training step), and we choose $\\rho=0.99$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0026-b011",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "26",
+      "reason": "Page number footer \"26\" (verified on preview)"
+    }
+  ]
+}

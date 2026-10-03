@@ -1,0 +1,102 @@
+{
+ "lgssm_diffusion_experiment": {
+  "execution_id": "lgssm_diffusion_experiment",
+  "module": "feynman_kac",
+  "supports_tools": ["diffres_run_lgssm_particle_filter"],
+  "source_path": "repo/diffres/experiments/lgssm/diffusion.py",
+  "source_sha256": "22c0b269d3ed74915706806a3f14ca0257ee5f568c67bc761c54d12d6a04afe9",
+  "source_repository": "https://github.com/zgbkdlm/diffres.git",
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "repo_unmodified": "git status --short --ignored in repo/diffres is empty after all runs",
+  "status": "success",
+  "execution_mode": "native script (unmodified upstream, full pipeline incl. 128x128 loss grid and jaxopt L-BFGS-B) + reference driver (verbatim input preparation, same upstream calls, full-precision capture) + replay",
+  "execution_path": "notebooks/lgssm_diffusion_experiment/run/ (cwd) invoking repo/diffres/experiments/lgssm/diffusion.py; reference capture by notebooks/lgssm_diffusion_experiment/driver.py",
+  "fallback_needed": false,
+  "fallback_note": "The full script (grid + L-BFGS) ran in 21 s with 421 MB peak, well within 1500 MB / 30 min, so no part of the script was skipped. The driver exists only because the script saves just six scalars (no ys, grids, moments, ESS, gradients); it re-runs every script code path (grid, filtering KL/Bures, L-BFGS) plus value_and_grad at the true and initial parameters.",
+  "environment": {
+   "python": "diffres-env/bin/python (CPython 3.11.17)",
+   "jax": "0.7.2 (CPU, TFRT_CPU_0)", "jax_enable_x64": true, "jaxopt": "0.8.5", "scipy": "1.16.2",
+   "launcher": "heavy.sh (JAX_PLATFORMS=cpu, CUDA_VISIBLE_DEVICES empty, PYTHONPATH unset); GPU 0 MiB before/after every run"
+  },
+  "settings": {
+   "cli": "--id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=jentzen_and_kloeden --sde",
+   "changes_vs_upstream_defaults": {"nsteps": "128 -> 32", "nparticles": "32 -> 16", "a": "-0.5 -> -1.0", "T": "3.0 -> 1.0", "dsteps": "8 -> 4", "integrator": "euler -> jentzen_and_kloeden", "sde": "off -> on"},
+   "changes_vs_run_lgssm_sh": "run_lgssm.sh uses --id_l=0 --id_u=99, default nsteps=128 and nparticles=32, and sweeps T in {1,2,3} x dsteps in {4,8,16,32} x integrators; here one MC id (0), nsteps 32, nparticles 16, one configuration (T=1, dsteps=4, jentzen_and_kloeden, SDE). a=-1 matches run_lgssm.sh.",
+   "hard_coded_in_script_unchanged": "model p1=0.5 (F), p2=1.0 (H), sig=1 (Q), xi=0.5 (R), m0=0, v0=1; 128x128 grid over [p1+-0.1] x [p2+-0.1]; resampling_threshold=1; L-BFGS-B init (1.5, 2.0); diffusion_resampling jitter=0, einsum=False"
+  },
+  "data_and_seed_provenance": {
+   "rnd_keys": "repo/diffres/experiments/rnd_keys.npy copied to notebooks/lgssm_diffusion_experiment/run/rnd_keys.npy (sha256 6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df, identical), shape (10000,2) uint32",
+   "key_mc": "rnd_keys[0] = [2482698485, 3875352609]",
+   "key_derivation": "key_simulation, key_pf = jax.random.split(key_mc) -> key_simulation=[2232835097, 2390994151], key_pf=[2063920160, 2302666694]",
+   "data": "xs, ys = diffres.tools.simulate_lgssm(key_simulation, 0.5*I, 1*I, 1*ones, 0.5*I, 0, 1*I, 32): ys float64 (33,1), ys[:3,0] = [-1.17260866, -1.25850033, -1.16623934]",
+   "diffusion_ts": "linspace(0, 1, 5) = [0, 0.25, 0.5, 0.75, 1.0]"
+  },
+  "attempts": [
+   {"n": 1, "what": "unmodified upstream script", "cwd": "notebooks/lgssm_diffusion_experiment/run",
+    "command": "heavy.sh --limit-mb 1500 --timeout 1800 --log notebooks/lgssm_diffusion_experiment/logs/attempt1_script.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python repo/diffres/experiments/lgssm/diffusion.py --id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=jentzen_and_kloeden --sde (absolute paths)",
+    "exit_status": 0, "wall_s": 21.05, "heavy_peak_mb": 421, "max_rss_mb": 559, "oom_kills": 0,
+    "stdout": "Diffres | a -1.0 | T 1.0 | dsteps=4 | jentzen_and_kloeden | sde | nparticles 16 | id=0 | loss err 4.743355474292779 | KL 0.3468090874063321 | Bures 0.05497328611278358 | opt params [1.5 2. ]",
+    "native_output": "run/lgssm/results/diffres--1.0-1.0-4-jentzen_and_kloeden-sde-16-0.npz"},
+   {"n": "2 (refused, not executed)", "what": "driver.py with --limit-mb 1500", "exit_status": 75, "note": "heavy.sh NOT STARTED: MemAvailable=3129 MB < 1500+2000; retried immediately with --limit-mb 1000 (attempt 1 peak was 421 MB). Evidence: logs/attempt2_refused_exit75.txt"},
+   {"n": 2, "what": "reference driver",
+    "command": "cd run && heavy.sh --limit-mb 1000 --timeout 1800 --log logs/attempt2_driver.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python notebooks/lgssm_diffusion_experiment/driver.py",
+    "exit_status": 0, "wall_s": 21.06, "heavy_peak_mb": 439, "oom_kills": 0},
+   {"n": 3, "what": "replay from saved inputs",
+    "command": "cd run && heavy.sh --limit-mb 1000 --timeout 1800 --log logs/attempt3_replay.log -- env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -v diffres-env/bin/python notebooks/lgssm_diffusion_experiment/replay.py",
+    "exit_status": 0, "wall_s": 37.0, "heavy_peak_mb": 430, "oom_kills": 0}
+  ],
+  "upstream_calls": {
+   "smc_feynman_kac": "smc_feynman_kac(key_pf, m0_sampler, log_g0, m_log_g, ys, nparticles=16, nsteps=32, resampling=lambda k,lw,s: diffusion_resampling(k, lw, s, -1.0, linspace(0,1,5), integrator='jentzen_and_kloeden', ode=False), resampling_threshold=1., return_path=True|False); bootstrap m0_sampler/log_g0/m_log_g exactly as script lines 63-80",
+   "kf": "diffres.gaussian_filters.kf(ys, m0, v0, params[0]*I, trans_cov, params[1]*ones, obs_cov)[:3]",
+   "filtering_error": "mean over 33 times of tools.kl(mfs_kf, vfs_kf, mfs_pf, vfs_pf) and tools.bures(...) with PF weighted moments (script lines 118-122); note argument order: KL(KF || PF)",
+   "loss": "loss_fn_pf(params, ys, key) = smc nll with return_path=False (negative log-likelihood); gradient via jax.value_and_grad",
+   "optimiser": "jaxopt.ScipyMinimize(method='L-BFGS-B', fun=loss_fn_pf, jit=True).run([1.5, 2.0], ys_=ys, key_=key_pf)"
+  },
+  "reference_results": {
+   "err_loss_grid_mse": 4.743355474292779,
+   "err_filtering_kl": 0.3468090874063321,
+   "err_filtering_bures": 0.05497328611278358,
+   "nll_kf_true": 53.82208834445972,
+   "grad_kf_true_wrt_(p1,p2)": [0.942243438077579, 0.7919049480478205],
+   "nll_pf_true": 51.65626932766265,
+   "grad_pf_true_wrt_(p1,p2)": [-4.341496557867354, -4.052103566005391],
+   "nll_pf_init_(1.5,2.0)": 71.39736781211357,
+   "grad_pf_init": [-4.190996622010844, 4.1002672395915045],
+   "ess_min": 2.8312970986272425, "ess_mean": 8.518241895642031,
+   "opt_params": [1.5, 2.0], "opt_success": false, "opt_status": 2, "opt_iter_num": 0, "opt_fun_val": "NaN", "opt_num_fun_eval": 20, "opt_num_jac_eval": 20,
+   "nll_path_vs_nopath_absdiff": 7.105427357601002e-15
+  },
+  "inputs": {
+   "data/inputs.npz": {"sha256": "00b71f5b8b86759f83e860fa73fd1b581df19334f40ace2b0b8f86d0ad7ce74c", "contents": "key_mc, key_simulation, key_pf (uint32 (2,)); xs, ys (33,1) f64; params_true, init_params (2,); cartesian (128,128,2); ts (5,); semigroup, trans_cov, obs_op, obs_cov, m0, v0"},
+   "data/inputs_args.json": {"sha256": "1418e2f6f552c2a392b472e002acab448f16a06052064718073b6878c08d0278"},
+   "run/rnd_keys.npy": {"sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df"}
+  },
+  "outputs": {
+   "run/lgssm/results/diffres--1.0-1.0-4-jentzen_and_kloeden-sde-16-0.npz": {"sha256": "b7d8ba5dd8aa5582cb31761e7e934a96d34cd1d77e62968152119721d4725de8", "producer": "unmodified upstream script", "contents": "err_loss, err_filtering_kl, err_filtering_bures, opt_params, opt_success, opt_iter_num"},
+   "outputs/reference_outputs.npz": {"sha256": "8ffa7bc02b8302bc0beec0d7548709dd02de882320c912f76eb87f8c52bcbb89", "producer": "driver.py", "contents": "losses_kf/losses_pf (128,128); err_loss; mfs_kf (33,1), vfs_kf (33,1,1), nll_kf_true, grad_kf_true; sampless (33,16,1), log_wss (33,16), esss (33,), nll_pf_true_path; nll_pf_true, grad_pf_true; nll_pf_init, grad_pf_init; mfs_pf, vfs_pf; kl_per_step, bures_per_step (33,); err_filtering_kl/bures; opt_params, opt_success, opt_status, opt_iter_num, opt_fun_val, opt_num_fun_eval, opt_num_jac_eval (all float64 where floating)"},
+   "outputs/reference_summary.json": {"sha256": "f06c40bdacc68fa0b4dca3ead19578f9183de0dcc7067abe050b12dabbbd4bb4"},
+   "outputs/replay_comparison.json": {"sha256": "1cea37fd429675bfc450683b8641f060572c8767611a7e9ed84b04b9911b31c2"}
+  },
+  "code": {
+   "lgssm_setup.py": {"sha256": "78c86db61d78ff99d3b3a3c38eed66c76975c8d33f064727b808ab5b054fbc3c", "role": "verbatim copy of script lines 25-102 (constants, kf/pf/loss closures, vmapped grid losses, jaxopt solver, grid) as a function of the CLI args; the script cannot be imported because it parses argv and runs its loop at import. Adds pf_full = same smc_feynman_kac call without [:3] to capture ESS."},
+   "driver.py": {"sha256": "5e3ca99f31525ed676ff205999bc1cb33a814605551fa64dc41f4750a978a3f2"},
+   "replay.py": {"sha256": "eb25e85e88478480802ba76aef39e5e085c3c8a7a81b539b933cde82eff8524d"}
+  },
+  "comparisons": {
+   "script_vs_driver": "err_loss, err_filtering_kl, err_filtering_bures, opt_params, opt_success, opt_iter_num: all bitwise equal (max abs diff 0.0)",
+   "driver_internal": "pf_full vs pf (same call): samples/log-weights/nll diff 0.0; nll return_path=True vs False: 7.1e-15 (different jitted program, value_and_grad vs plain)",
+   "replay_vs_reference": "34 checks, all passed, all floats bitwise equal: rnd_keys row and key splits (exact), simulate_lgssm xs/ys, grid, losses_kf/losses_pf grids, err_loss, KF moments/nll/grad, PF particles/log-weights/ESS/nll, PF value_and_grad at true and initial params, PF moments, per-step KL/Bures and means, L-BFGS opt_params/fun_val (NaN==NaN) and exact success/status/iter/nfev/njev",
+   "tolerance_justification": "same keys, same inputs, x64, CPU, same jaxlib: bitwise expected and observed; pass criterion rtol=atol=1e-12"
+  },
+  "figures": "not applicable: the script produces no plots (loss landscapes are plotted only by experiments/summary/plot_lgssm_loss_landscapes.py, not run). The 128x128 grids are saved in outputs/reference_outputs.npz.",
+  "observations_and_limitations": [
+   "Upstream L-BFGS-B at these settings did not move: success=False, scipy status 2 (abnormal termination, line search), nit=0, fun_val=NaN after 20 function/gradient evaluations, opt_params = init (1.5, 2.0). The loss and gradient at the initial point are finite (71.397, [-4.191, 4.100]), so the NaN arises at line-search trial points. This is reproduced exactly by the driver and replay; it is upstream behaviour at the reduced settings, not investigated further and not altered. The tool should not expose optimisation (consistent with tool_review 'omit').",
+   "Single-key PF gradient at the true parameters ([-4.34, -4.05]) differs strongly from the KF gradient ([0.94, 0.79]) with 16 particles and 32 steps; it is one Monte Carlo draw, not an estimate of bias.",
+   "KL is KL(N_KF || N_PF) (tools.kl(m0=KF, cov0=KF, m1=PF, cov1=PF)), averaged over all 33 time steps including t=0.",
+   "Values are for one MC id at reduced settings (nsteps 32, nparticles 16) and are not comparable to the paper's Table 2 / Figure 2 (100 MC runs, nsteps 128, nparticles 32).",
+   "The script's np.savez_compressed result file holds only 6 scalars; all richer arrays come from the driver, which calls the same upstream code paths and reproduced those 6 scalars bitwise."
+  ],
+  "not_executed": "Nothing in experiments/lgssm/diffusion.py was skipped for MC id 0. MC ids 1-99, other configurations of run_lgssm.sh and experiments/lgssm/{baselines,gumbel,ot,soft}.py were not run (out of scope).",
+  "blockers": []
+ }
+}

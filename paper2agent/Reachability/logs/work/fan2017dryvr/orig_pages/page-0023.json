@@ -1,0 +1,133 @@
+{
+  "page": 23,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0023.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0023-b000",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        124.0,
+        231.0,
+        138.0
+      ],
+      "markdown": "# **A Appendix**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0023-b001",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        149.0,
+        425.0,
+        158.0
+      ],
+      "markdown": "## **A.1 ADAS and autonomous vehicle venchmarks**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0023-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        168.0,
+        478.0,
+        189.0
+      ],
+      "markdown": "We provide more details for the different scenarios used for testing ADAS and Autonomous driving control systems.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        189.0,
+        478.0,
+        302.0
+      ],
+      "markdown": "Recall, that each vehicle model in Simulink _⃝_<sup>R</sup> has several continuous variables including the _x, y_ -coordinates of the vehicle on the road, its velocity, heading, steering angle, etc. The vehicle can be controlled by two input signals, namely the throttle (acceleration or brake) and the steering speed. By choosing appropriate values of these input signals, we have defined the following modes for each vehicle (a) cruise: move forward at constant speed, speedup: constant acceleration, brake: constant (slow) deceleration, em ~~b~~ rake: constant (hard). We have designed lane switching modes ch ~~l~~ eft and ch ~~r~~ ight in which the acceleration and steering are controlled in such a manner that the vehicle switches to its left (resp. right) lane in a certain amount of time.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        302.0,
+        478.0,
+        378.0
+      ],
+      "markdown": "For each vehicle, we mainly analyze four variables: absolute position ( _sx_ ) and velocity _vx_ orthogonal to the road direction ( _x_ -axis), and absolute position ( _sy_ ) and velocity _vy_ along the road direction ( _x_ -axis). The throttle and steering information can be expressed using the four variables. We will use subscripts to distinguish between different vehicles. The following scenarios are constructed by defining appropriate sets of initial states and transitions graphs labeled by the modes of two or more vehicles.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        389.0,
+        478.0,
+        456.0
+      ],
+      "markdown": "- MergeBehind **:** Initial condition: Vehicle A is in left and vehicle B is in the right lane; initial positions and speeds are in some range; A is in cruise mode, and B is in cruise or speedup. Transition graph: Vehicle A goes through the mode sequence speedup, ch ~~r~~ ight, cruise with specified intervals of time to transit from mode to another mode. Requirement: A merges behind B within a time bound and maintains at least a given safe separation.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0023-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        465.0,
+        478.0,
+        509.0
+      ],
+      "markdown": "- MergeAhead **:** Initial condition: Same as MergeBehind with except that B is in cruise or brake mode. Transition graph: Same structure as MergeBehind with different timing parameters. Requirement: A merges ahead of B and maintains at least a given safe separation.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0023-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        518.0,
+        478.0,
+        618.0
+      ],
+      "markdown": "- AutoPassing **:** Initial condition: Vehicle A behind B in the same lane, with A in speedup and B in cruise; initial positions and speeds are in some range. Transition graph: A goes through the mode sequence ch ~~l~~ eft, speedup, brake, and ch ~~r~~ ight, cruise with specified time intervals in each mode to complete the overtake maneuver. If B switches to speedup before A enters speedup then A aborts and changes back to right lane. If B switches to brake before A enters ch ~~l~~ eft, then A should adjust the time to switch to ch ~~l~~ eft to avoid collision. Requirement: Vehicle A overtakes B while maintaining minimal safe separation.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0023-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        626.0,
+        478.0,
+        671.0
+      ],
+      "markdown": "- AEB **:** (Emergency brakes) Initial condition: Vehicle A behind B in the same lane with A in cruise, B is stopped (in cruise mode with velocity 0). Initial positions and speeds are in some range; Transition graph: A transits from cruise to em ~~b~~ rake over a given interval of time or several disjoint intervals",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0023-b009",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        695.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "23",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

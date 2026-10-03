@@ -1,0 +1,197 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        74.0,
+        506.0,
+        95.0
+      ],
+      "markdown": "optimization produces a control minimizing the maximum future violation, i.e. arg min _π Vh_<sup>_π_(</sup><sup>_s_).</sup> _However, this does not ensure (re)entrance into the feasible set even if such a control exists._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        102.0,
+        506.0,
+        243.0
+      ],
+      "markdown": "RCRL performs constraint optimization on _Vh_<sup>_π_with a neural network (NN) lagrange multiplier with</sup> state input [9]. When learning to optimize a Lagrangian dual function, the NN lagrange multiplier should converge to small values for states in the optimal feasible set and converge to large values for other states. Nonetheless, learning _Vh_ provides a weak signal during training: if there is an improvement in safety along the trajectory not affecting the maximum violation, _Vh_<sup>_π_remains the</sup> same for all states before the maximum violation in the trajectory. These improvements in costs can be crucial in guiding the optimization toward a safer policy. And optimizing with _Vh_ ( _s_ ) can result in accumulating an unlimited number of violations smaller than the maximum violation. Also, a major issue with this approach is that _it’s limited to deterministic MDPs and policies_ because its reachability value function in the Bellman formulation does not directly apply to the stochastic setting. However, in general _stochastic_ settings, estimating feasibility cannot be binary since for a large portion of the state space, even under the optimal policy, the agent may enter the unsafe set with a non-zero probability, rendering such definition too conservative and impractical.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        254.0,
+        467.0,
+        266.0
+      ],
+      "markdown": "# **5 Iterative Reachability Estimation for Safe Reinforcement Learning**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        279.0,
+        505.0,
+        332.0
+      ],
+      "markdown": "In this paper, we formulate a general optimization framework for safety-constrained RL and propose a new algorithm to solve our constraint optimization by using our novel reachability estimation function. We present the deterministic case in Section 5.1 and build our way to the stochastic case in Section 5.2. We present our novel algorithm to solve these optimizations, involving our new reachability estimation function, in Section 5.3. We introduce convergence analysis in Section 5.4.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        341.0,
+        384.0,
+        351.0
+      ],
+      "markdown": "## **5.1 Iterative Reachability Estimation for Deterministic Settings**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        362.0,
+        506.0,
+        428.0
+      ],
+      "markdown": "All state transitions and policies happen with likelihood 0 or 1 for the deterministic environment. Therefore, the probability of constraint violation for policy _π_ from state _s_ , i.e., _ϕ_<sup>_π_</sup> ( _s_ ), is in the set _{_ 0 _,_ 1 _}_ . According to Definition 4, if there exists some policy _π_ such that _ϕ_<sup>_π_</sup> ( _s_ ) = 0, we have _ϕ_<sup>_∗_</sup> ( _s_ ) = 0. Otherwise, _ϕ_<sup>_∗_</sup> ( _s_ ) = 1. Notice that this captures definitive membership in the optimal feasible set _ϕ_<sup>_∗_</sup> ( _s_ ) = 1 _s∈Sf_<sup>_π_</sup> _s_<sup>, which is the feasible set of some safest policy</sup><sup>_πs_= arg min</sup><sup>_π V_</sup> _c_<sup>_π_(</sup><sup>_s_).</sup> Now, we divide our optimization in two parts: the infeasible part and the feasible part.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        435.0,
+        504.0,
+        477.0
+      ],
+      "markdown": "For the infeasible part, we want the agent to incur the least cumulative damage (discounted sum of costs) and, if possible, (re)enter the feasible set. Different from previous Reachability-based RL optimizations, by using the discounted sum of costs _Vc_<sup>_π_(</sup><sup>_s_)weconsiderbothmagnitudeand</sup> frequency of violations, thereby improving learning signal. The infeasible portion takes the form:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "formula",
+      "bbox": [
+        260.0,
+        479.0,
+        510.0,
+        505.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (8)",
+      "asset_name": "formula-p0005-007"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        503.0,
+        505.0,
+        524.0
+      ],
+      "markdown": "For the feasible part, we want the policy to ensure the agent stays in the feasible set and maximize reward returns. This produces a constraint optimization where the cost value function is constrained:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "formula",
+      "bbox": [
+        198.0,
+        523.0,
+        510.0,
+        550.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 5 (10)",
+      "asset_name": "formula-p0005-009"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        551.0,
+        504.0,
+        586.0
+      ],
+      "markdown": "The following propositions justify using _Vc_<sup>_π_as the constraint.Both proofs are in the appendix.</sup> **Proposition 1.** The cost value function _Vc_<sup>_π_(</sup><sup>_s_) is zero for state</sup><sup>_s_if and only if the persistent safety is</sup> guaranteed for that state under the policy _π_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        590.0,
+        505.0,
+        614.0
+      ],
+      "markdown": "We define here _Sf_ := _Sf_<sup>_πs_, the feasibilty set of some safest policy.Now, the above two optimizations</sup> can be unified with the use of the feasibility function _ϕ_<sup>_∗_</sup> ( _s_ ):",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        130.0,
+        618.0,
+        505.0,
+        635.0
+      ],
+      "markdown": "max _π s∼_ E _d_ 0� _V_<sup>_π_</sup> ( _s_ ) _·_ (1 _− ϕ_<sup>_∗_</sup> ( _s_ )) _− Vc_<sup>_π_(</sup><sup>_s_)</sup><sup>_· ϕ∗_(</sup><sup>_s_)</sup> � _,_ subject to _Vc_<sup>_π_(</sup><sup>_s_) = 0</sup><sup>_, ∀s ∈SI∩Sf._</sup> (3)",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        638.0,
+        506.0,
+        722.0
+      ],
+      "markdown": "Unlike other reachability based optimizations like RCRL, one particular advantage in Equation 3 is, with some assumptions, the guaranteed entrance back into feasible set with minimum cumulative discounted violations whenever a possible control exists. More formally, assuming infinite horizon: **Proposition 2.** If _∃π_ that produces trajectory _τ_ = _{_ ( _si_ ) _, i ∈_ N _, s_ 1 = _s}_ in deterministic MDP _M_ starting from state _s_ , and _∃m ∈_ N _, m < ∞_ such that _sm ∈ Sf_<sup>_π_,then</sup><sup>_∃ϵ>_0whereif</sup> discount factor _γ ∈_ (1 _− ϵ,_ 1), then the optimal policy _π_<sup>_∗_</sup> of Equation 3 will produce a trajectory _τ_<sup>_′_</sup> = _{_ ( _s_<sup>_′_</sup> _j_<sup>)</sup><sup>_, j∈_N</sup><sup>_, s_</sup> 1<sup>_′_=</sup><sup>_s}_, such that</sup><sup>_∃n ∈_N</sup><sup>_, n < ∞_,</sup><sup>_s′_</sup> _n_<sup>_∈S_</sup> _f_<sup>_π∗_</sup> and _Vc_<sup>_π∗_</sup> ( _s_ ) = min _π′ Vc_<sup>_π′_(</sup><sup>_s_).</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "5",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

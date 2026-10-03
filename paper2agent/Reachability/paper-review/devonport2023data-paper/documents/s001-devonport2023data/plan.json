@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "name": "devonport2023data-paper",
+  "title": "Data-Driven Reachability Analysis and Support Set Estimation with Christoffel Functions",
+  "source": {
+    "path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/devonport2023data-paper/originals/s001-devonport2023data.pdf",
+    "sha256": "1bafbb4e0b2654e85ea7a9fca86e0302dc395082ea1ed1ce6c91aa0d88961ac1",
+    "normalized_sha256": "b2a4403ca2ea39aaf2bac7bd98735b4161092c62ad843429d17bdb608a3e1255",
+    "pages": 20
+  },
+  "notes": [
+    "Source version: arXiv:2112.09995v1 [eess.SY], 18 Dec 2021 (20 pages, single column, SIAM article style, 'Submitted to the editors December 17, 2021'); authors A. Devonport, F. Yang, L. El Ghaoui, M. Arcak. The title above is the one printed on this arXiv version. The paper was published as 'Data-Driven Reachability and Support Estimation with Christoffel Functions', IEEE Transactions on Automatic Control 68(9), 2023. This package was made from the arXiv v1 PDF only; the journal version was not compared, so its numbering and any corrections made there are not reflected here.",
+    "Numbering in this version is by section (SIAM style): Algorithms 3.1, 3.2, 3.3; Lemma 3.2, Lemma 3.3, Theorem 3.4, Theorem 3.5, Theorem 3.6, Lemmas 3.7-3.10, Corollary 3.11; Remarks 3.1 and 3.12; Problem 1; equations (2.1)-(2.7), (3.1)-(3.16), (4.1), (A.1)-(A.4), (B.1)-(B.11). The third algorithm of the paper, the polynomial empirical inverse Christoffel function estimator with a Bayesian PAC bound (it may carry the number 'Algorithm 3' in other versions of the paper; this was not checked), is Algorithm 3.3 here; its guarantee is Corollary 3.11, which rests on Lemma 3.10 (bound (3.11)), Lemma 3.7 (equations (3.6), (3.7)), Lemma 3.9 and Theorem 3.6. Algorithm 3.1 is the polynomial estimator with the classical (VC) PAC bound (Theorem 3.4, Lemma 3.2 with bound (3.1)); Algorithm 3.2 is the kernelized estimator (Theorem 3.6, Lemma 3.8 with bound (3.8)).",
+    "Mathematics was transcribed to LaTeX from the authors' arXiv TeX source (cfun.tex, cfun_shared.tex, cfun.bbl), with the authors' private macros expanded to standard LaTeX, and every formula was checked against the PDF pages (page renders plus 200-300 dpi crops of the mathematical regions). TeX source and PDF agree; no formula is kept as an image only. \\tag{n} is used only for equation numbers that are printed. Displays whose lines each carry a printed number ((A.1)-(A.4), (B.5)-(B.11)) are written as one display block per numbered line, so continuation lines begin with '=', '+' or '\\ge' as printed.",
+    "The three algorithm boxes are given as image crops (assets/figure/algorithm-3-1.jpg, algorithm-3-2.jpg, algorithm-3-3.jpg), each followed by a text transcription checked line by line against a 300-dpi crop. The boxes have no printed line numbers; each transcription has one paragraph per statement, and '&emsp;&emsp;' marks one nesting level (loop bodies). Figures 1-3 are image crops with verbatim captions (printed prefix 'Fig. n.'). Table 1 is a CSV (assets/table/table-1.csv) whose two printed header rows are combined into single column names. The unnumbered symbol list of Section 1.1 (a ruled two-column tabular) is transcribed as a text list 'symbol — definition'. Algorithms 3.1-3.3 and Figures 1-3 are wrapped floats printed beside the body text; each is placed at a paragraph boundary on its own page. The title/affiliation footnotes of page 1 follow the author line, and Footnote 1 (page 6) follows equation (2.7), so that sentences running across pages are not interrupted.",
+    "IMPORTANT for citing the guarantees: the following items are printed like this in the source PDF (and in the authors' TeX) and are NOT conversion errors. (a) Theorem 3.6: its PAC bound is an unnumbered display; the theorem says 'with confidence $\\delta$' where $1-\\delta$ is meant. (b) Corollary 3.11 says the function constructed in 'Algorithms 3.3 satisfies the PAC bound (3.6)': in the TeX source this is a reference to the unnumbered display of Theorem 3.6 (label eq:pac_epsi inside an unnumbered environment, so the theorem number 3.6 is printed); the bound meant is $\\mathbb{P}(\\forall i\\geq1,\\, P_X(\\{x:C^i(x)\\leq\\eta\\})\\geq 1-\\epsilon^i)\\geq 1-\\delta$, not equation (3.6), which is the empirical stochastic risk formula. Its proof says 'The argument to verify Algorithm 3.1' where Algorithm 3.3 is meant. (c) Algorithms 3.2 and 3.3 test $\\epsilon^i$ (superscript) in the while condition but assign $\\epsilon_i$ (subscript) in the update line; Algorithm 3.3 does not list the threshold $\\eta$ among its inputs (Algorithm 3.2 does) and has no step computing $\\hat{M}_{m,\\sigma_0}$. (d) The Gaussian parameters of the polynomial case are printed in three different forms: $W_Q\\sim\\mathcal{N}(0,\\hat{M}_{m,\\sigma_0}^{-1})$ after (3.9); $\\mathcal{N}(0,(\\sigma_0^{2}I+\\hat{M}_{m,\\sigma_0})^{-1})$ inside the KL divergence of (3.11) and in the definition of $\\gamma$ in Appendix B; $\\mathcal{N}(0,(\\sigma_0^{-2}I+\\hat{M}_{m,\\sigma_0})^{-1})$ in the text of the proof of Lemma 3.10. (e) The proof of Theorem 3.6 cites 'Lemma 3.7' and 'Lemma 3.8' as plain text where, by content, Lemma 3.8 (PAC-Bayes bound on $r_Q$) and Lemma 3.9 (central concept) are used, and prints the posterior variance with $(\\sigma_0^2 I+K^i)$ without inverse. (f) Lemma 3.9 writes $r(\\bar{c}_\\eta)$ and $r(\\bar{c}_Q)$ for the same quantity.",
+    "Further source slips kept as printed: 'Algorithm 3.4' (Section 3.1) and 'Algorithm 3.6' (before the proof of Theorem 3.6) are references to Theorem 3.4 / Theorem 3.6 labels where Algorithms 3.1 / 3.2 are meant; equation (2.4) has $\\hat{M}_{m,\\sigma}$ on the left where its inverse is meant; $Z=[z_m(x_i)\\ \\hdots\\ z_m(x_N)]$ in Section 2.2; the empirical risk without the factor $1/N$ and a probability statement with unbalanced braces in the proof of Theorem 3.4; 'degree $2k$', 'order $k=10$', '$b=z_k$' where the order is $m$; $\\sigma_0^{-1}I$ in the termination remark after Theorem 3.6; $\\sigma^2 I_N$ (no subscript 0) in (3.4), (3.5); $D_{KL}(W_P||W_Q)$ in the sentence after (3.2), which has $D_{KL}(W_Q||W_P)$; an unclosed parenthesis in (3.13) and $K_{Nr}$ as last factor of (3.12); the kernel written $\\exp(\\|x-y\\|^2/(2\\ell^2))$ in Section 4.1 but $\\exp(-\\|x-y\\|^2/(2\\ell)^2)$ elsewhere; Section 4 gives 'an initial sample size of 20,000 and a batch size of 5,000' for Algorithm 3.1 (which has no batches); Nyström rank $r=2000$ in the text versus '1,000 samples' (Fig. 1 caption) and '$m=10,000$' (Fig. 2 and Fig. 3 captions); the captions of Fig. 2 and Fig. 3 describe three contours of 'order $k=10$' while Table 1 gives order 4 for the quadrotor; 'Figure 2' in Section 4.3 where Figure 3 is meant; in (4.1) an extra closing parenthesis, an undefined $\\beta$, no value for $c$, and 'The input $u$' in the text where the equation uses $d$; no value for $K$ in the quadrotor dynamics; (A.3) with $\\sigma^2BB^\\top$ and $By$, (A.4) ending in $b(x)$, '$\\mathbb{R}m\\times N$'; $\\mathbb{1}\\{x\\in C_Q\\}$ in (B.1); unmatched '(' in all '$(g(x)^2$' terms and $r(\\hat{c}_\\eta)$, $r_{Q_\\eta}$ in the proof of Lemma 3.9. The page-level review notes in the external review directory list these page by page.",
+    "Consistency check done during conversion: with $\\epsilon=0.1$, $\\delta=10^{-9}$, $n=2$, the transcribed sample-size line of Algorithm 3.1, $N=\\lceil\\frac{5}{\\epsilon}(\\log\\frac{4}{\\delta}+\\binom{n+2m}{n}\\log\\frac{40}{\\epsilon})\\rceil$ (natural logarithm), gives 70307 for $m=10$ and 14587 for $m=4$, the values printed in Table 1."
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "file": "pages/page-0001.json"
+    },
+    {
+      "page": 2,
+      "file": "pages/page-0002.json"
+    },
+    {
+      "page": 3,
+      "file": "pages/page-0003.json"
+    },
+    {
+      "page": 4,
+      "file": "pages/page-0004.json"
+    },
+    {
+      "page": 5,
+      "file": "pages/page-0005.json"
+    },
+    {
+      "page": 6,
+      "file": "pages/page-0006.json"
+    },
+    {
+      "page": 7,
+      "file": "pages/page-0007.json"
+    },
+    {
+      "page": 8,
+      "file": "pages/page-0008.json"
+    },
+    {
+      "page": 9,
+      "file": "pages/page-0009.json"
+    },
+    {
+      "page": 10,
+      "file": "pages/page-0010.json"
+    },
+    {
+      "page": 11,
+      "file": "pages/page-0011.json"
+    },
+    {
+      "page": 12,
+      "file": "pages/page-0012.json"
+    },
+    {
+      "page": 13,
+      "file": "pages/page-0013.json"
+    },
+    {
+      "page": 14,
+      "file": "pages/page-0014.json"
+    },
+    {
+      "page": 15,
+      "file": "pages/page-0015.json"
+    },
+    {
+      "page": 16,
+      "file": "pages/page-0016.json"
+    },
+    {
+      "page": 17,
+      "file": "pages/page-0017.json"
+    },
+    {
+      "page": 18,
+      "file": "pages/page-0018.json"
+    },
+    {
+      "page": 19,
+      "file": "pages/page-0019.json"
+    },
+    {
+      "page": 20,
+      "file": "pages/page-0020.json"
+    }
+  ]
+}

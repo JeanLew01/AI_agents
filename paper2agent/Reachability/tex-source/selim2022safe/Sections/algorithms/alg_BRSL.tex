@@ -1,0 +1,45 @@
+\setlength{\textfloatsep}{0.45cm}
+\setlength{\floatsep}{0.45cm}
+\begin{algorithm}[t]
+\caption{Safe RL with BRSL}
+\label{alg:rlwithbrsl}
+% \begin{algorithmic}[1]
+\textbf{initialize} the RL agent with a random policy $\policy_\theta$, environment model $\mimic_\phi$, empty replay buffer $B$, max number of time steps $\niter$, and a safe plan $\plan_0$
+% Collect $N_{\coef}$ $<_k, a_k, r_k, x(k + 1)>$
+
+\For{each episode}{
+    \textbf{initialize} task with reward function $\rewfunc$
+    
+    $\RLstate_1 \leftarrow $ observe initial environment state \label{ln:observe1}
+    
+    \For{$k = 1:\niter$}{
+        
+    %     $\plan_k \leftarrow \dreamfunc{\RLstate_k,\policy_\theta,\mimic_\phi}$ // use Alg. \ref{alg:dream} \label{ln:init_plan_by_dreaming}
+    \tbold{ $\plan_k \leftarrow$ roll out a trajectory}
+     
+         $\reachapprox_k \leftarrow \zono{\vcstate_k,\zeros}$ // init. reachable set \label{ln:initZono}
+        
+         $\left(\reachapprox_j\right)_{j=k}^{k+\nplan} \leftarrow \reachfunc{\reachapprox_k,\plan_k}$ // use Alg. \ref{alg:LipReachability}  \label{ln:reachAlg1}
+        
+        \If{any $\reachapprox_j \cap \statespace\obs \neq \emptyset$ \label{ln:if_unsafe}}{
+            
+            \textbf{try} $\plan_k \leftarrow \adjustfunc{\plan_k,\statespace\obs}$ // use Alg. \ref{alg:adjust}
+            
+            \textbf{catch} execute failsafe maneuver; continue\label{ln:catch_unsafe} 
+            %``unsafe'' $\plan_k \leftarrow \plan_{k-1}$ // keep old plan\label{ln:catch_unsafe}
+        }
+        
+        $\action_k \leftarrow$
+        get first (safe) action from $\plan_k$ \label{ln:get_safe_action}
+
+         $r_k \leftarrow \rewfunc(\RLstate_k,\action_k)$ // get reward \label{ln:getReward}
+        
+         $\RLstate_{k + 1} \leftarrow $ observe next environment state \label{ln:observe2}
+        
+         \textbf{add} $(\RLstate_k, \action_k, r_k, \RLstate_{k + 1})$ to $B$ \label{ln:addToBuffer}
+        
+         \textbf{train} the RL agent $\policy_\theta$ and the environment model $\mu_\phi$ using minibatch from $B$ \label{ln:train_rl_agent}
+    }
+}
+% \end{algorithmic}
+\end{algorithm}

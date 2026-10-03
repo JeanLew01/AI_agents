@@ -1,0 +1,120 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170-dpi render and two 260-dpi crops (top to end of Section 4.2; the two paragraphs with the numerical settings). Equation (11) converted from an extractor formula image to LaTeX with \\tag{11}: N_diag = ceil((1/eps)(e/(e-1))(log(1/delta) + 2n)), trailing comma as printed; 'diag' is an italic subscript. All numbers on the page checked digit by digit against the crop: six states, 12 parameters, 3.5 seconds, 5%, p = 2, epsilon = 0.05, delta = 10^{-9}, 0.95, N = 1510, N_diag = 1036, 46,052 additional samples (printed in math mode as '46, 052'), '.01' (printed without leading zero), 0.9999, 3.6 GHz. The two sample sizes were also recomputed from Theorem 2 / eq. (11) with n = 6 and agree (1510 and 1036). Heading '5. Example: Safety Verification of a Medical Exoskeleton' set to ## (extractor had #). Line-wrap hyphens removed in 'Specifi-cally', 'hyper-rectangles' (the paper writes 'hyperrectangle' unhyphenated elsewhere on the page), 'un-certain'. Kept as printed: 'parameters effected by', 'the coordinate axis', '$x$- and $y$- coordinates' (space after the second hyphen).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        94.0,
+        522.0,
+        132.0
+      ],
+      "markdown": "One such constraint is to require that the $A$ matrix be diagonal. In this case, the $A$ matrix has only $n$ free variables, and the overall sample complexity is reduced from $O(n^2)$ to $O(n)$. Specifically, in the case of diagonal $A$, Algorithm 1 can run with the reduced sample size",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        222.0,
+        132.0,
+        528.0,
+        169.0
+      ],
+      "markdown": "$$\nN_{diag} = \\left\\lceil \\frac{1}{\\epsilon} \\frac{e}{e-1} \\left( \\log\\frac{1}{\\delta} + 2n \\right) \\right\\rceil, \\tag{11}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        169.0,
+        314.0,
+        180.0
+      ],
+      "markdown": "since the free variables in $A$ and $b$ lead to $n_\\theta = 2n$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        183.0,
+        523.0,
+        248.0
+      ],
+      "markdown": "However, the constraint on the structure of $A$ also induces a constraint on the types of norm ball sets that are available as reachable set estimates. In the $p = 2$ case, the norm balls with diagonal $A$ are ellipsoids whose principal axes are parallel to the coordinate axis defined by the standard basis for $\\mathbb{R}^n$. By analogy with these “axis-aligned” ellipsoids, we call any $p$-norm ball with a diagonal $A$ matrix an axis-aligned norm ball.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        251.0,
+        523.0,
+        316.0
+      ],
+      "markdown": "The class of axis-aligned $p$-norm balls with $p = \\infty$ is identical to the set of axis-aligned hyperrectangles. In this case, the difficulty of the optimization problem is reduced as well as the sample complexity: solving (8) reduces to finding the smallest axis-aligned hyperrectangle containing all of the sample points $z^{(i)}$. This is just the hyperrectangle whose largest and smallest points (with respect to the standard partial order) are the elementwise maximum and minimum of the $z^{(i)}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        335.0,
+        383.0,
+        346.0
+      ],
+      "markdown": "## 5. Example: Safety Verification of a Medical Exoskeleton",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        356.0,
+        523.0,
+        489.0
+      ],
+      "markdown": "We consider a problem posed in Narvaez-Aroche et al. (2018) to evaluate the safety of a control system in a medical application. The system is an exoskeleton: specifically, a brace for the lower limbs, which has actuators to assist with movement. The exoskeleton and its user are modeled as a three-link planar robot, which has six states and 12 parameters that depend on the user’s weight. The controller is a finite-time LQR controller that follows a trajectory that brings the user from a sitting position to a standing position over the course of 3.5 seconds. The problem is to verify that the controller can safely bring the user from sitting to standing over a range of parameters effected by a 5% variation in body weight. The authors of Narvaez-Aroche et al. (2018) solve the problem by computing the forward reachable set at three times and ensuring that no unsafe states (such as a fallen position) are reached.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        492.0,
+        523.0,
+        611.0
+      ],
+      "markdown": "We perform the same reachability-based safety verification using Algorithm 1, treating the uncertain parameters as constant-valued disturbances with values sampled uniformly from the allowed range. We take $p = 2$, and for the guarantee we take $\\epsilon = 0.05$, $\\delta = 10^{-9}$. This guarantees that Algorithm 1 will produce an ellipsoid containing at least $0.95$ of the measure of the reachable set distribution, with only a “one in a billion” chance of failure. To assert this guarantee, the sample bound of Algorithm 1 requires $N = 1510$ samples. Using the axis-aligned variant of Algorithm 1 reduces the bound to $N_{diag} = 1036$ samples. Figure 1 shows the reachable sets computed by Algorithm 1 in the unconstrained and axis-aligned cases, projected from the six kinematic states onto the $x$- and $y$- coordinates of the center of mass.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        614.0,
+        523.0,
+        703.0
+      ],
+      "markdown": "To verify that the computed reachable sets satisfy the *a priori* guarantee that they are $\\epsilon$-accurate, we compute an *a posteriori* empirical estimate of their measures with an additional $46,052$ samples. With this number of samples, a one-sided Chernoff bound holds, which ensures that the *a posteriori* estimate of the measure exceeds the true measure by no more than $.01$ with confidence $0.9999$. The results are shown in Table 1, and validate that the sets are indeed $\\epsilon$-accurate. Table 1 also shows the details of the computation times. All computations were done on a 3.6 GHz Intel CPU, running MATLAB on one thread.",
+      "source_class": "text"
+    }
+  ]
+}

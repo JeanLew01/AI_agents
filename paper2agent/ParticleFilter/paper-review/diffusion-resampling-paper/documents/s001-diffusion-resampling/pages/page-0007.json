@@ -1,0 +1,310 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the 130-dpi overlay of PDF page 7, 220-dpi crops of Table 1, Table 2, Figure 1 and equation (14), the native text lines and main.tex (end of Section 4.1 and Section 4.2 up to 'quasi-Newton optimiser'). Reading order rebuilt so that floats interrupt no sentence: the page starts with 'gives the best SWD, ...' (continues 'Table 1 shows that the diffusion resampling at $K=128$' from page 6, join_previous=space) and the Figure 1 timing paragraph (end of Section 4.1), then the floats Table 1 caption + Table 1, Figure 1 + caption, Table 2 caption + Table 2 (table captions are printed above their tables and kept in that order), then '### 4.2. Linear Gaussian SSM', its text, eq. (14), and the paragraphs of Section 4.2; the page ends with 'We also observe ... The reason is due to the quasi-Newton optimiser', which continues on page 8 ('L-BFGS-B which ...'; the page-8 reviewer must set join_previous=space). Table 1 (asset table-1, 9x3) and Table 2 (asset table-2, 10x4) re-typed as plain strings from the crops and checked cell by cell against main.tex (values, '±', 'NaN'); extractor emphasis markers removed; method cells and the two norm headers use LaTeX ($T=1$, $\\varepsilon=0.3$, $\\lVert L-\\widehat{L}\\rVert_2$, $\\lVert\\theta-\\widehat{\\theta}\\rVert_2$). Printed bold (best values) cannot be stored in CSV cells: Table 1 bold = SWD 0.80 (Diffusion T=3, K=128) and resampling variance 3.41 (OT eps=0.6 and eps=0.9); Table 2 bold = 2.55 and 4.26 (Diffusion T=3, K=8) and 1.28 (Diffusion T=1, K=4). Table bboxes tightened to [52,101,292,208] and [302,100,544,211]. Figure 1 (asset figure-1, renamed from figure-p0007-006): one crop [52,245,294,379] containing both panels (left: average time vs number of samples N with legend Diffusion K=4/K=32, OT eps=0.1/0.8; right: Diffusion N=8192 vs OT N=8192, bottom axis number of time steps 2^2-2^5, top axis OT eps 2^-3-2^-1, y-axis label 'Average time (s)'), checked edges with crop; caption excluded. The extractor's picture text was dropped (all visible inside the crop). Equation (14) (LGSSM model) converted from formula image to $$...$$ with \\tag{14}; inline maths ($\\Theta$, $\\lVert L-\\widehat{L}\\rVert_2^2 \\coloneqq \\int_\\Theta ...$, $K\\approx 6/\\varepsilon$, $N=8,192$) rewritten from main.tex. 'Table 20' is as printed. Authors' wording kept ('not superior than', 'the needs for fine discretisation is'). Omitted: running header, page number 7. [coordinator] 13 table cells rewritten from inline LaTeX to plain Unicode (as in the other tables), because the package builder escapes backslashes in markdown table cells (verifier error E1).",
+  "warnings": [
+    "Review possible header/footer: p0007-b000"
+  ],
+  "items": [
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        451.0,
+        292.0,
+        580.0
+      ],
+      "markdown": "gives the best SWD, followed by the baseline multinomial resampling and OT ($\\varepsilon=0.3$). We also observe that the diffusion resampling performance highly depends on the choice of integrator and discretisation, which at $K=8$ is not superior than OT or multinomial. In terms of resampling variance for estimating the posterior mean, diffusion resampling is not as performant as OT but is still better than the baseline multinomial. OT seems to have stable resampling variance robust in $\\varepsilon$. Gumbel-Softmax and the soft resampling methods are not comparable to diffusion or OT. Further results are given in Appendix G.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        588.0,
+        291.0,
+        718.0
+      ],
+      "markdown": "The time costs of diffusion resampling and OT are shown in Figure 1, and we have two important observations. The left figure shows that both methods roughly scale polynomially in the sample size $N$, where diffusion $(K=4)$ is better than OT $(\\varepsilon=0.8)$. On the right side of the figure, both methods scale linearly in their parameters $K$ and $1 \\, / \\, \\varepsilon$, which aligns with the summary in Table 20, and the cross point shows that they have a similar computation at $K \\approx 6 \\, / \\, \\varepsilon$ when $N=8,192$. We also observe a trend that when $N$ increases, the cross point moves left, showing that diffusion scales better than OT in $N$. Details are given in Appendix H."
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        66.0,
+        290.0,
+        97.0
+      ],
+      "markdown": "Table 1. Sliced 1-Wasserstein distance (SWD, scaled by $10^{-1}$) and resampling variance for the mean estimator (scaled by $10^{-2}$), for the Gaussian mixture resampling experiment in Section 4.1."
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "table",
+      "bbox": [
+        52.0,
+        101.0,
+        292.0,
+        208.0
+      ],
+      "markdown": "",
+      "label": "Table 1",
+      "asset_name": "table-1",
+      "rows": [
+        [
+          "Method",
+          "SWD",
+          "Resampling variance"
+        ],
+        [
+          "Diffusion (T = 1, K = 8)",
+          "1.64 ± 0.35",
+          "6.87 ± 5.87"
+        ],
+        [
+          "Diffusion (T = 3, K = 128)",
+          "0.80 ± 0.21",
+          "3.74 ± 2.99"
+        ],
+        [
+          "OT (ε = 0.3)",
+          "0.84 ± 0.22",
+          "3.42 ± 3.26"
+        ],
+        [
+          "OT (ε = 0.6)",
+          "0.97 ± 0.21",
+          "3.41 ± 3.29"
+        ],
+        [
+          "OT (ε = 0.9)",
+          "1.14 ± 0.20",
+          "3.41 ± 3.29"
+        ],
+        [
+          "Multinomial",
+          "0.82 ± 0.25",
+          "3.78 ± 4.43"
+        ],
+        [
+          "Gumbel-Softmax (0.1)",
+          "1.40 ± 0.24",
+          "3.92 ± 3.74"
+        ],
+        [
+          "Soft (0.9)",
+          "0.83 ± 0.24",
+          "3.75 ± 3.77"
+        ]
+      ]
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        245.0,
+        294.0,
+        379.0
+      ],
+      "markdown": "",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "caption",
+      "bbox": [
+        55.0,
+        384.0,
+        289.0,
+        393.0
+      ],
+      "markdown": "Figure 1. Average running times of diffusion resampling and OT."
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "caption",
+      "bbox": [
+        306.0,
+        66.0,
+        542.0,
+        97.0
+      ],
+      "markdown": "Table 2. The errors of loss function, filtering (scaled by $10^{-1}$), and parameter estimation (scaled by $10^{-1}$) for Section 4.2. Divergent NaN results are explained in Appendix I."
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "table",
+      "bbox": [
+        302.0,
+        100.0,
+        544.0,
+        211.0
+      ],
+      "markdown": "",
+      "label": "Table 2",
+      "asset_name": "table-2",
+      "rows": [
+        [
+          "Method",
+          "‖L − L̂‖₂",
+          "Filtering KL",
+          "‖θ − θ̂‖₂"
+        ],
+        [
+          "Diffusion (T = 1, K = 4)",
+          "2.61 ± 2.08",
+          "4.94 ± 6.92",
+          "1.28 ± 0.70"
+        ],
+        [
+          "Diffusion (T = 2, K = 8)",
+          "2.61 ± 1.89",
+          "4.40 ± 4.78",
+          "1.29 ± 0.78"
+        ],
+        [
+          "Diffusion (T = 3, K = 8)",
+          "2.55 ± 1.89",
+          "4.26 ± 4.49",
+          "1.58 ± 0.75"
+        ],
+        [
+          "OT (ε = 0.4)",
+          "2.64 ± 2.13",
+          "5.07 ± 6.21",
+          "1.53 ± 1.16"
+        ],
+        [
+          "OT (ε = 0.8)",
+          "2.68 ± 2.16",
+          "5.07 ± 5.70",
+          "1.58 ± 1.22"
+        ],
+        [
+          "OT (ε = 1.6)",
+          "2.75 ± 2.20",
+          "5.11 ± 5.17",
+          "1.49 ± 0.97"
+        ],
+        [
+          "Multinomial",
+          "2.80 ± 1.84",
+          "5.49 ± 6.87",
+          "NaN"
+        ],
+        [
+          "Gumbel-Softmax (0.1)",
+          "2.79 ± 2.14",
+          "4.83 ± 5.76",
+          "NaN"
+        ],
+        [
+          "Soft (0.9)",
+          "2.85 ± 1.80",
+          "4.66 ± 5.68",
+          "NaN"
+        ]
+      ]
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "heading",
+      "bbox": [
+        307.0,
+        229.0,
+        419.0,
+        237.0
+      ],
+      "markdown": "### 4.2. Linear Gaussian SSM"
+    },
+    {
+      "id": "p0007-b010",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        247.0,
+        542.0,
+        269.0
+      ],
+      "markdown": "We now consider particle filtering and compare different resampling methods on the model"
+    },
+    {
+      "id": "p0007-b011",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        272.0,
+        548.0,
+        308.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nZ_j \\mid Z_{j-1} &\\sim \\mathrm{N}(z_j ; \\theta_1 \\, z_{j-1}, I_d), \\quad Z_0 \\sim \\mathrm{N}(0, I_d), \\\\\nY_j \\mid Z_j &\\sim \\mathrm{N}(y_j ; \\theta_2 \\, z_j, 0.5 \\, I_d)\n\\end{aligned}\n\\tag{14}\n$$",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b012",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        311.0,
+        544.0,
+        467.0
+      ],
+      "markdown": "with parameters $\\theta_1=0.5$ and $\\theta_2=1$. For each experiment, we generate a measurement sequence with 128 time steps and apply a Kalman filter to compute the true filtering solution and log-likelihood $L(\\theta_1, \\theta_2)$ evaluated at Cartesian $\\Theta = [\\theta_1 - 0.1, \\theta_1 + 0.1]\\times [\\theta_2 - 0.1, \\theta_2 + 0.1]$. Three errors are evaluated: 1) the error of log-likelihood function estimate $\\lVert L - \\widehat{L} \\rVert^2_2 \\coloneqq \\int_\\Theta (L(\\theta_1, \\theta_2) - \\widehat{L}(\\theta_1, \\theta_2))^2 \\, \\mathrm{d} \\theta_1 \\, \\mathrm{d}\\theta_2$, where $\\widehat{L}$ stands for the estimate by a particle filter with resampling; 2) the KL divergence between the particle samples and the true filtering solution; 3) the estimated parameters $\\widehat{\\theta}$ by L-BFGS compared to the truth under Euclidean norm $\\lVert \\theta - \\widehat{\\theta} \\rVert_2$. All results are averaged over 100 independent runs, with 32 particles used. For details see Appendix I.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b013",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        475.0,
+        544.0,
+        640.0
+      ],
+      "markdown": "The results in Table 2 clearly show that the diffusion approach significantly outperforms other resampling methods across all the three metrics with less variance. Importantly, even without considering the differentiability, the diffusion resampling already gives the best filtering estimate, showing that it is a useful resampling method in itself. This is likely due to the fact that in diffusion resampling, the reference is given by the current posterior samples instead of the predictive samples like OT. In contrast to the Gaussian mixture experiment where the diffusion needs larger $K$ to be comparable to OT, the needs for fine discretisation is moderate for this model. Also based on Figure 1, the diffusion resampling achieves substantially better results than OT when evaluated at the same level of computational cost."
+    },
+    {
+      "id": "p0007-b014",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        648.0,
+        544.0,
+        718.0
+      ],
+      "markdown": "We also observe that almost all the resampling methods encounter divergent parameter estimations to some extent (see more statistics in Appendix I). In particular, the divergence of Soft and Gumbel-Softmax is too significant to give a meaningful result, and these entries are thus marked as NaN. The reason is due to the quasi-Newton optimiser"
+    },
+    {
+      "id": "p0007-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header (paper title) at the top of the page; page furniture."
+    },
+    {
+      "id": "p0007-b015",
+      "kind": "omit",
+      "bbox": [
+        295.0,
+        733.0,
+        301.0,
+        741.0
+      ],
+      "markdown": "7",
+      "reason": "Printed page number '7' at the bottom centre; page furniture."
+    }
+  ]
+}

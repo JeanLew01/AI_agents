@@ -1,0 +1,274 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        54.0,
+        299.0,
+        185.0
+      ],
+      "markdown": "variables. For example, suppose the state is ( _x_ 1 _, . . . , xn_ ) _∈_ R<sup>_n_</sup> , and we wish to verify a safety specification involving only the states _x_ 1 _, . . . , xm_ , where _m < n_ : a reachable set for the states _x_ 1 _, . . . , xm_ would suffice for this problem. In cases like this, Algorithm 1 can be modified to use only the first _m_ elements of the samples _xf_<sup>(</sup><sup>_i_).Theoutputofthealgorithm</sup> is then an empirical inverse Christoffel function with domain R<sup>_m_</sup> whose sublevel set _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] estimates the reachable set for the reduced set of states. In the sequel, we refer to this application of Algorithm 1 as the _reduced-state variant_ of Algorithm 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "heading",
+      "bbox": [
+        143.0,
+        194.0,
+        209.0,
+        202.0
+      ],
+      "markdown": "# IV. EXAMPLES",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        209.0,
+        299.0,
+        300.0
+      ],
+      "markdown": "This section demonstrates Algorithm 1’s ability to make accurate estimates of forward reachable sets with three numerical examples. We demonstrate how the parallel nature of the algorithm can be leveraged to improve computation times by running all experiments on two computing platforms: (i) a laptop with 4 2.6 GHz cores; and (ii) an instance of the AWS EC2 computing platform c5.24xlarge, a virtual machine with 96 3.6 GHz cores.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        311.0,
+        187.0,
+        319.0
+      ],
+      "markdown": "# _A. Chaotic Nonlinear Oscillator_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        326.0,
+        299.0,
+        348.0
+      ],
+      "markdown": "The first example is a reachable set estimation problem for the nonlinear, time-varying system with dynamics",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "formula",
+      "bbox": [
+        105.0,
+        351.0,
+        304.0,
+        386.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (6)",
+      "asset_name": "formula-p0004-005"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        388.0,
+        299.0,
+        433.0
+      ],
+      "markdown": "with states _x, y ∈_ R and parameters _α, γ, ω ∈_ R. This system is known as the _Duffing oscillator_ , a nonlinear oscillator which exhibits chaotic behavior for certain values of _α_ , _γ_ , and _ω_ , for instance",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "formula",
+      "bbox": [
+        101.0,
+        437.0,
+        242.0,
+        457.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (8)",
+      "asset_name": "formula-p0004-007"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        461.0,
+        299.0,
+        507.0
+      ],
+      "markdown": "The initial is the interval such that _x_ (0) _∈_ [0 _._ 95 _,_ 1 _._ 05], _y_ (0) _∈_ [ _−_ 0 _._ 05 _,_ 0 _._ 05], and we take _X_ 0 to be the uniform random variable over this interval. The time range is [ _t_ 0 _, t_ 1] = [0 _,_ 100].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        509.0,
+        299.0,
+        602.0
+      ],
+      "markdown": "We use Algorithm 1 to compute a reachable set for (2) using an order _k_ = 10 empirical inverse Christoffel function with accuracy and confidence parameters _ϵ_ = 0 _._ 05, _δ_ = 10<sup>_−_9</sup> . With these parameters, (1) states that _N_ = 156 _,_ 626 samples are required to ensure that Theorem 1 holds for the reachable set estimate. Total computation times for this example were 39 minutes on the laptop, and 41 seconds on c5.24xlarge.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        605.0,
+        299.0,
+        698.0
+      ],
+      "markdown": "Figure 1 shows the reachable set estimate for the Duffing oscillator system with the problem data given above, and the point cloud of 156 _,_ 626 samples used to compute the empirical inverse Christoffel function and the level parameter _α_ . The reachable set estimate is neither convex nor simply connected, closely following the boundaries of the cloud of points and excluding an empty region within the cloud of points.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        700.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "To experimentally verify that the assertion of Proposition 1 holds for the reachable set estimate, we compute an _a posteriori_ estimate of the accuracy of the empirical inverse",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        220.0
+      ],
+      "markdown": "Christoffel function sublevel set. To do this, we first compute a new set of sample points of size _Nap_ . Denoting by _Nout_ the number of new samples that lie outside of the reachable set estimate, we can compute the empirical accuracy of a reachable set approximation as 1 _− Nout/NAP_ . We use _NAP_ = 46 _,_ 052 sample points to make the _a posteriori_ estimate. This sample size ensures that a one-sided Chernoff bound holds, which guarantees that empirical accuracy is within 1% of the true with 99.99% confidence. The _a posteriori_ empirical accuracy computed with this sample is 1 _−_ (2 _×_ 10<sup>_−_5</sup> ), ensuring that the true accuracy of the reachable set estimate is at least 0 _._ 99 _−_ 2 _×_ 10<sup>_−_5</sup> with 99.99% confidence. This is well in excess of the 0 _._ 95 accuracy guaranteed by Theorem 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        229.0,
+        430.0,
+        239.0
+      ],
+      "markdown": "# _B. Planar Quadrotor Model_",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        244.0,
+        559.0,
+        290.0
+      ],
+      "markdown": "The next example is a reachable set estimation problem for horizontal position and altitude in a nonlinear model of the planar dynamics of a quadrotor used as an example in [18], [19]. The dynamics for this model are",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "formula",
+      "bbox": [
+        378.0,
+        292.0,
+        493.0,
+        344.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (16)",
+      "asset_name": "formula-p0004-015"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        347.0,
+        559.0,
+        462.0
+      ],
+      "markdown": "where _x_ and _h_ denote the quadrotor’s horizontal position and altitude in meters, respectively, and _θ_ denotes its angular displacement (so that the quadrotor is level with the ground at _θ_ = 0) in radians. The system has 6 states, which we take to be _x_ , _h_ , _θ_ , and their first derivatives. The two system inputs _u_ 1 and _u_ 2 (treated as disturbances for this example) represent the motor thrust and the desired angle, respectively. The parameter values used (following [19]) are _g_ = 9 _._ 81, _K_ = 0 _._ 89 _/_ 1 _._ 4, _d_ 0 = 70, _d_ 1 = 17, and _n_ 0 = 55. The set of initial states is the interval such that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "formula",
+      "bbox": [
+        337.0,
+        464.0,
+        534.0,
+        517.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (18)",
+      "asset_name": "formula-p0004-017"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        519.0,
+        559.0,
+        541.0
+      ],
+      "markdown": "the set of inputs is the set of constant functions _u_ 1( _t_ ) = _u_ 1, _u_ 2( _t_ ) = _u_ 2 _∀t ∈_ [ _t_ 0 _, t_ 1], whose values lie in the interval",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "formula",
+      "bbox": [
+        317.0,
+        544.0,
+        544.0,
+        565.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (20)",
+      "asset_name": "formula-p0004-019"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        569.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "and we take _X_ 0 and _D_ to be the uniform random variables defined over these intervals. The time range is [ _t_ 0 _, t_ 1] = [0 _,_ 5]. We take probabilistic parameters _ϵ_ = 0 _._ 05, _δ_ = 10<sup>_−_9</sup> . Since the goal of this example is to estimate a reachable set for the horizontal position and altitude only, we are interested in a reachable set for a subset of the state variables, namely _x_ and _h_ . As mentioned in Remark 2, Algorithm 1 can be used to estimate a reachable set for _x_ and _h_ in two ways: we can either compute a Christoffel function estimate for the reachable set and take the “shadow projection” of the estimate onto _x_ and _h_ , or we could compute a Christoffel function estimate for _x_ and _h_ directly using the reducedstate variant of Algorithm 1 with the ( _x, h_ ) components of the reachable set data. To compare the relative accuracy",
+      "source_class": "text"
+    }
+  ]
+}

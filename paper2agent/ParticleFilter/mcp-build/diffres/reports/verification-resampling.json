@@ -1,0 +1,159 @@
+{
+ "module": "resampling",
+ "role": "independent verifier (stage 3b)",
+ "implementation_run_id": "implement-resampling-attempt-1",
+ "implementation_report": "reports/implementation-resampling.json",
+ "verdict": "pass (both tools verified; one bounded repair)",
+ "production_files": {
+  "src/tools/resampling.py": {
+   "sha256_before_verification": "bec31c6a23d049be97644ae73f2cbdf3cfb786d3e7b56f3c24ba7fd5dbe458ba",
+   "sha256_after_last_change": "29667bd6967c05e506464fd88a64cdc6a0acc905294d4eb182085651843abef1",
+   "original_copy": "tests/logs/resampling/resampling.py.orig_bec31c6a"
+  }
+ },
+ "read_only_shared_dependencies": [
+  "diffres 0.0.1 editable (repo/diffres @ 767effe3e755067eb8a04422597fbf37eb8ab754): diffres/resampling.py, diffres/integators.py, diffres/feynman_kac.py (compute_ess)",
+  "ott-jax 0.5.2",
+  "diffrax",
+  "fastmcp 4.0.3",
+  "jax 0.7.2 CPU float64"
+ ],
+ "tools": [
+  "diffres_resample_particles_diffusion",
+  "diffres_resample_particles_baseline"
+ ],
+ "source_call_review": {
+  "diffres_resample_particles_diffusion": "Calls diffres.resampling.diffusion_resampling(key, log_ws, samples, a, ts, integrator, ode, jitter) under jax.jit with ts = jnp.linspace(0, T, nsteps + 1), exactly as experiments/gms/diffusion.py (and every upstream caller: lgssm, lokta, cifar10, demos, tests) builds ts. No re-implemented maths. einsum left at the upstream default (GPU-utilisation switch only). ESS from diffres.feynman_kac.compute_ess.",
+  "diffres_resample_particles_baseline": "Dispatches to diffres.resampling.{multinomial, stratified, systematic, multinomial_stopped, ensemble_ot, soft_resampling, gumbel_softmax} under jax.jit as experiments/gms/{baselines,ot,soft,gumbel}.py. eps=None is passed through so ensemble_ot applies its own default 1/log(N); implicit_diff kept at upstream default (forward output only). No duplicated algorithms."
+ },
+ "review_of_assigned_points": {
+  "defaults_a_T_nsteps": "upstream diffusion_resampling has no defaults for a/ts. a=-2, T=1, nsteps=32 are demos/gaussian_mixture.ipynb cell 6 (the README-referenced tutorial); documented in the parameter descriptions together with the gms setting a=-1. integrator='euler', ode=True, jitter=0 are the upstream signature defaults (the notebook itself uses jentzen_and_kloeden; repair 1 adds this to the description). Verified by test_defaults_match_documented_upstream_call (bitwise vs direct call). Accepted.",
+  "a_must_be_negative": "justified: upstream docstring 'must be negative'; direct upstream calls with a=0 and a=1 return non-finite particles (sig2t = var(1-exp(2a t)) <= 0, b2 = -2 a var <= 0). Same for T=0. Not an unjustified restriction.",
+  "rejected_integrator_combinations": "justified: upstream scan_body only implements diffrax with ode=True and tweedie with ode=False and raises NotImplementedError('Unknown integrator ...') otherwise (resampling.py 292-302); 'tme' always raises NotImplementedError and is omitted from the Literal. tests/test_resampling.py skips the same combinations. The wrapper raises the same meaning earlier as an MCP tool error.",
+  "ensemble_ot_eps_default": "faithful: None is forwarded and ensemble_ot sets eps = 1/jnp.log(n); the reported settings.eps = 1/np.log(N) matches (test_defaults; also equals an explicit eps=1/log N call to 1e-12).",
+  "soft_gumbel_default_0_5": "upstream functions have no default; 0.5 is the argparse default of experiments/gms/soft.py and gumbel.py. The paper's Table 1 (Gaussian mixture) reports Soft (0.9) and Gumbel-Softmax (0.1), and run_gms.sh sweeps other values. Kept 0.5 (source-backed) and repair 1 states the paper settings in the descriptions. The gms native runs at 0.9/0.1 are reproduced bitwise.",
+  "log_weight_normalisation": "justified: diffusion_resampling, systematic/stratified and ensemble_ot use exp(log_ws) as normalised weights; every upstream caller normalises with log_ws - logsumexp(log_ws) first. For the already-normalised executor inputs the renormalisation is bitwise a no-op (checked), so all native comparisons are bitwise; unnormalised inputs give the same result as upstream on the normalised weights, and input_log_normaliser is returned.",
+  "minus_inf_weights": "accepted correctly: direct upstream calls with every third weight zero give finite outputs for all methods (multinomial, stratified, systematic, multinomial_stopped, ensemble_ot default and eps=0.3, soft alpha 0/0.5/1, gumbel, diffusion); soft with alpha<1 legitimately returns -inf output log weights for selected zero-weight particles, which the wrapper's NaN-only output check allows. Tool output equals direct upstream bitwise; index-based methods never select zero-weight particles (tested).",
+  "one_dimensional_samples": "diffusion_resampling and index/softmax resamplers accept (N,) upstream; tool passes them unchanged (bitwise vs direct (N,) call; diffusion equals the (N,1) layout to 1e-12). ensemble_ot gets (N,1) because ott PointCloud needs 2-D, reshaped back (bitwise vs direct (N,1) call).",
+  "jitter": "an upstream parameter (diffusion_resampling(..., jitter=0.) line 198, added to the reference variances); used with 1e-5 by demos/gradient_variance2.py, demos/gradient_variance.py, experiments/lokta/diffusion.py and experiments/cifar10/run.py. Tested: zero-variance coordinate -> upstream NaN -> tool error naming jitter; jitter=1e-5 -> bitwise equal to upstream.",
+  "memory_n_squared": "diffusion builds (N, N, prod(data shape)) arrays per step, ensemble_ot and gumbel_softmax (N, N). Evidence: an exploratory script running several resamplers at N=2000 (1-D) in one process was OOM-killed at a 1500 MB scope limit; test files at N<=1024 peaked at 1080-1117 MB (diffusion) and 798-835 MB (baseline). Repair 1 adds an explicit N^2 memory note to both particles_path descriptions (not in docstrings, which stay two lines). No wrapper guard added (upstream has none; user-chosen N)."
+ },
+ "repairs": [
+  {
+   "attempt": 1,
+   "tool": "diffres_resample_particles_baseline",
+   "finding": "test_three_dimensional_samples failed: gumbel_softmax with (N, 2, 4) samples raised an uninformative TypeError from inside upstream (softmax(...) @ samples needs (N,) or (N, d)); the implementation report's statement that softmax-based resamplers accept (N, ...) upstream is wrong for gumbel_softmax. A direct upstream call raises the same TypeError (asserted in the test).",
+   "change": "reject samples.ndim > 2 for gumbel_softmax with ValueError 'gumbel_softmax needs samples of shape (N,) or (N, d).' (same policy as the existing ensemble_ot check); no generalisation by flattening."
+  },
+  {
+   "attempt": 1,
+   "tool": "both",
+   "finding": "documentation gaps from the assigned review points",
+   "change": "particles_path descriptions state N^2 memory growth (and the (N,)/(N,d) requirement for ensemble_ot/gumbel_softmax); integrator description notes the notebook uses jentzen_and_kloeden; alpha/tau descriptions note the paper's Table 1 settings (0.9 / 0.1). No computation changed."
+  }
+ ],
+ "attempts_per_tool": {
+  "diffres_resample_particles_diffusion": 2,
+  "diffres_resample_particles_baseline": 2
+ },
+ "scientific_comparisons": {
+  "gaussian_mixture_demo": "diffusion (a=-2, T=1, K=32, jentzen_and_kloeden, ODE, notebook key) vs eager notebook replay: max abs diff 1.77e-13 (jit vs eager), bitwise vs a direct jitted upstream call, log weights equal; ensemble_ot eps=0.3: 2.13e-12 vs eager, bitwise vs direct jit; multinomial bitwise. Input ESS 178.1133.",
+  "gms_native_scripts": "bitwise equal samples and log weights to the unmodified scripts' saved outputs for diffusion A (a=-1, T=3, K=128, jentzen_and_kloeden ODE) and B (a=-1, T=1, K=8, euler SDE), multinomial, stratified, systematic, ensemble_ot eps=0.3, soft alpha=0.9 (ESS out 935.93) and gumbel_softmax tau=0.1; the scripts' residual metric reproduced to 1e-12. Input ESS 129.543.",
+  "independent_property_checks_labelled": "Adapted from the excluded tests/test_resampling.py at N=1000 instead of 10000 (memory): test_diffres_versions -> tool (euler SDE) equals diffusion_resampling_generic with the empirical Gaussian reference (N=400, rtol 1e-7); SWD to the weighted input (n_proj=1000): diffusion euler-ode 1.74e-3, euler-sde 1.52e-3, lord_and_rougemont-ode 2.10e-3, jentzen_and_kloeden-sde 1.42e-3, diffrax-ode 1.74e-3, tweedie-sde 1.60e-3 (bound 1e-3*sqrt(10000/N)=3.16e-3); ensemble_ot eps=0.1 2.29e-3 (bound 3e-3*sqrt(10)); soft alpha=0.999 9.88e-4 and gumbel tau=1e-3 1.23e-3 vs multinomial 9.70e-4 (bound 1.5 x multinomial, because the upstream absolute atol 1e-4 is below plain multinomial SWD at N=1000).",
+  "composition": "diffusion tool on final-step particles of a direct upstream smc_feynman_kac run (tests/test_filters.py-style model, 200 particles) bitwise vs direct call; baseline tool on the diffusion tool's artifact; LABELLED (not part of verdict): baseline tool on the artifact of diffres_run_lgssm_particle_filter called through feynman_kac_mcp's own Client, bitwise vs direct systematic call."
+ },
+ "changed_input_and_error_checks": "seed vs prng_key, other a/T/nsteps, all six supported integrator/flow combinations, unnormalised log weights, 'weights' field, 1-D / 2-D / 3-D samples, zero weights, zero-variance coordinate with and without jitter, default settings; errors as MCP tool errors for a=0/1, T=0, nsteps=0, jitter<0, diffrax+SDE, tweedie+ODE, bad prng_key, unknown integrator/method (schema), missing required input, missing file, non-npz file, missing samples / weights, both weight fields, NaN, all -inf, shape mismatch, N=1, negative weights, non-finite samples, method-parameter mismatch, eps<=0, alpha outside [0,1], tau=0, 3-D samples for ensemble_ot / gumbel_softmax; no artifact written on input errors. Repeated calls give fresh uuid directories with identical content; input files unchanged (sha256).",
+ "tests": {
+  "files": {
+   "tests/code/resampling/conftest.py": "c4f32c4db1c94ab3219c7543ce0628747de74e4bea6b71f7483613f317c634f1",
+   "tests/code/resampling/resampling_fixtures.py": "9ad779b91638af943ba5858920490e4f0dd19d7382c6d8367a9ccdf1ae34bb15",
+   "tests/code/resampling/test_diffres_resample_particles_diffusion.py": "ceb989ef5328ef638fc6950aa3b31cae05d39a9d5b03729be72d98b04d1bfb23",
+   "tests/code/resampling/test_diffres_resample_particles_baseline.py": "96271ce452fc85418a58d48b8dec22007f85d483c52b89ef66ac2a5aef27eb84"
+  },
+  "fixtures": "tests/data/resampling (built by resampling_fixtures.py from notebooks/gaussian_mixture_demo and notebooks/gms_diffusion_experiment inputs plus numpy-seeded synthetic/invalid files; manifest tests/data/resampling/fixtures_manifest.json, sha256 stable across rebuilds)",
+  "oracle_files_read": [
+   "notebooks/gaussian_mixture_demo/data/{inputs_resampling,outputs_replay,outputs_capture}.npz",
+   "notebooks/gms_diffusion_experiment/work_native/gms/results/*.npz and data/inputs_*.npz",
+   "notebooks/gms_baselines_experiment/native_run/gms/results/*.npz and data/capture_baselines_multinomial.npz",
+   "notebooks/gms_soft_experiment/run_direct/gms/results/soft-0.9-0.npz",
+   "notebooks/gms_gumbel_experiment/run_native/gms/results/gumbel-0.1-0.npz"
+  ],
+  "runs": [
+   {
+    "attempt": 1,
+    "file": "test_diffres_resample_particles_diffusion.py",
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1500 --timeout 1800 --log tests/logs/resampling/pytest_diffusion_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/resampling/test_diffres_resample_particles_diffusion.py -q -x --junitxml=tests/results/resampling/junit_diffusion_attempt1.xml",
+    "exit": 0,
+    "result": "47 passed",
+    "peak_mb": 1117,
+    "production_sha256": "bec31c6a..."
+   },
+   {
+    "attempt": 1,
+    "file": "test_diffres_resample_particles_baseline.py",
+    "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1500 --timeout 1800 --log tests/logs/resampling/pytest_baseline_attempt1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python -m pytest -p no:cacheprovider tests/code/resampling/test_diffres_resample_particles_baseline.py -q -p no:warnings --junitxml=tests/results/resampling/junit_baseline_attempt1.xml",
+    "exit": 1,
+    "result": "51 passed, 1 failed (test_three_dimensional_samples, gumbel_softmax 3-D)",
+    "peak_mb": 798,
+    "production_sha256": "bec31c6a..."
+   },
+   {
+    "attempt": 2,
+    "file": "test_diffres_resample_particles_diffusion.py",
+    "command": "same as attempt 1 without -x, logs/junit *_attempt2",
+    "exit": 0,
+    "result": "47 passed",
+    "peak_mb": 1080,
+    "production_sha256": "29667bd6967c05e506464fd88a64cdc6a0acc905294d4eb182085651843abef1"
+   },
+   {
+    "attempt": 2,
+    "file": "test_diffres_resample_particles_baseline.py",
+    "command": "same as attempt 1, logs/junit *_attempt2",
+    "exit": 0,
+    "result": "52 passed",
+    "peak_mb": 835,
+    "production_sha256": "29667bd6967c05e506464fd88a64cdc6a0acc905294d4eb182085651843abef1",
+    "note": "ended 01:47:49Z, the same second the WSL stop was recorded; log and junit are complete (exit 0, 52 tests, 0 failures) and were checked after the restart"
+   }
+  ],
+  "totals_final": {
+   "collected": 99,
+   "passed": 99,
+   "failed": 0,
+   "skipped": 0
+  },
+  "results_dir": "tests/results/resampling (per-comparison JSON + junit)",
+  "logs_dir": "tests/logs/resampling"
+ },
+ "acceptance": {
+  "cases_file": "reports/mcp-acceptance-resampling.json",
+  "cases": 20,
+  "positive": 10,
+  "error": 10,
+  "schema_validation": "validate_cases(..., require_all_tools=True) from verify_mcp_server.py passes (no JAX)",
+  "dry_run": {
+   "subset": [
+    "resampling-diffusion-defaults-1d-unnormalised",
+    "resampling-diffusion-error-positive-a",
+    "resampling-baseline-systematic-1d",
+    "resampling-baseline-systematic-1d-repeat",
+    "resampling-baseline-error-gumbel-3d"
+   ],
+   "server": "scratch stdio server mounting only resampling_mcp (scratchpad, not a project file)",
+   "command": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1000 --timeout 600 --log tests/logs/resampling/acceptance_dryrun.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python $SKILL_ROOT/scripts/verify_mcp_server.py --server <scratch>/resampling_only_server.py --expected <scratch>/expected_resampling.json --cases <scratch>/acceptance_subset.json --require-all-tools --cwd $PROJECT_ROOT --report tests/results/resampling/acceptance_dryrun_report.json --call-timeout 300",
+   "exit": 0,
+   "success": true,
+   "peak_mb": 372,
+   "fastmcp": "4.0.3",
+   "note": "a first invocation exited 1 in pre-flight ('Server file does not exist': the scratch files were wiped by the WSL restart; no server or JAX started, peak 15 MB; kept as tests/*/resampling/acceptance_dryrun_preflight_failed.*). The full 20-case list is left for integration as instructed."
+  }
+ },
+ "exclusions": "none for these tools. Upstream tests/test_resampling.py stays excluded for memory (reports/exclusions/resampling-tests.json); its bodies were run here at reduced N as labelled property checks.",
+ "limitations": [
+  "SWD property tolerances are scaled from the upstream N=10000 tolerances (or compared with multinomial for soft/gumbel); they are not the upstream test as written.",
+  "Memory grows as N^2; tests stayed at N<=1024. No guard on N in the wrapper (documented in parameter descriptions).",
+  "The labelled feynman_kac composition test imports another module's tool (file owned by another verifier); a change there could affect only that labelled test.",
+  "Incident note: my first exploratory run (01:22Z, without PYTHONDONTWRITEBYTECODE) wrote repo/diffres/diffres/__pycache__ (4 .pyc files); I deleted that directory, and git status --short --ignored in repo/diffres is now empty. The exploratory scripts lived in the scratchpad (OOM-killed at N=2000, exit 143, at limit 1500 MB)."
+ ]
+}

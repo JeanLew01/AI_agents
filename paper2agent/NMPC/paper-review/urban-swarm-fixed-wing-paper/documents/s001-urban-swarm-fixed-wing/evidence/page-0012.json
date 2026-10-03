@@ -1,0 +1,940 @@
+{
+  "page": 12,
+  "lines": [
+    {
+      "text": "736 · Basescu et al.",
+      "bbox": [
+        88.1969985961914,
+        51.38132095336914,
+        162.49716186523438,
+        60.33945846557617
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Here, x signiﬁes the system state and u is the vector of control actions. h is the time step bounded",
+      "bbox": [
+        88.19699096679688,
+        78.62995910644531,
+        518.64990234375,
+        87.47675323486328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from hmin = 0.001s to hmax = 0.2s. δf and δi represent the bounds on the desired ﬁnal and initial",
+      "bbox": [
+        88.19699096679688,
+        90.58497619628906,
+        518.7259521484375,
+        100.92578887939453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "states (xf,xi), respectively. N is the number of knot points. The minimum distance function d is",
+      "bbox": [
+        88.19700622558594,
+        102.53999328613281,
+        518.5908203125,
+        112.30097961425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generated using a distance map computed from a map such as an OctoMap (Hornung et al., 2013).",
+      "bbox": [
+        88.19699096679688,
+        114.54483032226562,
+        518.750732421875,
+        123.34180450439453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.2.3. Local linear feedback control",
+      "bbox": [
+        88.19699096679688,
+        138.50050354003906,
+        263.259765625,
+        147.2177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To control the aircraft to a trajectory between plans, we use time-varying LQR (TVLQR). The",
+      "bbox": [
+        88.19699096679688,
+        150.37680053710938,
+        518.7307739257812,
+        159.17376708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control action is given as",
+      "bbox": [
+        88.19699096679688,
+        162.33279418945312,
+        196.59010314941406,
+        171.1297607421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "u(t, x) = K(x −x0(t)) + u0(t).",
+      "bbox": [
+        88.19699096679688,
+        179.57205200195312,
+        223.76458740234375,
+        189.8909454345703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(24)",
+      "bbox": [
+        500.87200927734375,
+        180.17977905273438,
+        518.5855102539062,
+        188.97674560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "K(t) is the time-dependent feedback gain matrix and is found by integrating",
+      "bbox": [
+        88.197021484375,
+        197.97694396972656,
+        423.216064453125,
+        206.82373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−˙S(t) = A(t)T S(t) + S(t)A(t) . . .",
+      "bbox": [
+        88.197021484375,
+        211.7906494140625,
+        234.12039184570312,
+        224.67071533203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−S(t)B(t)R−1B(t)T S(t) + Q",
+      "bbox": [
+        105.37201690673828,
+        228.2406005859375,
+        234.11767578125,
+        241.1217041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(25)",
+      "bbox": [
+        500.87200927734375,
+        232.32473754882812,
+        518.5855102539062,
+        241.1217041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "backwards in time from t = T to t = 0. Here A(t) = ∂f(x0,u0(t))",
+      "bbox": [
+        88.197021484375,
+        246.00640869140625,
+        363.8196716308594,
+        257.6737060546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∂x",
+      "bbox": [
+        337.2650146484375,
+        254.2734375,
+        346.71112060546875,
+        260.5289306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ", B(t) = ∂f(x0(t),u0(t))",
+      "bbox": [
+        365.0210266113281,
+        246.0064697265625,
+        457.99267578125,
+        257.67376708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∂u",
+      "bbox": [
+        426.6960144042969,
+        254.2734375,
+        436.38623046875,
+        260.5289306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ", and",
+      "bbox": [
+        459.19403076171875,
+        248.87680053710938,
+        481.34088134765625,
+        257.67376708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "K(t) = R−1B(t)T S(t).",
+      "bbox": [
+        88.197021484375,
+        263.99566650390625,
+        187.58262634277344,
+        276.87677001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(26)",
+      "bbox": [
+        500.87200927734375,
+        268.0798034667969,
+        518.5855102539062,
+        276.87677001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Here x0(t) and u0(t) signify the nominal trajectories. Q and R are the weighting matrices for state",
+      "bbox": [
+        88.197021484375,
+        285.8769836425781,
+        518.6512451171875,
+        295.6379089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and action respectively. S(t) is deﬁned by a ﬁnal cost matrix Qf.",
+      "bbox": [
+        88.19699096679688,
+        297.83197021484375,
+        372.8446044921875,
+        307.5928955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4. Real-time Trajectory Optimization Performance",
+      "bbox": [
+        88.197021484375,
+        324.3937683105469,
+        357.1292724609375,
+        334.9263000488281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To evaluate the performance of our NMPC approach, we explored trajectory optimization for a",
+      "bbox": [
+        88.197021484375,
+        343.67578125,
+        518.7506103515625,
+        352.4727478027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "post-stall 90◦turn using our ﬁxed-wing UAV model. We considered this 90◦turn to be a represen-",
+      "bbox": [
+        88.197021484375,
+        353.649658203125,
+        518.6376342773438,
+        364.427734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tative maneuver for aerobatic post-stall motion planning. We considered two metrics—computation",
+      "bbox": [
+        88.197021484375,
+        367.58575439453125,
+        518.7605590820312,
+        376.3827209472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "speed and trajectory following performance. Direct transcription methods, while computationally",
+      "bbox": [
+        88.197021484375,
+        379.5407409667969,
+        518.780517578125,
+        388.33770751953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "eﬃcient (i.e., able to exploit sparsity), do not provide the same kind of accuracy as is provided by",
+      "bbox": [
+        88.197021484375,
+        391.4967346191406,
+        518.8007202148438,
+        400.293701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "some shooting and direct pseudospectral methods. Therefore, we did not use integration error as a",
+      "bbox": [
+        88.197021484375,
+        403.45172119140625,
+        518.8004150390625,
+        412.2486877441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "metric, but rather error in following a trajectory using local feedback. LQR provided this metric as",
+      "bbox": [
+        88.197021484375,
+        415.4067077636719,
+        518.7905883789062,
+        424.20367431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a cost-to-go, and to evaluate trajectory following, we examined the ﬁnal cost of a simulated vehicle",
+      "bbox": [
+        88.197021484375,
+        427.3616943359375,
+        518.7606201171875,
+        436.1586608886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "following this trajectory using TVLQR. With regards to computation time, we looked at the time",
+      "bbox": [
+        88.197021484375,
+        439.3166809082031,
+        518.730712890625,
+        448.1136474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "required to ﬁnd an optimal solution when a naive seed was provided (i.e., linear progression of states",
+      "bbox": [
+        88.197021484375,
+        451.27166748046875,
+        518.8003540039062,
+        460.0686340332031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from initial state to the goal) and when SNOPT’s warm-start feature was used with a feasible seed.",
+      "bbox": [
+        88.197021484375,
+        463.2276611328125,
+        518.7606201171875,
+        472.0246276855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To test the warm-start, we sampled from a set of random-initial condition states and examined the",
+      "bbox": [
+        88.197021484375,
+        475.1826477050781,
+        518.7407836914062,
+        483.9796142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time-required to reoptimize the trajectory. We compared a simple Euler integration constraint [e.g.,",
+      "bbox": [
+        88.197021484375,
+        487.13763427734375,
+        518.7904052734375,
+        495.9346008300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xk+1 −xk −h(xk, uk) = 0] with the Hermite-Simpson integration constraint. We did not explore",
+      "bbox": [
+        88.197021484375,
+        498.4848937988281,
+        518.71435546875,
+        509.38458251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "higher order implicit integration constraints due to the associated computational cost.",
+      "bbox": [
+        88.197021484375,
+        511.0476379394531,
+        464.3349914550781,
+        519.8446044921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "As can be observed in Figure 5, the direct method using the Euler integration constraint did",
+      "bbox": [
+        100.15202331542969,
+        523.0025634765625,
+        518.8004150390625,
+        531.799560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "not become feasible until ≈20 knot points were used. In general, the Hermite-Simpson integration",
+      "bbox": [
+        88.197021484375,
+        534.3508911132812,
+        518.7152099609375,
+        543.7555541992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "constraint outperformed the Euler integration constraint in computation time by a factor of almost",
+      "bbox": [
+        88.19700622558594,
+        546.91357421875,
+        518.7704467773438,
+        555.7105712890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2-1 for both the naive seed optimization and warm-start optimization, especially below 30 knot",
+      "bbox": [
+        88.19700622558594,
+        558.8685302734375,
+        518.7406005859375,
+        567.66552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "points. The Hermite-Simpson approach showed good trajectory following at 10 knot points, while",
+      "bbox": [
+        88.19700622558594,
+        570.8235473632812,
+        518.7504272460938,
+        579.6205444335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the Euler integration method did not show comparable trajectory following until 24 knot points.",
+      "bbox": [
+        88.19700622558594,
+        582.778564453125,
+        518.7605590820312,
+        591.5755615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SNOPT’s warm-start also showed a 4:1 improvement over the naive seeding.",
+      "bbox": [
+        88.19700622558594,
+        594.7345581054688,
+        421.76470947265625,
+        603.5315551757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given these results, we chose to use Hermite-Simpson integration as our integration method with",
+      "bbox": [
+        100.15200805664062,
+        606.6895751953125,
+        518.7804565429688,
+        615.486572265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10 knot points. This provided the best computational performance (≈0.1s for a warm start) and",
+      "bbox": [
+        88.19700622558594,
+        618.036865234375,
+        518.6177978515625,
+        627.4415283203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reasonably good trajectory following.",
+      "bbox": [
+        88.19696044921875,
+        630.5995483398438,
+        250.01942443847656,
+        639.3965454101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5. Motion Capture Experiments",
+      "bbox": [
+        88.19696044921875,
+        657.1116333007812,
+        258.8813781738281,
+        667.6441650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given the ﬁdelity limitations of the dynamics model used for control, real-world experiments",
+      "bbox": [
+        88.19696044921875,
+        676.3935546875,
+        518.7705078125,
+        685.1905517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "were imperative in validating the eﬃcacy of the controller design. We ﬁrst conducted a series",
+      "bbox": [
+        88.19696044921875,
+        688.3485717773438,
+        518.8004150390625,
+        697.1455688476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Field Robotics, May, 2023 · 3:725–765",
+      "bbox": [
+        88.19696044921875,
+        713.8971557617188,
+        229.24407958984375,
+        722.8553466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Agile Fixed-Wing UAVs for Urban Swarm Operations",
+      "author": "Joseph L. Moore",
+      "subject": "Fixed-wing unmanned aerial vehicles (UAVs) offer significant performance advantages over rotary-wing UAVs in terms of speed, endurance, and efficiency.",
+      "keywords": "aerial robotics, obstacle avoidance, navigation, robot teaming",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.18",
+      "creationDate": "D:20230512132423+05'30'",
+      "modDate": "D:20230512132423+05'30'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/urban-swarm-fixed-wing-paper/documents/.pdf-skill-scan-3cgzzkiv/review/source.pdf",
+      "page_count": 41,
+      "page_number": 12
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          88,
+          51,
+          163,
+          59
+        ],
+        "pos": [
+          0,
+          27
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          88,
+          78,
+          519,
+          124
+        ],
+        "pos": [
+          27,
+          492
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          88,
+          138,
+          264,
+          148
+        ],
+        "pos": [
+          492,
+          540
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          88,
+          149,
+          519,
+          172
+        ],
+        "pos": [
+          540,
+          661
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          88,
+          179,
+          519,
+          190
+        ],
+        "pos": [
+          661,
+          746
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          88,
+          197,
+          424,
+          208
+        ],
+        "pos": [
+          746,
+          833
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          88,
+          213,
+          519,
+          260
+        ],
+        "pos": [
+          833,
+          1547
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          88,
+          266,
+          519,
+          278
+        ],
+        "pos": [
+          1547,
+          1637
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          88,
+          285,
+          519,
+          308
+        ],
+        "pos": [
+          1637,
+          1850
+        ]
+      },
+      {
+        "index": 9,
+        "class": "section-header",
+        "bbox": [
+          88,
+          324,
+          358,
+          335
+        ],
+        "pos": [
+          1850,
+          1903
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          88,
+          343,
+          519,
+          520
+        ],
+        "pos": [
+          1903,
+          3431
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          88,
+          522,
+          519,
+          604
+        ],
+        "pos": [
+          3431,
+          4084
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          88,
+          606,
+          519,
+          640
+        ],
+        "pos": [
+          4084,
+          4318
+        ]
+      },
+      {
+        "index": 13,
+        "class": "section-header",
+        "bbox": [
+          88,
+          656,
+          259,
+          668
+        ],
+        "pos": [
+          4318,
+          4352
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          88,
+          676,
+          519,
+          698
+        ],
+        "pos": [
+          4352,
+          4545
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          88,
+          714,
+          230,
+          722
+        ],
+        "pos": [
+          4545,
+          4585
+        ]
+      }
+    ],
+    "text": "**736** · Basescu et al. \n\nHere, **x** signifies the system state and **u** is the vector of control actions. _h_ is the time step bounded from _h_ min = 0 _._ 001 _s_ to _h_ max = 0 _._ 2 _s_ . **_δ_** _f_ and **_δ_** _i_ represent the bounds on the desired final and initial states ( **x** _f_ , **x** _i_ ), respectively. _N_ is the number of knot points. The minimum distance function _d_ is generated using a distance map computed from a map such as an OctoMap (Hornung et al., 2013). \n\n## **_3.2.3. Local linear feedback control_** \n\nTo control the aircraft to a trajectory between plans, we use time-varying LQR (TVLQR). The control action is given as \n\n**u** ( _t,_ **x** ) = **K** ( **x** _−_ **x** 0( _t_ )) + **u** 0( _t_ ) _._ (24) \n\n**K** ( _t_ ) is the time-dependent feedback gain matrix and is found by integrating \n\n_−_ **S**<sup>˙</sup> ( _t_ ) = **A** ( _t_ )<sup>_T_</sup> **S** ( _t_ ) + **S** ( _t_ ) **A** ( _t_ ) _. . . −_ **S** ( _t_ ) **B** ( _t_ ) **R**<sup>_−_1</sup> **B** ( _t_ )<sup>_T_</sup> **S** ( _t_ ) + **Q** (25) backwards in time from _t_ = _T_ to _t_ = 0. Here **A** ( _t_ ) =<sup>_∂_</sup><sup>**f**</sup><sup><u>(</u></sup><sup>**x**</sup><sup><u>0</u></sup> _∂_<sup>_<u>,</u>_</sup> **x**<sup>**u**</sup><sup><u>0(</u></sup><sup>_t_</sup><sup><u>))</u></sup> , **B** ( _t_ ) =<sup>_∂_</sup><sup>**f**</sup><sup><u>(</u></sup><sup>**x**</sup><sup><u>0(</u></sup> _∂_<sup>_t_</sup><sup><u>)</u></sup> **u**<sup>_<u>,</u>_</sup><sup>**u**</sup><sup><u>0(</u></sup><sup>_t_</sup><sup><u>))</u></sup> , and \n\n**K** ( _t_ ) = **R**<sup>_−_1</sup> **B** ( _t_ )<sup>_T_</sup> **S** ( _t_ ) _._ (26) \n\nHere **x** 0( _t_ ) and **u** 0( _t_ ) signify the nominal trajectories. **Q** and **R** are the weighting matrices for state and action respectively. **S** ( _t_ ) is defined by a final cost matrix **Q** _f_ . \n\n# 4. Real-time Trajectory Optimization Performance \n\nTo evaluate the performance of our NMPC approach, we explored trajectory optimization for a post-stall 90<sup>_◦_</sup> turn using our fixed-wing UAV model. We considered this 90<sup>_◦_</sup> turn to be a representative maneuver for aerobatic post-stall motion planning. We considered two metrics—computation speed and trajectory following performance. Direct transcription methods, while computationally efficient (i.e., able to exploit sparsity), do not provide the same kind of accuracy as is provided by some shooting and direct pseudospectral methods. Therefore, we did not use integration error as a metric, but rather error in following a trajectory using local feedback. LQR provided this metric as a cost-to-go, and to evaluate trajectory following, we examined the final cost of a simulated vehicle following this trajectory using TVLQR. With regards to computation time, we looked at the time required to find an optimal solution when a naive seed was provided (i.e., linear progression of states from initial state to the goal) and when SNOPT’s warm-start feature was used with a feasible seed. To test the warm-start, we sampled from a set of random-initial condition states and examined the time-required to reoptimize the trajectory. We compared a simple Euler integration constraint [e.g., **x** _k_ +1 _−_ **x** _k − h_ ( **xk** _,_ **uk** ) = **0** ] with the Hermite-Simpson integration constraint. We did not explore higher order implicit integration constraints due to the associated computational cost. \n\nAs can be observed in Figure 5, the direct method using the Euler integration constraint did not become feasible until _≈_ 20 knot points were used. In general, the Hermite-Simpson integration constraint outperformed the Euler integration constraint in computation time by a factor of almost 2-1 for both the naive seed optimization and warm-start optimization, especially below 30 knot points. The Hermite-Simpson approach showed good trajectory following at 10 knot points, while the Euler integration method did not show comparable trajectory following until 24 knot points. SNOPT’s warm-start also showed a 4:1 improvement over the naive seeding. \n\nGiven these results, we chose to use Hermite-Simpson integration as our integration method with 10 knot points. This provided the best computational performance ( _≈_ 0.1s for a warm start) and reasonably good trajectory following. \n\n# 5. Motion Capture Experiments \n\nGiven the fidelity limitations of the dynamics model used for control, real-world experiments were imperative in validating the efficacy of the controller design. We first conducted a series \n\nField Robotics, May, 2023 · 3:725–765 \n\n"
+  }
+}

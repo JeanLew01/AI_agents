@@ -1,0 +1,78 @@
+{
+ "module": "resampling",
+ "role": "tool implementer (stage 3a)",
+ "production_files": {
+  "src/tools/resampling.py": {"sha256": "bec31c6a23d049be97644ae73f2cbdf3cfb786d3e7b56f3c24ba7fd5dbe458ba", "fastmcp_instance": "resampling_mcp = FastMCP(name=\"resampling\")", "fastmcp_version": "4.0.3"}
+ },
+ "upstream": {"package": "diffres 0.0.1 (editable, repo/diffres @ 767effe3e755067eb8a04422597fbf37eb8ab754)", "reference_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/diffres/resampling.py", "repo_modified": false},
+ "tools": {
+  "diffres_resample_particles_diffusion": {
+   "upstream_call": "jax.jit(lambda k, lw, x: diffres.resampling.diffusion_resampling(k, lw, x, a, ts, integrator=integrator, ode=ode, jitter=jitter))(key, log_ws_normalised, samples), ts = jnp.linspace(0., T, nsteps + 1); einsum left at upstream default False",
+   "upstream_lines": "diffres/resampling.py 195-308",
+   "jit_rationale": "experiments/gms/diffusion.py wraps the call in jax.jit; bitwise equal to the script output. The demo notebook calls it eagerly; eager vs jit differ by ~1e-13 (executor reports the same effect).",
+   "parameters": {
+    "particles_path": "required; .npz with samples (N, ...) and exactly one of log_weights / weights",
+    "a": "default -2.0 (demos/gaussian_mixture.ipynb cell 6; no default in the upstream signature; experiments/run_gms.sh uses -1, the gms script default is -0.5); must be < 0 (upstream docstring: 'must be negative'). a is the OU mean-reversion rate of the reference process dX = a (X - mu) dt + b dW with b^2 = -2 a var, whose stationary law is the weighted empirical diagonal Gaussian N(mu, var).",
+    "T": "default 1.0 (notebook); > 0",
+    "nsteps": "default 32 (notebook); >= 1",
+    "integrator": "Literal euler | lord_and_rougemont | jentzen_and_kloeden | diffrax | tweedie; default 'euler' from the upstream signature ('tme' omitted: upstream always raises NotImplementedError)",
+    "ode": "default True from the upstream signature",
+    "jitter": "default 0.0 from the upstream signature; >= 0; exposed because a zero-variance dimension makes the reference degenerate",
+    "seed / prng_key": "PRNGKey(seed) (default 0) or raw uint32[2] key; key used is returned",
+    "output_dir": "base dir; fresh uuid subdirectory per call; default <project>/tmp/outputs/diffres_resample_particles_diffusion"
+   },
+   "checks": "a < 0, T > 0, nsteps >= 1, jitter >= 0; diffrax requires ode=True and tweedie requires ode=False (upstream raises NotImplementedError('Unknown integrator ...') otherwise; the wrapper raises ValueError with the reason before calling); non-finite output -> ValueError suggesting jitter",
+   "outputs": "resampled.npz with samples (N, ...) and log_weights (N,) as returned upstream (= -log N); dict with n_particles, sample_shape, input_weight_field, input_log_normaliser, ess_input, ess_output (diffres.feynman_kac.compute_ess), settings, prng_key, artifacts"
+  },
+  "diffres_resample_particles_baseline": {
+   "upstream_call": "jax.jit(lambda k, lw, x: f(k, lw, x, **method_kwargs))(key, log_ws_normalised, samples) with f in {multinomial, stratified, systematic, multinomial_stopped, ensemble_ot(eps), soft_resampling(alpha), gumbel_softmax(tau)}",
+   "upstream_lines": "diffres/resampling.py 24-192",
+   "jit_rationale": "experiments/gms/{baselines,ot,soft,gumbel}.py jit the resampler; bitwise equal to their outputs",
+   "parameters": {
+    "method": "Literal multinomial | stratified | systematic | multinomial_stopped | ensemble_ot | soft | gumbel_softmax; default multinomial",
+    "eps": "ensemble_ot only; None -> upstream default 1/log(N); > 0",
+    "alpha": "soft only; None -> 0.5 (experiments/gms/soft.py argparse default; no default in the upstream function); must be in [0, 1] (upstream docstring)",
+    "tau": "gumbel_softmax only; None -> 0.5 (experiments/gms/gumbel.py argparse default; no default in the upstream function); > 0 (upstream docstring; tau=0 divides by zero)",
+    "method_parameter_policy": "passing eps/alpha/tau for a method they do not belong to raises ValueError (chosen over silently ignoring)",
+    "implicit_diff": "not exposed (ensemble_ot upstream default True kept); it only changes gradients, and this tool returns no gradients"
+   },
+   "outputs": "resampled.npz with samples and log_weights as returned upstream (uniform -log N except soft, which returns normalised non-uniform log weights; multinomial_stopped returns -log N + lw[i] - stop_gradient(lw[i]) which is -log N up to rounding); dict with output_weights_uniform flag, ess_input/ess_output, resolved settings (eps value and its source), prng_key, artifacts"
+  }
+ },
+ "io_adaptations": [
+  "Input .npz contract: samples (N, ...) float, exactly one of log_weights (N,) or weights (N,). weights -> log(weights) (zeros allowed -> -inf). NaN/+inf log weights, negative/non-finite weights, non-finite samples, N < 2 and all-zero weights are rejected with ValueError.",
+  "Log weights are normalised with log_ws - logsumexp(log_ws) as every upstream caller does before calling the resampler; the input log normaliser is returned. For already-normalised inputs this can change log weights by ~1e-16.",
+  "Samples are passed with their stored shape: diffusion_resampling and the index/softmax-based resamplers accept (N,) or (N, ...) upstream. ensemble_ot needs an ott point cloud, so 1-D samples are reshaped to (N, 1) for the call and back to (N,) afterwards; samples with more than 2 dims are rejected for ensemble_ot only.",
+  "jax_enable_x64 set at import; CPU float64 as in upstream experiments/tests.",
+  "Outputs written to a fresh uuid directory per call; no full arrays are returned."
+ ],
+ "scientific_transformations_added": "none (logsumexp normalisation is the upstream callers' own step; ESS uses diffres.feynman_kac.compute_ess)",
+ "known_limits_documented": [
+  "diffusion_resampling, ensemble_ot and gumbel_softmax build (N, N[, d]) float64 arrays; memory grows as 8*N^2*d bytes per array (no wrapper guard added).",
+  "integrator='diffrax' re-solves the full ODE inside every scan step (upstream behaviour)."
+ ],
+ "smoke_check": {
+  "script": "tmp/impl-resampling/smoke.py (sha256 979e184d405cbd50af3fe756ec1857f894d89eb542b3075e62ce43b9f259cdfa)",
+  "command": "heavy.sh --limit-mb 1200 --timeout 1200 --log tmp/impl-resampling/smoke_run1.log -- env PYTHONDONTWRITEBYTECODE=1 diffres-env/bin/python tmp/impl-resampling/smoke.py",
+  "exit_status": 0,
+  "peak_memory_mb": 521,
+  "attempts": 1,
+  "results_file": "tmp/impl-resampling/smoke_results.json (sha256 4a61bf3ab002ccb4a0a86727b10199e34d407eec3cb5a69ea3a0f44f54e4f8e2)",
+  "log": "tmp/impl-resampling/smoke_run1.log (sha256 35b8b94d7a65a19748e3ff41c3ee7f9bbcf7fa733ae943040f9de068c4369c8b)",
+  "comparisons": {
+   "gaussian_mixture_demo diffusion (a=-2,T=1,K=32,jentzen_and_kloeden,ode) vs eager notebook/replay output": "max abs diff 1.77e-13 (jit vs eager), log weights equal",
+   "gaussian_mixture_demo ensemble_ot eps=0.3 vs eager replay": "max abs diff 2.13e-12 (jit vs eager), log weights equal",
+   "gaussian_mixture_demo multinomial": "bitwise equal",
+   "gms_diffusion A (a=-1,T=3,K=128,jentzen_and_kloeden,ode) vs native script output": "bitwise equal",
+   "gms_diffusion B (a=-1,T=1,K=8,euler,sde) vs native script output": "bitwise equal",
+   "gms_baselines multinomial / stratified / systematic vs native": "bitwise equal",
+   "gms ot eps=0.3 vs native": "bitwise equal",
+   "multinomial_stopped vs native multinomial": "samples bitwise equal, log weights within 8.9e-16 (as executor reported)",
+   "gms_soft alpha=0.9 (input given as 'weights') vs captured output": "bitwise equal samples and log weights; output ESS 935.93 (non-uniform), matches executor reference",
+   "gms_gumbel tau=0.1 vs captured output": "bitwise equal",
+   "input ESS": "178.113 (notebook) and 129.543 (gms), matching executor reference numbers"
+  },
+  "extra_checks": "1-D samples (N=200, unnormalised log weights, log normaliser 11.73) through diffusion defaults and ensemble_ot default eps (1/log 200 = 0.1887): finite, shape (200,) preserved; repeated call gives a fresh directory and identical result; ValueErrors for alpha with multinomial, a > 0, diffrax+SDE, tweedie+ODE, 3-element prng_key, tau=0, all -inf log weights; fastmcp Client(resampling_mcp) lists both tools and call_tool(...).data works for systematic with seed=3."
+ },
+ "not_done": "No tests under tests/code/ (verifier owns them). No gradient outputs (not part of these tools' contracts)."
+}

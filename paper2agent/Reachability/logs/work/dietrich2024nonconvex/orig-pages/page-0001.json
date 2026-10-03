@@ -1,0 +1,183 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0001-b000",
+    "Review possible header/footer: p0001-b013"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        42.0,
+        306.0,
+        50.0
+      ],
+      "markdown": "Proceedings of Machine Learning Research vol 242:514–527, 2024",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        110.0,
+        91.0,
+        502.0,
+        105.0
+      ],
+      "markdown": "# **Nonconvex Scenario Optimization for Data-Driven Reachability**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        130.0,
+        204.0,
+        154.0
+      ],
+      "markdown": "### **Elizabeth Dietrich Rosalyn Alex Devonport**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        157.0,
+        152.0,
+        165.0
+      ],
+      "markdown": "### **Murat Arcak**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "text",
+      "bbox": [
+        368.0,
+        131.0,
+        522.0,
+        165.0
+      ],
+      "markdown": "EADIETRI@BERKELEY.EDU ALEX DEVONPORT@BERKELEY.EDU ARCAK@BERKELEY.EDU",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        171.0,
+        338.0,
+        194.0
+      ],
+      "markdown": "_Department of Electrical Engineering and Computer Sciences University of California, Berkeley_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "heading",
+      "bbox": [
+        283.0,
+        243.0,
+        329.0,
+        252.0
+      ],
+      "markdown": "## **Abstract**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        109.0,
+        260.0,
+        503.0,
+        366.0
+      ],
+      "markdown": "Many of the popular reachability analysis methods rely on the existence of system models. When system dynamics are uncertain or unknown, data-driven techniques must be utilized instead. In this paper, we propose an approach to data-driven reachability that provides a _probabilistic_ guarantee of correctness for these systems through nonconvex scenario optimization. We pose the problem of finding reachable sets directly from data as a chance-constrained optimization problem, and present two algorithms for estimating nonconvex reachable sets: (1) through the union of partition cells and (2) through the sum of radial basis functions. Additionally, we investigate numerical examples to demonstrate the capability and applicability of the introduced methods to provide nonconvex reachable set approximations.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        109.0,
+        369.0,
+        422.0,
+        379.0
+      ],
+      "markdown": "**Keywords:** Reachability analysis, scenario optimization, data-driven methods",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        390.0,
+        170.0,
+        399.0
+      ],
+      "markdown": "## **1. Introduction**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        410.0,
+        523.0,
+        475.0
+      ],
+      "markdown": "To guarantee the safety of dynamical systems, _reachability analysis_ is often used to determine the set of states that a system could possibly visit. However, in practice, computing exact reachable sets is an undecidable problem. For this reason, approximation methods are often used to reason about these systems and present guarantees. For example, over-approximated reachable sets guarantee safety when they do not overlap with unsafe regions of the state space.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        478.0,
+        523.0,
+        610.0
+      ],
+      "markdown": "There are many approaches that have been developed for this type of reachability analysis for systems with known dynamics. The most common of these include utilization of Hamilton-Jacobi differential equations (Mitchell et al., 2005; Bansal et al., 2017; Chen and Tomlin, 2018) or barrier certificates (Prajna, 2003; Prajna and Jadbabaie, 2004). While these techniques handle complex nonlinear dynamics well, their computational cost increases sharply with state dimensions. Set propagation techniques (Althoff, 2010; Althoff et al., 2021) iteratively compute a sequence of sets and achieve better scalability with state dimension. The most commonly used families of sets are ellipsoids (Kurzhanski and Varaiya, 2000; Botchkarev and Tripakis, 2000), hyperrectangles (Meyer et al., 2021), zonotopes (Girard, 2005), polytopes (Althoff et al., 2010), and support functions (Althoff and Frehse, 2016).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        614.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "However, when the exact dynamics of a system are not known or only partially known, none of the techniques above can be used. Instead, we must estimate reachable sets in a data-driven manner. Several methods attempt to provide probabilistic guarantees of correctness for reachable sets directly from data. These methods include results from simulation and trajectory sensitivity analysis (Donz´e and Maler, 2007; Girard and Pappas, 2006; Fan et al., 2017) or Gaussian processes (Devonport and Arcak, 2020a) and utilize simulation-based data to learn reachable sets. Other simulation-based and data-driven reachability methods include (Duggirala et al., 2013; Maidens",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        727.0,
+        249.0,
+        735.0
+      ],
+      "markdown": "© 2024 E. Dietrich, R.A. Devonport & M. Arcak.",
+      "source_class": "page-footer"
+    }
+  ]
+}

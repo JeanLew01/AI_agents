@@ -1,0 +1,136 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was still raw extraction (glyph-soup algorithm text, bold '#' headings, formula image). Compared preview and four 260-280 dpi crops (Algorithm 1, the 4.2 paragraph with equations (10a)-(10d), the paragraph after (10d), the 4.3 paragraph) with the rebuilt items; maths from 30algo.tex with macros expanded, checked on the crops. Reading order: the page prints Algorithm 1 as a top float above the end of the page-6 paragraph; items now start with that continuation ('scheduling of $\\alpha$ and (2) ...', join_previous=space), then Algorithm 1. Algorithm 1: image crop (figure item, asset algorithm-1, bbox [106,70.5,506,189] from the top rule to the bottom rule) followed by a line-by-line LaTeX transcription with the printed line numbers 1-7. Printed as is: line 3 samples with $\\bar{\\alpha}_{i-1}$ (mean $Y^{(i)}/\\sqrt{\\bar{\\alpha}_{i-1}}$, covariance $(1/\\bar{\\alpha}_{i-1}-1)I$) although equation (8) uses $\\bar{\\alpha}_i$; lines 4-6 cite 'Eq. (9b)', 'Eq. (9a)', 'Eq. (6)'. Headings fixed to '### 4.2 Model-based Diffusion for Trajectory Optimization' and '### 4.3 Model-based Diffusion with Demonstration'. Equations (10a)-(10d) converted from a formula image to one text item with four tagged $$ blocks; (10d) is the printed 'where $\\bar{Y}^{(0)} = ...$, $w(Y^{(0)}) = p_J(Y^{(0)}) p_g(Y^{(0)})$' line. TeX vs PDF: the PDF prints 'score estimation' (the arXiv TeX has the typo 'esitimation'); PDF wording used. 'overly smoothes' is the authors' spelling. Cross-references as printed: 'Line 3 in Algorithm 2', 'Eq. (1c)', '(Line 4)', 'Line 5', 'Section 4.3', 'Fig. 2(b)'. Last item ends with the split word 'pro-|cess': the line-wrap hyphen was removed here and page 8's first item has join_previous=none. Page number 7 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        208.0,
+        505.0,
+        262.0
+      ],
+      "markdown": "scheduling of $\\alpha$ and (2) the intermediate refinements on $p_i$, both following the forward diffusion process. This allows MBD to optimize for smoothed functions in the early stage and gradually refine the solution for the original objective. On the contrary, CEM’s solution could either be biased given a large $\\Sigma_{\\text{CEM}}$ which overly smoothes the distribution as in $p_{20}, p_{100}$ of Fig. 2(b), or stuck in local minima with a small $\\Sigma_{\\text{CEM}}$ as in $p_1$ of Fig. 2(b) where the distribution is highly non-concave.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b000",
+      "kind": "figure",
+      "bbox": [
+        106.0,
+        70.5,
+        506.0,
+        189.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        73.0,
+        505.0,
+        186.0
+      ],
+      "markdown": "**Algorithm 1** Model-based Diffusion for Generic Optimization  \n1: **Input:** $Y^{(N)} \\sim \\mathcal{N}(\\mathbf{0}, I)$  \n2: **for** $i = N$ to $1$ **do**  \n3: Sample $\\mathcal{Y}^{(i)} \\sim \\mathcal{N}(\\frac{Y^{(i)}}{\\sqrt{\\bar{\\alpha}_{i-1}}}, (\\frac{1}{\\bar{\\alpha}_{i-1}} - 1) I)$  \n4: Calculate Eq. (9b) $\\bar{Y}^{(0)}(\\mathcal{Y}^{(i)}) = \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}} Y^{(0)} p_0(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}} p_0(Y^{(0)})}$  \n5: Estimate the score Eq. (9a): $\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} \\approx -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\bar{Y}^{(0)}(\\mathcal{Y}^{(i)})$  \n6: Monte Carlo score ascent Eq. (6): $Y^{(i-1)} \\leftarrow \\frac{1}{\\sqrt{\\alpha_i}} \\left(Y^{(i)} + (1-\\bar{\\alpha}_i) \\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})}\\right)$  \n7: **end for**",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        276.0,
+        349.0,
+        286.0
+      ],
+      "markdown": "### 4.2 Model-based Diffusion for Trajectory Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        296.0,
+        505.0,
+        370.0
+      ],
+      "markdown": "For TO, we have to accommodate the constraints in Eq. (1) which change the target distribution to $p_0(Y^{(0)}) \\propto p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)})$. Given that $p_d(Y^{(0)})$ is a Dirac delta function that assigns non-zero probability only to dynamically feasible trajectories, sampling from $\\phi_i(Y^{(0)})$ could result in low densities. To enhance sampling efficiency, we collect a batch of dynamically feasible samples $\\mathcal{Y}^{(i)}_d$ from the distribution $\\phi_i(Y^{(0)}) p_d(Y^{(0)})$ with model information. Proceeding from Eq. (9a), and incorporating $p_0(Y^{(0)}) \\propto p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)})$, we show the score function is:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "text",
+      "bbox": [
+        122.0,
+        369.0,
+        510.0,
+        501.0
+      ],
+      "markdown": "$$\n\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} = -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\frac{\\int Y^{(0)} \\phi_i(Y^{(0)}) p_d(Y^{(0)}) p_g(Y^{(0)}) p_J(Y^{(0)}) \\, dY^{(0)}}{\\int \\phi_i(Y^{(0)}) p_d(Y^{(0)}) p_g(Y^{(0)}) p_J(Y^{(0)}) \\, dY^{(0)}} \\tag{10a}\n$$\n\n$$\n\\approx -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} Y^{(0)} p_J(Y^{(0)}) p_g(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} p_J(Y^{(0)}) p_g(Y^{(0)})} \\tag{10b}\n$$\n\n$$\n= -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\bar{Y}^{(0)}, \\tag{10c}\n$$\n\n$$\n\\mathrm{where} \\quad \\bar{Y}^{(0)} = \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} Y^{(0)} w(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} w(Y^{(0)})}, \\quad w(Y^{(0)}) = p_J(Y^{(0)}) p_g(Y^{(0)}) \\tag{10d}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        506.0,
+        506.0,
+        618.0
+      ],
+      "markdown": "The model plays a crucial role in score estimation by transforming infeasible samples $\\mathcal{Y}^{(i)}$ from Line 3 in Algorithm 2 into feasible ones $\\mathcal{Y}^{(i)}_d$. The conversion is achieved by putting the control part $U = u_{1:T}$ of $Y^{(0)} = [x_{1:T}; u_{1:T}]$ into the dynamics Eq. (1c) recursively to get the dynamically feasible samples $Y^{(0)}_d$ (Line 4), which shares the same idea with the shooting method [29] in TO. MBD then evaluates the weight of each sample with $p_g(Y^{(0)}) p_J(Y^{(0)})$ in Line 5. One common limitation of shooting methods is that they could be inefficient for long-horizon tasks due to the combinatorial explosion of the constrained space $p_g(Y) \\propto \\prod_{t=1}^{T} \\mathbf{1}(g_t(x_t, u_t) \\leq 0)$, leading to low constraint satisfaction rates. To address this issue, we will introduce demonstration-augmented MBD in Section 4.3 to guide the sampling process from the state space to improve sample quality.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        632.0,
+        315.0,
+        640.0
+      ],
+      "markdown": "### 4.3 Model-based Diffusion with Demonstration",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        652.0,
+        506.0,
+        723.0
+      ],
+      "markdown": "With the ability to leverage model information, MBD can also be seamlessly integrated with various types of data, including imperfect or partial-state demonstrations by modeling them as noisy observations of the desired trajectory $p(Y_{\\text{demo}} \\mid Y^{(0)}) \\sim \\mathcal{N}(Y^{(0)}, \\sigma^2 I)$. Given suboptimal demonstrations, sampling from the posterior $p(Y^{(0)} \\mid Y_{\\text{demo}}) \\propto p_0(Y^{(0)}) p(Y_{\\text{demo}} \\mid Y^{(0)})$ could lead to poor solutions as the demonstration likelihood $p(Y_{\\text{demo}} \\mid Y^{(0)})$ could dominate the model-based distribution $p_0(Y^{(0)}) \\propto p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)})$ and mislead the sampling pro",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "7",
+      "source_class": "page-footer",
+      "reason": "Page number 7 in the footer (verified on the preview)."
+    }
+  ]
+}

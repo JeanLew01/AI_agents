@@ -1,0 +1,8 @@
+from pagelib import *
+from refs import ref_items
+
+items = ref_items(22, 46, 56, {46: [133.0, 127.0, 478.0, 165.0], 47: [133.0, 168.0, 478.0, 213.0]}) + [pageno(22, [300.0, 696.0, 311.0, 703.0])]
+
+save(22, items, r"""
+Compared with a 190-dpi render of the text block and with main2.bbl. Bibliography entries [46]-[56] (the last entry of the bibliography is [56]), one item per entry, generated from the authors' .bbl and compared automatically with the PDF text layer (letters and digits identical; only the accent glyphs of [49] and the Greek letter of [55] differ in the text layer) and read entry by entry on the render. The extractor had merged [46] and [47] into one item; they are separate items again (bboxes split at the gap between the entries). URLs of [46] and [47] restored in one piece from the .bbl: they are printed broken over two/three lines at hyphens that belong to the URL ('...-transmission-' / 'and-controller-68823.html', '.../54852-' / 'simple-2d-kinematic-vehicle-steering-model-and-' / 'animation?requestedDomain=www.mathworks.com'), where the extractor had dropped the hyphens; the final period after each URL is printed. Checked details: 'Ábrahám' and 'volume 346, pages 55–78' [49]; typographic apostrophes in 'O’Kelly', 'Shin’ichi' and the bare year '2016.' [50]; 'Joël Ouaknine', 'pages 54–63' (printed '54–' / '63' over a line break) [51]; '46(2):105–134' [52]; '6(1), 2007' [53]; 'pages 752–769' [54]; '$\omega$-automata' (Greek omega written as inline math) and 'pages 433–448' [55]; 'volume 1, pages 999–1004' [56]. Line-wrap hyphens removed (Anima-tion, hy-brid, Ma-hesh, reach-able). The rest of the page is blank; the appendix starts on page 23. Omitted: page number 22.
+""")

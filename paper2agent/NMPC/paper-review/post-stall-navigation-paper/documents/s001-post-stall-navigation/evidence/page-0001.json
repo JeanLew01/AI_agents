@@ -1,0 +1,1499 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Post-Stall Navigation with Fixed-Wing UAVs using Onboard Vision",
+      "bbox": [
+        70.96299743652344,
+        74.0442886352539,
+        541.0394287109375,
+        88.3745346069336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Adam Polevoy1, Max Basescu1, Luca Scheuer1, Joseph Moore1",
+      "bbox": [
+        157.98800659179688,
+        106.934814453125,
+        445.8401184082031,
+        118.79217529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract— Recent research has enabled ﬁxed-wing unmanned",
+      "bbox": [
+        63.9630126953125,
+        151.4922637939453,
+        298.8008728027344,
+        159.5530548095703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "aerial vehicles (UAVs) to maneuver in constrained spaces",
+      "bbox": [
+        54.00001525878906,
+        161.45423889160156,
+        298.8006591796875,
+        169.51502990722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "through the use of direct nonlinear model predictive control",
+      "bbox": [
+        54.00001525878906,
+        171.41725158691406,
+        298.8006286621094,
+        179.47804260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(NMPC) [1]. However, this approach has been limited to a",
+      "bbox": [
+        54.00001525878906,
+        181.38026428222656,
+        298.80059814453125,
+        189.44105529785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "priori known maps and ground truth state measurements. In",
+      "bbox": [
+        54.00001525878906,
+        191.3422393798828,
+        298.8006286621094,
+        199.4030303955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this paper, we present a direct NMPC approach that leverages",
+      "bbox": [
+        54.00001525878906,
+        201.3052520751953,
+        298.8006591796875,
+        209.3660430908203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NanoMap [2], a light-weight point-cloud mapping framework to",
+      "bbox": [
+        54.00001525878906,
+        211.2682647705078,
+        298.8006591796875,
+        219.3290557861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generate collision-free trajectories using onboard stereo vision.",
+      "bbox": [
+        54.00001525878906,
+        221.23023986816406,
+        298.80059814453125,
+        229.29103088378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We ﬁrst explore our approach in simulation and demonstrate",
+      "bbox": [
+        54.00001525878906,
+        231.19325256347656,
+        298.8006896972656,
+        239.25404357910156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that our algorithm is sufﬁcient to enable vision-based navigation",
+      "bbox": [
+        54.00001525878906,
+        241.15626525878906,
+        298.8006896972656,
+        249.21705627441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in urban environments. We then demonstrate our approach in",
+      "bbox": [
+        54.00001525878906,
+        251.1182403564453,
+        298.80072021484375,
+        259.17901611328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hardware using a 42-inch ﬁxed-wing UAV and show that our",
+      "bbox": [
+        54.00001525878906,
+        261.08123779296875,
+        298.8006896972656,
+        269.14202880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "motion planning algorithm is capable of navigating around a",
+      "bbox": [
+        54.00001525878906,
+        271.043212890625,
+        298.8006591796875,
+        279.10400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "building using a minimalistic set of goal-points. We also show",
+      "bbox": [
+        54.00001525878906,
+        281.0062255859375,
+        298.8006591796875,
+        289.0670166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that storing a point-cloud history is important for navigating",
+      "bbox": [
+        54.00001525878906,
+        290.96923828125,
+        298.80059814453125,
+        299.030029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "these types of constrained environments.",
+      "bbox": [
+        54.00001525878906,
+        300.9312438964844,
+        213.11776733398438,
+        308.9920654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION",
+      "bbox": [
+        137.52601623535156,
+        319.2164306640625,
+        215.27880859375,
+        328.12298583984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rotary-wing unmanned aerial vehicles (UAVs) are often",
+      "bbox": [
+        63.96302032470703,
+        334.4314270019531,
+        298.8014221191406,
+        343.3379821777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "preferred for navigating in constrained environments. Not",
+      "bbox": [
+        54.00001907348633,
+        346.38641357421875,
+        298.8009948730469,
+        355.29296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "only are they capable of near zero turn radii, but many",
+      "bbox": [
+        54.00001907348633,
+        358.3424072265625,
+        298.8010559082031,
+        367.24896240234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are amendable to differentially ﬂat representations that can",
+      "bbox": [
+        54.00001907348633,
+        370.2973937988281,
+        298.80108642578125,
+        379.2039489746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "greatly reduce computational requirements for online trajec-",
+      "bbox": [
+        54.00001907348633,
+        382.25238037109375,
+        298.80096435546875,
+        391.158935546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tory optimization [3]. By contrast, ﬁxed-wing UAVs offer",
+      "bbox": [
+        54.00001907348633,
+        394.2073669433594,
+        298.80096435546875,
+        403.1139221191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "signiﬁcant advantages over rotary-wing UAVs in terms of",
+      "bbox": [
+        54.00001907348633,
+        406.162353515625,
+        298.801025390625,
+        415.06890869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "energy efﬁciency, endurance, and speed. Traditionally ﬁxed-",
+      "bbox": [
+        54.00001907348633,
+        418.1173400878906,
+        298.80096435546875,
+        427.0238952636719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "wing UAVs have been hindered by limited maneuverability",
+      "bbox": [
+        54.00001907348633,
+        430.0733337402344,
+        298.8009948730469,
+        438.9798889160156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and restricted to large open spaces. Recent research has",
+      "bbox": [
+        54.00001907348633,
+        442.0283203125,
+        298.8010559082031,
+        450.93487548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shown that aerobatic ﬁxed-wing UAVs are capable of navi-",
+      "bbox": [
+        54.00001907348633,
+        453.9833068847656,
+        298.8009948730469,
+        462.8898620605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "gating through complex environments by exploiting the full",
+      "bbox": [
+        54.00001907348633,
+        465.93829345703125,
+        298.8009338378906,
+        474.8448486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬂight envelope [4], [1]. By operating beyond the conventional",
+      "bbox": [
+        54.00001907348633,
+        477.8932800292969,
+        298.8009338378906,
+        486.7998352050781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬂight regimes, there is an opportunity to achieve both range",
+      "bbox": [
+        54.00001907348633,
+        489.8492736816406,
+        298.8009948730469,
+        498.7558288574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and maneuverability in a single vehicle.",
+      "bbox": [
+        54.00001907348633,
+        501.80426025390625,
+        217.50619506835938,
+        510.7108154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In [1], the authors demonstrated that a ﬁxed-wing UAV",
+      "bbox": [
+        63.96302032470703,
+        513.779296875,
+        298.8013916015625,
+        522.6858520507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "could navigate a narrow corridor by executing post-stall",
+      "bbox": [
+        54.00001907348633,
+        525.7342529296875,
+        298.8009338378906,
+        534.6408081054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "turns via nonlinear model predictive control (NMPC). While",
+      "bbox": [
+        54.00001907348633,
+        537.6902465820312,
+        298.8009948730469,
+        546.5968017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this approach proved a promising means to increase ﬁxed-",
+      "bbox": [
+        54.00001907348633,
+        549.645263671875,
+        298.8010559082031,
+        558.5518188476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "wing maneuverability, it required an a priori map of the",
+      "bbox": [
+        54.00001907348633,
+        561.6002197265625,
+        298.801025390625,
+        570.5067749023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "environment. For real-world applications, full a priori map",
+      "bbox": [
+        54.00001907348633,
+        573.5552368164062,
+        298.801025390625,
+        582.4617919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information is often not practical. Rather, the vehicle must",
+      "bbox": [
+        54.00001907348633,
+        585.51025390625,
+        298.8009948730469,
+        594.4168090820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "navigate in an unknown environment and construct a map",
+      "bbox": [
+        54.00001907348633,
+        597.4652709960938,
+        298.80096435546875,
+        606.371826171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "during runtime for collision avoidance and navigation.",
+      "bbox": [
+        54.00001907348633,
+        609.4212646484375,
+        276.5445251464844,
+        618.3278198242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Real-time mapping poses a number of signiﬁcant chal-",
+      "bbox": [
+        63.96302032470703,
+        621.396240234375,
+        298.8013916015625,
+        630.3027954101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lenges, for aerobatic, fast-moving ﬁxed-wing UAVs. Slower-",
+      "bbox": [
+        54.00001907348633,
+        633.3512573242188,
+        298.8009948730469,
+        642.2578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "moving multi-rotor UAVs have long relied on sensors that",
+      "bbox": [
+        54.00001907348633,
+        645.3062744140625,
+        298.80096435546875,
+        654.2128295898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "leverage LIDAR (e.g.,[5]). However, these sensors are often",
+      "bbox": [
+        54.00001907348633,
+        657.2622680664062,
+        298.80096435546875,
+        666.1688232421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "too heavy for small aerobatic ﬁxed-wings, have update rates",
+      "bbox": [
+        54.00001907348633,
+        669.21728515625,
+        298.801025390625,
+        678.1238403320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Johns",
+      "bbox": [
+        62.468017578125,
+        688.700439453125,
+        84.77490234375,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Hopkins",
+      "bbox": [
+        92.15521240234375,
+        690.2581787109375,
+        119.1658706665039,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University",
+      "bbox": [
+        126.54618072509766,
+        690.2581787109375,
+        159.8771209716797,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Applied",
+      "bbox": [
+        167.26541137695312,
+        690.2581787109375,
+        192.94505310058594,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Physics",
+      "bbox": [
+        200.3253631591797,
+        690.2581787109375,
+        224.6421356201172,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lab,",
+      "bbox": [
+        232.02244567871094,
+        690.2581787109375,
+        246.40847778320312,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Laurel,",
+      "bbox": [
+        253.78878784179688,
+        690.2581787109375,
+        276.5832824707031,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MD,",
+      "bbox": [
+        283.9715576171875,
+        690.2581787109375,
+        298.8039245605469,
+        697.3834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "20723",
+      "bbox": [
+        54.00001907348633,
+        699.2241821289062,
+        73.92526245117188,
+        706.3494873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{Adam.Polevoy,Max.Basescu,Luca.Scheuer,",
+      "bbox": [
+        89.75901794433594,
+        697.9031372070312,
+        298.8009338378906,
+        706.367431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Joseph.Moore}@jhuapl.edu",
+      "bbox": [
+        54.00001907348633,
+        706.8690795898438,
+        182.34422302246094,
+        715.3333740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "DISTRIBUTION STATEMENT A: Approved for public release; distribution",
+      "bbox": [
+        54.00001525878906,
+        717.1571655273438,
+        298.8016052246094,
+        724.282470703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is unlimited.",
+      "bbox": [
+        54.00001525878906,
+        726.1231689453125,
+        94.6554946899414,
+        733.2484741210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 1.",
+      "bbox": [
+        313.20001220703125,
+        336.5962829589844,
+        334.17730712890625,
+        343.7215270996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Screenshot of aerobatic ﬁxed-wing executing a post-stall maneuver",
+      "bbox": [
+        341.310546875,
+        336.5962829589844,
+        558.0016479492188,
+        343.7215270996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(top) and corresponding point cloud data (bottom). The global path plan is",
+      "bbox": [
+        313.20001220703125,
+        345.5622863769531,
+        558.001708984375,
+        352.6875305175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shown in red and the current trajectory is shown in orange.",
+      "bbox": [
+        313.20001220703125,
+        354.529296875,
+        508.25225830078125,
+        361.654541015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "too slow for rapid maneuvering, have returns restricted",
+      "bbox": [
+        313.20001220703125,
+        367.8553771972656,
+        558.0009155273438,
+        376.7619323730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to two-dimensional spaces, or suffer from a signiﬁcantly",
+      "bbox": [
+        313.20001220703125,
+        379.81036376953125,
+        558.0009765625,
+        388.7169189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sparse set of range measurements. With regards to mapping",
+      "bbox": [
+        313.20001220703125,
+        391.7653503417969,
+        558.001220703125,
+        400.6719055175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms, commonly used occupancy-grid based techniques",
+      "bbox": [
+        313.20001220703125,
+        403.7203369140625,
+        558.0009765625,
+        412.62689208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "such as [6] have proved to be too slow and computationally",
+      "bbox": [
+        313.20001220703125,
+        415.6753234863281,
+        558.0009155273438,
+        424.5818786621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "intensive for use in fast ﬂight. These challenges are further",
+      "bbox": [
+        313.20001220703125,
+        427.6313171386719,
+        558.0009765625,
+        436.5378723144531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "exacerbated by state and range-sensor uncertainty, which can",
+      "bbox": [
+        313.20001220703125,
+        439.5863037109375,
+        558.0009765625,
+        448.49285888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dramatically impact map accuracy.",
+      "bbox": [
+        313.20001220703125,
+        451.5412902832031,
+        454.82830810546875,
+        460.4478454589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we present an approach that leverages direct",
+      "bbox": [
+        323.16302490234375,
+        463.519287109375,
+        558.0014038085938,
+        472.42584228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "NMPC and an existing mapping framework, NanoMap [2],",
+      "bbox": [
+        313.20001220703125,
+        475.4742736816406,
+        558.0010375976562,
+        484.3808288574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to enable a vision-based ﬁxed-wing navigation system capa-",
+      "bbox": [
+        313.20001220703125,
+        487.42926025390625,
+        558.0009765625,
+        496.3358154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ble of leveraging post-stall ﬂight for aggressive maneuvers.",
+      "bbox": [
+        313.20001220703125,
+        499.3842468261719,
+        558.0009765625,
+        508.2908020019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our receding-horizon controller continually plans into un-",
+      "bbox": [
+        313.20001220703125,
+        511.3402099609375,
+        558.0008544921875,
+        520.2467651367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "known space, using distance information from the NanoMap",
+      "bbox": [
+        313.20001220703125,
+        523.2952270507812,
+        558.0010375976562,
+        532.2017822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "framework in-the-loop for both nominal low-ﬁdelity global",
+      "bbox": [
+        313.20001220703125,
+        535.250244140625,
+        558.0008544921875,
+        544.1567993164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "path generation and higher-ﬁdelity real-time trajectory opti-",
+      "bbox": [
+        313.20001220703125,
+        547.2052001953125,
+        558.0009765625,
+        556.1117553710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mization. The use of NanoMap allows us to reason about",
+      "bbox": [
+        313.20001220703125,
+        559.1602172851562,
+        558.0010375976562,
+        568.0667724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sensor uncertainty as well as sensor measurement history.",
+      "bbox": [
+        313.20001220703125,
+        571.1162109375,
+        558.0010986328125,
+        580.0227661132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We demonstrate our approach in hardware using a 42-inch",
+      "bbox": [
+        313.20001220703125,
+        583.0712280273438,
+        558.0010375976562,
+        591.977783203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "wingspan UAV with onboard sensing and computation.",
+      "bbox": [
+        313.20001220703125,
+        595.0262451171875,
+        539.0819702148438,
+        603.9328002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "II. RELATED WORK",
+      "bbox": [
+        392.6520080566406,
+        613.9002685546875,
+        478.5581970214844,
+        622.8068237304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A majority of the research into UAV navigation and",
+      "bbox": [
+        323.1629943847656,
+        629.1312255859375,
+        558.00146484375,
+        638.0377807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control using onboard sensing has been conducted with mul-",
+      "bbox": [
+        313.1999816894531,
+        641.0862426757812,
+        558.0007934570312,
+        649.9927978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tirotor UAVs. Early research in this area focused on LIDAR-",
+      "bbox": [
+        313.1999816894531,
+        653.041259765625,
+        558.0009765625,
+        661.9478149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "based simultaneous localization and mapping (SLAM), and",
+      "bbox": [
+        313.1999816894531,
+        664.9962158203125,
+        558.0009765625,
+        673.9027709960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "leveraging generated maps for navigation and collision avoid-",
+      "bbox": [
+        313.1999816894531,
+        676.9512329101562,
+        558.0008544921875,
+        685.8577880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ance [7], [8], [5]. As the ﬂight speeds increased, onboard",
+      "bbox": [
+        313.1999816894531,
+        688.90625,
+        558.0010986328125,
+        697.8128051757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "vision emerged as another primary sensing solution [9],",
+      "bbox": [
+        313.1999816894531,
+        700.8622436523438,
+        558.0010375976562,
+        709.768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[10], [11]. Researchers also began to address the challenges",
+      "bbox": [
+        313.1999816894531,
+        712.8172607421875,
+        558.0009765625,
+        721.7238159179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "associated with the computational costs of online mapping,",
+      "bbox": [
+        313.1999816894531,
+        724.7722778320312,
+        558.0009765625,
+        733.6788330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2201.01186v1  [cs.RO]  4 Jan 2022",
+      "bbox": [
+        10.940000534057617,
+        219.47998046875,
+        37.619998931884766,
+        555.0
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "",
+      "modDate": "D:20220105012927Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/post-stall-navigation-paper/documents/.pdf-skill-scan-oi_u_g00/review/source.pdf",
+      "page_count": 7,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          18,
+          219,
+          36,
+          555
+        ],
+        "pos": [
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "class": "title",
+        "bbox": [
+          70,
+          74,
+          542,
+          89
+        ],
+        "pos": [
+          0,
+          72
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          157,
+          107,
+          446,
+          119
+        ],
+        "pos": [
+          72,
+          179
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          54,
+          151,
+          299,
+          309
+        ],
+        "pos": [
+          179,
+          1138
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          137,
+          319,
+          216,
+          327
+        ],
+        "pos": [
+          1138,
+          1159
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          54,
+          334,
+          299,
+          511
+        ],
+        "pos": [
+          1159,
+          2019
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          54,
+          513,
+          299,
+          619
+        ],
+        "pos": [
+          2019,
+          2536
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          54,
+          621,
+          299,
+          679
+        ],
+        "pos": [
+          2536,
+          2826
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          54,
+          688,
+          299,
+          732
+        ],
+        "pos": [
+          2826,
+          3049
+        ]
+      },
+      {
+        "index": 9,
+        "class": "picture",
+        "bbox": [
+          350,
+          145,
+          521,
+          231
+        ],
+        "pos": [
+          3049,
+          3051
+        ]
+      },
+      {
+        "index": 10,
+        "class": "picture",
+        "bbox": [
+          350,
+          230,
+          521,
+          325
+        ],
+        "pos": [
+          3051,
+          3053
+        ]
+      },
+      {
+        "index": 11,
+        "class": "caption",
+        "bbox": [
+          313,
+          336,
+          559,
+          362
+        ],
+        "pos": [
+          3053,
+          3265
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          367,
+          559,
+          461
+        ],
+        "pos": [
+          3265,
+          3714
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          313,
+          463,
+          559,
+          604
+        ],
+        "pos": [
+          3714,
+          4403
+        ]
+      },
+      {
+        "index": 14,
+        "class": "section-header",
+        "bbox": [
+          392,
+          614,
+          479,
+          621
+        ],
+        "pos": [
+          4403,
+          4425
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          313,
+          629,
+          559,
+          734
+        ],
+        "pos": [
+          4425,
+          4945
+        ]
+      }
+    ],
+    "text": "# **Post-Stall Navigation with Fixed-Wing UAVs using Onboard Vision** \n\nAdam Polevoy<sup>1</sup> , Max Basescu<sup>1</sup> , Luca Scheuer<sup>1</sup> , Joseph Moore<sup>1</sup> \n\n**_Abstract_ — Recent research has enabled fixed-wing unmanned aerial vehicles (UAVs) to maneuver in constrained spaces through the use of direct nonlinear model predictive control (NMPC) [1]. However, this approach has been limited to a priori known maps and ground truth state measurements. In this paper, we present a direct NMPC approach that leverages NanoMap [2], a light-weight point-cloud mapping framework to generate collision-free trajectories using onboard stereo vision. We first explore our approach in simulation and demonstrate that our algorithm is sufficient to enable vision-based navigation in urban environments. We then demonstrate our approach in hardware using a 42-inch fixed-wing UAV and show that our motion planning algorithm is capable of navigating around a building using a minimalistic set of goal-points. We also show that storing a point-cloud history is important for navigating these types of constrained environments.** \n\n## I. INTRODUCTION \n\nRotary-wing unmanned aerial vehicles (UAVs) are often preferred for navigating in constrained environments. Not only are they capable of near zero turn radii, but many are amendable to differentially flat representations that can greatly reduce computational requirements for online trajectory optimization [3]. By contrast, fixed-wing UAVs offer significant advantages over rotary-wing UAVs in terms of energy efficiency, endurance, and speed. Traditionally fixedwing UAVs have been hindered by limited maneuverability and restricted to large open spaces. Recent research has shown that aerobatic fixed-wing UAVs are capable of navigating through complex environments by exploiting the full flight envelope [4], [1]. By operating beyond the conventional flight regimes, there is an opportunity to achieve both range and maneuverability in a single vehicle. \n\nIn [1], the authors demonstrated that a fixed-wing UAV could navigate a narrow corridor by executing post-stall turns via nonlinear model predictive control (NMPC). While this approach proved a promising means to increase fixedwing maneuverability, it required an a priori map of the environment. For real-world applications, full a priori map information is often not practical. Rather, the vehicle must navigate in an unknown environment and construct a map during runtime for collision avoidance and navigation. \n\nReal-time mapping poses a number of significant challenges, for aerobatic, fast-moving fixed-wing UAVs. Slowermoving multi-rotor UAVs have long relied on sensors that leverage LIDAR (e.g.,[5]). However, these sensors are often too heavy for small aerobatic fixed-wings, have update rates \n\n> 1Johns Hopkins University Applied Physics Lab, Laurel, MD, 20723 _{_ Adam.Polevoy,Max.Basescu,Luca.Scheuer, Joseph.Moore _}_ @jhuapl.edu DISTRIBUTION STATEMENT A: Approved for public release; distribution is unlimited. \n\n\n\n\n\nFig. 1. Screenshot of aerobatic fixed-wing executing a post-stall maneuver (top) and corresponding point cloud data (bottom). The global path plan is shown in red and the current trajectory is shown in orange. \n\ntoo slow for rapid maneuvering, have returns restricted to two-dimensional spaces, or suffer from a significantly sparse set of range measurements. With regards to mapping algorithms, commonly used occupancy-grid based techniques such as [6] have proved to be too slow and computationally intensive for use in fast flight. These challenges are further exacerbated by state and range-sensor uncertainty, which can dramatically impact map accuracy. \n\nIn this paper, we present an approach that leverages direct NMPC and an existing mapping framework, NanoMap [2], to enable a vision-based fixed-wing navigation system capable of leveraging post-stall flight for aggressive maneuvers. Our receding-horizon controller continually plans into unknown space, using distance information from the NanoMap framework in-the-loop for both nominal low-fidelity global path generation and higher-fidelity real-time trajectory optimization. The use of NanoMap allows us to reason about sensor uncertainty as well as sensor measurement history. We demonstrate our approach in hardware using a 42-inch wingspan UAV with onboard sensing and computation. \n\n## II. RELATED WORK \n\nA majority of the research into UAV navigation and control using onboard sensing has been conducted with multirotor UAVs. Early research in this area focused on LIDARbased simultaneous localization and mapping (SLAM), and leveraging generated maps for navigation and collision avoidance [7], [8], [5]. As the flight speeds increased, onboard vision emerged as another primary sensing solution [9], [10], [11]. Researchers also began to address the challenges associated with the computational costs of online mapping, \n\n"
+  }
+}

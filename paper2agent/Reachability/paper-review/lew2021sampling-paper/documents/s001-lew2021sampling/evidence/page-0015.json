@@ -1,0 +1,1365 @@
+{
+  "page": 15,
+  "lines": [
+    {
+      "text": "C.2",
+      "bbox": [
+        108.0,
+        75.08882141113281,
+        122.66494750976562,
+        84.04519653320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Neural network experiment and comparisons",
+      "bbox": [
+        132.62754821777344,
+        75.08882141113281,
+        325.1249694824219,
+        84.04519653320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Neural network training",
+      "bbox": [
+        108.0,
+        95.06379699707031,
+        211.62100219726562,
+        104.02017211914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To simplify training, aid generalization, and simplify comparisons with",
+      "bbox": [
+        221.58200073242188,
+        95.183349609375,
+        504.0015563964844,
+        104.08991241455078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the Lipschitz-based method (see C), we decompose the dynamics as xk+1 = f(xk, uk) = h(xk)+",
+      "bbox": [
+        108.0,
+        105.93293762207031,
+        503.9998779296875,
+        116.27375030517578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "g(xk, uk), where h(xk) = xk is a known nominal term which captures prior knowledge about the",
+      "bbox": [
+        108.00009155273438,
+        116.84193420410156,
+        504.0018005371094,
+        127.40192413330078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system, and g is unknown and needs to be learned by the neural network. We opt for a feed-forward",
+      "bbox": [
+        108.00003814697266,
+        127.75093078613281,
+        504.000732421875,
+        136.81689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "network architecture with 2 hidden layers of width 128 each, with tanh(·) activation functions.",
+      "bbox": [
+        108.00003814697266,
+        138.10202026367188,
+        504.0035400390625,
+        147.72589111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To train the neural network, we re-sample states and controls at each training step as described in",
+      "bbox": [
+        108.00003051757812,
+        149.72833251953125,
+        504.00341796875,
+        158.6348876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the next section, giving rise to the tuples {(xk, uk, xk+1)b}B",
+      "bbox": [
+        108.00003051757812,
+        158.93716430664062,
+        361.6244812011719,
+        170.23988342285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "b=1. We use a single-step quadratic",
+      "bbox": [
+        355.6060791015625,
+        160.6373291015625,
+        504.0008850097656,
+        171.56690979003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "loss PB",
+      "bbox": [
+        108.00006103515625,
+        168.45217895507812,
+        142.2484588623047,
+        184.2785186767578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "b=1 ∥xb",
+      "bbox": [
+        136.23007202148438,
+        169.84616088867188,
+        167.0269317626953,
+        183.22271728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k+1 −g(xb",
+      "bbox": [
+        163.5260772705078,
+        169.84616088867188,
+        210.429931640625,
+        183.05572509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k, ub",
+      "bbox": [
+        206.9290771484375,
+        169.84616088867188,
+        226.544921875,
+        182.4759063720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k)∥2",
+      "bbox": [
+        223.0440673828125,
+        169.84616088867188,
+        240.77613830566406,
+        182.4759063720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2, a batch size B = 20, and include standard L2-regularization with",
+      "bbox": [
+        236.8010711669922,
+        171.3869171142578,
+        504.00054931640625,
+        182.1269073486328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "weight 10−6. All code is written using PyTorch [46], and the model is trained using Adam [48], with",
+      "bbox": [
+        108.00006103515625,
+        180.3646240234375,
+        504.00347900390625,
+        191.36187744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an initial learning rate of 0.02, and a decay factor of (1 −10−6) every gradient descent step. After",
+      "bbox": [
+        108.00006103515625,
+        191.27362060546875,
+        504.0020751953125,
+        202.2708740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10k training steps, the model achieves a loss of around 10−7 on the validation dataset. We perform",
+      "bbox": [
+        108.00009155273438,
+        200.65826416015625,
+        503.9997863769531,
+        213.18084716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "further validation through multi-steps rollouts of the system (over 20 timesteps). By adopting a",
+      "bbox": [
+        108.00007629394531,
+        215.18328857421875,
+        504.0032958984375,
+        224.08984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model architecture which leads to minimal error, we are able to compare the reachable sets of the",
+      "bbox": [
+        108.00007629394531,
+        226.09228515625,
+        504.0034484863281,
+        234.99884033203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "true linear system with those of the neural network, and evaluate volume coverage.",
+      "bbox": [
+        108.00007629394531,
+        237.00128173828125,
+        437.8119201660156,
+        245.9078369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Randomization",
+      "bbox": [
+        108.00007629394531,
+        259.82171630859375,
+        173.31488037109375,
+        268.7781066894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To provide comparisons of volume coverage, we perform B = 100 experi-",
+      "bbox": [
+        183.27706909179688,
+        259.7818908691406,
+        503.99969482421875,
+        268.84783935546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ments where we randomize initial states xb",
+      "bbox": [
+        108.00009155273438,
+        269.1490783691406,
+        285.79595947265625,
+        279.7568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 ∈X0 = B(µ0, Q0) and open-loop control trajectories",
+      "bbox": [
+        282.29510498046875,
+        270.1329650878906,
+        503.9956359863281,
+        282.0096435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ub = (ub",
+      "bbox": [
+        108.00009155273438,
+        279.0209045410156,
+        144.01596069335938,
+        291.482666015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0, ..., ub",
+      "bbox": [
+        140.51510620117188,
+        281.09515380859375,
+        174.0879364013672,
+        293.3758544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N−1), b = 1, ..., B. We sample µb",
+      "bbox": [
+        170.5870819091797,
+        281.0951843261719,
+        315.20391845703125,
+        293.6468811035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 = (pb",
+      "bbox": [
+        311.70306396484375,
+        281.09521484375,
+        340.9819030761719,
+        293.95574951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0, vb",
+      "bbox": [
+        337.4810485839844,
+        281.0952453613281,
+        356.08489990234375,
+        293.3759460449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0) with pb",
+      "bbox": [
+        352.425048828125,
+        281.09527587890625,
+        396.02886962890625,
+        293.3759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0,i ∼Unif(−5, 5), vb",
+      "bbox": [
+        392.52801513671875,
+        281.0953063964844,
+        484.9898376464844,
+        294.0758361816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0,i ∼",
+      "bbox": [
+        481.3299865722656,
+        282.07818603515625,
+        504.0019226074219,
+        294.07586669921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Unif(−1, 1), and constant Qb",
+      "bbox": [
+        108.0,
+        293.5123291015625,
+        228.3948516845703,
+        304.1190490722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 = 10−3diag([10, 10, 2, 2]). We sample controls as ub",
+      "bbox": [
+        224.8939971923828,
+        293.121826171875,
+        449.8608703613281,
+        306.3728942871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k = ¯ub + δub",
+      "bbox": [
+        446.3600158691406,
+        291.43817138671875,
+        502.598876953125,
+        306.721923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k",
+      "bbox": [
+        499.0980224609375,
+        299.94940185546875,
+        503.33111572265625,
+        306.1421203613281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with ¯ub",
+      "bbox": [
+        108.00003051757812,
+        305.4573974609375,
+        139.1228790283203,
+        316.06512451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i ∼Unif(−0.4, 0.4) and δub",
+      "bbox": [
+        135.6220245361328,
+        305.4574279785156,
+        254.62583923339844,
+        318.43896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k,i ∼Unif(−0.02, 0.02) for neural network training, and with",
+      "bbox": [
+        251.12498474121094,
+        306.4412841796875,
+        504.0010986328125,
+        318.6669921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯ub",
+      "bbox": [
+        107.99995422363281,
+        319.0894470214844,
+        118.28580474853516,
+        329.4779968261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i ∼Unif(−0.1, 0.1) and δub",
+      "bbox": [
+        114.78495788574219,
+        319.0894775390625,
+        230.1748046875,
+        332.0710144042969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k,i ∼Unif(−0.005, 0.005) for evaluation in Figure 5.",
+      "bbox": [
+        226.6739501953125,
+        320.0733337402344,
+        439.9261474609375,
+        332.2990417480469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Computation time",
+      "bbox": [
+        107.99992370605469,
+        346.2470703125,
+        186.42550659179688,
+        355.2034606933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In average, for this neural network, ( (randUP)1k, (·)3k, (·)10k, (robUP!)1k",
+      "bbox": [
+        196.38792419433594,
+        344.6651306152344,
+        497.026611328125,
+        355.273193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 )",
+      "bbox": [
+        490.0530090332031,
+        346.3663635253906,
+        503.9995422363281,
+        357.7449035644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "require (9,28,120,648) ms on a laptop with an i7-6700 CPU (2.60GHz) and 8GB of RAM. We did",
+      "bbox": [
+        108.0,
+        357.2753601074219,
+        504.0032653808594,
+        366.1819152832031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "not optimize our implementation. Performing operations in parallel and using a GPU would further",
+      "bbox": [
+        108.0,
+        368.1843566894531,
+        504.0032043457031,
+        377.0909118652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "accelerate both methods.",
+      "bbox": [
+        108.0,
+        379.0933532714844,
+        206.7692108154297,
+        387.9999084472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lipschitz method",
+      "bbox": [
+        108.0,
+        401.9137878417969,
+        182.04205322265625,
+        410.87017822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In our experiments, we use h(x) = x, and train a neural network to represent",
+      "bbox": [
+        192.00900268554688,
+        401.87396240234375,
+        504.00482177734375,
+        410.9399108886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "g(x, u). To reduce conservatism in our comparisons, we use the Lipschitz constant of the true linear",
+      "bbox": [
+        107.99998474121094,
+        412.782958984375,
+        503.9958190917969,
+        421.8489074707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system xk = (pk, vk) ∈R4, uk ∈R2, pk+1 = pk + vk, and vk+1 = vk + uk, which are given as",
+      "bbox": [
+        107.99998474121094,
+        422.1501770019531,
+        504.0037841796875,
+        434.03271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lgi = 1 for i = 1, 2, and Lgi = 0 for i = 3, 4.",
+      "bbox": [
+        107.99996948242188,
+        434.6009521484375,
+        292.9276428222656,
+        445.938720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Volume computation",
+      "bbox": [
+        107.99998474121094,
+        457.5807800292969,
+        196.5475616455078,
+        466.53717041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Finally, the volume of the ellipsoidal sets B(µ, Q) are computed in closed",
+      "bbox": [
+        206.5129852294922,
+        456.9830322265625,
+        504.001220703125,
+        466.6069030761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "form as",
+      "bbox": [
+        107.99996948242188,
+        468.6093444824219,
+        138.15676879882812,
+        477.5158996582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Vol(B(µ, Q)) =",
+      "bbox": [
+        219.35997009277344,
+        478.9190368652344,
+        286.0193786621094,
+        488.54290771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "πn/2",
+      "bbox": [
+        303.7569580078125,
+        471.1961975097656,
+        322.7750244140625,
+        481.583740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Γ(n/2 + 2)",
+      "bbox": [
+        289.9750061035156,
+        486.31097412109375,
+        337.04937744140625,
+        495.1577453613281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        361.56903076171875,
+        472.7369689941406,
+        366.5503234863281,
+        481.583740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p",
+      "bbox": [
+        339.4419860839844,
+        485.6935119628906,
+        349.4045715332031,
+        492.069580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "det(Q−1)",
+      "bbox": [
+        349.4049987792969,
+        486.50164794921875,
+        388.678466796875,
+        496.76190185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        389.8730163574219,
+        479.4769592285156,
+        392.6426086425781,
+        488.32373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(17)",
+      "bbox": [
+        487.4020080566406,
+        479.6363525390625,
+        503.9996643066406,
+        488.54290771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where Γ(·) is the standard gamma function of calculus [49].",
+      "bbox": [
+        108.0,
+        502.051025390625,
+        346.5902099609375,
+        511.6748962402344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D",
+      "bbox": [
+        108.0,
+        529.493896484375,
+        116.63165283203125,
+        540.2416381835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Robust Trajectory Optimization with Sampling-based Convex Hulls",
+      "bbox": [
+        128.58685302734375,
+        529.493896484375,
+        474.2475891113281,
+        540.2416381835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem formulation",
+      "bbox": [
+        108.0,
+        553.8087768554688,
+        197.932373046875,
+        562.76513671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This section proposes a method to perform (approximately) robust trajec-",
+      "bbox": [
+        207.89300537109375,
+        553.9283447265625,
+        504.0011901855469,
+        562.8348999023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tory optimization using sampling-based reachability analysis, and sequential convex programming",
+      "bbox": [
+        108.00000762939453,
+        564.8373413085938,
+        504.0032653808594,
+        573.743896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(SCP). Speciﬁcally, we extend the method presented in [8] to leverage sampling-based convex hulls.",
+      "bbox": [
+        108.00000762939453,
+        575.746337890625,
+        504.0032958984375,
+        584.6528930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In the following, we use the same assumptions and notations outlined in Section 2. The goal con-",
+      "bbox": [
+        108.00000762939453,
+        592.1353759765625,
+        504.0032653808594,
+        601.0419311523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sists of computing an open-loop trajectory (x0:N, u0:N−1) which satisﬁes all constraints (xk ∈",
+      "bbox": [
+        108.00000762939453,
+        602.3270263671875,
+        504.0030822753906,
+        613.2257080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xfree, uk ∈U), for any bounded uncertain parameter θ ∈Θ and disturbances wk ∈W. The initial",
+      "bbox": [
+        108.00003051757812,
+        613.236083984375,
+        503.995849609375,
+        624.1347045898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state x0 is uncertain and lies within a known initial bounded set X0, and the ﬁnal state xN should",
+      "bbox": [
+        108.00009155273438,
+        624.14501953125,
+        504.00030517578125,
+        635.2628784179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lie within the ﬁnal goal region Xgoal. The trajectory should minimize the step and ﬁnal cost func-",
+      "bbox": [
+        108.00009155273438,
+        635.0540771484375,
+        503.9997253417969,
+        645.5263061523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tions l : X × U→R, lf : X→R (e.g., fuel consumption, and ﬁnal velocity). To make this problem",
+      "bbox": [
+        108.00010681152344,
+        645.9630126953125,
+        504.00238037109375,
+        656.8626708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tractable, given a sequence of control inputs u = (u0, ..., uN−1), we deﬁne the nominal trajectory",
+      "bbox": [
+        108.00009155273438,
+        657.429931640625,
+        503.9979248046875,
+        667.19189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µ = (µ0, ..., µN), from a ﬁxed µ0 ∈X0, as",
+      "bbox": [
+        108.0001220703125,
+        667.781005859375,
+        281.1793212890625,
+        678.6807250976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µk+1 = f(µk, uk, ¯θ, ¯wk),",
+      "bbox": [
+        209.20513916015625,
+        682.62890625,
+        317.8327941894531,
+        695.5986938476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯θ ∈Θ,",
+      "bbox": [
+        329.4532165527344,
+        682.62890625,
+        358.0638122558594,
+        694.1046752929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯wk ∈W,",
+      "bbox": [
+        364.7032165527344,
+        684.7000122070312,
+        402.79681396484375,
+        695.5986938476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(18)",
+      "bbox": [
+        487.4022216796875,
+        685.4172973632812,
+        503.9998779296875,
+        694.3238525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where ¯θ and ¯wk are ﬁxed nominal parameters and disturbances. Given this nominal trajectory,",
+      "bbox": [
+        108.00021362304688,
+        699.5479125976562,
+        504.0031433105469,
+        712.7368774414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we aim to minimize the cost of the nominal trajectory PN−1",
+      "bbox": [
+        108.0002212524414,
+        709.7606201171875,
+        361.31427001953125,
+        725.9774780273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k=0 l(µk, uk) + lf(µN), subject to all",
+      "bbox": [
+        344.05419921875,
+        713.0858764648438,
+        504.0050964355469,
+        724.9216918945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "15",
+      "bbox": [
+        301.0191955566406,
+        743.13330078125,
+        310.9817810058594,
+        752.0398559570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "Anonymous Submission",
+      "subject": "Proceedings of the 4th Conference on Robot Learning (CoRL 2020)",
+      "keywords": "Reachability analysis, robust planning and control, neural networks",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20201110035150Z",
+      "modDate": "D:20201110035150Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/lew2021sampling-paper/documents/.pdf-skill-scan-4n1qbbtq/review/source.pdf",
+      "page_count": 16,
+      "page_number": 15
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "section-header",
+        "bbox": [
+          108,
+          75,
+          326,
+          85
+        ],
+        "pos": [
+          0,
+          55
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          108,
+          95,
+          505,
+          246
+        ],
+        "pos": [
+          55,
+          1877
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          107,
+          259,
+          505,
+          332
+        ],
+        "pos": [
+          1877,
+          3451
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          344,
+          505,
+          386
+        ],
+        "pos": [
+          3451,
+          3845
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          107,
+          401,
+          505,
+          445
+        ],
+        "pos": [
+          3845,
+          4367
+        ]
+      },
+      {
+        "index": 5,
+        "class": "formula",
+        "bbox": [
+          107,
+          456,
+          505,
+          498
+        ],
+        "pos": [
+          4367,
+          4369
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          108,
+          502,
+          347,
+          513
+        ],
+        "pos": [
+          4369,
+          4435
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          108,
+          529,
+          475,
+          541
+        ],
+        "pos": [
+          4435,
+          4509
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          108,
+          553,
+          505,
+          678
+        ],
+        "pos": [
+          4509,
+          5693
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          209,
+          683,
+          504,
+          695
+        ],
+        "pos": [
+          5693,
+          5695
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          108,
+          700,
+          505,
+          724
+        ],
+        "pos": [
+          5695,
+          6066
+        ]
+      },
+      {
+        "index": 11,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          743,
+          311,
+          751
+        ],
+        "pos": [
+          6066,
+          6071
+        ]
+      }
+    ],
+    "text": "## **C.2 Neural network experiment and comparisons** \n\n**Neural network training** To simplify training, aid generalization, and simplify comparisons with the Lipschitz-based method (see C), we decompose the dynamics as **_x_** _k_ +1 = **_f_** ( **_x_** _k,_ **_u_** _k_ ) = **_h_** ( **_x_** _k_ )+ **_g_** ( **_x_** _k,_ **_u_** _k_ ), where **_h_** ( **_x_** _k_ ) = **_x_** _k_ is a known nominal term which captures prior knowledge about the system, and **_g_** is unknown and needs to be learned by the neural network. We opt for a feed-forward network architecture with 2 hidden layers of width 128 each, with tanh( _·_ ) activation functions. To train the neural network, we re-sample states and controls at each training step as described in the next section, giving rise to the tuples _{_ ( **_x_** _k,_ **_u_** _k,_ **_x_** _k_ +1)<sup>_b_</sup> _}_<sup>_B_</sup> _b_ =1<sup>.Weuseasingle-stepquadratic</sup> loss<sup>�</sup><sup>_B_</sup> _b_ =1<sup>_∥_</sup><sup>**_x_**</sup><sup>_b_</sup> _k_ +1<sup>_−_</sup><sup>**_g_**(</sup><sup>**_x_**</sup> _k_<sup>_b,_</sup><sup>**_u_**</sup><sup>_b_</sup> _k_<sup>)</sup><sup>_∥_</sup> 2<sup>2, a batch size</sup><sup>_B_= 20, and include standard</sup><sup>_L_2-regularization with</sup> weight 10<sup>_−_6</sup> . All code is written using PyTorch [46], and the model is trained using _Adam_ [48], with an initial learning rate of 0 _._ 02, and a decay factor of (1 _−_ 10<sup>_−_6</sup> ) every gradient descent step. After 10k training steps, the model achieves a loss of around 10<sup>_−_7</sup> on the validation dataset. We perform further validation through multi-steps rollouts of the system (over 20 timesteps). By adopting a model architecture which leads to minimal error, we are able to compare the reachable sets of the true linear system with those of the neural network, and evaluate volume coverage. \n\n**Randomization** To provide comparisons of volume coverage, we perform _B_ = 100 experiments where we randomize initial states **_x_**<sup>_b_</sup> 0<sup>_∈X_0=</sup><sup>_B_(</sup><sup>**_µ_**0</sup><sup>_,_</sup><sup>**_Q_**0)andopen-loopcontroltrajectories</sup> **_u_**<sup>_b_</sup> = ( **_u_**<sup>_b_</sup> 0<sup>_,_...</sup><sup>_,_</sup><sup>**_u_**</sup><sup>_b_</sup> _N −_ 1<sup>),</sup><sup>_b_= 1</sup><sup>_,_...</sup><sup>_, B_.Wesample</sup><sup>**_µ_**</sup> 0<sup>_b_= (</sup><sup>**p**</sup><sup>_b_</sup> 0<sup>_,_</sup><sup>**v**</sup> 0<sup>_b_)with</sup><sup>**p**</sup><sup>_b_</sup> 0 _,i_<sup>_∼_Unif(</sup><sup>_−_5</sup><sup>_,_5),</sup><sup>**v**</sup> 0<sup>_b_</sup> _,i_<sup>_∼_</sup> Unif( _−_ 1 _,_ 1), and constant **_Q_**<sup>_b_</sup> 0<sup>= 10</sup><sup>_−_3diag([10</sup><sup>_,_10</sup><sup>_,_2</sup><sup>_,_2]).Wesamplecontrolsas</sup><sup>**_u_**</sup><sup>_b_</sup> _k_<sup>=</sup><sup>**_u_**¯</sup><sup>_b_+</sup><sup>_δ_</sup><sup>**_u_**</sup><sup>_b_</sup> _k_ with **_u_** ¯<sup>_b_</sup> _i_<sup>_∼_Unif(</sup><sup>_−_0</sup><sup>_._4</sup><sup>_,_0</sup><sup>_._4)and</sup><sup>_δ_</sup><sup>**_u_**</sup><sup>_b_</sup> _k,i_<sup>_∼_Unif(</sup><sup>_−_0</sup><sup>_._02</sup><sup>_,_0</sup><sup>_._02)forneuralnetworktraining,andwith</sup> **_u_** ¯<sup>_b_</sup> _i_<sup>_∼_Unif(</sup><sup>_−_0</sup><sup>_._1</sup><sup>_,_0</sup><sup>_._1) and</sup><sup>_δ_</sup><sup>**_u_**</sup><sup>_b_</sup> _k,i_<sup>_∼_Unif(</sup><sup>_−_0</sup><sup>_._005</sup><sup>_,_0</sup><sup>_._005) for evaluation in Figure 5.</sup> \n\n**Computation time** In average, for this neural network, ( ( **randUP** )<sup>1k</sup> , ( _·_ )<sup>3k</sup> , ( _·_ )<sup>10k</sup> , ( **robUP!** )<sup>1</sup> 1<sup>k)</sup> require (9,28,120,648) ms on a laptop with an i7-6700 CPU (2.60GHz) and 8GB of RAM. We did not optimize our implementation. Performing operations in parallel and using a GPU would further accelerate both methods. \n\n**Lipschitz method** In our experiments, we use **_h_** ( **_x_** ) = **_x_** , and train a neural network to represent **_g_** ( **_x_** _,_ **_u_** ). To reduce conservatism in our comparisons, we use the Lipschitz constant of the true linear system **_x_** _k_ = ( **_p_** _k,_ **_v_** _k_ ) _∈_ R<sup>4</sup> , **_u_** _k ∈_ R<sup>2</sup> , **_p_** _k_ +1 = **_p_** _k_ + **_v_** _k_ , and **_v_** _k_ +1 = **_v_** _k_ + **_u_** _k_ , which are given as _Lgi_ = 1 for _i_ = 1 _,_ 2, and _Lgi_ = 0 for _i_ = 3 _,_ 4. \n\n\n\nwhere Γ( _·_ ) is the standard gamma function of calculus [49]. \n\n# **D Robust Trajectory Optimization with Sampling-based Convex Hulls** \n\n**Problem formulation** This section proposes a method to perform (approximately) robust trajectory optimization using sampling-based reachability analysis, and sequential convex programming (SCP). Specifically, we extend the method presented in [8] to leverage sampling-based convex hulls. In the following, we use the same assumptions and notations outlined in Section 2. The goal consists of computing an open-loop trajectory ( **_x_** 0: _N ,_ **_u_** 0: _N −_ 1) which satisfies all constraints ( **_x_** _k ∈ X_ free _,_ **_u_** _k ∈U_ ), for any bounded uncertain parameter **_θ_** _∈_ Θ and disturbances **_w_** _k ∈_ W. The initial state **_x_** 0 is uncertain and lies within a known initial bounded set _X_ 0, and the final state **_x_** _N_ should lie within the final goal region _X_ goal. The trajectory should minimize the step and final cost functions _l_ : _X × U→_ R _, lf_ : _X→_ R (e.g., fuel consumption, and final velocity). To make this problem tractable, given a sequence of control inputs **_u_** = ( **_u_** 0 _,_ ... _,_ **_u_** _N −_ 1), we define the nominal trajectory **_µ_** = ( **_µ_** 0 _,_ ... _,_ **_µ_** _N_ ), from a fixed **_µ_** 0 _∈X_ 0, as \n\n\n\nwhere **_θ_**<sup>¯</sup> and **_w_** ¯ _k_ are fixed nominal parameters and disturbances. Given this nominal trajectory, we aim to minimize the cost of the nominal trajectory<sup>�</sup><sup>_N_</sup> _k_ =0<sup>_−_1</sup><sup>_l_(</sup><sup>**_µ_**</sup><sup>_k,_</sup><sup>**_u_**</sup><sup>_k_) +</sup><sup>_lf_(</sup><sup>**_µ_**</sup><sup>_N_),subjecttoall</sup> \n\n15 \n\n"
+  }
+}

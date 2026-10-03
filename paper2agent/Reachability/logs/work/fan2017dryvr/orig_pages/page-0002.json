@@ -1,0 +1,85 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        127.0,
+        478.0,
+        169.0
+      ],
+      "markdown": "seen as a _white-box_ . In contrast, the dynamics of vehicle itself, with hundreds of parameters, is more naturally viewed as a _black-box_ . That is, it can be simulated or tested with different initial conditions and inputs, but it is nearly impossible to write down a nice mathematical model.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        172.0,
+        478.0,
+        328.0
+      ],
+      "markdown": "The empirical observation motivating this work is that many control systems, and especially automotive systems, share this combination of white and black boxes (see other examples in Sections 2.1, 2.5, and A.2). In this paper, we view hybrid systems as a combination of a white-box that specifies the mode switches and a black-box that can simulate the continuous evolution in each mode. Suppose the system has a set of modes �L and _n_ continuous variables. The mode switches are defined by a _transition graph G_ which is a directed acyclic graph (DAG) whose vertices and edges define the allowed mode switches and the switching times. The black-box is a set of trajectories _TL_ in R<sup>_n_</sup> for each mode in �L. We do not have a closed form description of _TL_ , but instead, we have a _simulator_ , that can generate sampled data points on individual trajectories for a given initial state and mode. Combining a transition graph _G_ , a set of trajectories _TL_ , and a set of initial states in R<sup>_n_</sup> , we obtain a hybrid system for which executions, reachability, and trace containment can be defined naturally.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        330.0,
+        478.0,
+        418.0
+      ],
+      "markdown": "We have studied a suite of automotive systems such as powertrain control [40], automatic transmission control [46], and ADAS features like automatic emergency braking (AEB), lane-change, and auto-passing, that are naturally represented in the above style. In verifying a lane change or merge controller, once the maneuver is activated, the mode transitions occur within certain time intervals. In testing a powertrain control system, the mode transitions are brought about by the driver and it is standard to describe typical driver classes using time-triggered signals. Similar observations hold in other examples.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        423.0,
+        478.0,
+        636.0
+      ],
+      "markdown": "**Safety verification algorithm** With black-box modules in our hybrid systems, we address the challenge of providing guaranteed verification. Our approach is based on the idea of simulation-driven reachability analysis [30, 22, 23]. For a given mode _ℓ ∈_ �L, finitely many simulations of the trajectories of _ℓ_ and a _discrepancy function_ bounding the sensitivity of these trajectories, is used to over-approximate the reachable states. For the key step of computing discrepancy for modes that are now represented by black-boxes, we introduce a probabilistic algorithm that learns the parameters of exponential discrepancy functions from simulation data. The algorithm transforms the problem of learning the parameters of the discrepancy function to the problem of learning a linear separator for a set of points in R<sup>2</sup> that are obtained from transforming the simulation data. A classical result in PAC learning, ensures that any such discrepancy function works with high probability for all trajectories. We performed dozens of experiments with a variety of black-box simulators and observed that 15-20 simulation traces typically give a discrepancy function that works for nearly 100% of all simulations. The reachability algorithm for the hybrid system proceeds along the vertices of the transition graph in a topologically sorted order and this gives a sound bounded time verification algorithm, provided the learned discrepancy function is correct.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        641.0,
+        478.0,
+        673.0
+      ],
+      "markdown": "**Reasoning** White-box transition graphs in our modelling, identify the switching sequences under which the black-box modules are exercised. Complex systems have involved transition graphs that describe subtle sequences in which",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        695.0,
+        309.0,
+        703.0
+      ],
+      "markdown": "2",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "page": 17,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0017.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and 230-dpi crops of the top paragraph and of (32)-(33). Running header and page number omitted. Heading '## F. Common experiment settings'. Equations (31)-(33) converted from formula images to LaTeX from main.tex (macros expanded: \\absbig/\\absbigg -> \\bigl\\lvert..\\bigr\\rvert, \\expecbig/\\expecbigg -> \\mathbb{E}\\bigl[..\\bigr], \\cond -> \\mid, \\coloneqq -> :=), checked symbol by symbol against the crops. Inline maths (chi^2 definition, tilde phi_N, pi^N(phi) identity, residual, inequality for tilde phi_N^2, b^2 = Sigma_N, time grid, T = 1, 2, 3 and K = 4, 8, 32, W_1 as \\mathsf{W}_1) rewritten in LaTeX; prose of the JAX/OTT-JAX/Flax and b^2 paragraphs re-checked against the image. Three bullet items kept as '- ' list items. TRANSCRIBED AS PRINTED (likely author typos, not corrected): (i) the chi^2 definition reads chi^2(p || q) := \\int (p(x) - q(x) / q(x)^2) q(x) dx, i.e. the brackets/square are misplaced (presumably ((p-q)/q)^2 q was meant); (ii) in (32) the integrand |...| is not squared although the left side is squared; (iii) (32) ends with chi^2(pi_ref || p_T^N) whereas (33) uses chi^2(p_T || p_T^N); (iv) the prose writes pi^{*,N} (asterisk) while (31)-(33) write pi^{\\star,N}; (v) the inequality tilde phi_N^2 <= ... is called an 'identity'. TeX and PDF agree on all of these. 'Equation 4' (without parentheses) is as printed. Last paragraph ends the page with a complete sentence; page 18 starts with the run-in paragraph 'Gumbel-Softmax resampling'.",
+  "warnings": [
+    "Review possible header/footer: p0017-b000"
+  ],
+  "items": [
+    {
+      "id": "p0017-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0017-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        67.0,
+        542.0,
+        105.0
+      ],
+      "markdown": "Recall the input ensemble $\\pi^N := \\sum_{i=1}^N w_i \\, \\delta_{X_i}$, the resampled ensemble $\\pi^{*, N}$, and denote $\\pi^N(\\phi) := \\mathbb{E}_{\\pi^N}[\\phi] = \\sum_{i=1}^N w_i \\, \\phi(X_i)$ for any test function $\\phi$. Define the $\\chi^2$ divergence by $\\chi^2(p \\, \\Vert \\, q) := \\int (p(x)-q(x) \\, / \\, q(x)^2) \\, q(x) \\, \\mathrm{d} x$. Based on Equation (30) we have"
+    },
+    {
+      "id": "p0017-b002",
+      "kind": "text",
+      "bbox": [
+        125.0,
+        111.0,
+        548.0,
+        151.0
+      ],
+      "markdown": "$$\\pi^{\\star,N}(\\phi)=\\int\\pi_{\\mathrm{ref}}(u_0)\\sum_{i=1}^N\\phi(X_i) \\, \\frac{w_i \\, p_{T|0}(u_0 \\mid X_i)}{p_T^N(u_0)} \\, \\mathrm{d} u_0=\\int\\pi_{\\mathrm{ref}}(u_0) \\, \\tilde{\\phi}_N(u_0) \\, \\mathrm{d} u_0, \\tag{31}$$"
+    },
+    {
+      "id": "p0017-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        156.0,
+        542.0,
+        188.0
+      ],
+      "markdown": "where $\\tilde{\\phi}_N(u_0) := \\sum_{i=1}^N\\phi(X_i) \\, \\frac{w_i \\, p_{T|0}(u_0 \\mid X_i)}{p_T^N(u_0)}$. Then $\\pi^N(\\phi)=\\sum_{i=1}^N w_i \\, \\phi(X_i)\\int p_{T|0}(u_0 \\mid X_i) \\, \\mathrm{d} u_0=\\int p_T^N(u_0) \\, \\tilde{\\phi}_N(u_0) \\, \\mathrm{d} u_0$ and we have the residual $\\pi^{\\star,N}(\\phi)-\\pi^N(\\phi)=\\int(\\pi_{\\mathrm{ref}}(u_0)-p_T^N(u_0)) \\, \\tilde{\\phi}_N(u_0) \\, \\mathrm{d} u_0$. Hence"
+    },
+    {
+      "id": "p0017-b004",
+      "kind": "text",
+      "bbox": [
+        93.0,
+        192.0,
+        548.0,
+        243.0
+      ],
+      "markdown": "$$\\bigl\\lvert \\pi^{\\star,N}(\\phi)-\\pi^N(\\phi) \\bigr\\rvert^2=\\int \\biggl\\lvert \\tilde{\\phi}_N(u_0) \\, \\bigl(\\pi_{\\mathrm{ref}}(u_0)-p_T^N(u_0) \\bigr) \\, \\frac{\\sqrt{p_T^N(u_0)}}{\\sqrt{p_T^N(u_0)}} \\biggr\\rvert \\, \\mathrm{d} u_0\\leq\\pi^N(\\phi^2) \\, \\chi^2(\\pi_{\\mathrm{ref}} \\, \\Vert \\, p_T^N), \\tag{32}$$"
+    },
+    {
+      "id": "p0017-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        247.0,
+        542.0,
+        277.0
+      ],
+      "markdown": "where the identity $\\tilde{\\phi}_N(u_0)^2\\leq\\sum_{i=1}^N\\phi(X_i)^2 \\, \\frac{w_i \\, p_{T|0}(u_0 \\mid X_i)}{p_T^N(u_0)}$ was applied. Assume that the test function $\\phi$ is uniformly bounded, i.e., $\\pi^N(\\phi^2) \\leq c_\\phi$, and also knowing that $p_T = \\mathbb{E}[p_T^N]$, we finally have"
+    },
+    {
+      "id": "p0017-b006",
+      "kind": "text",
+      "bbox": [
+        130.0,
+        282.0,
+        548.0,
+        317.0
+      ],
+      "markdown": "$$\\mathbb{E}\\bigl[\\lvert \\pi^{\\star,N}(\\phi)-\\pi^N(\\phi) \\rvert^2\\bigr]\\leq c_\\phi \\, \\mathbb{E}[\\chi^2(p_T \\, \\Vert \\, p_T^N)]+c_\\phi \\, \\mathbb{E}\\biggl[\\int\\frac{p_T(u)-\\pi_{\\mathrm{ref}}(u)}{p_T^N(u)} \\, \\mathrm{d} u\\biggr]. \\tag{33}$$"
+    },
+    {
+      "id": "p0017-b007",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        328.0,
+        217.0,
+        339.0
+      ],
+      "markdown": "## F. Common experiment settings"
+    },
+    {
+      "id": "p0017-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        348.0,
+        354.0,
+        358.0
+      ],
+      "markdown": "Unless otherwise stated, all experiments share the following same settings."
+    },
+    {
+      "id": "p0017-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        366.0,
+        542.0,
+        412.0
+      ],
+      "markdown": "Implementations are based on JAX (Bradbury et al., 2018). When applying a Wasserstein distance to quantify the quality of approximate samples, we use the earth-moving cost function denoted by $\\mathsf{W}_1$, approximated by a sliced Wasserstein distance with 1,000 projections. We directly use the implementation by OTT-JAX (Cuturi et al., 2022). For neural network implementations, we use Flax (Heek et al., 2024)."
+    },
+    {
+      "id": "p0017-b010",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        420.0,
+        542.0,
+        442.0
+      ],
+      "markdown": "For all particle filtering, the resampling is triggered at every steps. When applied to a state-space model, a bootstrap construction of the Feynman–Kac model is consistently used."
+    },
+    {
+      "id": "p0017-b011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        450.0,
+        542.0,
+        472.0
+      ],
+      "markdown": "Whenever dealing with probability density evaluations, such as importance sampling, diffusion resampling, and Gaussian mixture, we always implement in the log domain."
+    },
+    {
+      "id": "p0017-b012",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        480.0,
+        544.0,
+        526.0
+      ],
+      "markdown": "Diffusion resampling uses the mean-reverting construction of the reference distribution $\\pi_{\\mathrm{ref}}$ as in Algorithm 3, and we set the diffusion coefficient $b^2 = \\Sigma_N$. In practice, the diffusion coefficient should be calibrated, as Corollary 1 implies that there is likely an optimal $b$. Here we choose $b^2 = \\Sigma_N$ just to simplify comparison, and this choice is not necessarily optimal. All SDE solvers are applied on evenly spaced time grids $0=t_0 < t_1 < \\cdots < t_K=T$."
+    },
+    {
+      "id": "p0017-b013",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        534.0,
+        543.0,
+        556.0
+      ],
+      "markdown": "The numerical solver for SDEs impact the quality of diffusion resampling. In all experiments involving diffusion resampling, we test a combination of ways for solving the resampling SDE:"
+    },
+    {
+      "id": "p0017-b014",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        571.0,
+        543.0,
+        615.0
+      ],
+      "markdown": "- Four SDE integrators. The commonly used Euler–Maruyama, and the two exponential integrators by Jentzen & Kloeden (2009) and Lord & Rougemont (2004), see Section 2.3 for formulae, and Tweedie’s formula (Ho et al., 2020, essentially DDPM). They are called by EM, Jentzen–Kloeden, Lord–Rougemont, and Tweedie, respectively in the later context."
+    },
+    {
+      "id": "p0017-b015",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        627.0,
+        542.0,
+        648.0
+      ],
+      "markdown": "- SDE and probability flow. The resampling SDE in Equation 4 can be solved also with a probability flow ODE (Song et al., 2021). We test both SDE and ODE versions."
+    },
+    {
+      "id": "p0017-b016",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        658.0,
+        538.0,
+        668.0
+      ],
+      "markdown": "- Diffusion time $T$ and the number of discretisation steps $K$. We have mainly tested for $T = 1, 2, 3$ and $K=4, 8, 32$."
+    },
+    {
+      "id": "p0017-b017",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        684.0,
+        542.0,
+        718.0
+      ],
+      "markdown": "The settings above result in at least 72 combinations, and it is not possible to report them all in the main body of the paper due to page limit. Therefore, in the main paper we only report the best combination, and we detail the rest of the combinations in appendix."
+    },
+    {
+      "id": "p0017-b018",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "17",
+      "reason": "Printed page number '17' in the footer; page furniture."
+    }
+  ]
+}

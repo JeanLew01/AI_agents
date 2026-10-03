@@ -1,0 +1,148 @@
+{
+  "page": 17,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0017.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 17, a 150 dpi crop of Figure 7, and with main.tex (C.4.1 and C.4.2). Figure 7 is the first appendix figure: a Venn-type diagram (raster image) of the initial state space, a black rectangle labelled W containing a red circle and a blue circle whose exclusive parts are labelled X (red only) and Y (blue only) and whose intersection is labelled Z, with a legend at the lower right: red = S_pI, blue = S_hI, black = S_I. It is a float printed at the top of the page above the heading C.4.1; it is placed after the C.4.1 paragraph that refers to it (same page). Asset name 'supplementary-figure-7', category supp_figs, printed label 'Figure 7' kept; bbox set from the render and checked on the crop (whole black frame and legend inside, caption outside). Caption verbatim with the calligraphic letters written in LaTeX. C.4.1: mathematics rewritten in LaTeX from the TeX source and checked on the render: the four regions $\\mathcal{W}=\\overline{\\mathcal{S}_{hI}}\\cap\\overline{\\mathcal{S}_{pI}}$, $\\mathcal{X}=\\overline{\\mathcal{S}_{hI}}\\cap\\mathcal{S}_{pI}$, $\\mathcal{Y}=\\mathcal{S}_{hI}\\cap\\overline{\\mathcal{S}_{pI}}$, $\\mathcal{Z}=\\mathcal{S}_{hI}\\cap\\mathcal{S}_{pI}$ (overlines = complements; each overline checked on the render). By these formulas $\\mathcal{X}$ lies inside the predicted set $\\mathcal{S}_{pI}$ and outside the true set $\\mathcal{S}_{hI}$, which agrees with the figure (X in the red circle only) and with the prose ('the set of infeasible states that are misclassified'); $\\mathcal{Y}$ is the part of the true feasible set not predicted feasible ('truly feasible states that are misclassified'). As printed (kept): the straight double quotes around \"true\"; 'lagrange multiplier' and 'lagrangian' in lower case. C.4.2: the four overview items are printed as an indented list with the bare labels 1-4 (no full stop or parenthesis) and are written as four paragraphs starting with the printed label; citation '[8, 10, 53, 27]' in this printed order; authors' typo 'timecale' kept; 'We show our algorithm convergence' as printed. Math-mode numbers $4$ and $0$ restored. Headings C.4.1 and C.4.2 are level 4 (subsubsections). Omitted: printed page number 17.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0017-b002",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        264.0,
+        287.0,
+        274.0
+      ],
+      "markdown": "#### C.4.1 Intuition behind REF convergence"
+    },
+    {
+      "id": "p0017-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        282.0,
+        506.0,
+        491.0
+      ],
+      "markdown": "The approach can be explained by considering what happens in the individual regions of space. Consider a deterministic environment for simplicity. As seen in Figure 7, there are two subsets of the initial state space: a safest policy’s \"true\" feasible set $\\mathcal{S}_{hI}$ and REF predicted feasible set $\\mathcal{S}_{pI}$, and they create $4$ regions in the initial state space $\\mathcal{S}_I$: $\\mathcal{W}=\\overline{\\mathcal{S}_{hI}}\\cap\\overline{ \\mathcal{S}_{pI}}$, $\\mathcal{X}=\\overline{\\mathcal{S}_{hI}}\\cap \\mathcal{S}_{pI}$, $\\mathcal{Y}=\\mathcal{S}_{hI}\\cap\\overline{ \\mathcal{S}_{pI}}$, $\\mathcal{Z}=\\mathcal{S}_{hI}\\cap \\mathcal{S}_{pI}$. Consider a point during training when the lagrange multiplier $\\lambda$ is sufficiently large. For states in $\\mathcal{W}$, the set of correctly classified infeasible states, the algorithm will simply minimize cumulative violations $V^{\\pi_\\theta}_c(s)$, and thereby remain as safe as possible since the policy and critics learning rates are faster than that of REF. $\\mathcal{X}$, which is the set of infeasible states that are misclassified, is very small if we ensure the policy and REF are trained at much faster time scales than the multiplier and so when the agent starts in true infeasible states, it will by definition reach violations and therefore be labeled as infeasible. In $\\mathcal{Y}$, the set of truly feasible states that are misclassified, the algorithm also minimizes cumulative violations, which by the definition of feasibility should be $0$. It will then have no violations and enter the correctly predicted feasible set $\\mathcal{Z}$. And when starting in states in $\\mathcal{Z}$, the algorithm will optimize the lagrangian, and since the multiplier $\\lambda$ is sufficiently large, it will converge to a policy that optimizes for reward while ensuring safety, i.e. no future violations, and therefore the state will stay predictably feasible in $\\mathcal{Z}$. In this manner, REF’s predicted feasible set will converge to the optimal feasible set, and the agent will be safe and have optimal performance in the feasible set and be the safest behavior outside the feasible set. Thereby, the algorithm finds a locally optimal solution to the proposed optimization formulation."
+    },
+    {
+      "id": "p0017-fig7",
+      "kind": "figure",
+      "bbox": [
+        209.0,
+        73.0,
+        405.0,
+        220.0
+      ],
+      "markdown": "",
+      "label": "Figure 7",
+      "asset_name": "supplementary-figure-7",
+      "asset_category": "supp_figs"
+    },
+    {
+      "id": "p0017-b001",
+      "kind": "caption",
+      "bbox": [
+        108.0,
+        222.5,
+        503.0,
+        242.0
+      ],
+      "markdown": "Figure 7: The predicted feasible set converges to a safest policy’s feasible set since the misclassified regions $\\mathcal{X}$ and $\\mathcal{Y}$ are corrected over time."
+    },
+    {
+      "id": "p0017-b004",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        503.0,
+        207.0,
+        511.0
+      ],
+      "markdown": "#### C.4.2 Proof Overview"
+    },
+    {
+      "id": "p0017-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        522.0,
+        506.0,
+        565.0
+      ],
+      "markdown": "We show our algorithm convergence to the optimal policy by utilizing the proof framework of multi-time scale presented in [8, 10, 53, 27]. Specifically, we have $4$ time scales for (1) the critics, (2) policy, (3) REF function, and (4) lagrange multiplier, listed in order from fastest to slowest. The overview of each timescale proof step is as follows:"
+    },
+    {
+      "id": "p0017-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        574.0,
+        505.0,
+        595.0
+      ],
+      "markdown": "1 We demonstrate the almost sure convergence of the critics to the corresponding fixed point optimal critic functions of the policy."
+    },
+    {
+      "id": "p0017-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        599.0,
+        505.0,
+        631.0
+      ],
+      "markdown": "2 Using multi-timescale theory, we demonstrate the policy almost surely converges to a stationary point of a continuous time system, which we show has a Lyapunov function certifying its locally asymptotic stability at the stationary point."
+    },
+    {
+      "id": "p0017-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        635.0,
+        505.0,
+        656.0
+      ],
+      "markdown": "3 We demonstrate the almost sure convergence of the REF function to the REF of the policy that is safe insofar as the lagrange multiplier is sufficiently large."
+    },
+    {
+      "id": "p0017-b009",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        661.0,
+        504.0,
+        682.0
+      ],
+      "markdown": "4 We demonstrate the almost sure convergence of the lagrange multiplier to a stationary point similar to the proof in the policy timecale."
+    },
+    {
+      "id": "p0017-b010",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        691.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "Finally, we demonstrate that the stationary points for the policy and lagrange multiplier form a saddle point, and so by local saddle point theorem we almost surely achieve the locally optimal policy of our proposed optimization."
+    },
+    {
+      "id": "p0017-b011",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        750.0
+      ],
+      "markdown": "17",
+      "reason": "Printed page number '17' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

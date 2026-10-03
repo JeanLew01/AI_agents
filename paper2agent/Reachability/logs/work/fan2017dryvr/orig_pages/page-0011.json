@@ -1,0 +1,147 @@
+{
+  "page": 11,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0011.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0011-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        126.0,
+        478.0,
+        149.0
+      ],
+      "markdown": "_|τ_ 1( _ti−_ 1) _− τ_ 2( _ti−_ 1) _|Ke_<sup>_γit_</sup> . Under such circumstances, the discrepancy function itself can be seen to be given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b001",
+      "kind": "formula",
+      "bbox": [
+        146.0,
+        153.0,
+        465.0,
+        178.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 11 (2)",
+      "asset_name": "formula-p0011-001"
+    },
+    {
+      "id": "p0011-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        183.0,
+        478.0,
+        272.0
+      ],
+      "markdown": "If the time points 0 = _t_ 0 _, t_ 1 _, . . . tN_ = _T_ are fixed, then the constants _K, γ_ 1 _, γ_ 2 _, . . . γN_ can be discovered using the learning approach described for GED; here, to discover _γi_ , we take Γ _i_ to be the pairs obtained by restricting the trajectories to be between times _ti−_ 1 and _ti_ . The sequence of time points _ti_ are also dynamically constructed by our algorithm based on the following approach. Our experience suggests that a value for _γ_ that is _≥_ 2 results in very conservative reach tube computation. Therefore, the time points _ti_ are constructed inductively to be as large as possible, while ensuring that _γi <_ 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b003",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        277.0,
+        355.0,
+        287.0
+      ],
+      "markdown": "## **3.1.3 Experiments on learning discrepancy**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0011-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        295.0,
+        478.0,
+        428.0
+      ],
+      "markdown": "We used the above algorithm to learn discrepancy functions for dozens of modes with complex, nonlinear trajectories. Our experiments suggest that around 1020 simulation traces are adequate for computing both global and piece-wise discrepancy functions. For each mode we use a set _S_ train of simulation traces that start from independently drawn random initial states in _TL_ init _,ℓ_ to learn a discrepancy function. Each trace may have 100-10000 time points, depending on the relevant time horizon and sample times. Then we draw another set _S_ test of 1000 simulations traces for validating the computed discrepancy. For every pair of trace in _S_ test and for every time point, we check whether the computed discrepancy satisfies Equation 1. We observe that for _|S_ train _| >_ 10 the computed discrepancy function is correct for 96% of the points _S_ test in and for _|S_ train _| >_ 20 it is correct for more than 99 _._ 9%, across all experiments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b005",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        444.0,
+        294.0,
+        456.0
+      ],
+      "markdown": "# **3.2 Verification algorithm**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0011-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        463.0,
+        478.0,
+        518.0
+      ],
+      "markdown": "In this section, we present algorithms to solve the bounded verification problem for hybrid systems using learned exponential discrepancy functions. We first introduce an algorithm _GraphReach_ (Algorithm 1) which takes as input a hybrid system _H_ = _⟨_ �L _,_ Θ _, G, TL⟩_ and returns a set of reachtubes—one for each vertex of _G_ —such that their union over-approximates ReachTube _H_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        519.0,
+        478.0,
+        575.0
+      ],
+      "markdown": "_GraphReach_ maintains two data-structures: (a) _RS_ accumulates pairs of the form _⟨RT, v⟩_ , where _v ∈V_ and _RT_ is its corresponding reachtube; (b) _VerInit_ accumulates pairs of the form _⟨S, v⟩_ , where _v ∈V_ and _S ⊂_ R<sup>_n_</sup> is the set of states from which the reachtube in _v_ is to be computed. Each _v_ could be in multiple such pairs in _RS_ and _VerInit_ . Initially, _RS_ = ∅ and _VerInit_ = _{⟨_ Θ _, v_ init _⟩}_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        575.0,
+        478.0,
+        631.0
+      ],
+      "markdown": "_LearnDiscrepancy_ ( _S_ init _, d , ℓ_ ) computes the discrepancy function for mode _ℓ_ , from initial set _S_ init and upto time _d_ using the algorithm of Section 3.1. _ReachComp_ ( _S_ init _, d, β_ ) first generates finite simulation traces from _S_ init and then bloats the traces to compute a reachtube using the discrepancy function _β_ . This step is similar to the algorithm for dynamical systems given in [22].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b009",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        632.0,
+        478.0,
+        673.0
+      ],
+      "markdown": "The _GraphReach_ algorithm proceeds as follows: first, a topologically sorted array of the vertices of the DAG _G_ is computed in _Order_ (Line 1). The pointer _ptr_ iterates over the _Order_ and for each vertex _curv_ the following is computed. The variable _dt_ is set to the maximum transition time to other vertices from",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b010",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        695.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "11",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

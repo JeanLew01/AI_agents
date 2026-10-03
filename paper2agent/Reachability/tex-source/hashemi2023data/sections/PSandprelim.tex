@@ -1,0 +1,70 @@
+\noindent \textbf{Stochastic Dynamical System.} Estimating the set of reachable sets of
+stochastic dynamical systems starting from a compact set of initial states $\init \subset \mathbb{R}^n$
+is a well-studied problem. While this problem has been studied largely with model-based techniques,
+we focus on {\em bounded-time, model-free reachability} analysis of a black-box discrete-time
+stochastic dynamical system $M$. A random trajectory of $M$ can be modelled as a sequence of 
+time-stamped states $\traj_{\state_0} = [\state_0^\top, \cdots, \state^\top_\horizon]^\top \subset 
+\mathbb{R}^{(\horizon+1)n}$. We denote the distribution over the set of trajectories consistent
+with $M$ as $\mathcal{S}$, and use $\traj_{\state_0} \sim \mathcal{S}$ to denote that $\traj_{\state_0}$
+is sampled from $\mathcal{S}$. The distribution $\mathcal{S}$ could be induced due to a distribution
+on the set of initial states of the system as well as stochastic uncertainties in its dynamics. 
+For example, the transition dynamics could be Markovian, i.e.,
+$\state_{\timeid} \sim T(\state' \mid \state = \state_{\timeid-1})$. However, we remark
+that the techniques proposed in this paper can work for systems with non-Markovian dynamics.
+For convenience, we denote the distribution over the set of initial states $\init$ as $\mathcal{W}$, and
+assume that $(\Pr[\state_0 \notin \init]=0)$. The notation $\state_0 \stackrel{\mathcal{W}}{\sim} \init$
+is used to denote that the state $\state_0$ is sampled from $\init$ using the distribution $\mathcal{W}$.
+A practical choice of $\mathcal{W}$ may be to uniformly sample $\init$.  
+
+\textbf{Trajectory Datasets. } We assume that we have access to a dataset of 
+independently sampled trajectories of $M$, where the initial states are sampled with 
+$\state_0 \stackrel{\mathcal{W}}{\sim} \init$. We assume that each trajectory has 
+$\horizon$ time-steps. We split the trajectory dataset into two separate datasets, 
+denoted as $D_{\text{train}}$ and $D_{\text{test}}$. 
+Here $D_{\text{train}}$ is our training dataset and is to be used for training a surrogate model of $M$. On the other 
+hand, $D_{\text{test}}$ is the test dataset, and is to be utilized  to generate the calibration dataset for deriving 
+statistical properties. Let $D_{\text{test}}=\{\state_{0,i}, \traj_{\state_0,i}\}_{i=1}^L$ where $L$ is the number 
+of test trajectories. 
+ Our goal is now to compute a probabilistic reach set such that 
+ $\traj_{\state_0}$ is included inside with a probability not lower than a user-defined
+ threshold $1-\varepsilon$, where $\varepsilon \in (0,1)$.
+%  We consider the reachability analysis  of discrete-time stochastic dynamical systems. We consider systems that satisfy Markovian assumptions and are described by the tuple $\model=(\states, \actions, \Transitions)$ where $\states \subset \mathbb{R}^n$ and $\actions \subset \mathbb{R}^p$ are the set of states and actions, respectively, and where $\Transitions(\state'\mid \state, \action)$ is the probability distribution of transitioning to state $s'$ from state $s$ under action $a$.  For a given initial state $\state_0 \in \init \subset \states$ and transition distribution $\Transitions$, a system trajectory $\traj_{\state_0}$ is a function from $[0,\ \horizon] \subset \mathbb{Z}^{\ge 0}$ to a sequence of states from $\states$. We have $\traj_{\state_0}(0)=\state_0$ and  $\traj_{\state_0}(\timeid+1)=\state_{\timeid+1} \sim \Transitions (\state' \mid \state_\timeid, \action_\timeid)$ for all times $\timeid \in [0, \ \horizon-1]$ with $\action_\timeid \sim \pi(\action \mid \state_\timeid)$ being a pre-defined feedback policy. Consider the set of trajectories $\traj_{\state_0}$ of the Markov model $M$ under the pre-defined control policy $\action \sim \pi(\action \mid \state)$. Assume the initial state $\state_0$ is sampled with a known distribution from $\init$ for data generation in this work we denote this distribution with $\mathcal{W}$ and we show this sampling process with $\state_0 \stackrel{\mathcal{W}}{\sim} \init$, which also assumes 
+%  $
+% \Pr[\state_0 \notin \init]=0
+%  $
+
+We remark that although the data-points within a single trajectory are not independent and identically distributed (i.i.d.), we observe that the trajectory $\traj_{\state_0}$ can be seen as a vector $\traj_{\state_0} \in \mathbb{R}^{n(\horizon+1)}$ so that entire trajectories within $D_{\text{train}}$ and $D_{\text{test}}$ 
+can be viewed as i.i.d. samples in the $\mathbb{R}^{n(\horizon+1)}$-space.
+This observation is crucially used later when we quantify uncertainty using conformal prediction. 
+
+ \textbf{Surrogate Model. } After obtaining the trajectory dataset, we train a surrogate model $\overallf: \mathbb{R}^n \to \mathbb{R}^{(\horizon+1) n}$ that maps a given initial state to the predicted $\horizon$-step
+trajectory of the system. For instance, the surrogate model can be a feedforward neural network with $n$ inputs
+and $(\horizon+1)n$ outputs. Let $\bar{\traj}_{\state_0}$ denote the predicted trajectory, then, \(
+ \bar{\traj}_{\state_0} = \overallf(\state_0).\)
+% We then apply reachability analysis on this surrogate model 
+ %along with statistical reasoning over the error between this surrogate model and $M$. 
+ Training such a $\horizon$-step predictive model can be difficult, especially when the dynamics are 
+ nonlinear. Hence, in practice, we train models that take as input trajectory fragments to predict
+ future trajectory fragments and then sequentially compose such models to obtain a longer predicted 
+ trajectory. We remark that this does not affect the probabilistic reasoning that we perform later
+ in the paper as the entire predictive model can still be treated as a deterministic map that
+ takes as input the initial state $\state_0$ and outputs a $\horizon$-step predicted trajectory.
+
+ \textbf{Conformal Inference.} Conformal inference \cite{vovk2005algorithmic,lei2014distribution,lei2018distribution} is a statistical tool for uncertainty quantification that has recently been used for analysing the uncertainty in the predictions performed by complex machine learning models \cite{angelopoulos2021gentle,lindemann2023safe,luo2022sample}. Conformal inference/prediction performs error quantification without making any assumption on the underlying data-generating distribution or the machine learning model. Consider a regression model $\mu$ and the random variables $z_1,z_2,...,z_{m+1}$ where $z_i=(x_i,y_i) \in \mathbb{R}^n \times \mathbb{R}$ with $ i\in [m+1]$ which are all independently sampled from the same distribution. Given a miscoverage level $\alpha \in (0, 1)$, conformal inference enables us to compute a prediction interval $C(x_{m+1})=[\mu(x_{m+1})-R^*,\ \mu(x_{m+1})+R^*] \subset \mathbb{R}$ from $z_1,z_2,...,z_{m}$ such that,
+$$
+\Pr[ y_{m+1} \in C(x_{m+1})] \geq 1- \alpha.
+$$
+More formally, define the residual  $R_i=\mid y_i-\mu(x_i) \mid$ for all $z_i$ with $i\in [m+1]$. Since the random variables $z_1,z_2,...,z_{m+1}$ are independent and identically distributed, the same applies to the residual $R_1,\hdots, R_{m+1}$. Under the assumption that $m$ satisfies $\ell=\lceil (m+1)(1-\alpha)\rceil\le m$, it holds that $R^*$ can be chosen to be the $\ell$-th smallest residual \cite[Lemma 1]{tibshirani2019conformal}. Without loss of generality, if $R_1,\hdots, R_{m}$ are sorted in non-decreasing order, then $R^*=R_\ell$ and it holds that $\Pr[ R_{m+1} \leq R^*] \geq (1-\alpha)$. By the choice of the residual, it hence holds that
+$$
+\Pr\Big[ y_{m+1} \in [\mu(x_{m+1})-R^*,\ \mu(x_{m+1})+R^*] \Big] \geq 1-\alpha.
+$$
+We also refer to $\delta = 1-\alpha$ as the confidence probability.
+
+
+
+ \textbf{Problem Definition.} Our probabilistic reachability analysis can be formally stated as follows. Given the stochastic dynamical system $M$ with initial state $\state_0 \stackrel{\mathcal{W}}{\sim} \init$ and trajectory distribution $\mathcal{S}$, training and test datasets $D_{\text{train}}$ and $D_{\text{test}}$ consisting  of $\horizon$-step trajectories independently sampled from $\model$,  and a  user provided failure probability threshold $\varepsilon \in (0,1)$, compute a probabilistic reach set (also called flowpipe) $X$ such that:
+\begin{equation}\label{eq:verific_prob}
+ \Pr\left[ \traj_{\state_0} \in X \right]  \geq  1-\varepsilon
+\end{equation}
+
+% \textcolor{red}{Change equation (1) as we do not get these type of strong conditional guaratnees. REmark before that our probabilistic guarantees depend on the choice of sampling of the initial set that we choose.}

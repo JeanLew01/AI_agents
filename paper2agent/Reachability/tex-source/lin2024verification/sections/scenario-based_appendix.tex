@@ -1,0 +1,44 @@
+\section{Robust Scenario-Based Proofs}\label{apd:SO}
+
+First, we introduce and prove the following lemma regarding a generic 1-dimensional chance-constrained optimization problem (CCP), which will be useful for subsequent proofs.
+\begin{lemma}[Solution Feasibility for a 1-D CCP]\label{lemma:CCP}
+    Consider the following 1-dimensional CCP:
+    \begin{align}\label{eq:CCP}
+    \begin{split}
+        \text{CCP}_\epsilon: &\min_{g\in \mathbb{R}}{g} \\
+        &\text{s.t. } \underset{h \in H}{\mathbb{P}} \left( f(h) \le g \right) \ge 1-\epsilon
+    \end{split}
+    \end{align}
+    where $g$ is the 1-dimensional optimization variable, $h$ is the uncertain parameter that describes different instances of an uncertain optimization scenario, and $f$ is some function of $h$.
+    
+    The corresponding sample counterpart (SP) of this CCP is:
+    \begin{align}\label{eq:SP}
+    \begin{split}
+        \text{SP}^A_{N,k}: &\min_{g \in \mathbb{R}}{g} \\
+        &\text{s.t. } f(h_i) \le g, \quad i \in \{1, ..., N\}-A\{h_1, ..., h_N\}
+    \end{split}
+    \end{align}
+    where $N$ constraints are sampled but $k$ constraints are discarded according to some constraint elimination algorithm $A$.
+    Let $g^*_{N,k}$ denote the solution to the above SP. Select a violation parameter $\epsilon \in (0, 1)$ and a confidence parameter $\beta \in (0, 1)$ such that
+    \begin{equation}\label{eq:parameters_relationship}
+        \begin{aligned}
+            \sum^k_{i=0} \binom{N}{i} \epsilon^i (1-\epsilon)^{N-i} \le \beta
+        \end{aligned}
+    \end{equation}
+    Then, with probability at least $1-\beta$, the following holds:
+    \begin{equation}\label{eq:CCP_guarantee}
+        \begin{aligned}
+            \underset{h \in H}{\mathbb{P}} \left( f(h) > g^*_{N,k} \right) \le \epsilon
+        \end{aligned}
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    \lemmaref{lemma:CCP} is a straightforward application of a scenario-based sampling-and-discarding approach to a CCP as detailed in \citet{campi2011sampling}.
+    CCP \eqref{eq:CCP} satisfies the assumptions of \citet{campi2011sampling}, since both the domain of optimization $\mathbb{R}$ and the constraint sets parameterized by $h$, $\{g: f(h) \le g\}$, are convex and closed in $g$. Thus, \lemmaref{lemma:CCP} follows as a special case of Theorem 2.1 in \citet{campi2011sampling}, where $d=1$, $c=1$, $x=g$, $X=G=\mathbb{R}$, $\delta=h$, $\Delta=H$, and $X_\delta=G_h=\{g: f(h) \le g\}$.
+\end{proof}
+
+\subsection{Proof of \texorpdfstring{\theoremref{theorem:scenario-based_method}}{Robust Scenario-Based Probabilistic Safety Verification Theorem}}\label{apd:scenario-based_theorem_proof}
+
+\begin{proof}
+    Consider the chance-constrained optimization problem (CCP) \eqref{eq:CCP} in \lemmaref{lemma:CCP} directly above, where $h=x$, $H=\safeset$, and $f(h)=f(x)=-\costFunction(\state,0)$. The proposed robust scenario-based probabilistic safety verification method deals with the corresponding sample counterpart (SP) \eqref{eq:SP} in \lemmaref{lemma:CCP} where the constraint elimination algorithm $A$ is to remove all $k$ constraints $f(h_i) \le g$ where $f(h_i)=-\costFunction(\state_i,0) \ge 0$. Thus, the only constraints remaining are $f(h_i) \le g$ where $f(h_i) < 0$. Since we are minimizing $g$, the solution $g^*_{N,k}$ to the SP must be $< 0$; i.e., $0 < -g^*_{N,k}$. Therefore, $\underset{x \in \safeset}{\mathbb{P}} ( \costFunction(\state,0) \le 0 ) \le \underset{x \in \safeset}{\mathbb{P}} ( \costFunction(\state,0) < -g^*_{N,k} )$. Equation \eqref{eq:CCP_guarantee} of \lemmaref{lemma:CCP} then yields: $\underset{x \in \safeset}{\mathbb{P}} ( \costFunction(\state,0) < -g^*_{N,k} ) \le \epsilon \implies \underset{x \in \safeset}{\mathbb{P}} ( \costFunction(\state,0) \le 0 ) \le \epsilon$, where $\forall (\state,\tvar), \costFunction(\state,\tvar) \le V(\state, \tvar)$ from Equation \eqref{eq:valuefunc}, so Equation \eqref{eq:robust_guarantee} of \theoremref{theorem:scenario-based_method} directly follows.
+\end{proof}

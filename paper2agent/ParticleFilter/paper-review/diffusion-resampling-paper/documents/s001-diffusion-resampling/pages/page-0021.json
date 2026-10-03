@@ -1,0 +1,283 @@
+{
+  "page": 21,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0021.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and crops of Table 7 (200 dpi) and equation (36) (220 dpi). Running header and page number omitted. The first prose item 'estimation diverges largely. ...' continues page 20's last paragraph ('...and making OT parameter | estimation'): moved to the top with join_previous=space. Table 7 (printed at the top) placed with its caption after the last section-I paragraph ('Figure 2 shows loss function landscapes ...') and before '## J. Prey-predator model'. Table 7 (table-7): 13 x 8, two-level header flattened ('Euler–Maruyama ODE', ..., 'Tweedie SDE'); values from main.tex, checked cell by cell against the crop. Caption kept as printed, including the missing final period ('... compared to Table 10'). Equation (36) converted from a formula image to an aligned LaTeX block with \\tag{36}; it ends with a comma and the sentence continues on page 22 ('where we set ...'), which starts a new item after the display (no join needed, as for other 'where' items after displays). Typos kept as printed (TeX agrees): 'In Tables 7 we find', 'lead to worst even exploding', 'Jentzen–Kloden SDE integrator', 'Lokta–Volterra'. [coordinator] caption label italics removed (1) so that all captions use the same plain \"Table N.\" / \"Figure N.\" style (verifier minor M2).",
+  "warnings": [
+    "Review possible header/footer: p0021-b000"
+  ],
+  "items": [
+    {
+      "id": "p0021-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0021-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        315.0,
+        543.0,
+        337.0
+      ],
+      "markdown": "estimation diverges largely. We thus had to disable this feature by unrolling the gradients. To fairly compare SDEs and OT, we have also unrolled gradient propagation through SDEs without using any implicit/adjoint methods.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0021-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        345.0,
+        544.0,
+        379.0
+      ],
+      "markdown": "The results are detailed in Tables 7 to 10. We clearly see that the diffusion resampling outperforms other methods across all the three metrics, in particular for the filtering and parameter estimation errors. The superiority of the log-likelihood function estimation is not significant due to that the loss function’s magnitude does not change much in $\\Theta$, see also Figure 2."
+    },
+    {
+      "id": "p0021-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        387.0,
+        544.0,
+        479.0
+      ],
+      "markdown": "Let us focus on the diffusion resampling in Tables 7 and 9. In Tables 7 we find that the loss function estimation error seems to be invariant in the time $T$ and steps $K$ when using an ODE solver (except for Lord–Rougemont), giving a relatively large error $2.72$. With a fixed $T$, it is not clear if increasing $K$ will improve the log-likelihood estimate. This also resonates with Table 9 that increasing $K$ can possibly lead to worst even exploding parameter estimation. This may be caused by numerical errors when back-propagating gradients through SDE solvers which can be addressed by, for instance, Kidger et al. (2021). On the other hand, with $K$ fixed, increasing $T$ improves the result. Like in the previous experiments, the Jentzen–Kloeden exponential integrator consistently achieves the best result, albeit marginally, while Lord–Rougemont is the most sensitive to $K$."
+    },
+    {
+      "id": "p0021-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        489.0,
+        542.0,
+        522.0
+      ],
+      "markdown": "Table 8 shows the performance of the filtering, and this does not compute any gradients. We see that improving $T$ and $K$ improves the filtering estimation in general. This empirically verifies the results from Tables 7 and 9 that efficient and accurate back-propagation through SDE solvers may be necessary."
+    },
+    {
+      "id": "p0021-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        530.0,
+        543.0,
+        600.0
+      ],
+      "markdown": "Figure 2 shows loss function landscapes estimated by the particle filtering ($N=32$ particles) with different resampling schemes. The calibration parameters for Gumbel-Softmax and soft resampling are 0.2 and 0.1, respectively, and for diffusion, we use Jentzen–Kloden SDE integrator with $T=2$ and $K=4$, and for OT $\\varepsilon=0.3$. We see in this figure that multinomial gives the most noisy estimate, hard for searching the optimum. This is also true for soft resampling, and even at a low parameter $0.1$ which already means very uninformative resampling, the loss function is still rather noisy. On the other hand, the loss function estimates by diffusion, OT, and Gumbel-Softmax look smooth."
+    },
+    {
+      "id": "p0021-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        66.0,
+        542.0,
+        88.0
+      ],
+      "markdown": "Table 7. The errors of loss function estimate $\\lVert L - \\widehat{L} \\rVert_2$ associated with the linear Gaussian state-space model (LGSSM) experiment. This table focuses only on the diffusion resampling and should be compared to Table 10"
+    },
+    {
+      "id": "p0021-b002",
+      "kind": "table",
+      "bbox": [
+        54.0,
+        94.0,
+        540.0,
+        276.0
+      ],
+      "markdown": "",
+      "label": "Table 7",
+      "asset_name": "table-7",
+      "rows": [
+        [
+          "Method",
+          "Euler–Maruyama ODE",
+          "Euler–Maruyama SDE",
+          "Lord–Rougemont ODE",
+          "Lord–Rougemont SDE",
+          "Jentzen–Kloeden ODE",
+          "Jentzen–Kloeden SDE",
+          "Tweedie SDE"
+        ],
+        [
+          "T = 1, K = 4",
+          "2.72 ± 2.12",
+          "2.66 ± 2.11",
+          "2.90 ± 2.24",
+          "2.63 ± 2.10",
+          "2.72 ± 2.12",
+          "2.61 ± 2.08",
+          "2.69 ± 2.13"
+        ],
+        [
+          "T = 1, K = 8",
+          "2.72 ± 2.13",
+          "2.70 ± 2.00",
+          "2.77 ± 2.17",
+          "2.69 ± 1.98",
+          "2.72 ± 2.13",
+          "2.68 ± 1.98",
+          "2.71 ± 2.02"
+        ],
+        [
+          "T = 1, K = 16",
+          "2.72 ± 2.13",
+          "2.77 ± 2.23",
+          "2.74 ± 2.15",
+          "2.79 ± 2.23",
+          "2.72 ± 2.13",
+          "2.77 ± 2.23",
+          "2.77 ± 2.23"
+        ],
+        [
+          "T = 1, K = 32",
+          "2.72 ± 2.14",
+          "2.67 ± 2.12",
+          "2.73 ± 2.15",
+          "2.66 ± 2.11",
+          "2.72 ± 2.14",
+          "2.66 ± 2.11",
+          "2.67 ± 2.12"
+        ],
+        [
+          "T = 2, K = 4",
+          "2.72 ± 2.11",
+          "2.58 ± 2.06",
+          "5.68 ± 4.25",
+          "2.55 ± 2.05",
+          "2.72 ± 2.11",
+          "2.51 ± 1.95",
+          "2.64 ± 2.14"
+        ],
+        [
+          "T = 2, K = 8",
+          "2.72 ± 2.12",
+          "2.66 ± 1.93",
+          "3.29 ± 2.51",
+          "2.69 ± 1.92",
+          "2.72 ± 2.12",
+          "2.62 ± 1.89",
+          "2.70 ± 1.97"
+        ],
+        [
+          "T = 2, K = 16",
+          "2.72 ± 2.13",
+          "2.79 ± 2.31",
+          "2.87 ± 2.23",
+          "2.81 ± 2.30",
+          "2.72 ± 2.13",
+          "2.78 ± 2.32",
+          "2.80 ± 2.30"
+        ],
+        [
+          "T = 2, K = 32",
+          "2.72 ± 2.13",
+          "2.62 ± 2.10",
+          "2.77 ± 2.18",
+          "2.62 ± 2.10",
+          "2.72 ± 2.13",
+          "2.61 ± 2.09",
+          "2.62 ± 2.11"
+        ],
+        [
+          "T = 3, K = 4",
+          "2.72 ± 2.11",
+          "2.51 ± 2.01",
+          "14.89 ± 8.90",
+          "33.38 ± 5.45",
+          "2.72 ± 2.11",
+          "2.57 ± 1.67",
+          "2.63 ± 2.13"
+        ],
+        [
+          "T = 3, K = 8",
+          "2.72 ± 2.11",
+          "2.61 ± 1.92",
+          "5.90 ± 4.39",
+          "2.70 ± 2.04",
+          "2.72 ± 2.11",
+          "2.55 ± 1.89",
+          "2.67 ± 1.96"
+        ],
+        [
+          "T = 3, K = 16",
+          "2.72 ± 2.12",
+          "2.78 ± 2.33",
+          "3.37 ± 2.56",
+          "2.82 ± 2.33",
+          "2.72 ± 2.12",
+          "2.76 ± 2.35",
+          "2.80 ± 2.32"
+        ],
+        [
+          "T = 3, K = 32",
+          "2.72 ± 2.13",
+          "2.58 ± 2.08",
+          "2.89 ± 2.23",
+          "2.56 ± 2.09",
+          "2.72 ± 2.13",
+          "2.56 ± 2.07",
+          "2.59 ± 2.09"
+        ]
+      ]
+    },
+    {
+      "id": "p0021-b008",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        617.0,
+        174.0,
+        629.0
+      ],
+      "markdown": "## J. Prey-predator model"
+    },
+    {
+      "id": "p0021-b009",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        638.0,
+        306.0,
+        648.0
+      ],
+      "markdown": "Recall our prey-predator (or also called Lokta–Volterra) model"
+    },
+    {
+      "id": "p0021-b010",
+      "kind": "text",
+      "bbox": [
+        194.0,
+        671.0,
+        548.0,
+        729.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\mathrm{d} C(t) &= C(t) \\, (\\alpha - \\beta \\, R(t)) \\, \\mathrm{d} t + \\sigma \\, C(t) \\, \\mathrm{d} W_{1}(t), \\\\\n\\mathrm{d} R(t) &= R(t) \\, (\\zeta \\, C(t) - \\gamma) \\, \\mathrm{d} t + \\sigma \\, R(t) \\, \\mathrm{d} W_{2}(t), \\\\\nY_j &\\sim \\mathrm{Poisson}\\bigl(\\lambda(C(t_j), R(t_j))\\bigr),\n\\end{aligned} \\tag{36}$$"
+    },
+    {
+      "id": "p0021-b011",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        740.0
+      ],
+      "markdown": "21",
+      "reason": "Printed page number '21' in the footer; page furniture."
+    }
+  ]
+}

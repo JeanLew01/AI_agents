@@ -1,0 +1,284 @@
+[
+ {
+  "name": "gaussian_filters-simulate-demo-key",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_true.json",
+   "nsteps": 16,
+   "prng_key": [
+    2482698485,
+    3875352609
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "expected_subset": {
+   "nsteps": 16,
+   "dx": 1,
+   "dy": 1,
+   "xs_shape": [
+    17,
+    1
+   ],
+   "ys_shape": [
+    17,
+    1
+   ],
+   "prng_key_used": [
+    2482698485,
+    3875352609
+   ],
+   "seed": null
+  },
+  "min_artifacts": 2,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-simulate-demo-key-repeat",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_true.json",
+   "nsteps": 16,
+   "prng_key": [
+    2482698485,
+    3875352609
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "expected_subset": {
+   "nsteps": 16,
+   "xs_shape": [
+    17,
+    1
+   ],
+   "ys_shape": [
+    17,
+    1
+   ],
+   "prng_key_used": [
+    2482698485,
+    3875352609
+   ]
+  },
+  "min_artifacts": 2,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-simulate-multivariate-seed7",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/mv_model.json",
+   "nsteps": 20,
+   "seed": 7,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "expected_subset": {
+   "nsteps": 20,
+   "dx": 3,
+   "dy": 2,
+   "xs_shape": [
+    21,
+    3
+   ],
+   "ys_shape": [
+    21,
+    2
+   ],
+   "prng_key_used": [
+    0,
+    7
+   ],
+   "seed": 7
+  },
+  "min_artifacts": 2,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-simulate-error-asymmetric-Q",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_asym_Q.json",
+   "nsteps": 4,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "error_contains": "must be symmetric"
+ },
+ {
+  "name": "gaussian_filters-simulate-error-negative-nsteps",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_true.json",
+   "nsteps": -1,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "error_contains": "non-negative integer"
+ },
+ {
+  "name": "gaussian_filters-simulate-error-nonpd-Q",
+  "tool": "diffres_simulate_lgssm_data",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_nonpd_Q.json",
+   "nsteps": 4,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "nsteps"
+  ],
+  "error_contains": "positive definite"
+ },
+ {
+  "name": "gaussian_filters-kf-demo-theta-smooth-gradient",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_theta.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_ys.npz",
+   "smooth": true,
+   "compute_gradient": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "num_observations": 17,
+   "nsteps": 16,
+   "dx": 1,
+   "dy": 1,
+   "smooth": true,
+   "compute_gradient": true
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-kf-demo-theta-smooth-gradient-repeat",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_theta.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_ys.npz",
+   "smooth": true,
+   "compute_gradient": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "num_observations": 17,
+   "dx": 1,
+   "dy": 1,
+   "smooth": true,
+   "compute_gradient": true
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-kf-ou-1d-observations-smooth",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/ou_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/ou_ys_1d.npz",
+   "smooth": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "num_observations": 101,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "smooth": true,
+   "compute_gradient": false
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "gaussian_filters-kf-error-wrong-dy",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_true.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_ys_wrong_dy.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "ys must have shape"
+ },
+ {
+  "name": "gaussian_filters-kf-error-1d-ys-for-dy2",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/mv_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_ys_1d_for_dy2.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "ys must have shape"
+ },
+ {
+  "name": "gaussian_filters-kf-error-nonpd-R",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_nonpd_R.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_ys.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "nll is not finite"
+ },
+ {
+  "name": "gaussian_filters-kf-error-no-ys",
+  "tool": "diffres_run_lgssm_kalman_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/demo_model_true.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/gaussian_filters/bad_no_ys.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "must contain 'ys'"
+ }
+]

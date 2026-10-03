@@ -1,0 +1,152 @@
+{
+  "page": 21,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0021.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the page preview and crops. Warnings resolved: b000 (running header \"... · 745\") and b010 (journal footer) are page furniture and omitted. The paragraph \"the existing wind estimates ...\" continues the last paragraph of page 20 and is placed first with join_previous \"space\"; Figure 15 (one figure item figure-15 covering the angular-velocity plot and the \"Full Flight Trajectory\" inset with the red box and the v_w = 3 m/s arrow, all inside the crop) and its caption follow it. Headings \"## 7. Vision-Based Navigation and Feature Detection\" and \"### 7.1. Mapping\". Maths in LaTeX: three \"$\\approx$\" signs and \"$k$-nearest\" (italic k); the later \"K-nearest obstacle points\" is printed in upright text and left as text. The italic Latin phrase \"a priori\" keeps its emphasis. Citations \"(Team et al., 2022b)\" and \"(Florence et al., 2018)\" as printed. The page ends with a complete paragraph.",
+  "warnings": [
+    "Review possible header/footer: p0021-b000",
+    "Review possible header/footer: p0021-b010"
+  ],
+  "items": [
+    {
+      "id": "p0021-b000",
+      "kind": "omit",
+      "bbox": [
+        315.0,
+        51.0,
+        520.0,
+        60.0
+      ],
+      "markdown": "Agile fixed-wing UAVs for urban swarm operations · **745**",
+      "source_class": "page-header",
+      "reason": "Running header (short title or author line plus the printed page number); repeated page furniture, not article content."
+    },
+    {
+      "id": "p0021-b003",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        292.0,
+        520.0,
+        375.0
+      ],
+      "markdown": "the existing wind estimates provided by the Ardupilot state estimator. The Ardupilot EKF (Team et al., 2022b) fuses airspeed sensing and ground speed measurements to estimate the wind state. The covariance parameters of the EKF are tuned so that the wind estimates vary on the order of $\\approx$ 0.1 Hz. We incorporated these wind estimates into the vehicle dynamics model used for planning and control. Given how slowly the wind estimates change, we assumed that the wind is constant over the planning horizon ($\\approx$ 1 s). With wind compensation, we observed a significant reduction in the aircraft oscillations, especially in roll, that were previously noticeable in the presence of a headwind (see Figure 15).",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0021-b001",
+      "kind": "figure",
+      "bbox": [
+        88.5,
+        71.5,
+        519.0,
+        235.5
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 15",
+      "asset_name": "figure-15"
+    },
+    {
+      "id": "p0021-b002",
+      "kind": "caption",
+      "bbox": [
+        88.0,
+        243.0,
+        520.0,
+        273.0
+      ],
+      "markdown": "**Figure 15.** Figure shows two back-to-back flight tests with (blue) and without (green) controller wind compensation. In the presence of a $\\approx$ 3 m/s headwind (red box), the wind compensation algorithm dramatically reduces controller oscillations.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0021-b004",
+      "kind": "heading",
+      "bbox": [
+        88.0,
+        393.0,
+        355.0,
+        405.0
+      ],
+      "markdown": "## 7. Vision-Based Navigation and Feature Detection",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0021-b005",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        412.0,
+        520.0,
+        470.0
+      ],
+      "markdown": "After having demonstrated the ability to achieve agile fixed-wing flight with NMPC using an _a priori_ map and RTK-GPS, we turned our attention to navigation using onboard sensing. To this end, we replaced our _a priori_ occupancy grid map with NanoMap (Florence et al., 2018) for collision avoidance, while continuing to use RTK-GPS for position information. We also tested the detection of fiducial markers on the face of buildings while flying at high speeds and aggressive attitudes.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0021-b006",
+      "kind": "heading",
+      "bbox": [
+        88.0,
+        490.0,
+        154.0,
+        501.0
+      ],
+      "markdown": "### 7.1. Mapping",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0021-b007",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        508.0,
+        520.0,
+        578.0
+      ],
+      "markdown": "For real-time map generation, NanoMap was chosen to replace OctoMap because it is more computationally tractable to query and to generate. Rather than creating an occupancy map, NanoMap maintains an asynchronous history of depth images and poses. The algorithm can then reverse search through this history to find a satisfactory depth image and return the $k$-nearest depth points to a query point. It is also able to propagate state uncertainty through a local history of depth measurements using the transformations between pose in its history.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0021-b008",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        580.0,
+        520.0,
+        614.0
+      ],
+      "markdown": "A few adjustments were made to NanoMap to better suit our control strategy. Query replies were modified to include the transformation from the query body frame to the current body frame. This transformation is necessary for calculating the obstacle constraint gradients.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0021-b009",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        616.0,
+        520.0,
+        698.0
+      ],
+      "markdown": "NanoMap query replies include information about the field of view status of the query point. This information specifies if the query point is in free space, occluded space, or outside of the field of view of depth measurements. If the query point was not within the field of view free space of any prior depth measurements, it had no valid corresponding depth measurement. In this case, the obstacle points are pulled from the most recent depth measurement. We modified NanoMap to return the K-nearest obstacle points from the most recent occluded field of view instead. This yielded more accurate nearest obstacle points, especially while planning through occluded space.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0021-b010",
+      "kind": "omit",
+      "bbox": [
+        378.0,
+        714.0,
+        520.0,
+        722.0
+      ],
+      "markdown": "Field Robotics, May, 2023 · 3:725–765",
+      "source_class": "page-footer",
+      "reason": "Running footer \"Field Robotics, May, 2023 · 3:725–765\"; repeated on every page, not article content."
+    }
+  ]
+}

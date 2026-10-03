@@ -1,0 +1,133 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        124.0,
+        374.0,
+        140.0
+      ],
+      "markdown": "# **2 Modeling/semantic framework**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        149.0,
+        478.0,
+        170.0
+      ],
+      "markdown": "We introduce a powertrain control system from [40] as a running example to illustrate the elements of our hybrid system modeling framework.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        186.0,
+        320.0,
+        198.0
+      ],
+      "markdown": "## **2.1 Powertrain control system**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        205.0,
+        478.0,
+        373.0
+      ],
+      "markdown": "This system (Powertrn) models a highly nonlinear engine control system. The relevant state variables of the model are intake manifold pressure ( _p_ ), air-fuel ratio ( _λ_ ), estimated manifold pressure ( _pe_ ) and intergrator state ( _i_ ). The overall system can be in one of four modes startup, normal, powerup, sensorfail. A Simulink _⃝_<sup>R</sup> diagram describes the continuous evolution of the above variables. In this paper, we mainly work on the _Hybrid I/O Automaton Model_ in the suite of powertrain control models. The Simulink _⃝_<sup>R</sup> model consists of continuous variables describing the dynamics of the powertrain plant and sample-and-hold variables as the controller. One of the key requirements to verify is that the engine maintains the air-fuel ratio within a desired range in different modes for a given set of driver behaviors. This requirement has implications on fuel economy and emissions. For testing purposes, the control system designers work with sets of driver profiles that essentially define families of switching signals across the different modes. Previous verification results on this problem have been reported in [21, 27] on a simplified version of the powertrain control model.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        378.0,
+        268.0,
+        390.0
+      ],
+      "markdown": "## **2.2 Transition graphs**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        397.0,
+        478.0,
+        430.0
+      ],
+      "markdown": "We will use �L to denote a finite set of _modes_ or locations of the system under consideration. The discrete behavior or mode transitions are specified by what we call a transition graph over �L.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        439.0,
+        478.0,
+        505.0
+      ],
+      "markdown": "**Definition 2.1.** A _transition graph_ is a labeled, directed acyclic graph _G_ = _⟨_ �L _, V, E, vlab, elab⟩_ , where (a) �L is the set of vertex labels also called the set of _modes_ , (b) _V_ the set of vertices, (c) _E ⊆V × V_ is the set of edges, (d) _vlab_ : _V →_ �L is a vertex labeling function that labels each vertex with a mode, and (e) _elab_ : _E →_ R _≥_ 0 _×_ R _≥_ 0 is an edge labeling function that labels each edge with a nonempty, closed, bounded interval defined by pair of non-negative reals.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        514.0,
+        478.0,
+        625.0
+      ],
+      "markdown": "Since _G_ is a DAG, there is a nonempty subset _V_ init _⊆V_ of vertices with no incoming edges and a nonempty subset _V_ term _⊆V_ of vertices with no outgoing edges. We define the set of initial locations of _G_ as �Linit = _{ℓ | ∃ v ∈ V_ init _, vlab_ ( _v_ ) = _ℓ}_ . A (maximal) _path_ of the graph _G_ is a sequence _π_ = _v_ 1 _, t_ 1 _, v_ 2 _, t_ 2 _, . . . , vk_ such that, (a) _v_ 1 _∈V_ init, (b) _vk ∈V_ term, and (c) for each ( _vi, ti, vi_ +1) subsequence, there exists ( _vi, vi_ +1) _∈E_ , and _ti ∈ elab_ (( _vi, vi_ +1)). Paths _G_ is the set of all possible paths of _G_ . For a given path _π_ = _v_ 1 _, t_ 1 _, v_ 2 _, t_ 2 _, . . . , vk_ its _trace_ , denoted by _vlab_ ( _π_ ), is the sequence _vlab_ ( _v_ 1) _, t_ 1 _, vlab_ ( _v_ 2) _, t_ 2 _, . . . , vlab_ ( _vk_ ). Since _G_ is a DAG, a trace of _G_ can visit the same mode finitely many times. Trace _G_ is the set of all traces of _G_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        627.0,
+        478.0,
+        659.0
+      ],
+      "markdown": "An example transition graph for the Powertrain system of Section 2.1 is shown in Figure 1. The set of vertices _V_ = _{_ 0 _, . . . ,_ 4 _}_ and the _vlab_ ’s and _elab_ ’s appear adjacent to the vertices and edges.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        695.0,
+        309.0,
+        703.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

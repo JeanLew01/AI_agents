@@ -1,0 +1,833 @@
+{
+  "page": 4,
+  "lines": [
+    {
+      "text": "predictive model can be diﬃcult, especially when the dynamics are nonlinear. Hence, in practice,",
+      "bbox": [
+        72.0,
+        73.49452209472656,
+        539.7265625,
+        85.64725494384766
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we train models that take as input trajectory fragments to predict future trajectory fragments and",
+      "bbox": [
+        72.0,
+        86.69453430175781,
+        539.892578125,
+        98.8472671508789
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "then sequentially compose such models to obtain a longer predicted trajectory. We remark that this",
+      "bbox": [
+        72.0,
+        99.77461242675781,
+        539.9490966796875,
+        111.9273452758789
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "does not aﬀect the probabilistic reasoning that we perform later in the paper as the entire predictive",
+      "bbox": [
+        72.0,
+        112.97462463378906,
+        539.7561645507812,
+        125.12735748291016
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model can still be treated as a deterministic map that takes as input the initial state s0 and outputs",
+      "bbox": [
+        72.0,
+        126.05470275878906,
+        539.8173217773438,
+        139.8874969482422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a K-step predicted trajectory.",
+      "bbox": [
+        71.99896240234375,
+        139.2547149658203,
+        212.6525115966797,
+        151.40745544433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Conformal Inference. Conformal inference [22,23,29] is a statistical tool for uncertainty quan-",
+      "bbox": [
+        88.91888427734375,
+        152.3347930908203,
+        540.0162963867188,
+        164.48753356933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tiﬁcation that has recently been used for analysing the uncertainty in the predictions performed by",
+      "bbox": [
+        71.9989013671875,
+        165.53480529785156,
+        539.92919921875,
+        177.6875457763672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "complex machine learning models [30–32]. Conformal inference/prediction performs error quan-",
+      "bbox": [
+        71.9989013671875,
+        178.7348175048828,
+        539.9935913085938,
+        190.88755798339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tiﬁcation without making any assumption on the underlying data-generating distribution or the",
+      "bbox": [
+        71.9989013671875,
+        191.8145294189453,
+        539.8690185546875,
+        203.96726989746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "machine learning model. Consider a regression model µ and the random variables z1, z2, ..., zm+1",
+      "bbox": [
+        71.9989013671875,
+        205.01454162597656,
+        539.1911010742188,
+        218.11257934570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where zi = (xi, yi) ∈Rn × R with i ∈[m + 1] which are all independently sampled from the same",
+      "bbox": [
+        71.99896240234375,
+        215.10537719726562,
+        539.9440307617188,
+        231.9274139404297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distribution. Given a miscoverage level α ∈(0, 1), conformal inference enables us to compute a",
+      "bbox": [
+        71.99922180175781,
+        231.2946319580078,
+        539.965087890625,
+        243.44737243652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "prediction interval C(xm+1) = [µ(xm+1) −R∗, µ(xm+1) + R∗] ⊂R from z1, z2, ..., zm such that,",
+      "bbox": [
+        71.99844360351562,
+        244.30877685546875,
+        525.4783935546875,
+        258.2074890136719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Pr[ym+1 ∈C(xm+1)] ≥1 −α.",
+      "bbox": [
+        235.67832946777344,
+        269.1054382324219,
+        376.3396911621094,
+        281.9673156738281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "More formally, deﬁne the residual Ri =| yi −µ(xi) | for all zi with i ∈[m + 1]. Since the random",
+      "bbox": [
+        71.99786376953125,
+        291.89471435546875,
+        539.8858032226562,
+        305.7275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "variables z1, z2, ..., zm+1 are independent and identically distributed, the same applies to the residual",
+      "bbox": [
+        71.99716186523438,
+        305.0947265625,
+        539.8685913085938,
+        318.92755126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "R1, . . . , Rm+1. Under the assumption that m satisﬁes ℓ= ⌈(m+1)(1−α)⌉≤m, it holds that R∗can",
+      "bbox": [
+        71.99716186523438,
+        318.10888671875,
+        539.897705078125,
+        331.2729187011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be chosen to be the ℓ-th smallest residual [33, Lemma 1]. Without loss of generality, if R1, . . . , Rm",
+      "bbox": [
+        71.99713134765625,
+        331.3748474121094,
+        539.4413452148438,
+        344.4729309082031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are sorted in non-decreasing order, then R∗= Rℓand it holds that Pr[Rm+1 ≤R∗] ≥(1 −α). By",
+      "bbox": [
+        71.99740600585938,
+        344.38897705078125,
+        539.9608764648438,
+        358.287353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the choice of the residual, it hence holds that",
+      "bbox": [
+        71.99752807617188,
+        357.6549377441406,
+        286.5186767578125,
+        369.80767822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Pr",
+      "bbox": [
+        179.87753295898438,
+        385.1786804199219,
+        191.58299255371094,
+        396.0877685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h",
+      "bbox": [
+        193.3173370361328,
+        380.8038330078125,
+        198.4664306640625,
+        400.9856872558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ym+1 ∈[µ(xm+1) −R∗, µ(xm+1) + R∗]",
+      "bbox": [
+        198.4774932861328,
+        383.3890380859375,
+        383.5390625,
+        397.7674560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        383.5172424316406,
+        380.8038330078125,
+        388.6663513183594,
+        400.9856872558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "≥1 −α.",
+      "bbox": [
+        391.7973327636719,
+        384.90594482421875,
+        432.01898193359375,
+        396.0877685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We also refer to δ = 1 −α as the conﬁdence probability.",
+      "bbox": [
+        71.99713134765625,
+        410.2147216796875,
+        338.0139465332031,
+        422.3674621582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem Deﬁnition. Our probabilistic reachability analysis can be formally stated as follows.",
+      "bbox": [
+        88.91702270507812,
+        423.41473388671875,
+        539.867431640625,
+        435.5674743652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given the stochastic dynamical system M with initial state s0",
+      "bbox": [
+        71.99700927734375,
+        439.25494384765625,
+        370.4690856933594,
+        452.35302734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I and trajectory distribution S,",
+      "bbox": [
+        374.5170593261719,
+        436.908935546875,
+        540.0082397460938,
+        451.4076843261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "training and test datasets Dtrain and Dtest consisting of K-step trajectories independently sampled",
+      "bbox": [
+        71.997314453125,
+        452.3350524902344,
+        539.8607177734375,
+        466.16748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from M, and a user provided failure probability threshold ε ∈(0, 1), compute a probabilistic reach",
+      "bbox": [
+        71.997314453125,
+        465.5350646972656,
+        539.855712890625,
+        477.68780517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set (also called ﬂowpipe) X such that:",
+      "bbox": [
+        71.99664306640625,
+        478.6147766113281,
+        253.43653869628906,
+        490.76751708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Pr [σs0 ∈X] ≥1 −ε",
+      "bbox": [
+        257.9970397949219,
+        503.34588623046875,
+        354.0400695800781,
+        517.2874755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        526.076416015625,
+        502.3749694824219,
+        539.8991088867188,
+        514.5277099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        71.99740600585938,
+        535.5692138671875,
+        79.8878173828125,
+        548.509521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Scalable Data-Driven Reachability",
+      "bbox": [
+        95.63908386230469,
+        535.5692138671875,
+        334.4639892578125,
+        548.509521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In the setting described in the previous section, we now show how to compute a reach set or",
+      "bbox": [
+        71.99740600585938,
+        560.2147827148438,
+        539.9983520507812,
+        572.3675537109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a ﬂowpipe X ⊂Rn(K+1) using reachability analysis and conformal inference. This ﬂowpipe will",
+      "bbox": [
+        71.99740600585938,
+        569.334716796875,
+        539.8716430664062,
+        585.4476318359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "contain the trajectory σs0 of M sampled with initial state s0",
+      "bbox": [
+        71.99758911132812,
+        589.1346435546875,
+        373.4695739746094,
+        604.047607421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I with the conﬁdence level of",
+      "bbox": [
+        379.1976318359375,
+        586.908935546875,
+        539.9332885742188,
+        601.2874145507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∆= 1 −ε. We hence denote this ﬂowpipe as ∆-conﬁdent ﬂowpipe and deﬁne it as follows.",
+      "bbox": [
+        71.997802734375,
+        602.3346557617188,
+        502.0416564941406,
+        614.4874267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Deﬁnition 1 (∆-conﬁdent ﬂowpipe). For a given conﬁdence probability ∆∈(0, 1) and a random",
+      "bbox": [
+        71.99728393554688,
+        624.4147338867188,
+        539.9593505859375,
+        636.5675048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory σs0 ∼S with initial state s0",
+      "bbox": [
+        71.9969482421875,
+        641.8258666992188,
+        252.02911376953125,
+        655.7674560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W∼I, we say that X ⊂Rn(K+1) is a ∆-conﬁdent ﬂowpipe if",
+      "bbox": [
+        255.47706604003906,
+        638.1275024414062,
+        533.2106323242188,
+        653.0076904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Pr[σs0 ∈X] ≥∆",
+      "bbox": [
+        266.276611328125,
+        665.585693359375,
+        345.68341064453125,
+        679.5276489257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2)",
+      "bbox": [
+        526.0761108398438,
+        664.61474609375,
+        539.8988037109375,
+        676.7675170898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        303.2361145019531,
+        710.574951171875,
+        308.6579284667969,
+        722.7277221679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "dvips + GPL Ghostscript GIT PRERELEASE 9.22",
+      "creationDate": "D:20230918214413-04'00'",
+      "modDate": "D:20230918214413-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hashemi2023data-paper/documents/.pdf-skill-scan-iympfb69/review/source.pdf",
+      "page_count": 15,
+      "page_number": 4
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          71,
+          75,
+          540,
+          151
+        ],
+        "pos": [
+          0,
+          537
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          71,
+          153,
+          541,
+          257
+        ],
+        "pos": [
+          537,
+          1343
+        ]
+      },
+      {
+        "index": 2,
+        "class": "formula",
+        "bbox": [
+          235,
+          269,
+          377,
+          281
+        ],
+        "pos": [
+          1343,
+          1345
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          71,
+          293,
+          540,
+          370
+        ],
+        "pos": [
+          1345,
+          1932
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          179,
+          380,
+          433,
+          401
+        ],
+        "pos": [
+          1932,
+          1934
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          411,
+          339,
+          422
+        ],
+        "pos": [
+          1934,
+          1994
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          71,
+          425,
+          541,
+          491
+        ],
+        "pos": [
+          1994,
+          2433
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          257,
+          503,
+          540,
+          515
+        ],
+        "pos": [
+          2433,
+          2435
+        ]
+      },
+      {
+        "index": 8,
+        "class": "section-header",
+        "bbox": [
+          71,
+          535,
+          335,
+          549
+        ],
+        "pos": [
+          2435,
+          2479
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          71,
+          562,
+          540,
+          614
+        ],
+        "pos": [
+          2479,
+          2864
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          71,
+          625,
+          540,
+          654
+        ],
+        "pos": [
+          2864,
+          3069
+        ]
+      },
+      {
+        "index": 11,
+        "class": "formula",
+        "bbox": [
+          266,
+          665,
+          540,
+          677
+        ],
+        "pos": [
+          3069,
+          3071
+        ]
+      },
+      {
+        "index": 12,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          712,
+          309,
+          720
+        ],
+        "pos": [
+          3071,
+          3075
+        ]
+      }
+    ],
+    "text": "predictive model can be difficult, especially when the dynamics are nonlinear. Hence, in practice, we train models that take as input trajectory fragments to predict future trajectory fragments and then sequentially compose such models to obtain a longer predicted trajectory. We remark that this does not affect the probabilistic reasoning that we perform later in the paper as the entire predictive model can still be treated as a deterministic map that takes as input the initial state s0 and outputs a K-step predicted trajectory. \n\n**Conformal Inference.** Conformal inference [22,23,29] is a statistical tool for uncertainty quantification that has recently been used for analysing the uncertainty in the predictions performed by complex machine learning models [30–32]. Conformal inference/prediction performs error quantification without making any assumption on the underlying data-generating distribution or the machine learning model. Consider a regression model µ and the random variables z1, z2, ..., zm+1 where zi = (xi, yi) ∈ R<sup>n</sup> × R with i ∈ [m + 1] which are all independently sampled from the same distribution. Given a miscoverage level α ∈ (0, 1), conformal inference enables us to compute a prediction interval C(xm+1) = [µ(xm+1) − R<sup>∗</sup> , µ(xm+1) + R<sup>∗</sup> ] ⊂ R from z1, z2, ..., zm such that, \n\n\n\nMore formally, define the residual Ri =| yi − µ(xi) | for all zi with i ∈ [m + 1]. Since the random variables z1, z2, ..., zm+1 are independent and identically distributed, the same applies to the residual R1, . . . , Rm+1. Under the assumption that m satisfies ℓ = ⌈(m+1)(1−α)⌉≤ m, it holds that R<sup>∗</sup> can be chosen to be the ℓ-th smallest residual [33, Lemma 1]. Without loss of generality, if R1, . . . , Rm are sorted in non-decreasing order, then R<sup>∗</sup> = Rℓ and it holds that Pr[Rm+1 ≤ R<sup>∗</sup> ] ≥ (1 − α). By the choice of the residual, it hence holds that \n\n\n\nWe also refer to δ = 1 − α as the confidence probability. \n\n**Problem Definition.** Our probabilistic reachability analysis can be formally stated as follows. Given the stochastic dynamical system M with initial state s0 W∼I and trajectory distribution S, training and test datasets Dtrain and Dtest consisting of K-step trajectories independently sampled from M , and a user provided failure probability threshold ε ∈ (0, 1), compute a probabilistic reach set (also called flowpipe) X such that: \n\n\n\n# **3 Scalable Data-Driven Reachability** \n\nIn the setting described in the previous section, we now show how to compute a reach set or a flowpipe X ⊂ R<sup>n(K+1)</sup> using reachability analysis and conformal inference. This flowpipe will contain the trajectory σs0 of M sampled with initial state s0 W∼I with the confidence level of ∆= 1 − ε. We hence denote this flowpipe as ∆-confident flowpipe and define it as follows. \n\n**Definition 1** (∆-confident flowpipe) **.** For a given confidence probability ∆ ∈ (0, 1) and a random trajectory σs0 ∼S with initial state s0 W∼I, we say that X ⊂ Rn(K+1) is a ∆-confident flowpipe if \n\n\n\n4 \n\n"
+  }
+}

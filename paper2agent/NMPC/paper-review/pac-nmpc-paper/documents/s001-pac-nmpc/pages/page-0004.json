@@ -1,0 +1,344 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the page with pac.tex, trajgen.tex and feedback.tex and with 200-220-dpi crops of both columns. Equations (4)-(9) converted from formula images to $$ blocks with \\tag, one block per printed number, taken from the TeX source and checked symbol by symbol against the crop (label/asset_name removed; \\! spacing dropped). All inline maths rewritten in LaTeX with macros expanded (\\bzeta -> \\boldsymbol{\\zeta}, \\bbeta -> \\boldsymbol{\\eta} (the macro name says beta, the symbol printed is eta), \\bmu, \\bSigma, \\bK -> \\mathbf{K}, \\bkappa -> \\boldsymbol{\\kappa}). Algorithms 2 and 3 (top of the right column) kept as images algorithm-2 [310,53.5,565,165.5] and algorithm-3 [310,173,565,241.5] (boxes checked by crop), moved after the paragraph that cites them (\"...as shown in Alg. 3 ... (Alg. 2)\"), each followed by a line-by-line transcription including the blue side comments \"// GPU Parallelized\" and \"// Stochastic Rollout\". Joins: \"For computational efficiency,\" + \"we assume a diagonal covariance ...\" across the column break (join_previous=space on p0004-b022). The last item ends with the split word \"tra-\" + \"jectory\" (PDF page 5): line-wrap hyphen removed here, page 5 starts with join_previous=none. The first item (\"Because the likelihood ratio ...\") is printed flush left as the continuation after Eq. (3) of page 3; it starts a new sentence, so no join. \"using a GPU implementation ...\" after Eq. (9) is printed as an indented new paragraph that continues the sentence \"We solve (9)\"; kept as its own item starting in lower case. Printed peculiarities kept exactly: \"for some and $\\alpha>0$\" (sic); \"$\\nu_0$, $\\nu_1$, ... $\\nu_{L-1}$\" without a comma after the dots; sample index runs i0,...,iM and Eq. (7) says j = 0,...,M while Eq. (4) sums j = 1..M and the Catoni sum is \\sum_{i=0}^M with factor 1/(\\alpha M); Eq. (6) has an unbalanced inner parenthesis \"D_2(p(\\cdot|\\nu)||(p(\\cdot|\\nu_i))\"; \"diag\" is set in math italic; \"Renyi\" without accent; \"(Eq. 7)\" is what is printed for the Renyi-divergence reference (the TeX label sits on the second line of the align); Algorithm 2 line 4 samples from $\\nu_i$ without hat/star; Algorithm 3 ends with \"Return\" in roman, not bold. Headings \"## IV. APPROACH\", \"### A. PAC Stochastic Trajectory Optimization\", \"### B. PAC Feedback Motion Planning\" verified. Running header (authors/title) and page number \"3\" omitted (extractor warning on p0004-b000 resolved: running header).",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        25.0,
+        424.0,
+        34.0
+      ],
+      "markdown": "POLEVOY et al.: PROBABLY APPROXIMATELY CORRECT NONLINEAR MODEL PREDICTIVE CONTROL (PAC-NMPC)",
+      "reason": "Running header \"POLEVOY et al.: PROBABLY APPROXIMATELY CORRECT NONLINEAR MODEL PREDICTIVE CONTROL (PAC-NMPC)\" (repeats on PDF pages 6, 8)."
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "omit",
+      "bbox": [
+        557.0,
+        25.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "3",
+      "reason": "Printed page number \"3\" in the running header."
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        54.0,
+        301.0,
+        163.0
+      ],
+      "markdown": "Because the likelihood ratio $\\frac{p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})}{p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu}_0)}$ can be unbounded, a robust estimation technique is needed. Following [35], the expected value of a random variable $X$ can be approximated as $\\mathbb{E}[X] \\approx \\frac{1}{\\alpha M}\\sum_{i=0}^M \\psi(\\alpha X_i)$ for some and $\\alpha>0$, where $X_i$ is a sampled value of $X$ and $\\psi(x) = \\log\\left(1+x+\\frac{1}{2}x^2\\right)$. Given $L$ prior surrogate distributions with hyper-parameters $\\boldsymbol{\\nu}_0$, $\\boldsymbol{\\nu}_1$, ... $\\boldsymbol{\\nu}_{L-1}$ and $M$ iid samples from each joint distribution, $(\\boldsymbol{\\tau}_{i0}, \\boldsymbol{\\xi}_{i0})$, $(\\boldsymbol{\\tau}_{i1}, \\boldsymbol{\\xi}_{i1})$, ..., $(\\boldsymbol{\\tau}_{iM}, \\boldsymbol{\\xi}_{iM})$ $\\sim$ $p(\\cdot, \\cdot | \\boldsymbol{\\nu}_i)$, the robust estimate of the expected cost can then be written as"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        104.0,
+        166.0,
+        302.0,
+        201.5
+      ],
+      "markdown": "$$\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu}) \\triangleq \\frac{1}{\\alpha LM} \\sum_{i=0}^{L-1} \\sum_{j=1}^{M} \\psi\\left(\\alpha \\ell_{ij} \\right) \\tag{4}$$"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        120.0,
+        202.0,
+        302.0,
+        230.0
+      ],
+      "markdown": "$$\\ell_{ij} = J(\\boldsymbol{\\tau}_{ij})\\frac{p(\\boldsymbol{\\xi}_{ij}|\\boldsymbol{\\nu})}{p(\\boldsymbol{\\xi}_{ij}|\\boldsymbol{\\nu}_i)} \\tag{5}$$"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        232.0,
+        301.0,
+        256.0
+      ],
+      "markdown": "To compute the distance between the distributions, the Renyi divergence, $D_2$, is used. $d(\\boldsymbol{\\nu})$ is given as"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        100.0,
+        259.0,
+        302.0,
+        294.0
+      ],
+      "markdown": "$$d(\\boldsymbol{\\nu}) \\triangleq \\frac{1}{2L}\\sum_{i=0}^{L-1}b_i^2e^{D_2\\left(p(\\cdot | \\boldsymbol{\\nu})||(p(\\cdot | \\boldsymbol{\\nu}_i)\\right)} \\tag{6}$$"
+    },
+    {
+      "id": "p0004-b006b",
+      "kind": "text",
+      "bbox": [
+        113.0,
+        294.5,
+        302.0,
+        309.0
+      ],
+      "markdown": "$$0 \\leq J(\\boldsymbol{\\tau}_{ij}) \\leq b_i \\; \\forall j = 0, ..., M \\tag{7}$$"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        312.5,
+        301.0,
+        325.5
+      ],
+      "markdown": "The concentration-of-measure term $\\Phi_{\\alpha}(\\delta)$ is given as"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        127.0,
+        326.5,
+        302.0,
+        354.0
+      ],
+      "markdown": "$$\\Phi_{\\alpha}(\\delta) \\triangleq \\frac{1}{\\alpha LM}\\log\\frac{1}{\\delta}. \\tag{8}$$"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        355.0,
+        301.0,
+        378.0
+      ],
+      "markdown": "It tightens the bound as the number of samples increases and as the bound confidence, $1-\\delta$, decreases."
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        379.0,
+        301.0,
+        438.0
+      ],
+      "markdown": "In addition to cost-functions, we can also incorporate the probability of constraint violation, $\\mathcal{C}(\\boldsymbol{\\nu})$, of the form $\\mathcal{C}(\\boldsymbol{\\nu})=\\mathbb{P}(g(\\boldsymbol{\\tau})>0)= \\mathbb{E}_{\\boldsymbol{\\tau}, \\boldsymbol{\\xi} \\sim p(\\cdot, \\cdot|\\boldsymbol{\\nu})}\\left[\\mathbb{I}_{\\{g(\\boldsymbol{\\tau})>0\\}}\\right]$, where $\\mathbb{I}$ is the indicator function. Similarly, we can derive $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})$ which upper bounds $\\mathcal{C}(\\boldsymbol{\\nu})$ with probability $1-\\delta$."
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        439.0,
+        301.0,
+        473.0
+      ],
+      "markdown": "To combine costs and constraints, we optimize a weighted sum of $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$ and $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})$, where $\\gamma > 0$ is a heuristically selected weighting coefficient. We solve"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        78.0,
+        476.5,
+        302.0,
+        500.0
+      ],
+      "markdown": "$$\\boldsymbol{\\nu}_{i+1} = \\boldsymbol{\\nu}^* = \\operatorname*{arg\\,min}_{\\boldsymbol{\\nu}}\\min_{\\alpha>0} (\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu}) + \\gamma \\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})) \\tag{9}$$"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        503.0,
+        301.0,
+        548.0
+      ],
+      "markdown": "using a GPU implementation of L-BFGS-B [36]. When optimizing the bounds, we used self-normalized importance weights to compute $\\ell_{ij}$ in Eq. 5 and analytical gradients, as described in [11]."
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "heading",
+      "bbox": [
+        142.0,
+        562.0,
+        207.0,
+        570.0
+      ],
+      "markdown": "## IV. APPROACH",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        577.0,
+        301.0,
+        623.0
+      ],
+      "markdown": "To formulate a receding-horizon NMPC algorithm that leverages the PAC bounds in [10], we first address the stochastic trajectory optimization problem. We then extend this approach to enable real-time feedback motion planning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        639.0,
+        225.0,
+        649.0
+      ],
+      "markdown": "### A. PAC Stochastic Trajectory Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        654.0,
+        301.0,
+        713.0
+      ],
+      "markdown": "To formulate stochastic trajectory optimization using PAC bounds, we consider a parameterization of a discrete-time open-loop policy $\\mathbf{u}_t = \\boldsymbol{\\pi}_t(\\boldsymbol{\\xi})=\\boldsymbol{\\zeta}_t$, where $\\boldsymbol{\\xi} = \\begin{bmatrix} \\boldsymbol{\\zeta}_0^T & \\boldsymbol{\\zeta}_1^T& ...& \\boldsymbol{\\zeta}_{N_T}^T\\end{bmatrix}^T$, $\\boldsymbol{\\zeta}_t \\in \\mathbb{R}^{N_u}$, and $N_T$ is the time horizon for the trajectory."
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        714.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "We parameterize the surrogate distribution $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$ as a multivariate Gaussian over this discrete-time control trajectory so that $\\boldsymbol{\\xi} \\sim \\mathcal{N}\\left(\\boldsymbol{\\xi} | \\boldsymbol{\\mu}, \\boldsymbol{\\Sigma} \\right)$. For computational efficiency,"
+    },
+    {
+      "id": "p0004-b022",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        248.0,
+        564.0,
+        333.0
+      ],
+      "markdown": "we assume a diagonal covariance matrix $\\boldsymbol{\\Sigma}$ so the distribution parameters are given as $\\boldsymbol{\\nu} \\triangleq \\begin{bmatrix} \\boldsymbol{\\mu}^T, diag(\\boldsymbol{\\Sigma})^T\\end{bmatrix}^T$ where $diag(\\boldsymbol{\\Sigma}) = \\begin{bmatrix} \\boldsymbol{\\eta}_0^T & \\boldsymbol{\\eta}_1^T& ...& \\boldsymbol{\\eta}_{N_T}^T\\end{bmatrix}^T$ and $\\boldsymbol{\\eta}_t \\in \\mathbb{R}^{N_u}$. Thus, a control trajectory with an $N_u$-dimensional control input and $N_T$ timesteps, the surrogate distribution is parameterized as a $N_u N_T$-dimensional multivariate Gaussian where $\\boldsymbol{\\mu} \\in \\mathbb{R}^{N_u N_T}$ and $diag(\\boldsymbol{\\Sigma}) \\in \\mathbb{R}^{N_u N_T}$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b023",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        335.0,
+        564.0,
+        486.0
+      ],
+      "markdown": "For each optimization iteration, $M$ trajectories are sampled from the joint distribution (Eq. 1) and evaluated using the augmented cost in Eq. 9. Sampling from the joint distribution is achieved by first sampling policy parameters from the surrogate distribution and then using these policy parameters to sample from the stochastic dynamics as shown in Alg. 3. The augmented costs of the samples are used to find a new set of policy parameters that minimize the weighted sum of the cost and constraint bounds (Alg. 2). This process iterates until a termination condition (e.g. maximum time, convergence metric, etc.) is reached. The optimization not only returns the optimized policy parameters, but also the optimized bounds themselves."
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        165.5
+      ],
+      "markdown": "",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0004-alg2text",
+      "kind": "text",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        165.5
+      ],
+      "markdown": "**Algorithm 2:** PAC Stochastic Trajectory Optimization  \n1 Inputs: $\\widehat{\\boldsymbol{\\nu}}^*_0$, $\\mathbf{x}_0$, $i \\gets 0$;  \n2 **while** *termination condition not met* **do**  \n3 &emsp;**for** $j=1,\\dots,M$ **do** &emsp;// GPU Parallelized  \n4 &emsp;&emsp;$\\boldsymbol{\\tau}_{ij}, \\boldsymbol{\\xi}_{ij} \\sim p(\\cdot, \\cdot | \\boldsymbol{\\nu}_i, \\mathbf{x}_0)$;  \n5 &emsp;&emsp;$J_{ij} = J(\\boldsymbol{\\tau}_{ij})$, $c_{ij} = c(\\boldsymbol{\\tau}_{ij})$;  \n6 &emsp;$\\widehat{\\boldsymbol{\\nu}}^*_{i+1} \\gets \\arg\\min_{\\boldsymbol{\\nu}}\\min_{\\alpha>0} (\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu}) + \\gamma \\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu}))$;  \n7 &emsp;$i \\gets i+1$;  \n8 **return** $\\widehat{\\boldsymbol{\\nu}}^*_i$, $\\mathcal{J}^+_\\alpha(\\widehat{\\boldsymbol{\\nu}}^*_i)$, $\\mathcal{C}^+_\\alpha(\\widehat{\\boldsymbol{\\nu}}^*_i)$"
+    },
+    {
+      "id": "p0004-b021",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        173.0,
+        565.0,
+        241.5
+      ],
+      "markdown": "",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0004-alg3text",
+      "kind": "text",
+      "bbox": [
+        310.0,
+        173.0,
+        565.0,
+        241.5
+      ],
+      "markdown": "**Algorithm 3:** $\\boldsymbol{\\tau} \\sim p(\\cdot | \\boldsymbol{\\xi}, \\mathbf{x}_0)$  \n1 Inputs: $\\boldsymbol{\\xi} = [\\mathbf{u}_0^T, ..., \\mathbf{u}_{N_T}^T]^T$, $\\mathbf{x}_0$;  \n2 **for** $t=0,\\dots,N_T$ **do** &emsp;// Stochastic Rollout  \n3 &emsp;$\\mathbf{x}_{t+1} \\sim p(\\cdot | \\mathbf{x}_t, \\mathbf{u}_t)$;  \n4 Return $\\boldsymbol{\\tau} = \\left\\{ \\mathbf{x}_0,\\mathbf{u}_0, \\mathbf{x}_1,\\mathbf{u}_1, ...,\\mathbf{u}_{N_T}, \\mathbf{x}_{N_T+1}\\right\\}$"
+    },
+    {
+      "id": "p0004-b024",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        491.0,
+        564.0,
+        585.0
+      ],
+      "markdown": "An analytical formulation for the surrogate distribution is necessary to compute the robust estimates (Eq. 4) and Renyi divergences (Eq. 7). By contrast, the only requirement on the stochastic dynamics is to permit sampling. This property allows our algorithm to generalize to a large class of complex (potentially “black-box”) stochastic dynamics models. In practice, the cost and constraint functions can also be stochastic (e.g. $J_{ij}, c_{ij} \\sim p(\\cdot, \\cdot | \\boldsymbol{\\tau}_{ij})$)."
+    },
+    {
+      "id": "p0004-b025",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        603.0,
+        457.0,
+        613.0
+      ],
+      "markdown": "### B. PAC Feedback Motion Planning",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b026",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        619.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "While the ability to compute PAC open-loop policies is valuable, ideally, we would like to compute closed-loop policies of the form $\\boldsymbol{\\pi}_t(\\mathbf{x}_t,\\boldsymbol{\\xi})$. A closed-loop policy should enable us to generate tighter state-space trajectory distributions and improve the ability of our policies to satisfy control objectives. However, designing feedback policies is not straightforward and can be very system specific. One fairly general approach might be to select a local feedback control policy of the form $\\mathbf{u}_t = \\mathbf{K}_t\\left(\\mathbf{x}_t^d - \\mathbf{x}_t\\right) + \\mathbf{u}_t^{d}$, where $\\boldsymbol{\\kappa} =\\{\\mathbf{K}_0, \\mathbf{K}_1, ..., \\mathbf{K}_{N_T}\\}$ is a sequence of time-varying gains, $\\mathbf{K}_t\\in\\mathbb{R}^{N_u\\times N_x}$. $\\mathbf{x}_t^d\\in\\mathbb{R}^{N_x}$ is a nominal state trajectory and $\\mathbf{u}_t^d\\in\\mathbb{R}^{N_u}$ is a nominal input tra"
+    }
+  ]
+}

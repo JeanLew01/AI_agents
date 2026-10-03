@@ -1,0 +1,138 @@
+{
+ "page": 2,
+ "width": 612.0,
+ "height": 792.0,
+ "mode": "native",
+ "preview": "previews/page-0002.png",
+ "reviewed": true,
+ "review_notes": "Compared every paragraph with the 150-dpi render and the TeX source (main.tex lines 95-214). First item continues the sentence from page 1 ('...accuracy and performance' / 'guarantees have been developed'), so join_previous=space. Line-wrap hyphens removed ('statisti-cal', 'verifica-tion', 'prob-lem'); real compounds kept ('general-purpose', 'sampling-based', 'non-convex', 'learning-based', 'real-time', 'finite-sample', 'safety-critical'). The three bullets and the two numbered contributions were separate fragments and are now one list item each group. Authors' typo 'thrustworthy' (contribution 1) kept as printed. Small-caps 'RANDUP' written 'RandUP'; 'RANDomized Uncertainty Propagation' keeps the printed small-caps prefix as capitals. Author-year citations written as printed (natbib style), e.g. '(Schürmann et al., 2018)' with the umlaut repaired from 'Sch¨urmann'. Heading level fixed to '## 2. Related work' (extractor had '#'). Running header and page number 2 omitted. Last paragraph continues on page 3.",
+ "warnings": [
+  "Review possible header/footer: p0002-b000"
+ ],
+ "items": [
+  {
+   "id": "p0002-r000",
+   "kind": "omit",
+   "bbox": [
+    200.0,
+    36.0,
+    412.0,
+    54.0
+   ],
+   "markdown": "SAMPLING-BASED REACHABILITY ANALYSIS",
+   "reason": "Running header 'SAMPLING-BASED REACHABILITY ANALYSIS' (page furniture repeated on every page after the first); checked on the page image."
+  },
+  {
+   "id": "p0002-r001",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    94.0,
+    522.0,
+    118.0
+   ],
+   "markdown": "guarantees have been developed. However, these methods often sacrifice simplicity and generality for their power, motivating the development of algorithms that avoid such restrictions.",
+   "join_previous": "space"
+  },
+  {
+   "id": "p0002-r002",
+   "kind": "text",
+   "bbox": [
+    89.0,
+    121.0,
+    523.0,
+    213.0
+   ],
+   "markdown": "In this work, we analyze a simple yet efficient sampling-based algorithm for general-purpose reachability analysis. As depicted in Figure 1, it consists of 1) sampling inputs, 2) propagating these inputs, and 3) taking the padded convex hull of these output samples. We refer to this RANDomized Uncertainty Propagation algorithm as $\\epsilon$-RandUP: it is simple to implement, benefits from statistical accuracy guarantees, and applies to a wide range of problems including reachability analysis of uncertain dynamical systems with neural network controllers. Importantly, $\\epsilon$-RandUP fulfills key desiderata that a general-purpose reachability analysis algorithm should satisfy:"
+  },
+  {
+   "id": "p0002-r003",
+   "kind": "text",
+   "bbox": [
+    94.0,
+    221.0,
+    523.0,
+    281.0
+   ],
+   "markdown": "- it works with any choice of possibly nonlinear reachability maps and non-convex input sets,\n- its estimate of the reachable set is conservative with high probability and tighter than prior work,\n- it is efficient and does not require precomputations, which is a key advantage for learning-based control applications where uncertainty bounds and models are updated in real-time."
+  },
+  {
+   "id": "p0002-r004",
+   "kind": "text",
+   "bbox": [
+    89.0,
+    292.0,
+    522.0,
+    303.0
+   ],
+   "markdown": "Our main contribution is a thorough analysis of the statistical properties of $\\epsilon$-RandUP. Specifically:"
+  },
+  {
+   "id": "p0002-r005",
+   "kind": "text",
+   "bbox": [
+    90.0,
+    311.0,
+    523.0,
+    448.0
+   ],
+   "markdown": "1. We prove that the set estimator converges to the $\\epsilon$-padded convex hull of the true reachable set as the number of samples increases. Our assumption about the sampling distribution is weaker than in related work and implies that sampling the boundary of the input set is sufficient. This asymptotic result justifies using $\\epsilon$-RandUP as a thrustworthy baseline for offline validation whenever the reachability map and the input set are complex and no tractable algorithm exists.\n2. We derive a finite-sample bound for the Hausdorff distance between the output of $\\epsilon$-RandUP and the convex hull of the true reachable set, assuming that the reachability map is Lipschitz continuous. This result informs algorithmic design (e.g., how to choose the number of samples to obtain an $\\epsilon$-accurate approximation with high probability), sheds insights into which problems are most challenging, and motivates using this simple algorithm in safety-critical applications."
+  },
+  {
+   "id": "p0002-r006",
+   "kind": "text",
+   "bbox": [
+    89.0,
+    456.0,
+    523.0,
+    494.0
+   ],
+   "markdown": "We demonstrate $\\epsilon$-RandUP on a neural network controller verification task and show that it is highly competitive with prior work. We also embed this algorithm within a robust model predictive controller and present hardware results demonstrating the reliability of the approach."
+  },
+  {
+   "id": "p0002-r007",
+   "kind": "heading",
+   "bbox": [
+    89.0,
+    511.0,
+    174.0,
+    520.0
+   ],
+   "markdown": "## 2. Related work"
+  },
+  {
+   "id": "p0002-r008",
+   "kind": "text",
+   "bbox": [
+    89.0,
+    532.0,
+    523.0,
+    652.0
+   ],
+   "markdown": "Reachability analysis has found a wide range of applications ranging from model predictive control (Schürmann et al., 2018), robotics (Shao et al., 2021; Lew et al., 2022), neural network verification (Tran et al., 2019; Hu et al., 2020), to orbital mechanics (Wittig et al., 2015). Reachability analysis is particularly relevant in safety-critical applications which require the strict satisfaction of specifications. For instance, a drone transporting a package should never collide with obstacles and respect velocity bounds for any payload mass in a bounded input set. In contrast to stochastic problem formulations which typically consider the inputs as random variables with known probability distributions (Webb et al., 2019; Sinha et al., 2020; Devonport and Arcak, 2020), we consider robust formulations which are of interest whenever minimal information about the inputs is available."
+  },
+  {
+   "id": "p0002-r009",
+   "kind": "text",
+   "bbox": [
+    89.0,
+    654.0,
+    523.0,
+    706.0
+   ],
+   "markdown": "Deterministic algorithms are often tailored to the particular parameterization of the reachability map and to the shape of the input set. For instance, one finds methods that are particularly designed for neural networks (Tran et al., 2019; Ivanov et al., 2019; Hu et al., 2020), nonlinear hybrid systems (Chen et al., 2013; Kong et al., 2015), linear dynamical systems with zonotopic (Girard, 2005) and"
+  },
+  {
+   "id": "p0002-r010",
+   "kind": "omit",
+   "bbox": [
+    295.0,
+    722.0,
+    317.0,
+    737.0
+   ],
+   "markdown": "2",
+   "reason": "Printed page number 2 at the bottom centre (page furniture); checked on the page image."
+  }
+ ]
+}

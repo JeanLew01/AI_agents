@@ -1,0 +1,97 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        540.0,
+        123.0
+      ],
+      "markdown": "The layout of our paper is as follows. In Section 2, we present the preliminaries and problem statement. Our algorithm for probabilistic reachable set computation is proposed in Section 3. We demonstrate the efficacy of our method on several numerical examples in Section 4, and we finally conclude in Section 5.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        133.0,
+        541.0,
+        236.0
+      ],
+      "markdown": "**Notation** . We use bold letters to indicate vectors and vector-valued functions, and calligraphic letters to denote sets. We denote the set {1, 2, · · · , n} with [n]. We present the structure of a feedforward neural network (FFNN) with ℓ hidden layers as an array [n0, n1, · · · nℓ+1], where n0 denotes the number of inputs nℓ+1 is the number of outputs and ni, i ∈ [ℓ] denotes the width of the i-th hidden layer. We denote ei ∈ R<sup>n</sup> as the i-th base vector of R<sup>n</sup> . The expression x ∼X means, the random variable x follows the distribution X . We denote the cardinality of a set A with |A|. Zonotope(b, A) denotes a zonotope [28] with center b and array of base vectors A. The operator ⊕ denotes the Minkowski sum. We also denote ⌈x⌉ as the smallest integer greater than x ∈ R.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        256.0,
+        356.0,
+        267.0
+      ],
+      "markdown": "# **2 Problem statement and Preliminaries**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        283.0,
+        541.0,
+        563.0
+      ],
+      "markdown": "**Stochastic Dynamical System.** Estimating the set of reachable sets of stochastic dynamical systems starting from a compact set of initial states I ⊂ R<sup>n</sup> is a well-studied problem. While this problem has been studied largely with model-based techniques, we focus on bounded-time, modelfree reachability analysis of a black-box discrete-time stochastic dynamical system M . A random trajectory of M can be modelled as a sequence of time-stamped states σs0 = [s<sup>⊤</sup> 0<sup>, · · ·, s⊤</sup> K<sup>]⊤⊂</sup> R<sup>(K+1)n</sup> . We denote the distribution over the set of trajectories consistent with M as S, and use σs0 ∼S to denote that σs0 is sampled from S. The distribution S could be induced due to a distribution on the set of initial states of the system as well as stochastic uncertainties in its dynamics. For example, the transition dynamics could be Markovian, i.e., sk ∼ T (s<sup>′</sup> | s = sk−1). However, we remark that the techniques proposed in this paper can work for systems with nonMarkovian dynamics. For convenience, we denote the distribution over the set of initial states I as W, and assume that (Pr[s0 ∈I/ ] = 0). The notation s0 W∼I is used to denote that the state s0 is sampled from I using the distribution W. A practical choice of W may be to uniformly sample I. **Trajectory Datasets.** We assume that we have access to a dataset of independently sampled trajectories of M , where the initial states are sampled with s0 W∼I. We assume that each trajectory has K time-steps. We split the trajectory dataset into two separate datasets, denoted as Dtrain and Dtest. Here Dtrain is our training dataset and is to be used for training a surrogate model of M . On the other hand, Dtest is the test dataset, and is to be utilized to generate the calibration dataset for deriving statistical properties. Let Dtest = {s0,i, σs0,i}i<sup>L</sup> =1<sup>whereListhenumberoftest</sup> trajectories. Our goal is now to compute a probabilistic reach set such that σs0 is included inside with a probability not lower than a user-defined threshold 1 − ε, where ε ∈ (0, 1).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        565.0,
+        540.0,
+        628.0
+      ],
+      "markdown": "We remark that although the data-points within a single trajectory are not independent and identically distributed (i.i.d.), we observe that the trajectory σs0 can be seen as a vector σs0 ∈ R<sup>n(K+1)</sup> so that entire trajectories within Dtrain and Dtest can be viewed as i.i.d. samples in the R<sup>n(K+1)</sup> -space. This observation is crucially used later when we quantify uncertainty using conformal prediction.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        631.0,
+        541.0,
+        682.0
+      ],
+      "markdown": "**Surrogate Model.** After obtaining the trajectory dataset, we train a surrogate model F : R<sup>n</sup> → R<sup>(K+1)n</sup> that maps a given initial state to the predicted K-step trajectory of the system. For instance, the surrogate model can be a feedforward neural network with n inputs and (K + 1)n outputs. Let σ¯s0 denote the predicted trajectory, then, σ¯s0 = F(s0). Training such a K-step",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        712.0,
+        309.0,
+        721.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

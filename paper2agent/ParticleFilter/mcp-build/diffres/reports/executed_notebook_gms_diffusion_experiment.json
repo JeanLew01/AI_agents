@@ -1,0 +1,466 @@
+{
+ "gms_diffusion_experiment": {
+  "execution_id": "gms_diffusion_experiment",
+  "status": "success",
+  "module": "resampling",
+  "supports_tools": [
+   "diffres_resample_particles_diffusion"
+  ],
+  "source_path": "repo/diffres/experiments/gms/diffusion.py",
+  "source_sha256": "886496bab31d254ac8030286ea350e48db817bd680cccc8cdda50c58a94ba774",
+  "source_sha256_matches_scanner": true,
+  "source_revision": "767effe3e755067eb8a04422597fbf37eb8ab754",
+  "source_url": "https://github.com/zgbkdlm/diffres/blob/767effe3e755067eb8a04422597fbf37eb8ab754/experiments/gms/diffusion.py",
+  "upstream_function": "diffres.resampling.diffusion_resampling (diffres/resampling.py lines 195-308)",
+  "execution_mode": "native_script (unmodified upstream script run directly; plus runpy capture driver and replay driver)",
+  "execution_path": "repo/diffres/experiments/gms/diffusion.py",
+  "drivers": {
+   "capture": "notebooks/gms_diffusion_experiment/capture_driver.py",
+   "replay": "notebooks/gms_diffusion_experiment/replay_driver.py",
+   "report_builder": "notebooks/gms_diffusion_experiment/make_report.py"
+  },
+  "runtime": {
+   "python": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python (CPython 3.11.17)",
+   "jax": "0.7.2",
+   "backend": "cpu",
+   "jax_enable_x64": true,
+   "launcher": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 (JAX_PLATFORMS=cpu, no GPU; gpu_used 0 MiB before/after)",
+   "env": "PYTHONDONTWRITEBYTECODE=1 so nothing was written under repo/"
+  },
+  "changed_arguments_vs_upstream": {
+   "reference": "experiments/run_gms.sh (nsamples=10000, --id_l=0 --id_u=99, a=-1., T in {1,2,3}, nsteps in {8,32,128}, 7 integrator/flow combos)",
+   "changes": [
+    "--id_u=99 -> --id_u=0 (single Monte Carlo id 0)",
+    "--nsamples=10000 -> --nsamples=1000 (memory: (n,n,d) float64 arrays per step)"
+   ],
+   "unchanged": [
+    "--a=-1. (as run_gms.sh; script default -0.5 overridden as upstream does)",
+    "dx=8, dy=1, c=5, offset=0 (script defaults, as run_gms.sh)",
+    "config A: --T=3. --nsteps=128 --integrator=jentzen_and_kloeden, ODE (paper best SWD in Table tbl:gm-compare / tbl:app-gm-swd-1)",
+    "config B: --T=1. --nsteps=8 --integrator=euler --sde (Euler-Maruyama SDE path, in run_gms.sh grid)"
+   ]
+  },
+  "data_provenance": {
+   "rnd_keys": "repo/diffres/experiments/rnd_keys.npy copied into work_native/ and work_capture/ (generated upstream by experiments/generate_keys.py: PRNGKey(666) split 10000)",
+   "rnd_keys_sha256": "6e60685445936e0380220f34fc3fd15b5b7720070dc8c8f7f1148575de4ff5df",
+   "mc_key_row0": [
+    2482698485,
+    3875352609
+   ],
+   "data_generation": "script-internal: GM prior (c=5, d=8, means U[-5,5], covs = g g^T + I), prior samples via diffres.tools.sampling_gm, log-likelihood weights normalised with logsumexp, exact posterior via diffres.tools.gm_lin_posterior",
+   "diffusion_resampling_key_A": [
+    1100985983,
+    1476939598
+   ],
+   "diffusion_resampling_key_B": [
+    1100985983,
+    1476939598
+   ],
+   "note": "Both configs use the same MC key, hence identical prior samples/log-weights/posterior samples and the same resampling key; only a/ts/integrator/ode differ."
+  },
+  "runs": {
+   "A_jk_ode_T3_K128": {
+    "command": "cd notebooks/gms_diffusion_experiment/work_native && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/native_A_jk_ode_T3_K128.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/diffusion.py --id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=3. --nsteps=128 --integrator=jentzen_and_kloeden",
+    "cwd": "notebooks/gms_diffusion_experiment/work_native",
+    "log": "notebooks/gms_diffusion_experiment/logs/native_A_jk_ode_T3_K128.log",
+    "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+    "heavy_start_utc": "2026-10-03T00:52:57Z",
+    "heavy_end_utc": "2026-10-03T00:53:21Z",
+    "runtime_seconds_excluding_lock_wait": 24.0,
+    "exit_status": 0,
+    "peak_memory_mb": 500,
+    "oom_kills": "0",
+    "upstream_output_file": "notebooks/gms_diffusion_experiment/work_native/gms/results/diffres--1.0-3.0-128-jentzen_and_kloeden-ode-0.npz",
+    "reference_output_copy": "notebooks/gms_diffusion_experiment/data/native_A_jk_ode_T3_K128.npz",
+    "printed_line": "diffres (id=0) with a=-1.0 | T=3.0 | nsteps=128 | jentzen_and_kloeden | ode has err 0.22439601954644894.",
+    "metrics": {
+     "swd_err": 0.22439601954644894,
+     "swd_err_repr": "0.22439601954644894",
+     "residual": [
+      -0.330222986196657,
+      0.018869799043309557,
+      0.2781541964498777,
+      0.13176991907626046,
+      0.12875004003442575,
+      0.07295991249001288,
+      -0.19415824079051025,
+      -0.12710889878796955
+     ],
+     "sum_sq_residual": 0.2798901747619864,
+     "output_log_weights_unique": [
+      -6.907755278982137
+     ]
+    },
+    "diffusion_resampling_call": {
+     "a": -1.0,
+     "ts_linspace": {
+      "start": 0.0,
+      "stop": 3.0,
+      "num": 129
+     },
+     "integrator": "jentzen_and_kloeden",
+     "ode": true,
+     "jitter": 0.0,
+     "einsum": false,
+     "wrapped_in_jax_jit": true
+    },
+    "captured_inputs": "notebooks/gms_diffusion_experiment/data/inputs_A_jk_ode_T3_K128.npz",
+    "captured_args": "notebooks/gms_diffusion_experiment/data/args_A_jk_ode_T3_K128.json",
+    "input_checks": {
+     "ts_equals_linspace_0_T_nsteps_plus_1": true,
+     "log_ws_logsumexp": 0.0,
+     "ess": 129.5428088717271,
+     "dtypes": {
+      "key": "uint32",
+      "log_ws": "float64",
+      "samples": "float64"
+     },
+     "shapes": {
+      "samples": [
+       1000,
+       8
+      ],
+      "ts": [
+       129
+      ]
+     }
+    },
+    "output_summary": {
+     "output_log_ws_unique": [
+      -6.907755278982137
+     ],
+     "minus_log_n": -6.907755278982137,
+     "weighted_input_mean": [
+      1.9629538301768996,
+      0.13156086698424926,
+      0.12039605281964151,
+      -1.2314353956868151,
+      -0.3720865244651918,
+      0.6710440226336936,
+      1.4544474748228255,
+      -0.4704619820433202
+     ],
+     "output_mean": [
+      1.8475197027842527,
+      0.1245288043287234,
+      0.15976609280417745,
+      -1.2647331574928675,
+      -0.281206744190795,
+      0.7403678803057269,
+      1.3594043333992187,
+      -0.4431580583258426
+     ],
+     "true_posterior_mean": [
+      2.177742688980906,
+      0.10565900528541404,
+      -0.11838810364570038,
+      -1.3965030765691286,
+      -0.40995678422522075,
+      0.6674079678157163,
+      1.553562574189728,
+      -0.3160491595378729
+     ],
+     "sum_sq_residual": 0.2798901747619864,
+     "output_all_finite": true
+    },
+    "paper_reference": {
+     "table": "tbl:app-gm-swd-1 (and Table tbl:gm-compare, best SWD)",
+     "swd_mean_std_scaled_1e_minus1": "0.80 +- 0.21",
+     "resampling_variance_scaled_1e_minus2": "3.74 +- 2.99 (Table tbl:gm-compare)",
+     "settings": "n=10000, 100 MC runs"
+    }
+   },
+   "B_euler_sde_T1_K8": {
+    "command": "cd notebooks/gms_diffusion_experiment/work_native && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/native_B_euler_sde_T1_K8.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/repo/diffres/experiments/gms/diffusion.py --id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=1. --nsteps=8 --integrator=euler --sde",
+    "cwd": "notebooks/gms_diffusion_experiment/work_native",
+    "log": "notebooks/gms_diffusion_experiment/logs/native_B_euler_sde_T1_K8.log",
+    "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+    "heavy_start_utc": "2026-10-03T00:54:58Z",
+    "heavy_end_utc": "2026-10-03T00:55:14Z",
+    "runtime_seconds_excluding_lock_wait": 16.0,
+    "exit_status": 0,
+    "peak_memory_mb": 486,
+    "oom_kills": "0",
+    "upstream_output_file": "notebooks/gms_diffusion_experiment/work_native/gms/results/diffres--1.0-1.0-8-euler-sde-0.npz",
+    "reference_output_copy": "notebooks/gms_diffusion_experiment/data/native_B_euler_sde_T1_K8.npz",
+    "printed_line": "diffres (id=0) with a=-1.0 | T=1.0 | nsteps=8 | euler | sde has err 0.2688576648090433.",
+    "metrics": {
+     "swd_err": 0.2688576648090433,
+     "swd_err_repr": "0.2688576648090433",
+     "residual": [
+      -0.14892946699752185,
+      0.0014836351693010424,
+      0.1799539322172421,
+      0.046429940287960214,
+      0.11728546321058986,
+      0.03264204540826576,
+      -0.06909377348852441,
+      -0.17237536985813268
+     ],
+     "sum_sq_residual": 0.10602994506664232,
+     "output_log_weights_unique": [
+      -6.907755278982137
+     ]
+    },
+    "diffusion_resampling_call": {
+     "a": -1.0,
+     "ts_linspace": {
+      "start": 0.0,
+      "stop": 1.0,
+      "num": 9
+     },
+     "integrator": "euler",
+     "ode": false,
+     "jitter": 0.0,
+     "einsum": false,
+     "wrapped_in_jax_jit": true
+    },
+    "captured_inputs": "notebooks/gms_diffusion_experiment/data/inputs_B_euler_sde_T1_K8.npz",
+    "captured_args": "notebooks/gms_diffusion_experiment/data/args_B_euler_sde_T1_K8.json",
+    "input_checks": {
+     "ts_equals_linspace_0_T_nsteps_plus_1": true,
+     "log_ws_logsumexp": 0.0,
+     "ess": 129.5428088717271,
+     "dtypes": {
+      "key": "uint32",
+      "log_ws": "float64",
+      "samples": "float64"
+     },
+     "shapes": {
+      "samples": [
+       1000,
+       8
+      ],
+      "ts": [
+       9
+      ]
+     }
+    },
+    "output_summary": {
+     "output_log_ws_unique": [
+      -6.907755278982137
+     ],
+     "minus_log_n": -6.907755278982137,
+     "weighted_input_mean": [
+      1.9629538301768996,
+      0.13156086698424926,
+      0.12039605281964151,
+      -1.2314353956868151,
+      -0.3720865244651918,
+      0.6710440226336936,
+      1.4544474748228255,
+      -0.4704619820433202
+     ],
+     "output_mean": [
+      2.0288132219833828,
+      0.10714264045471504,
+      0.06156582857154172,
+      -1.3500731362811695,
+      -0.2926713210146304,
+      0.7000500132239813,
+      1.4844688007012024,
+      -0.488424529396005
+     ],
+     "true_posterior_mean": [
+      2.177742688980906,
+      0.10565900528541404,
+      -0.11838810364570038,
+      -1.3965030765691286,
+      -0.40995678422522075,
+      0.6674079678157163,
+      1.553562574189728,
+      -0.3160491595378729
+     ],
+     "sum_sq_residual": 0.10602994506664232,
+     "output_all_finite": true
+    },
+    "paper_reference": {
+     "table": "tbl:app-gm-swd-1",
+     "swd_mean_std_scaled_1e_minus1": "2.39 +- 0.57",
+     "resampling_variance_scaled_1e_minus2": null,
+     "settings": "n=10000, 100 MC runs"
+    }
+   }
+  },
+  "capture_run": {
+   "command": "cd notebooks/gms_diffusion_experiment/work_capture && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/capture_A_B.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python notebooks/gms_diffusion_experiment/capture_driver.py notebooks/gms_diffusion_experiment/data",
+   "log": "notebooks/gms_diffusion_experiment/logs/capture_A_B.log",
+   "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+   "heavy_start_utc": "2026-10-03T01:02:27Z",
+   "heavy_end_utc": "2026-10-03T01:03:02Z",
+   "runtime_seconds_excluding_lock_wait": 35.0,
+   "exit_status": 0,
+   "peak_memory_mb": 580,
+   "oom_kills": "0",
+   "method": "runpy of the unmodified script for both configs; jax.jit wrapper records concrete args/outputs of the script's jitted `resampling` and `swd` (same XLA program), diffusion_resampling wrapper records static args at trace time, gm_lin_posterior wrapper records inputs/outputs",
+   "non_invasive_check": {
+    "A_jk_ode_T3_K128": {
+     "samples_bitwise_equal": true,
+     "log_ws_bitwise_equal": true,
+     "post_samples_bitwise_equal": true,
+     "err_bitwise_equal": true,
+     "residual_bitwise_equal": true,
+     "captured_post_samples_equal_native": true,
+     "captured_outputs_equal_native": true
+    },
+    "B_euler_sde_T1_K8": {
+     "samples_bitwise_equal": true,
+     "log_ws_bitwise_equal": true,
+     "post_samples_bitwise_equal": true,
+     "err_bitwise_equal": true,
+     "residual_bitwise_equal": true,
+     "captured_post_samples_equal_native": true,
+     "captured_outputs_equal_native": true
+    }
+   }
+  },
+  "replay": {
+   "command": "cd notebooks/gms_diffusion_experiment && /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/heavy.sh --limit-mb 1200 --timeout 1800 --log notebooks/gms_diffusion_experiment/logs/replay.log -- env PYTHONDONTWRITEBYTECODE=1 /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python notebooks/gms_diffusion_experiment/replay_driver.py",
+   "log": "notebooks/gms_diffusion_experiment/logs/replay.log",
+   "launcher_lines": "notebooks/gms_diffusion_experiment/logs/heavy_launcher_stderr.txt",
+   "heavy_start_utc": "2026-10-03T01:06:28Z",
+   "heavy_end_utc": "2026-10-03T01:06:53Z",
+   "runtime_seconds_excluding_lock_wait": 25.0,
+   "exit_status": 0,
+   "peak_memory_mb": 505,
+   "oom_kills": "0",
+   "method": "fresh process, x64, load data/inputs_<cfg>.npz, call diffres.resampling.diffusion_resampling inside jax.jit exactly as the script; recompute SWD with ott sliced_wasserstein(PNormP(p=1), n_proj=1000) and the mean residual as the script does; extra eager (no outer jit) call",
+   "comparison_file": "notebooks/gms_diffusion_experiment/data/replay_comparison.json",
+   "results": {
+    "A_jk_ode_T3_K128": {
+     "jit": {
+      "samples_bitwise_equal": true,
+      "samples_max_abs_diff": 0.0,
+      "log_ws_bitwise_equal": true,
+      "err_native": 0.22439601954644894,
+      "err_replay": 0.22439601954644894,
+      "err_abs_diff": 0.0,
+      "residual_native": [
+       -0.330222986196657,
+       0.018869799043309557,
+       0.2781541964498777,
+       0.13176991907626046,
+       0.12875004003442575,
+       0.07295991249001288,
+       -0.19415824079051025,
+       -0.12710889878796955
+      ],
+      "residual_replay": [
+       -0.330222986196657,
+       0.018869799043309557,
+       0.2781541964498777,
+       0.13176991907626046,
+       0.12875004003442575,
+       0.07295991249001288,
+       -0.19415824079051025,
+       -0.12710889878796955
+      ],
+      "residual_max_abs_diff": 0.0
+     },
+     "eager": {
+      "samples_bitwise_equal": false,
+      "samples_max_abs_diff": 4.927169783286445e-13,
+      "log_ws_bitwise_equal": true
+     }
+    },
+    "B_euler_sde_T1_K8": {
+     "jit": {
+      "samples_bitwise_equal": true,
+      "samples_max_abs_diff": 0.0,
+      "log_ws_bitwise_equal": true,
+      "err_native": 0.2688576648090433,
+      "err_replay": 0.2688576648090433,
+      "err_abs_diff": 0.0,
+      "residual_native": [
+       -0.14892946699752185,
+       0.0014836351693010424,
+       0.1799539322172421,
+       0.046429940287960214,
+       0.11728546321058986,
+       0.03264204540826576,
+       -0.06909377348852441,
+       -0.17237536985813268
+      ],
+      "residual_replay": [
+       -0.14892946699752185,
+       0.0014836351693010424,
+       0.1799539322172421,
+       0.046429940287960214,
+       0.11728546321058986,
+       0.03264204540826576,
+       -0.06909377348852441,
+       -0.17237536985813268
+      ],
+      "residual_max_abs_diff": 0.0
+     },
+     "eager": {
+      "samples_bitwise_equal": false,
+      "samples_max_abs_diff": 8.681944052568724e-14,
+      "log_ws_bitwise_equal": true
+     }
+    }
+   },
+   "tolerance_policy": "jit replay: bitwise required and observed (same key/inputs/x64/CPU). Eager call: not bitwise because XLA compiles the computation differently without the outer jit; observed max |diff| 4.9e-13 (A) and 8.7e-14 (B), within the ~1e-12 expectation stated in the brief."
+  },
+  "figures": {
+   "applicable": false,
+   "reason": "experiments/gms/diffusion.py produces no plots; only an .npz and a printed line."
+  },
+  "outputs_and_hashes": {
+   "notebooks/gms_diffusion_experiment/data/args_A_jk_ode_T3_K128.json": "0790333540d849f2279df9b5c784ba854185006b7e8c1bdd2505df201abf0444",
+   "notebooks/gms_diffusion_experiment/data/args_B_euler_sde_T1_K8.json": "af67b443448e487a960eae21c96f242620584bc9f34de1c33e89658d5edd8145",
+   "notebooks/gms_diffusion_experiment/data/inputs_A_jk_ode_T3_K128.npz": "1c494ee4eb38a3df176f0b941fc0caed3652de08a48f8eb1661b96cbf922a00a",
+   "notebooks/gms_diffusion_experiment/data/inputs_B_euler_sde_T1_K8.npz": "e409327000a3ae218d07d7a9fd3ffe5fdfcc7ca7588fa25eed9c2cd9ce9f0534",
+   "notebooks/gms_diffusion_experiment/data/native_A_jk_ode_T3_K128.npz": "a3b21f29153163f4f7ab49e46dbccff2f57c02daf16361cd56db920af9500a59",
+   "notebooks/gms_diffusion_experiment/data/native_B_euler_sde_T1_K8.npz": "beefede9d9ee8e3edae95acfe010471f1c94398241b08035962ddfaae9f84277",
+   "notebooks/gms_diffusion_experiment/data/outputs_capture_A_jk_ode_T3_K128.npz": "a8fe944cdeadc4c3128e56e53a2597c5db625cd1a1a5992939db67460c8d5a4a",
+   "notebooks/gms_diffusion_experiment/data/outputs_capture_B_euler_sde_T1_K8.npz": "a500180a9b1ef9900505563e8cf2e966fcadc457226d3e28006d06414a77cc55",
+   "notebooks/gms_diffusion_experiment/data/replay_comparison.json": "b9fb798ca8e232ea403f73766c384e48d2b72f8cba89bf2c2e44668de1954550",
+   "notebooks/gms_diffusion_experiment/data/replay_outputs_A_jk_ode_T3_K128.npz": "b42e6d16919f40eb266eb9e7ce6fa0ad7ab263c5057406ab125b277b2800c32b",
+   "notebooks/gms_diffusion_experiment/data/replay_outputs_B_euler_sde_T1_K8.npz": "285f7c7971b8bb060716c36ee4f03800dfc7b4b56936c6904978566b8cceb315",
+   "notebooks/gms_diffusion_experiment/capture_driver.py": "537b9d7fc848c92e29c595866d46fd0ed819efd590568f1bf734019315e04e8e",
+   "notebooks/gms_diffusion_experiment/replay_driver.py": "2165b362fc9f3b1fe039b3645893ee797fc717f88892dfa4980809080ebfd6e4",
+   "notebooks/gms_diffusion_experiment/make_report.py": "34206b44a1b6769ca4ed7ac403e76b8083365b837c68bd013de1e94f7dd803d2"
+  },
+  "key_reference_numbers": {
+   "A_jk_ode_T3_K128": {
+    "swd": 0.22439601954644894,
+    "sum_sq_residual": 0.2798901747619864
+   },
+   "B_euler_sde_T1_K8": {
+    "swd": 0.2688576648090433,
+    "sum_sq_residual": 0.10602994506664232
+   },
+   "input_ess": 129.5428088717271
+  },
+  "limitations": [
+   "Single MC id (0) and n=1000 instead of 100 MC ids and n=10000: the SWD values (0.224, 0.269) are not comparable to the paper averages (0.080 +- 0.021 and 0.239 +- 0.057 at n=10000). SWD at n=1000 is dominated by finite-sample error (ESS of the input weights is about 130), so these numbers are reference values for replaying the exact same call, not reproductions of the paper table.",
+   "Only two of the seven integrator/flow combinations in run_gms.sh were executed (jentzen_and_kloeden ODE and euler SDE); lord_and_rougemont, tweedie, and the remaining ODE/SDE combos were not run here (test_filters.py covered them at stage 1).",
+   "The upstream script saves only post_samples, approx_post_log_ws, approx_post_samples, err, residual; the inputs to diffusion_resampling (key, log_ws, prior samples, ts) were captured by the runpy capture driver, which was shown to produce bitwise-identical script outputs to the native run.",
+   "The work_native/ and work_capture/ scratch folders each contain a copy of rnd_keys.npy (sha256 above) and the script's ./gms/results output."
+  ],
+  "attempts": [
+   {
+    "n": 1,
+    "what": "native config A",
+    "exit": 0
+   },
+   {
+    "n": 2,
+    "what": "native config B",
+    "exit": 0
+   },
+   {
+    "n": 3,
+    "what": "capture driver (A and B)",
+    "exit": 0
+   },
+   {
+    "n": 4,
+    "what": "replay driver",
+    "exit": 0
+   }
+  ],
+  "repo_unmodified": "git status --short --ignored in repo/diffres is empty after all runs; HEAD 767effe3e755067eb8a04422597fbf37eb8ab754"
+ }
+}

@@ -1,0 +1,13 @@
+{
+  "language": "cli",
+  "cli_backend": "python",
+  "requires_gpu": false,
+  "gpu_requirement": "optional",
+  "language_reason": "The README documents script commands as the user interface (`python mbd_planner.py --env_name ENV [--enable_demos]`, `python run_mbd.py`, `python vis_diffusion.py`, `python mbd_opt.py`, `python path_integral.py --env_name ENV --mode MODE`, `python train_brax.py`); arguments are tyro dataclasses defined in each script.",
+  "gpu_reason": "setup.py lists plain `jax` and the scripts contain no unconditional GPU operation; JAX runs on CPU when no accelerator is present. Default sample counts (2048 to 8192 Brax rollouts) are slow on CPU. Device availability and feasible problem sizes are checked by the environment manager.",
+  "repository": {"url": "https://github.com/LeCAR-Lab/model-based-diffusion", "commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b", "path": "repo/model-based-diffusion", "dirty_files": {}},
+  "requested_filter": null,
+  "route_override": null,
+  "evidence_paths": ["repo/model-based-diffusion/README.md", "repo/model-based-diffusion/setup.py", "repo/model-based-diffusion/mbd/planners/mbd_planner.py", "repo/model-based-diffusion/mbd/planners/path_integral.py", "repo/model-based-diffusion/mbd/blackbox/mbd_opt.py"],
+  "unresolved_prerequisites": ["setup.py does not list brax or mujoco although the scripts import brax; the environment manager must resolve compatible versions."]
+}

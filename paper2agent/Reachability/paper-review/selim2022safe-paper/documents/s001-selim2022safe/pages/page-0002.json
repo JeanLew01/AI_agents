@@ -1,0 +1,204 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render of PDF page 2, a 300 dpi crop of the notation paragraph, and the TeX source (Sections/3_related.tex, 2_intro.tex, 4_pb.tex). Running header and page number 2 omitted. The first item continues the sentence begun on page 1 ('... Others | utilize constrained MDPs [7] ...'), join_previous 'space'. Line-wrap hyphens removed; real compound hyphens broken at line ends restored from the TeX source: 'learning-based' (extractor had 'learningbased'). 'naïvely' (extractor: 'na¨ıvely') and the epsilon of 'epsilon-greedy' fixed; the star of 'A*' is written $^{\\ast}$. Section I-B paragraph 'We propose ... addressing the above | challenges of lacking ...' runs from the bottom of the left column to the top of the right column and was merged into one item. 'Limitations.' and 'Contributions.' are bold run-in labels, kept in bold. The two numbered contributions are printed '1)' and '2)'. The underlined word 'online' at the end of contribution 2 is a hyperlink to the authors' GitHub repository (target read from the PDF link annotation, identical to the TeX \\href) and is given as a Markdown link. Headings: 'B. Proposed Method and Contributions' and 'A. Notation and Set Representations' (italic subsections, wrongly level 1 in the extractor output) are level 3; 'II. PRELIMINARIES AND PROBLEM FORMULATION' (small caps) is level 2 in title case. Citation order '[29], [28]' in the Limitations paragraph is as printed. Inline mathematics of the notation paragraph taken from the TeX source with the authors' macros expanded (\\R, \\N, \\vc, \\ones, \\arridx, \\diag) and checked on the 300 dpi crop: $(\\mathbf{A})_{i,j}$, $(\\mathbf{A})_{:,j}$ (printed with a small gap after the colon), $(\\mathbf{a})_i$, $\\mathbf{1}_{n\\times m}$, the shorthand $\\mathbf{A}-\\mathbf{x}=\\mathbf{A}-\\mathbf{x}\\mathbf{1}_{1\\times m}$, the Minkowski sum and Cartesian product. The last paragraph ends in the middle of a sentence ('... generator matrix'); it continues on page 3 and is joined there. Citation numbers [7]-[43] on this page were checked against the page image.",
+  "warnings": [
+    "Review possible header/footer: p0002-b001"
+  ],
+  "items": [
+    {
+      "id": "p0002-runhead",
+      "kind": "omit",
+      "bbox": [
+        264.0,
+        24.0,
+        565.0,
+        35.0
+      ],
+      "markdown": "IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED JUNE, 2022",
+      "reason": "Running header of page 2 ('IEEE ROBOTICS AND AUTOMATION LETTERS. PREPRINT VERSION. ACCEPTED JUNE, 2022'); page furniture repeated on every even page and on page 1, checked on the page image."
+    },
+    {
+      "id": "p0002-pageno",
+      "kind": "omit",
+      "bbox": [
+        46.0,
+        24.0,
+        55.0,
+        35.0
+      ],
+      "markdown": "2",
+      "reason": "Printed page number 2 in the top margin; page furniture."
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        175.0
+      ],
+      "markdown": "utilize constrained MDPs [7] to enforce safety in various RL settings, either online or offline. Online methods learn by coupling the iteration of numerical optimization algorithms (such as primal-dual gradient updates) with data collection [8], [9], [10], [11]. These algorithms have also been studied in exploration-based settings [12], [13]. However, they provide no guarantees on safety during training. On the other hand, offline schemes separate optimization and data collection [14], [15]. They conservatively enforce safety constraints on every policy iteration but are more challenging to scale up.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        178.0,
+        301.0,
+        499.0
+      ],
+      "markdown": "Exploration-based methods modify the agent’s exploration process instead of its optimization criterion. Exploration is the process of learning about unexplored states by trying random actions or actions that are not expected to yield maximum reward (for example, an $\\epsilon$-greedy strategy). However, visiting unexplored states naïvely can harm a robot or its environment. To avoid this, one can aim to guarantee safety during both exploration and exploitation, in both training and testing, by modifying the exploration strategy to incorporate risk metrics [16]. One can also use prior knowledge as an inductive bias for the exploration process [3], [17]; for example, one can provide a finite set of demonstrations as guidance on the task [18]. Other approaches use control theory to guide or constrain the RL agent’s actions. Most of these approaches use system models with Lyapunov or control barrier functions (CBFs) to guarantee safety (or stability) of the system [19], [20], [21]. One can also combine data-driven approaches with model-free barrier or intervention functions [22], [23], [24], or use robust CBFs to model uncertain parts of a system [25], [26]. Although these approaches can provide strong guarantees, most assume the system is control-affine, and need prior knowledge on some or all of the system model [27], [28], [29], which may not always be feasible. Finally, our method is most similar to [30], which learns a safety signal from data offline, then uses it to adjust an RL agent’s controls at runtime. This method uses a first-order safety approximation for fast adjustment, but (as we show) can be conservative."
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        503.0,
+        301.0,
+        692.0
+      ],
+      "markdown": "Safe navigation is a fundamental challenge in robotics, because robots typically have uncertain, nonlinear dynamics. Classical techniques such as A$^{\\ast}$ or RRT [31, Ch. 5] have been proposed to solve the navigation problem without learning. With these methods, safety has been enforced at different levels of the planning hierarchy, such as trajectory planning [32], or low-level control [33]. More recently, however, learning-based methods have been proposed [27], [28], [29]. Some safe RL navigation approaches depend on learning a value function of the expected time that an agent takes to reach the desired goal [34], [35]. Other approaches depend on learning the actions of the robot in an end-to-end manner [36], [37], [38], meaning that the agent attempts to convert raw sensor inputs (e.g., camera or LIDAR) into actuator commands. The key advantage of RL over traditional planners is in accelerating computation time and solution quality."
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        698.0,
+        212.0,
+        708.0
+      ],
+      "markdown": "### B. Proposed Method and Contributions"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "We propose a Black-box Reachability-based Safety Layer (BRSL), illustrated in Fig. 1, to enable strict safety guarantees for RL in an entirely data-driven way, addressing the above challenges of lacking robot and environment models *a priori* and of enforcing safety for uncertain systems. We note that the main advantage of BRSL is the use of data-driven methods to provide safety guarantees for black-box system dynamics. BRSL enforces safety by computing a system’s forward reachable set, which is the union of all trajectories that the system can realize within a finite or infinite time when starting from a bounded set of initial states, subject to a set of possible input signals [39]. Then, if the reachable set does not intersect with unsafe sets, the system is verified as safe, following similar arguments as in [32], [33], [40]."
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        190.0,
+        564.0,
+        308.0
+      ],
+      "markdown": "**Limitations.** Our method requires an approximation for the upper bound of a system’s Lipschitz constant, similar to [29], [41], [42]. This results in a curse of dimensionality with respect to number of samples required to approximate the constant; note other sampling-based approaches scale similarly [29], [28]. Furthermore, we focus on a discrete-time setting, assume our robot can brake to a stop, and assume accurate perception of the robot’s surroundings. We leave continuous-time (which can be addressed with similar reachability methods to ours [28], [40]) and perception uncertainty to future work."
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        311.0,
+        535.0,
+        321.0
+      ],
+      "markdown": "**Contributions.** We show the following with BRSL:"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        324.0,
+        564.0,
+        358.0
+      ],
+      "markdown": "1) We propose a safety layer by integrating data-driven reachability analysis with a differentiable polytope collision check and a trajectory rollout planner."
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        360.0,
+        564.0,
+        429.0
+      ],
+      "markdown": "2) We demonstrate BRSL on robot navigation, where it outperforms a baseline RL agent, Reachability-based Trajectory Safeguard (RTS) [28], Safe Advantage-based Intervention for Learning policies with Reinforcement (SAILR) [24], and Safe Exploration in Continuous Action Spaces (SECAS) [30]. Our code is [online](https://github.com/Mahmoud-Selim/Safe-Reinforcement-Learning-for-Black-Box-Systems-Using-Reachability-Analysis)."
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        433.0,
+        564.0,
+        477.0
+      ],
+      "markdown": "Next, in Section II, we provide preliminaries and formulate our safe RL problem. Sections III and IV discuss and evaluate the proposed approach. Finally, Section V presents concluding remarks and discusses future work."
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "heading",
+      "bbox": [
+        330.0,
+        485.0,
+        545.0,
+        493.0
+      ],
+      "markdown": "## II. Preliminaries and Problem Formulation"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        502.0,
+        564.0,
+        536.0
+      ],
+      "markdown": "This section presents the notation, set representations, system dynamics, and reachable set definitions used in this work. We then pose our safe RL problem."
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        541.0,
+        462.0,
+        551.0
+      ],
+      "markdown": "### A. Notation and Set Representations"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        558.0,
+        564.0,
+        676.0
+      ],
+      "markdown": "The $n$-dimensional real numbers are $\\mathbb{R}^n$, the natural numbers are $\\mathbb{N}$, and the integers from $n$ to $m$ are $n{:}m$. We denote the element at row $i$ and column $j$ of matrix $\\mathbf{A}$ by $(\\mathbf{A})_{i,j}$, column $j$ of $\\mathbf{A}$ by $\\left(\\mathbf{A}\\right)_{:\\,,j}$, and the element $i$ of vector $\\mathbf{a}$ by $\\left(\\mathbf{a}\\right)_{i}$. An $n\\times m$ matrix of ones is $\\mathbf{1}_{n\\times m}$. For $\\mathbf{A} \\in \\mathbb{R}^{n\\times m}$ and $\\mathbf{x} \\in \\mathbb{R}^n$, we use the shorthand $\\mathbf{A} - \\mathbf{x} = \\mathbf{A} - \\mathbf{x}\\mathbf{1}_{1\\times m}$. The $\\text{diag}(\\cdot)$ operator places its arguments block-diagonally in a matrix of zeros. For a pair of sets $A$ and $B$, the Minkowski sum is $A + B = \\{\\mathbf{a}+\\mathbf{b}\\ |\\ \\mathbf{a} \\in A, \\mathbf{b} \\in B\\}$, and the Cartesian product is $A \\times B = \\{(\\mathbf{a},\\mathbf{b})\\ |\\ \\mathbf{a} \\in A, \\mathbf{b} \\in B\\}$."
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        679.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "We represent sets using constrained zonotopes, zonotopes, and intervals, because they enable efficient Minkowski sum computation (a key part of reachability analysis) [40] and collision checking via linear programming (critical to safe motion planning) [43]. A *constrained zonotope* [43] is a convex set parameterized by a center $\\mathbf{c} \\in \\mathbb{R}^n$, generator matrix"
+    }
+  ]
+}

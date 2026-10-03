@@ -1,0 +1,29 @@
+from pagelib import *
+
+items = [
+    text("p0008-b000", [133.0, 127.0, 478.0, 161.0],
+         r"**Proposition 2.9.** Consider a pair of hybrid systems $\mathcal{H}_i = \langle \text{Ł}_i, \Theta_i, G_i, \mathcal{TL}_i \rangle$, $i \in \{1, 2\}$ and mode map $\mathit{lmap}: \text{Ł}_1 \to \text{Ł}_2$. If $\Theta_1 \subseteq \Theta_2$, $G_1 \preceq_{\mathit{lmap}} G_2$, and $\mathcal{TL}_1 \preceq_{\mathit{lmap}} \mathcal{TL}_2$, then $\mathsf{Reach}_{\mathcal{H}_1} \subseteq \mathsf{Reach}_{\mathcal{H}_2}$."),
+    heading("p0008-b001", [133.0, 175.0, 423.0, 184.0], "### 2.5 ADAS and autonomous vehicle benchmarks"),
+    text("p0008-b002", [133.0, 194.0, 478.0, 260.0],
+         "This is a suite of benchmarks we have created representing various common scenarios used for testing ADAS and Autonomous driving control systems. The hybrid system for a scenario is constructed by putting together several individual vehicles. The higher-level decisions (paths) followed by the vehicles are captured by transition graphs while the detailed dynamics of each vehicle comes from a black-box Simulink® simulator from Mathworks® [47]."),
+    text("p0008-b003", [133.0, 261.0, 478.0, 373.0],
+         r"Each vehicle has several continuous variables including the $x, y$-coordinates of the vehicle on the road, its velocity, heading, and steering angle. The vehicle can be controlled by two input signals, namely the throttle (acceleration or brake) and the steering speed. By choosing appropriate values for these input signals, we have defined the following modes for each vehicle — $\mathsf{cruise}$: move forward at constant speed, $\mathsf{speedup}$: constant acceleration, $\mathsf{brake}$: constant (slow) deceleration, $\mathsf{em\_brake}$: constant (hard) deceleration. In addition, we have designed lane switching modes $\mathsf{ch\_left}$ and $\mathsf{ch\_right}$ in which the acceleration and steering are controlled in such a manner that the vehicle switches to its left (resp. right) lane in a certain amount of time."),
+    text("p0008-b004", [133.0, 373.0, 478.0, 474.0],
+         r"For each vehicle, we mainly analyze four variables: absolute position ($sx$) and velocity ($vx$) orthogonal to the road direction ($x$-axis), and absolute position ($sy$) and velocity ($vy$) along the road direction ($y$-axis). The throttle and steering are captured using the four variables. We will use subscripts to distinguish between different vehicles. The following scenarios are constructed by defining appropriate sets of initial states and transitions graphs labeled by the modes of two or more vehicles. In all of these scenarios a primary safety requirement is that the vehicles maintain safe separation. See Appendix A.1 for more details on initial states and transition graphs of each scenario."),
+    text("p0008-b005", [133.0, 480.0, 478.0, 523.0],
+         r"**$\mathsf{Merge}$:** Vehicle A in the left lane is behind vehicle B in the right lane. A switches through modes $\mathsf{cruise}$, $\mathsf{speedup}$, $\mathsf{ch\_right}$, and $\mathsf{cruise}$ over specified intervals to merge behind B. Variants of this scenario involve $B$ also switching to $\mathsf{speedup}$ or $\mathsf{brake}$."),
+    text("p0008-b006", [133.0, 528.0, 478.0, 560.0],
+         r"**$\mathsf{AutoPassing}$:** Vehicle A starts behind B in the same lane, and goes through a sequence of modes to overtake B. If B switches to $\mathsf{speedup}$ before A enters $\mathsf{speedup}$ then A aborts and changes back to right lane."),
+    text("p0008-b007", [133.0, 565.0, 433.0, 575.0],
+         r"**$\mathsf{Merge3}$:** Same as $\mathsf{AutoPassing}$ with a third car C always ahead of $B$."),
+    text("p0008-b008", [133.0, 579.0, 478.0, 610.0],
+         r"**$\mathsf{AEB}$:** Vehicle A cruises behind B and B stops. A transits from $\mathsf{cruise}$ to $\mathsf{em\_brake}$ possibly over several different time intervals as governed by different sensors and reaction times."),
+    heading("p0008-b009", [133.0, 630.0, 306.0, 641.0], "## 3 Invariant verification"),
+    text("p0008-b010", [133.0, 654.0, 478.0, 675.0],
+         r"A subproblem for invariant verification is to compute $\mathsf{ReachTube}_{\mathcal{H}}$, or more specifically, the reachtubes for the set of trajectories $\mathcal{TL}$ in a given mode, up to a"),
+    pageno(8, [303.0, 695.0, 309.0, 703.0]),
+]
+
+save(8, items, r"""
+Compared with a 190-dpi render of the text block, a 400-dpi crop of Proposition 2.9, and overview.tex / examples.tex / algo.tex. Proposition 2.9: bold label with period, italic body in the PDF (not reproduced as italics), ends at '$\mathsf{Reach}_{\mathcal{H}_1} \subseteq \mathsf{Reach}_{\mathcal{H}_2}$.'; the 400-dpi crop confirms that \L is printed as (italic) 'Ł' here too ($\text{Ł}_i$, $\text{Ł}_1 \to \text{Ł}_2$); '$\{1, 2\}$' written with a space after the comma. '2.5 ADAS and autonomous vehicle benchmarks' is a numbered subsection (###); '3 Invariant verification' a numbered section (##). Mode names are printed in sans-serif with a visible underscore (em_brake, ch_left, ch_right): written $\mathsf{em\_brake}$ etc.; the extractor had turned the underscores into strikethrough fragments ('em ~~b~~ rake'), fixed. The four scenario descriptions (Merge, AutoPassing, Merge3, AEB) are a printed description list with sans-serif labels followed by a bold colon; kept as four paragraphs with the label in bold. 'Simulink®', 'Mathworks®' carry superscript registered signs. The em dash before 'cruise' is printed. 'B' is printed as math italic $B$ in 'involve $B$ also switching' and 'ahead of $B$', upright elsewhere - kept. Citation [47] and reference 'Appendix A.1' checked. Line-wrap hyphens removed (vehi-cle, for-ward, de-signed, po-sition, sen-sors); real hyphens kept (higher-level, black-box). The first paragraph of Section 3 continues on page 9. Omitted: page number 8.
+""")

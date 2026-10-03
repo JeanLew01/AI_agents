@@ -1,0 +1,270 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        56.0,
+        293.0,
+        78.0
+      ],
+      "markdown": "to compute _χ_ ( _tj, x_ ) of the initial value problem (IVP) in Eq. (1) at time _tj_ starting at different points _x_ ( _t_ 0) = _x_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        79.0,
+        293.0,
+        144.0
+      ],
+      "markdown": "We extend this computation to the entire ball by numerically integrating the center _x_ 0 and a set of points _x ∈V_ , uniformly sampled from the surface of the ball, and using this information to compute stochastic upper bounds for the possible evolutions of the system. We define the bounding ball and bounding tube as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        149.0,
+        293.0,
+        203.0
+      ],
+      "markdown": "**Definition 1 (Bounding Ball)** _Given an initial ball_ = _B_ 0 = _B_ ( _x_ 0 _, δ_ 0) _, we call Bj B_ ( _χ_ ( _tj, x_ 0) _, δj_ ( _B_ 0)) _a_ bounding ball _at time tj, if it stochastically bounds the reachable states x at time tj for all initial points around x_ 0 _having the maximal initial perturbation δ_ 0 _._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        208.0,
+        293.0,
+        229.0
+      ],
+      "markdown": "As we do not only want to bound the perturbation at one specific time, but on a time series, we define:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        235.0,
+        293.0,
+        267.0
+      ],
+      "markdown": "**Definition 2 (Bounding Tube)** _Given an initial ball B_ 0 = _B_ ( _x_ 0 _, δ_ 0) _and bounding balls for t_ 0 _< . . . < tk_ = _T , we call the series of bounding balls B_ 1 _, B_ 2 _, . . . , Bk a_ bounding tube _._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        272.0,
+        293.0,
+        315.0
+      ],
+      "markdown": "_Maximum perturbation at time tj_ . To compute a bounding tube, we have to compute at every timestep _tj_ the maximum perturbation _δj_ , which is defined as a solution of the optimization problem:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "formula",
+      "bbox": [
+        62.0,
+        318.0,
+        298.0,
+        344.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 4 (7)",
+      "asset_name": "formula-p0004-006"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        347.0,
+        293.0,
+        480.0
+      ],
+      "markdown": "where _dj_ ( _x_ ) = _d_ ( _tj, x_ ) denotes the _distance_ at time _tj_ , if the initial center _x_ 0 is known from the context. As stated in (Gruenbacher et al. 2021), the radius at time _tj_ can be over-approximated by solving a global optimization problem on the surface of the initial ball _B_ 0: as we require Lipschitz-continuity and forward-completeness of the ODE in Eq. (1), the map _x �→ χ_ ( _tj, x_ ) is a homeomorphism and commutes with closure and interior operators. In particular, the image of the boundary of the set _B_ 0 is equal to the boundary of the image _χ_ ( _tj, B_ 0). Thus, Eq. (2) has its optimum on the surface of the initial ball _B_ 0<sup>_S_= surface(</sup><sup>_B_0), and we will</sup> only consider points on the surface.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "heading",
+      "bbox": [
+        139.0,
+        492.0,
+        207.0,
+        501.0
+      ],
+      "markdown": "# **Main Results**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        508.0,
+        293.0,
+        573.0
+      ],
+      "markdown": "Our GoTube algorithm and its theory solve fundamental scalability problems of related works (see Table 1) by replacing interval arithmetic used to compute deterministic caps with stochastic Lipschitz caps. This enables us to verify continuous-depth models up to an arbitrary time-horizon, a capability beyond what was achievable before.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        574.0,
+        293.0,
+        705.0
+      ],
+      "markdown": "To be able to do that, we formulated Theorems on: 1) How to choose the radius of a Lipschitz cap using stochastic bounds of local Lipschitz constants of the samples together with the expected difference quotients. 2) Convergence guarantees using these new stochastic caps, as they are used by GoTube to compute the probability of _δj_ being an upper bound of the biggest perturbation. In addition, we implemented tensorization and substantially increased the number of random samples, thus being able to remove the dependence on the propagation-horizon of the gradient descent and increasing the computation speed to be able to deal with continuous-depth models.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "table",
+      "bbox": [
+        314.0,
+        51.0,
+        564.0,
+        359.0
+      ],
+      "markdown": "|Alg|orithm 1: GoTube|\n|---|---|\n|**Re**|**quire:** initial ball _B_0 = _B_(_x_0_, δ_0), time horizon T, se-<br>|\n||quence of timesteps _tj_ (_t_0 _< · · · < tk_ = _T_), error<br>tolerance _µ >_1, confidence level _γ ∈_(0_,_1), batch size<br>_b_, distance function_d_|\n|1: <br>2: <br>|_V ←{}_<br>(list of visited random points)<br> **sample batch**_x_<sup>_B _</sup>_∈B_<sup>_S_</sup><br>0<br>|\n|3:|**for**(_j_ = 1;_j ≤k_;_j_ =_j_+ 1)**do**|\n|4:|¯_p ←_0|\n|5:|**while** ¯_p <_1_−γ_ **do**<br>|\n|6:|_V ←V ∪{x_<sup>_B_</sup>_}_<br>|\n|7:|_xj ←χ_(_tj, x_0)<br>(integrate initial center point)<br>|\n|8:|¯_mj,V ←_max_x∈V d_(_tj, x_)<br>|\n|9:|**compute**local Lipschitz constants_λx_for_x ∈V_<br>|\n|10:|**compute**expected local difference quotient∆_λx,V_<br>for_x ∈V_<br>|\n|11:|**compute**cap radii_rx_(_λx,_∆_λx,V_)(Thm. 1) for_x ∈_<br>_V_<br>|\n|12:|_S ←_<sup>�</sup><br>_x∈V _<sup>_B_(</sup><sup>_x, rx_)</sup><sup>_S_</sup><br>(total covered area)<br>|\n|13:|¯_p ←_Pr(_µ ·_ ¯_mj,V ≥m_<sup>_⋆_</sup>)<br>|\n|14:|**sample batch**_x_<sup>_B _</sup>_∈B_0|\n|15:|**end while**<br>|\n|16:|_δj ←µ ·_ ¯_mj,V_<br>|\n|17:<br>|_Bj ←B_(_xj, δj_)<br>|\n|18: <br>|**end for**<br>|\n|19:|**return** (_B_1_, . . . , Bk_)|",
+      "source_class": "table",
+      "label": "Table on PDF page 4 (12)",
+      "asset_name": "table-p0004-011",
+      "rows": [
+        [
+          "Alg",
+          "orithm 1: GoTube"
+        ],
+        [
+          "**Re**",
+          "**quire:** initial ball _B_0 = _B_(_x_0_, δ_0), time horizon T, se-\n"
+        ],
+        [
+          "",
+          "quence of timesteps _tj_ (_t_0 _< · · · < tk_ = _T_), error\ntolerance _µ >_1, confidence level _γ ∈_(0_,_1), batch size\n_b_, distance function_d_"
+        ],
+        [
+          "1: \n2: \n",
+          "_V ←{}_\n(list of visited random points)\n **sample batch**_x_<sup>_B _</sup>_∈B_<sup>_S_</sup>\n0\n"
+        ],
+        [
+          "3:",
+          "**for**(_j_ = 1;_j ≤k_;_j_ =_j_+ 1)**do**"
+        ],
+        [
+          "4:",
+          "¯_p ←_0"
+        ],
+        [
+          "5:",
+          "**while** ¯_p <_1_−γ_ **do**\n"
+        ],
+        [
+          "6:",
+          "_V ←V ∪{x_<sup>_B_</sup>_}_\n"
+        ],
+        [
+          "7:",
+          "_xj ←χ_(_tj, x_0)\n(integrate initial center point)\n"
+        ],
+        [
+          "8:",
+          "¯_mj,V ←_max_x∈V d_(_tj, x_)\n"
+        ],
+        [
+          "9:",
+          "**compute**local Lipschitz constants_λx_for_x ∈V_\n"
+        ],
+        [
+          "10:",
+          "**compute**expected local difference quotient∆_λx,V_\nfor_x ∈V_\n"
+        ],
+        [
+          "11:",
+          "**compute**cap radii_rx_(_λx,_∆_λx,V_)(Thm. 1) for_x ∈_\n_V_\n"
+        ],
+        [
+          "12:",
+          "_S ←_<sup>�</sup>\n_x∈V _<sup>_B_(</sup><sup>_x, rx_)</sup><sup>_S_</sup>\n(total covered area)\n"
+        ],
+        [
+          "13:",
+          "¯_p ←_Pr(_µ ·_ ¯_mj,V ≥m_<sup>_⋆_</sup>)\n"
+        ],
+        [
+          "14:",
+          "**sample batch**_x_<sup>_B _</sup>_∈B_0"
+        ],
+        [
+          "15:",
+          "**end while**\n"
+        ],
+        [
+          "16:",
+          "_δj ←µ ·_ ¯_mj,V_\n"
+        ],
+        [
+          "17:\n",
+          "_Bj ←B_(_xj, δj_)\n"
+        ],
+        [
+          "18: \n",
+          "**end for**\n"
+        ],
+        [
+          "19:",
+          "**return** (_B_1_, . . . , Bk_)"
+        ]
+      ]
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        385.0,
+        559.0,
+        505.0
+      ],
+      "markdown": "We start by describing the GoTube Algorithm. This facilitates the comprehension of the different computation and theory steps. Given a continuous-depth model as in Eq. (1), an initial ball _B_ 0 defined by a center point _x_ 0 and the maximum initial perturbation _δ_ 0, a time horizon _T_ with a sequence of timesteps _tj_ ( _t_ 0 _< . . . < tk_ = _T_ ), a confidence level _γ ∈_ (0 _,_ 1), a tightness factor _µ >_ 1, a batch size _b_ , and a distance function _d_ . The output of the GoTube algorithm is a bounding tube that stochastically over-approximates at most by _µ_ the propagated initial perturbation from the center _x_ 0 with a probability higher than 1 _− γ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        319.0,
+        507.0,
+        559.0,
+        705.0
+      ],
+      "markdown": "GoTube starts by sampling a batch (tensor) _x_<sup>_B_</sup> _∈B_ 0<sup>_S_.It</sup> then iterates for the _k_ steps of the time horizon _T_ the following. After initializing the probability ensured to zero, and the visited states to the empty set, it loops until it reaches the desired confidence (probability) 1 _− γ_ , by increasingly taking additional batches. In each iteration, it integrates the center and the already available samples from their previous time step and the possibly new batches from their initial state (for simplicity, the pseudocode does not make this distinction explicit). GoTube then computes the maximum distance from the integrated samples to the integrated center, their local Lipschitz constant according to the variational equation of Eq. (1). Based on this information GoTube then computes the mean Lipschitz statistics and the cap radii accordingly. The total surface of the caps is then employed to compute and update the achieved confidence (probability). Once the desired confidence is achieved, GoTube exits the inner loop and computes the bounding ball in terms of its center and",
+      "source_class": "text"
+    }
+  ]
+}

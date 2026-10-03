@@ -1,0 +1,158 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render of PDF page 1 and with the authors' TeX source (cfun-paper.tex). Vertical arXiv stamp in the left margin set to omit. Title kept as the single level-1 heading (bold markers removed). Author block rewritten as four printed lines; the e-mail line was damaged by the extractor ('alex ~~d~~ evonport') and is restored as printed in typewriter type '{alex_devonport,forestyang,elghaoui,arcak}@berkeley.edu'. The run-in label 'Abstract—' is represented by a '## Abstract' heading and the abstract's bold face was dropped; 'non-convex' is a real compound hyphen broken at a line end (confirmed in TeX). 'I. INTRODUCTION' (small caps) written in title case; the unnumbered italic subsection 'Notation' is a level-3 heading. The paragraph that runs from the bottom of the left column into the right column ('Others incorporate data-driven elements | into more traditional ...') was merged. 'plug-in approach' is a real compound hyphen (extractor had 'plugin'). Inline math ($\\mathbb{R}^n$, $a,b$) rewritten in LaTeX from the TeX source (macro \\R expanded). The last sentence of the page is an inline formula split by the page break: the page prints '[a,b] = {x in R^n | a <= x <=' and page 2 starts with 'b}'. To keep the formula one LaTeX expression, the two glyphs 'b}' printed at the top of page 2 are transcribed here, and the page-2 item continues with ', where' using join_previous 'none'. Citation numbers [1]-[15] checked against the page image.",
+  "warnings": [
+    "Review possible header/footer: p0001-b000"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "omit",
+      "bbox": [
+        18.0,
+        205.0,
+        37.0,
+        570.0
+      ],
+      "markdown": "",
+      "reason": "Vertical arXiv stamp in the left margin ('arXiv:2104.13902v1 [eess.SY] 28 Apr 2021'); page furniture, the version is recorded in the conversion notes."
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        91.0,
+        74.0,
+        521.0,
+        89.0
+      ],
+      "markdown": "# Data-Driven Reachability Analysis with Christoffel Functions"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        157.0,
+        104.0,
+        451.0,
+        155.0
+      ],
+      "markdown": "Alex Devonport, Forest Yang, Laurent El Ghaoui, Murat Arcak\nElectrical Engineering and Computer Sciences\nUniversity of California, Berkeley\n`{alex_devonport,forestyang,elghaoui,arcak}@berkeley.edu`"
+    },
+    {
+      "id": "p0001-abstract-h",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        175.0,
+        120.0,
+        186.0
+      ],
+      "markdown": "## Abstract"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        175.0,
+        299.0,
+        322.0
+      ],
+      "markdown": "We present an algorithm for data-driven reachability analysis that estimates finite-horizon forward reachable sets for general nonlinear systems using level sets of a certain class of polynomials known as Christoffel functions. The level sets of Christoffel functions are known empirically to provide good approximations to the support of probability distributions: the algorithm uses this property for reachability analysis by solving a probabilistic relaxation of the reachable set computation problem. We also provide a guarantee that the output of the algorithm is an accurate reachable set approximation in a probabilistic sense, provided that a certain sample size is attained. We also investigate three numerical examples to demonstrate the algorithm’s capabilities, such as providing non-convex reachable set approximations and detecting holes in the reachable set."
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "heading",
+      "bbox": [
+        137.0,
+        336.0,
+        216.0,
+        343.0
+      ],
+      "markdown": "## I. Introduction"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        353.0,
+        299.0,
+        494.0
+      ],
+      "markdown": "A popular and effective way to guarantee the safety of a system in the face of uncertainty is *reachability analysis*, a set-based method that characterizes all possible evolutions of the system by computing reachable sets. Many algorithms in reachability analysis use detailed system information to compute a sound approximation to the reachable set, that is an approximation guaranteed to completely contain (or be contained in) the reachable set. However, in many important applications, such as complex cyber-physical systems that are only accessible through simulations or experiments, this detailed system information is not available, so these algorithms cannot be applied."
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        497.0,
+        299.0,
+        650.0
+      ],
+      "markdown": "Applications such as these motivate *data-driven* reachability analysis, which studies algorithms to estimate reachable sets using the type of data that can be obtained from experiments and simulations. These algorithms have the advantage of being able to estimate the reachable sets of any system whose behavior can be simulated or measured experimentally, without requiring any additional mathematical information about the system. The main disadvantage of data-driven reachability algorithms is that generally they cannot provide the same type of soundness guarantees as traditional reachability analysis algorithms; however, they can still guarantee accuracy of the estimates in a probabilistic sense with high confidence."
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        652.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Data-driven reachability is a rapidly growing area of research within reachability analysis. Many recent developments focus either on providing probabilistic guarantees of correctness for data-driven methods that estimate the reachable set directly from data, for instance using results from statistical learning theory [1] or scenario optimization [2], [3], [4], [5], [6], [7]. Others incorporate data-driven elements into more traditional reachability approaches, for instance estimating entities such as discrepancy functions [8] or differential inclusions [9]. Finally, other developments include incorporating data-driven reachability into verification tools for cyber-physical systems [8], [10]."
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        234.0,
+        559.0,
+        542.0
+      ],
+      "markdown": "This paper investigates a data-driven reachability algorithm that directly estimates the reachable set from data using the sublevel sets of an empirical inverse Christoffel function, and provides a probabilistic guarantee of accuracy for the method using statistical learning-theoretic methods. Christoffel functions are a class of polynomials defined with respect to measures on $\\mathbb{R}^n$: a single measure defines a family of Christoffel function polynomials. When the measure in question is defined by a probability distribution on $\\mathbb{R}^n$ the level sets of Christoffel functions are known empirically to provide tight approximations to the support. This support-approximating quality has motivated the use of Christoffel functions in several statistical applications, such as density estimation [11], [12] and outlier detection [13]. Additionally, the level sets have been shown, using the plug-in approach [14], to converge exactly to the support of the distribution (in the sense of Hausdorff measure) when the degree of the polynomial approaches infinity, and when the true probability distribution is available [12]. When the true probability distribution is *not* known, as is typically the case in data analysis, the Christoffel function can be empirically estimated using a point cloud of independent and identically distributed (iid) samples from the distribution: this *empirical Christoffel function* still provides accurate estimates for the support, and some convergence results in this case are also known [15]."
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        545.0,
+        559.0,
+        687.0
+      ],
+      "markdown": "The contribution of this paper is twofold. First, we provide an algorithm which uses the level sets of a Christoffel function to estimate a reachable set using a point cloud of iid samples from the reachable set, which can be obtained through simulations by a Monte Carlo sampling scheme. Second, we provide a guarantee of the probabilistic accuracy of the reachable set estimate produced by the algorithm: provided that a certain (finite) sample size is attained, the level set provided by the algorithm is guaranteed to achieve a user-specified level of probabilistic accuracy with high confidence. Unlike the convergence results of [12], [15], this result holds for finite sample sizes and finite degrees."
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        697.0,
+        349.0,
+        705.0
+      ],
+      "markdown": "### Notation"
+    },
+    {
+      "id": "p0001-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        712.0,
+        559.0,
+        735.0
+      ],
+      "markdown": "Given vectors $a,b\\in\\mathbb{R}^n$, a multidimensional interval (“interval” for brevity) is the set $[a,b]=\\{x\\in\\mathbb{R}^n | a \\le x \\le b\\}$"
+    }
+  ]
+}

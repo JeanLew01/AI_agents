@@ -1,0 +1,147 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        75.0,
+        505.0,
+        172.0
+      ],
+      "markdown": "constraint violations. PPO Lagrangian [30] is a primal-dual method combining Proximal Policy Optimization (PPO) [33] with lagrangian relaxation of the safety constraints and has relatively low complexity but outperforms CPO in constraint satisfaction. [7] uses a penalized reward function like PPO Lagrangian, and demonstrates convergence to an optimal policy through the multi-timescale framework, introduced in [10]. [36] proposes mapping the value function constraining problem as constraining densities of state visitation. Overall, while these algorithms provide benefits through various learning mechanisms, they inherit the problems of the CMDP framework. Specifically, they do not provide rigorous guarantees of persistent safety and so are generally unsuitable for state-wise constraint optimization problems.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        187.0,
+        297.0,
+        197.0
+      ],
+      "markdown": "## **2.2 Hamilton-Jacobi Reachability Analysis**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        207.0,
+        505.0,
+        402.0
+      ],
+      "markdown": "HJ reachability analysis is a rigorous approach that verifies safety or reachability for dynamical systems. Given any deterministic nonlinear system and target set, it computes the viscosity solution for the HJBPDE, whose zero sub-level set is the backward reachable set (BRS), meaning there exists some control such that the states starting from this set will enter the target set in future time (or stay away from the target set for all future time). However, the curse of dimensionality and the assumption of knowing the dynamics and environment in advance restrict its application, especially in the model-free RL setting where there is no access to the entire observation space and dynamics at any given time. Decomposition [37], warm-starting [38], sampling-based reachability [39], and Deepreach [40] have been proposed to solve the curse of dimensionality. [23, 24] proposed methods to bridge HJ analysis with RL by modifying the HJBPDE. The work of [27] takes framework into a deterministic hard-constraint setting. There are additionally model-based HJ reachability approach for reinforcement learning-based controls. [41] is a model-based extension of [27]. Approaches like [42, 43, 44] use traditional HJ reachability for RL control while learning or assuming access to the system dynamics model. In stochastic systems, finding the probability of reaching a target while avoiding certain obstacles are key problems. [45, 46] constructed the theoretic framework based on dynamic programming and consider finite and infinite time reach-avoid problems. [47, 48, 49] propose computing the stochastic reach-avoid set together with the probability in a tractable manner to address the curse of dimensionality.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        415.0,
+        195.0,
+        424.0
+      ],
+      "markdown": "# **3 Preliminaries**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        439.0,
+        246.0,
+        447.0
+      ],
+      "markdown": "## **3.1 Markov Decision Processes**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        459.0,
+        506.0,
+        592.0
+      ],
+      "markdown": "Markov Decision Processes (MDP) are defined as _M_ := _⟨S, A, P, r, h, γ⟩_ . _S_ and _A_ are the state and action spaces respectively. _P_ : _S × A × S �→_ [0 _,_ 1] is the transition function capturing the environment dynamics. _r_ : _S × A �→_ R is the reward function associated with each state-action pair, _h_ : _S �→_ R<sup>+</sup> 0<sup>is the safety loss function that maps a state to a non-negative real value, which is called</sup> the constraint value, or simply cost. _H_ min is the minimum _non-zero_ value of function _h_ ; _H_ max is upper bound on function _h_ . _γ_ is a discount factor in the range (0 _,_ 1). _SI_ is initial state set, _d_ 0 is initial state distribution, and _π_ ( _a|s_ ) is a stochastic policy that is parameterized by the state and returns an action distribution from which an action can be sampled and affects the environment defined by the MDP. In unconstrained RL, the goal is to learn an optimal policy _π_<sup>_∗_</sup> maximizing expected discounted sum of rewards, i.e. _π_<sup>_∗_</sup> = arg max _π_ E _s∼d_ 0 _V_<sup>_π_</sup> ( _s_ ), where _V_<sup>_π_</sup> ( _s_ ) := E _τ ∼π,P_ ( _s_ )[<sup>�</sup> _st∈τ_<sup>_γtr_(</sup><sup>_st, at_)].</sup> Note: _τ ∼ π, P_ ( _s_ ) indicates sampling trajectory _τ_ for horizon _T_ starting from state _s_ using policy _π_ in MDP with transition model _P_ , and _st ∈ τ_ is the _t_<sup>_th_</sup> state in trajectory _τ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        602.0,
+        293.0,
+        610.0
+      ],
+      "markdown": "## **3.2 Constrained Markov Decision Process**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        621.0,
+        504.0,
+        643.0
+      ],
+      "markdown": "CMDP attempts to optimize the reward returns _V_<sup>_π_</sup> ( _s_ ) under the constraint that the cost return is below some manually chosen threshold _χ_ . Specifically:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "formula",
+      "bbox": [
+        102.0,
+        641.0,
+        510.0,
+        683.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (9)",
+      "asset_name": "formula-p0003-008"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        683.0,
+        505.0,
+        725.0
+      ],
+      "markdown": "While many approaches have been proposed to solve within this framework, CMDPs have several difficulties: 1 _._ cost threshold _χ_ often requires much tuning while using prior knowledge of the environment; and 2 _._ CMDP often permits some positive average cost which is incompatible with state-wise hard constraint problems, since _χ_ is usually chosen to be above 0.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

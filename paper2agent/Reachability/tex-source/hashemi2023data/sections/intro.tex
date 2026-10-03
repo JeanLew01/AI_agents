@@ -1,0 +1,103 @@
+
+% An acceptable control design algorithm takes the safety issues into account. In these algorithms, the state space is often separated in safe and unsafe zones when the trajectories are required to avoid unsafe area. Thus, a standard safety verification algorithm plans to compute for a flow pipes that contains every possible trajectory initiated from a bounded set of initial states to guarantee the unsafe zone is not met with trajectories \cite{kurzhanski2002ellipsoidal}.
+% set-propagation and simulation techniques are of the most popular approaches in reachable set computation. A simulation technique, generates tubes over sampled trajectories and provide a provable over approximation for reachable set by applying union bound on tubes. However, they assume access to the model to provide formal guarantees on the proposed over approximation \cite{donze2007systematic}.  The set-propagation techniques, propagate the provable over approximation of reachable set iteratively over time steps in a discrete time setting. One of the most popular tools in set-propagation techniques is Taylor series. In this case, a set-propagation technique propagates the enclosure of reachable set by Taylor expansion of states and bounds the coefficients in the Taylor series \cite{berz2017rigorous}.
+
+Reachability analysis of stochastic nonlinear dynamical systems is a challenging problem that has been 
+extensively studied in the literature \cite{vinod2021stochastic,abate2008probabilistic,abate2007computational,
+Maria,huang2019reachnn,huang2022polar,chen2013flow,dutta2019sherlock,koutsoukos2006computational,bansal2017hamilton,bortolussi2014statistical,kwiatkowska2007stochastic,legay2019statistical}. 
+Most of the prior work is {\em model}-{\em based}, i.e., it requires a symbolic model of the
+dynamical system which can then be over-approximated to obtain {\em flowpipes} or the set of reachable 
+states of the system over a given time horizon. In this paper, we explore the notion of {\em model-free 
+reachability analysis}, {\em i.e.}, to compute reachable sets of the stochastic dynamical system
+even when we {\em do not have the symbolic system dynamics}, but have access to a numeric simulator or 
+actual behaviors sampled from the system.  A significant 
+advantage of such a data-driven technique is that we obtain not only (probabilistic) reachable sets for the
+system or the simulation model from which the trajectories are sampled, but we can get results 
+over the possibly {\em infinite} set of models/systems consistent with the set of sampled trajectories. 
+This provides us the opportunity for an analysis technique that is robust to model uncertainty. 
+
+There is growing literature on computing probabilistically approximate reachable sets directly from data.
+The authors  in \cite{devonport2021data} utilize level sets of Christoffel functions and provide a technique to 
+compute a high accuracy probabilistic reach-set for general nonlinear systems. On the other hand, \navid{as a comparison, }we only have access to sampled trajectories.
+The authors in \cite{alanwar2023data} propose specific parametric models (linear or polynomial),
+to identify the Markovian stochastic dynamics of the system from data, and then perform reachability analysis on
+the identified models. In contrast, we learn non-parameteric surrogates (using neural networks), which are not
+restricted to Markovian dynamics, and quantify uncertainty using conformal inference.
+In \cite{devonport2020data}, the authors use an interesting approach based on a Gaussian process-based
+classifier to separate reachable states from unreachable states, and approximate the reach set by 
+computing the sublevel set of the classifier. We note that this approach uses adaptive sampling of 
+initial states where states are chosen to reduce uncertainty of the surrogate. This may require solving
+a high-dimensional optimization problem and does not give probability guarantees. The authors also
+propose an interval abstraction of the reach set, where sample complexity bounds are provided; however,
+this approach may suffer from conservatism and high computational cost in high-dimensional systems.
+In \cite{fisac2018general}, the authors assume partial knowledge of the model, while using data to deal
+with Lipschitz-continuous state dependent uncertainty. 
+The authors in \cite{lin2023generating} propose a method called DeepReach that uses a neural PDE solver 
+to perform Hamilton-Jacobi method-based reachability analysis for high-dimensional systems. Here,
+the complexity of the flowpipe computation scales with the complexity of the flowpipe itself
+rather than the system dimension. While this method uses neural methods to perform reachability
+analysis, it still requires access to the system dynamics. In \cite{dryvr}, the authors combine
+simulation-guided reachability analysis techniques with data-driven techniques. Here, the authors
+estimate a discrepancy function using system trajectories using a probably-approximately-correct 
+learning algorithm. The discrepancy function bounds the distance between system trajectories
+as a function of the distance between their initial states. This function is then used to inflate
+the simulation trajectories to obtain reachtubes that are then used to compute the approximate
+reachable set of states. We remark that such an approach requires a parametric form of the discrepancy
+function which could be hard to obtain.
+
+Our approach to compute probabilistic reachable sets for \navid{stochastic} systems has 
+the following main steps: (1) we sample a number of system trajectories according to the 
+user-provided distribution on the set of initial states, (2) we learn a data-driven
+surrogate model that predicts the next $\horizon$ states of the system from a given state, 
+(3) we perform traditional set propagation-based reachability analysis on the surrogate model,
+and (4) we inflate the resulting reachable sets in a systematic fashion to account for the 
+uncertainty induced by sampling from the user-provided distribution on the set of initial states and system stochasticity. 
+
+While our general technique can work with arbitrary regression-based surrogate models,
+in this paper, we choose feedforward neural networks as a data-driven model of the system
+dynamics\footnote{There are many techniques to identify probably approximately correct
+surrogate models, for example, using concentration bounds for system identification
+\cite{matni2019tutorial}. In this paper, we eschew such methods, instead preferring the
+data-efficient approach for uncertainty quantification provided by conformal inference.}. A key reason for choosing feedforward neural networks is 
+to use recently developed techniques to perform set-propagation 
+through neural networks \cite{tran2020nnv}. However,
+since the surrogate model is learned by sampling, we still need to account for this uncertainty. 
+To do this, we rely on {\em conformal
+inference} (CI) or {\em conformal prediction}~\cite{vovk2005algorithmic,lei2014distribution}. In the machine learning community, CI is a well-known data-efficient framework for error analysis 
+of predictive models. Recently, CI has been employed for data-driven stochastic verification  \cite{bortolussi2019neural,cairoli2023conformal,lindemann2023conformal,qin2022statistical}. For 
+instance, in \cite{cairoli2023conformal,qin2022statistical,lindemann2023conformal}, the authors obtain 
+confidence intervals on the robustness degree of system behaviors (for example based on the quantitative 
+satisfaction of a given signal temporal logic (STL) property). A na\"{i}ve adaptation of existing
+techniques for STL robustness verification to reachability analysis would require training surrogate models 
+to predict each state variable independently (effectively discarding the rich correlation between
+the state variables) resulting in an analysis that is too conservative. Instead, our approach 
+preserves the structure of the dynamics through our usage of a surrogate model, while still 
+accounting for uncertainty in a systematic fashion using CI.
+% The central ideas of our paper are as follows: (1) We construct a surrogate model $\overallf$, e.g., a feedforward neural network, that returns a prediction for the trajectory $\bar{\traj}_{\state_0}$  (starting from a specified initial state $\state_0$), as $\bar{\traj}_{\state_0} = \overallf(\state_0)$. (2) We apply reachability analysis on the feedforward neural network $\overallf(\state_0)$ using reachability techniques such as in \cite{tran2020nnv}. (3) We use conformal inference  
+% to compute an interval by which we inflate the reachable
+% flowpipe to guarantee that the probability that the actual system trajectory is within the 
+% inflated flowpipe is not lower than a user-defined threshold. 
+
+The layout of our paper is as follows.  In Section \ref{sec:prelim}, we present the preliminaries 
+and problem statement. Our algorithm for probabilistic reachable set computation is proposed in 
+Section~\ref{sec:verification}. We demonstrate the efficacy of our method on several numerical 
+examples in Section~\ref{sec:results}, and we finally conclude in Section~\ref{sec:conclusion}.
+
+
+\mypara{Notation} We use bold letters to indicate vectors and vector-valued functions, and 
+calligraphic letters to denote sets. We denote the set $\left\{1,2,\cdots, n \right\}$ with $[n]$. 
+We present the structure of a feedforward neural network (FFNN) with $\ell$  hidden layers as 
+an array $[n_0,n_1,\cdots n_{\ell+1}]$, where $n_0$ denotes the number of inputs $n_{\ell+1}$ 
+is the number of outputs and $n_i , i\in [\ell]$ denotes the width of the $i$-th hidden layer. 
+We denote $e_i\in\mathbb{R}^n$ as the $i$-th base vector of $\mathbb{R}^n$. The expression $x \sim 
+\mathcal{X}$ means, the random variable $x$ follows the distribution $\mathcal{X}$. We denote the
+cardinality of a set $A$ with $|A|$. $\zon(b, A)$ denotes a zonotope~\cite{kurzhanski2002ellipsoidal} 
+with center $b$ and array of base vectors $A$. The operator $\oplus$ denotes the Minkowski sum. We
+also denote $\lceil x \rceil$ as the smallest integer greater than $x \in \mathbb{R}$.
+
+% for a given black-box with probabilistic guarantees.  We also assume the black-box model is unavailable. We assume, we have access to a surrogate model and also the dataset we utilized to train it. In case the trajectory samples are available in the dataset, the verification is a straightforward process and has been studied in works like \\cite{}, \\cite{} with risk measures or conformal-inference. In this study we are interested in the case where the trajectories are not available from dataset. This includes examples like the single step datasets provided by Model-Based Reinforcement Learning, MBRL, algorithms. We combine the notion of star-based reachability analysis \\cite{}, conformal-prediction \\cite{} and STL2NN \\cite{} to propose an accurate and efficient algorithm for the probabilistic verification relying on the single step dataset.
+
+
+% https://arxiv.org/pdf/2106.13867.pdf
+% https://github.com/ChaoHuang2018/POLAR_Tool
+

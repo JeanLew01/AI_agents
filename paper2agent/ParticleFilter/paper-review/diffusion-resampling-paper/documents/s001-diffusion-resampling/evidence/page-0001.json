@@ -1,0 +1,1798 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Diffusion differentiable resampling",
+      "bbox": [
+        191.10299682617188,
+        91.02409362792969,
+        405.7796325683594,
+        103.92132568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Jennifer Rosina Andersson 1 Zheng Zhao 2",
+      "bbox": [
+        205.77000427246094,
+        140.1258087158203,
+        389.4499206542969,
+        152.69717407226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract",
+      "bbox": [
+        150.19801330566406,
+        176.94793701171875,
+        194.6833038330078,
+        187.69566345214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper is concerned with differentiable resam-",
+      "bbox": [
+        75.052001953125,
+        193.4793701171875,
+        271.17816162109375,
+        202.38592529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pling in the context of sequential Monte Carlo",
+      "bbox": [
+        75.36100006103516,
+        205.43536376953125,
+        269.5235595703125,
+        214.3419189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(e.g., particle filtering). Drawing on reparametri-",
+      "bbox": [
+        75.03199768066406,
+        217.390380859375,
+        271.1750183105469,
+        226.29693603515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sation, we propose a new resampling method",
+      "bbox": [
+        75.36100006103516,
+        229.3453369140625,
+        269.5235290527344,
+        238.25189208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that is informative and instantly differentiable,",
+      "bbox": [
+        75.36100006103516,
+        241.30035400390625,
+        270.7632751464844,
+        250.2069091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "based on a training-free diffusion model sur-",
+      "bbox": [
+        75.36100006103516,
+        253.25537109375,
+        271.1697998046875,
+        262.16192626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rogate.",
+      "bbox": [
+        75.36100006103516,
+        265.21038818359375,
+        103.24512481689453,
+        274.116943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We theoretically prove that our diffu-",
+      "bbox": [
+        111.49655151367188,
+        265.21038818359375,
+        271.1697692871094,
+        274.116943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sion resampling method provides a consistent re-",
+      "bbox": [
+        75.36100006103516,
+        277.1663513183594,
+        271.1737976074219,
+        286.0729064941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling distribution, and we show empirically",
+      "bbox": [
+        75.36100006103516,
+        289.1213684082031,
+        269.8690185546875,
+        298.0279235839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that it outperforms the state-of-the-art differen-",
+      "bbox": [
+        75.36100006103516,
+        301.07635498046875,
+        271.1697692871094,
+        309.98291015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tiable resampling methods on multiple filtering",
+      "bbox": [
+        75.36100006103516,
+        313.0313720703125,
+        269.5235900878906,
+        321.93792724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and parameter estimation benchmarks. Finally,",
+      "bbox": [
+        75.36100006103516,
+        324.9863586425781,
+        270.76324462890625,
+        333.8929138183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we show that it achieves competitive end-to-end",
+      "bbox": [
+        75.00199890136719,
+        336.9413757324219,
+        269.5154113769531,
+        345.8479309082031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance when used in learning a complex",
+      "bbox": [
+        75.36100006103516,
+        348.8973693847656,
+        269.76739501953125,
+        357.8039245605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics-decoder model with high-dimensional",
+      "bbox": [
+        75.36100006103516,
+        360.85235595703125,
+        269.51690673828125,
+        369.7589111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "image observations.",
+      "bbox": [
+        75.36100006103516,
+        372.807373046875,
+        154.80274963378906,
+        381.71392822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. Introduction",
+      "bbox": [
+        55.44000244140625,
+        405.6229248046875,
+        132.2760772705078,
+        416.3706359863281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Consider a distribution π and a population of weighted",
+      "bbox": [
+        55.439998626708984,
+        426.3309631347656,
+        289.4356994628906,
+        435.39691162109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "samples {(wi, Xi)}N",
+      "bbox": [
+        55.439998626708984,
+        436.7452087402344,
+        139.70230102539062,
+        454.76409912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 ∼π, where {Xi}N",
+      "bbox": [
+        133.39100646972656,
+        436.7452087402344,
+        224.95127868652344,
+        457.35711669921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 are often iden-",
+      "bbox": [
+        218.63998413085938,
+        438.44537353515625,
+        291.0932922363281,
+        449.9449462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tically and independently drawn from another proposal dis-",
+      "bbox": [
+        55.439998626708984,
+        450.4003601074219,
+        291.0954284667969,
+        459.3069152832031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tribution, calibrated by the weights. The goal of resampling",
+      "bbox": [
+        55.439998626708984,
+        462.3553466796875,
+        289.4423522949219,
+        471.26190185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is to transform these weighted samples into an un-weighted",
+      "bbox": [
+        55.439998626708984,
+        474.31036376953125,
+        289.4380187988281,
+        483.2169189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set while preserving the original distribution π. In the weak",
+      "bbox": [
+        55.439998626708984,
+        486.1069641113281,
+        289.6860656738281,
+        495.17291259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sense, unbiased resampling is defined as a mapping",
+      "bbox": [
+        55.439998626708984,
+        498.22137451171875,
+        260.2012634277344,
+        507.1279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{(wi, Xi)}N",
+      "bbox": [
+        120.593994140625,
+        519.3181762695312,
+        171.06430053710938,
+        537.8350830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 7→",
+      "bbox": [
+        164.7530059814453,
+        520.5499877929688,
+        190.88760375976562,
+        540.298095703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n\u0010 1",
+      "bbox": [
+        193.65499877929688,
+        510.2989807128906,
+        214.47828674316406,
+        523.4647216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N , X∗",
+      "bbox": [
+        207.44200134277344,
+        518.9276123046875,
+        235.27166748046875,
+        537.0377197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        230.41000366210938,
+        525.8941650390625,
+        233.2274169921875,
+        532.0869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0011oN",
+      "bbox": [
+        235.77200317382812,
+        514.4371337890625,
+        254.67430114746094,
+        523.1905517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1,",
+      "bbox": [
+        248.36300659179688,
+        521.35693359375,
+        264.53759765625,
+        536.597900390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s.t.",
+      "bbox": [
+        80.34600830078125,
+        550.6913452148438,
+        91.97235107421875,
+        559.597900390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "E",
+      "bbox": [
+        103.59870910644531,
+        552.8233642578125,
+        110.24376678466797,
+        557.4459838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0014 1",
+      "bbox": [
+        110.23700714111328,
+        536.48388671875,
+        123.72631072998047,
+        552.638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        116.69000244140625,
+        557.3649291992188,
+        124.69993591308594,
+        566.2117309570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        132.30300903320312,
+        540.1521606445312,
+        138.6143035888672,
+        546.3449096679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        128.6370086669922,
+        547.58251953125,
+        143.032958984375,
+        553.9585571289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        129.37901306152344,
+        564.3601684570312,
+        142.2875213623047,
+        570.5529174804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ψ(X∗",
+      "bbox": [
+        144.68801879882812,
+        548.1016845703125,
+        168.52468872070312,
+        559.3787231445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i )",
+      "bbox": [
+        163.66302490234375,
+        550.5319213867188,
+        172.90048217773438,
+        561.8407592773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0015",
+      "bbox": [
+        172.89901733398438,
+        542.99951171875,
+        178.15927124023438,
+        549.3755493164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= E[ψ(X)]",
+      "bbox": [
+        180.92501831054688,
+        550.5319213867188,
+        227.2611083984375,
+        559.3787231445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        278.49102783203125,
+        538.09033203125,
+        290.1073913574219,
+        546.9968872070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for any bounded and continuous test function ψ, where",
+      "bbox": [
+        55.439998626708984,
+        577.5799560546875,
+        289.4447326660156,
+        586.6459350585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{X∗",
+      "bbox": [
+        55.439998626708984,
+        587.6036376953125,
+        73.53667449951172,
+        606.0130615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i }N",
+      "bbox": [
+        68.67500305175781,
+        587.994140625,
+        85.33029174804688,
+        608.6070556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1 stands for the re-samples, and X ∼π.",
+      "bbox": [
+        79.01900482177734,
+        588.7279663085938,
+        246.95225524902344,
+        606.0130615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Resampling is a key component in sequential Monte Carlo",
+      "bbox": [
+        55.439998626708984,
+        607.6273803710938,
+        289.444091796875,
+        616.533935546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(SMC) samplers for state-space models (SSMs, Chopin",
+      "bbox": [
+        55.11199951171875,
+        619.5823974609375,
+        289.4443054199219,
+        628.4889526367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Department of Information Technology, Uppsala University,",
+      "bbox": [
+        67.18000030517578,
+        637.460205078125,
+        290.5648193359375,
+        647.2587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sweden 2Division of Statistics and Machine Learning, Linköping",
+      "bbox": [
+        55.439998626708984,
+        647.4232177734375,
+        289.44256591796875,
+        657.2218017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University, Sweden. Correspondence to: Zheng Zhao (趙正)",
+      "bbox": [
+        55.439998626708984,
+        657.7072143554688,
+        290.0415344238281,
+        667.1847534179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "<zheng.zhao@liu.se>.",
+      "bbox": [
+        54.426998138427734,
+        669.1307983398438,
+        134.80181884765625,
+        677.1467895507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Proceedings of the 43 rd International Conference on Machine",
+      "bbox": [
+        55.1619987487793,
+        685.3274536132812,
+        289.4380798339844,
+        696.87451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Learning, Seoul, South Korea. PMLR 306, 2026. Copyright 2026",
+      "bbox": [
+        55.18899917602539,
+        699.018798828125,
+        289.4389343261719,
+        707.0347900390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by the author(s).",
+      "bbox": [
+        55.439998626708984,
+        708.9817504882812,
+        114.45684051513672,
+        716.9977416992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "& Papaspiliopoulos, 2020).",
+      "bbox": [
+        307.052001953125,
+        178.4423828125,
+        421.4745178222656,
+        187.34893798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "It not only mitigates parti-",
+      "bbox": [
+        429.7361145019531,
+        178.4423828125,
+        543.091552734375,
+        187.34893798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cle degeneracy in practice, but has also been shown to",
+      "bbox": [
+        307.44000244140625,
+        190.3973388671875,
+        541.4370727539062,
+        199.30389404296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "represent a jump Markov process in a continuous-time",
+      "bbox": [
+        307.44000244140625,
+        202.35235595703125,
+        541.4371948242188,
+        211.2589111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "limit (Chopin et al., 2022).",
+      "bbox": [
+        307.44000244140625,
+        214.307373046875,
+        424.067626953125,
+        223.21392822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, resampling typ-",
+      "bbox": [
+        433.26409912109375,
+        214.307373046875,
+        543.093505859375,
+        223.21392822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ically hinders (gradient-based) parameter estimation of",
+      "bbox": [
+        307.44000244140625,
+        226.26239013671875,
+        541.4371337890625,
+        235.1689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SSMs due to discrete randomness. For instance, with the",
+      "bbox": [
+        307.44000244140625,
+        238.21734619140625,
+        541.4371337890625,
+        247.1239013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "commonly used multinomial resampling, one draws in-",
+      "bbox": [
+        307.44000244140625,
+        250.17333984375,
+        543.0934448242188,
+        259.07989501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dices Ii ∼Categorical(w1, w2, . . . , wN) independently",
+      "bbox": [
+        307.44000244140625,
+        261.1619873046875,
+        541.7891235351562,
+        279.94110107421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for i = 1, 2, . . . , N, and then defines the resampling map-",
+      "bbox": [
+        307.44000244140625,
+        273.9239807128906,
+        543.0941162109375,
+        282.98992919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ping by indexing X∗",
+      "bbox": [
+        307.44000244140625,
+        283.9476623535156,
+        388.02569580078125,
+        294.9449157714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i := XIi. If the sample Xθ",
+      "bbox": [
+        383.1650085449219,
+        284.33819580078125,
+        490.0007629394531,
+        297.3187561035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i (and weight)",
+      "bbox": [
+        485.42498779296875,
+        286.0383605957031,
+        542.1083984375,
+        297.5379333496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "depend on some unknown parameters θ, the pathwise deriva-",
+      "bbox": [
+        307.44000244140625,
+        297.8339538574219,
+        543.095703125,
+        306.89990234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tive of the re-sample, ∂Xθ,∗",
+      "bbox": [
+        307.44000244140625,
+        306.6856689453125,
+        419.47674560546875,
+        318.85491943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        408.2409973144531,
+        314.64019775390625,
+        411.05841064453125,
+        320.8329162597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "/ ∂θ, is not defined. Moreover,",
+      "bbox": [
+        419.9779968261719,
+        309.7889709472656,
+        542.6849365234375,
+        318.85491943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "most automatic differentiation libraries (e.g., JAX) will typ-",
+      "bbox": [
+        307.44000244140625,
+        321.90435791015625,
+        543.0922241210938,
+        330.8109130859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ically drop the undefined derivatives, resulting in erroneous",
+      "bbox": [
+        307.44000244140625,
+        333.859375,
+        541.4393310546875,
+        342.76593017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "gradient estimates (see, e.g., Naesseth et al., 2018).",
+      "bbox": [
+        307.44000244140625,
+        345.8143615722656,
+        511.0756530761719,
+        354.7209167480469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Various methods have thus been proposed to make the re-",
+      "bbox": [
+        307.0820007324219,
+        363.74737548828125,
+        543.0912475585938,
+        372.6539306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling step differentiable in the context of SMC and",
+      "bbox": [
+        307.44000244140625,
+        375.7023620605469,
+        541.4370727539062,
+        384.6089172363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SSMs (see recent surveys in Chen & Li, 2025; Brady et al.,",
+      "bbox": [
+        307.44000244140625,
+        387.6573486328125,
+        542.6884765625,
+        396.56390380859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2025). One line of work focuses on the expectation deriva-",
+      "bbox": [
+        307.44000244140625,
+        399.61236572265625,
+        543.09619140625,
+        408.5189208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tive ∂E",
+      "bbox": [
+        307.44000244140625,
+        411.407958984375,
+        338.25787353515625,
+        420.4739074707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0002",
+      "bbox": [
+        338.2559814453125,
+        409.8544921875,
+        342.410400390625,
+        416.2305603027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xθ,∗",
+      "bbox": [
+        342.406982421875,
+        408.3046569824219,
+        361.896728515625,
+        420.2547302246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        350.6609802246094,
+        416.2591857910156,
+        353.4783935546875,
+        422.451904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0003",
+      "bbox": [
+        362.3979797363281,
+        409.8544921875,
+        366.5523986816406,
+        416.2305603027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "/ ∂θ, which is often well defined, rather than",
+      "bbox": [
+        366.5489807128906,
+        411.407958984375,
+        541.4404907226562,
+        420.4739074707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the pathwise derivative. This can be achieved by comb-",
+      "bbox": [
+        307.44000244140625,
+        423.52337646484375,
+        543.0933837890625,
+        432.429931640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing Fisher’s score (Poyiadjis et al., 2011) and stochastic",
+      "bbox": [
+        307.44000244140625,
+        435.4783630371094,
+        541.43701171875,
+        444.3849182128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "derivatives (Arya et al., 2022), resulting in, for example,",
+      "bbox": [
+        307.44000244140625,
+        447.433349609375,
+        542.6870727539062,
+        456.33990478515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the stop-gradient based method by ´Scibior & Wood (2021).",
+      "bbox": [
+        307.44000244140625,
+        457.1373596191406,
+        543.183349609375,
+        468.294921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, these REINFORCE-based methods often suffer",
+      "bbox": [
+        307.44000244140625,
+        471.3433532714844,
+        541.6099243164062,
+        480.2499084472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from high variance and may consequently require a large",
+      "bbox": [
+        307.44000244140625,
+        483.2983703613281,
+        541.4370727539062,
+        492.2049255371094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sample size N.",
+      "bbox": [
+        307.44000244140625,
+        495.094970703125,
+        367.7237548828125,
+        504.1609191894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Another line of work focuses on developing new resampling",
+      "bbox": [
+        307.0820007324219,
+        513.1864013671875,
+        541.4415893554688,
+        522.0929565429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methods that naturally come with well-defined pathwise",
+      "bbox": [
+        307.44000244140625,
+        525.141357421875,
+        541.4369506835938,
+        534.0479125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "derivatives (i.e., reparapemtrisation). Notable examples",
+      "bbox": [
+        307.44000244140625,
+        537.0973510742188,
+        541.4370727539062,
+        546.00390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "include soft (Karkus et al., 2018) and Gumbel-Softmax re-",
+      "bbox": [
+        307.44000244140625,
+        549.0523681640625,
+        543.0973510742188,
+        557.9589233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling (Jang et al., 2017). Both methods essentially form",
+      "bbox": [
+        307.44000244140625,
+        561.00732421875,
+        541.438232421875,
+        569.9138793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an interpolation between multinomial resampling (which",
+      "bbox": [
+        307.44000244140625,
+        572.9623413085938,
+        541.43701171875,
+        581.868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "has no gradient) and uninformative resampling (which has",
+      "bbox": [
+        307.44000244140625,
+        584.9173583984375,
+        541.4354858398438,
+        593.8239135742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a gradient) via a calibration parameter. Although they have",
+      "bbox": [
+        307.44000244140625,
+        596.8723754882812,
+        541.4415893554688,
+        605.7789306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "been empirically shown to work well for certain models,",
+      "bbox": [
+        307.44000244140625,
+        608.828369140625,
+        542.68701171875,
+        617.7349243164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "they are fundamentally biased. Crucially, one has to decide",
+      "bbox": [
+        307.44000244140625,
+        620.7833251953125,
+        541.4359130859375,
+        629.6898803710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on a trade-off between the gradient bias and the statistical",
+      "bbox": [
+        307.44000244140625,
+        632.7383422851562,
+        541.4371948242188,
+        641.6448974609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance of the forward resampling mapping. In addi-",
+      "bbox": [
+        307.44000244140625,
+        644.693359375,
+        543.0936279296875,
+        653.5999145507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion, Zhu et al. (2020) propose to parametrise the resampling",
+      "bbox": [
+        307.44000244140625,
+        656.6483764648438,
+        541.4381713867188,
+        665.554931640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with a neural network, which adds both training complexity",
+      "bbox": [
+        307.0820007324219,
+        668.6033935546875,
+        541.79345703125,
+        677.5099487304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and additional sources of bias. Kviman et al. (2024) intro-",
+      "bbox": [
+        307.44000244140625,
+        680.5593872070312,
+        543.0960693359375,
+        689.4659423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "duce a deterministic resampling, which also comes with",
+      "bbox": [
+        307.44000244140625,
+        692.5143432617188,
+        541.43701171875,
+        701.4208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "irreducible biases (Finke et al., 2026).",
+      "bbox": [
+        307.44000244140625,
+        704.4693603515625,
+        458.4132080078125,
+        713.3759155273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        295.95001220703125,
+        733.2123413085938,
+        300.9313049316406,
+        742.118896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2512.10401v3  [stat.ML]  28 May 2026",
+      "bbox": [
+        10.940000534057617,
+        211.5699462890625,
+        37.619998931884766,
+        580.4299926757812
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Diffusion differentiable resampling",
+      "author": "Jennifer Rosina Andersson; Zheng Zhao",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:a6404ea)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/diffusion-resampling-paper/documents/.pdf-skill-scan-jt_x1kkl/review/source.pdf",
+      "page_count": 32,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          191,
+          91,
+          406,
+          104
+        ],
+        "pos": [
+          0,
+          42
+        ]
+      },
+      {
+        "index": 1,
+        "class": "page-header",
+        "bbox": [
+          18,
+          211,
+          37,
+          581
+        ],
+        "pos": [
+          42,
+          42
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          205,
+          142,
+          390,
+          153
+        ],
+        "pos": [
+          42,
+          113
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          150,
+          176,
+          195,
+          186
+        ],
+        "pos": [
+          113,
+          130
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          75,
+          193,
+          272,
+          382
+        ],
+        "pos": [
+          130,
+          854
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          55,
+          405,
+          133,
+          415
+        ],
+        "pos": [
+          854,
+          878
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          55,
+          426,
+          292,
+          508
+        ],
+        "pos": [
+          878,
+          1355
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          80,
+          514,
+          291,
+          570
+        ],
+        "pos": [
+          1355,
+          1357
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          55,
+          577,
+          290,
+          600
+        ],
+        "pos": [
+          1357,
+          1503
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          55,
+          607,
+          290,
+          629
+        ],
+        "pos": [
+          1503,
+          1613
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          54,
+          637,
+          291,
+          678
+        ],
+        "pos": [
+          1613,
+          1828
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          55,
+          687,
+          290,
+          718
+        ],
+        "pos": [
+          1828,
+          1987
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          307,
+          178,
+          544,
+          355
+        ],
+        "pos": [
+          1987,
+          2949
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          307,
+          363,
+          544,
+          505
+        ],
+        "pos": [
+          2949,
+          3628
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          307,
+          513,
+          544,
+          713
+        ],
+        "pos": [
+          3628,
+          4594
+        ]
+      },
+      {
+        "index": 15,
+        "class": "page-footer",
+        "bbox": [
+          295,
+          733,
+          301,
+          740
+        ],
+        "pos": [
+          4594,
+          4598
+        ]
+      }
+    ],
+    "text": "**Diffusion differentiable resampling** \n\n**Jennifer Rosina Andersson**<sup>1</sup> **Zheng Zhao**<sup>2</sup> \n\n# **Abstract** \n\nThis paper is concerned with differentiable resampling in the context of sequential Monte Carlo (e.g., particle filtering). Drawing on reparametrisation, we propose a new resampling method that is informative and instantly differentiable, based on a training-free diffusion model surrogate. We theoretically prove that our diffusion resampling method provides a consistent resampling distribution, and we show empirically that it outperforms the state-of-the-art differentiable resampling methods on multiple filtering and parameter estimation benchmarks. Finally, we show that it achieves competitive end-to-end performance when used in learning a complex dynamics-decoder model with high-dimensional image observations. \n\n# **1. Introduction** \n\nConsider a distribution _π_ and a population of weighted samples _{_ ( _wi, Xi_ ) _}_<sup>_N_</sup> _i_ =1<sup>_∼π_, where</sup><sup>_{Xi}N_</sup> _i_ =1<sup>are often iden-</sup> tically and independently drawn from another proposal distribution, calibrated by the weights. The goal of _resampling_ is to transform these weighted samples into an un-weighted set while preserving the original distribution _π_ . In the weak sense, unbiased resampling is defined as a mapping \n\n\n\nfor any bounded and continuous test function _ψ_ , where _{Xi_<sup>_∗}N_</sup> _i_ =1<sup>stands for the re-samples, and</sup><sup>_X∼π_.</sup> \n\nResampling is a key component in sequential Monte Carlo (SMC) samplers for state-space models (SSMs, Chopin \n\n1Department of Information Technology, Uppsala University, Sweden<sup>2</sup> Division of Statistics and Machine Learning, Linköping University, Sweden. Correspondence to: Zheng Zhao ( `趙正` ) <zheng.zhao@liu.se>. \n\n_Proceedings of the 43_<sup>_rd_</sup> _International Conference on Machine Learning_ , Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s). \n\n& Papaspiliopoulos, 2020). It not only mitigates particle degeneracy in practice, but has also been shown to represent a jump Markov process in a continuous-time limit (Chopin et al., 2022). However, resampling typically hinders (gradient-based) parameter estimation of SSMs due to discrete randomness. For instance, with the commonly used multinomial resampling, one draws indices _Ii ∼_ Categorical( _w_ 1 _, w_ 2 _, . . . , wN_ ) independently for _i_ = 1 _,_ 2 _, . . . , N_ , and then defines the resampling mapping by indexing _Xi_<sup>_∗_:=</sup><sup>_XI_</sup> _i_<sup>. If the sample</sup><sup>_X_</sup> _i_<sup>_θ_(and weight)</sup> depend on some unknown parameters _θ_ , the pathwise derivative of the re-sample, _∂Xi_<sup>_θ,∗_</sup> _/ ∂θ_ , is not defined. Moreover, most automatic differentiation libraries (e.g., JAX) will typically drop the undefined derivatives, resulting in erroneous gradient estimates (see, e.g., Naesseth et al., 2018). \n\nVarious methods have thus been proposed to make the resampling step differentiable in the context of SMC and SSMs (see recent surveys in Chen & Li, 2025; Brady et al., 2025). One line of work focuses on the expectation derivative _∂_ E� _Xi_<sup>_θ,∗_</sup> � _/ ∂θ_ , which is often well defined, rather than the pathwise derivative. This can be achieved by combing Fisher’s score (Poyiadjis et al., 2011) and stochastic derivatives (Arya et al., 2022), resulting in, for example, the stop-gradient based method by Scibior & Wood (2021).<sup>´</sup> However, these REINFORCE-based methods often suffer from high variance and may consequently require a large sample size _N_ . \n\nAnother line of work focuses on developing new resampling methods that naturally come with well-defined pathwise derivatives (i.e., reparapemtrisation). Notable examples include soft (Karkus et al., 2018) and Gumbel-Softmax resampling (Jang et al., 2017). Both methods essentially form an interpolation between multinomial resampling (which has no gradient) and uninformative resampling (which has a gradient) via a calibration parameter. Although they have been empirically shown to work well for certain models, they are fundamentally biased. Crucially, one has to decide on a trade-off between the gradient bias and the statistical performance of the forward resampling mapping. In addition, Zhu et al. (2020) propose to parametrise the resampling with a neural network, which adds both training complexity and additional sources of bias. Kviman et al. (2024) introduce a deterministic resampling, which also comes with irreducible biases (Finke et al., 2026). \n\n1 \n\n"
+  }
+}

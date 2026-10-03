@@ -1,0 +1,12 @@
+{
+  "language": "python",
+  "requires_gpu": false,
+  "gpu_requirement": "none",
+  "language_reason": "diffres is an importable Python/JAX package (pyproject.toml, packages=['diffres']); README quick start imports diffres.resampling.diffusion_resampling; tests and demos call the Python API.",
+  "gpu_reason": "pyproject pins jax/jaxlib 0.7.2 without CUDA extras; library functions contain no device-specific code (grep for cuda/gpu/device in diffres/*.py finds nothing); experiment scripts only set XLA memory fractions. CPU is the default device. This workspace additionally forces JAX_PLATFORMS=cpu for memory safety (the WSL host froze twice under GPU JAX jobs on 2026-10-02).",
+  "cli_backend": null,
+  "repository": {"url": "https://github.com/zgbkdlm/diffres", "commit": "767effe3e755067eb8a04422597fbf37eb8ab754"},
+  "requested_filter": null,
+  "route_override": null,
+  "evidence_paths": ["repo/diffres/pyproject.toml", "repo/diffres/README.md", "repo/diffres/diffres/resampling.py", "repo/diffres/tests"]
+}

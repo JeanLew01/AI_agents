@@ -1,0 +1,264 @@
+{
+ "tools_in_usage_and_server": {
+  "diffres_resample_particles_diffusion": true,
+  "diffres_resample_particles_baseline": true,
+  "diffres_run_lgssm_particle_filter": true,
+  "diffres_run_lgssm_kalman_filter": true,
+  "diffres_simulate_lgssm_data": true
+ },
+ "per_tool": {
+  "diffres_resample_particles_diffusion": {
+   "in_server": true,
+   "schema_required": [
+    "particles_path"
+   ],
+   "usage_required": [
+    "particles_path"
+   ],
+   "required_match": true,
+   "schema_params": [
+    "T",
+    "a",
+    "integrator",
+    "jitter",
+    "nsteps",
+    "ode",
+    "output_dir",
+    "particles_path",
+    "prng_key",
+    "seed"
+   ],
+   "usage_params_missing_in_schema": [],
+   "schema_params_not_in_usage_text": [],
+   "defaults": {
+    "a": {
+     "usage": -2.0,
+     "schema": -2.0,
+     "match": true
+    },
+    "T": {
+     "usage": 1.0,
+     "schema": 1.0,
+     "match": true
+    },
+    "nsteps": {
+     "usage": 32,
+     "schema": 32,
+     "match": true
+    },
+    "integrator": {
+     "usage": "euler",
+     "schema": "euler",
+     "match": true
+    },
+    "ode": {
+     "usage": true,
+     "schema": true,
+     "match": true
+    }
+   },
+   "enums": {
+    "integrator": {
+     "usage": [
+      "diffrax",
+      "euler",
+      "jentzen_and_kloeden",
+      "lord_and_rougemont",
+      "tweedie"
+     ],
+     "schema": [
+      "diffrax",
+      "euler",
+      "jentzen_and_kloeden",
+      "lord_and_rougemont",
+      "tweedie"
+     ],
+     "match": true
+    }
+   }
+  },
+  "diffres_resample_particles_baseline": {
+   "in_server": true,
+   "schema_required": [
+    "particles_path"
+   ],
+   "usage_required": [
+    "particles_path"
+   ],
+   "required_match": true,
+   "schema_params": [
+    "alpha",
+    "eps",
+    "method",
+    "output_dir",
+    "particles_path",
+    "prng_key",
+    "seed",
+    "tau"
+   ],
+   "usage_params_missing_in_schema": [],
+   "schema_params_not_in_usage_text": [],
+   "defaults": {
+    "method": {
+     "usage": "multinomial",
+     "schema": "multinomial",
+     "match": true
+    },
+    "eps": {
+     "usage": null,
+     "schema": null,
+     "match": true
+    },
+    "alpha": {
+     "usage": null,
+     "schema": null,
+     "match": true
+    },
+    "tau": {
+     "usage": null,
+     "schema": null,
+     "match": true
+    }
+   },
+   "enums": {
+    "method": {
+     "usage": [
+      "ensemble_ot",
+      "gumbel_softmax",
+      "multinomial",
+      "multinomial_stopped",
+      "soft",
+      "stratified",
+      "systematic"
+     ],
+     "schema": [
+      "ensemble_ot",
+      "gumbel_softmax",
+      "multinomial",
+      "multinomial_stopped",
+      "soft",
+      "stratified",
+      "systematic"
+     ],
+     "match": true
+    }
+   }
+  },
+  "diffres_run_lgssm_particle_filter": {
+   "in_server": true,
+   "schema_required": [
+    "model_path",
+    "observations_path"
+   ],
+   "usage_required": [
+    "model_path",
+    "observations_path"
+   ],
+   "required_match": true,
+   "schema_params": [
+    "compare_to_kalman",
+    "compute_gradient",
+    "diffusion_T",
+    "diffusion_a",
+    "diffusion_integrator",
+    "diffusion_jitter",
+    "diffusion_ode",
+    "diffusion_steps",
+    "gumbel_tau",
+    "model_path",
+    "nparticles",
+    "observations_path",
+    "ot_eps",
+    "ot_implicit_diff",
+    "output_dir",
+    "prng_key",
+    "resampling_method",
+    "resampling_threshold",
+    "save_particle_path",
+    "seed",
+    "soft_alpha"
+   ],
+   "usage_params_missing_in_schema": [],
+   "schema_params_not_in_usage_text": [],
+   "defaults": {
+    "nparticles": {
+     "usage": 32,
+     "schema": 32,
+     "match": true
+    },
+    "resampling_method": {
+     "usage": "diffusion",
+     "schema": "diffusion",
+     "match": true
+    },
+    "resampling_threshold": {
+     "usage": 1.0,
+     "schema": 1.0,
+     "match": true
+    },
+    "diffusion_a": {
+     "usage": -0.5,
+     "schema": -0.5,
+     "match": true
+    },
+    "diffusion_T": {
+     "usage": 3.0,
+     "schema": 3.0,
+     "match": true
+    },
+    "diffusion_steps": {
+     "usage": 8,
+     "schema": 8,
+     "match": true
+    }
+   }
+  },
+  "diffres_run_lgssm_kalman_filter": {
+   "in_server": true,
+   "schema_required": [
+    "model_path",
+    "observations_path"
+   ],
+   "usage_required": [
+    "model_path",
+    "observations_path"
+   ],
+   "required_match": true,
+   "schema_params": [
+    "compute_gradient",
+    "model_path",
+    "observations_path",
+    "output_dir",
+    "smooth"
+   ],
+   "usage_params_missing_in_schema": [],
+   "schema_params_not_in_usage_text": [],
+   "defaults": {}
+  },
+  "diffres_simulate_lgssm_data": {
+   "in_server": true,
+   "schema_required": [
+    "model_path",
+    "nsteps"
+   ],
+   "usage_required": [
+    "model_path",
+    "nsteps"
+   ],
+   "required_match": true,
+   "schema_params": [
+    "model_path",
+    "nsteps",
+    "output_dir",
+    "prng_key",
+    "seed"
+   ],
+   "usage_params_missing_in_schema": [],
+   "schema_params_not_in_usage_text": [],
+   "defaults": {}
+  }
+ },
+ "problems": [],
+ "undocumented_tools": [],
+ "consistent": true
+}

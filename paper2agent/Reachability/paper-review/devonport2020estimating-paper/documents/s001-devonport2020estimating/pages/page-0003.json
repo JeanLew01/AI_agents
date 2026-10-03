@@ -1,0 +1,132 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170-dpi render and two 260-dpi crops (Section 2 down to eq. (1); rest of the page). Heading '2. Forward Reachable Sets' set to ##. All inline math rewritten in LaTeX from the image and cross-checked with the native text layer: Phi(t_1; t_0, x_0, u, d), x_0 in R^n, u:[t_0,t_1]->R^p, d:[t_0,t_1]->R^w, xdot(t)=f(t,x(t),u(t),d(t)), phi(t_1), phi(t_0)=x_0, calligraphic X_0, U, D, hat R_{[t_0,t_1]}, theta, the ellipsoid {x : ||Ax-b||_2 <= 1}, p_Z (lower-case density) versus P_Z (upper-case measure), 1 - epsilon. Equation (1) converted from an extractor formula image to a LaTeX display with \\tag{1}; every symbol was legible, so no formula image is kept. The norm delimiters are typeset by the authors as two single bars '||' on this page; written as \\| (same meaning). Authors' wording kept: 'are known and has unique solutions', 'that is the set of all states'. The lunate epsilon is \\epsilon throughout. Last paragraph continues on page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        186.0
+      ],
+      "markdown": "Our contribution is to show that scenario optimization may be used to provide guarantees for a range of data-driven reachability analysis methods that are applicable to a general class of systems. Specifically, we investigate a Monte Carlo-type method that provides reachable set estimates in the form of *norm ball* sets, with the optional restriction that the norm balls be *axis-aligned*. For each of these classes of norm ball sets, we provide a sample complexity bound derived from the scenario optimization representation of the problem. The sample complexity turns out to be quadratic with respect to the state dimension for the general norm ball case, and linear in the axis-aligned case.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        206.0,
+        230.0,
+        215.0
+      ],
+      "markdown": "## 2. Forward Reachable Sets",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        226.0,
+        523.0,
+        306.0
+      ],
+      "markdown": "We consider a general dynamical system with a state transition function $\\Phi(t_1; t_0, x_0, u, d)$ that maps an initial state $x_0 \\in \\mathbb{R}^n$ at time $t_0$ to a unique final state at time $t_1$, under the influence of the system dynamics, an input $u : [t_0, t_1] \\to \\mathbb{R}^p$, and a disturbance $d : [t_0, t_1] \\to \\mathbb{R}^w$. For instance, when the system state dynamics $\\dot{x}(t) = f(t, x(t), u(t), d(t))$ are known and has unique solutions on the interval $[t_0, t_1]$, then $\\Phi(t_1; t_0, x_0, u, d)$ is just the value $\\phi(t_1)$, where $\\phi$ is the solution satisfying $\\phi(t_0) = x_0$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        308.0,
+        523.0,
+        344.0
+      ],
+      "markdown": "For the problem of forward reachability analysis, we are also given an *initial set* $\\mathcal{X}_0 \\subset \\mathbb{R}^n$, a set $\\mathcal{U}$ of allowed inputs, and a set $\\mathcal{D}$ of allowed disturbances. The *forward reachable set* is then defined as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        178.0,
+        343.0,
+        527.0,
+        367.0
+      ],
+      "markdown": "$$\nR_{[t_0,t_1]} = \\{\\Phi(t_1; t_0, x_0, u, d) : x_0 \\in \\mathcal{X}_0, u \\in \\mathcal{U}, d \\in \\mathcal{D}\\}, \\tag{1}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        369.0,
+        523.0,
+        393.0
+      ],
+      "markdown": "that is the set of all states to which the system can transition at time $t_1$ if it starts in a state in $\\mathcal{X}_0$ at time $t_0$ and is subject to an input in $\\mathcal{U}$ and a disturbance in $\\mathcal{D}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        396.0,
+        523.0,
+        463.0
+      ],
+      "markdown": "Since the exact reachable set cannot be computed, we must settle for the goal of computing some approximation $\\hat{R}_{[t_0,t_1]}$. The approximating set is drawn from a family of sets that is described by a vector parameter $\\theta$, so that the task of computing the approximation is reduced to finding a parameter. For instance, if we choose to approximate the reachable set with an *ellipsoid*, that is a set of the form $\\hat{R}_{[t_0,t_1]}(A, b) = \\{x : \\|Ax - b\\|_2 \\le 1\\}$, then the parameter is $\\theta = (A, b)$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        463.0,
+        523.0,
+        533.0
+      ],
+      "markdown": "Typically, $\\hat{R}_{[t_0,t_1]}$ is designed to be either an overapproximation (so that $R_{[t_0,t_1]} \\subset \\hat{R}_{[t_0,t_1]}$) or an underapproximation (so that $\\hat{R}_{[t_0,t_1]} \\subset R_{[t_0,t_1]}$). These approximations are useful for making safety guarantees, but reachable sets that are estimated from samples will generally not be either. Since we are focusing on a data-driven approach to reachable set computation, we will instead aim to compute an approximation that is similar to the true reachable set in a probabilistic sense.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        536.0,
+        523.0,
+        655.0
+      ],
+      "markdown": "Suppose we have a random variable $Z$ whose support is the reachable set, that is such that its probability density function (pdf) $p_Z$ satisfies $p_Z(x) = 0$ for $x$ outside of the reachable set and $p_Z(x) > 0$ for $x$ inside it. In that case, $R_{[t_0,t_1]}$ is by definition an event with probability one, and any set that is disjoint with $R_{[t_0,t_1]}$ has probability zero. Any set that contains part of the reachable set will have some probability in between, with a higher probability indicating that it contains more of the reachable set. We therefore want to compute a reachable set approximation that is guaranteed to have a high probability under such a distribution. If an approximation satisfies $P_Z(\\hat{R}_{[t_0,t_1]}) \\ge 1 - \\epsilon$, where $P_Z$ is the probability measure of $Z$, then we say that this is an *$\\epsilon$-accurate* approximation with respect to the distribution $p_Z$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        658.0,
+        523.0,
+        696.0
+      ],
+      "markdown": "A reachable set approximation that is $\\epsilon$-accurate may still be quite conservative: in addition to the part of the approximation with measure $1 - \\epsilon$, it could also contain a large portion of the state space outside of the reachable set with measure zero. For most approximation classes this",
+      "source_class": "text"
+    }
+  ]
+}

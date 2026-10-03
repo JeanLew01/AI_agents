@@ -1,0 +1,193 @@
+{
+  "page": 14,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0014.png",
+  "reviewed": true,
+  "review_notes": "[v2] Single-column appendix page. Compared with the preview, a 200-dpi crop of the Algorithm 3 box and main.tex (Appendix A and B). Headings: \"## A. Diffusion resampling with Gaussian reference\", \"## B. Proof of Proposition 1\". Algorithm 3 (extracted as glyph-soup text with <sup> tags) is now an image item algorithm-3 [44,119,549,411] (top and bottom rules, line numbers 1-15 and the right-aligned // comments inside; checked by crop) followed by p0014-alg3text, a line-by-line transcription from the TeX checked against the crop (bold Inputs/Outputs/def/for/do/end, &emsp; indentation for the vlined blocks, comment \"// Or any other SDE solver for Equation (4)\" with \\eqref resolved to the printed (4), \\trans written as ^{\\mathsf{T}}). Note the authors' index bound: Inputs/Outputs use $\\lbrace\\cdot\\rbrace_{i=1}^n$ (lowercase n) while the body uses N; transcribed as printed. Proof of Proposition 1: formula items replaced by LaTeX from TeX (macros expanded: \\abs -> \\lvert\\rvert, \\innerp/\\innerpbig -> \\langle\\rangle, \\grad -> \\nabla, \\refmeasure -> \\pi_{\\mathrm{ref}}, \\expecbig -> \\mathbb{E}\\bigl[\\bigr], \\diff -> \\mathrm{d}): equation (17) (one number for the two-line split), equation (18), the unnumbered three-line derivation, and the unnumbered expectation bound at the page bottom. The extractor's formula box b006 had swallowed \"By Itô’s formula we have\" and equation (18), and b009 had swallowed \"Therefore, applying Assumptions 1 and 2, and Hölder’s inequality we get\" and the bound: split into separate items (new ids p0014-eq18, p0014-therefore, p0014-ebound) in reading order. Added the missing page-number omit item (p0014-pagenum). Running header omitted. The page ends with the unnumbered expectation bound; its sentence continues on page 15 with \"where recall that ...\" (no join set across the display equation, same convention as within pages). TeX and PDF agree on this page.",
+  "warnings": [
+    "Review possible header/footer: p0014-b000"
+  ],
+  "items": [
+    {
+      "id": "p0014-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "source_class": "page-header",
+      "reason": "Running header (paper short title) repeated on every page."
+    },
+    {
+      "id": "p0014-b001",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        68.0,
+        304.0,
+        80.0
+      ],
+      "markdown": "## A. Diffusion resampling with Gaussian reference",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0014-b002",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        89.0,
+        542.0,
+        111.0
+      ],
+      "markdown": "For easy reproducibility, we present the diffusion resampling specifically with the mean-reverting Gaussian reference $\\pi_{\\mathrm{ref}}$ in the following algorithm. In practice, the algorithm is always implemented for log weights.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b003",
+      "kind": "figure",
+      "bbox": [
+        44.0,
+        119.0,
+        549.0,
+        411.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0014-alg3text",
+      "kind": "text",
+      "bbox": [
+        44.0,
+        119.0,
+        549.0,
+        411.0
+      ],
+      "markdown": "**Algorithm 3:** Diffusion resampling `diffres` with Gaussian reference  \n**Inputs:** Weighted samples $\\lbrace (w_i, X_i) \\rbrace_{i=1}^n$ and time grid $0=t_0 < t_1 < \\cdots < t_K=T$.  \n**Outputs:** Differentiable re-samples $\\lbrace (\\frac{1}{N}, X^{*}_i) \\rbrace_{i=1}^n$  \n1 $\\mu_N \\gets \\sum_{i=1}^N w_i \\, X_i$  \n2 $\\Sigma_N \\gets \\sum_{i=1}^N w_i \\, (X_i - \\mu_N) \\, (X_i - \\mu_N)^{\\mathsf{T}}$ &emsp;// Or other Gaussian approximation methods  \n3 **def** $s(x, t)$**:**  \n4 &emsp;$\\alpha_i(x, t) \\gets w_i \\, \\mathrm{N}(x; m_t(X_i), V_t)$ &emsp;// parallel for $i=1,2,\\ldots, N$  \n5 &emsp;$\\alpha_i(x, t) \\gets \\alpha_i(x, t) \\, / \\, \\sum_{j=1}^N \\alpha_j(x, t)$  \n6 &emsp;return $\\displaystyle -\\sum_{i=1}^N \\alpha_i(x, t) \\, V_t^{-1} \\, \\bigl(x - m_t(X_i) \\bigr)$  \n7 **for** $i=1,2,\\ldots, N$ **do** &emsp;// parallel for $i=1,2,\\ldots, N$  \n8 &emsp;$U_{i, 0} \\sim \\mathrm{N}(\\mu_N, \\Sigma_N)$  \n9 &emsp;**for** $k=1, 2, \\ldots, K$ **do**  \n10 &emsp;&emsp;$\\Delta_k = t_k - t_{k-1}$  \n11 &emsp;&emsp;Draw $\\xi_k^i \\sim \\mathrm{N}(0, 2 \\, b^2 \\, \\Delta_k \\, I_d)$  \n12 &emsp;&emsp;$U_{i, t_{k}} = U_{i, t_{k-1}} + b^2 \\bigl[\\Sigma_N^{-1} \\, (U_{i, t_{k-1}} - \\mu_N) + 2 \\, s(U_{i, t_{k-1}}, T - t_{k-1}) \\bigr]\\, \\Delta_k + \\xi_k^i$  \n&emsp;&emsp;&emsp;// Or any other SDE solver for Equation (4)  \n13 &emsp;**end**  \n14 &emsp;$X^*_i \\gets U_{i, T}$  \n15 **end**"
+    },
+    {
+      "id": "p0014-b004",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        434.0,
+        182.0,
+        446.0
+      ],
+      "markdown": "## B. Proof of Proposition 1",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0014-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        453.0,
+        544.0,
+        476.0
+      ],
+      "markdown": "For any $t\\in[0, T)$, define a residual $h_t \\coloneqq U(t) - \\widetilde{U}(t)$, and recall that they both are driven by the same Brownian motion. We have",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b006",
+      "kind": "text",
+      "bbox": [
+        61.0,
+        483.0,
+        548.0,
+        529.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\lvert h_t \\rvert &\\leq \\lvert U(0) - \\widetilde{U}(0) \\rvert \\\\\n&\\quad + b^2 \\biggl( \\int^t_0 \\bigl\\lvert \\nabla\\log \\pi_{\\mathrm{ref}}(\\widetilde{U}(\\tau)) - \\nabla\\log\\pi_{\\mathrm{ref}}(U(\\tau)) \\bigr\\rvert \\, \\mathrm{d}\\tau + 2\\int^t_0 \\bigl\\lvert \\nabla\\log p_{T - \\tau}(U(\\tau)) - s_N(\\widetilde{U}(\\tau), T - \\tau) \\bigr\\rvert \\, \\mathrm{d}\\tau \\biggr)\n\\end{aligned}\n\\tag{17}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0014-b007",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        532.0,
+        157.0,
+        542.0
+      ],
+      "markdown": "By Itô’s formula we have",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-eq18",
+      "kind": "text",
+      "bbox": [
+        225.0,
+        538.0,
+        548.0,
+        570.0
+      ],
+      "markdown": "$$\n\\lvert h_t \\rvert^2 = \\lvert h_0 \\rvert^2 + 2 \\int^t_0 \\langle h_\\tau, h'_\\tau \\rangle \\, \\mathrm{d}\\tau,\n\\tag{18}\n$$"
+    },
+    {
+      "id": "p0014-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        570.0,
+        240.0,
+        585.0
+      ],
+      "markdown": "where $h'_\\tau$ stands for the drift of $h_\\tau$. We obtain",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b009",
+      "kind": "text",
+      "bbox": [
+        50.0,
+        585.0,
+        555.0,
+        675.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\lvert h_t \\rvert^2 &= \\lvert h_0 \\rvert^2 + 2 \\, b^2 \\int^t_0 \\bigl\\langle h_\\tau, \\nabla\\log \\pi_{\\mathrm{ref}}(\\widetilde{U}(\\tau)) - \\nabla\\log\\pi_{\\mathrm{ref}}(U(\\tau)) + 2 \\, \\nabla\\log p_{T - \\tau}(U(\\tau)) - 2 \\, s_N(\\widetilde{U}(\\tau), T - \\tau) \\bigr\\rangle \\, \\mathrm{d}\\tau \\\\\n&= \\lvert h_0 \\rvert^2 + 2 \\, b^2 \\int^t_0 \\bigl\\langle h_\\tau, \\nabla\\log \\pi_{\\mathrm{ref}}(\\widetilde{U}(\\tau)) - \\nabla\\log\\pi_{\\mathrm{ref}}(U(\\tau)) \\bigr\\rangle \\, \\mathrm{d}\\tau \\\\\n&\\qquad\\qquad+ 4 \\, b^2 \\int^t_0 \\bigl\\langle h_\\tau, \\nabla\\log p_{T - \\tau}(U(\\tau)) - \\nabla\\log p_{T - \\tau}(\\widetilde{U}(\\tau)) \\bigr\\rangle + \\bigl\\langle h_\\tau, \\nabla\\log p_{T - \\tau}(\\widetilde{U}(\\tau)) - s_N(\\widetilde{U}(\\tau), T - \\tau) \\bigr\\rangle \\, \\mathrm{d}\\tau.\n\\end{aligned}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0014-therefore",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        677.0,
+        348.0,
+        689.0
+      ],
+      "markdown": "Therefore, applying Assumptions 1 and 2, and Hölder’s inequality we get"
+    },
+    {
+      "id": "p0014-ebound",
+      "kind": "text",
+      "bbox": [
+        100.0,
+        690.0,
+        495.0,
+        723.0
+      ],
+      "markdown": "$$\n\\mathbb{E}\\bigl[ \\lvert h_t \\rvert^2 \\bigr] \\leq \\mathbb{E}\\bigl[ \\lvert h_0 \\rvert^2 \\bigr] + 2\\,b^2 \\,(C_\\mathrm{ref} - 2\\, C_p)\\int^t_0 \\mathbb{E}\\bigl[ \\lvert h_\\tau \\rvert^2 \\bigr] \\, \\mathrm{d}\\tau + 4 \\, b^2 \\int^t_0 \\mathbb{E}\\bigl[ \\lvert h_\\tau \\rvert^2 \\bigr]^{\\frac{1}{2}} \\, \\frac{C_e(T - \\tau)}{N^r} \\, \\mathrm{d}\\tau,\n$$"
+    },
+    {
+      "id": "p0014-pagenum",
+      "kind": "omit",
+      "bbox": [
+        292.0,
+        731.0,
+        304.0,
+        743.0
+      ],
+      "markdown": "14",
+      "reason": "Page number footer \"14\" (verified against preview)."
+    }
+  ]
+}

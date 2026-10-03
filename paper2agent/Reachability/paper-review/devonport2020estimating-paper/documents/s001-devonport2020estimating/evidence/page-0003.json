@@ -1,0 +1,726 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "Our contribution is to show that scenario optimization may be used to provide guarantees for a",
+      "bbox": [
+        106.93599700927734,
+        94.42461395263672,
+        522.0051879882812,
+        104.17735290527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "range of data-driven reachability analysis methods that are applicable to a general class of systems.",
+      "bbox": [
+        90.0,
+        107.97362518310547,
+        522.000244140625,
+        117.72636413574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Speciﬁcally, we investigate a Monte Carlo-type method that provides reachable set estimates in the",
+      "bbox": [
+        90.0,
+        121.52263641357422,
+        522.0000610351562,
+        131.27537536621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "form of norm ball sets, with the optional restriction that the norm balls be axis-aligned. For each",
+      "bbox": [
+        90.0,
+        135.0716552734375,
+        521.9950561523438,
+        144.8243865966797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of these classes of norm ball sets, we provide a sample complexity bound derived from the scenario",
+      "bbox": [
+        90.0,
+        148.62066650390625,
+        522.0001831054688,
+        158.37339782714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimization representation of the problem. The sample complexity turns out to be quadratic with",
+      "bbox": [
+        90.0,
+        162.170654296875,
+        522.0001831054688,
+        171.9233856201172
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "respect to the state dimension for the general norm ball case, and linear in the axis-aligned case.",
+      "bbox": [
+        90.0,
+        175.71966552734375,
+        508.0909118652344,
+        185.47239685058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. Forward Reachable Sets",
+      "bbox": [
+        90.0,
+        206.094970703125,
+        229.49327087402344,
+        216.8426971435547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We consider a general dynamical system with a state transition function Φ(t1; t0, x0, u, d) that maps",
+      "bbox": [
+        90.0,
+        227.52313232421875,
+        522.0028686523438,
+        238.2762451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an initial state x0 ∈Rn at time t0 to a unique ﬁnal state at time t1, under the inﬂuence of the system",
+      "bbox": [
+        90.0,
+        237.2877197265625,
+        522.0050659179688,
+        252.6354217529297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics, an input u : [t0, t1] →Rp, and a disturbance d : [t0, t1] →Rw. For instance, when",
+      "bbox": [
+        90.0,
+        252.70184326171875,
+        521.9956665039062,
+        265.374267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the system state dynamics ˙x(t) = f(t, x(t), u(t), d(t)) are known and has unique solutions on the",
+      "bbox": [
+        89.99993896484375,
+        268.170166015625,
+        522.0017700195312,
+        278.0974426269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "interval [t0, t1], then Φ(t1; t0, x0, u, d) is just the value φ(t1), where φ is the solution satisfying",
+      "bbox": [
+        89.99995422363281,
+        281.71917724609375,
+        522.002197265625,
+        292.4732971191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φ(t0) = x0.",
+      "bbox": [
+        89.99993896484375,
+        295.2691650390625,
+        141.89620971679688,
+        306.02227783203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For the problem of forward reachability analysis, we are also given an initial set X0 ⊂Rn, a set",
+      "bbox": [
+        106.93592834472656,
+        306.8988342285156,
+        522.0047607421875,
+        320.1414489746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "U of allowed inputs, and a set D of allowed disturbances. The forward reachable set is then deﬁned",
+      "bbox": [
+        89.99993896484375,
+        321.75628662109375,
+        522.001708984375,
+        332.2944641113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as",
+      "bbox": [
+        89.99990844726562,
+        336.09075927734375,
+        99.08718872070312,
+        345.8434753417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "R[t0,t1] = {Φ(t1; t0, x0, u, d) : x0 ∈X0, u ∈U, d ∈D},",
+      "bbox": [
+        183.22390747070312,
+        348.85430908203125,
+        428.77862548828125,
+        361.5227966308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        509.2799072265625,
+        349.6397705078125,
+        521.9999389648438,
+        359.3924865722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that is the set of all states to which the system can transition at time t1 if it starts in a state in X0 at",
+      "bbox": [
+        89.99990844726562,
+        368.8793029785156,
+        522.000244140625,
+        381.0544738769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time t0 and is subject to an input in U and a disturbance in D.",
+      "bbox": [
+        89.99990844726562,
+        382.4283142089844,
+        358.6141662597656,
+        394.6034851074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Since the exact reachable set cannot be computed, we must settle for the goal of computing",
+      "bbox": [
+        106.93589782714844,
+        396.7637634277344,
+        522.0051879882812,
+        406.5164794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "some approximation ˆR[t0,t1]. The approximating set is drawn from a family of sets that is described",
+      "bbox": [
+        89.99989318847656,
+        407.3802185058594,
+        521.9968872070312,
+        422.19580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by a vector parameter θ, so that the task of computing the approximation is reduced to ﬁnding a",
+      "bbox": [
+        89.99988555908203,
+        423.6872253417969,
+        522.0001831054688,
+        433.614501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parameter. For instance, if we choose to approximate the reachable set with an ellipsoid, that is a",
+      "bbox": [
+        89.99987030029297,
+        437.4107971191406,
+        521.997802734375,
+        447.16351318359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set of the form ˆR[t0,t1](A, b) = {x : ||Ax −b||2 ≤1}, then the parameter is θ = (A, b).",
+      "bbox": [
+        89.99984741210938,
+        448.02825927734375,
+        471.7381591796875,
+        462.84283447265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Typically, ˆR[t0,t1] is designed to be either an overapproximation (so that R[t0,t1] ⊂ˆR[t0,t1]) or",
+      "bbox": [
+        106.93588256835938,
+        463.57025146484375,
+        522.0044555664062,
+        478.47552490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an underapproximation (so that ˆR[t0,t1] ⊂R[t0,t1]). These approximations are useful for making",
+      "bbox": [
+        89.99993896484375,
+        479.11224365234375,
+        522.0036010742188,
+        493.9278259277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "safety guarantees, but reachable sets that are estimated from samples will generally not be either.",
+      "bbox": [
+        89.99998474121094,
+        495.59381103515625,
+        522.0001220703125,
+        505.3465270996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Since we are focusing on a data-driven approach to reachable set computation, we will instead aim",
+      "bbox": [
+        89.99998474121094,
+        509.142822265625,
+        522.0001831054688,
+        518.8955688476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to compute an approximation that is similar to the true reachable set in a probabilistic sense.",
+      "bbox": [
+        89.99998474121094,
+        522.6918334960938,
+        491.7708435058594,
+        532.444580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Suppose we have a random variable Z whose support is the reachable set, that is such that",
+      "bbox": [
+        106.93598937988281,
+        536.0662841796875,
+        521.9964599609375,
+        545.9935913085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "its probability density function (pdf) pZ satisﬁes pZ(x) = 0 for x outside of the reachable set and",
+      "bbox": [
+        89.99995422363281,
+        549.6162719726562,
+        521.9990844726562,
+        561.2315673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pZ(x) > 0 for x inside it. In that case, R[t0,t1] is by deﬁnition an event with probability one, and any",
+      "bbox": [
+        89.99993896484375,
+        563.165283203125,
+        521.9950561523438,
+        575.3125610351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set that is disjoint with R[t0,t1] has probability zero. Any set that contains part of the reachable set",
+      "bbox": [
+        89.99995422363281,
+        576.7142333984375,
+        522.0039672851562,
+        588.861572265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "will have some probability in between, with a higher probability indicating that it contains more of",
+      "bbox": [
+        89.99995422363281,
+        590.4378051757812,
+        522.0001831054688,
+        600.1905517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the reachable set. We therefore want to compute a reachable set approximation that is guaranteed to",
+      "bbox": [
+        89.99995422363281,
+        603.98681640625,
+        522.0000610351562,
+        613.7395629882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have a high probability under such a distribution. If an approximation satisﬁes PZ( ˆR[t0,t1]) ≥1−ϵ,",
+      "bbox": [
+        89.99995422363281,
+        614.604248046875,
+        522.0028076171875,
+        629.4198608398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where PZ is the probability measure of Z, then we say that this is an ϵ-accurate approximation with",
+      "bbox": [
+        90.00003051757812,
+        630.9112548828125,
+        521.9976806640625,
+        642.5275268554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "respect to the distribution pZ.",
+      "bbox": [
+        90.0,
+        644.4602661132812,
+        218.73028564453125,
+        655.266357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A reachable set approximation that is ϵ-accurate may still be quite conservative: in addition",
+      "bbox": [
+        106.93600463867188,
+        658.00927734375,
+        522.0004272460938,
+        667.9365844726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to the part of the approximation with measure 1 −ϵ, it could also contain a large portion of the",
+      "bbox": [
+        90.0,
+        670.9473266601562,
+        522.0011596679688,
+        681.4855346679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state space outside of the reachable set with measure zero. For most approximation classes this",
+      "bbox": [
+        90.00001525878906,
+        685.2828369140625,
+        522.0003051757812,
+        695.0355834960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.18",
+      "creationDate": "D:20200430212114-07'00'",
+      "modDate": "D:20200430212114-07'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/devonport2020estimating-paper/documents/.pdf-skill-scan-mqgalbud/review/source.pdf",
+      "page_count": 10,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          90,
+          94,
+          523,
+          186
+        ],
+        "pos": [
+          0,
+          700
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          90,
+          206,
+          230,
+          215
+        ],
+        "pos": [
+          700,
+          734
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          89,
+          226,
+          523,
+          306
+        ],
+        "pos": [
+          734,
+          1421
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          89,
+          308,
+          523,
+          344
+        ],
+        "pos": [
+          1421,
+          1649
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          183,
+          348,
+          522,
+          362
+        ],
+        "pos": [
+          1649,
+          1651
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          89,
+          369,
+          523,
+          393
+        ],
+        "pos": [
+          1651,
+          1840
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          89,
+          396,
+          523,
+          463
+        ],
+        "pos": [
+          1840,
+          2392
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          89,
+          463,
+          523,
+          533
+        ],
+        "pos": [
+          2392,
+          2974
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          89,
+          536,
+          523,
+          655
+        ],
+        "pos": [
+          2974,
+          3901
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          90,
+          658,
+          523,
+          696
+        ],
+        "pos": [
+          3901,
+          4197
+        ]
+      }
+    ],
+    "text": "Our contribution is to show that scenario optimization may be used to provide guarantees for a range of data-driven reachability analysis methods that are applicable to a general class of systems. Specifically, we investigate a Monte Carlo-type method that provides reachable set estimates in the form of _norm ball_ sets, with the optional restriction that the norm balls be _axis-aligned_ . For each of these classes of norm ball sets, we provide a sample complexity bound derived from the scenario optimization representation of the problem. The sample complexity turns out to be quadratic with respect to the state dimension for the general norm ball case, and linear in the axis-aligned case. \n\n# **2. Forward Reachable Sets** \n\nWe consider a general dynamical system with a state transition function Φ( _t_ 1; _t_ 0 _, x_ 0 _, u, d_ ) that maps an initial state _x_ 0 _∈_ R<sup>_n_</sup> at time _t_ 0 to a unique final state at time _t_ 1, under the influence of the system dynamics, an input _u_ : [ _t_ 0 _, t_ 1] _→_ R<sup>_p_</sup> , and a disturbance _d_ : [ _t_ 0 _, t_ 1] _→_ R<sup>_w_</sup> . For instance, when the system state dynamics _x_ ˙ ( _t_ ) = _f_ ( _t, x_ ( _t_ ) _, u_ ( _t_ ) _, d_ ( _t_ )) are known and has unique solutions on the interval [ _t_ 0 _, t_ 1], then Φ( _t_ 1; _t_ 0 _, x_ 0 _, u, d_ ) is just the value _φ_ ( _t_ 1), where _φ_ is the solution satisfying _φ_ ( _t_ 0) = _x_ 0. \n\nFor the problem of forward reachability analysis, we are also given an _initial set X_ 0 _⊂_ R<sup>_n_</sup> , a set _U_ of allowed inputs, and a set _D_ of allowed disturbances. The _forward reachable set_ is then defined as \n\n\n\nthat is the set of all states to which the system can transition at time _t_ 1 if it starts in a state in _X_ 0 at time _t_ 0 and is subject to an input in _U_ and a disturbance in _D_ . \n\nSince the exact reachable set cannot be computed, we must settle for the goal of computing some approximation _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]. The approximating set is drawn from a family of sets that is described by a vector parameter _θ_ , so that the task of computing the approximation is reduced to finding a parameter. For instance, if we choose to approximate the reachable set with an _ellipsoid_ , that is a set of the form _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]( _A, b_ ) = _{x_ : _||Ax − b||_ 2 _≤_ 1 _},_ then the parameter is _θ_ = ( _A, b_ ). \n\nTypically, _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] is designed to be either an overapproximation (so that _R_ [ _t_ 0 _,t_ 1] _⊂ R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]) or an underapproximation (so that _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1] _⊂ R_ [ _t_ 0 _,t_ 1]). These approximations are useful for making safety guarantees, but reachable sets that are estimated from samples will generally not be either. Since we are focusing on a data-driven approach to reachable set computation, we will instead aim to compute an approximation that is similar to the true reachable set in a probabilistic sense. \n\nSuppose we have a random variable _Z_ whose support is the reachable set, that is such that its probability density function (pdf) _pZ_ satisfies _pZ_ ( _x_ ) = 0 for _x_ outside of the reachable set and _pZ_ ( _x_ ) _>_ 0 for _x_ inside it. In that case, _R_ [ _t_ 0 _,t_ 1] is by definition an event with probability one, and any set that is disjoint with _R_ [ _t_ 0 _,t_ 1] has probability zero. Any set that contains part of the reachable set will have some probability in between, with a higher probability indicating that it contains more of the reachable set. We therefore want to compute a reachable set approximation that is guaranteed to have a high probability under such a distribution. If an approximation satisfies _PZ_ ( _R_<sup>ˆ</sup> [ _t_ 0 _,t_ 1]) _≥_ 1 _− ϵ,_ where _PZ_ is the probability measure of _Z_ , then we say that this is an _ϵ-accurate_ approximation with respect to the distribution _pZ_ . \n\nA reachable set approximation that is _ϵ_ -accurate may still be quite conservative: in addition to the part of the approximation with measure 1 _− ϵ_ , it could also contain a large portion of the state space outside of the reachable set with measure zero. For most approximation classes this \n\n"
+  }
+}

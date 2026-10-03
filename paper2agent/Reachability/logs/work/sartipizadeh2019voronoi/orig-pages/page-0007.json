@@ -1,0 +1,188 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        57.0,
+        316.0,
+        71.0
+      ],
+      "markdown": "# **4 Partition-based sample reduction**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        84.0,
+        556.0,
+        187.0
+      ],
+      "markdown": "As implied from the concentration probability bounds given in Theorem 1, Problem 2 typically needs a large number of samples to provide a precise approximation for Problem 1 with a small deviation _δ_ and small risk of failure _β_ . Therefore, solving Problem 2 can be computationally expensive or even intractable for real-time applications. In this section, we address Question 2 by proposing a _partition-based_ method which provides an underapproximation to Problem 2 with flexible computational complexity, as opposed to the sampling-based approach, presented in Problem 2. To this end, we propose the following MILP problem with _K_<sup>ˆ</sup> binary variables, where _K_<sup>ˆ</sup> can be significantly smaller than _K_ and is selected by the user.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        201.0,
+        336.0,
+        212.0
+      ],
+      "markdown": "**Problem 3.** _The partition-based terminal time problem is_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "formula",
+      "bbox": [
+        177.0,
+        211.0,
+        435.0,
+        319.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 7 (4)",
+      "asset_name": "formula-p0007-003"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        325.0,
+        556.0,
+        369.0
+      ],
+      "markdown": "ˆ _with the optimal value denoted by p_<sup>_∗_</sup> _K_<sup>(</sup><sup>_x_0)</sup><sup>_.Here,M∈_R</sup><sup>_issomelargepositivenumber,andψ_(</sup><sup>_j_)</sup><sup>_for_</sup> _j ∈_ N[1 _,_ ˆ _K_ ]<sup>_areK_ˆ</sup><sup>_selectedrepresentatives(seeds)ofuncertainty,computedinapredictionmappingφ_:</sup> _W_<sup>_N_</sup> _→X_<sup>_N_</sup> _with_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "formula",
+      "bbox": [
+        264.0,
+        368.0,
+        348.0,
+        390.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 7 (6)",
+      "asset_name": "formula-p0007-005"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        392.0,
+        556.0,
+        435.0
+      ],
+      "markdown": "_α_<sup>(</sup><sup>_j_)</sup> _is the importance rate of the j_<sup>_th_</sup> _seed with_<sup>�</sup> _Kj_<sup>ˆ</sup> =1<sup>_α_(</sup><sup>_j_)=</sup><sup>_Kandα_(</sup><sup>_j_)</sup><sup>_∈_N[1</sup><sup>_,K_]</sup><sup>_.Forj∈_N</sup> [1 _,K_<sup>ˆ</sup> ]<sup>_,ε_(</sup><sup>_j_)</sup><sup>_isan_</sup> _appropriately designed buffer that guarantees the solution of Problem 3 is a lower bound on the solution of Problem 2._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        444.0,
+        556.0,
+        484.0
+      ],
+      "markdown": "In Problem 3, the state uncertainty is characterized by _K_<sup>ˆ</sup> seeds where the _j_<sup>_th_</sup> seed represents _α_<sup>(</sup><sup>_j_)</sup> scenarios of _WK_ . Then the reach-avoid constraints are only checked at the selected seeds instead of being checked at every scenario, which reduces the number of binary variables and constraints.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        502.0,
+        321.0,
+        514.0
+      ],
+      "markdown": "## **4.1 Seed Selection and Buffer Computation**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        520.0,
+        556.0,
+        619.0
+      ],
+      "markdown": "Given a sample set _WK_ , _x_ 0 _∈S_ , and _U_ , we define _XK_<sup>_x_0</sup><sup>_,U_</sup> := _X_ ( _x_ 0 _, U, WK_ ) as the set of sampled state trajectories. We desire that the elements _XK_<sup>_x_0</sup><sup>_,U_</sup> remain in reach-avoid set _R_ . The set _XK_<sup>_x_0</sup><sup>_,U_</sup> can be partitioned into cells, where each cell consists of some of the random state trajectories and is represented by a seed. Figure 2 shows a 2D partition with 11 seeds. **Lemma 3.** _Let_ Ψ _K_ ˆ<sup>:=</sup><sup>_{ψ_(1)</sup><sup>_, · · ·, ψ_( ˆ</sup> _K_ ) _} be the set of optimal seeds of_ Φ _K_ := _φ_ ( _WK_ ) _with φ_ ( _W_ ) := _GwW that minimizes_ WSS _. Then X_<sup>ˆ</sup> _K_<sup>_x_</sup> ˆ<sup>0</sup><sup>_,U_</sup> = _X_<sup>ˆ</sup> (Ψ _K_ ˆ<sup>) =</sup><sup>_{X_ˆ(</sup><sup>_ψ_(1))</sup><sup>_, · · ·,X_ˆ(</sup><sup>_ψ_( ˆ</sup> _K_ )) _} with_",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b010",
+      "kind": "formula",
+      "bbox": [
+        227.0,
+        625.0,
+        385.0,
+        650.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 7 (11)",
+      "asset_name": "formula-p0007-010"
+    },
+    {
+      "id": "p0007-b011",
+      "kind": "formula",
+      "bbox": [
+        51.0,
+        650.0,
+        410.0,
+        675.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 7 (12)",
+      "asset_name": "formula-p0007-011"
+    },
+    {
+      "id": "p0007-b012",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        680.0,
+        556.0,
+        705.0
+      ],
+      "markdown": "_Proof:_ Results directly from Lemma 1. Since there is no uncertainty in _Gx_ and _Gu_ , _Gxx_ 0 + _GuU_ in (2) can be interpreted as a translation term.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b013",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        707.0,
+        556.0,
+        732.0
+      ],
+      "markdown": "According to Lemma 3, although the state trajectory is an optimization variable, it can be clustered through the prediction mapping _φ_ ( _W_ ) _offline_ , independent of the choice of _x_ 0 and _U_ .",
+      "source_class": "text"
+    }
+  ]
+}

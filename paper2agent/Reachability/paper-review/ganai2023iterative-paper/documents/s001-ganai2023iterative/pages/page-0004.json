@@ -1,0 +1,277 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 4 and with main.tex (Section 4, 4.1, start of 4.2). All inline and display mathematics rewritten in LaTeX from the TeX source with the authors' macros expanded (\\E to \\mathbb{E}; the indicator, typed \\mathbbm{1} and printed as a double-struck 1, is written \\mathbb{1}) and checked symbol by symbol on the render; TeX and PDF agree. The three extractor formula images were replaced by $$ blocks: the definition of the REF (unnumbered, ends with a full stop), the Bellman recursion of Theorem 1 (unnumbered, ends with a comma) and the RCRL problem with its printed name tag '(RCRL)'. In displays the expectation subscripts are printed underneath the E. Statement ends taken from the TeX environments: Definition 1 and Definition 2 are single lines; Definition 3 consists of the lead-in line and the display; Definition 4 is one line; Theorem 1 consists of the lead-in, the display AND the following sentence 'where $s' \\sim \\pi,P(s)$ ... The proof can be found in the appendix.' (the where-sentence is inside the theorem environment); Definition 5 is one line. Definition and theorem bodies are printed upright here. Labels 'Definition n.' / 'Theorem 1.' bold as printed. Definition 2 uses the deterministic policy $\\pi_d$ and transition model $P_d$ under the max ($s_t\\in\\tau\\sim\\pi_d,P_d(s)$) while the function is named $V_h^\\pi$, as printed. The optimal policy used for the optimal REF is printed as $\\pi^{\\ast} = \\arg\\min_\\pi V^\\pi_c(s)$ (cost value function $V_c$, not $V_h$), kept. Asterisks written \\ast. Italics kept for 'instantaneous violation indicator function', 'from' and 'at'. '\\ref' to the RCRL equation prints the name 'RCRL' ('The equation RCRL considers ...'). Citations [45, 46], [13], [27] checked. Authors' wording kept: 'a unique trajectory for starting from each state', 'the fact the instantaneous violation indicator function produces', 'bellman recursive form', 'in below formulation'. The last paragraph breaks across pages in the middle of a sentence ('When outside this set, the | optimization produces a control ...') and continues on page 5 (join_previous there). Heading levels fixed (4 level 2; 4.1, 4.2 level 3). Omitted: printed page number 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        73.0,
+        480.0,
+        85.0
+      ],
+      "markdown": "## 4 Stochastic Hamilton-Jacobi Reachability for Reinforcement Learning"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        98.0,
+        505.0,
+        119.0
+      ],
+      "markdown": "Classic HJ reachability considers finding the largest feasible set for deterministic environments. In this section, we apply a similar definition in [45, 46] and define the stochastic reachability problem."
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        134.0,
+        389.0,
+        144.0
+      ],
+      "markdown": "### 4.1 Persistent Safety and HJ Reachability for Stochastic Systems"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        154.0,
+        506.0,
+        175.0
+      ],
+      "markdown": "The instantaneous safety can be characterized by the safe set $\\mathcal{S}_s$, which is the zero level set of the safety loss function $h: \\mathcal{S} \\mapsto \\mathbb{R}^+_0$. The unsafe (i.e. violation) set $\\mathcal{S}_v$ is the complement of the safe set."
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        179.0,
+        478.0,
+        190.0
+      ],
+      "markdown": "**Definition 1.** Safe set and unsafe set: $\\mathcal{S}_{s}:= \\{ s \\in \\mathcal{S}: h(s) = 0 \\},  \\mathcal{S}_{v}:= \\{ s \\in \\mathcal{S}: h(s) > 0 \\}$."
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        195.0,
+        506.0,
+        227.0
+      ],
+      "markdown": "We will write $\\mathbb{1}_{s\\in \\mathcal{S}_v}$ as the *instantaneous violation indicator function*, which is $1$ if the current state is in the violation set and $0$ otherwise. Note that the safety loss function $h$ is different from the instantaneous violation indicator function since $h$ captures the magnitude of the violation at the state."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        234.0,
+        506.0,
+        287.0
+      ],
+      "markdown": "It is insufficient to only consider instantaneous safety. When the environment and policy are both deterministic, we easily have a unique trajectory for starting from each state (i.e. the future state is uniquely determined) under Lipschitz environment dynamics. In classic HJ reachability literature [13], for a deterministic MDP’s transition model $P_d$ and deterministic policy $\\pi_d$, the set of states that guarantees persistent safety is captured by the zero sub-level set of the following value function:"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        291.0,
+        491.0,
+        304.0
+      ],
+      "markdown": "**Definition 2.** Reachability value function $V_h^\\pi : \\mathcal{S} \\mapsto \\mathbb{R}^+_0$ is: $V_h^\\pi (s) := \\max_{s_t\\in \\tau \\sim \\pi_d,P_d(s)} h(s_t)$."
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        308.0,
+        506.0,
+        363.0
+      ],
+      "markdown": "However, when there’s a stochastic environment with transition model $P(\\cdot | s,a)$ and policy $\\pi(\\cdot | s)$, the future states are not uniquely determined. This means for a given initial state and policy, there may exist many possible trajectories starting from this state. In this case, instead of defining a binary function that only indicates the existence of constraint violations, we define the reachability estimation function (REF), which captures the probability of constraint violation:"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        367.0,
+        456.0,
+        378.0
+      ],
+      "markdown": "**Definition 3.** The reachability estimation function (REF) $\\phi^\\pi : \\mathcal{S} \\mapsto [0,1]$ is defined as:"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        220.0,
+        377.0,
+        392.0,
+        404.0
+      ],
+      "markdown": "$$\n\\phi^\\pi (s) := \\mathbb{E}_{\\tau \\sim \\pi,P(s)} \\max _{s_t\\in \\tau} \\mathbb{1}_{(s_t|s_0 = s, \\pi)\\in \\mathcal{S}_v}.\n$$"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        403.0,
+        505.0,
+        446.0
+      ],
+      "markdown": "In a specific trajectory $\\tau$, the value $\\max _{s_t\\in \\tau} \\mathbb{1}_{(s_t|s_0 = s, \\pi)\\in \\mathcal{S}_v}$ will be 1 if there exist constraint violations and 0 if there exists no violation, which is binary. Taking expectation over this binary value for all the trajectories, we get the desired probability. We define optimal REF based on an optimally safe policy $\\pi^{\\ast} = \\arg\\min_\\pi V^\\pi_c(s)$ (note that this policy may not be unique)."
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        450.0,
+        491.0,
+        463.0
+      ],
+      "markdown": "**Definition 4.** The optimal reachability estimation function $\\phi^{\\ast} : \\mathcal{S} \\mapsto [0,1]$ is: $\\phi^{\\ast} (s) := \\phi^{\\pi^{\\ast}} (s)$."
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        468.0,
+        505.0,
+        489.0
+      ],
+      "markdown": "Interestingly, we can utilize the fact the instantaneous violation indicator function produces binary values to learn the REF function in a bellman recursive form. The following will be used later:"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        494.0,
+        453.0,
+        504.0
+      ],
+      "markdown": "**Theorem 1.** The REF can be reduced to the following recursive Bellman formulation:"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        220.0,
+        503.0,
+        392.0,
+        531.0
+      ],
+      "markdown": "$$\n\\phi^\\pi (s) = \\max \\{ \\mathbb{1}_{s\\in \\mathcal{S}_v} , \\mathbb{E}_{s' \\sim \\pi,P(s)} \\phi^\\pi(s') \\},\n$$"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        530.0,
+        504.0,
+        551.0
+      ],
+      "markdown": "where $s' \\sim \\pi,P(s)$ is a sample of the immediate successive state (i.e., $s' \\sim P(\\cdot| s , a\\sim \\pi(\\cdot | s))$) and the expectation is taken over all possible successive states. The proof can be found in the appendix."
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        556.0,
+        506.0,
+        568.0
+      ],
+      "markdown": "**Definition 5.** The feasible set of a policy $\\pi$ based on $\\phi^\\pi(s)$ is defined as: $\\mathcal{S}_{f}^{\\pi} := \\{ s \\in \\mathcal{S}: \\phi^\\pi (s) = 0  \\}$."
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        578.0,
+        504.0,
+        610.0
+      ],
+      "markdown": "Note, the feasible set for a specific policy is the set of states starting *from* which no violation is reached, and the safe set is the set of states *at* which there is no violation. We will use the phrase likelihood of being feasible to mean the likelihood of not reaching a violation, i.e. $1-\\phi^\\pi(s)$."
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        624.0,
+        236.0,
+        634.0
+      ],
+      "markdown": "### 4.2 Comparison with RCRL"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        645.0,
+        506.0,
+        674.0
+      ],
+      "markdown": "The RCRL approach [27] uses reachability to optimize and maintain persistent safety in the feasible set. Note, in below formulation, $\\mathcal{S}_f$ is the optimal feasible set, i.e. that of a policy $\\arg\\min_\\pi V^\\pi_h(s)$. The RCRL formulation is:"
+    },
+    {
+      "id": "p0004-b021",
+      "kind": "text",
+      "bbox": [
+        121.0,
+        677.0,
+        510.0,
+        703.0
+      ],
+      "markdown": "$$\n\\max_\\pi \\mathbb{E}_{s\\sim d_0} [V^{\\pi}(s)\\cdot \\mathbb{1}_{s\\in \\mathcal{S}_f} - V^{\\pi}_h(s)\\cdot \\mathbb{1}_{s\\notin \\mathcal{S}_f}],\\text{ subject to } V^{\\pi}_h (s)\\leq 0, \\forall s\\in \\mathcal{S}_I \\cap \\mathcal{S}_f. \\tag{RCRL}\n$$"
+    },
+    {
+      "id": "p0004-b022",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        702.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "The equation RCRL considers two different optimizations. When in the optimal feasible set, the optimization produces a persistently safe policy maximizing rewards. When outside this set, the"
+    },
+    {
+      "id": "p0004-b023",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "4",
+      "reason": "Printed page number '4' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

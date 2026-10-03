@@ -1,0 +1,718 @@
+{
+  "scan_metadata": {
+    "repository": "diffres",
+    "repository_url": "https://github.com/zgbkdlm/diffres",
+    "commit": "767effe3e755067eb8a04422597fbf37eb8ab754",
+    "paper": "Diffusion differentiable resampling (Andersson & Zhao, ICML 2026; arXiv:2512.10401)",
+    "route": "python",
+    "requested_filter": null,
+    "scan_date": "2026-10-02",
+    "evaluated_source_files": 38,
+    "included_source_files": 6,
+    "proposed_tools": 5,
+    "proposed_modules": [
+      "resampling",
+      "feynman_kac",
+      "gaussian_filters"
+    ],
+    "success": true,
+    "explanation": "Static scan of README, diffres/*.py, demos (4 scripts + notebook), tests (3), experiments (scripts, run_*.sh, summary). No code was executed. Five tools selected over three modules; six execution assignments proposed (two marked optional). Experiments other than one smallest-setting LGSSM and one GMS run are verification references only; CIFAR-10, Lotka-Volterra training, profiling, sweeps and summaries are omitted with reasons."
+  },
+  "proposed_executor_assignments": [
+    {
+      "id": "gaussian_mixture_demo",
+      "module": "resampling",
+      "source": "repo/diffres/demos/gaussian_mixture.ipynb",
+      "sha256": "52d2c7fc97fe8ddeacb84e4dd4204869dec34d0092b5060653412cf599e3e295",
+      "optional": false
+    },
+    {
+      "id": "resampling_tests",
+      "module": "resampling",
+      "source": "repo/diffres/tests/test_resampling.py",
+      "sha256": "9faa2dda66a9f3e1889735969aa7296ce8f382106c481e0608e0a9d7be308968",
+      "optional": false
+    },
+    {
+      "id": "filters_tests",
+      "module": "feynman_kac",
+      "source": "repo/diffres/tests/test_filters.py",
+      "sha256": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+      "optional": false
+    },
+    {
+      "id": "lgssm_gradient_demo",
+      "module": "gaussian_filters",
+      "source": "repo/diffres/demos/gradient_variance2.py",
+      "sha256": "95401a97cd85d3d37ad816db85d261167108642bac66537789f9702bef33a600",
+      "optional": false
+    },
+    {
+      "id": "lgssm_diffusion_experiment",
+      "module": "feynman_kac",
+      "source": "repo/diffres/experiments/lgssm/diffusion.py",
+      "sha256": "22c0b269d3ed74915706806a3f14ca0257ee5f568c67bc761c54d12d6a04afe9",
+      "optional": true
+    },
+    {
+      "id": "gms_diffusion_experiment",
+      "module": "resampling",
+      "source": "repo/diffres/experiments/gms/diffusion.py",
+      "sha256": "886496bab31d254ac8030286ea350e48db817bd680cccc8cdda50c58a94ba774",
+      "optional": true
+    }
+  ],
+  "tutorials": [
+    {
+      "path": "demos/gaussian_mixture.ipynb",
+      "project_path": "repo/diffres/demos/gaussian_mixture.ipynb",
+      "sha256": "52d2c7fc97fe8ddeacb84e4dd4204869dec34d0092b5060653412cf599e3e295",
+      "title": "Diffusion resampling example (Gaussian mixture)",
+      "description": "Official tutorial: builds a 5-component GM prior in d=10 with linear Gaussian likelihood (dy=2), importance-weights 1024 prior samples, resamples with diffusion_resampling(a=-2, ts=linspace(0,1,33), integrator=jentzen_and_kloeden, ode=True), ensemble_ot(eps=0.3) and multinomial, and plots against exact posterior samples (gm_lin_posterior + sampling_gm). Outputs: one saved figure (image/png); no printed numbers.",
+      "type": "notebook",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "The repository's only tutorial and the README-referenced demonstration of diffusion_resampling on a user-style weighted particle set. Owns diffres_resample_particles_diffusion. Self-contained (PRNGKey(666), no external data); n=1024, d=10 keeps (n,n,d) score arrays ~84 MB.",
+      "tutorial_id": "gaussian_mixture_demo",
+      "module": "resampling",
+      "executor_assignment": true
+    },
+    {
+      "path": "tests/test_resampling.py",
+      "project_path": "repo/diffres/tests/test_resampling.py",
+      "sha256": "9faa2dda66a9f3e1889735969aa7296ce8f382106c481e0608e0a9d7be308968",
+      "title": "Resampling unit tests",
+      "description": "Weighted 1-D sample (n=10000, uniform on [-2,2], log weights = N(0; x, 1)); checks sliced-Wasserstein distance between resampled and weighted original for soft_resampling(alpha=1-1e-3), gumbel_softmax(tau=1e-3) [atol 1e-4], diffusion_resampling(a=-0.5, ts=linspace(0,1,16)) for integrators euler/lord_and_rougemont/jentzen_and_kloeden x ode/sde, diffrax (ode only), tweedie (sde only) [atol 1e-3], ensemble_ot(eps=0.1) [atol 3e-3]; test_diffres_versions checks diffusion_resampling == diffusion_resampling_generic with the empirical Gaussian reference (exact allclose).",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Most complete runnable verification of every resampler option. Owns diffres_resample_particles_baseline; also the main numeric check for the diffusion tool. Risk: n=10000 is hard-coded at module level; diffusion/OT/Gumbel materialise (n,n) float64 arrays (~0.8 GB each), likely above the heavy.sh limit while MemAvailable is ~3.4 GB. If the unmodified test is killed, a recorded driver re-running the same test bodies at smaller n is needed (tolerances were calibrated at n=10000).",
+      "tutorial_id": "resampling_tests",
+      "module": "resampling",
+      "executor_assignment": true
+    },
+    {
+      "path": "tests/test_filters.py",
+      "project_path": "repo/diffres/tests/test_filters.py",
+      "sha256": "3536441f630b8f5546dc53ff26b834be44f32eb181ecb5c910dce45249d4160b",
+      "title": "Filter and SMC unit tests",
+      "description": "1-D OU-type LGSSM (semigroup exp(-dt), trans_cov 1-exp(-2dt), H=1, R=1, m0=0, P0=1, 101 observations ys=N(0,1) draws). test_kf: kf+rts match closed-form GP regression mean/variance/nll. test_smc: smc_feynman_kac with multinomial, multinomial_stopped, stratified, systematic (1000 particles) nll vs KF nll rtol 6e-2. test_diffres: diffusion_resampling inside SMC (a=-0.5, ts=linspace(0,2,8), sde, 4 integrators) rtol 5e-2. test_ensemble_ot: eps=0.1, rtol 7e-2.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Direct verification of the particle-filter tool on an LGSSM with every resampler and of the exact Kalman reference (test_kf also supports module gaussian_filters). Owns diffres_run_lgssm_particle_filter. Cheap (1000 particles, d=1).",
+      "tutorial_id": "filters_tests",
+      "module": "feynman_kac",
+      "executor_assignment": true
+    },
+    {
+      "path": "demos/gradient_variance2.py",
+      "project_path": "repo/diffres/demos/gradient_variance2.py",
+      "sha256": "95401a97cd85d3d37ad816db85d261167108642bac66537789f9702bef33a600",
+      "title": "Gradient of PF log-likelihood: diffusion vs stopped-gradient multinomial",
+      "description": "Simulates a 1-D LGSSM with simulate_lgssm (F=0.5, Q=1, H=1, R=1, P0=1, PRNGKey(666), default 128 steps); computes the exact KF negative log-likelihood and its gradient w.r.t. theta=(scale of F, scale of H) at theta=(0.2,0.2), then 1000 Monte Carlo jax.value_and_grad evaluations of the PF nll with diffusion_resampling (a=-1, T=2, 128 steps, euler, ode, jitter=1e-5) and multinomial_stopped (8 particles); prints KF loss/grad, MC means and gradient RMSEs.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Traceable deterministic reference for simulate_lgssm and the Kalman nll/gradient (owns diffres_run_lgssm_kalman_filter and diffres_simulate_lgssm_data, module gaussian_filters) and supporting evidence for the particle-filter tool's gradient option. Bounded with upstream defaults (--nsteps 128 --nparticles 8; 1000-iteration loop is hard-coded but each call is tiny).",
+      "tutorial_id": "lgssm_gradient_demo",
+      "module": "gaussian_filters",
+      "executor_assignment": true
+    },
+    {
+      "path": "experiments/lgssm/diffusion.py",
+      "project_path": "repo/diffres/experiments/lgssm/diffusion.py",
+      "sha256": "22c0b269d3ed74915706806a3f14ca0257ee5f568c67bc761c54d12d6a04afe9",
+      "title": "LGSSM experiment, diffusion resampling",
+      "description": "Per MC seed: simulate LGSSM (F=0.5, Q=1, H=1, R=0.5), PF-vs-KF loss over a hard-coded 128x128 parameter grid, filtering KL and Bures errors between PF weighted moments and KF moments at the true parameters (lines 115-122), and L-BFGS-B (jaxopt) parameter estimation. Saves ./lgssm/results/*.npz relative to cwd.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Only upstream source of the PF-vs-KF filtering error metrics (tools.kl, tools.bures on PF moments) used by the particle-filter tool's optional compare_to_kalman output. Run once at the smallest upstream-supported settings (e.g. --id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=euler) from a scratch cwd containing a copy of rnd_keys.npy and a lgssm/results directory. Needs jaxopt, which pyproject.toml does not declare. Full 100-seed sweep (run_lgssm.sh) is out of scope.",
+      "tutorial_id": "lgssm_diffusion_experiment",
+      "module": "feynman_kac",
+      "executor_assignment": true,
+      "optional": true,
+      "smallest_settings": "--id_l=0 --id_u=0 --nsteps=32 --nparticles=16 --a=-1. --T=1. --dsteps=4 --integrator=euler"
+    },
+    {
+      "path": "experiments/gms/diffusion.py",
+      "project_path": "repo/diffres/experiments/gms/diffusion.py",
+      "sha256": "886496bab31d254ac8030286ea350e48db817bd680cccc8cdda50c58a94ba774",
+      "title": "Gaussian-mixture experiment, diffusion resampling",
+      "description": "Same model as the notebook but with a quantitative metric: sliced Wasserstein (p=1) between exact posterior samples and diffusion-resampled samples, plus the posterior-mean residual. Defaults dx=8, dy=1, c=5, nsamples=10000. Saves ./gms/results/*.npz relative to cwd.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Optional quantitative supporting check for diffres_resample_particles_diffusion (the notebook has no printed metric). Smallest settings: --id_l=0 --id_u=0 --nsamples=1000 (upstream argument; default 10000 would need ~6 GB for (n,n,d) arrays) --a=-1. --T=1. --nsteps=8 --integrator=euler, run from a scratch cwd with rnd_keys.npy and gms/results.",
+      "tutorial_id": "gms_diffusion_experiment",
+      "module": "resampling",
+      "executor_assignment": true,
+      "optional": true,
+      "smallest_settings": "--id_l=0 --id_u=0 --nsamples=1000 --a=-1. --T=1. --nsteps=8 --integrator=euler"
+    },
+    {
+      "path": "README.md",
+      "project_path": "repo/diffres/README.md",
+      "sha256": "a33cfbcf092c1cf1befccf6e7f0dd585df119955c044ecefa6dd9390a61d02b6",
+      "title": "Repository README",
+      "description": "Installation, quick-start call diffusion_resampling(key, log_ws, samples, a, ts), experiment reproduction notes, citation.",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documents the public API used by the diffusion tool; no runnable inputs of its own (quick start uses placeholders). Supporting documentation only."
+    },
+    {
+      "path": "tests/test_integrators.py",
+      "project_path": "repo/diffres/tests/test_integrators.py",
+      "sha256": "5790a19434fd38d6de769fbfe9216561dcea1dd9abc0fff7cd27758bd5591acd",
+      "title": "SDE integrator unit tests",
+      "description": "Checks euler_maruyama, lord_and_rougemont, jentzen_and_kloeden, tweedie steppers on a GM diffusion bridge (10000 samples, d=2) via sliced Wasserstein.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Integrators are internal steppers selected by diffusion_resampling(integrator=...); not a user task on their own. Supporting evidence for the integrator option only."
+    },
+    {
+      "path": "demos/gradient_variance.py",
+      "project_path": "repo/diffres/demos/gradient_variance.py",
+      "sha256": "2ad91441a913e0193686443c71b418f1624697b8bf96eca7d8fcf991f11f2279",
+      "title": "Gradient variance: diffusion PF vs REINFORCE (backward smoother)",
+      "description": "Like gradient_variance2.py but the baseline is a REINFORCE estimator built from bootstrap_backward_smoother trajectories (theta=(0.1,0.1)).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Duplicates gradient_variance2.py for the PF gradient; the extra REINFORCE/backward-smoother part is a baseline estimator, deferred (see tool_review). Supporting only."
+    },
+    {
+      "path": "demos/ideal_case.py",
+      "project_path": "repo/diffres/demos/ideal_case.py",
+      "sha256": "3d93c151c52b40675bf4756aa7b7b29b9dbdd068ffc7adde0cbb28f94cd5bf79",
+      "title": "Ideal case (Doob h-transform) demo",
+      "description": "2-D, 128 samples; ensemble_ot(eps=1e-4) and multinomial on Gaussian-weighted samples; scatter plot only (diffusion call commented out).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Plot-only illustration of baseline resamplers already covered by tests; no quantitative output. Supporting only."
+    },
+    {
+      "path": "demos/two_rings.py",
+      "project_path": "repo/diffres/demos/two_rings.py",
+      "sha256": "b62fc50944071a6ed784d61190e10bc1a220e73f9eb918bb592b0b828a1ecbf5",
+      "title": "Two-rings negative example",
+      "description": "2-D two-rings posterior; diffusion_resampling(a=-1, 128 steps, jentzen_and_kloeden, ode), ensemble_ot(eps=0.3), multinomial; contour plots only. Imports IPython.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Qualitative negative example for the same diffusion/baseline calls; plot only, extra IPython import, 1024x1024 energy grid. Supporting only."
+    },
+    {
+      "path": "experiments/lgssm/baselines.py",
+      "project_path": "repo/diffres/experiments/lgssm/baselines.py",
+      "sha256": "5a700f8231fd0e8527957315ffc7e136aa0fb2068d820bd2df0c14043ccaa938",
+      "title": "LGSSM experiment, baselines",
+      "description": "Same pipeline as experiments/lgssm/diffusion.py with a baseline resampler (multinomial/stratified/systematic, gumbel_softmax, ensemble_ot implicit_diff=False, soft_resampling).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of lgssm/diffusion.py differing only in the resampler; the resampler choice is a parameter of the particle-filter tool. Verification source only, not executed separately."
+    },
+    {
+      "path": "experiments/lgssm/gumbel.py",
+      "project_path": "repo/diffres/experiments/lgssm/gumbel.py",
+      "sha256": "ae84699a7312007596aeda115ccc6978805ac28a5fd8ceaedba96bb20f72824c",
+      "title": "LGSSM experiment, gumbel",
+      "description": "Same pipeline as experiments/lgssm/diffusion.py with a baseline resampler (multinomial/stratified/systematic, gumbel_softmax, ensemble_ot implicit_diff=False, soft_resampling).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of lgssm/diffusion.py differing only in the resampler; the resampler choice is a parameter of the particle-filter tool. Verification source only, not executed separately."
+    },
+    {
+      "path": "experiments/lgssm/ot.py",
+      "project_path": "repo/diffres/experiments/lgssm/ot.py",
+      "sha256": "d1d770fc2a7edbbfd5a089789cab1a81790e6c884465fc7400a270dd5eaccd83",
+      "title": "LGSSM experiment, ot",
+      "description": "Same pipeline as experiments/lgssm/diffusion.py with a baseline resampler (multinomial/stratified/systematic, gumbel_softmax, ensemble_ot implicit_diff=False, soft_resampling).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of lgssm/diffusion.py differing only in the resampler; the resampler choice is a parameter of the particle-filter tool. Verification source only, not executed separately."
+    },
+    {
+      "path": "experiments/lgssm/soft.py",
+      "project_path": "repo/diffres/experiments/lgssm/soft.py",
+      "sha256": "0684d1aa19e3edfc897bd32d92cc4130dc9f70f4e12166d50dbff46e02906775",
+      "title": "LGSSM experiment, soft",
+      "description": "Same pipeline as experiments/lgssm/diffusion.py with a baseline resampler (multinomial/stratified/systematic, gumbel_softmax, ensemble_ot implicit_diff=False, soft_resampling).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of lgssm/diffusion.py differing only in the resampler; the resampler choice is a parameter of the particle-filter tool. Verification source only, not executed separately."
+    },
+    {
+      "path": "experiments/gms/baselines.py",
+      "project_path": "repo/diffres/experiments/gms/baselines.py",
+      "sha256": "7b258df0ab4a7ca8eb5c91f6d5efbabbe359e0130db1cb9e4d3263a9241f1d5c",
+      "title": "GMS experiment, baselines",
+      "description": "Same pipeline as experiments/gms/diffusion.py with a baseline resampler.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of gms/diffusion.py; baseline resamplers are a parameter of diffres_resample_particles_baseline. Verification source only."
+    },
+    {
+      "path": "experiments/gms/gumbel.py",
+      "project_path": "repo/diffres/experiments/gms/gumbel.py",
+      "sha256": "138738ff2784f1063b7f13b9abb9cd0032a2d75e63df81d55f26c0d439e4b975",
+      "title": "GMS experiment, gumbel",
+      "description": "Same pipeline as experiments/gms/diffusion.py with a baseline resampler.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of gms/diffusion.py; baseline resamplers are a parameter of diffres_resample_particles_baseline. Verification source only."
+    },
+    {
+      "path": "experiments/gms/ot.py",
+      "project_path": "repo/diffres/experiments/gms/ot.py",
+      "sha256": "9a430f00adfa5169bd37393b167a7052657e46750b8bdaae003de26c3afb1b61",
+      "title": "GMS experiment, ot",
+      "description": "Same pipeline as experiments/gms/diffusion.py with a baseline resampler.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of gms/diffusion.py; baseline resamplers are a parameter of diffres_resample_particles_baseline. Verification source only."
+    },
+    {
+      "path": "experiments/gms/soft.py",
+      "project_path": "repo/diffres/experiments/gms/soft.py",
+      "sha256": "e06dc2b8f06cfd4c8f7fa0c67de8b55e1af4c55acc19c0878d0a58ed33437d34",
+      "title": "GMS experiment, soft",
+      "description": "Same pipeline as experiments/gms/diffusion.py with a baseline resampler.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Variant of gms/diffusion.py; baseline resamplers are a parameter of diffres_resample_particles_baseline. Verification source only."
+    },
+    {
+      "path": "experiments/lokta/diffusion.py",
+      "project_path": "repo/diffres/experiments/lokta/diffusion.py",
+      "sha256": "b3739c4b607edf04d5125c339da75af5b3cc18adc8ffac5c3ccd5ab0cedd7e59",
+      "title": "Lotka-Volterra NN learning with diffusion PF",
+      "description": "Hard-coded stochastic Lotka-Volterra SSM with Poisson observations; trains a flax NNLoktaVolterra transition (1000 Adam iterations) by differentiating the PF nll.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Paper experiment with a hard-coded model and an NN training loop; not a reusable operation on new inputs (models would have to be Python callables). Omitted."
+    },
+    {
+      "path": "experiments/lokta/others.py",
+      "project_path": "repo/diffres/experiments/lokta/others.py",
+      "sha256": "149d20674d4d80d825fc4982ba9ced8fe2dcc5aac84bfb359c448d2412c29513",
+      "title": "Lotka-Volterra NN learning with baseline resamplers",
+      "description": "Variant of lokta/diffusion.py with gumbel/ot/soft/stopped resampling.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Same as lokta/diffusion.py. Omitted."
+    },
+    {
+      "path": "experiments/cifar10/run.py",
+      "project_path": "repo/diffres/experiments/cifar10/run.py",
+      "sha256": "3cdc0695329b9ca7cee45e6a7f90eac436a955e8b0f9df706806ec7bc7f03c16",
+      "title": "CIFAR-10 partially Bayesian ResNet training with SMC",
+      "description": "Downloads CIFAR-10 (datasets), trains a pBNN ResNet-18 for 200 epochs with SMC over last-layer weights and a chosen resampler.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Out of scope: dataset download, extra dependencies (datasets, mnists, dm-pix, torch for eval), multi-hour GPU training."
+    },
+    {
+      "path": "experiments/profiling_time/compare_time.py",
+      "project_path": "repo/diffres/experiments/profiling_time/compare_time.py",
+      "sha256": "a6e1fe34d11869e2e3f7682b6303aba3e432a435343b47b1716d0b3401015727",
+      "title": "Runtime profiling of resamplers",
+      "description": "Times multinomial/soft/gumbel/diffusion/OT over n in 128..8192 with 50 tries each and saves residuals.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Machine-dependent benchmark, not a user task; n up to 8192 with (n,n,d) arrays exceeds the memory budget. Omitted."
+    },
+    {
+      "path": "experiments/generate_keys.py",
+      "project_path": "repo/diffres/experiments/generate_keys.py",
+      "sha256": "78c7516dc30188fb3ee1124f82681776ca27d7a7562c2b4464018c5705e35949",
+      "title": "Generate MC random keys",
+      "description": "Writes rnd_keys.npy (10000 keys split from PRNGKey(666)).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Setup helper; rnd_keys.npy is already committed. Internal."
+    },
+    {
+      "path": "experiments/summary/plot_lgssm_loss_landscapes.py",
+      "project_path": "repo/diffres/experiments/summary/plot_lgssm_loss_landscapes.py",
+      "sha256": "8c384bb1dbff3f0e253e47644d5659597820fb24f6dce65703fc37a7d2365261",
+      "title": "Summary script plot_lgssm_loss_landscapes",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures (plot_lgssm_loss_landscapes recomputes 128x128 PF loss grids for 6 resamplers and needs LaTeX).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/plot_lokta_preds.py",
+      "project_path": "repo/diffres/experiments/summary/plot_lokta_preds.py",
+      "sha256": "910124f8b1a221c4c332af405fd9366bf668424b4f1bb4ea7bb0c0e8c8d9cddc",
+      "title": "Summary script plot_lokta_preds",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/plot_lokta.py",
+      "project_path": "repo/diffres/experiments/summary/plot_lokta.py",
+      "sha256": "adcc23ec12637ff9215e8879876bda0168503e67faeae0e76817c02cae758c13",
+      "title": "Summary script plot_lokta",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/plot_time.py",
+      "project_path": "repo/diffres/experiments/summary/plot_time.py",
+      "sha256": "1d01d45b85ef257f72390d87e3ff68dcb29882ca3973a73cf0a68279b68fe0a5",
+      "title": "Summary script plot_time",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/print_cifar10.py",
+      "project_path": "repo/diffres/experiments/summary/print_cifar10.py",
+      "sha256": "7ba74dc748994e8ec812c3e541a72c24750c81c646634d412505b7f8a8342b90",
+      "title": "Summary script print_cifar10",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/print_gms_errs.py",
+      "project_path": "repo/diffres/experiments/summary/print_gms_errs.py",
+      "sha256": "1df81cadaaf35ca5b26e8bd1ce6fc19aa4a60a2f7e161075087e518b3a0d17cd",
+      "title": "Summary script print_gms_errs",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/print_lgssm_errs.py",
+      "project_path": "repo/diffres/experiments/summary/print_lgssm_errs.py",
+      "sha256": "a21cae6b702c558f2daaec9b2eccdc8dbe90eef2ff95fb43278ba7ecb828a98e",
+      "title": "Summary script print_lgssm_errs",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/summary/print_lokta.py",
+      "project_path": "repo/diffres/experiments/summary/print_lokta.py",
+      "sha256": "2f4790b04fcc0f8f2d1a46f6d70e427f3364399235b233ffdc129431f75c4142",
+      "title": "Summary script print_lokta",
+      "description": "Post-processes saved results of full experiment sweeps into paper tables/figures.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Depends on results of the full 100-seed sweeps or trained checkpoints, which are out of scope; table/figure reproduction is not a tool. Omitted."
+    },
+    {
+      "path": "experiments/run_lgssm.sh",
+      "project_path": "repo/diffres/experiments/run_lgssm.sh",
+      "sha256": "64f402bd1dc3431e0471bfea01a4c40b9db5dea4ccb6448858e0c4a980331381",
+      "title": "Experiment driver run_lgssm.sh",
+      "description": "Launches the full parameter/seed sweep for one experiment.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Full sweeps are forbidden by the machine brief; used only to read the paper's parameter choices."
+    },
+    {
+      "path": "experiments/run_gms.sh",
+      "project_path": "repo/diffres/experiments/run_gms.sh",
+      "sha256": "c01a4c88a3ef05d6a5ffb585b9d4233b1b1a9e8c1c46d40360eab44963b3eee5",
+      "title": "Experiment driver run_gms.sh",
+      "description": "Launches the full parameter/seed sweep for one experiment.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Full sweeps are forbidden by the machine brief; used only to read the paper's parameter choices."
+    },
+    {
+      "path": "experiments/run_lokta.sh",
+      "project_path": "repo/diffres/experiments/run_lokta.sh",
+      "sha256": "d7022edc12cf32491c45dd468ebfab846a2844112ce0c304be169257c55aea43",
+      "title": "Experiment driver run_lokta.sh",
+      "description": "Launches the full parameter/seed sweep for one experiment.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Full sweeps are forbidden by the machine brief; used only to read the paper's parameter choices."
+    },
+    {
+      "path": "experiments/run_times.sh",
+      "project_path": "repo/diffres/experiments/run_times.sh",
+      "sha256": "8aaf6bdb8a0a20cb768dfe63857600bfa925eed85fef5b7df2df749251267732",
+      "title": "Experiment driver run_times.sh",
+      "description": "Launches the full parameter/seed sweep for one experiment.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Full sweeps are forbidden by the machine brief; used only to read the paper's parameter choices."
+    },
+    {
+      "path": "experiments/run_cifar10.sh",
+      "project_path": "repo/diffres/experiments/run_cifar10.sh",
+      "sha256": "ac81800efd581dcc98fd2dfa85e3bc04f7a2769ae71d00b50d63014f1465de8e",
+      "title": "Experiment driver run_cifar10.sh",
+      "description": "Launches the full parameter/seed sweep for one experiment.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Full sweeps are forbidden by the machine brief; used only to read the paper's parameter choices."
+    },
+    {
+      "path": "experiments/README.md",
+      "project_path": "repo/diffres/experiments/README.md",
+      "sha256": "99cad99a29474671f03b3f2f64177f90455bb11f4c67d63e25dd963f5225974c",
+      "title": "Experiments README",
+      "description": "Extra pip installs for the image experiments (mnists, datasets, dm-pix, torch, torchmetrics).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Only concerns the out-of-scope image experiments."
+    }
+  ],
+  "tool_review": [
+    {
+      "candidate": "diffres_resample_particles_diffusion",
+      "decision": "expose",
+      "module": "resampling",
+      "owning_source": "demos/gaussian_mixture.ipynb",
+      "task": "Resample a user-supplied weighted particle set with diffusion resampling (empirical diagonal Gaussian reference), returning equally weighted, differentiable-by-construction resamples.",
+      "implementation": {
+        "path": "diffres/resampling.py",
+        "symbol": "diffusion_resampling(key, log_ws, samples, a, ts, integrator=\"euler\", ode=True, jitter=0., einsum=False)",
+        "lines": "195-308",
+        "commit": "767effe3e755067eb8a04422597fbf37eb8ab754"
+      },
+      "inputs": "samples (n, d) [or (n, ...)] as inline JSON list or path to .npy/.csv; log_weights (n,) or weights (n,); a < 0 (docstring: must be negative); T and nsteps -> ts=linspace(0,T,nsteps+1) as in every upstream caller (optionally explicit ts); integrator in {euler, lord_and_rougemont, jentzen_and_kloeden, diffrax (ode only), tweedie (sde only)}; ode bool; jitter >= 0; seed int -> jax.random.PRNGKey(seed). Enable jax_enable_x64 as all upstream callers do. Keep einsum internal (GPU-utilisation switch only).",
+      "outputs": "resampled particles (n, d) saved to file plus inline when small; output log weights (uniform -log n); brief summary (input ESS, weighted mean of input vs mean of output).",
+      "contract_notes": [
+        "diffusion_resampling uses exp(log_ws) directly as normalised weights for the reference mean/variance; every upstream caller normalises with logsumexp first. Wrapper must normalise (and say so) or reject unnormalised input; do not silently change results otherwise.",
+        "Unsupported combinations raise NotImplementedError upstream (diffrax with ode=False, tweedie with ode=True, tme). Preserve that error meaning.",
+        "With integrator=diffrax every scan step re-solves the full ODE over [0,T] (upstream behaviour); cost is nsteps x a full solve.",
+        "Memory: the ensemble score materialises (n, n, prod(d)) float64 arrays per step (~8*n^2*d bytes each); a resource guard on n^2*d is advisable on this machine."
+      ],
+      "verification": [
+        {
+          "source": "demos/gaussian_mixture.ipynb cells 4 and 6",
+          "compare": "resamples from the tool with the notebook's inputs/key equal direct upstream diffusion_resampling output (allclose); qualitative match to the saved figure"
+        },
+        {
+          "source": "tests/test_resampling.py::test_diffres[integrator, ode] and ::test_diffres_versions",
+          "compare": "sliced-Wasserstein distance to the weighted input <= 1e-3 for all 8 tested integrator/ode combos; equality with direct upstream call"
+        },
+        {
+          "source": "experiments/gms/diffusion.py (optional, --id_l=0 --id_u=0 --nsamples=1000)",
+          "compare": "printed SWD error vs exact posterior samples reproduced by the tool on the same inputs"
+        }
+      ],
+      "reason": "Core contribution of the paper; README quick start is exactly this call."
+    },
+    {
+      "candidate": "diffres_resample_particles_baseline",
+      "decision": "expose",
+      "module": "resampling",
+      "owning_source": "tests/test_resampling.py",
+      "task": "Resample the same kind of weighted particle set with one of the baseline resamplers implemented in the repository, for comparison with diffusion resampling.",
+      "implementation": {
+        "path": "diffres/resampling.py",
+        "symbol": "multinomial, stratified, systematic, multinomial_stopped, ensemble_ot(eps=None->1/log n, implicit_diff=True), soft_resampling(alpha), gumbel_softmax(tau)",
+        "lines": "37-192",
+        "commit": "767effe3e755067eb8a04422597fbf37eb8ab754"
+      },
+      "inputs": "samples, log_weights/weights, seed as above; method in {multinomial, stratified, systematic, multinomial_stopped, ensemble_ot, soft, gumbel_softmax}; method parameters eps (+implicit_diff) for ensemble_ot, alpha in [0,1] for soft, tau > 0 for gumbel_softmax.",
+      "outputs": "resampled particles (n, d) and output log weights (soft_resampling returns non-uniform normalised log weights; others uniform), same summary as the diffusion tool.",
+      "contract_notes": [
+        "systematic/stratified and ensemble_ot assume normalised weights (cumsum compared to (i+u)/n; OT marginal b=exp(log_ws)).",
+        "ensemble_ot, gumbel_softmax also materialise (n, n) arrays.",
+        "multinomial_stopped differs from multinomial only in gradients; forward output is identical given the same key."
+      ],
+      "verification": [
+        {
+          "source": "tests/test_resampling.py::test_misc_resamplings[soft_r, gumbel_r], ::test_ensemble_ot",
+          "compare": "SWD to weighted input within atol 1e-4 (soft, gumbel) and 3e-3 (OT eps=0.1); equality with direct upstream calls"
+        },
+        {
+          "source": "tests/test_filters.py::test_smc[multinomial, multinomial_stopped, stratified, systematic]",
+          "compare": "these four resamplers inside SMC reproduce KF nll within rtol 6e-2"
+        },
+        {
+          "source": "demos/gaussian_mixture.ipynb cell 6",
+          "compare": "ensemble_ot(eps=0.3) and multinomial outputs on notebook inputs"
+        }
+      ],
+      "reason": "Coordinator guidance (a); all baselines are concrete public functions with tests. One tool with a method switch avoids seven near-identical wrappers."
+    },
+    {
+      "candidate": "diffres_run_lgssm_particle_filter",
+      "decision": "expose",
+      "module": "feynman_kac",
+      "owning_source": "tests/test_filters.py",
+      "task": "Run a bootstrap particle filter (SMC) on a linear Gaussian state-space model given as JSON matrices with a chosen resampler (diffusion or any baseline), returning filtering particles/weights, ESS and the log-likelihood estimate; optionally its gradient w.r.t. model matrices and a comparison with the exact Kalman filter.",
+      "implementation": {
+        "path": "diffres/feynman_kac.py",
+        "symbol": "smc_feynman_kac(key, m0, log_g0, m_log_g, pytree=ys, nparticles, nsteps=N, resampling, resampling_threshold=1., return_path=True)",
+        "lines": "22-115",
+        "commit": "767effe3e755067eb8a04422597fbf37eb8ab754",
+        "model_construction": "bootstrap m0_sampler/log_g0/m_log_g as in tests/test_filters.py lines 59-73 (and experiments/lgssm/diffusion.py lines 63-80), generalised from diagonal/1-D to full matrices using the Cholesky factors exactly as diffres.tools.simulate_lgssm does and diffres.tools.logpdf_mvn_chol for the observation potential; for diagonal inputs this reduces to the test code.",
+        "supporting_symbols": [
+          "diffres.feynman_kac.compute_ess",
+          "diffres.resampling.*",
+          "diffres.gaussian_filters.kf (compare_to_kalman)",
+          "diffres.tools.kl, diffres.tools.bures (compare_to_kalman, as experiments/lgssm/diffusion.py lines 115-122)"
+        ]
+      },
+      "inputs": "F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx,), P0 (dx,dx), ys (N+1, dy) with ys[0] the time-0 observation (used by log_g0, matching kf); nparticles; resampler name + its parameters (same set as the two resampling tools); resampling_threshold in (0,1]; seed; return_gradient bool; compare_to_kalman bool.",
+      "outputs": "filtering particles (N+1, s, dx) and log weights (N+1, s) saved to .npz; weighted filtering means/covariances; ESS (N+1,); negative log-likelihood (upstream returns nll; also report log-likelihood = -nll); optional jax.value_and_grad gradient of nll w.r.t. F and H (as in demos/gradient_variance2.py and the L-BFGS objective in experiments/lgssm); optional KF nll and mean KL / Bures filtering errors.",
+      "contract_notes": [
+        "Arbitrary Python model callables cannot be passed over MCP; only the LGSSM family is exposed. Nonlinear/non-Gaussian models are omitted (see tool_review).",
+        "Gradient semantics depend on the resampler: multinomial/stratified/systematic give gradients that ignore the resampling step; multinomial_stopped, diffusion, OT (use implicit_diff=False as the LGSSM experiments do), soft, gumbel are the differentiable options. Report this rather than altering it.",
+        "To reproduce tests bit-for-bit the wrapper must draw random numbers in the same order/shape as the test m0_sampler and m_log_g."
+      ],
+      "verification": [
+        {
+          "source": "tests/test_filters.py::test_smc, ::test_diffres, ::test_ensemble_ot",
+          "compare": "tool nll on the test model equals direct upstream smc_feynman_kac nll with the same key and is within rtol 6e-2/5e-2/7e-2 of the KF nll"
+        },
+        {
+          "source": "demos/gradient_variance2.py",
+          "compare": "MC mean of tool gradients (diffusion, multinomial_stopped) close to the KF gradient printed by the demo; single-key gradient equals direct upstream value_and_grad"
+        },
+        {
+          "source": "experiments/lgssm/diffusion.py at smallest settings (optional)",
+          "compare": "KL/Bures filtering errors at the true parameters for seed 0 reproduced by compare_to_kalman"
+        }
+      ],
+      "reason": "Coordinator guidance (b); the PF is the paper's main downstream use of differentiable resampling and an LGSSM given as matrices is a realistic MCP input with an exact reference."
+    },
+    {
+      "candidate": "diffres_run_lgssm_kalman_filter",
+      "decision": "expose",
+      "module": "gaussian_filters",
+      "owning_source": "demos/gradient_variance2.py",
+      "task": "Exact Kalman filter (and optional RTS smoother) for the same LGSSM JSON specification: filtering/smoothing means and covariances, exact negative log-likelihood, optional gradient of the nll w.r.t. F and H; the reference against which particle filters are judged.",
+      "implementation": {
+        "path": "diffres/gaussian_filters.py",
+        "symbol": "kf(ys, m0, v0, semigroup, trans_cov, obs_op, obs_cov) -> (mfs, vfs, nll, mps, vps); rts(mfs, vfs, mps, vps, semigroup) -> (mss, vss)",
+        "lines": "27-54",
+        "commit": "767effe3e755067eb8a04422597fbf37eb8ab754"
+      },
+      "inputs": "F, Q, H, R, m0, P0, ys as in the particle-filter tool; smooth bool; return_gradient bool.",
+      "outputs": "filtering means (N+1,dx) and covariances (N+1,dx,dx); nll and log-likelihood; optional RTS smoothing means/covariances; optional gradient of nll w.r.t. F and H.",
+      "contract_notes": [
+        "R + H P H^T must be positive definite (Cholesky in kf_update).",
+        "nll includes the time-0 observation update."
+      ],
+      "verification": [
+        {
+          "source": "tests/test_filters.py::test_kf",
+          "compare": "kf/rts on the test OU model equal closed-form GP regression mean, variance and nll (allclose)"
+        },
+        {
+          "source": "demos/gradient_variance2.py",
+          "compare": "loss_true and grad_true printed by the demo (KF nll and gradient at theta=(0.2,0.2) on simulated data) reproduced by the tool given theta-scaled F, H (chain rule: dtheta1 = sum(dF * I), dtheta2 = sum(dH * ones))"
+        }
+      ],
+      "reason": "Coordinator guidance (b): exact reference on linear Gaussian SSMs; tested against a closed form."
+    },
+    {
+      "candidate": "diffres_simulate_lgssm_data",
+      "decision": "expose",
+      "module": "gaussian_filters",
+      "owning_source": "demos/gradient_variance2.py",
+      "task": "Simulate a latent trajectory and observations from an LGSSM JSON specification, so users can generate inputs for the two filter tools.",
+      "implementation": {
+        "path": "diffres/tools.py",
+        "symbol": "simulate_lgssm(key, semigroup, trans_cov, obs_op, obs_cov, m0, v0, nsteps) -> (xs (N+1,dx), ys (N+1,dy))",
+        "lines": "363-385 (file lines; project-specific tools section)",
+        "commit": "767effe3e755067eb8a04422597fbf37eb8ab754"
+      },
+      "inputs": "F, Q, H, R, m0, P0 (Q, R, P0 positive definite), nsteps N, seed.",
+      "outputs": "xs (N+1, dx), ys (N+1, dy) saved to .npz/.json for reuse by the filter tools.",
+      "contract_notes": [
+        "Grouped with module gaussian_filters (LGSSM utilities) although the callable lives in diffres/tools.py; no other diffres.tools function is exposed."
+      ],
+      "verification": [
+        {
+          "source": "demos/gradient_variance2.py line 97 (also experiments/lgssm/diffusion.py line 107)",
+          "compare": "ys from the tool with key = split(PRNGKey(666))[0] equal the demo's simulated ys (exact), which then feed the KF reference values"
+        }
+      ],
+      "reason": "Small but independently useful and makes the filter tools composable without user-side code; used by every LGSSM workflow upstream."
+    },
+    {
+      "candidate": "diffusion_resampling_generic (user-chosen reference)",
+      "decision": "defer",
+      "reason": "Requires Python callables ref_sampler, logpdf_trans, score_ref; the only concrete instantiation in the repo (tests/test_resampling.py::test_diffres_versions) reproduces diffusion_resampling exactly, so a JSON-exposable version would add no capability without inventing reference families.",
+      "implementation_or_source": "diffres/resampling.py lines 311-393"
+    },
+    {
+      "candidate": "SDE integrators (euler_maruyama, lord_and_rougemont, jentzen_and_kloeden, tweedie)",
+      "decision": "internal",
+      "reason": "Exposed only as the integrator option of diffres_resample_particles_diffusion; tests/test_integrators.py is supporting evidence.",
+      "implementation_or_source": "diffres/integators.py"
+    },
+    {
+      "candidate": "compute_ess",
+      "decision": "internal",
+      "reason": "Returned as an output of the particle-filter tool and resampling summaries.",
+      "implementation_or_source": "diffres/feynman_kac.py lines 143-146"
+    },
+    {
+      "candidate": "tools.kl / tools.bures (Gaussian KL, Wasserstein-2)",
+      "decision": "merge into diffres_run_lgssm_particle_filter",
+      "reason": "Used only to score PF moments against KF as in experiments/lgssm; exposed via compare_to_kalman.",
+      "implementation_or_source": "diffres/tools.py lines 41-63"
+    },
+    {
+      "candidate": "bootstrap_backward_smoother",
+      "decision": "defer",
+      "reason": "Peripheral to the paper (only builds the REINFORCE baseline in demos/gradient_variance.py), no test, and upstream draws xT with the unsplit key (key_last unused). Could be added later as a smoothing option of the PF tool with demos/gradient_variance.py as reference.",
+      "implementation_or_source": "diffres/feynman_kac.py lines 118-140"
+    },
+    {
+      "candidate": "gm_lin_posterior / sampling_gm / make_gm_bridge (exact GM references)",
+      "decision": "internal",
+      "reason": "Benchmark references used by the notebook, gms experiments and integrator tests; they generate held-out truth rather than serve a user task on the user's particles.",
+      "implementation_or_source": "diffres/tools.py lines 181-283"
+    },
+    {
+      "candidate": "Particle filter for nonlinear / non-Gaussian SSMs (e.g. Lotka-Volterra Poisson model)",
+      "decision": "omit",
+      "reason": "smc_feynman_kac needs Python callables for the proposal and potential; the only non-Gaussian model (experiments/lokta) is hard-coded and tied to NN training. Accepting user code or expression strings would be new functionality.",
+      "implementation_or_source": "experiments/lokta/*.py"
+    },
+    {
+      "candidate": "Parameter estimation by L-BFGS-B on the PF loss",
+      "decision": "omit",
+      "reason": "Present only inside experiments/lgssm via jaxopt (undeclared dependency) with a fixed theta-scaling parametrisation; the gradient output of the PF tool covers the reusable part.",
+      "implementation_or_source": "experiments/lgssm/*.py lines 93, 124-125"
+    },
+    {
+      "candidate": "PF loss landscapes over a parameter grid",
+      "decision": "omit",
+      "reason": "128x128 grid hard-coded, for figure reproduction (summary/plot_lgssm_loss_landscapes.py, needs LaTeX); heavy and not a general task.",
+      "implementation_or_source": "experiments/summary/plot_lgssm_loss_landscapes.py"
+    },
+    {
+      "candidate": "CIFAR-10 pBNN training with SMC",
+      "decision": "omit",
+      "reason": "Out of scope per coordinator: dataset download, image-experiment dependencies, multi-hour training.",
+      "implementation_or_source": "experiments/cifar10/run.py, diffres/nns.py, diffres/data.py"
+    },
+    {
+      "candidate": "Runtime profiling of resamplers",
+      "decision": "omit",
+      "reason": "Machine-dependent benchmark with n up to 8192; not a user task.",
+      "implementation_or_source": "experiments/profiling_time/compare_time.py"
+    },
+    {
+      "candidate": "Full experiment sweeps and summary tables/figures",
+      "decision": "omit",
+      "reason": "100-seed sweeps are forbidden by the machine brief; summary scripts only post-process their saved results.",
+      "implementation_or_source": "experiments/run_*.sh, experiments/summary/*.py"
+    }
+  ],
+  "blockers_and_risks": [
+    "tests/test_resampling.py hard-codes n=10000; diffusion/OT/Gumbel tests materialise (n,n) float64 arrays (~0.8 GB each, several live) while MemAvailable was ~3.4 GB at scan time (heavy.sh limit <= ~1400 MB). Executor may need a recorded smaller-n driver over the same test bodies if the unmodified file is killed.",
+    "experiments/lgssm/diffusion.py imports jaxopt, which pyproject.toml does not declare; reports/environment-requirements.txt listed jaxopt==0.8.5 at scan time, so this is resolved if that environment is final.",
+    "Experiment scripts load rnd_keys.npy and write ./<exp>/results relative to cwd; executors must run them from a scratch cwd (copy rnd_keys.npy) so the pinned repo is not modified.",
+    "demos/gradient_variance2.py has a hard-coded 1000-iteration Monte Carlo loop printing every index; bounded but verbose (log to file).",
+    "demos/two_rings.py imports IPython (not a declared dependency); it is not assigned."
+  ]
+}

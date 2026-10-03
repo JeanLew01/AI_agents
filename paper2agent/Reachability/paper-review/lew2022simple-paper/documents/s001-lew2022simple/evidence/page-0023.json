@@ -1,0 +1,1463 @@
+{
+  "page": 23,
+  "lines": [
+    {
+      "text": "SAMPLING-BASED REACHABILITY ANALYSIS",
+      "bbox": [
+        210.07200622558594,
+        41.200374603271484,
+        399.2085876464844,
+        50.106937408447266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Appendix D. Computing the Lipschitz constant of a ReLU network from samples",
+      "bbox": [
+        90.0,
+        93.57196044921875,
+        505.22802734375,
+        104.3196792602539
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we show that sampling gradients enables obtaining the Lipschitz constant of a neural",
+      "bbox": [
+        90.0,
+        115.17369842529297,
+        522.0001831054688,
+        124.92643737792969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "network with ReLU activation functions with high probability. Consider a feed-forward ReLU",
+      "bbox": [
+        90.0,
+        128.72271728515625,
+        522.000244140625,
+        138.47544860839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "neural network f : Rn →Rn with ℓ∈N layers, given as",
+      "bbox": [
+        90.0,
+        137.52825927734375,
+        338.4206237792969,
+        152.0254364013672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "f(x) = W ℓxℓ+ bℓ,",
+      "bbox": [
+        136.27999877929688,
+        162.3677978515625,
+        223.03369140625,
+        174.51943969726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xk+1 = φk(W kxk + bk), k = 0, . . . , ℓ−1,",
+      "bbox": [
+        235.76461791992188,
+        160.328125,
+        428.2176513671875,
+        174.51943969726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x0 = x,",
+      "bbox": [
+        440.9485778808594,
+        160.328125,
+        475.7276611328125,
+        174.51943969726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where (W k, bk)ℓ",
+      "bbox": [
+        89.99996948242188,
+        185.6478271484375,
+        163.16098022460938,
+        197.4944305419922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k=0 are the network weights and biases, and each φk : Rnk →Rnk+1 is deﬁned as",
+      "bbox": [
+        159.7019500732422,
+        183.60821533203125,
+        521.9993286132812,
+        200.8154754638672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φk(x) = (ϕ(x1), . . . , ϕ(xnk)) with ϕ(z) = max(0, z). Note that f is piecewise-afﬁne.",
+      "bbox": [
+        89.99993896484375,
+        199.1968994140625,
+        469.52862548828125,
+        212.88877868652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Let X ⊂Rn be a non-empty compact set. Let A = {A1, . . . , AN} be the set of all polytopes",
+      "bbox": [
+        106.93594360351562,
+        210.88079833984375,
+        522.0028686523438,
+        225.47137451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ai ⊆X where f|Ai is afﬁne, which we call the activation regions of f. Let ΛN = mini=1,...,N λ(Ai)",
+      "bbox": [
+        89.99993896484375,
+        226.40594482421875,
+        520.8025512695312,
+        243.08055114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "λ(X)",
+      "bbox": [
+        478.0769958496094,
+        235.74740600585938,
+        496.7966613769531,
+        243.27117919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be the smallest (normalized Lebesgue) volume of all activation regions. Note that f is Lipschitz",
+      "bbox": [
+        90.0,
+        243.799072265625,
+        521.9990234375,
+        253.7263641357422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "continuous over X, since it is continuous and restricted to a compact subset. Thus, for some L ≥0,",
+      "bbox": [
+        90.0,
+        256.7371826171875,
+        522.0003051757812,
+        267.2753601074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∥f(x1) −f(x2)∥≤L∥x1 −x2∥",
+      "bbox": [
+        199.09100341796875,
+        279.47119140625,
+        343.4135437011719,
+        291.4063720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∀x1, x2 ∈X.",
+      "bbox": [
+        354.3226318359375,
+        279.47119140625,
+        412.91168212890625,
+        291.4063720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Further, since f is piecewise-afﬁne, f is L-Lipschitz continuous with",
+      "bbox": [
+        89.99996948242188,
+        302.81707763671875,
+        391.5572814941406,
+        312.7443542480469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L =",
+      "bbox": [
+        209.99795532226562,
+        325.55108642578125,
+        228.93922424316406,
+        335.2383728027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "max",
+      "bbox": [
+        238.3319549560547,
+        325.55108642578125,
+        258.6337890625,
+        335.2383728027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1,...,N{∥∇f(xi)∥for some xi ∈Ai}.",
+      "bbox": [
+        231.96795654296875,
+        324.940185546875,
+        402.00469970703125,
+        341.9332275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We propose the following sampling-based method to recover the Lipschitz constant L:",
+      "bbox": [
+        90.0,
+        353.09210205078125,
+        467.1076965332031,
+        363.0193786621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. Draw M random samples xi in X according to the uniform probability measure over X.",
+      "bbox": [
+        103.635986328125,
+        373.5191955566406,
+        502.62322998046875,
+        385.693359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. Evaluate Li = ∥∇f(xi)∥for all i = 1, ..., M.",
+      "bbox": [
+        103.63595581054688,
+        392.6731872558594,
+        318.5392150878906,
+        404.60736083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3. Set ˆL = maxi=1,...,M Li.",
+      "bbox": [
+        103.63595581054688,
+        409.68109130859375,
+        226.51022338867188,
+        423.8143615722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In general, with this approach, providing statistical guarantees on whether ˆL is a valid Lipschitz",
+      "bbox": [
+        89.99993896484375,
+        431.7370910644531,
+        522.0044555664062,
+        444.4213562011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "constant for f is challenging; the analysis would rely on the Hessian of f which is a-priori unknown.",
+      "bbox": [
+        89.99996948242188,
+        448.0440673828125,
+        521.9983520507812,
+        457.9713439941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this speciﬁc setting, f is piecewise-afﬁne, which we leverage in the analysis below.",
+      "bbox": [
+        89.99993896484375,
+        461.59307861328125,
+        464.1826171875,
+        471.5203552246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lemma 7 With the previous notations, deﬁne δM = N(1 −ΛN)M. Then,",
+      "bbox": [
+        89.99993133544922,
+        480.71173095703125,
+        414.6335144042969,
+        494.00634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "P(f is ˆL-Lipschitz continuous over X) ≥1 −δM.",
+      "bbox": [
+        195.94894409179688,
+        502.6070556640625,
+        416.05267333984375,
+        516.170166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Proof Since L = maxi=1,...,N{∥∇f(xi)∥for some xi ∈Ai}, a sufﬁcient condition for f to be",
+      "bbox": [
+        89.99996948242188,
+        527.4881591796875,
+        521.998779296875,
+        539.4234008789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆL-Lipschitz continuous is that at least one point xj was sampled in each region Ai. Thus,",
+      "bbox": [
+        89.99999237060547,
+        539.9100341796875,
+        479.6435852050781,
+        554.2313842773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "P",
+      "bbox": [
+        111.85598754882812,
+        581.295166015625,
+        118.52144622802734,
+        586.3569946289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        120.34098815917969,
+        563.99365234375,
+        129.88644409179688,
+        570.9754638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        120.34098815917969,
+        583.629638671875,
+        129.88644409179688,
+        590.6114501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        132.95298767089844,
+        567.1897583007812,
+        139.67178344726562,
+        574.2672119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\\",
+      "bbox": [
+        130.67698669433594,
+        575.556640625,
+        142.7969970703125,
+        582.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        129.885986328125,
+        593.9127197265625,
+        143.5843963623047,
+        600.9901733398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        145.40798950195312,
+        563.556640625,
+        155.10618591308594,
+        570.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        145.40798950195312,
+        573.3756713867188,
+        155.10618591308594,
+        580.3574829101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        145.40798950195312,
+        593.0116577148438,
+        155.10618591308594,
+        599.9934692382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "M",
+      "bbox": [
+        157.9669952392578,
+        567.1897583007812,
+        166.09649658203125,
+        574.2672119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[",
+      "bbox": [
+        156.39698791503906,
+        575.556640625,
+        168.51699829101562,
+        582.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1",
+      "bbox": [
+        155.10498046875,
+        593.9127197265625,
+        169.8043975830078,
+        600.9901733398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{xj} ∩Ai̸ = ∅",
+      "bbox": [
+        169.8099822998047,
+        578.1751708984375,
+        235.01953125,
+        590.109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        235.01998901367188,
+        563.556640625,
+        244.7181854248047,
+        570.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        235.01998901367188,
+        573.3756713867188,
+        244.7181854248047,
+        580.3574829101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        235.01998901367188,
+        593.0116577148438,
+        244.7181854248047,
+        599.9934692382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        244.7169952392578,
+        563.99365234375,
+        254.262451171875,
+        570.9754638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= 1 −P",
+      "bbox": [
+        244.7169952392578,
+        578.1751708984375,
+        294.261474609375,
+        590.6114501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        296.08099365234375,
+        563.99365234375,
+        305.62646484375,
+        570.9754638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        296.08099365234375,
+        583.629638671875,
+        305.62646484375,
+        590.6114501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        308.6929931640625,
+        567.1897583007812,
+        315.4117736816406,
+        574.2672119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[",
+      "bbox": [
+        306.4169921875,
+        575.556640625,
+        318.5369873046875,
+        582.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        305.6260070800781,
+        593.9127197265625,
+        319.3244323730469,
+        600.9901733398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        321.14801025390625,
+        563.556640625,
+        330.84619140625,
+        570.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        321.14801025390625,
+        573.3746337890625,
+        330.84619140625,
+        580.3564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        321.14801025390625,
+        593.0116577148438,
+        330.84619140625,
+        599.9934692382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "M",
+      "bbox": [
+        333.7060241699219,
+        567.189697265625,
+        341.8355407714844,
+        574.2671508789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[",
+      "bbox": [
+        332.13702392578125,
+        575.556640625,
+        344.25701904296875,
+        582.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1",
+      "bbox": [
+        330.84503173828125,
+        593.9127197265625,
+        345.5444641113281,
+        600.9901733398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{xj} ∩Ai̸ = ∅",
+      "bbox": [
+        345.550048828125,
+        578.1751708984375,
+        410.7596130371094,
+        590.109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        410.7600402832031,
+        563.556640625,
+        420.4582214355469,
+        570.5384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        410.7600402832031,
+        573.3746337890625,
+        420.4582214355469,
+        580.3564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        410.7600402832031,
+        593.0116577148438,
+        420.4582214355469,
+        599.9934692382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "c",
+      "bbox": [
+        420.45703125,
+        561.61669921875,
+        434.2644958496094,
+        570.9754028320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        424.7190246582031,
+        583.629638671875,
+        434.2644958496094,
+        590.6114501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "≥1 −",
+      "bbox": [
+        257.29302978515625,
+        621.4331665039062,
+        285.17431640625,
+        631.7313842773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        291.6890563964844,
+        610.4476928710938,
+        298.4078369140625,
+        617.525146484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        287.5960693359375,
+        618.8146362304688,
+        303.34881591796875,
+        625.7964477539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        288.6230773925781,
+        637.1707153320312,
+        302.3215026855469,
+        644.2481689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "P",
+      "bbox": [
+        305.17205810546875,
+        624.5531616210938,
+        311.8375244140625,
+        629.614990234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        313.65606689453125,
+        607.2516479492188,
+        323.2015380859375,
+        614.2334594726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        313.65606689453125,
+        626.8876342773438,
+        323.2015380859375,
+        633.8694458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "M",
+      "bbox": [
+        326.0630798339844,
+        610.4476928710938,
+        334.1925964355469,
+        617.525146484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\\",
+      "bbox": [
+        324.49407958984375,
+        618.8146362304688,
+        336.61407470703125,
+        625.7964477539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=1",
+      "bbox": [
+        323.20208740234375,
+        637.1707153320312,
+        337.9015197753906,
+        644.2481689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xj /∈Ai",
+      "bbox": [
+        339.72509765625,
+        621.4331665039062,
+        374.74224853515625,
+        633.3673706054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        375.23809814453125,
+        607.2516479492188,
+        384.7835693359375,
+        614.2334594726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        375.23809814453125,
+        626.8876342773438,
+        384.7835693359375,
+        633.8694458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Boole’s inequality)",
+      "bbox": [
+        402.05609130859375,
+        622.2186279296875,
+        489.0233459472656,
+        631.9713745117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= 1 −",
+      "bbox": [
+        257.2930908203125,
+        662.5011596679688,
+        285.17437744140625,
+        672.7993774414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        291.6891174316406,
+        651.5157470703125,
+        298.40789794921875,
+        658.5932006835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        287.59613037109375,
+        659.8826293945312,
+        303.348876953125,
+        666.8644409179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        288.6231384277344,
+        678.2387084960938,
+        302.3215637207031,
+        685.316162109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "P (xj /∈Ai)M",
+      "bbox": [
+        305.172119140625,
+        660.124755859375,
+        365.78466796875,
+        674.4353637695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(independent samples)",
+      "bbox": [
+        401.6801452636719,
+        663.28662109375,
+        500.1456298828125,
+        673.0393676757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "≥1 −N(1 −ΛN)M,",
+      "bbox": [
+        257.29315185546875,
+        688.7607421875,
+        352.97991943359375,
+        702.0311889648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "23",
+      "bbox": [
+        301.0191955566406,
+        725.9943237304688,
+        310.9817810058594,
+        734.90087890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.21",
+      "creationDate": "D:20220415011442Z",
+      "modDate": "D:20220415011442Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/lew2022simple-paper/documents/.pdf-skill-scan-twl5kvid/review/source.pdf",
+      "page_count": 25,
+      "page_number": 23
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          210,
+          41,
+          400,
+          49
+        ],
+        "pos": [
+          0,
+          39
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          90,
+          93,
+          506,
+          105
+        ],
+        "pos": [
+          39,
+          123
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          90,
+          115,
+          523,
+          153
+        ],
+        "pos": [
+          123,
+          405
+        ]
+      },
+      {
+        "index": 3,
+        "class": "formula",
+        "bbox": [
+          136,
+          162,
+          476,
+          176
+        ],
+        "pos": [
+          405,
+          407
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          89,
+          185,
+          522,
+          212
+        ],
+        "pos": [
+          407,
+          734
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          89,
+          214,
+          523,
+          268
+        ],
+        "pos": [
+          734,
+          1302
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          199,
+          279,
+          413,
+          291
+        ],
+        "pos": [
+          1302,
+          1304
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          89,
+          302,
+          392,
+          313
+        ],
+        "pos": [
+          1304,
+          1384
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          209,
+          324,
+          403,
+          342
+        ],
+        "pos": [
+          1384,
+          1386
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          90,
+          353,
+          468,
+          364
+        ],
+        "pos": [
+          1386,
+          1475
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          103,
+          374,
+          503,
+          385
+        ],
+        "pos": [
+          1475,
+          1572
+        ]
+      },
+      {
+        "index": 11,
+        "class": "list-item",
+        "bbox": [
+          103,
+          392,
+          319,
+          404
+        ],
+        "pos": [
+          1572,
+          1644
+        ]
+      },
+      {
+        "index": 12,
+        "class": "list-item",
+        "bbox": [
+          103,
+          409,
+          227,
+          424
+        ],
+        "pos": [
+          1644,
+          1696
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          89,
+          431,
+          523,
+          472
+        ],
+        "pos": [
+          1696,
+          2009
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          89,
+          480,
+          415,
+          493
+        ],
+        "pos": [
+          2009,
+          2109
+        ]
+      },
+      {
+        "index": 15,
+        "class": "formula",
+        "bbox": [
+          195,
+          502,
+          417,
+          516
+        ],
+        "pos": [
+          2109,
+          2111
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          89,
+          527,
+          522,
+          554
+        ],
+        "pos": [
+          2111,
+          2331
+        ]
+      },
+      {
+        "index": 17,
+        "class": "formula",
+        "bbox": [
+          111,
+          563,
+          501,
+          702
+        ],
+        "pos": [
+          2331,
+          2333
+        ]
+      },
+      {
+        "index": 18,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          726,
+          311,
+          733
+        ],
+        "pos": [
+          2333,
+          2338
+        ]
+      }
+    ],
+    "text": "SAMPLING-BASED REACHABILITY ANALYSIS \n\n# **Appendix D. Computing the Lipschitz constant of a ReLU network from samples** \n\nIn this section, we show that sampling gradients enables obtaining the Lipschitz constant of a neural network with ReLU activation functions with high probability. Consider a feed-forward ReLU neural network _f_ : R<sup>_n_</sup> _→_ R<sup>_n_</sup> with _ℓ ∈_ N layers, given as \n\n\n\nwhere ( _W_<sup>_k_</sup> _, b_<sup>_k_</sup> )<sup>_ℓ_</sup> _k_ =0<sup>are the network weights and biases, and each</sup><sup>_φk_:R</sup><sup>_nk→_R</sup><sup>_nk_+1is defined as</sup> _φ_<sup>_k_</sup> ( _x_ ) = ( _ϕ_ ( _x_ 1) _, . . . , ϕ_ ( _xnk_ )) with _ϕ_ ( _z_ ) = max(0 _, z_ ). Note that _f_ is piecewise-affine. \n\nLet _X ⊂_ R<sup>_n_</sup> be a non-empty compact set. Let _A_ = _{A_ 1 _, . . . , AN }_ be the set of all polytopes _Ai ⊆X_ where _f |Ai_ is affine, which we call the activation regions of _f_ . Let Λ _N_ =<sup>min</sup><sup>_i_=1</sup> _λ_<sup>_<u>,...</u>_</sup> ( _X_<sup>_<u>,N</u>_</sup> )<sup>_λ_</sup><sup><u>(</u></sup><sup>_Ai_</sup><sup><u>)</u></sup> be the smallest (normalized Lebesgue) volume of all activation regions. Note that _f_ is Lipschitz continuous over _X_ , since it is continuous and restricted to a compact subset. Thus, for some _L ≥_ 0, \n\n\n\nFurther, since _f_ is piecewise-affine, _f_ is _L_ -Lipschitz continuous with \n\n\n\nWe propose the following sampling-based method to recover the Lipschitz constant _L_ : \n\n1. Draw _M_ random samples _xi_ in _X_ according to the uniform probability measure over _X_ . \n\n2. Evaluate _Li_ = _∥∇f_ ( _xi_ ) _∥_ for all _i_ = 1 _,_ ... _, M_ . \n\n3. Set _L_<sup>ˆ</sup> = max _i_ =1 _,...,M Li_ . \n\nIn general, with this approach, providing statistical guarantees on whether _L_<sup>ˆ</sup> is a valid Lipschitz constant for _f_ is challenging; the analysis would rely on the Hessian of _f_ which is a-priori unknown. In this specific setting, _f_ is piecewise-affine, which we leverage in the analysis below. \n\n**Lemma 7** _With the previous notations, define δM_ = _N_ (1 _−_ Λ _N_ )<sup>_M_</sup> _. Then,_ \n\n\n\n**Proof** Since _L_ = max _i_ =1 _,...,N {∥∇f_ ( _xi_ ) _∥_ for some _xi ∈ Ai}_ , a sufficient condition for _f_ to be _L_ ˆ-Lipschitz continuous is that at least one point _xj_ was sampled in each region _Ai_ . Thus, \n\n\n\n23 \n\n"
+  }
+}

@@ -1,0 +1,423 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Re-examined from the preview and three 190-200-dpi crops (left column from Section III down, right column top with Definition III.6, right column from 'Consider a state ...' down); mathematics taken from the TeX source and checked symbol by symbol against the crops. Structure reused: first item continues from PDF page 4 (join_previous=space); headings 'III. PROBLEM FORMULATION' and 'IV. BACKGROUND' are '## ', 'A. PAC-NMPC' is '### '. v2 changes: all inline maths rewritten from <sub>/<sup>/Unicode script letters to LaTeX with the authors' macros expanded (\\state -> \\mathbf{x}, \\inp -> \\mathbf{u}, \\sensor -> \\mathbf{y}, \\obs -> \\mathbf{z}, \\goalstate -> \\mathbf{x_G}, \\traj -> \\boldsymbol{\\tau}, \\bU -> \\boldsymbol{\\xi}, \\bpi -> \\boldsymbol{\\pi}, \\horizon -> N_T, \\sensorhist -> N_y, \\costfunc -> \\ell, \\constraintfunc -> c, \\sensorfunc -> \\mathbf{h}). The three display equations are now text items with $$ blocks instead of formula images: the unnumbered inequality of Definition III.6 (p0005-b016b), Equation (1) with \\tag{1} (p0005-b024) and Equation (2) with \\tag{2} (p0005-b027); their label/asset_name were removed. Definitions III.1-III.6, IV.1, IV.2 start with the printed label in bold, e.g. '**Definition III.1 (Stochastic Dynamics).**' (the source prints 'Definition III.1' and the final period in bold, the name in roman, the body in italics; italics markup was dropped, wording verbatim). The clauses following a display ('where $\\beta_{\\mathcal{S}}, \\delta_{\\mathcal{S}}$ ...', 'where $\\ell_f(...)$ is the terminal cost.', 'where $C(\\boldsymbol{\\tau}) = 1$ ...') are separate items belonging to the definition above them. Definition III.5 is split by the column break: the printed left column ends with 'given as c :' and the right column starts with the domain; to keep the formula $c:\\mathcal{X}\\times\\mathcal{U}\\times\\mathcal{Y}^{N_y} \\mapsto \\mathbb{R}$ in one piece, the 'c :' was moved to the start of p0005-b015, which is joined to p0005-b014 with join_previous=space. TeX versus PDF: no disagreement found on this page. Details kept as printed: the nominal dynamics is a non-bold $f$ in $\\mathbf{x}_{t+1}^d = f(\\mathbf{x}_t^d, \\mathbf{u}_t^d)$ (later pages use bold $\\mathbf{f}$); Equation (2) uses the measurement history $\\mathbf{y}_{(t-N_y):t}$ with index t for every i; the inner conditional bar in Definition III.6 is a plain '|'; the PDF prints a space before the period after '$\\mathbf{y}_t \\in \\mathcal{Y}$' in Definition III.2 (not reproduced); 'represent for the robot’s observation' is the authors' wording. Citations checked against the page: [53]-[63], [49], [62], [4], [57], [16], [8], [60]. Compound hyphens at line ends kept ('Vision-based', 'fixed-wing', 'PAC-NMPC'), 'determin-/istic', 'en-/courages', 'pro-/vides', 'navi-/gation', 'enve-/lope', 'ex-/plored' joined. Last item ('... The decision variables') continues on PDF page 6 (join set there). Omitted only the printed page number '4'. check: 70/108 lines; all 38 missing lines contain inline or display maths now in LaTeX; number differences are the '7' of the PDF's two-glyph \\mapsto (extracted as '7→', five occurrences) and three '−1' (Unicode minus in the PDF) versus '-1' in LaTeX subscripts/limits (t+N_T-1). See adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "omit",
+      "bbox": [
+        557.0,
+        24.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "4",
+      "source_class": "page-header",
+      "reason": "Running page number (4) in the top-right corner."
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        126.0
+      ],
+      "markdown": "[53], [54], [55]. To achieve NMPC over a larger flight envelope, researchers have used nonlinear optimization approaches like sequential quadratic programming (SQP) [56], [57], [58], MPPI [59], or PAC-NMPC [60]. Researchers have also explored differentially flat representations for tail-sitter UAVs that can support aerobatic flight [61].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        129.0,
+        301.0,
+        257.0
+      ],
+      "markdown": "Fewer approaches have explored perception-based navigation with fixed-wing UAVs, since these approaches often require leveraging light-weight stereo depth cameras with limited fields-of-view which are rigidly mounted to the aircraft body and thus tightly coupled to aircraft motion. Vision-based fixed-wing navigation and obstacle avoidance has been demonstrated with trajectory libraries for low angle-of-attack reactive obstacle avoidance [49], [62] and using NMPC for agile flight in urban environments [4], [57]. In [16], researchers used reinforcement learning to generate robust policies for vision-based navigation with a tail-sitter UAV.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        259.0,
+        301.0,
+        317.0
+      ],
+      "markdown": "In this paper, we demonstrate through both simulation and hardware experiments that our hybrid RL-MPC approach can generate probabilistically safe policies for agile fixed-wing flight and enable probabilistically-safe perception-based obstacle avoidance and navigation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        111.0,
+        337.0,
+        238.0,
+        344.0
+      ],
+      "markdown": "## III. PROBLEM FORMULATION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        355.0,
+        301.0,
+        424.0
+      ],
+      "markdown": "In this paper, we design a controller capable of navigating a robotic system through an unknown, unstructured environment using on-board perception. The robot must reach the goal, $\\mathbf{x_G}$, while avoiding collisions with partially observed obstacles. We represent the evolution of the robot’s state over time as a stochastic dynamical system.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        432.0,
+        301.0,
+        466.0
+      ],
+      "markdown": "**Definition III.1 (Stochastic Dynamics).** Given states $\\mathbf{x}_{t+1}$, $\\mathbf{x}_t \\in \\mathcal{X}$ and input $\\mathbf{u}_t \\in \\mathcal{U}$, the stochastic dynamics is given as $p(\\mathbf{x}_{t+1} \\mid \\mathbf{x}_t, \\mathbf{u}_t)$, where $t$ is the current time index.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        473.0,
+        301.0,
+        496.0
+      ],
+      "markdown": "Throughout this paper, we assume that $p(\\mathbf{x}_{t+1} \\mid \\mathbf{x}_t, \\mathbf{u}_t)$ depends continuously on $\\mathbf{x}_t$ and $\\mathbf{u}_t$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        498.0,
+        301.0,
+        520.0
+      ],
+      "markdown": "We assume that the robot has a perception sensor that provides partial observations of obstacles in the environment.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        528.0,
+        301.0,
+        562.0
+      ],
+      "markdown": "**Definition III.2 (Sensor Measurement).** Let $O \\in \\mathcal{O}$ define the obstacles in the environment. Then, the sensor measurement is $\\mathbf{y}_t = \\mathbf{h}(\\mathbf{x}_t, O)$ where $\\mathbf{h}:\\mathcal{X}\\times\\mathcal{O} \\mapsto \\mathcal{Y}$ and $\\mathbf{y}_t \\in \\mathcal{Y}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        571.0,
+        301.0,
+        590.0
+      ],
+      "markdown": "Together, the state and sensor measurement represent for the robot’s observation of the world.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        601.0,
+        301.0,
+        623.0
+      ],
+      "markdown": "**Definition III.3 (Observation).** The observation is given as $\\mathbf{z}_t = (\\mathbf{x}_t, \\mathbf{y}_t)$ where $\\mathbf{z}_t \\in \\mathcal{X} \\times \\mathcal{Y}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        631.0,
+        301.0,
+        688.0
+      ],
+      "markdown": "We define a stage cost and constraint to define the desired navigation behavior of the robot. Specifically, the cost encourages progress towards the goal, $\\mathbf{x_G}$, while discouraging undesired behaviors. The constraint, dependent on a history of sensor measurements, defines unsafe states and inputs.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        696.0,
+        301.0,
+        718.0
+      ],
+      "markdown": "**Definition III.4 (Stage Cost).** The stage cost, $\\ell(\\mathbf{x}_t, \\mathbf{u}_t) \\succ 0$, is a continuous function given as $\\ell:\\mathcal{X}\\times\\mathcal{U} \\mapsto \\mathbb{R}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        727.0,
+        301.0,
+        750.0
+      ],
+      "markdown": "**Definition III.5 (Stage Constraint).** The stage constraint, $c(\\mathbf{x}_t, \\mathbf{u}_t, \\mathbf{y}_{(t-N_y):t})$, is a continuous function given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        56.0,
+        564.0,
+        79.0
+      ],
+      "markdown": "$c:\\mathcal{X}\\times\\mathcal{U}\\times\\mathcal{Y}^{N_y} \\mapsto \\mathbb{R}$ where $c(\\mathbf{x}_t, \\mathbf{u}_t, \\mathbf{y}_{(t-N_y):t}) \\leq 0$ indicates constraint satisfaction.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        85.5,
+        564.0,
+        97.5
+      ],
+      "markdown": "We also define a probabilistic safety guarantee as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b016a",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        102.5,
+        564.0,
+        127.0
+      ],
+      "source_class": "text",
+      "markdown": "**Definition III.6 (Probabilistic Safety Guarantee).** Let $\\mathcal{S}\\subset \\mathcal{X}$ be a safe-set. A probabilistic safety guarantee implies"
+    },
+    {
+      "id": "p0005-b016b",
+      "kind": "text",
+      "bbox": [
+        315.0,
+        130.0,
+        559.0,
+        147.0
+      ],
+      "source_class": "formula",
+      "markdown": "$$\\mathbb{P}\\big(\\mathbb{P}\\left(\\mathbf{x}_{t+i} \\in \\mathcal{S}, \\forall i \\in\\{0,\\ldots,N_T\\} \\,|\\, \\mathbf{x}_t\\right)\\ge 1-\\beta_{\\mathcal{S}} \\big)\\ge 1-\\delta_{\\mathcal{S}}$$"
+    },
+    {
+      "id": "p0005-b016c",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        149.5,
+        564.0,
+        173.5
+      ],
+      "source_class": "text",
+      "markdown": "where $\\beta_{\\mathcal{S}}, \\delta_{\\mathcal{S}}$ are small positive values, and $N_T$ is the horizon length."
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        181.0,
+        564.0,
+        191.0
+      ],
+      "markdown": "For Def. III.6, $\\delta_{\\mathcal{S}} = 0$ corresponds to Safety Level II in [8].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b018",
+      "kind": "heading",
+      "bbox": [
+        397.0,
+        205.0,
+        478.0,
+        213.0
+      ],
+      "markdown": "## IV. BACKGROUND",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        220.0,
+        564.0,
+        253.0
+      ],
+      "markdown": "Here we review PAC-NMPC [60], a receding-horizon sampling-based SNMPC algorithm, and actor-critic RL, which comprise the main components of our approach.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b020",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        270.0,
+        375.0,
+        278.0
+      ],
+      "markdown": "### A. PAC-NMPC",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b021",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        285.0,
+        564.0,
+        366.0
+      ],
+      "markdown": "PAC-NMPC is a sampling-based SNMPC approach that optimizes and provides probabilistic guarantees on both the expected cost and probability of constraint violation. It provides these guarantees in the form of PAC bounds calculated from sampled policies. Unlike many NMPC approaches, PAC-NMPC optimizes a distribution over feedback policies rather than an open-loop sequence of control actions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b022",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        367.0,
+        564.0,
+        413.0
+      ],
+      "markdown": "Consider a state and input trajectory, $\\boldsymbol{\\tau} = (\\mathbf{x}_t, \\mathbf{u}_t, \\mathbf{x}_{t+1}, \\mathbf{u}_{t+1}, \\cdots, \\mathbf{x}_{t+N_T})$ where $N_T$ is the trajectory horizon and $\\boldsymbol{\\tau} \\in \\mathcal{T} \\subset \\mathcal{X}^{N_T+1} \\times \\mathcal{U}^{N_T}$. PAC-NMPC defines a trajectory cost and trajectory constraint violation indicator.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b023",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        421.0,
+        564.0,
+        443.0
+      ],
+      "markdown": "**Definition IV.1 (Trajectory Cost).** The trajectory cost is given as $J: \\mathcal{T} \\mapsto \\mathbb{R}_{\\ge 0}$ such that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b024",
+      "kind": "text",
+      "bbox": [
+        355.0,
+        447.0,
+        565.0,
+        481.0
+      ],
+      "markdown": "$$J(\\boldsymbol{\\tau}) = \\sum_{i=t}^{t+N_T-1}\\ell(\\mathbf{x}_i, \\mathbf{u}_i)+\\ell_f(\\mathbf{x}_{t+N_T}), \\tag{1}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b025",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        484.0,
+        470.0,
+        496.0
+      ],
+      "markdown": "where $\\ell_f(\\mathbf{x}_{t+N_T})$ is the terminal cost.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b026",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        503.0,
+        564.0,
+        537.0
+      ],
+      "markdown": "**Definition IV.2 (Trajectory Constraint Violation Indicator).** The trajectory constraint violation indicator is given as $C: \\mathcal{T} \\mapsto \\{0, 1\\}$ such that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b027",
+      "kind": "text",
+      "bbox": [
+        348.5,
+        540.5,
+        565.0,
+        575.0
+      ],
+      "markdown": "$$C(\\boldsymbol{\\tau}) = \\bigvee_{i=t}^{t+N_T-1} \\left( c(\\mathbf{x}_i,\\mathbf{u}_i,\\mathbf{y}_{(t-N_y):t}) > 0 \\right) \\tag{2}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b028",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        578.0,
+        505.0,
+        589.0
+      ],
+      "markdown": "where $C(\\boldsymbol{\\tau}) = 1$ indicates constraint violation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b029",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        597.0,
+        564.0,
+        713.0
+      ],
+      "markdown": "PAC-NMPC optimizes local feedback policies, $\\mathbf{u}_t = \\boldsymbol{\\pi}_t(\\mathbf{x}_t, \\boldsymbol{\\xi})$, which are parameterized by open-loop nominal input trajectories, $\\boldsymbol{\\xi} = (\\mathbf{u}_t^d, \\cdots, \\mathbf{u}_{t+N_T-1}^d)$. To generate these policies, it uses the time-varying linear quadratic regulator (TVLQR) [63]. The nominal input trajectories are rolled out into state space from an initial state using a nominal, deterministic dynamics model, $\\mathbf{x}_{t+1}^d = f(\\mathbf{x}_t^d, \\mathbf{u}_t^d)$, resulting in nominal state and input trajectories, $\\boldsymbol{\\tau}^d$. Time-varying feedback gains, $\\mathbf{K}_t$, are computed from $\\boldsymbol{\\tau}^d$ using TVLQR. The resulting feedback policy is $\\mathbf{u}_t = \\mathbf{K}_t(\\mathbf{x}_t^d - \\mathbf{x}_t) + \\mathbf{u}_t^d$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b030",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        715.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "To optimize these feedback policies, PAC-NMPC defines a Gaussian surrogate exploration distribution, $\\mathcal{N}(\\boldsymbol{\\xi} \\mid \\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})$, over the nominal input trajectory. The decision variables",
+      "source_class": "text"
+    }
+  ]
+}

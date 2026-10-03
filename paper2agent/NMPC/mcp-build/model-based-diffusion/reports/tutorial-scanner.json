@@ -1,0 +1,364 @@
+{
+  "scan_metadata": {
+    "repository_name": "model-based-diffusion",
+    "repository_url": "https://github.com/LeCAR-Lab/model-based-diffusion",
+    "repository_commit": "c1eb913783f1713f7a1ebb657b34e0188d52cd8b",
+    "repository_path": "repo/model-based-diffusion",
+    "paper_name": "Model-Based Diffusion for Trajectory Optimization (NeurIPS 2024, arXiv:2407.01573)",
+    "scan_date": "2026-10-02",
+    "route": "cli",
+    "cli_backend": "python",
+    "module": "cli_wrapper",
+    "user_filter": null,
+    "evaluated_source_files": 12,
+    "included_source_files": 3,
+    "included_execution_assignments": 6,
+    "proposed_tools": 4,
+    "deferred_candidates": 3,
+    "omitted_candidates": 4,
+    "review_passes": 3,
+    "success": true,
+    "explanation": "Static scan of the whole checkout at the pinned commit; no filter. The scanner installed and executed nothing: every statement about runtime behaviour is read from source and is marked as such where it matters. The repository has no tests, no notebooks (.ipynb) and no console entry points; the user interface is the set of scripts named in README.md. 12 candidate source files were evaluated (README.md, setup.py and 10 scripts with a __main__ or module-level run); 11 further files were read as supporting implementation (mbd/__init__.py, mbd/utils.py, mbd/planners/__init__.py, mbd/envs/__init__.py and the seven other environment modules), together with .gitignore, the listing of mbd/assets and the header of mbd/assets/car2d_xref.npy. Three scripts are selected and give four tools owned by cli_wrapper, with six execution assignments. Selection does not establish that execution passes.",
+    "evidence_limits": [
+      "Nothing was executed by the scanner. Runtime statements are read from the repository source and from the installed package sources.",
+      "The project environment written by the environment manager during this scan (model-based-diffusion-env; reports/environment-requirements.txt lists brax==0.10.5, mujoco-mjx==3.1.6, jax==0.4.30, tyro==0.8.5) was read, not executed: brax/base.py there contains no `dt`, System derives from mjx.Model (base.py:415), and mujoco/mjx/_src/dataclasses.py:59-63 defines replace as dataclasses.replace, so `env.sys.replace(dt=env.dt)` is expected to raise TypeError in the project environment too.",
+      "The same reading was made for brax 0.12.3 with mujoco-mjx 3.3.2 in the local uv cache; both versions agree.",
+      "tyro 0.8.5 in the project environment rewrites underscores in flag names to hyphens before parsing (tyro/_cli.py:342-361, read), so the README's underscore spelling such as `--env_name` is expected to be accepted; the first executor should still record the real `--help` output.",
+      "`mbd` is installed in editable form: site-packages/__editable__.mbd-0.0.1.pth contains the checkout path, so `mbd.__path__[0]` is expected to be repo/model-based-diffusion/mbd and the results directory repo/model-based-diffusion/results."
+    ]
+  },
+  "tutorials": [
+    {
+      "execution_id": "mbd_planner_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD trajectory optimisation, car2d",
+      "description": "README.md:33-40. `python mbd_planner.py --env_name car2d --seed 0` from mbd/planners. Owner of mbd_optimize_trajectory.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Main documented user task; cheapest environment; defaults apply unchanged for car2d."
+    },
+    {
+      "execution_id": "mbd_planner_car2d_demo",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD with demonstration, car2d",
+      "description": "README.md:44-51. Same script with `--enable_demo`. Supporting execution for mbd_optimize_trajectory (no tool of its own).",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented variant merged into mbd_optimize_trajectory as a parameter; executed separately because it uses a different code path and the bundled reference trajectory."
+    },
+    {
+      "execution_id": "mbd_planner_hopper",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/mbd_planner.py",
+      "sha256_at_scan": "ce08825dc0715c0a06bb02f5dfddb07fa1047f01c39e0a23afaa131df9bf8829",
+      "title": "MBD trajectory optimisation, Brax hopper",
+      "description": "README.md:33-42 on a Brax environment; produces rollout.html. Supporting execution for mbd_optimize_trajectory.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Shows the tool on the Brax pipeline and the HTML rendering branch, which car2d does not exercise. Size may be reduced through --Nsample if the machine requires it."
+    },
+    {
+      "execution_id": "path_integral_hopper_mppi",
+      "module": "cli_wrapper",
+      "path": "mbd/planners/path_integral.py",
+      "sha256_at_scan": "3a332d5f2015d5b4bbd90b8e46f7d0caf5323165441fcb0e6c6211e1f43ea8cd",
+      "title": "Zeroth-order baseline planners (MPPI, CEM, CMA-ES)",
+      "description": "README.md:87-94. `python path_integral.py --env_name hopper --update_method mppi --seed 0` from mbd/planners. Owner of mbd_run_baseline_planner.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented comparison task with its own inputs and output. High execution risk at path_integral.py:100-102 (stale Brax call in an unused line), expected to raise TypeError with the installed brax 0.10.5 (read, not executed); the run is short because it stops before any simulation. If it fails there the tool is deferred without patching upstream."
+    },
+    {
+      "execution_id": "run_mbd_seeds_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/scripts/run_mbd.py",
+      "sha256_at_scan": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+      "title": "Multi-seed evaluation",
+      "description": "README.md:53-58. `python run_mbd.py --env_name car2d --algo mbd --mode seed` from mbd/scripts. Owner of mbd_evaluate_seeds.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented evaluation protocol with a distinct aggregated output."
+    },
+    {
+      "execution_id": "run_mbd_temp_car2d",
+      "module": "cli_wrapper",
+      "path": "mbd/scripts/run_mbd.py",
+      "sha256_at_scan": "b1dcd4e9ce62ae0eec1568b10ecad155b577f95dd2b562fbe856905b40b237e7",
+      "title": "Sampling-temperature sweep",
+      "description": "run_mbd.py:13, 42-64. `python run_mbd.py --env_name car2d --algo mbd --mode temp` from mbd/scripts. Owner of mbd_sweep_temperature.",
+      "type": "script",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Distinct analysis implemented upstream and selectable through a declared argument; not in the README."
+    },
+    {
+      "source_id": "readme",
+      "path": "README.md",
+      "sha256_at_scan": "89384d8f1262eca68bfa940de19c932da03d603f564e3803d3be7b7bf0892a1c",
+      "title": "README usage section",
+      "description": "Installation and the documented commands (lines 22-94).",
+      "type": "markdown",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Contract for the commands, not an executable source. Its commands are bound to the scripts above; disagreements with the code are listed in readme_code_disagreements."
+    },
+    {
+      "source_id": "setup_py",
+      "path": "setup.py",
+      "sha256_at_scan": "15e4fa2ea619acb978328e1f2a5bd32303efaeee7f9492dc348f47765c8e7042",
+      "title": "Package metadata",
+      "description": "setuptools configuration (24 lines).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Setup only. Relevant findings for the environment: `packages=find_packages(include=\"mdb\")` (line 6) misspells the package name, and install_requires (lines 8-24) omits brax, mujoco, flax (imported in mbd/envs/car2d.py:3), etils (mbd/envs/hopper.py:6), scienceplots and manim."
+    },
+    {
+      "source_id": "vis_diffusion",
+      "path": "mbd/scripts/vis_diffusion.py",
+      "sha256_at_scan": "dfdecae397532fbe540d7614874509d817422a39bd013c098add7c7cb57a3213",
+      "title": "Visualise the diffusion process",
+      "description": "README.md:60-67. Rolls out every intermediate action trajectory of a saved planner run and writes one stacked Brax HTML page.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Deferred. No argument parsing at all; env_name is hard-coded to humanoidtrack (line 16) and Hsample to 50 (line 19), so the README's `--env_name $ENV_NAME` is ignored. Needs results/humanoidtrack/mu_0ts.npy from a prior full humanoid planner run in the same checkout (lines 21-22). Line 140 uses `env.sys.replace(dt=env.dt)`, which is not accepted by the installed brax 0.10.5 nor by brax 0.12.3 (read, not executed). Reuses results/humanoidtrack/rollouts.pkl if it exists, even when mu_0ts.npy has changed (lines 129-139)."
+    },
+    {
+      "source_id": "mbd_opt",
+      "path": "mbd/blackbox/mbd_opt.py",
+      "sha256_at_scan": "5c2b1a539a4c702340a151d3d87fe3a1a7652643fa615403a20e751a19c1ae00",
+      "title": "MBD for black-box optimisation",
+      "description": "README.md:69-76. Six seeds of MBD on the 800-dimensional Rastrigin function; saves the mean best-value curve.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Deferred. No command-line interface: function, dimension, sample count, steps, temperature and seed count are module constants (lines 14-25), so the output is one fixed array and the script cannot be applied to new inputs without editing or re-implementing it. It also saves to results/bbo/ without creating the directory (lines 104-107; `os` is imported but unused), and results/ does not exist in the checkout, so the save is expected to fail on a fresh checkout (read, not executed). Nothing is printed to stdout."
+    },
+    {
+      "source_id": "train_brax",
+      "path": "mbd/rl/train_brax.py",
+      "sha256_at_scan": "c7f2ec975909479b143db31a4f259570aff4decb0585483bfb137c0db5f80c64",
+      "title": "RL baselines (Brax PPO / SAC)",
+      "description": "README.md:78-85. Trains a PPO or SAC policy with fixed per-environment settings, saves parameters and an HTML rollout.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Deferred. The only argument is env_name (lines 18-20); the training budgets are fixed in the source at 50 to 100 million PPO steps with 2048 to 4096 parallel environments, or 6.5 million SAC steps (lines 31-176), with no flag to reduce them, which is outside the budget of this machine. After training, line 236 uses `env.sys.replace(dt=env.dt)` (same Brax issue). The table has no entry for car2d, humanoidtrack or cartpole and has `pusher`, which get_env does not provide."
+    },
+    {
+      "source_id": "mbd_mnist",
+      "path": "mbd/blackbox/mbd_mnist.py",
+      "sha256_at_scan": "7eea8cb4fa1fa553a0b00dea229064fabf65f1a7fd2a45a5a3fb6e7a6459f5b1",
+      "title": "MBD training of an MNIST classifier",
+      "description": "Gradient-free optimisation of a small network on MNIST by MBD. Not mentioned in the README.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted. Undocumented experiment without arguments; downloads MNIST from storage.googleapis.com into the hard-coded /tmp/jax_example_data/ (lines 24, 27-34, 50, 64-70); writes no file and prints no result, accuracy appears only in the tqdm progress text (lines 219-227)."
+    },
+    {
+      "source_id": "demo_1d",
+      "path": "mbd/notebooks/01_1d_demo.py",
+      "sha256_at_scan": "636b21d2fa1ce2bc0b40eec73e1cb8fb2e1279cdc004005de35a07360b15368b",
+      "title": "1-D reverse SDE illustration",
+      "description": "Percent-format script that draws the paper's illustrative figure (objective, forward densities, reverse trajectories) with NumPy.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted. Didactic figure with no inputs and no saved output: savefig is commented out (line 292) and the script ends in plt.show() (line 293), which shows nothing without a display. Requires scienceplots and the `science` style (lines 17-20), not listed in setup.py. Uses unseeded np.random (lines 196, 219), so it is not reproducible."
+    },
+    {
+      "source_id": "vis_manim",
+      "path": "mbd/scripts/vis_manim.py",
+      "sha256_at_scan": "cb3f8d0f2abbc01a2cda9830ef682f4ecf50e9e7f1c5c1948be64c6977bbce39",
+      "title": "Manim explainer animation",
+      "description": "Presentation animation contrasting model-free and model-based diffusion.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted. Presentation material, not a computation of the method. Requires manim (line 2, not in setup.py) and a LaTeX installation for MathTex (lines 231, 275, 292, 334); launches `manim vis_manim.py -pql ...` through os.system with the preview flag and a path relative to the working directory (lines 426-430); unseeded np.random."
+    },
+    {
+      "source_id": "pusht_env_main",
+      "path": "mbd/envs/pushT.py",
+      "sha256_at_scan": "f99d8d4e4cd63519bfe7e3790d1587932054d23f833c83d82aca8a397cb9068f",
+      "title": "pushT random-action smoke render",
+      "description": "`main()` (lines 77-98) steps the pushT environment with random actions and writes results/pushT/vis.html.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted (internal). Undocumented developer check of an environment, not a user task; line 89 uses `env.sys.replace(dt=env.dt)` (same Brax issue). The PushT class itself is supporting implementation for the planner tools."
+    }
+  ],
+  "tool_review": [
+    {
+      "candidate": "Optimise a trajectory with MBD",
+      "task_and_io": "Input: environment name, seed, diffusion settings, optional demonstration guidance. Output: final mean reward (stdout), mu_0ts.npy with the action trajectory after every reverse step, rollout.png (car2d) or rollout.html (Brax).",
+      "implementation": "mbd/planners/mbd_planner.py: Args lines 18-35, run_diffusion lines 38-182, __main__ lines 185-187. Command: `python mbd_planner.py --env_name ENV [flags]` with cwd mbd/planners.",
+      "verification_source": "Execution assignments mbd_planner_car2d (owner), mbd_planner_car2d_demo, mbd_planner_hopper. Compared: exit status, parsed `final reward`, mu_0ts.npy shape and values, presence of the rollout file. Seeded by jax.random.PRNGKey(args.seed) (line 40).",
+      "decision": "expose",
+      "reason": "The repository's main operation; distinct use for each environment, seed and setting.",
+      "ownership": {
+        "tool_name": "mbd_optimize_trajectory",
+        "module": "cli_wrapper",
+        "owner_execution_id": "mbd_planner_car2d",
+        "supporting_execution_ids": [
+          "mbd_planner_car2d_demo",
+          "mbd_planner_hopper"
+        ]
+      }
+    },
+    {
+      "candidate": "MBD combined with demonstrations",
+      "task_and_io": "Same as above with the sampling weights raised for samples close to a bundled reference trajectory.",
+      "implementation": "mbd/planners/mbd_planner.py lines 117-125 and 166-167 behind Args.enable_demo (line 35); references mbd/assets/car2d_xref.npy (shape (50, 2)) through mbd/envs/car2d.py:66-71, 96-102 and mbd/assets/jog_xref.pkl through mbd/envs/humanoidtrack.py:33-44, 98-106.",
+      "verification_source": "mbd_planner_car2d_demo.",
+      "decision": "merge into mbd_optimize_trajectory",
+      "reason": "One flag of the same command, not a separate task. The demonstration data are in the checkout, so there is no missing-data blocker. Supported environments are car2d and humanoidtrack only (README.md:51 agrees with the code). mbd/assets/walk_xref.pkl is tracked but referenced by no source file.",
+      "ownership": {
+        "tool_name": "mbd_optimize_trajectory",
+        "module": "cli_wrapper"
+      }
+    },
+    {
+      "candidate": "Zeroth-order baselines (MPPI, CEM, CMA-ES)",
+      "task_and_io": "Input: Brax environment name, update method, seed, sample count, horizon, refinement steps, temperature. Output: final mean reward on stdout; no file.",
+      "implementation": "mbd/planners/path_integral.py: Args lines 16-30, update rules lines 33-52, run_path_integral lines 55-148, __main__ lines 151-153. Command: `python path_integral.py --env_name ENV --update_method METHOD` with cwd mbd/planners.",
+      "verification_source": "Execution assignment path_integral_hopper_mppi. Compared: exit status and parsed `rew:`. cem and cma-es expectations are established by the verifier through direct upstream runs.",
+      "decision": "expose, conditional on execution",
+      "reason": "Documented and independently useful. Lines 100-102 call `env.sys.replace(dt=env.dt)` unconditionally: car2d can never be used (no `sys`), and with the installed brax 0.10.5 (and with 0.12.3) the call is expected to raise TypeError for every Brax environment (read, not executed). If the assignment fails at that line the tool is deferred with that blocker; upstream is not patched.",
+      "ownership": {
+        "tool_name": "mbd_run_baseline_planner",
+        "module": "cli_wrapper",
+        "owner_execution_id": "path_integral_hopper_mppi"
+      }
+    },
+    {
+      "candidate": "Multi-seed evaluation",
+      "task_and_io": "Input: environment, algorithm (mbd or path_integral), update method. Output: reward mean and standard deviation over seeds 0..7 and run-time mean and standard deviation, on stdout; no file.",
+      "implementation": "mbd/scripts/run_mbd.py: Args lines 9-14, run_multiple_seed lines 17-39, dispatch lines 67-72. Command: `python run_mbd.py --env_name ENV --algo mbd --mode seed` with cwd mbd/scripts. It reaches the planners through `mbd.planners.mbd_planner` / `mbd.planners.path_integral`, imported by mbd/planners/__init__.py.",
+      "verification_source": "Execution assignment run_mbd_seeds_car2d. Compared: exit status, parsed reward mean and standard deviation; the time line is checked for presence only.",
+      "decision": "expose",
+      "reason": "Documented evaluation with an aggregated result that a single planner call does not give. Always eight full-size runs (no size argument), so Brax environments need a long timeout.",
+      "ownership": {
+        "tool_name": "mbd_evaluate_seeds",
+        "module": "cli_wrapper",
+        "owner_execution_id": "run_mbd_seeds_car2d"
+      }
+    },
+    {
+      "candidate": "Sampling-temperature sweep",
+      "task_and_io": "Input: environment (and algorithm). Output: reward for each of eight fixed temperatures and the best temperature, on stdout; no file.",
+      "implementation": "mbd/scripts/run_mbd.py: run_multiple_temp lines 42-64, selected by Args.mode = temp (line 13, lines 71-72). Command: `python run_mbd.py --env_name ENV --algo mbd --mode temp` with cwd mbd/scripts.",
+      "verification_source": "Execution assignment run_mbd_temp_car2d. Compared: exit status, the eight parsed rewards, best_temp.",
+      "decision": "expose",
+      "reason": "Separate analysis with a different output shape from the seed evaluation, so a separate tool rather than a mode switch. For algo=path_integral the script lets the recommended temperature replace the swept one (run_mbd.py:47-49 with path_integral.py:68-88), so only algo=mbd is recommended.",
+      "ownership": {
+        "tool_name": "mbd_sweep_temperature",
+        "module": "cli_wrapper",
+        "owner_execution_id": "run_mbd_temp_car2d"
+      }
+    },
+    {
+      "candidate": "Visualise the diffusion process",
+      "task_and_io": "Input: a saved mu_0ts.npy. Output: results/humanoidtrack/render_diffusion.html and rollouts.pkl.",
+      "implementation": "mbd/scripts/vis_diffusion.py (module-level script, lines 14-143).",
+      "verification_source": "None selected.",
+      "decision": "defer",
+      "reason": "Blockers: hard-coded environment and horizon and no argument parser (lines 16, 19); prerequisite humanoidtrack planner output whose feasibility on this machine is unknown; `env.sys.replace(dt=env.dt)` at line 140; private Brax helpers `_to_dict` and `_GEOM_TYPE_NAMES` (line 5); stale cache at lines 129-139. Can be reconsidered as a humanoidtrack-only tool if the environment accepts line 140 and a humanoidtrack planner run fits.",
+      "ownership": null
+    },
+    {
+      "candidate": "Black-box optimisation benchmark",
+      "task_and_io": "No input. Output: results/bbo/Rastrigin-800d_MBD.npy, array [2, 99] (evaluation counts and mean best value over six seeds).",
+      "implementation": "mbd/blackbox/mbd_opt.py: constants lines 14-29, objective functions lines 32-61, reverse_once lines 64-80, run_exp lines 83-95, __main__ lines 98-107.",
+      "verification_source": "None selected. If promoted: create results/bbo, run `python mbd_opt.py` from mbd/blackbox, compare the saved array (seeds 0..5 are fixed).",
+      "decision": "defer",
+      "reason": "No parameters, so no use on new inputs under the CLI route (exposing function or dimension would mean editing or re-implementing upstream code); missing output directory. See open_questions.",
+      "ownership": null
+    },
+    {
+      "candidate": "RL baselines",
+      "task_and_io": "Input: environment name. Output: results/<env>/params, results/<env>/RL.html, printed evaluation reward.",
+      "implementation": "mbd/rl/train_brax.py (module-level script, lines 18-238).",
+      "verification_source": "None.",
+      "decision": "defer",
+      "reason": "Training time: fixed budgets of 50 to 100 million steps without any size argument; stale Brax call at line 236 after training.",
+      "ownership": null
+    },
+    {
+      "candidate": "MNIST black-box training",
+      "implementation": "mbd/blackbox/mbd_mnist.py.",
+      "decision": "omit",
+      "reason": "Undocumented, network download to a hard-coded /tmp path, no retained output.",
+      "ownership": null
+    },
+    {
+      "candidate": "1-D illustration figure",
+      "implementation": "mbd/notebooks/01_1d_demo.py.",
+      "decision": "omit",
+      "reason": "Illustration only; needs a display and scienceplots; unseeded; saves nothing.",
+      "ownership": null
+    },
+    {
+      "candidate": "Manim animation",
+      "implementation": "mbd/scripts/vis_manim.py.",
+      "decision": "omit",
+      "reason": "Presentation material; needs manim, LaTeX and a video player preview.",
+      "ownership": null
+    },
+    {
+      "candidate": "Environment construction, rollout and rendering helpers",
+      "implementation": "mbd/envs/__init__.py get_env lines 13-33 and the environment classes; mbd/utils.py eval_us lines 6-12, rollout_us lines 14-20, render_us lines 23-33; mbd/envs/pushT.py main lines 77-98.",
+      "decision": "keep internal",
+      "reason": "Loading, stepping and rendering used inside the planner commands; no command-line entry of their own (pushT main is an undocumented smoke check).",
+      "ownership": null
+    }
+  ],
+  "readme_code_disagreements": [
+    {
+      "readme": "README.md:48 `--enable_demos`",
+      "code": "mbd/planners/mbd_planner.py:35 field `enable_demo`",
+      "resolution": "Use `--enable_demo`; the README spelling is not an argument of the script."
+    },
+    {
+      "readme": "README.md:91-94 `path_integral.py --env_name $ENV_NAME --mode $MODE`",
+      "code": "mbd/planners/path_integral.py:21 field `update_method`; there is no `mode` field (lines 16-30)",
+      "resolution": "Use `--update_method {mppi,cem,cma-es}`."
+    },
+    {
+      "readme": "README.md:62-65 `vis_diffusion.py --env_name $ENV_NAME`",
+      "code": "mbd/scripts/vis_diffusion.py has no argument parser; env_name is fixed to humanoidtrack at line 16",
+      "resolution": "The argument has no effect."
+    },
+    {
+      "readme": "README.md:42 lists nine environments",
+      "code": "mbd/envs/__init__.py:13-33 also accepts cartpole (lines 26-27); mbd/envs/cartpole.py:18 uses `sys.replace(dt=0.005)`",
+      "resolution": "Do not advertise cartpole unless it is executed."
+    },
+    {
+      "readme": "README.md:82-85 `train_brax.py --env_name $ENV_NAME` for any environment",
+      "code": "mbd/rl/train_brax.py:31-176 has entries only for ant, hopper, walker2d, halfcheetah, pusher, pushT, humanoidrun, humanoidstandup",
+      "resolution": "Recorded with the deferred candidate."
+    },
+    {
+      "readme": "mbd/scripts/run_mbd.py:12 comment lists `softmax, cma-es, cem`",
+      "code": "mbd/planners/path_integral.py:59-63 keys are mppi, cma-es, cem",
+      "resolution": "Use the keys of the update table."
+    },
+    {
+      "readme": "README.md:26-29 `pip install -e .` installs the requirements",
+      "code": "setup.py:6 `find_packages(include=\"mdb\")`; setup.py:8-24 lacks brax, mujoco, flax, etils",
+      "resolution": "Environment manager decides how `mbd` becomes importable and which Brax version is used."
+    }
+  ],
+  "cross_cutting_findings": [
+    "Output location: every writing script uses `<mbd package dir>/../results/...` (mbd_planner.py:153, mbd_opt.py:105, vis_diffusion.py:21, train_brax.py:194, pushT.py:90). With the package imported from the checkout this is repo/model-based-diffusion/results/, which does not exist at the pinned commit and is ignored by .gitignore line 176. No script takes an output-directory argument. Runs for the same environment overwrite each other, so executors and the wrapper must run one command at a time and copy artefacts out immediately.",
+    "The four selected commands parse arguments with tyro.cli (mbd_planner.py:186, path_integral.py:152, run_mbd.py:68). vis_diffusion.py, mbd_opt.py and mbd_mnist.py do not read sys.argv at all: passing `--help` to them would start the full computation.",
+    "Importing `mbd` imports jax, brax, matplotlib and both planner modules (mbd/__init__.py:1, mbd/planners/__init__.py, mbd/utils.py:1-2, mbd/envs/__init__.py:1-10), so every command is a heavy job even for car2d. mbd_planner.py imports matplotlib.pyplot at line 9; set MPLBACKEND=Agg on this machine without a display.",
+    "Brax API split inside the repository: mbd_planner.py:174 uses `sys.tree_replace({\"opt.timestep\": ...})` (changed in upstream commit c4508b6, 2024-06-12), while path_integral.py:101, vis_diffusion.py:140, train_brax.py:236, pushT.py:89 and cartpole.py:18 still use `sys.replace(dt=...)`. In the installed brax 0.10.5, `brax/base.py` has no `dt` and `brax/envs/base.py:133-135` computes dt from `sys.opt.timestep`; `tree_replace` exists at base.py:114.",
+    "Determinism: all selected commands draw randomness only from jax.random.PRNGKey(seed) (mbd_planner.py:40, path_integral.py:57). Car2d.reset ignores the key (car2d.py:73-75), so the seed changes only the sampling noise there. Results should be compared on the same device and package versions; the run-time line of run_mbd.py is not reproducible.",
+    "Default sizes that matter on an 8 GB GPU: 2048 samples x 50 steps x 99 reverse steps for most environments; humanoidrun is raised to 8192 samples and 300 steps and pushT to 200 steps unless --disable_recommended_params is given (mbd_planner.py:54-68). Only car2d and hopper are proposed for execution; other environments remain documented but unexecuted unless the coordinator adds assignments."
+  ],
+  "open_questions": [
+    "Does path_integral_hopper_mppi really fail at path_integral.py:100-102 with the installed brax 0.10.5, as the source reading predicts? The answer decides whether mbd_run_baseline_planner and the path_integral option of the two run_mbd tools exist. An older Brax that still has `System.dt` would be a different environment decision and is not proposed here.",
+    "Should the black-box benchmark be promoted to a parameterless reproduction tool (it is a README headline use but returns one fixed array and needs results/bbo created first)? Deferred by default.",
+    "Should further environments (ant, halfcheetah, walker2d, pushT, humanoidstandup, humanoidrun, humanoidtrack) be executed before the planner tool advertises them, or should the tool accept them as documented-but-unverified with that stated in USAGE.md?",
+    "Feasible sample count for the Brax hopper run on the 8 GB GPU is not known to the scanner; the fallback through --Nsample is described in the execution assignment."
+  ]
+}

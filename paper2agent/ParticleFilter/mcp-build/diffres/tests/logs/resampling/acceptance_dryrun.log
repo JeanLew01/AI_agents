@@ -1,0 +1,67 @@
+[10/02/26 22:00:43] INFO     Starting MCP server 'resampling'   transport.py:242
+                             with transport 'stdio'                             
+[10/02/26 22:00:46] Error calling tool 'diffres_resample_particles_diffusion'   
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:116 in                │
+                    │ diffres_resample_particles_diffusion                     │
+                    │                                                          │
+                    │   113 │   Input is an .npz of samples and (log) weights; │
+                    │       weighted resampled particles and log weights.      │
+                    │   114 │   """                                            │
+                    │   115 │   if not a < 0:                                  │
+                    │ ❱ 116 │   │   raise ValueError("a must be negative (upst │
+                    │       must be negative').")                              │
+                    │   117 │   if not T > 0:                                  │
+                    │   118 │   │   raise ValueError("T must be positive.")    │
+                    │   119 │   if nsteps < 1:                                 │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: a must be negative (upstream: 'The forward      
+                    noising parameter, must be negative').                      
+[10/02/26 22:00:47] Error calling tool 'diffres_resample_particles_baseline'    
+                    ╭─────────── Traceback (most recent call last) ────────────╮
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/server/server.py:1492 in call_tool                   │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/base.py:440 in _run                            │
+                    │                                                          │
+                    │                 ... 8 frames hidden ...                  │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/diffres-env/lib/python3.11/site-packages/fast │
+                    │ mcp/tools/function_tool.py:89 in wrapper                 │
+                    │                                                          │
+                    │ /home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-bui │
+                    │ ld/diffres/src/tools/resampling.py:207 in                │
+                    │ diffres_resample_particles_baseline                      │
+                    │                                                          │
+                    │   204 │   elif method == "gumbel_softmax":               │
+                    │   205 │   │   if samples.ndim > 2:                       │
+                    │   206 │   │   │   # upstream computes softmax(...) @ sam │
+                    │       more than two dimensions                           │
+                    │ ❱ 207 │   │   │   raise ValueError("gumbel_softmax needs │
+                    │   208 │   │   tau = 0.5 if tau is None else tau          │
+                    │   209 │   │   if not tau > 0:                            │
+                    │   210 │   │   │   raise ValueError("tau must be positive │
+                    ╰──────────────────────────────────────────────────────────╯
+                    ValueError: gumbel_softmax needs samples of shape (N,) or   
+                    (N, d).                                                     
+{"success": true, "mode": "calls", "cases_checked": 5, "report": "tests/results/resampling/acceptance_dryrun_report.json"}
+heavy.sh: scope memory.peak=372MB oom_kills=0

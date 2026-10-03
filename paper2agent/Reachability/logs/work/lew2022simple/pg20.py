@@ -1,0 +1,37 @@
+from pt import *
+items = [
+ HDR(),
+ T(r"""where $L$ is the Lipschitz constant in Assumption 2. Indeed, let $\tilde{x}\in B(x,\epsilon)$, so that $\|\tilde{x}-x\|\leq\epsilon$. Then, $\|f(\tilde{x})-y\| \leq L\,\|\tilde{x}-x\|\leq L\epsilon\leq\delta$ where the last inequality holds given that $\epsilon \leq \delta/L$.""", [90, 93, 523, 118]),
+ T(r"""Next, let $F_{\partial\mathcal{X}}=\{x_i\}_{i=1}^{|F_{\partial\mathcal{X}}|}\subseteq\partial\mathcal{X}$ be a minimum $(\epsilon/L)$-covering for $\partial\mathcal{X}$, so that $|F_{\partial\mathcal{X}}|=D(\partial\mathcal{X},\epsilon/L)$ and for any $x\in\partial\mathcal{X}$, there exists $x_i\in F_{\partial\mathcal{X}}$ such that $\|x-x_i\|\leq \epsilon/L$. Then, $F_{\partial\mathcal{Y}}=\{f(x_i)\, |\,x_i\in F_{\partial\mathcal{X}} \}$ is an $\epsilon$-covering for $\partial\mathcal{Y}$. Indeed, for any $y\in\partial\mathcal{Y}$, there exists some $x\in\partial\mathcal{X}$ such that $y=f(x)$, and there exists some $x_i\in F_{\partial\mathcal{X}}$ such that $\|x-x_i\|\leq \epsilon/L$. Therefore,""", [90, 120, 523, 173]),
+ T(r"""$$
+\sup_{y_i\in F_{\partial\mathcal{Y}}} \|y-y_i\| = \sup_{x_i\in F_{\partial\mathcal{X}}} \|f(x)-f(x_i)\| \leq \sup_{x_i\in F_{\partial\mathcal{X}}} L\|x-x_i\| \leq \epsilon.
+$$""", [155, 184, 458, 205]),
+ T(r"""Therefore, since $F_{\partial\mathcal{Y}}$ is an $\epsilon$-covering for $\partial\mathcal{Y}$ and $|F_{\partial\mathcal{Y}}|=|F_{\partial\mathcal{X}}|=D(\partial\mathcal{X},\epsilon/L)$, we obtain that $D(\partial\mathcal{Y},\epsilon)\leq |F_{\partial\mathcal{Y}}| = D(\partial\mathcal{X},\epsilon/L)$ which concludes this proof. $\blacksquare$""", [90, 215, 523, 240]),
+ T(r"""**Proof of Lemma 3.** From (8), given any $\delta>0$, $x\in\mathbb{R}^p$, and $y=f(x)$, $f(B(x,\epsilon)) \subset B(y,\delta)$ for any $\epsilon\in[0,\delta/L]$. Thus,""", [90, 253, 523, 277]),
+ T(r"""$$
+\mathbb{P}_{\mathcal{Y}}(B(y,\delta)) = \mathbb{P}_\mathcal{X}\Big(f^{-1}(B(y,\delta))\Big) \geq \mathbb{P}_\mathcal{X}\left( B(x,\epsilon) \right) \quad \forall \epsilon\in[0,\delta/L],
+$$""", [150, 280, 462, 299]),
+ T(r"""where the last inequality holds since $B(x,\epsilon) \subseteq f^{-1}(B(y,\delta))$, which concludes this proof. $\blacksquare$""", [90, 307, 523, 319]),
+ T(r"""**Proof of Lemma 4.** Let $F_{\partial\mathcal{Y}}=\{y_i\}_{i=1}^{|F_{\partial\mathcal{Y}}|}\subseteq\partial\mathcal{Y}$ be a minimum $\epsilon$-covering for $\partial\mathcal{Y}$, so that $|F_{\partial\mathcal{Y}}|=D(\partial\mathcal{Y},\epsilon)$ and for any $y\in\partial\mathcal{Y}$, there exists $y_i\in F_{\partial\mathcal{Y}}$ such that $\|y-y_i\|\leq \epsilon$. Let $B(F_{\partial\mathcal{Y}},\epsilon)=\bigcup_{y_i\in F_{\partial\mathcal{Y}}} B(y_i,\epsilon)$.""", [90, 331, 523, 373]),
+ T(r"""By construction, $\partial\mathcal{Y}\subset B(F_{\partial\mathcal{Y}},\epsilon)$, so that $\partial\mathcal{Y}\nsubseteq Y_{2\epsilon}^M\implies B(F_{\partial\mathcal{Y}},\epsilon)\nsubseteq Y_{2\epsilon}^M$. Thus,""", [106, 376, 523, 389]),
+ T(r"""$$
+\begin{aligned}
+\mathbb{P}(\partial\mathcal{Y}\nsubseteq Y_{2\epsilon}^M) &\leq \mathbb{P}(B(F_{\partial\mathcal{Y}},\epsilon)\nsubseteq Y_{2\epsilon}^M) = \mathbb{P}(F_{\partial\mathcal{Y}}\nsubseteq Y_\epsilon^M) \\
+&= \mathbb{P}\bigg(\bigcup_{y_i\in F_{\partial\mathcal{Y}}} y_i\notin Y_\epsilon^M\bigg) \\
+&\leq \sum_{y_i\in F_{\partial\mathcal{Y}}}\mathbb{P}(y_i\notin Y_\epsilon^M) = \sum_{y_i\in F_{\partial\mathcal{Y}}} \mathbb{P}(\{y_i\}\cap Y_\epsilon^M = \emptyset) \\
+&\leq |F_{\partial\mathcal{Y}}| \cdot \sup_{y\in\partial\mathcal{Y}}\mathbb{P}(\{y\}\cap Y_{\epsilon}^M = \emptyset) \\
+&\leq D(\partial\mathcal{Y},\epsilon)\pi(\partial\mathcal{Y},Y_{\epsilon}^M).
+\end{aligned}
+$$""", [155, 396, 455, 524]),
+ T(r"""The conclusion follows. $\blacksquare$""", [90, 532, 523, 544]),
+ T(r"""**Proof of Lemma 5.** $\partial\mathcal{Y}\subseteq Y\oplus B(0,\epsilon)$ implies that $\mathrm{H}(\mathcal{Y})=\mathrm{H}(\partial\mathcal{Y})\subseteq \mathrm{H}(Y\oplus B(0,\epsilon))=\mathrm{H}(Y)\oplus B(0,\epsilon)$.""", [90, 556, 523, 581]),
+ T(r"""$Y\subseteq \mathcal{Y}$ implies that $\mathrm{H}(Y)\subseteq \mathrm{H}(\mathcal{Y})\subset\mathrm{H}(\mathcal{Y})\oplus B(0,\epsilon)$.""", [106, 583, 523, 595]),
+ T(r"""Together, $\mathrm{H}(\mathcal{Y})\subset\mathrm{H}(Y)\oplus B(0,\epsilon)$ and $\mathrm{H}(Y)\subset\mathrm{H}(\mathcal{Y})\oplus B(0,\epsilon)$ imply that $d_H( \mathrm{H}(Y), \mathrm{H}(\mathcal{Y}) )\leq \epsilon$, see (Schneider, 2014). $\blacksquare$""", [90, 597, 523, 622]),
+ T(r"""With these results, we prove Theorem 2 below. We first restate it for better readability.""", [106, 634, 523, 646]),
+ T(r"""**Theorem 2** Define the probability threshold $\delta_M= D(\partial\mathcal{X},\epsilon/(2L))\left(1 - \Lambda_{\epsilon}^{L} \right)^M$ and the estimator $\hat{\mathcal{Y}}^M=\mathrm{H}\left(\{y_i\}_{i=1}^M\right)$. Then, under Assumptions 2 and 3 and assuming that $\partial\mathcal{Y}\subseteq f(\partial\mathcal{X})$,""", [90, 655, 523, 682]),
+ T(r"""$$
+\mathbb{P}( d_H( \hat{\mathcal{Y}}^M, \mathrm{H}(\mathcal{Y}) )\leq \epsilon )\geq 1-\delta_M \qquad\text{and}\qquad \mathbb{P}(\mathcal{Y}\subseteq\hat{\mathcal{Y}}_\epsilon^M)\geq 1-\delta_M.
+$$""", [145, 691, 467, 707]),
+ PNUM(20),
+]
+page(20, items, r"""Proofs of Lemmas 2 (end), 3, 4, 5 and the restatement of Theorem 2. Text and mathematics taken from the authors' TeX (main.tex lines 1886-2094), macros expanded, and compared with the 150-dpi render and three 230-dpi crops covering the whole page. First item ('where L is the Lipschitz constant ...') continues the sentence that ends page 19 with the display (8); since the previous item is a display block it is not joined and simply follows the equation. All five displays were extractor formula images or glyph soup and are now LaTeX (none carries a printed number). Checked symbol by symbol on the crops: ||f(\tilde x) - y|| <= L ||\tilde x - x|| <= L eps <= delta; the minimum (eps/L)-covering F_{dX} = {x_i}_{i=1}^{|F_{dX}|} with |F_{dX}| = D(dX, eps/L); the sup chain ending '<= eps.'; D(dY, eps) <= |F_{dY}| = D(dX, eps/L); Lemma 3 display P_Y(B(y,delta)) = P_X(f^{-1}(B(y,delta))) >= P_X(B(x,eps)) for all eps in [0, delta/L]; Lemma 4's five-line chain P(dY not-subseteq Y_{2eps}^M) <= P(B(F_{dY},eps) not-subseteq Y_{2eps}^M) = P(F_{dY} not-subseteq Y_eps^M) = P(cup y_i not-in Y_eps^M) <= sum P(y_i not-in Y_eps^M) = sum P({y_i} cap Y_eps^M = empty) <= |F_{dY}| sup_{y in dY} P({y} cap Y_eps^M = empty) <= D(dY, eps) pi(dY, Y_eps^M); Lemma 5's inclusions H(calY) = H(dY) subseteq H(Y (+) B(0,eps)) = H(Y) (+) B(0,eps) and H(Y) subseteq H(calY) subset H(calY) (+) B(0,eps) (roman Y is the deterministic compact set of Lemma 5, calligraphic Y the reachable set). Restated Theorem 2 (bold label 'Theorem 2' without period, italic body): delta_M = D(dX, eps/(2L)) (1 - Lambda_eps^L)^M, estimator \hat Y^M = H({y_i}_{i=1}^M), 'under Assumptions 2 and 3 and assuming that dY subseteq f(dX)', display P(d_H(\hat Y^M, H(Y)) <= eps) >= 1 - delta_M and P(Y subseteq \hat Y_eps^M) >= 1 - delta_M; this appendix restatement states the two conclusions as two separate probability bounds, whereas the main-text statement (page 6) says 'with probability at least 1 - delta_M' for both jointly. Proof labels printed bold with a period ('Proof of Lemma 3.'); end-of-proof squares written $\blacksquare$ (four on this page). The Remark that follows the restated theorem is on page 21. Running header and page number 20 omitted.""")

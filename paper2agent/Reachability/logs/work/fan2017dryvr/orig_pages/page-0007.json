@@ -1,0 +1,133 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        127.0,
+        478.0,
+        182.0
+      ],
+      "markdown": "**Trajectory containment** Consider sets of trajectories, _TL_ 1 labeled by �L1 and _TL_ 2 labeled by �L2, and a mode map _lmap_ : �L1 _→_ �L2. For a labeled trajectory _⟨τ, ℓ⟩∈TL_ 1, denote by _lmap_ ( _⟨τ, ℓ⟩_ ) the labeled-trajectory _⟨τ, lmap_ ( _ℓ_ ) _⟩_ . Write _TL_ 1 _⪯lmap TL_ 2 iff for every labeled trajectory _⟨τ, ℓ⟩∈TL_ 1, _lmap_ ( _⟨τ, ℓ⟩_ ) _∈ TL_ 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        198.0,
+        257.0,
+        210.0
+      ],
+      "markdown": "# **2.4 Hybrid systems**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        216.0,
+        478.0,
+        261.0
+      ],
+      "markdown": "**Definition 2.7.** An _n_ -dimensional _hybrid system H_ is a 4-tuple _⟨_ �L _,_ Θ _, G, TL⟩_ , where (a) �L is a finite set of modes, (b) Θ _⊆_ R<sup>_n_</sup> is a compact set of initial states, (c) _G_ = _⟨_ �L _, V, E, elab⟩_ is a transition graph with set of modes �L, and (d) _TL_ is a set of deterministic, prefix-closed trajectories labeled by �L.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        270.0,
+        478.0,
+        427.0
+      ],
+      "markdown": "A _state_ of the hybrid system _H_ is a point in R<sup>_n_</sup> _×_ �L. The set of initial states is Θ _×_ �Linit. Semantics of _H_ is given in terms of executions which are sequences of trajectories consistent with the modes defined by the transition graph. An _execution_ of _H_ is a sequence of labeled trajectories _α_ = _⟨τ_ 1 _, ℓ_ 1 _⟩ . . . , ⟨τk−_ 1 _, ℓk−_ 1 _⟩, ℓk_ in _TL_ , such that (a) _τ_ 1 _.fstate ∈_ Θ and _ℓ_ 1 _∈_ �Linit, (b) the sequence path( _α_ ) defined as _ℓ_ 1 _, τ_ 1 _.ltime, ℓ_ 2 _, . . . ℓk_ is in Trace _G_ , and (c) for each consecutive trajectory, _τi_ +1 _.fstate_ = _τi.lstate_ . The set of all executions of _H_ is denoted by Execs _H_ . The first and last states of an execution _α_ = _⟨τ_ 1 _, ℓ_ 1 _⟩ . . . , ⟨τk−_ 1 _, ℓk−_ 1 _⟩, ℓk_ are _α.fstate_ = _τ_ 1 _.fstate_ , _α.lstate_ = _τk−_ 1 _.lstate_ , and _α.fmode_ = _ℓ_ 1 _α.lmode_ = _ℓk_ . A state _⟨x, ℓ⟩_ is _reachable_ at time _t_ and vertex _v_ (of graph _G_ ) if there exists an execution _α_ = _⟨τ_ 1 _, ℓ_ 1 _⟩ . . . , ⟨τk−_ 1 _, ℓk−_ 1 _⟩, ℓk ∈_ Execs _H_ , a path _π_ = _v_ 1 _, t_ 1 _, . . . vk_ in Paths _G_ , _i ∈{_ 1 _, . . . k}_ , and _t_<sup>_′_</sup> _∈ τi.d om_ such that _vlab_ ( _π_ ) = path( _α_ ), _v_ = _vi_ , _ℓ_ = _ℓi_ , _x_ = _τi_ ( _t_<sup>_′_</sup> ), and _t_ = _t_<sup>_′_</sup> +<sup>�</sup> _j_<sup>_i−_</sup> =1<sup>1</sup><sup>_tj_.Thesetofreachablestates,reachtube,</sup> and states reachable at a vertex _v_ are defined as follows.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        138.0,
+        440.0,
+        478.0,
+        481.0
+      ],
+      "markdown": "ReachTube _H_ = _{⟨x, ℓ, t⟩|_ for some _v, ⟨x, ℓ⟩_ is reachable at time _t_ and vertex _v}_ Reach _H_ = _{⟨x, ℓ⟩|_ for some _v, t, ⟨x, ℓ⟩_ is reachable at time _t_ and vertex _v}_ Reach<sup>_v_</sup> _H_<sup>=</sup><sup>_{⟨x, ℓ⟩|_forsome</sup><sup>_t,⟨x, ℓ⟩_isreachableattime</sup><sup>_t_andvertex</sup><sup>_v}_</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        491.0,
+        478.0,
+        524.0
+      ],
+      "markdown": "Given a set of (unsafe) states _U ⊆_ R<sup>_n_</sup> _×_ �L, the _bounded safety verification problem_ is to decide whether Reach _H ∩U_ = ∅. In Section 3 we will present DryVR’s algorithm for solving this decision problem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        533.0,
+        478.0,
+        577.0
+      ],
+      "markdown": "**Remark 2.8.** _Defining paths in a graph G to be maximal (i.e., end in a vertex in V_ term _) coupled with the definition above for executions in H, ensures that for a vertex v with outgoing edges in G, the execution must leave the mode vlab_ ( _v_ ) _within time bounded by the largest time in the labels of outgoing edges from v._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        586.0,
+        478.0,
+        642.0
+      ],
+      "markdown": "An instance of the bounded safety verification problem is defined by (a) the hybrid system for the Powertrn which itself is defined by the transition graph of Figure 1 and the trajectories defined by the Simulink _⃝_<sup>R</sup> model, and (b) the unsafe set ( _Up_ ): in powerup mode, _t >_ 4 _∧ λ ∈/_ [12 _._ 4 _,_ 12 _._ 6], in normal mode, _t >_ 4 _∧ λ ∈/_ [14 _._ 6 _,_ 14 _._ 8].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        642.0,
+        478.0,
+        664.0
+      ],
+      "markdown": "Containment between graphs and trajectories can be leveraged to conclude the containment of the set of reachable states of two hybrid systems.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        695.0,
+        309.0,
+        703.0
+      ],
+      "markdown": "7",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

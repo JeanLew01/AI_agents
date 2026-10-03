@@ -1,0 +1,159 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170 dpi render and with two 280 dpi crops (top half: displays (6), (7); bottom half: Section 3.1 with displays (8), (9)). Running header and page number 4 omitted. The four extractor formula images are replaced by $$ blocks with the printed numbers: (6) minimize over theta Vol(theta) subject to theta in the intersection over i=1,...,N of {theta_i : g(delta^{(i)}, theta_i) <= 0}; (7) minimize Vol(theta) subject to g(delta^{(i)}, theta) <= 0, i = 1, ..., N and theta in R^{n_theta}. (final period printed); (8) g(x, theta) = sum_{i=1}^m theta_i f_i(x); (9) minimize -sum theta_i subject to sum theta_i 1_{A_i}(delta^{(j)}) <= 0, j = 1, ..., N and theta in [0,1]^m, (final comma printed). 'Vol' is printed upright (\\mathrm{Vol}); the indicator is a double-struck 1 (written \\mathbb{1}). Subsection heading '3.1. Tiling with Basis Functions' set to level 3 (extractor had level 1). Line-wrap hyphens removed in 'guarantees' and 'nonconvex'; 'minimum-volume' is a printed compound. Kept as printed: the subscript i on theta inside the set of (6); the upright 'A' in 'We then partition A into m cells'; 'A_i cap A_j = emptyset forall i' (quantified over i only); the basis functions are declared on R^D with capital D while the state space is R^{n_x} elsewhere. 'tiling' is italic twice in the print. Typed dots '...' in 'f_1(x), ..., f_m(x)' and 'A_1, ..., A_m' kept as three periods.",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        238.0,
+        41.0,
+        371.0,
+        49.0
+      ],
+      "markdown": "",
+      "reason": "Running header of the proceedings layout (author names on even pages, short title on odd pages); page furniture, not part of the text."
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        93.0,
+        523.0,
+        118.0
+      ],
+      "markdown": "We next fix a functional $\\mathrm{Vol} : \\mathbb{R}^{n_\\theta} \\to \\mathbb{R}$ that represents the volume of $\\mathcal{R}(\\theta)$. This motivates the following scenario program:"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        203.0,
+        123.0,
+        527.0,
+        181.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\underset{\\theta}{\\text{minimize}} \\quad & \\mathrm{Vol}(\\theta) \\\\\n\\text{subject to} \\quad & \\theta \\in \\bigcap_{i=1,\\ldots,N} \\{\\theta_i : g(\\delta^{(i)}, \\theta_i) \\le 0\\}\n\\end{aligned} \\tag{6}\n$$"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        186.0,
+        523.0,
+        225.0
+      ],
+      "markdown": "The violation probability, $V(\\mathcal{R}(\\theta))$, of (6) may be interpreted as the probability that an unseen scenario will violate the bounds of the reachable set estimate. Our goal is to select $\\theta$ such that the probability of $V(\\mathcal{R}(\\theta)) > \\epsilon$ is less than or equal to $\\beta$ while minimizing $\\mathrm{Vol}(\\theta)$."
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        227.0,
+        452.0,
+        238.0
+      ],
+      "markdown": "The proposed problem (6) can be equivalently expressed in the functional form"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        213.0,
+        243.0,
+        527.0,
+        302.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\underset{\\theta}{\\text{minimize}} \\quad & \\mathrm{Vol}(\\theta) \\\\\n\\text{subject to} \\quad & g(\\delta^{(i)}, \\theta) \\le 0, i = 1, \\ldots, N \\\\\n& \\theta \\in \\mathbb{R}^{n_\\theta}.\n\\end{aligned} \\tag{7}\n$$"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        309.0,
+        523.0,
+        350.0
+      ],
+      "markdown": "The solution to (7) is the minimum-volume set that contains sample points $\\delta^{(1)}, \\ldots, \\delta^{(N)}$, and guarantees $\\mathbf{P}\\{V(\\mathcal{R}(\\theta)) > \\epsilon\\} \\le \\beta$. The algorithms we present in this section solve (7) given arbitrary values of $\\epsilon, \\beta \\in (0, 1)$ and $N$ samples."
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        359.0,
+        239.0,
+        370.0
+      ],
+      "markdown": "### 3.1. Tiling with Basis Functions"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        377.0,
+        523.0,
+        457.0
+      ],
+      "markdown": "We first present a method to construct a sublevel set function $g(x, \\theta)$ that is convex in $\\theta$ but nonconvex in $x$, as was done in (Devonport, 2023). While convex scenario optimization methods can be used to analyze this approach, they require large sample sizes and are not computationally efficient. We show that by utilizing the nonconvex scenario optimization tools introduced in Section 2, we can significantly improve upon these limitations. To construct $g(x, \\theta)$, select a finite set of basis functions $f_1(x), ..., f_m(x) : \\mathbb{R}^D \\to \\mathbb{R}$ and take $g$ to be"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        253.0,
+        461.0,
+        527.0,
+        503.0
+      ],
+      "markdown": "$$\ng(x, \\theta) = \\sum_{i=1}^{m} \\theta_i f_i(x) \\tag{8}\n$$"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        507.0,
+        523.0,
+        613.0
+      ],
+      "markdown": "In this section, we will use this approach to construct a *tiling* of the state space and estimate the reachable set of a given problem. To create this *tiling*, assume that the reachable set, $\\mathcal{R}$, is contained in a subset $A \\subseteq \\mathbb{R}^D$. We then partition A into $m$ cells, creating a collection of sets $A_1, ..., A_m$ such that $\\cup_{i=1}^{m} A_i = A$ and $A_i \\cap A_j = \\emptyset\\ \\forall i$. This approach can produce arbitrarily fine estimates of the reachable set, depending on how refined the partition is. The accuracy of the partition increases as $m$ increases. Further, we define $\\mathbb{1}_{A_i}$ to be the zero-one indicator function for the set $A_i$, so that $\\mathbb{1}_{A_i}(x) = 1$ if $x \\in A_i$ and $\\mathbb{1}_{A_i}(x) = 0$ otherwise. Therefore, the reachable set estimate is a union of the partitioned cells. We write this as a constrained optimization problem:"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        194.0,
+        618.0,
+        527.0,
+        713.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\underset{\\theta}{\\text{minimize}} \\quad & -\\sum_{i=1}^{m} \\theta_i \\\\\n\\text{subject to} \\quad & \\sum_{i=1}^{m} \\theta_i \\mathbb{1}_{A_i}(\\delta^{(j)}) \\le 0, \\quad j = 1, \\ldots, N \\\\\n& \\theta \\in [0, 1]^m,\n\\end{aligned} \\tag{9}\n$$"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "",
+      "reason": "Printed page number in the footer; page furniture."
+    }
+  ]
+}

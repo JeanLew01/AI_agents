@@ -1,0 +1,135 @@
+{
+  "page": 8,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0008-b000",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        75.0,
+        506.0,
+        128.0
+      ],
+      "markdown": "**Benchmarks.** We compare **RESPO** with the baselines in a diverse suite of safety environments. We consider high-dimensional environments in Safety Gym [30] (namely PointButton and CarGoal), Safety PyBullet [50] (namely DroneCircle and BallRun), and Safety MuJoCo [51], (namely Safety HalfCheetah and Reacher). We also show our algorithm in a multi-drone environment with _multiple hard and soft constraints_ . More detailed experiment explanations and evaluations are in the appendix.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b001",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        142.0,
+        405.0,
+        152.0
+      ],
+      "markdown": "# **6.1 Main Experiments in Safety Gym, Safety PyBullet, and MuJoCo**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0008-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        162.0,
+        506.0,
+        238.0
+      ],
+      "markdown": "We compare our algorithm with SOTA benchmarks on various high-dimensional (up to 76D observation space), complex environments in the stochastic setting, i.e., where the environment and/or policy are stochastic. Particularly, we examine environments in Safety Gym, Safety PyBullet, and Safety MuJoCo. The environments provide reward for achieving a goal behavior or location, while the cost is based on tangible (e.g., avoiding quickly moving objects) and non-tangible (e.g., satisfying speed limit) constraints. Environments like PointButton require intricate behavior where specific buttons must be reached while avoiding multiple moving obstacles, stationary hazards, and wrong buttons.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        244.0,
+        506.0,
+        352.0
+      ],
+      "markdown": "Overall, **RESPO** achieves the best balance between optimizing reward and minimizing cost violations across all the environments. Specifically, our approach generally has the highest reward performance (see the red lines from the top row of Figure 2) among the safety-constrained algorithms while maintaining reasonably low to 0 cost violations (like in HalfCheetah). When **RESPO** performs the second highest, the highest-performing safety algorithm always incurs several times more violations than **RESPO** – for instance, **RCRL** in PointButton or **PPOLag** in Drone Circle. Non-primal-dual CMDP approaches, namely **CRPO** , **P3O** , and **PCPO** generally satisfy their cost threshold constraints, but their reward performances rarely exceed that of **PPOLag** . **RCRL** generally has extremes of high reward and high cost, like in BallRun, or low reward and low cost, like in CarGoal. **FAC** and **CBF** generally have conservative behavior that sacrifices reward performance to minimize cost.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "figure",
+      "bbox": [
+        107.0,
+        358.0,
+        505.0,
+        513.0
+      ],
+      "markdown": "<!-- Start of picture text -->\nCarGoal Cumulative Rewards PointButton Cumulative Rewards ×10 3 BallRun Cumulative Rewards ×10 3 DroneCircle Cumulative Rewards<br>30 PPOLagRCRL 20 3.0 1.0<br>FAC 0.8<br>20 RESPO (ours)<br>CBF 2.0 0.6<br>100 Vanilla PPOCRPOP3OPCPO 10 1.0 0.4<br>0 0.2<br>10 0.0 0.0<br>0 2 4 6 8 0 2 4 6 8 0 2 4 6 8 0 2 4 6 8<br>1e6 1e6 1e6 1e6<br>CarGoal Cumulative Costs ×10 2 PointButton Cumulative Costs ×10 2 BallRun Cumulative Costs DroneCircle Cumulative Costs<br>1.5 2.5 40<br>60 2.0<br>30<br>40 1.0 1.5 20<br>1.0<br>20 0.5 10<br>0.5<br>0<br>0 0.0 0.0<br>0 2 4 6 8 0 2 4 6 8 0 2 4 6 8 0 2 4 6 8<br>1e6 1e6 1e6 1e6<br><!-- End of picture text -->",
+      "source_class": "picture",
+      "label": "Figure on PDF page 8 (5)",
+      "asset_name": "figure-p0008-004"
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        508.0,
+        506.0,
+        557.0
+      ],
+      "markdown": "Figure 2: Comparison of RESPO with baselines in Safety Gym and PyBullet environments. The plots in the first row show performance measured in rewards (higher is better); those in second row show cost (lower is better). RESPO (red curves) achieves the best balance of maximizing reward and minimizing cost. When other methods achieve higher rewards than RESPO, they achieve much higher costs as well. E.g., in PointButton, RCRL has slightly higher rewards, but accumulates over 3 _×_ violations than RESPO. Note, Vanilla PPO is unconstrained.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        578.0,
+        244.0,
+        586.0
+      ],
+      "markdown": "# **6.2 Hard and Soft Constraints**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0008-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        598.0,
+        506.0,
+        684.0
+      ],
+      "markdown": "We also demonstrate **RESPO** ’s performance in an environment with multiple hard and soft constraints. The environment requires controlling two drones to pass through a tunnel one at a time while respecting certain distance requirements. The reward is given for quickly reaching the goal positions. The two hard constraints involve **(H1)** ensuring neither drone collides into the wall and **(H2)** the distance between the two drones is more than 0.5 to ensure they do not collide. The soft constraint is that the two drones are within 0.8 of each other to ensure real-world communication. It is preferable to prioritize hard constraint **H1** over hard constraint **H2** , since colliding with the wall may have more serious consequences to the drones rather than violations of an overly precautious distance constraint.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        691.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "Our approach, in the leftmost of Figure 3, successfully reaches the goal while avoiding the wall obstacles in all time steps. We are able to prioritize this wall avoidance constraint over the second hard constraint. This can be seen particularly in between the blue to cyan time period where the higher",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b009",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "8",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 5, 250 dpi crops of the whole left column (two halves) and of the top of the right column (Theorem 2 and its proof sketch), and with the authors' TeX source; all mathematics taken from the TeX source (macros \\calV, \\calB -> \\mathcal{V}, \\mathcal{B}; spacing-only '\\,{\\in}\\,', '\\,{>}\\,', '\\,{=}\\,', '\\colon\\,' written without the thin spaces; '\\hspace*{-2ex}' of display (6) dropped) and checked symbol by symbol against the crops; TeX and PDF agree. The first item continues the last sentence of page 4 ('... in terms of its center and | radius, which is given by ...'), join_previous=space. Theorem-like blocks: labels are printed entirely in bold with no period ('Definition 3 (Lipschitz Cap)', 'Theorem 1 (Radius of Stochastic Lipschitz Caps)', 'Theorem 2 (Convergence via Lipschitz Caps)'), kept so. Bodies are printed in italics (not reproduced); ends taken from the TeX environments and visible as the end of the italic text: Definition 3 is one paragraph ending '... for all $y \\in B(x,r_x)^S$.'; Theorem 1 runs from 'Given a continuous-depth model' through displays (3), (4), (5) to 'and thus that $B(x,r_x)^S$ is a $\\gamma,t_j$-Lipschitz cap.' (seven items); Theorem 2 runs from 'Given the tightness factor' through display (6) to 'where $N=|\\mathcal{V}|$ is the number of sampled points.' (three items). The paragraphs 'The full proof is provided in the Appendix. *Proof sketch:* ...' after each theorem are ordinary text outside the theorem environments; 'Proof sketch:' is printed in italics. The extractor's four formula images were replaced by LaTeX display blocks with the printed numbers (3), (4), (5), (6). As printed in the source (not conversion errors): display (3) defines $\\Delta\\lambda_{\\mathcal{V}}(\\gamma)$ without the index $x$, while display (4), the proof sketch and Algorithm 1 use $\\Delta\\lambda_{x,\\mathcal{V}}$; the outer parentheses around the numerator of (4); 's.t.' in (6) (set in text italics in the PDF); Theorem 1 refers to 'Lemma 1 in the Appendix'; the first sentences of both theorems have no main verb; in the proof sketch of Theorem 2 the star point is written $x^\\star_j$ and then $x^\\star$ without index; the conditional bar in $\\Pr(\\ldots |\\exists x \\ldots)$ and in $\\Pr(A | B)$ is a plain bar; 'continuous depth models' without hyphen in the paragraph after Definition 3; 'The difference with Lipschitz caps is, that'; 'with less volume is better'; 'an as tight as possible tube'; 'coming out on top in 3 out of 5 benchmarks - using $\\mu=1.1$' with a hyphen as dash; and 'a confidence level $1-\\lambda$' with lambda where the rest of the paper uses gamma. 'Experimental Evaluation' is a real unnumbered section heading (level 2) and 'On the volume of the bounding balls with GoTube' a real subsection heading (level 3); the extractor had them at levels 1 and 2. Percentages are plain text as printed ('90% and 99%', '99% confidence'); 'Flow*' is written with an escaped asterisk. Line-wrap hyphens removed (max-imum, sam-pled, de-velop, arith-metic, in-stead, guar-antee, prob-abilities, worksta-tion, overapproxi-mation, Conse-quently, aver-age, bet-ter, experi-ment, bench-marks, com-ing, confi-dent); real compounds kept ($\\gamma,t_j$-Lipschitz cap, $\\gamma$-stochastic, continuous-depth, continuous-time, per-run, state-of-the-art, LRT-NG, trade-off). The last paragraph of the page ('The results are shown in Table 2. ...') ends with a complete sentence but continues on page 6 in the same TeX paragraph (joined there). No page number or running head.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-r000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        56.5,
+        292.5,
+        88.8
+      ],
+      "markdown": "radius, which is given by tightness factor $\\mu$ times the maximum distance $\\bar{m}_{j,\\mathcal{V}}$. After exiting the outer loop, GoTube returns the bounding tube.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-r001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        93.0,
+        292.5,
+        172.5
+      ],
+      "markdown": "**Definition 3 (Lipschitz Cap)** Let $\\mathcal{V}$ be the set of all sampled points, $x\\in\\mathcal{V}$ be a sample point on the surface of the initial ball, $\\bar{m}_{j,\\mathcal{V}} = \\max_{x\\in\\mathcal{V}} d_j(x)$ be the sample maximum and $B(x,r_x)^S = B(x,r_x)\\cap\\mathcal{B}_0^S$ be a spherical cap around that point. We call the cap $B(x,r_x)^S$ a $\\gamma,t_j$-Lipschitz cap, if it holds that $\\Pr\\left(d_j(y) \\le \\mu\\cdot \\bar{m}_{j,\\mathcal{V}}\\right)\\ge 1-\\gamma$ for all $y\\in B(x,r_x)^S$."
+    },
+    {
+      "id": "p0005-r002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        177.0,
+        292.5,
+        343.5
+      ],
+      "markdown": "Lipschitz caps around the samples are a stochastic version of local balls around samples, commonly used to cover state space. Intuitively, the points within a cap do not have to be explored. The difference with Lipschitz caps is, that we stochastically bound the values inside that space and develop a theory to enable us to calculate a probability of having found an upper bound of the true maximum $m_j^\\star = d_j(x_j^\\star) = \\max_{x\\in\\mathcal{B}_0} d_j(x)$ of the optimization problem in Eq. (2). Our objective is to avoid the usage of interval arithmetic for computing the Lipschitz constant, as it impedes scaling up to continuous depth models. Instead, we define stochastic bounds on the Lipschitz constant to set the radius $r_x$ of the Lipschitz caps, such that $\\mu\\cdot\\bar{m}_{j,\\mathcal{V}}$ is a $\\gamma$-stochastic upper bound for all distances $d_j(y)$ at time $t_j$ from values inside the ball $B(x, r_x)^S$."
+    },
+    {
+      "id": "p0005-r003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        348.5,
+        292.5,
+        446.5
+      ],
+      "markdown": "**Theorem 1 (Radius of Stochastic Lipschitz Caps)** Given a continuous-depth model $f$ from Eq. (1), $\\gamma \\in (0,1)$, $\\mu > 1$, target time $t_j$, the set of all sampled points $\\mathcal{V}$, the number of sampled points $N = |\\mathcal{V}|$, the sample maximum $\\bar{m}_{j,\\mathcal{V}} = \\max_{x\\in\\mathcal{V}} d_j(x)$, the IVP solutions $\\chi(t_j,x)$, and the corresponding stretching factors $\\lambda_x = \\|\\partial_x\\chi(t_j,x)\\|$ for all $x \\in \\mathcal{V}$. Let us define $\\hat{\\gamma} = 1-\\sqrt{1-\\gamma}$. Let $\\Delta\\lambda_{\\mathcal{V}}$ be the $\\sqrt{1-\\gamma}$-quantile of a stochastic lower bound $F_{L,\\hat{\\gamma}}$ as defined by Lemma 1 in the Appendix:"
+    },
+    {
+      "id": "p0005-r004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        449.0,
+        292.5,
+        472.0
+      ],
+      "markdown": "$$\\Delta\\lambda_{\\mathcal{V}}(\\gamma) = F_{L,\\hat{\\gamma}}^{-1}(\\sqrt{1-\\gamma}), \\tag{3}$$"
+    },
+    {
+      "id": "p0005-r005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        475.0,
+        292.5,
+        486.0
+      ],
+      "markdown": "Let $r_x$ be defined as:"
+    },
+    {
+      "id": "p0005-r006",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        489.0,
+        292.5,
+        537.0
+      ],
+      "markdown": "$$r_{x} = \\frac{\\left(-\\lambda_x + \\sqrt{\\lambda_x^2 + 4\\cdot\\Delta\\lambda_{x,\\mathcal{V}}\\cdot(\\mu\\cdot\\bar{m}_{j,\\mathcal{V}}-d_j(x))}\\right)}{2\\cdot\\Delta\\lambda_{x,\\mathcal{V}}}, \\tag{4}$$"
+    },
+    {
+      "id": "p0005-r007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        542.5,
+        292.5,
+        552.5
+      ],
+      "markdown": "then it holds that:"
+    },
+    {
+      "id": "p0005-r008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        556.0,
+        292.5,
+        573.5
+      ],
+      "markdown": "$$\\Pr\\left(d_j(y) \\le \\mu\\cdot \\bar{m}_{j,\\mathcal{V}}\\right)\\ge 1-\\gamma\\quad \\forall y\\in B(x,r_x)^S, \\tag{5}$$"
+    },
+    {
+      "id": "p0005-r009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        577.0,
+        292.5,
+        591.0
+      ],
+      "markdown": "and thus that $B(x, r_x)^S$ is a $\\gamma, t_j$-Lipschitz cap."
+    },
+    {
+      "id": "p0005-r010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        596.0,
+        292.5,
+        651.2
+      ],
+      "markdown": "The full proof is provided in the Appendix. *Proof sketch:* As $\\Delta\\lambda_{x,\\mathcal{V}}$ is the $\\sqrt{1-\\gamma}$-quantile of $\\max_{x,y}|\\lambda_x-\\lambda_y|/\\|x-y\\|$, it holds that $\\Pr(\\lambda_y \\le \\lambda_x + \\Delta\\lambda_{x,\\mathcal{V}} \\cdot \\|x-y\\|)\\ge 1-\\gamma$. Therefore Eq. (4) follows by solving the following equation: $(\\mu\\cdot\\bar{m}_{j,\\mathcal{V}}-d_j(x))=\\lambda_x r_x + \\Delta\\lambda_{x,\\mathcal{V}} r_x^2$."
+    },
+    {
+      "id": "p0005-r011",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        651.3,
+        292.5,
+        705.0
+      ],
+      "markdown": "Using conditional probability, we are able to state that the convergence guarantee holds for the GoTube Algorithm, thus ensuring that the Algorithm terminates in finite time even using stochastic Lipschitz caps around the samples instead of deterministic local balls."
+    },
+    {
+      "id": "p0005-r012",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        56.5,
+        558.0,
+        102.0
+      ],
+      "markdown": "**Theorem 2 (Convergence via Lipschitz Caps)** Given the tightness factor $\\mu > 1$, the set of all sampled points $\\mathcal{V}$ and the sample maximum $\\bar{m}_{j,\\mathcal{V}} = \\max_{x\\in\\mathcal{V}} d_j(x)$. Let the initial ball maximum be defined by $m^\\star_j=\\max_{x\\in\\mathcal{B}_0} d_j(x)$. Then:"
+    },
+    {
+      "id": "p0005-r013",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        106.0,
+        558.0,
+        122.0
+      ],
+      "markdown": "$$\\forall\\gamma\\in(0,1),\\exists N\\in\\mathbb{N}\\textrm{ s.t. } \\Pr(\\mu\\cdot\\bar{m}_{j,\\mathcal{V}}\\ge m^\\star_j) \\ge 1-\\gamma \\tag{6}$$"
+    },
+    {
+      "id": "p0005-r014",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        128.5,
+        558.0,
+        139.5
+      ],
+      "markdown": "where $N=|\\mathcal{V}|$ is the number of sampled points."
+    },
+    {
+      "id": "p0005-r015",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        145.5,
+        558.0,
+        291.5
+      ],
+      "markdown": "The full proof is provided in the Appendix. *Proof sketch:* Let $x^\\star_j$ be a point such that $d_j(x^\\star_j) = m^\\star_j$. Given $\\gamma\\in(0,1)$ and cap radii $r_x$, we expand the convergence guarantee from deterministic local balls to stochastic Lipschitz caps. For local balls it holds that $\\exists N \\in\\mathbb{N}\\colon\\Pr(\\exists x\\in\\mathcal{V}\\colon B(x,r_x)^S\\owns x^\\star_j)\\ge\\sqrt{1-\\gamma}$. Using a set of sampled points $\\mathcal{V}$ with cardinality $N$ and using $1-\\sqrt{1-\\gamma}$ instead of $\\gamma$ in Eq. (3) and Theorem 1, the resulting probability is larger than $\\sqrt{1-\\gamma}$. From the definition of a Lipschitz cap it follows that $\\Pr( d_j(x^\\star) \\le \\mu\\cdot\\bar{m}_{j,\\mathcal{V}} |\\exists x\\in\\mathcal{V}\\colon B(x,r_x)^S\\owns x^\\star)\\ge \\sqrt{1-\\gamma}$. For any sets $A, B$ it holds that $\\Pr(A)\\ge \\Pr(A\\cap B) = \\Pr(A | B) \\cdot \\Pr(B)$, thus we multiply both probabilities and therefore Eq. (6) holds."
+    },
+    {
+      "id": "p0005-r016",
+      "kind": "heading",
+      "bbox": [
+        374.0,
+        303.0,
+        503.5,
+        314.5
+      ],
+      "markdown": "## Experimental Evaluation"
+    },
+    {
+      "id": "p0005-r017",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        319.0,
+        558.0,
+        394.5
+      ],
+      "markdown": "We perform a diverse set of experiments with GoTube to evaluate its performance and identify its characteristics and limits in verifying continuous-time systems with increasing complexity. We run our evaluations on a standard workstation machine setup (12 vCPUs, 64GB memory) equipped with a single GPU for a per-run timeout of 1 hour (except for runtimes reported in Figure 4)."
+    },
+    {
+      "id": "p0005-r018",
+      "kind": "heading",
+      "bbox": [
+        319.5,
+        405.0,
+        552.5,
+        416.5
+      ],
+      "markdown": "### On the volume of the bounding balls with GoTube"
+    },
+    {
+      "id": "p0005-r019",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        420.5,
+        558.0,
+        584.5
+      ],
+      "markdown": "Our first experimental evaluation concerns the overapproximation errors of the constructed bounding tubes. An ideal reachability tool should be able to output an as tight as possible tube that encloses the system’s executions. Consequently, as our comparison metric, we will report the average volume of the bounding balls, with less volume is better. We use the benchmarks and settings of (Gruenbacher et al. 2020) (same radii, time horizons, and models) as the basis of our evaluation. In particular, we compare GoTube to the deterministic, state-of-the-art reachability tools LRT-NG, Flow\\*, CAPD, and LRT. We measure the volume of GoTube’s balls at the confidence levels of 90% and 99%, using $\\mu=1.1$ as the tightness factor (in the third experiment we will talk in more detail about the trade-off between tightness and runtime)."
+    },
+    {
+      "id": "p0005-r020",
+      "kind": "text",
+      "bbox": [
+        319.5,
+        585.2,
+        558.0,
+        705.0
+      ],
+      "markdown": "The results are shown in Table 2. For the first five benchmarks, which are classical dynamical systems, we use the small time horizons $T$ and small initial radii $\\delta_0$, which the other tools could handle. GoTube, with 99% confidence, achieves a competitive performance to the other tools, coming out on top in 3 out of 5 benchmarks - using $\\mu=1.1$ as the tightness bound. Intuitively this means, we are confident that the overapproximation includes all executions with a confidence level $1-\\lambda$, but this overapproximation might not be as tight as desired. GoTube is able to achieve any desired tightness by reducing $\\mu$ and increasing the runtime."
+    }
+  ]
+}

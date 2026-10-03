@@ -1,0 +1,113 @@
+{
+  "page": 23,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0023.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was raw extraction (Algorithm 3 scattered over eight glyph-soup list items, generic figure label, '# **...**' heading, <sup> debris in the A.8 formulas). Everything on this page exists only in the camera-ready PDF (the arXiv TeX ends with A.5.4), so all text and maths were transcribed from the page: compared the preview and crops of Algorithm 3 (280 dpi), of the caption and A.8 text (260 dpi) and of Figure 7 (170 and 110 dpi) with the items, plus the native text lines. Algorithm 3 (asset algorithm-3): image crop bbox [106,70.5,506,160] checked (top rule, title, lines 1-7, bottom rule inside) and a line-by-line transcription in the following text item; the seven former list items were merged into it. Subscripts read on the 280-dpi crop: $x_{0:T}$, $u_{0:T-1}$, $t_{\\text{final}}$, $x_{t:t+T}$, $u_{t:t+T-1}$, $x_{t+1:t+T}$, $u_{t+1:t+T-1}$; the bold keywords Initialize/for/to/do/end for are kept bold; the body indentation of lines 3-6 is not reproduced (as for Algorithms 1-2). Line 6 has no assignment target in print; kept as printed. Figure 7 (asset figure-7): one bar chart with legend 'Algorithm' (RL, RL(noisy), MBD, MBD(noisy), MBD(receding), MBD(noisy,receding)), y-axis 'Reward', x-axis 'Environment' with seven groups; bbox set to [107,168,504,415] and checked on a crop (all four frame edges, the rotated y label and the x label inside; caption starts at y=435). The extractor's picture-text was dropped because all of it is visible in the crop. Caption: split decimals repaired ('9 _._ 6%' -> '9.6%', '74 _._ 2%' -> '74.2%', '65 _._ 3%' -> '65.3%'); wording 'leads RL by larger 74.2%' kept as printed. Heading '### A.8 Objective Function Abalation' (printed spelling 'Abalation' kept, as in A.7). A.8 maths rewritten in LaTeX from the 260-dpi crop: $J = \\sum_{t=0}^{H_{\\text{RL}}} \\gamma^t r_t, H = 1000, \\gamma < 1$ and $J = \\sum_{t=0}^{H_{\\text{MBD}}} r_t, H = 50, \\gamma = 1$ (upper limits $H_{\\text{RL}}$, $H_{\\text{MBD}}$ with roman subscripts, while the text then gives a bare $H$: kept as printed). Split decimals repaired: '44.5%', '805.5%'. Reading order kept as printed: page 22 ends with the complete A.7 paragraph, so Algorithm 3 and Figure 7 (both referenced from A.6 on page 22) do not interrupt a sentence, but in the linear text they follow the A.7 paragraph; a reading_order proposal for the coordinator is in the report. Page number 23 omitted. Check: 12/16 lines; the 4 missing lines are the two A.8 formula lines, the number 'extras' come from the Algorithm 3 transcription (see adjudication note).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0023-b000",
+      "kind": "figure",
+      "bbox": [
+        106.0,
+        70.5,
+        506.0,
+        160.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0023-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        73.0,
+        505.0,
+        157.0
+      ],
+      "markdown": "**Algorithm 3** Model-based Diffusion with Receding Horizon  \n1: **Initialize:** Optimize trajectory $x_{0:T}$, $u_{0:T-1}$ with MBD  \n2: **for** $t = 0$ **to** $t_{\\text{final}}$ **do**  \n3: Observe the state $x_t$  \n4: Optimize trajectory $x_{t:t+T}$, $u_{t:t+T-1}$ with single-step MBD  \n5: Apply the first control input $u_t$ to the system  \n6: Shift trajectory for next initialization: $x_{t+1:t+T}$, $u_{t+1:t+T-1}$  \n7: **end for**",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0023-b008",
+      "kind": "figure",
+      "bbox": [
+        107.0,
+        168.0,
+        504.0,
+        415.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 7",
+      "asset_name": "figure-7"
+    },
+    {
+      "id": "p0023-b009",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        436.0,
+        505.0,
+        489.0
+      ],
+      "markdown": "Figure 7: Comparison of the performance between RL, MBD and MBD receding horizon version with both perfect model and noisy model (with 5% control noise). Given perfect model, we find MBD’s performance can be further augmented by 9.6% with naive receding horizon planning and leads RL by larger 74.2%. Given noisy model, MBD receding horizon version still outperforms RL by 65.3%.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0023-b010",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        511.0,
+        259.0,
+        521.0
+      ],
+      "markdown": "### A.8 Objective Function Abalation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0023-b011",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        531.0,
+        505.0,
+        588.0
+      ],
+      "markdown": "Given that RL and TO have different objective settings, especially the horizon difference, we conducted an ablation study by swapping the optimization objectives of MBD and RL. RL optimizes for a longer horizon discounted reward $J = \\sum_{t=0}^{H_{\\text{RL}}} \\gamma^t r_t, H = 1000, \\gamma < 1$ while MBD optimizes for a shorter horizon undiscounted cumulative rewards $J = \\sum_{t=0}^{H_{\\text{MBD}}} r_t, H = 50, \\gamma = 1$. Figure 9 shows the performance of MBD and RL under each other’s optimization objectives.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        594.0,
+        505.0,
+        627.0
+      ],
+      "markdown": "MBD outperforms RL by 44.5% under the RL objective and 805.5% under the TO objective. The results demonstrate that MBD’s superior performance is attributed to its better diffusion-style iterative optimization process compared with RL’s random exploration.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b013",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "23",
+      "source_class": "page-footer",
+      "reason": "Page number 23 in the footer (verified on the preview)."
+    }
+  ]
+}

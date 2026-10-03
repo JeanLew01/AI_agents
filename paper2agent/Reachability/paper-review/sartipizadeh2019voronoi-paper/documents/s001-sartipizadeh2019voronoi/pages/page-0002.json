@@ -1,0 +1,133 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 150 dpi render of PDF page 2 and with the TeX source. The three remaining introduction paragraphs are complete on this page (page 1 ends with a full paragraph, so no cross-page join). Section references resolved to the printed numbers (Section 2, 3, 4, 5); citations checked on the page: [4], [13], [14–17], [4, 13], [18, Rem. 1], [15] twice. Headings: '## 2 Problem formulation', '### 2.1 System description' (extractor had level 1 and 2 with bold markers). All inline mathematics rewritten in LaTeX from the TeX source with the authors' macros expanded (\\R -> \\mathbb{R}, \\N -> \\mathbb{N}, \\X -> \\mathcal{X}, \\U -> \\mathcal{U}, \\W -> \\mathcal{W}, \\Prob -> \\mathbb{P}); the extractor had turned the paragraph after equation (2) into superscript soup. The two extractor 'formula' images were replaced by $$ blocks with the printed numbers (1) and (2). Checked on the render: $\\mathbb{N}_{[a,b]}$, $x_t\\in\\mathcal{X}=\\mathbb{R}^{n_x}$, $w_t\\in\\mathcal{W}\\subseteq\\mathbb{R}^{n_x}$ (disturbance dimension $n_x$, as printed), the stacked vectors $X$, $U$, $W$ with indices 1..N, 0..N-1, 0..N-1, and $\\mathbb{P}_{X}^{x_0,U}$, $\\mathbb{P}_W$, $(\\eta_{w})^N$. TeX and PDF agree. Authors' wording kept: 'a length $n$ vector of real numbers' for $\\mathbb{R}^n$, 'Vector with all elements 1 is denoted', '(i.i.d)' without the final period, 'a $N$-length horizon', and the index $k$ in $w_k$, $x_k$ where the dynamics use $t$.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        59.0,
+        556.0,
+        166.0
+      ],
+      "markdown": "In this paper, we reconsider the sampling-based approach, proposed in [4]. Similar sampling-based approach has been used successfully in robotics [13] and in stochastic optimal control [14–17]. In the sampling-based stochastic reach-avoid problem, we sample the stochastic disturbance to produce a finite set of *scenarios*, and then formulate a mixed-integer linear program (MILP) to maximize the number of scenarios that satisfy the reach-avoid constraints [4, 13]. As expected, the approximated probability will converge to the true terminal time probability as the number of scenarios increases. However, the computational complexity of MILP increases exponentially with the number of binary decision variables (the number of scenarios) [18, Rem. 1] making the MILP formulation practically intractable."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        168.0,
+        556.0,
+        287.0
+      ],
+      "markdown": "The main contributions of this paper are two-fold. We first provide a lower bound on the number of scenarios needed to probabilistically guarantee a user-specified upper bound on the approximation error with a user-specified confidence level using concentration techniques. Using Hoeffding’s inequality, we demonstrate that the number of scenarios that need to be considered is inversely proportional to the square of the desired upper bound on the estimate error. Next, we propose a Voronoi-based undersampling technique that underapproximates the MILP-based solution in a computationally efficient manner. This approach allows us to partially mitigate the exponential computational complexity, and provides flexibility to select the number of partitions based on the allowable online computational complexity. We demonstrate the application of the proposed method in a problem of spacecraft rendezvous and docking."
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        290.0,
+        556.0,
+        355.0
+      ],
+      "markdown": "The organization of the paper is as follows: Problem formulation and preliminary definitions are stated in Section 2. Lower bound on the required number of scenarios for the prescribed confidence level is given in Section 3. Section 4 presents the proposed partition-based method and the approximate solution reconstruction. The performance of the proposed method is investigated on a spacecraft rendezvous maneuvering and docking in Section 5."
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        376.0,
+        229.0,
+        387.0
+      ],
+      "markdown": "## 2 Problem formulation"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        403.0,
+        556.0,
+        439.0
+      ],
+      "markdown": "We presume $\\mathbb{R}$ and $\\mathbb{N}$ are sets of real and natural numbers, with $\\mathbb{R}^{n}$ a length $n$ vector of real numbers, and $\\mathbb{N}_{[a,b]}$ the set of natural numbers between $a$ and $b$. For $x\\in\\mathbb{R}^{n}$, $x^{\\top}$ denotes the transpose of $x$. Vector with all elements 1 is denoted $\\mathbf{1}$."
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        458.0,
+        200.0,
+        470.0
+      ],
+      "markdown": "### 2.1 System description"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        480.0,
+        284.0,
+        491.0
+      ],
+      "markdown": "Consider a discrete-time stochastic LTI system,"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        246.0,
+        499.0,
+        561.0,
+        521.0
+      ],
+      "markdown": "$$\nx_{t+1}=Ax_t+Bu_t+w_t \\tag{1}\n$$"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        529.0,
+        556.0,
+        594.0
+      ],
+      "markdown": "with state $x_t\\in \\mathcal{X}=\\mathbb{R}^{n_x}$, input $u_{t}\\in \\mathcal{U}\\subseteq\\mathbb{R}^{n_u}$, disturbance $w_t\\in \\mathcal{W}\\subseteq\\mathbb{R}^{n_x}$ at time instant $t$, and matrices $A,B$ assumed to be of appropriate dimensions. We assume that $w_k$ is an independent and identically distributed (i.i.d) random variable with a PDF $\\eta_{w}$. Note that we require $\\eta_{w}$ only to be a probability density function from which we can draw samples, and do not require it to be Gaussian. The system (1) over a time horizon with length $N$ can be alternatively written in a “stacked” form,"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        213.0,
+        602.0,
+        561.0,
+        624.0
+      ],
+      "markdown": "$$\nX(x_{0},U,W)=G_{x}x_0+G_{u}U+G_{w}W, \\tag{2}\n$$"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        630.0,
+        556.0,
+        711.0
+      ],
+      "markdown": "with $X=[x_{1}^{\\top},\\cdots,x_{N}^{\\top}]^\\top \\in \\mathcal{X}^N$, $U=[u_{0}^{\\top},\\cdots,u_{N-1}^{\\top}]^\\top\\in \\mathcal{U}^N$, and $W=[w_{0}^{\\top},\\cdots,w_{N-1}^{\\top}]^\\top\\in \\mathcal{W}^N$ the concatenated state, input, and disturbance vectors over a $N$-length horizon [15]. The matrices $G_{x}$, $G_{u}$, and $G_{w}$ may be obtained from the system matrices in (1) (see [15]). Due to the stochastic nature of $w_k$, the state $x_k$ and the concatenated state vector $X$ are random. We define $\\mathbb{P}_{X}^{x_0,U}$ as the probability measure associated with the random vector $X$, which is induced from the probability measure of the concatenated disturbance vector $\\mathbb{P}_W$ and (2). By the i.i.d. assumption on $w_k$, $\\mathbb{P}_W$ is characterized by $(\\eta_{w})^N$."
+    }
+  ]
+}

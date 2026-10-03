@@ -1,0 +1,75 @@
+\section{Introduction}
+In reinforcement learning (RL), an agent perceives and reacts to consecutive states of its environment to maximize long-term cumulative expected reward \cite{book:sutton1998introduction}. %in a receding-horizon framework.
+One key challenge to the widespread deployment of RL in safety-critical systems is ensuring that an RL agent's policies are safe, especially when the system environment or dynamics are a black box and subject to noise \cite{mihatsch2002risk,garcia2015comprehensive}. %garcia2020teaching, koppejan2011neuroevolutionary,
+In this work, we consider RL for guaranteed-safe navigation of mobile robots, such as autonomous cars or delivery drones, where safety means collision avoidance.
+We leverage RL to plan complex action sequences in concert with data-driven reachability analysis to guarantee safety for a black-box system.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{Figures/20210922_BRSL-04.png}
+    \vspace{-5mm}
+    \caption{Overview of the proposed BRSL method (\href{https://youtube.com/playlist?list=PL7bkcpwNaUjz-S1b5KBzpgCZ1SP4DXsoi}{\textcolor{blue}{link to video}}).
+    Given data collected offline (in yellow, right), we perform online safe training and deployment of an RL agent.
+    The RL agent creates trajectory plans for a robot in a receding-horizon way as follows.
+    Each planning iteration is one clockwise loop in the green dashed box.
+    First (blue, top left), the agent predicts a possible future trajectory by rolling out its current policy with an ensemble of neural networks trained online to model the black-box environment (grey, bottom left).
+    Second (orange, middle), the candidate plan is \emph{adjusted} to ensure safety using data-driven reachability and a constrained, differentiable method of collision-checking our robot's reachable sets.
+    We execute a failsafe maneuver if the collision check is infeasible.
+    Finally, the new safe plan is passed to the robot, and a penalty is passed to the RL agent for choosing unsafe action.}
+    \label{fig:framework}
+    \vspace{-6mm}
+\end{figure}
+
+
+
+
+\input{Sections/3_related}
+
+
+
+\subsection{Proposed Method and Contributions}
+%\textbf{Proposed Method.}
+% We propose a , which guarantees safety during exploration and exploitation in RL.
+\tb{We propose a Black-box Reachability-based Safety Layer (BRSL), illustrated in Fig.~\ref{fig:framework}, to enable strict safety guarantees for RL in an entirely data-driven way, addressing the above challenges of lacking robot and environment models \emph{a priori} and of enforcing safety for uncertain systems.
+We note that the main advantage of BRSL is the use of data-driven methods to provide safety guarantees for black-box system dynamics.}
+BRSL enforces safety by computing a system's forward reachable set, which is the union of all trajectories that the system can realize within a finite or infinite time when starting from a bounded set of initial states, subject to a set of possible input signals \cite{conf:reach1984}. 
+Then, if the reachable set does not intersect with unsafe sets, the system is verified as safe, following similar arguments as in \cite{kousik2020bridging,leung2020infusing,althoffphdthesis}.
+
+\textbf{Limitations.}
+Our method requires an approximation for the upper bound of a system's Lipschitz constant, similar to \cite{LewEtAl2021,koller2018learning,alanwar2020data_conf}.
+This results in a curse of dimensionality with respect to number of samples required to approximate the constant; note other sampling-based approaches scale similarly \cite{LewEtAl2021,conf:modelBasedReachRL}. 
+Furthermore, we focus on a discrete-time setting, assume our robot can brake to a stop, and assume accurate perception of the robot's surroundings.
+We leave continuous-time (which can be addressed with similar reachability methods to ours \cite{conf:modelBasedReachRL,althoffphdthesis}) and perception uncertainty to future work. 
+
+
+% Our BRSL framework, illustrated in Fig. \ref{fig:framework}, has three components: (1) a \emph{dreaming} trajectory planner, (2) a data-driven reachability analysis technique based on \cite{alanwar2020data}, and (3) a method of adjusting unsafe actions using a novel differentiable collision check based on \cite{chung2021constrained}.
+% BRSL operates as follows.
+% First, offline, we collect noisy state-input data from the trajectories of the system. 
+% At runtime, the RL agent generates actions in a receding-horizon way.
+% In each receding-horizon iteration, BRSL performs trajectory planning using an ensemble of neural networks, trained online to mimic the environment.
+% This allows the RL agent to \emph{dream} a future plan before executing it.
+% Since the dreamed plan may be unsafe, we propose a novel safety layer to \emph{adjust} any unsafe actions in the plan.
+% This adjustment is achieved by first computing the reachable set of the plan as a sequence of polytopes using the technique in \cite{alanwar2020data_conf}; then, by extending the differentiable polytope collision checking method in \cite{chung2021constrained}, we use constrained gradient descent to push the reachable sets out of collision and identify safe actions.
+
+% In summary, BRSL makes the following contributions:
+\textbf{Contributions.}
+We show the following with BRSL:
+\begin{enumerate}[leftmargin=15pt,noitemsep,partopsep=0pt,topsep=0pt,parsep=0pt]
+\itemsep0em
+    
+    \item We propose a safety layer by integrating data-driven reachability analysis with a differentiable polytope collision check and a trajectory rollout planner.
+    
+    \item We demonstrate BRSL on robot navigation, where it outperforms a baseline RL agent, Reachability-based Trajectory Safeguard (RTS) \cite{conf:modelBasedReachRL}, Safe Advantage-based Intervention for Learning policies with Reinforcement (SAILR) \cite{wagener2021safe}, and Safe Exploration in Continuous Action Spaces (SECAS) \cite{dalal2018safe}.
+    Our code is \href{https://github.com/Mahmoud-Selim/Safe-Reinforcement-Learning-for-Black-Box-Systems-Using-Reachability-Analysis}{\underline{\color{blue}{online}}}.
+\end{enumerate}
+
+Next, in Section \ref{sec:pb}, we provide preliminaries and formulate our safe RL problem. 
+Sections \ref{sec:solu} and \ref{sec:eval} discuss and evaluate the proposed approach.
+Finally, Section \ref{sec:con} presents concluding remarks and discusses future work.
+
+% \tb{The code to recreate our findings is publicly available.}
+
+
+% \footnotetext{Our code is available \href{https://github.com/Mahmoud-Selim/Safe-Reinforcement-Learning-for-Black-Box-Systems-Using-Reachability-Analysis}{online (click for link)} %\href{https://github.com/Mahmoud-Selim/Safe-Reinforcement-Learning-for-Black-Box-Systems-Using-Reachability-Analysis}{https://github.com/Mahmoud-Selim/Safe-Reinforcement-Learning-for-Black-Box-Systems-Using-Reachability-Analysis}
+% }
+

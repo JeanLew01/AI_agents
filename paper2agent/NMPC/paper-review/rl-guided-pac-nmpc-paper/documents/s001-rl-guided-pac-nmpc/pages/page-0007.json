@@ -1,0 +1,270 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Examined the preview, the item overlay after editing, a 250-dpi crop of Figure 2, a 230-dpi crop of Algorithm 1 and two 220-dpi crops of the maths-bearing prose (left column 'Given an initial state ...', right column Equations (13), (14)). Mathematics taken from the TeX source with macros expanded (\\actor -> \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}, \\critic -> Q^{\\boldsymbol{\\psi}}, \\approxvaluefunc -> V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}, \\sensorpredictfunc -> \\mathbf{h}^\\eta, \\sensorpredict -> \\hat{\\mathbf{y}}, \\nominaldynamicsfunc -> \\mathbf{f}, \\horizon -> N_T, \\sensorhist -> N_y) and checked against the crops; no TeX-versus-PDF disagreement. Figure 2 (figure-2): box changed from [43,51,306,242] (which touched the caption) to [47,56,302,238]; measured ink 49.1-299.7 x 57.9-236.2; all blocks, arrows, the legend row (Controller / Learned Model / Hardware) and the labels 'Image y_t', 'State x_t', 'Input u_t' are inside; 'Fig. 2: Overview of AC-PAC-NMPC.' changed from text to caption. The diagram writes the learned models with subscripts (h_eta, pi_phi, Q_psi) and the NMPC block as 'argmin(J+ + C+) s.t. C+ < eps_c, C_V+ < V^{psi phi}'; this is figure-internal text and is kept only in the image. Algorithm 1: the extractor had a '# ' heading plus one garbled list item; now an image item (p0007-b009, kind figure, label 'Algorithm 1', asset algorithm-1, box [310,53.5,565,185.5], ink 311.8-563.0 x 55.5-183.4, both rules included) followed by a line-by-line LaTeX transcription (p0007-b010) with the printed title in bold, 'Input:' line and line numbers 1-9; nesting shown with &emsp;. The pseudocode is kept as printed, including the semicolons, the missing semicolon after 'return' and the constraint test on $\\mathbf{y}_{(t-N_y):t}$ (measured history) rather than on the predicted $\\hat{\\mathbf{y}}_{i+1}$. The float is placed at the end of subsection V-A, after the paragraph that finishes in the right column. Headings: 'A. RL-based Warm Start' and 'B. Uncertainty-Aware RL-Augmented Cost' changed from '# _..._' to '### '. Reading order: Figure 2 with caption first (page 6 ends with a complete paragraph), then subsection A; the left column ends mid-sentence ('... (e.g., due to distribution') and continues below the algorithm box in the right column ('shift), the PAC-NMPC policy ...'): join_previous=space on p0007-b011. Equations (13) and (14) are text items with $$ blocks and \\tag{13}, \\tag{14} (former formula images removed). The extractor's formula box for (14) had swallowed the paragraph 'To model the stochastic value function, we implement ... Monte Carlo (MC) dropout:'; it is restored as the new text item p0007-b017a. Text repairs: all inline maths rewritten from glyph soup to LaTeX; 'PACNMPC' -> 'PAC-NMPC' and 'outof-distribution' -> 'out-of-distribution' (real compound hyphens at line ends, confirmed by TeX); '*a priori*' kept in italics as printed; printed wording 'we predict each future sensor measurements' kept. Citations [60], [36], [68], [69] and 'Algorithm 1' compared with the page. Last item ('... However, since PAC-NMPC must already') continues on PDF page 8 (join set there). Omitted only the printed page number '6'. check: 69/86 lines; the 17 missing lines all contain inline or display maths now in LaTeX; the only number differences are 'extra' tokens from the Algorithm 1 transcription, whose source lines lie inside the excluded image box. See adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "omit",
+      "bbox": [
+        559.0,
+        26.0,
+        564.0,
+        32.0
+      ],
+      "markdown": "6",
+      "source_class": "page-header",
+      "reason": "Running page number (6) in the top-right corner."
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "figure",
+      "bbox": [
+        47.0,
+        56.0,
+        302.0,
+        238.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "caption",
+      "bbox": [
+        97.0,
+        240.0,
+        252.0,
+        250.0
+      ],
+      "markdown": "Fig. 2: Overview of AC-PAC-NMPC.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        263.0,
+        151.0,
+        271.0
+      ],
+      "markdown": "### A. RL-based Warm Start",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        278.0,
+        301.0,
+        371.0
+      ],
+      "markdown": "We initialize the PAC-NMPC decision variables using the learned actor policy. Since the RL actor policy is trained to minimize the expected cost-to-go, this warm-start may reduce optimization time to convergence and help avoid non-optimal local minima. For high-dimensional input spaces, we have found that this feature is important for keeping the SNMPC policy within the distribution of the trained RL model. Our warm-start approach is summarized in Algorithm 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        372.0,
+        301.0,
+        465.0
+      ],
+      "markdown": "Given an initial state, $\\mathbf{x}_t$, and sensor measurement, $\\mathbf{y}_t$, the initial input of the warm-start trajectory can be computed as $\\hat{\\mathbf{u}}_t = \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_t, \\mathbf{y}_t)$. However, subsequent actions cannot be computed directly, since future states and sensor measurements are needed to evaluate the actor along the rest of the trajectory, $\\hat{\\mathbf{u}}_{t+k} = \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_{t+k}, \\hat{\\mathbf{y}}_{t+k})$. To address this, we compute future states recursively using a nominal, deterministic dynamics model, $\\mathbf{x}_{t+1} = \\mathbf{f}(\\mathbf{x}_t, \\mathbf{u}_t)$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        467.0,
+        301.0,
+        583.0
+      ],
+      "markdown": "Unlike the robot state, future sensor measurements cannot be simulated in the same way because they depend on an environment which is unknown *a priori*. Instead, future sensor measurements are estimated using a sensor prediction model, $\\hat{\\mathbf{y}}_{t+k} = \\mathbf{h}^\\eta(\\mathbf{x}_{t}, \\mathbf{y}_{t}, \\mathbf{x}_{t+k})$. Rather than predicting the sensor model recursively, $\\hat{\\mathbf{y}}_{t+1} = \\mathbf{h}^\\eta(\\mathbf{x}_{t}, \\mathbf{y}_{t}, \\mathbf{x}_{t+1})$, we predict each future sensor measurements at time $t+k$ directly from the initial sensor measurement. Empirically, we found that recursively applying sensor prediction led to error accumulation and degraded sensor measurement prediction.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        585.0,
+        301.0,
+        713.0
+      ],
+      "markdown": "The resulting actor warm-start initializes the mean of the SNMPC policy’s surrogate distribution, $\\boldsymbol{\\mu}$, while the variance, $\\boldsymbol{\\Sigma}$, is set to a prespecified high variance to promote exploration. Due to runtime limitations, it is often not possible for PAC-NMPC to fully reduce this exploration variance. However, because we ultimately execute the maximum likelihood estimate of the SNMPC policy, we can perform a final PAC-NMPC policy optimization iteration in which the variances are reduced to a prespecified small value. This produces PAC guarantees that more accurately reflect the executed policies and are often tighter.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        715.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "While PAC-NMPC can often find a feasible solution with this actor warm-start, when the warm-start produces a trajectory that is severely infeasible (e.g., due to distribution",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b011",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        199.0,
+        564.0,
+        280.0
+      ],
+      "markdown": "shift), the PAC-NMPC policy distribution may not sample any feasible trajectories. The lack of feasible trajectories in this case will result in failed optimization. To improve out-of-distribution performance, we evaluate the degree to which the actor policy warm-start violates constraints. If it does, we instead default to warm-starting using the previously optimized PAC-NMPC policy, as done in prior research [60].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b009",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        53.5,
+        565.0,
+        185.5
+      ],
+      "markdown": "",
+      "source_class": "section-header",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0007-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        71.0,
+        480.0,
+        180.0
+      ],
+      "markdown": "**Algorithm 1:** Warm Start  \n**Input:** $\\mathbf{x}_t$, $\\mathbf{y}_{(t-N_y):t}$  \n1 $\\hat{\\mathbf{u}}_t = \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_t, \\mathbf{y}_t)$;  \n2 **for** $i=t,\\cdots,t+N_T-1$ **do**  \n3 &emsp;$\\mathbf{x}_{i+1} = \\mathbf{f}(\\mathbf{x}_i, \\hat{\\mathbf{u}}_i)$;  \n4 &emsp;$\\hat{\\mathbf{y}}_{i+1} = \\mathbf{h}^\\eta(\\mathbf{x}_{t}, \\mathbf{y}_{t}, \\mathbf{x}_{i+1})$;  \n5 &emsp;$\\hat{\\mathbf{u}}_{i+1} = \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_{i+1}, \\hat{\\mathbf{y}}_{i+1})$;  \n6 &emsp;**if** $c(\\mathbf{x}_{i+1}, \\hat{\\mathbf{u}}_{i+1}, \\mathbf{y}_{(t-N_y):t}) > 0$ **then**  \n7 &emsp;&emsp;warm-start from prior policy;  \n8 &emsp;&emsp;**return**  \n9 warm-start from $\\boldsymbol{\\mu} = (\\hat{\\mathbf{u}}_t,\\cdots,\\hat{\\mathbf{u}}_{t+N_T-1})$;",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0007-b012",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        296.0,
+        487.0,
+        306.0
+      ],
+      "markdown": "### B. Uncertainty-Aware RL-Augmented Cost",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b013",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        311.0,
+        564.0,
+        379.0
+      ],
+      "markdown": "A key limitation of NMPC is the potential myopic behavior from optimizing over a finite horizon. For online planning scenarios, this horizon is frequently restricted by computational resources, especially for robots characterized by complex dynamics and large state spaces. Taking inspiration from [36], we use the learned value function as the terminal cost",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b014",
+      "kind": "text",
+      "bbox": [
+        359.0,
+        381.0,
+        565.0,
+        404.0
+      ],
+      "markdown": "$$\\ell_f(\\mathbf{x}_{t+N_T}) = V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}(\\mathbf{x}_{t+N_T}, \\hat{\\mathbf{y}}_{t+N_T}) \\tag{13}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0007-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        404.0,
+        564.0,
+        487.0
+      ],
+      "markdown": "where $V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}$ is composed of the actor, $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}$, and critic, $Q^{\\boldsymbol{\\psi}}$. A key difference between our approach and [36] is that our value function is dependent on sensor measurements and, therefore, we predict the terminal sensor measurement, $\\hat{\\mathbf{y}}_{t+N_T} = \\mathbf{h}^\\eta(\\mathbf{x}_t, \\mathbf{y}_t, \\mathbf{x}_{t+N_T})$. Consequently, the resulting trajectory cost approximates the infinite-horizon perception-based cost-to-go given the current state and sensor measurements.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        489.0,
+        564.0,
+        546.0
+      ],
+      "markdown": "Also similar to [36], we learn an approximate distribution over value functions. However, while [36] did this to facilitate exploration, we do this so that PAC-NMPC can reason not only about the uncertainty in the robot dynamics, but also the uncertainty in the value function, during run-time execution.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b017a",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        548.0,
+        564.0,
+        583.0
+      ],
+      "markdown": "To model the stochastic value function, we implement $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}$, $Q^{\\boldsymbol{\\psi}}$, and $\\mathbf{h}^\\eta$ as stochastic models by representing these models as neural networks trained with Monte Carlo (MC) dropout:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b017",
+      "kind": "text",
+      "bbox": [
+        330.0,
+        584.0,
+        565.0,
+        606.0
+      ],
+      "markdown": "$$r^{(l)}_j \\sim \\text{Bernoulli}(p) \\qquad \\mathbf{\\tilde{y}}^{(l)} = \\mathbf{r}^{(l)} * \\mathbf{y}^{(l)} \\tag{14}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0007-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        606.0,
+        564.0,
+        701.0
+      ],
+      "markdown": "where $l \\in \\{1,\\cdots,L\\}$ indexes the hidden layers, $\\mathbf{r}^{(l)}$ is the vector of independent Bernoulli random variables that have a probability $p$ of being $1$, $\\mathbf{y}^{(l)}$ denotes the vector of outputs from layer $l$, $*$ denotes an element-wise product, and $\\mathbf{\\tilde{y}}^{(l)}$ denotes the post-dropout outputs. Dropout was originally proposed as a way of reducing neural network overfitting [68], but has also been shown to approximate a Bayesian neural network when used during inference [69].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        703.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "One traditional shortcoming of MC dropout is that the network must be inferenced many times with a different dropout mask for each forward pass, thus significantly increasing inference time. However, since PAC-NMPC must already",
+      "source_class": "text"
+    }
+  ]
+}

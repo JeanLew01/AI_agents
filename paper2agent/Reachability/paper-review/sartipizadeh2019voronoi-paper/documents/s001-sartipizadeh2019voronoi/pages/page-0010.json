@@ -1,0 +1,80 @@
+{
+  "page": 10,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0010.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 150 dpi render and 220-240 dpi crops of PDF page 10 and with the TeX source. The page starts with part 'ii)' of the proof of Theorem 3 (a new indented paragraph; part 'i)' is on page 9), which ends with the printed filled square ($\\blacksquare$). Its mathematics was rewritten from the TeX source and checked on the 240 dpi crop (the extractor had produced superscript soup): $\\mathcal{J}=\\{j\\in\\mathbb{N}_{[1,\\hat{K}]}|\\hat{z}^{(j)}=1\\}$, the two sums over $\\{i\\in\\mathbb{N}_{[1,K]}:W^{(i)}\\in V^{(j)}\\}$, $j^{\\mathrm{th}}$ with upright 'th' (elsewhere italic), $\\frac{1}{K}\\sum_{j\\in\\mathcal{J}}\\alpha^{(j)}=\\hat{p}_{\\hat{K}}^\\ast$. Kept exactly as printed (source slips, not conversion errors): the proof writes $\\hat{p}_{\\hat{K}}^\\ast$ (hat on $p$) twice where Theorem 3 has $p_{\\hat{K}}^{\\ast}$; '$(z^{(j)}=0)$' without hat; 'the subset of $\\mathcal{C}^\\ast$'; '$\\alpha^{(j)}$ is the set of original scenarios'; 'but contains scenarios'. Heading '### 4.3 Implementation'. Algorithm 1 is a float box printed directly under the heading: it is kept as an image crop (asset algorithm-1; bbox from the ink extent x 56.8-556.0, y 204.1-528.6, top and bottom rules included) followed by a text transcription made from the TeX source and checked line by line on the 220 dpi crop: caption line 'Algorithm 1 Proposed Voronoi-based reach-avoid solution', 'Input:', the offline steps 1-7, the online steps 1-2, 'Output:'. The printed steps are bold-numbered lists (1.-7. and 1.-2.), written one paragraph per printed step with the printed bold number and an indent; 'Offline (independent of $x_0$):' and 'Online (depends on $x_0$):' are printed in bold italics (written bold). The 16 extractor fragments of the box were replaced by the image and one transcription item; text inside the image crop is excluded from the tool's line/number checks. References inside the box resolved to the printed numbers: (1), (9), Lemma 4, Problem 3, (22). After the box, the paragraph 'Algorithm 1 describes ...' ('Section 2.4' resolved) and the paragraph 'After selecting $\\hat{K}$ ...', which breaks at the page end after 'and then' and continues on page 11 (page-11 item joined with a space). Kept as printed: 'the improvement precision is insignificant', '“knee”', 'the knee on the $\\hat{p}$ vs. $\\hat{K}$.', 'WSS' upright (\\mathrm in the source, plain 'WSS' once in 'we compute WSS as a function').",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0010-b000",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        57.0,
+        556.0,
+        159.0
+      ],
+      "markdown": "ii) Let $\\mathcal{J}=\\{j\\in\\mathbb{N}_{[1,\\hat{K}]}|\\hat{z}^{(j)}=1\\}$, the subset of $\\mathcal{C}^\\ast$ which were deemed safe by Problem 3. By definition of $\\alpha^{(j)}$, $\\sum_{\\{i\\in \\mathbb{N}_{[1,K]}: W^{(i)}\\in V^{(j)}\\}} 1_{\\mathcal{R}}\\left(X(x_{0},U^{\\ast}_{\\hat{K}},W^{(i)})\\right) = \\sum_{\\{i\\in \\mathbb{N}_{[1,K]}: W^{(i)}\\in V^{(j)}\\}} 1$ for every $j\\in \\mathcal{J}$. In other words, since $\\alpha^{(j)}$ is the set of original scenarios that fall in the $j^\\mathrm{th}$ cell, whenever the solution of Problem 3 deems the representative seed safe, all the scenarios within it are safe. Thus, we have $\\hat{p}$ at least as big as $\\frac{1}{K}\\sum_{j\\in \\mathcal{J}}\\alpha^{(j)}=\\hat{p}_{\\hat{K}}^\\ast$ since there might be other cells that were not deemed safe by Problem 3 $(z^{(j)}=0)$ but contains scenarios that might be safe $\\left(1_{\\mathcal{R}}\\left(X(x_{0},U^{\\ast}_{\\hat{K}},W^{(i)})\\right)=1\\right)$. Hence, $\\hat{p}\\geq \\hat{p}_{\\hat{K}}^\\ast$. $\\blacksquare$"
+    },
+    {
+      "id": "p0010-b001",
+      "kind": "heading",
+      "bbox": [
+        56.0,
+        174.0,
+        181.0,
+        185.0
+      ],
+      "markdown": "### 4.3 Implementation"
+    },
+    {
+      "id": "p0010-b002",
+      "kind": "figure",
+      "bbox": [
+        54.0,
+        201.0,
+        558.0,
+        532.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0010-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        533.0,
+        558.0,
+        540.0
+      ],
+      "markdown": "**Algorithm 1** Proposed Voronoi-based reach-avoid solution\n\n**Input:** LTI system (1), safe set $\\mathcal{S}$, target set $\\mathcal{T}$, initial state $x_0$.\n\n**Offline (independent of $x_0$):**\n\n&emsp;&emsp;**1.** Generate $\\mathcal{W}_{K}$ by taking $K$ i.i.d. samples from $(\\eta_{w})^{N}$.\n\n&emsp;&emsp;**2.** Construct $\\Phi_{K}=\\phi(\\mathcal{W}_{K})$ with $\\phi(W):=G_{w}W$.\n\n&emsp;&emsp;**3.** Select $\\hat{K}$ based on the required time complexity or from the $\\mathrm{WSS}$ vs. $\\hat{K}$ curve.\n\n&emsp;&emsp;**4.** Compute $\\Psi_{\\hat{K}}$, the optimal $\\hat{K}$ seeds of $\\Phi_{K}$, by a clustering method.\n\n&emsp;&emsp;**5.** Determine $\\mathcal{V}_{\\Phi_{K}}(\\Psi_{\\hat{K}})$ with cells $V_{\\Phi_{K}}^{(1)}(\\Psi_{\\hat{K}}),\\cdots,V_{\\Phi_{K}}^{(\\hat{K})}(\\Psi_{\\hat{K}})$ from (9).\n\n&emsp;&emsp;**6.** Compute importance rate vector $\\alpha=\\{\\alpha^{(1)},\\cdots,\\alpha^{(\\hat{K})}\\}$ with $\\alpha^{(j)}$ the number of elements of $V_{\\Phi_{K}}^{(j)}(\\Psi_{\\hat{K}})$ for $j\\in\\mathbb{N}_{[1,\\hat{K}]}$.\n\n&emsp;&emsp;**7.** Compute $\\varepsilon^{(j)}$ for $j\\in\\mathbb{N}_{[1,\\hat{K}]}$ using Lemma 4.\n\n**Online (depends on $x_0$):**\n\n&emsp;&emsp;**1.** Solve Problem 3 for $U^{\\ast}_{\\hat{K}}$.\n\n&emsp;&emsp;**2.** Compute $\\hat{p}$ from (22).\n\n**Output:** $\\hat{p}$."
+    },
+    {
+      "id": "p0010-b016",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        543.0,
+        556.0,
+        705.0
+      ],
+      "markdown": "Algorithm 1 describes the proposed Voronoi-based method to solve the open-loop terminal time problem. Given a sample set $\\mathcal{W}_K$ with $K$ random samples directly drawn from $(\\eta_{w})^{N}$, one can construct $\\phi(\\mathcal{W}_K)$ and find its optimal $\\hat{K}$ seeds. The $k$-means method can be used to find the seeds of a Voronoi partition as explained in Section 2.4. In addition, in order to determine the number of required seeds, $\\mathrm{WSS}$ can be used as a measure of variability of points in a cluster. A smaller $\\mathrm{WSS}$ implies more compact clusters which reduces the size of defined buffers $\\varepsilon^{(1)},\\cdots,\\varepsilon^{(\\hat{K})}$ and the average number of samples in each cell. Note that by increasing $\\hat{K}$, clusters become smaller and the precision of Problem 3 grows. However, eventually, the improvement precision is insignificant compared to the imposed computational complexity. Therefore, we compute WSS as a function of $\\hat{K}$, to explore this trade-off. We propose that the “knee” of the curve provides an efficient compromise between precision and computational complexity. It is shown experimentally in the next section that the knee of $\\mathrm{WSS}$ vs. $\\hat{K}$ curve can be a good representative of the knee on the $\\hat{p}$ vs. $\\hat{K}$. As a result, $\\hat{K}$ can be computed and selected in advance."
+    },
+    {
+      "id": "p0010-b017",
+      "kind": "text",
+      "bbox": [
+        56.0,
+        705.0,
+        556.0,
+        732.0
+      ],
+      "markdown": "After selecting $\\hat{K}$ based on the required running time for the real-time process or based on the $\\mathrm{WSS}$ vs. $\\hat{K}$, one can compute the Voronoi-based partition and the number of elements in each cell, and then"
+    }
+  ]
+}

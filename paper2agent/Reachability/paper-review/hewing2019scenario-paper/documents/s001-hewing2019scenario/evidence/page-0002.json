@@ -1,0 +1,1578 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "Scenario-based Probabilistic Reachable Sets for Recursively Feasible",
+      "bbox": [
+        51.54100036621094,
+        60.43582534790039,
+        560.4661254882812,
+        75.66173553466797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Stochastic Model Predictive Control",
+      "bbox": [
+        172.29598999023438,
+        80.36184692382812,
+        439.7064208984375,
+        95.58776092529297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lukas Hewing, Melanie N. Zeilinger",
+      "bbox": [
+        222.98699951171875,
+        107.9299087524414,
+        389.0143127441406,
+        117.7271728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract—This paper presents a stochastic model predictive",
+      "bbox": [
+        58.927001953125,
+        153.8932647705078,
+        300.02337646484375,
+        161.9540557861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control approach (MPC) for linear discrete-time systems subject",
+      "bbox": [
+        48.96400451660156,
+        163.85523986816406,
+        300.0231628417969,
+        171.91603088378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to unbounded and correlated additive disturbance sequences,",
+      "bbox": [
+        48.96400451660156,
+        173.81825256347656,
+        300.0232238769531,
+        181.87904357910156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which makes use of the scenario approach for ofﬂine computation",
+      "bbox": [
+        48.96400451660156,
+        183.78126525878906,
+        300.0196838378906,
+        191.84205627441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of probabilistic reachable sets. These sets are used in a tube-",
+      "bbox": [
+        48.9639892578125,
+        193.7432403564453,
+        300.0231628417969,
+        201.8040313720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "based MPC formulation, resulting in low computational require-",
+      "bbox": [
+        48.9639892578125,
+        203.7062530517578,
+        300.0231628417969,
+        211.7670440673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ments. Using a recently proposed MPC initialization scheme",
+      "bbox": [
+        48.9639892578125,
+        213.6692657470703,
+        300.023193359375,
+        221.7300567626953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and nonlinear tube controllers, we provide recursive feasibility",
+      "bbox": [
+        48.9639892578125,
+        223.63124084472656,
+        300.02313232421875,
+        231.69203186035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and closed-loop chance constraint satisfaction, as well as hard",
+      "bbox": [
+        48.9639892578125,
+        233.59425354003906,
+        300.02264404296875,
+        241.65504455566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "input constraint guarantees, which are typically challenging in",
+      "bbox": [
+        48.96400451660156,
+        243.55726623535156,
+        300.0232238769531,
+        251.61805725097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tube-based formulations with unbounded noise. The approach is",
+      "bbox": [
+        48.96400451660156,
+        253.5192413330078,
+        300.0231628417969,
+        261.58001708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrated in simulation for the control of an overhead crane",
+      "bbox": [
+        48.96400451660156,
+        263.48223876953125,
+        300.0232238769531,
+        271.54302978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system.",
+      "bbox": [
+        48.96400451660156,
+        273.4442138671875,
+        77.1005630493164,
+        281.5050048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Index Terms—Predictive control for linear systems; Con-",
+      "bbox": [
+        58.927005767822266,
+        289.1622009277344,
+        300.02484130859375,
+        297.2230224609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "strained control; Stochastic optimal control",
+      "bbox": [
+        48.96400451660156,
+        299.1252136230469,
+        219.48699951171875,
+        307.18603515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION",
+      "bbox": [
+        135.6199951171875,
+        328.5723876953125,
+        213.3717803955078,
+        337.47894287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Stochastic MPC techniques can be broadly classiﬁed into",
+      "bbox": [
+        58.92699432373047,
+        344.96539306640625,
+        300.0218811035156,
+        353.8719482421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "analytic approximation, and randomized formulations [1].",
+      "bbox": [
+        48.963993072509766,
+        356.9203796386719,
+        300.0240478515625,
+        365.8269348144531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Analytic approximation formulations rely on distributional",
+      "bbox": [
+        48.9639892578125,
+        368.8753662109375,
+        300.024169921875,
+        377.78192138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "information, e.g. disturbance mean and variance, to formulate",
+      "bbox": [
+        48.9639892578125,
+        380.8303527832031,
+        300.0214538574219,
+        389.7369079589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a (conservative) approximation of the chance constrained",
+      "bbox": [
+        48.9639892578125,
+        392.78533935546875,
+        300.0214538574219,
+        401.69189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimal control problem. Many closed-loop properties such as",
+      "bbox": [
+        48.9639892578125,
+        404.7413330078125,
+        300.021484375,
+        413.64788818359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "convergence, recursive feasibility and closed-loop chance con-",
+      "bbox": [
+        48.9639892578125,
+        416.6963195800781,
+        300.021484375,
+        425.6028747558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "straint satisfaction can be established with these approaches",
+      "bbox": [
+        48.9639892578125,
+        428.65130615234375,
+        300.021484375,
+        437.557861328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for linear systems, both for bounded (e.g. [2], [3], [4]) and",
+      "bbox": [
+        48.9639892578125,
+        440.6062927246094,
+        300.0213928222656,
+        449.5128479003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "unbounded additive disturbances (e.g. [5], [6], [7]). They",
+      "bbox": [
+        48.9639892578125,
+        452.561279296875,
+        300.021484375,
+        461.46783447265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "typically rely on speciﬁc disturbance distributions, in partic-",
+      "bbox": [
+        48.9639892578125,
+        464.5162658691406,
+        300.021484375,
+        473.4228210449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ular the Gaussian distribution, or are subject to considerable",
+      "bbox": [
+        48.9639892578125,
+        476.4722595214844,
+        300.02154541015625,
+        485.3788146972656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conservatism, e.g. by making use of Chebyshev-type bounds.",
+      "bbox": [
+        48.9639892578125,
+        488.42724609375,
+        300.0214538574219,
+        497.33380126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The treatment of hard input constraints presents a challenge",
+      "bbox": [
+        48.9639892578125,
+        500.3822326660156,
+        300.0224609375,
+        509.2887878417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "under unbounded noise, since the methods usually rely on",
+      "bbox": [
+        48.96398162841797,
+        512.3372192382812,
+        300.0214538574219,
+        521.2437744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear tube controllers to reduce uncertainty in the prediction.",
+      "bbox": [
+        48.96398162841797,
+        524.292236328125,
+        300.021484375,
+        533.1987915039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Randomized approaches, on the other hand, rely on distur-",
+      "bbox": [
+        48.96398162841797,
+        536.2471923828125,
+        300.02142333984375,
+        545.1537475585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "bance samples or scenarios and make use of guarantees from",
+      "bbox": [
+        48.96398162841797,
+        548.2031860351562,
+        300.01849365234375,
+        557.1097412109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scenario optimization [8], [9]. This offers great ﬂexibility and",
+      "bbox": [
+        48.96397399902344,
+        560.158203125,
+        300.02142333984375,
+        569.0647583007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applicability to a wide class of problems, with the additional",
+      "bbox": [
+        48.96397399902344,
+        572.1132202148438,
+        300.0214538574219,
+        581.019775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "beneﬁt that no disturbance distribution has to be known,",
+      "bbox": [
+        48.96397399902344,
+        584.0682373046875,
+        300.0215148925781,
+        592.9747924804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "provided that samples can be obtained. The approaches are,",
+      "bbox": [
+        48.96397399902344,
+        596.023193359375,
+        300.021484375,
+        604.9297485351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "however, typically computationally intensive and closed-loop",
+      "bbox": [
+        48.96397399902344,
+        607.9782104492188,
+        300.02142333984375,
+        616.884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "properties are not well-established. In particular, recursive",
+      "bbox": [
+        48.96397399902344,
+        619.9342041015625,
+        300.02154541015625,
+        628.8407592773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "feasibility guarantees are often not provided [10], [11], [12],",
+      "bbox": [
+        48.96397399902344,
+        631.8892211914062,
+        300.02142333984375,
+        640.7957763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "or established for soft constraints [13], compromising closed-",
+      "bbox": [
+        48.96397399902344,
+        643.84423828125,
+        300.021484375,
+        652.7507934570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "loop chance constraint satisfaction guarantees.",
+      "bbox": [
+        48.96397399902344,
+        655.7991943359375,
+        237.944580078125,
+        664.7057495117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper presents a stochastic MPC scheme that combines",
+      "bbox": [
+        58.92697525024414,
+        667.97119140625,
+        300.02191162109375,
+        676.8777465820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "properties of both analytic approximation and randomized",
+      "bbox": [
+        48.96397399902344,
+        679.9262084960938,
+        300.02288818359375,
+        688.832763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approaches, by using scenarios for ofﬂine computation of",
+      "bbox": [
+        48.96397399902344,
+        691.8812255859375,
+        300.0213928222656,
+        700.7877807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This work was supported by the Swiss National Science Foundation under",
+      "bbox": [
+        56.93397521972656,
+        713.580078125,
+        300.0220031738281,
+        720.7053833007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "grant no. PP00P2 157601 / 1.",
+      "bbox": [
+        48.96397399902344,
+        722.5460815429688,
+        146.60562133789062,
+        729.67138671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The authors are members of the Institute for Dynamic Systems and Control,",
+      "bbox": [
+        56.93397521972656,
+        731.5131225585938,
+        300.0220031738281,
+        738.638427734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ETH Zurich. [lhewing|mzeilinger]@ethz.ch",
+      "bbox": [
+        48.96397399902344,
+        740.4790649414062,
+        227.1756134033203,
+        747.6043701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "probabilistic reachable sets (PRS). These take a similar role",
+      "bbox": [
+        311.97796630859375,
+        153.3251953125,
+        563.035400390625,
+        162.23175048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to error tubes in tube-based MPC, keeping the online com-",
+      "bbox": [
+        311.97796630859375,
+        165.28021240234375,
+        563.0354614257812,
+        174.186767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "putational complexity of the approach comparable to nominal",
+      "bbox": [
+        311.97796630859375,
+        177.2352294921875,
+        563.0354614257812,
+        186.14178466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPC. For the case of bounded independent and identically",
+      "bbox": [
+        311.97796630859375,
+        189.19024658203125,
+        563.0355224609375,
+        198.0968017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distributed (i.i.d.) multiplicative uncertainty, a related approach",
+      "bbox": [
+        311.97796630859375,
+        201.146240234375,
+        563.0354614257812,
+        210.05279541015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "was presented in [14], which similarly samples scenarios",
+      "bbox": [
+        311.97796630859375,
+        213.10125732421875,
+        563.035400390625,
+        222.0078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ofﬂine and guarantees feasibility through a ﬁrst step constraint",
+      "bbox": [
+        311.97796630859375,
+        225.0562744140625,
+        563.035400390625,
+        233.96282958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and computation of a control invariant set. In contrast, we",
+      "bbox": [
+        311.97796630859375,
+        237.01129150390625,
+        563.0353393554688,
+        245.9178466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "guarantee recursive feasibility and closed-loop chance con-",
+      "bbox": [
+        311.97796630859375,
+        248.96630859375,
+        563.0355224609375,
+        257.87286376953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "straint satisfaction based on an MPC initialization introduced",
+      "bbox": [
+        311.97796630859375,
+        260.92132568359375,
+        563.0355224609375,
+        269.827880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in [7], enabling the treatment of unbounded non-i.i.d. additive",
+      "bbox": [
+        311.97796630859375,
+        272.8773193359375,
+        563.035400390625,
+        281.78387451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "disturbances. Compared to analytic approximation methods,",
+      "bbox": [
+        311.97796630859375,
+        284.8323059082031,
+        563.0369262695312,
+        293.7388610839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the proposed approach facilitates handling a wide variety of",
+      "bbox": [
+        311.97796630859375,
+        296.78729248046875,
+        563.035400390625,
+        305.69384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "disturbance classes by requiring only access to samples of",
+      "bbox": [
+        311.97796630859375,
+        308.7422790527344,
+        563.035400390625,
+        317.6488342285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the disturbance sequence. In addition, the scenario-based tube",
+      "bbox": [
+        311.97796630859375,
+        320.697265625,
+        563.0355224609375,
+        329.60382080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computation allows for the use of nonlinear tube controllers, in",
+      "bbox": [
+        311.97796630859375,
+        332.6522521972656,
+        563.035400390625,
+        341.5588073730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "particular controllers with limited control authority, enabling",
+      "bbox": [
+        311.97796630859375,
+        344.6082458496094,
+        563.0352783203125,
+        353.5148010253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the treatment of hard input constraints also under unbounded",
+      "bbox": [
+        311.97796630859375,
+        356.563232421875,
+        563.0355224609375,
+        365.46978759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "disturbances.",
+      "bbox": [
+        311.97796630859375,
+        368.5182189941406,
+        364.2716369628906,
+        377.4247741699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The paper is organized as follows: In Section II we present",
+      "bbox": [
+        321.9399719238281,
+        380.980224609375,
+        563.0347900390625,
+        389.88677978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the problem formulation and state deﬁnitions for PRS, as well",
+      "bbox": [
+        311.97796630859375,
+        392.9352111816406,
+        563.0352172851562,
+        401.8417663574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as results from scenario optimization. Using the PRS deﬁni-",
+      "bbox": [
+        311.97796630859375,
+        404.89019775390625,
+        563.0353393554688,
+        413.7967529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tions, we present the resulting recursively feasible stochastic",
+      "bbox": [
+        311.97796630859375,
+        416.84619140625,
+        563.0353393554688,
+        425.75274658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPC approach in Section III. The speciﬁc scenario-based",
+      "bbox": [
+        311.97796630859375,
+        428.8011779785156,
+        563.03564453125,
+        437.7077331542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computation of PRS is shown in Section IV, enabling the treat-",
+      "bbox": [
+        311.97796630859375,
+        440.75616455078125,
+        563.0354614257812,
+        449.6627197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ment of hard input constraints. We demonstrate the approach",
+      "bbox": [
+        311.97796630859375,
+        452.7111511230469,
+        563.0355224609375,
+        461.6177062988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in simulation on an overhead crane in Section V and conclude",
+      "bbox": [
+        311.97796630859375,
+        464.6661376953125,
+        563.0355224609375,
+        473.57269287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in Section VI.",
+      "bbox": [
+        311.97796630859375,
+        476.62213134765625,
+        369.5916442871094,
+        485.5286865234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "II. PRELIMINARIES",
+      "bbox": [
+        396.0029602050781,
+        506.33514404296875,
+        479.01971435546875,
+        515.24169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. Problem Formulation",
+      "bbox": [
+        311.97796630859375,
+        524.559814453125,
+        412.2116394042969,
+        533.1475830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We consider a linear time-invariant system",
+      "bbox": [
+        321.9399719238281,
+        541.338134765625,
+        496.7436828613281,
+        550.2446899414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(k+1) = Ax(k) + Bu(k) + ¯w(k) + w(k)",
+      "bbox": [
+        348.8489685058594,
+        562.1116943359375,
+        526.1654052734375,
+        570.95849609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        551.4199829101562,
+        562.2711181640625,
+        563.0364379882812,
+        571.1776733398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with state x(k) ∈Rn and input u(k) ∈Rnu. The system is",
+      "bbox": [
+        311.97796630859375,
+        579.589111328125,
+        563.03857421875,
+        592.1107177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "subject to additive disturbances taking values in Rn, which we",
+      "bbox": [
+        311.97796630859375,
+        593.4589233398438,
+        563.0390014648438,
+        604.0657348632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "split into a known part in a compact set ¯w(k) ∈¯",
+      "bbox": [
+        311.9779357910156,
+        604.4367065429688,
+        530.4782104492188,
+        616.0206909179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "W (e.g. a",
+      "bbox": [
+        521.827880859375,
+        606.3968505859375,
+        563.0400390625,
+        616.0206909179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "known mean) and a stochastic component w(k). Introducing",
+      "bbox": [
+        311.97784423828125,
+        618.9107055664062,
+        563.0325317382812,
+        627.9766845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this distinction facilitates the design of tube controllers, which",
+      "bbox": [
+        311.97784423828125,
+        631.025146484375,
+        563.0350952148438,
+        639.9317016601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can be carried out with respect to w(k).",
+      "bbox": [
+        311.97784423828125,
+        642.8207397460938,
+        476.82550048828125,
+        651.88671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The goal is to control this system for large, but ﬁnite, run",
+      "bbox": [
+        321.9398193359375,
+        655.442138671875,
+        563.0346069335938,
+        664.3486938476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "times ¯N, where we assume the stochastic disturbance sequence",
+      "bbox": [
+        311.9778137207031,
+        664.7197265625,
+        563.0353393554688,
+        676.3037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to be distributed according to W = [w(0)T, . . . , w( ¯N)T]T ∼",
+      "bbox": [
+        311.9778137207031,
+        675.0198974609375,
+        563.0386352539062,
+        688.2587280273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Q. We consider general non-i.i.d. disturbance sequences with",
+      "bbox": [
+        311.97772216796875,
+        690.5908813476562,
+        563.0317993164062,
+        700.2147216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "potentially unbounded support, such that at each time step",
+      "bbox": [
+        311.97772216796875,
+        703.26318359375,
+        563.03515625,
+        712.1697387695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "w(k) can take values in all of Rn. While the distribution does",
+      "bbox": [
+        311.97772216796875,
+        713.5179443359375,
+        563.0396728515625,
+        724.1246948242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "not need to be known, we assume access to samples of the",
+      "bbox": [
+        311.97772216796875,
+        727.1731567382812,
+        563.0353393554688,
+        736.0797119140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(conditional) disturbance sequence. The system is subject to",
+      "bbox": [
+        311.97772216796875,
+        739.128173828125,
+        563.03515625,
+        748.0347290039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "Apache FOP Version 2.11",
+      "producer": "Apache FOP Version 2.11",
+      "creationDate": "D:20261002130120Z",
+      "modDate": "D:20191021150134+02'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/hewing2019scenario-paper/documents/.pdf-skill-scan-c84o88ox/review/source.pdf",
+      "page_count": 7,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "section-header",
+        "bbox": [
+          51,
+          60,
+          561,
+          93
+        ],
+        "pos": [
+          0,
+          113
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          222,
+          107,
+          390,
+          118
+        ],
+        "pos": [
+          113,
+          150
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          48,
+          153,
+          301,
+          282
+        ],
+        "pos": [
+          150,
+          928
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          48,
+          289,
+          301,
+          308
+        ],
+        "pos": [
+          928,
+          1036
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          135,
+          328,
+          214,
+          336
+        ],
+        "pos": [
+          1036,
+          1057
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          344,
+          301,
+          665
+        ],
+        "pos": [
+          1057,
+          2694
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          48,
+          667,
+          301,
+          701
+        ],
+        "pos": [
+          2694,
+          2873
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          48,
+          713,
+          301,
+          730
+        ],
+        "pos": [
+          2873,
+          2975
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          48,
+          731,
+          301,
+          748
+        ],
+        "pos": [
+          2975,
+          3092
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          311,
+          153,
+          564,
+          376
+        ],
+        "pos": [
+          3092,
+          4213
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          311,
+          380,
+          564,
+          484
+        ],
+        "pos": [
+          4213,
+          4715
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          396,
+          506,
+          480,
+          514
+        ],
+        "pos": [
+          4715,
+          4738
+        ]
+      },
+      {
+        "index": 12,
+        "class": "section-header",
+        "bbox": [
+          311,
+          524,
+          413,
+          532
+        ],
+        "pos": [
+          4738,
+          4768
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          321,
+          541,
+          497,
+          551
+        ],
+        "pos": [
+          4768,
+          4813
+        ]
+      },
+      {
+        "index": 14,
+        "class": "formula",
+        "bbox": [
+          348,
+          561,
+          564,
+          572
+        ],
+        "pos": [
+          4813,
+          4815
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          311,
+          582,
+          564,
+          653
+        ],
+        "pos": [
+          4815,
+          5255
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          311,
+          655,
+          564,
+          749
+        ],
+        "pos": [
+          5255,
+          5841
+        ]
+      }
+    ],
+    "text": "# **Scenario-based Probabilistic Reachable Sets for Recursively Feasible Stochastic Model Predictive Control** \n\nLukas Hewing, Melanie N. Zeilinger \n\n**_Abstract_ —This paper presents a stochastic model predictive control approach (MPC) for linear discrete-time systems subject to unbounded and correlated additive disturbance sequences, which makes use of the** **_scenario approach_ for offline computation of probabilistic reachable sets. These sets are used in a tubebased MPC formulation, resulting in low computational requirements. Using a recently proposed MPC initialization scheme and nonlinear tube controllers, we provide recursive feasibility and closed-loop chance constraint satisfaction, as well as** **_hard_ input constraint guarantees, which are typically challenging in tube-based formulations with unbounded noise. The approach is demonstrated in simulation for the control of an overhead crane system.** \n\n**_Index Terms_ —Predictive control for linear systems; Constrained control; Stochastic optimal control** \n\n## I. INTRODUCTION \n\nStochastic MPC techniques can be broadly classified into _analytic approximation_ , and _randomized_ formulations [1]. _Analytic approximation_ formulations rely on distributional information, e.g. disturbance mean and variance, to formulate a (conservative) approximation of the chance constrained optimal control problem. Many closed-loop properties such as convergence, recursive feasibility and closed-loop chance constraint satisfaction can be established with these approaches for linear systems, both for bounded (e.g. [2], [3], [4]) and unbounded additive disturbances (e.g. [5], [6], [7]). They typically rely on specific disturbance distributions, in particular the Gaussian distribution, or are subject to considerable conservatism, e.g. by making use of Chebyshev-type bounds. The treatment of _hard_ input constraints presents a challenge under unbounded noise, since the methods usually rely on linear tube controllers to reduce uncertainty in the prediction. _Randomized_ approaches, on the other hand, rely on disturbance samples or _scenarios_ and make use of guarantees from scenario optimization [8], [9]. This offers great flexibility and applicability to a wide class of problems, with the additional benefit that no disturbance distribution has to be known, provided that samples can be obtained. The approaches are, however, typically computationally intensive and closed-loop properties are not well-established. In particular, recursive feasibility guarantees are often not provided [10], [11], [12], or established for soft constraints [13], compromising closedloop chance constraint satisfaction guarantees. \n\nThis paper presents a stochastic MPC scheme that combines properties of both _analytic approximation_ and _randomized_ approaches, by using scenarios for offline computation of \n\nThis work was supported by the Swiss National Science Foundation under grant no. PP00P2 157601 / 1. \n\nThe authors are members of the Institute for Dynamic Systems and Control, ETH Zurich. [lhewing|mzeilinger]@ethz.ch \n\nprobabilistic reachable sets (PRS). These take a similar role to error tubes in tube-based MPC, keeping the online computational complexity of the approach comparable to nominal MPC. For the case of bounded independent and identically distributed (i.i.d.) multiplicative uncertainty, a related approach was presented in [14], which similarly samples scenarios offline and guarantees feasibility through a first step constraint and computation of a control invariant set. In contrast, we guarantee recursive feasibility and closed-loop chance constraint satisfaction based on an MPC initialization introduced in [7], enabling the treatment of unbounded non-i.i.d. additive disturbances. Compared to _analytic approximation_ methods, the proposed approach facilitates handling a wide variety of disturbance classes by requiring only access to samples of the disturbance sequence. In addition, the scenario-based tube computation allows for the use of nonlinear tube controllers, in particular controllers with limited control authority, enabling the treatment of hard input constraints also under unbounded disturbances. \n\nThe paper is organized as follows: In Section II we present the problem formulation and state definitions for PRS, as well as results from scenario optimization. Using the PRS definitions, we present the resulting recursively feasible stochastic MPC approach in Section III. The specific scenario-based computation of PRS is shown in Section IV, enabling the treatment of hard input constraints. We demonstrate the approach in simulation on an overhead crane in Section V and conclude in Section VI. \n\n## II. PRELIMINARIES \n\n## _A. Problem Formulation_ \n\nWe consider a linear time-invariant system \n\n\n\nwith state _x_ ( _k_ ) _∈_ R<sup>_n_</sup> and input _u_ ( _k_ ) _∈_ R<sup>_nu_</sup> . The system is subject to additive disturbances taking values in R<sup>_n_</sup> , which we split into a known part in a compact set _w_ ¯( _k_ ) _∈ W_<sup>¯</sup> (e.g. a known mean) and a stochastic component _w_ ( _k_ ). Introducing this distinction facilitates the design of tube controllers, which can be carried out with respect to _w_ ( _k_ ). \n\nThe goal is to control this system for large, but finite, run times _N_<sup>¯</sup> , where we assume the stochastic disturbance sequence to be distributed according to _W_ = [ _w_ (0)<sup>T</sup> _, . . . , w_ ( _N_<sup>¯</sup> )<sup>T</sup> ]<sup>T</sup> _∼ Q_ . We consider general non-i.i.d. disturbance sequences with potentially unbounded support, such that at each time step _w_ ( _k_ ) can take values in all of R<sup>_n_</sup> . While the distribution does not need to be known, we assume access to samples of the (conditional) disturbance sequence. The system is subject to \n\n"
+  }
+}

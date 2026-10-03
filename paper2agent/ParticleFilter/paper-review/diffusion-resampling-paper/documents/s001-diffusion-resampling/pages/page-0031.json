@@ -1,0 +1,159 @@
+{
+  "page": 31,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0031.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with preview; TeX (end of app:weather, sections N, O, P) used for maths (\\refmeasure macro from main.tex expanded to \\pi_{\\mathrm{ref}}) and agrees with the PDF. Page 30 ended with the Figure 12 caption and a complete paragraph, so 'For a more comprehensive comparison, ...' starts a new paragraph (no join; TeX has a blank line before it). Headings changed from '# **N. ...**' etc. to '## N. Choosing the hyperparameters', '## O. Additional related work', '## P. Take-away messages'. Take-away list: four '- ' bullet items kept as separate text items, verbatim. Rewrote inline maths ($d=2048$, $b$, $\\pi_{\\mathrm{ref}}$, $T$, $K$, $p_T$, $K\\leq 8$, $K<N$, $\\pi_{\\mathrm{ref}}=\\pi$, $\\lbrace (w_i, X_i) \\rbrace_{i=1}^N$); removed line-wrap break in 'Euler–Maruyama' (real en dash kept). Cross-refs as printed: Corollary 1, Section 5, Equation (13), Equation (30), Table 20. Author wording ('a complete information', 'targets at') kept. Page ends with the list; Table 20 follows on page 32. Running header/page number omitted.",
+  "warnings": [
+    "Review possible header/footer: p0031-b000"
+  ],
+  "items": [
+    {
+      "id": "p0031-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "**Diffusion differentiable resampling**",
+      "reason": "Running header (paper title \"Diffusion differentiable resampling\") repeated on every page"
+    },
+    {
+      "id": "p0031-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        70.0,
+        543.0,
+        128.0
+      ],
+      "markdown": "For a more comprehensive comparison, there are limitations to address, such as the limited number of independent runs, choice of evaluation metric and the amount of data used for training. A simple MSE against the ground truth does not fully capture the predictive distribution quality and may not fully capture the forecasting performance in terms of fine-grained details and long forecasting windows. In both settings, the diffusion resampler achieves a performance comparable to the baselines. Training is stable across seeds, which shows that the diffusion resampler scales at latent dimension $d=2048$."
+    },
+    {
+      "id": "p0031-b002",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        145.0,
+        228.0,
+        156.0
+      ],
+      "markdown": "## N. Choosing the hyperparameters"
+    },
+    {
+      "id": "p0031-b003",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        165.0,
+        544.0,
+        259.0
+      ],
+      "markdown": "Although the diffusion resampling is powerful, it comes with a variety of hyperparameters to tune: the diffusion coefficients $b$ and $\\pi_{\\mathrm{ref}}$, the diffusion time $T$, the integrator, and integration step $K$. Ideally, $\\pi_{\\mathrm{ref}}$ should well approximate the underlying continuous distribution, and the choice $b$ should correspondingly reflect the approximation error as in Corollary 1. The setting of diffusion time $T$ is arbitrary if one can sample $p_T$ exactly, but smaller $T$ leads to potentially lower integration steps required. As for the integrator and integration steps, our empirical results indicate that Jentzen–Kloeden and Euler–Maruyama are often a good start, and $K\\leq 8$ is often sufficient for learning large neural network-parametrised systems. To retain a good computational complexity, it is suggested that the number of integration steps should be smaller than the number of samples: $K < N$."
+    },
+    {
+      "id": "p0031-b004",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        276.0,
+        194.0,
+        286.0
+      ],
+      "markdown": "## O. Additional related work"
+    },
+    {
+      "id": "p0031-b005",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        297.0,
+        543.0,
+        379.0
+      ],
+      "markdown": "In addition to the discussion in Section 5, there are also connections to other, less central, lines of work. For instance, the ensemble score estimator is related to the kernel projection used in Stein variational gradient flow (Liu, 2017). The controlled gain term in Yang et al. (2013) also plays a role analogous to resampling in a continuous-time limit, but involves a computationally demanding PDE-solving step. While there are interesting connections to our work, the approach focuses on continuous-time flow filtering (cf. Kang et al., 2025) and leads to algorithms that are no longer standard SMC. Bao et al. (2024) propose an ensemble filter where the update step was replaced by a conditional version of the diffusion in Equation (13). This too targets at Equation (30) but additionally contains errors from likelihood score approximation."
+    },
+    {
+      "id": "p0031-b006",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        396.0,
+        173.0,
+        408.0
+      ],
+      "markdown": "## P. Take-away messages"
+    },
+    {
+      "id": "p0031-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        417.0,
+        542.0,
+        439.0
+      ],
+      "markdown": "We here provide a TL;DR summary of the main findings, with Table 20 giving an overall comparison among commonly used differentiable resampling schemes."
+    },
+    {
+      "id": "p0031-b008",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        456.0,
+        542.0,
+        478.0
+      ],
+      "markdown": "- Diffusion resampling largely excels for parameter estimation in state-space models (SSMs) and is useful for practical applications. It is computationally fast, and provides consistent and stable gradient estimates."
+    },
+    {
+      "id": "p0031-b009",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        488.0,
+        544.0,
+        569.0
+      ],
+      "markdown": "- Diffusion resampling is useful not only for differentiation, but also for reducing resampling error in general. The primary reason for this is that diffusion resampling can take additional information (e.g., $\\pi_{\\mathrm{ref}}$) of the target into account. When we have a complete information $\\pi_{\\mathrm{ref}}=\\pi$, the diffusion resampling becomes an optimal resampling algorithm. Corollary 1 explicitly shows how the resampling error can be controlled depending on how well $\\pi_{\\mathrm{ref}}$ approximates $\\pi$, calibrated by $b$. In contrast, multinomial resampling only uses information from the given samples $\\lbrace (w_i, X_i) \\rbrace_{i=1}^N$ which contains incomplete and less information compared to diffusion resampling using the continuous distribution approximation."
+    },
+    {
+      "id": "p0031-b010",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        579.0,
+        542.0,
+        601.0
+      ],
+      "markdown": "- For pure filtering tasks, even without focusing on parameter estimation, the diffusion resampling generally outperforms the peer methods."
+    },
+    {
+      "id": "p0031-b011",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        611.0,
+        542.0,
+        657.0
+      ],
+      "markdown": "- If a good reference distribution is hard to construct, diffusion resampling may not be optimal for a pure resampling problem outside the SSM context. For instance, as shown in the Gaussian mixture experiment, the large discrepancy between the Gaussian reference and the highly non-Gaussian target may prolong the diffusion time. However, for SSMs, thanks to their sequential structure, constructing an effective reference becomes straightforward."
+    },
+    {
+      "id": "p0031-b012",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "31",
+      "reason": "Page number footer \"31\" (verified on preview)"
+    }
+  ]
+}

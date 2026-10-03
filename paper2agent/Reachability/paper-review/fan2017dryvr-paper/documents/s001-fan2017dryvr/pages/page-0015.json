@@ -1,0 +1,113 @@
+{
+  "page": 15,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0015.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 190-dpi render of the text block and with theory.tex. First item continues the sentence from page 14 (join_previous 'space'). Proposition 4.1: bold label with period, italic body in the PDF (not reproduced as italics), ends at 'is in polynomial time.'. Its proof ('*Proof.*' in italics) has two printed paragraphs (the extractor had merged them; split again at 'Observe that if') and ends with the printed end-of-proof box, written $\\square$. Proposition 4.2: the extractor had produced superscript soup; restored from the TeX and checked on the render: '$G_i, G_i'$, $i \\in \\{1, 2\\}$', '$G_1\\circ G_2$ and $G_1'\\circ G_2'$ are defined', '$G_i \\preceq_{\\mathsf{id}} G_i'$', conclusion '$G_1\\circ G_2 \\preceq_{\\mathsf{id}} G_1'\\circ G_2'$.' (statement ends there); '$\\{1, 2\\}$' written with a space after the comma. Math from the TeX with macros expanded ($\\preceq_{\\mathit{lmap}}$, sans-serif $\\mathsf{id}$, $\\{R_i\\}_{i\\in I}$, $\\cup_{i \\in I} R_i$, $\\mathcal{V}_1 \\times \\mathcal{V}_2$, $|\\mathcal{V}_1|$); 'Ł' for \\L as printed. Extractor damage fixed: 'oneclock' -> 'one-clock' (twice) and 'semigroup' -> 'semi-group' (real hyphens at line ends, per the TeX); line-wrap hyphens removed (au-tomaton, How-ever). Authors' wording kept: 'So in this section present', 'viewed as one-clock timed automaton', 'one can constructed', 'will be identity function'. References as printed: 'Proposition 2.3', citations [51], [8]. Proposition 4.3, announced by the last sentence, is on page 16. Omitted: page number 15.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0015-b000",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        127.0,
+        478.0,
+        149.0
+      ],
+      "markdown": "between the hybrid systems we care about. So in this section present different reasoning principles to check trace containment between two graphs.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0015-b001",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        150.0,
+        478.0,
+        259.0
+      ],
+      "markdown": "Semantically, a transition graph $G$ can be viewed as one-clock timed automaton, i.e., one can constructed a timed automaton $T$ with one-clock variable such that the timed traces of $T$ are exactly the traces of $G$. This observation, coupled with the fact that checking the timed language containment of one-clock timed automata [51] is decidable, allows one to conclude that checking if $G_1 \\preceq_{\\mathit{lmap}} G_2$ is decidable. However the algorithm in [51] has non-elementary complexity. Our next observation establishes that forward simulation between graphs can be checked in polynomial time. Combined with Proposition 2.3, this gives a simple sufficient condition for trace containment that can be efficiently checked."
+    },
+    {
+      "id": "p0015-b002",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        270.0,
+        478.0,
+        291.0
+      ],
+      "markdown": "**Proposition 4.1.** Given graphs $G_1$ and $G_2$, and mode map $\\mathit{lmap}$, checking if there is a forward simulation from $G_1$ to $G_2$ is in polynomial time."
+    },
+    {
+      "id": "p0015-b003",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        301.0,
+        478.0,
+        369.0
+      ],
+      "markdown": "*Proof.* The result can be seen to follow from the algorithm for checking timed simulations between timed automata [8] and the correspondence between one-clock timed automata; the fact that the automata have only one clock ensures that the region construction is poly-sized as opposed to exponential-sized. However, in the special case of transition graphs there is a more direct algorithm which does not involve region construction that we describe here."
+    },
+    {
+      "id": "p0015-b003b",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        369.0,
+        478.0,
+        457.0
+      ],
+      "markdown": "Observe that if $\\{R_i\\}_{i\\in I}$ is a family of forward simulations between $G_1$ and $G_2$ then $\\cup_{i \\in I} R_i$ is also a forward simulation. Thus, like classical simulations, there is a unique largest forward simulation between two graphs that is the greatest fixpoint of a functional on relations over states of the transition graph. Therefore, starting from the relation $\\mathcal{V}_1 \\times \\mathcal{V}_2$, one can progressively remove pairs $(v,u)$ such that $v$ is not simulated by $u$, until a fixpoint is reached. Moreover, in this case, since $G_1$ is a DAG, one can guarantee that the fixpoint will be reached in $|\\mathcal{V}_1|$ iterations. $\\square$"
+    },
+    {
+      "id": "p0015-b004",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        466.0,
+        478.0,
+        588.0
+      ],
+      "markdown": "Executions of hybrid systems are for bounded time, and bounded number of mode switches. This is because our transition graphs are acyclic and the labels on edges are bounded intervals. Sequential composition of graphs allows one to consider switching sequences that are longer and of a longer duration. We now present observations that will allow us to conclude the safety of a hybrid system with long switching sequences based on the safety of the system under short switching sequences. To do this we begin by observing simple properties about sequential composition of graphs. In what follows, all hybrid systems we consider will be over a fixed set of modes $\\text{Ł}$ and trajectory set $\\mathcal{TL}$. Also $\\mathsf{id}$ will be identity function on $\\text{Ł}$. Our first observation is that trace containment is consistent with sequential composition."
+    },
+    {
+      "id": "p0015-b005",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        597.0,
+        478.0,
+        630.0
+      ],
+      "markdown": "**Proposition 4.2.** Let $G_i, G_i'$, $i \\in \\{1, 2\\}$, be four transition graphs over $\\text{Ł}$ such that $G_1\\circ G_2$ and $G_1'\\circ G_2'$ are defined, and $G_i \\preceq_{\\mathsf{id}} G_i'$ for $i \\in \\{1, 2\\}$. Then $G_1\\circ G_2 \\preceq_{\\mathsf{id}} G_1'\\circ G_2'$."
+    },
+    {
+      "id": "p0015-b006",
+      "kind": "text",
+      "bbox": [
+        133.0,
+        639.0,
+        478.0,
+        660.0
+      ],
+      "markdown": "Next we observe that sequential composition of graphs satisfies the “semi-group property”."
+    },
+    {
+      "id": "p0015-pageno",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        696.0,
+        311.0,
+        703.0
+      ],
+      "markdown": "15",
+      "reason": "Printed page number 15 centred at the foot of the page; page furniture, checked on the page render."
+    }
+  ]
+}

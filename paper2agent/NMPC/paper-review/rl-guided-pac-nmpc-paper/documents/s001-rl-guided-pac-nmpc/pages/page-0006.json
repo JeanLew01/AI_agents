@@ -1,0 +1,447 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "[v2] Examined the preview and four 200-220-dpi crops (left column top with Equations (3), (4); left column middle with Equations (5)-(10); right column top with Definitions IV.3, IV.4 and the actor-critic paragraph; Section V second paragraph). Mathematics taken from the TeX source with the authors' macros expanded (\\bnu -> \\boldsymbol{\\nu}, \\bU -> \\boldsymbol{\\xi}, \\traj -> \\boldsymbol{\\tau}, \\argmin -> \\operatorname*{arg\\,min}, \\rlcostfunc -> g, \\critic -> Q^{\\boldsymbol{\\psi}}, \\actor -> \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}, \\approxvaluefunc -> V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}, \\sensorpredictfunc -> \\mathbf{h}^\\eta, \\EV expanded) and checked symbol by symbol against the crops. All ten former formula image items are now text items with $$ blocks: Equation (3) as one aligned block (objective plus the two unnumbered 's.t.' lines; the printed number (3) stands on the first line) with \\tag{3}; Equations (4)-(12) one block per printed number with \\tag{4} ... \\tag{12}. Their label/asset_name were removed (assets equation-3 ... equation-12 no longer exist). All inline maths converted from <sub>/<sup>/Unicode to LaTeX. Definitions IV.3 and IV.4 start with the bold printed label ('**Definition IV.3 (Optimal Value Function).**'); the clause 'where $\\beta \\in (0, 1)$ is a discount factor.' after Equation (11) is a separate item belonging to Definition IV.3. Body italics of the definitions dropped, wording verbatim. Printed peculiarities kept exactly (PDF and TeX agree): Equation (8) has an unbalanced extra opening parenthesis in the exponent, $D_2\\left(p(\\cdot | \\boldsymbol{\\nu})||(p(\\cdot | \\boldsymbol{\\nu}_i)\\right)$; Equation (9) uses three plain dots '...'; Equation (12) writes 'arg min' with \\arg\\min (limits under 'min' only) and ends with a period; Equation (3)'s inner minimisation is over $\\alpha$ without a positivity condition (Equation (22) on PDF page 8 has $\\alpha>0$); 'Renyi' without accent; 'iid' without periods. TeX spacing hacks (\\!, \\hspace) were dropped; no TeX-versus-PDF disagreement in content. Structure: first item continues from PDF page 5 (join_previous=space); the left column ends mid-sentence ('... For the following') and continues at the top of the right column ('definitions, we let ...'): join_previous=space on p0006-b015. Headings: 'B. Actor-Critic RL' is '### ', 'V. ACTOR-CRITIC PAC-NMPC (AC-PAC-NMPC)' is '## '. The list 1)-3) keeps the printed numbering as three text items. Citations [64]-[67] and 'Figure 2', 'Definition III.6' compared with the page. The page ends with a complete paragraph ('... to later sections.'); nothing continues onto PDF page 7. Omitted only the printed page number '5'. check: 57/104 lines; all 47 missing lines contain inline or display maths now in LaTeX; number differences are '−1' (Unicode minus) versus '-1' in LaTeX indices/limits and the '7' of the two-glyph \\mapsto. See adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "omit",
+      "bbox": [
+        557.0,
+        24.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "5",
+      "source_class": "page-header",
+      "reason": "Running page number (5) in the top-right corner."
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        114.0
+      ],
+      "markdown": "of the optimization problem are the mean and variance of the surrogate distribution, $\\boldsymbol{\\nu} = (\\boldsymbol{\\mu}, \\text{diag}(\\boldsymbol{\\Sigma}))$. This surrogate distribution is iteratively optimized to minimize the upper PAC bounds, $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$ and $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})$, over the expected trajectory cost and probability of constraint violation:",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "text",
+      "bbox": [
+        85.0,
+        119.0,
+        302.0,
+        171.0
+      ],
+      "markdown": "$$\\begin{aligned} \\hat{\\boldsymbol{\\nu}}^*_{i+1} &= \\operatorname*{arg\\,min}_{\\boldsymbol{\\nu}}\\min_{\\alpha}(\\mathcal{J}_\\alpha^+(\\boldsymbol{\\nu})+\\gamma \\mathcal{C}_\\alpha^+(\\boldsymbol{\\nu})) \\\\ \\text{s.t.}\\quad & \\mathbb{P}\\left(\\mathbb{E}\\left[J(\\boldsymbol{\\tau})\\right] \\leq \\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})\\right) \\geq 1 - \\delta \\\\ & \\mathbb{P}\\left(\\mathbb{E}\\left[C(\\boldsymbol{\\tau})\\right] \\leq \\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})\\right) \\geq 1 - \\delta \\end{aligned} \\tag{3}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        176.0,
+        301.0,
+        257.0
+      ],
+      "markdown": "where $\\delta$ is a user-defined confidence parameter. The resulting optimized surrogate distribution provides probabilistic guarantees, $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$ and $\\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu})$. Since $C(\\boldsymbol{\\tau})$ is a binary indicator, $\\mathbb{E}\\left[C(\\boldsymbol{\\tau})\\right]$ represents the probability of constraint violation, resulting in a probabilistic safety guarantee of the same form as Definition III.6. The controller executes the feedback policy constructed from the maximum likelihood estimate, $\\boldsymbol{\\mu}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        259.0,
+        187.0,
+        267.0
+      ],
+      "markdown": "The PAC bounds take the form",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        106.5,
+        272.5,
+        302.0,
+        289.5
+      ],
+      "markdown": "$$\\mathcal{J}_\\alpha^+(\\boldsymbol{\\nu}) = \\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu}) + \\alpha d(\\boldsymbol{\\nu}) + \\Phi_\\alpha \\tag{4}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        295.0,
+        301.0,
+        353.0
+      ],
+      "markdown": "where $\\widehat{\\mathcal{J}}_\\alpha$ is a robust estimator of the expected cost, $d$ is a distance term from prior sampled distributions, $\\Phi_\\alpha$ is a concentration-of-measure term, and $\\alpha$ is an annealing and regularizing coefficient. These bounds can be calculated from a finite number of policy samples.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        355.0,
+        301.0,
+        389.0
+      ],
+      "markdown": "Given $L$ prior surrogate distributions, $\\boldsymbol{\\nu}_0, \\cdots, \\boldsymbol{\\nu}_{L-1}$, and $M$ iid samples from each, $(\\boldsymbol{\\tau}_{i0}, \\boldsymbol{\\xi}_{i0}), \\cdots, (\\boldsymbol{\\tau}_{iM-1}, \\boldsymbol{\\xi}_{iM-1})$, the robust estimate of the expectation is given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        393.0,
+        302.0,
+        427.6
+      ],
+      "markdown": "$$\\widehat{\\mathcal{J}}_\\alpha(\\boldsymbol{\\nu}) = \\frac{1}{\\alpha LM} \\sum_{i=0}^{L-1} \\sum_{j=0}^{M-1} \\psi\\left(\\alpha \\ell_{ij} \\right) \\tag{5}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b008a",
+      "source_class": "formula",
+      "kind": "text",
+      "bbox": [
+        109.0,
+        428.0,
+        302.0,
+        455.2
+      ],
+      "markdown": "$$\\psi(x) = \\log\\left(1+x+\\frac{1}{2}x^2\\right) \\tag{6}$$"
+    },
+    {
+      "id": "p0006-b008b",
+      "source_class": "formula",
+      "kind": "text",
+      "bbox": [
+        118.0,
+        455.4,
+        302.0,
+        484.5
+      ],
+      "markdown": "$$\\ell_{ij} = J(\\boldsymbol{\\tau}_{ij})\\frac{p(\\boldsymbol{\\xi}_{ij}|\\boldsymbol{\\nu})}{p(\\boldsymbol{\\xi}_{ij}|\\boldsymbol{\\nu}_i)}. \\tag{7}$$"
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        488.0,
+        180.0,
+        498.0
+      ],
+      "markdown": "The distance term is given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "text",
+      "bbox": [
+        94.5,
+        503.0,
+        302.0,
+        536.5
+      ],
+      "markdown": "$$d(\\boldsymbol{\\nu}) = \\frac{1}{2L}\\sum_{i=0}^{L-1}b_i^2e^{D_2\\left(p(\\cdot | \\boldsymbol{\\nu})||(p(\\cdot | \\boldsymbol{\\nu}_i)\\right)} \\tag{8}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b010a",
+      "source_class": "formula",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        537.0,
+        302.0,
+        551.5
+      ],
+      "markdown": "$$0 \\leq J(\\boldsymbol{\\tau}_{ij}) \\leq b_i \\; \\forall j = 0, ..., M - 1 \\tag{9}$$"
+    },
+    {
+      "id": "p0006-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        557.0,
+        192.0,
+        567.0
+      ],
+      "markdown": "where $D_2$ is the Renyi divergence.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b012",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        569.0,
+        250.0,
+        579.0
+      ],
+      "markdown": "The concentration-of-measure term is given as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b013",
+      "kind": "text",
+      "bbox": [
+        134.0,
+        582.0,
+        302.0,
+        607.5
+      ],
+      "markdown": "$$\\Phi_{\\alpha} = \\frac{1}{\\alpha LM}\\log\\frac{1}{\\delta}. \\tag{10}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b014",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        611.0,
+        301.0,
+        656.0
+      ],
+      "markdown": "These bounds are local to each finite-horizon policy and conditional on current observations. Thus, they provide finite-time guarantees and do not guarantee global safety for closed-loop execution of the controller over the infinite horizon.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b028",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        676.0,
+        127.0,
+        683.0
+      ],
+      "markdown": "### B. Actor-Critic RL",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b029",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        691.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Reinforcement learning algorithms usually involve the estimation of the value function, which represents the minimum expected accumulation of future costs. In our case, the value function can be interpreted as the optimal cost-to-go from the current state, $\\mathbf{x}_t$, to the goal state, $\\mathbf{x_G}$. For the following",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        57.0,
+        564.0,
+        77.0
+      ],
+      "markdown": "definitions, we let $\\mathbf{x}_t$ denote the full state of the environment, rather than the state of the robot alone.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0006-b016",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        87.0,
+        564.0,
+        121.0
+      ],
+      "markdown": "**Definition IV.3 (Optimal Value Function).** Given some stage cost $g(\\mathbf{x}_t, \\mathbf{u}_t)$ and stochastic dynamics $p(\\mathbf{x}_{t+1} \\mid \\mathbf{x}_t, \\mathbf{u}_t)$, the optimal value function is given as $V: \\mathcal{X} \\mapsto \\mathbb{R}$ such that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b017",
+      "kind": "text",
+      "bbox": [
+        323.5,
+        125.0,
+        565.0,
+        153.0
+      ],
+      "markdown": "$$V(\\mathbf{x}_t) = \\min_{\\mathbf{u}_t \\in \\mathcal{U}} \\bigg[ g(\\mathbf{x}_t,\\mathbf{u}_t)+ \\beta \\mathbb{E}\\left[V(\\mathbf{x}_{t+1}) \\mid \\mathbf{x}_{t}, \\mathbf{u}_{t} \\right] \\bigg] \\tag{11}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        157.0,
+        465.0,
+        168.0
+      ],
+      "markdown": "where $\\beta \\in (0, 1)$ is a discount factor.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        176.0,
+        564.0,
+        196.0
+      ],
+      "markdown": "**Definition IV.4 (Optimal Policy).** The optimal policy is given as $\\boldsymbol{\\pi}^*: \\mathcal{X} \\mapsto \\mathcal{U}$ such that",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b020",
+      "kind": "text",
+      "bbox": [
+        314.5,
+        199.5,
+        565.0,
+        228.0
+      ],
+      "markdown": "$$\\boldsymbol{\\pi}^*(\\mathbf{x}_t) = \\arg\\min_{\\mathbf{u}_t \\in \\mathcal{U}} \\bigg[ g(\\mathbf{x}_t, \\mathbf{u}_t)+\\beta \\mathbb{E}[V(\\mathbf{x}_{t+1}) \\mid \\mathbf{x}_{t}, \\mathbf{u}_{t} ]\\bigg]. \\tag{12}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b021",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        232.0,
+        564.0,
+        372.0
+      ],
+      "markdown": "Actor-critic methods often use temporal difference learning to jointly learn approximations of the optimal policy and optimal value function [64]. For most state-of-the-art off-policy methods, which benefit from improved sample efficiency, the critic, $Q^{\\boldsymbol{\\psi}}(\\mathbf{x}_t, \\mathbf{u}_t)$, parameterized by $\\boldsymbol{\\psi}$, approximates the optimal action-value function, $Q^*(\\mathbf{x}_t, \\mathbf{u}_t) = g(\\mathbf{x}_t,\\mathbf{u}_t)+\\beta \\mathbb{E}\\left[V(\\mathbf{x}_{t+1}) \\mid \\mathbf{x}_{t}, \\mathbf{u}_{t} \\right]$. The actor, $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_t)$, parameterized by $\\boldsymbol{\\phi}$, approximates the optimal policy, $\\boldsymbol{\\pi}^*(\\mathbf{x}_t)$. The approximation of the optimal value function can be obtained by composing the actor and critic, $V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}(\\mathbf{x}_t) = Q^{\\boldsymbol{\\psi}}(\\mathbf{x}_t, \\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{x}_t))$. Popular actor-critic methods for continuous state and action spaces include PPO [65], SAC [66], and TD3 [67].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b022",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        375.0,
+        564.0,
+        456.0
+      ],
+      "markdown": "The optimal value function and policy depend on the full environment state, which includes information beyond the robot state, such as the obstacles, $O$. In our case, since the robot can only partially observe the world, the actor and critic must rely on the robot’s observation, $\\mathbf{z}_t$. Throughout this work, we interchangeably write $V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}(\\mathbf{z}_t)$ and $V^{\\boldsymbol{\\phi}\\boldsymbol{\\psi}}(\\mathbf{x}_t, \\mathbf{y}_t)$ where appropriate, and likewise for $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}$ and $Q^{\\boldsymbol{\\psi}}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b023",
+      "kind": "heading",
+      "bbox": [
+        329.0,
+        476.0,
+        546.0,
+        486.0
+      ],
+      "markdown": "## V. ACTOR-CRITIC PAC-NMPC (AC-PAC-NMPC)",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b024",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        494.0,
+        564.0,
+        564.0
+      ],
+      "markdown": "We now describe our approach for combining PAC-NMPC with actor-critic RL to enable improved long-range performance while providing probabilistic safety guarantees. Although the learned actor and critic do not provide safety guarantees themselves, they can safely be incorporated into PAC-NMPC to guide the optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b025",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        566.0,
+        564.0,
+        647.0
+      ],
+      "markdown": "Our approach utilizes three learned models. We train an actor, $\\boldsymbol{\\pi}^{\\boldsymbol{\\phi}}(\\mathbf{z}_t)$, and critic, $Q^{\\boldsymbol{\\psi}}(\\mathbf{z}_t, \\mathbf{u}_t)$, using simulated dynamics and sensor models. Additionally, we train a sensor prediction model, $\\hat{\\mathbf{y}}_{t+k} = \\mathbf{h}^\\eta(\\mathbf{x}_t, \\mathbf{y}_t, \\mathbf{x}_{t+k})$, to predict future sensor measurements along sampled trajectories, thus allowing the actor and critic to be evaluated within PAC-NMPC. An overview of our approach is shown in Figure 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b026",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        649.0,
+        564.0,
+        659.0
+      ],
+      "markdown": "We extend the PAC-NMPC algorithm in three major ways:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b027",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        664.0,
+        528.0,
+        674.0
+      ],
+      "markdown": "1) RL-based warm start of the decision variables.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0006-b030",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        676.0,
+        544.0,
+        686.0
+      ],
+      "markdown": "2) Learned stochastic value function as terminal cost.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0006-b031",
+      "kind": "text",
+      "bbox": [
+        321.0,
+        688.0,
+        564.0,
+        698.0
+      ],
+      "markdown": "3) Value function improvement constraint along trajectory.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0006-b032",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        703.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "These contributions will be discussed in the subsequent subsections. Since the implementation and training of these learned models is specific to each robotic system, we leave discussion of these components to later sections.",
+      "source_class": "text"
+    }
+  ]
+}

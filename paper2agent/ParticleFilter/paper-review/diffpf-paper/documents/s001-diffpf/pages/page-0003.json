@@ -1,0 +1,343 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview, overlay and 220-dpi crops of equations (6)-(7); maths taken from TeX (main.tex lines 794-875) and checked against the page. Omitted running header and page number. Fig. 2 (full-width diagram at top of page with embedded equations: prediction step, fusion module, update step with $x^{(i)}_{t,k-1}=\\beta(\\cdot)+\\sigma z$, $x^{(i)}_{t,k}=\\sqrt{\\alpha}x^{(i)}_{t,k-1}+\\sqrt{1-\\alpha}\\epsilon$, stack, $x_t=\\frac1N\\sum x_t^{(i)}$) kept as one crop, bbox [44,50,566,163] checked on all edges (asset figure-2); it sits before Section III-A, i.e. between complete paragraphs (page 2 ended with a complete paragraph). Caption rewritten with LaTeX. Converted the six extractor formula items to display LaTeX with \\tag{1}-\\tag{7}; equation (7) is a single aligned block (two lines, one printed number) per the PDF. Headings '### A. Prediction and Perception Modeling', '### B. Update Step'. All inline maths rewritten from TeX (removed <sup> damage). Paragraph 'Update step refines ... However, these' continues at top of right column ('procedures often require...'): join_previous=space. Hyphens restored: time-dependent, noise-perturbed. Author typo kept as printed (PDF and TeX agree): equation (7) first line has subscript $x^{(i)}_{t.k}$ (period instead of comma) inside the parenthesis; also non-bold $\\epsilon_\\theta$ in (7) versus bold $\\boldsymbol{\\epsilon}_\\theta$ in prose, as printed. Last item ends 'continues recursively' and continues on page 4.",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        26.0,
+        329.0,
+        32.0
+      ],
+      "markdown": "WAN _et al._ : DIFFPF: DIFFERENTIABLE PARTICLE FILTERING VIA DIFFUSION MODELS",
+      "source_class": "page-header",
+      "reason": "IEEE running header (WAN et al.: DIFFPF: ... VIA DIFFUSION MODELS), page furniture"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "omit",
+      "bbox": [
+        559.0,
+        26.0,
+        564.0,
+        32.0
+      ],
+      "markdown": "3",
+      "source_class": "page-header",
+      "reason": "Page number 3 in running header"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "figure",
+      "bbox": [
+        44.0,
+        50.0,
+        566.0,
+        163.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "caption",
+      "bbox": [
+        48.0,
+        167.0,
+        564.0,
+        216.0
+      ],
+      "markdown": "Fig. 2: At time $t$, the estimated particles from time $t-1$ are propagated through the process model to obtain a prior distribution over the current state. Simultaneously, the observation $\\boldsymbol{o}_t$ is encoded into a feature representation. These two sources of information jointly condition a diffusion model, which iteratively refines a set of noisy latent samples to generate equally weighted particles that approximate the filtering posterior. Unlike DnD Filter [29], which uses a diffusion model in a Kalman filter–like manner to fuse prior and observation into a single trajectory, DiffPF maintains a full set of particles to explicitly represent the posterior distribution.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        228.0,
+        211.0,
+        238.0
+      ],
+      "markdown": "### A. Prediction and Perception Modeling",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        241.0,
+        301.0,
+        303.0
+      ],
+      "markdown": "Given a set of $N$ particles $\\{\\boldsymbol{x}_{t-1}^{(i)}\\}_{i=1}^N$ representing the posterior at time $t-1$, we apply a process model to obtain predicted particles $\\hat{\\boldsymbol{\\chi}}_{t}:=\\{\\hat{\\boldsymbol{x}}_t^{(i)}\\}_{i=1}^N$ for the current step. Specifically, each particle is propagated through a learnable or given process model $f_{\\text{dyn}}$ as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        124.0,
+        304.0,
+        306.0,
+        329.0
+      ],
+      "markdown": "$$\\hat{\\boldsymbol{x}}_t^{(i)} = f_{\\text{dyn}}(\\boldsymbol{x}_{t-1}^{(i)}, \\boldsymbol{a}_t), \\tag{1}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        332.0,
+        301.0,
+        426.0
+      ],
+      "markdown": "where $\\boldsymbol{a}_t$ is the action at time $t$. Through this step, the relevant information from the action sequence $\\boldsymbol{a}_{1:t}$ and past observations $\\boldsymbol{o}_{1:t-1}$ is encoded into the predicted particle set $\\{\\hat{\\boldsymbol{x}}_t^{(i)}\\}_{i=1}^N$. The process model $f_{\\text{dyn}}$ can be defined using either parametric forms based on system knowledge, or learned from data using neural networks such as Multi-Layer Perceptrons (MLPs), stochastic models [31], or generative approaches like normalizing flows [32].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        428.0,
+        301.0,
+        450.0
+      ],
+      "markdown": "In parallel, the current observation $\\boldsymbol{o}_t$ is processed by a neural sensor model $g_{\\text{obs}}$ to extract observation features:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        140.0,
+        453.0,
+        306.0,
+        474.0
+      ],
+      "markdown": "$$\\boldsymbol{f}_t = g_{\\text{obs}}(\\boldsymbol{o}_t). \\tag{2}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        478.0,
+        301.0,
+        498.0
+      ],
+      "markdown": "This feature representation encodes perceptual information relevant to the latent state.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        502.0,
+        301.0,
+        558.0
+      ],
+      "markdown": "Unlike conventional differentiable filters that rely on predefined distribution families or manually specified noise models to represent the dynamics and observation processes, our approach imposes fewer assumptions and offers better generalization across scenarios.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        562.0,
+        301.0,
+        596.0
+      ],
+      "markdown": "To combine the information from the prior and observation $\\boldsymbol{o}_t$, we incorporate a learnable fusion mechanism that aggregates the predicted particles and perceptual embeddings:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        597.0,
+        306.0,
+        621.0
+      ],
+      "markdown": "$$\\boldsymbol{c}_{t} = \\mathbf{Fusion}(\\boldsymbol{f}_{t}, \\{\\hat{\\boldsymbol{x}}_t^{(i)}\\}_{i=1}^N), \\tag{3}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        624.0,
+        301.0,
+        657.0
+      ],
+      "markdown": "where $\\boldsymbol{c}_t$ aggregates temporal information from $\\boldsymbol{o}_{1:t}$ and $\\boldsymbol{a}_{1:t}$ via the process and sensor models, and serves as the conditioning input for the subsequent diffusion process.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        675.0,
+        113.0,
+        685.0
+      ],
+      "markdown": "### B. Update Step",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        691.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Update step refines the prior belief over the current state by incorporating the latest observation. In conventional DPFs, the update is typically implemented by assigning importance weights to particles based on an observation model, followed by resampling to mitigate particle degeneracy. However, these",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        228.0,
+        564.0,
+        274.0
+      ],
+      "markdown": "procedures often require carefully designed likelihood functions and involve non-differentiable operations. In contrast, our method performs the update implicitly through a conditional diffusion model. Specifically, we make an assumption that",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        385.0,
+        278.0,
+        569.0,
+        299.0
+      ],
+      "markdown": "$$\\text{post}(\\boldsymbol{x}_t) \\approx p(\\boldsymbol{x}_t \\mid \\boldsymbol{c}_{t}). \\tag{4}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        302.0,
+        564.0,
+        371.0
+      ],
+      "markdown": "This assumption is justified because $\\boldsymbol{c}_t$ captures all temporal information from $\\boldsymbol{o}_{1:t}$ and $\\boldsymbol{a}_{1:t}$. Instead of sampling directly from the intractable posterior distribution $p(\\boldsymbol{x}_t \\mid \\boldsymbol{o}_{1:t}, \\boldsymbol{a}_{1:t})$, we choose to sample from the approximated distribution $p(\\boldsymbol{x}_t \\mid \\boldsymbol{c}_t)$. This yields a set of particles $\\{\\boldsymbol{x}_{t}^{(i)}\\}_{i=1}^N$, from which we can obtain:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b020",
+      "kind": "text",
+      "bbox": [
+        362.0,
+        373.0,
+        569.0,
+        413.0
+      ],
+      "markdown": "$$\\text{post}(\\boldsymbol{x}_t) \\approx \\frac{1}{N} \\sum_{i=1}^N \\delta(\\boldsymbol{x}_t - \\boldsymbol{x}_t^{(i)}), \\tag{5}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b021",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        415.0,
+        564.0,
+        450.0
+      ],
+      "markdown": "where $\\delta(\\cdot)$ denotes the Dirac function. This indicates that all sampled particles share equal weights, thereby eliminating the need for weighting or resampling.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b022",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        452.0,
+        564.0,
+        569.0
+      ],
+      "markdown": "Diffusion models have been shown to approximate arbitrarily complex probability distributions by learning time-dependent score functions that guide the reversal of a noise-perturbed process [33]. In our case, a conditional diffusion model is trained to approximate $p(\\boldsymbol{x}_t \\mid \\boldsymbol{c}_t)$ and generate particle samples. Specifically, we instantiate a reverse diffusion process with a Denoising Diffusion Probabilistic Model (DDPM), which iteratively refines a random Gaussian sample toward the target posterior distribution. We begin by drawing an initial Gaussian sample:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b023",
+      "kind": "text",
+      "bbox": [
+        398.0,
+        570.0,
+        569.0,
+        596.0
+      ],
+      "markdown": "$$\\boldsymbol{x}_{t,K}^{(i)} \\sim \\mathcal{N}(0, I), \\tag{6}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        598.0,
+        564.0,
+        644.0
+      ],
+      "markdown": "where $K$ is the total number of reverse diffusion steps. At each step $k$, the model predicts the noise component $\\boldsymbol{\\epsilon}_\\theta(\\boldsymbol{x}_{t,k}^{(i)}, k, \\boldsymbol{c}_t)$, which subsequently serves to infer a cleaner approximation of the sample at timestep $k-1$:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        316.0,
+        645.0,
+        569.0,
+        698.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\boldsymbol{x}_{t,k-1}^{(i)} &= \\frac{1}{\\sqrt{\\alpha}} \\left( \\boldsymbol{x}_{t.k}^{(i)} - \\frac{1 - \\alpha}{\\sqrt{1 - \\bar{\\alpha}}} \\epsilon_{\\theta}(\\boldsymbol{x}_{t,k}^{(i)}, k, \\boldsymbol{c}_t) \\right) + \\sigma \\boldsymbol{z}, \\\\\n&:= \\beta(\\boldsymbol{x}_{t,k}^{(i)} + \\gamma\\epsilon_\\theta(\\boldsymbol{x}_{t,k}^{(i)}, k, \\boldsymbol{c}_t)) + \\sigma \\boldsymbol{z}.\n\\end{aligned} \\tag{7}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        699.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "Here $\\boldsymbol{z} \\sim \\mathcal{N}(0, I)$, and $\\boldsymbol{x}_{t,k}^{(i)}$ refers to the $i$-th corrupted sample at diffusion step $k$. $\\alpha$, $\\bar{\\alpha}$, $\\sigma$ are fixed noise schedule parameters as defined in [34], while $\\beta$ and $\\gamma$ are scaling terms introduced for simplicity. This stochastic refinement continues recursively",
+      "source_class": "text"
+    }
+  ]
+}

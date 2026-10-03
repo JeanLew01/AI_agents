@@ -1,0 +1,150 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview and five 260-280 dpi crops (equations (9a)-(9b), Table 1, the three run-in paragraphs, footnote) with the items; maths taken from 30algo.tex (macros expanded) and checked on the crops. Equations (9a)-(9b) converted from a formula image to one LaTeX text item with two tagged $$ blocks; the under-brace label 'Monte Carlo Approximation' and the ':=' definition of $\\bar{Y}^{(0)}(\\mathcal{Y}^{(i)})$ are in (9b) as printed. Table 1 captured as cells (3 columns, header + 4 rows, no merged cells); cell maths is LaTeX ($Y^{(0)}$, $p_0(\\cdot)$); in-cell line-wrap hyphens removed ('aug-mented', 'sam-ple'); printed references 'Eq. (2)', 'Eq. (9a)', 'Eqs. (11) and (13)', 'Eq. (6)' kept. Caption is a separate item. IMPORTANT reading fix: in 'it can be shown that $\\nabla \\log p_i(Y^{(i)}) \\approx -\\frac{1}{(1-\\bar{\\alpha}_i)}(Y^{(i)} - \\arg\\max p_i(\\cdot))$' the raised '2' printed after the closing parenthesis is the marker of footnote 2 (confirmed by the \\footnote in 30algo.tex), not a square; the earlier draft had it as an exponent. Footnote markers are written '[^n]' on my pages so that they cannot be read as exponents. Footnote 2 ('See more elaborations in Appendix A.2', printed without a final period) is placed right after the paragraph that cites it, because the last item of the page continues on page 7. Authors' wording kept: 'How diffusion helps?', 'When diffusion step is set to', $\\mathcal{N}(\\frac{Y^{(1)}}{\\alpha_0}, (\\frac{1}{\\alpha_0}-1) I)$ with $\\alpha_0$ as printed. Last item ('... (1) the careful') continues on page 7 (join_previous=space there). Page number 6 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        75.0,
+        504.0,
+        97.0
+      ],
+      "markdown": "This finding enables the Monte-Carlo estimation for computing the score function. We collect a batch of samples from $\\phi_i(\\cdot)$ which we denote as $\\mathcal{Y}^{(i)}$ and approximate the score as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        147.0,
+        98.0,
+        507.0,
+        179.5
+      ],
+      "markdown": "$$\n\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} = -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\frac{\\int Y^{(0)} \\phi_i(Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}}{\\int \\phi_i(Y^{(0)}) p_0(Y^{(0)}) \\, dY^{(0)}} \\tag{9a}\n$$\n\n$$\n\\approx -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\underbrace{\\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}} Y^{(0)} p_0(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}} p_0(Y^{(0)})}}_{\\text{Monte Carlo Approximation}} := -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\bar{Y}^{(0)}(\\mathcal{Y}^{(i)}) \\tag{9b}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "table",
+      "bbox": [
+        106.0,
+        196.5,
+        507.0,
+        281.5
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 1",
+      "asset_name": "table-1",
+      "rows": [
+        [
+          "Aspect",
+          "Model-Based Diffusion (MBD)",
+          "Model-Free Diffusion (MFD)"
+        ],
+        [
+          "Target Distribution",
+          "Known (Eq. (2)), but hard to sample",
+          "Unknown, but have data"
+        ],
+        [
+          "Objective",
+          "Sample $Y^{(0)}$ from high-likelihood region of $p_0(\\cdot)$",
+          "Sample $Y^{(0)} \\sim p_0(\\cdot)$"
+        ],
+        [
+          "Score Approximation",
+          "Estimated using the model (Eq. (9a)). Can be augmented with demonstrations (Eqs. (11) and (13))",
+          "Learned from data"
+        ],
+        [
+          "Backward Process",
+          "Perform Monte Carlo score ascent (Eq. (6)) to move samples towards most-likely states",
+          "Run reverse SDE to preserve sample diversity"
+        ]
+      ]
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "caption",
+      "bbox": [
+        125.0,
+        285.0,
+        487.0,
+        295.0
+      ],
+      "markdown": "Table 1: Comparison of Model-Based Diffusion (MBD) and Model-Free Diffusion (MFD)",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        314.0,
+        506.0,
+        447.0
+      ],
+      "markdown": "**Comparison between MFD and MBD.** Table 1 highlights the key differences between MBD and MFD, which originate from two assumptions made in MBD: (a) a known target distribution $p_0(Y^{(0)})$ given the model; (b) the objective of sampling $Y^{(0)}$ from the high-likelihood region of $p_0(Y^{(0)})$ to minimize the cost function. For (a), MBD leverages $p_0$ to estimate the score following Eq. (9a), whereas MFD learns that from the data. For (b), MBD runs Monte Carlo score ascent in Eq. (6) to quickly move the samples to the high-density region as depicted in Fig. 2(c), while MFD runs reverse SDE $Y^{(i-1)} = \\frac{1}{\\sqrt{\\alpha_i}} \\left(Y^{(i)} + \\frac{1-\\alpha_i}{2} \\nabla_{Y^{(i)}} \\log p_i(Y^{(i)})\\right) + \\sqrt{1-\\alpha_i} \\mathbf{z}_i$, where $\\mathbf{z}_i$ is Gaussian noise, to maintain the sample diversity. Given low temperature $\\lambda$, it can be shown that $\\nabla \\log{p_i(Y^{(i)})} \\approx -\\frac{1}{(1-\\bar{\\alpha}_i)} (Y^{(i)} - \\arg\\max{p_i(\\cdot)})$ [^2], i.e., the function $\\log{p_i(Y^{(i)})}$ is $\\frac{1}{(1-\\bar{\\alpha}_i)}$-smooth. Therefore, choosing the step size $(1-\\bar{\\alpha}_i)$ in Eq. (6) is considered optimal, as for $L$-smooth functions, $O(\\frac{1}{L})$ is the step size that achieves the fastest convergence [64].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        120.0,
+        711.0,
+        267.0,
+        722.0
+      ],
+      "markdown": "Footnote 2: See more elaborations in Appendix A.2",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        452.0,
+        505.0,
+        588.0
+      ],
+      "markdown": "**How diffusion helps?** The diffusion process plays an important role in helping Monte Carlo score ascent overcome the local minimum issue in highly non-convex optimization problems, as shown in Fig. 2(a). Compared with optimizing a highly non-convex objective, Monte Carlo score ascent is applied to the intermediate distribution $p_i(\\cdot) = \\int p_0(Y^{(0)}) p_{i \\mid 0}(\\cdot) dY^{(0)}$, which is made concave by convoluting $p_0(\\cdot)$ with a Gaussian distribution $p_{i \\mid 0}(\\cdot)$, as shown in Fig. 2(b). Starting from the strongly concave Gaussian distribution $p_N \\sim \\mathcal{N}(\\mathbf{0}, I)$ with scale $\\bar{\\alpha}_N \\rightarrow 0$, the density is easy to sample. The covariance of the sampling density $\\Sigma_{\\phi_i} = (\\frac{1}{\\bar{\\alpha}_i} - 1) I$ is large when $i = N$, implying that we are searching a wide space for global minima. In the less-noised stage, the intermediate distribution $p_i(\\cdot)$ is more peaked and closer to the target distribution $p_0(\\cdot)$, and $\\bar{\\alpha}_i \\rightarrow 1$ produces a smaller sampling covariance $\\Sigma_{\\phi_i}$ to perform a local search. By iteratively running gradient ascent on the smoothed distribution, MBD can effectively optimize a highly non-convex objective function as presented in Fig. 2. The MBD algorithm is formally depicted in Algorithm 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        595.0,
+        505.0,
+        703.0
+      ],
+      "markdown": "**Connection with Sampling-based Optimization.** When diffusion step is set to $N = 1$, MBD effectively reduces to the Cross-Entropy Method (CEM) [11] for optimization. To see this, we can plug the estimated score Eq. (9b) into the Monte Carlo score ascent Eq. (6) and set $N = 1$: $Y^{(0)} = \\frac{\\bar{\\alpha}_1}{\\alpha_1} \\bar{Y}^{(0)}(\\mathcal{Y}^{(1)}) = \\bar{Y}^{(0)}(\\mathcal{Y}^{(1)}) = \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(1)}} Y^{(0)} w(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(1)}} w(Y^{(0)})}$ where $w(Y^{(0)}) = p_0(Y^{(0)}) \\propto \\exp(-\\frac{J(Y^{(0)})}{\\lambda})$ and $\\mathcal{Y}^{(1)} \\sim \\mathcal{N}(\\frac{Y^{(1)}}{\\alpha_0}, (\\frac{1}{\\alpha_0} - 1) I)$. This precisely mirrors the update mechanism in CEM, which aims to optimize the objective function $f_{\\text{CEM}}(Y^{(0)}) = J(Y^{(0)})$ and determine the sampling covariance $\\Sigma_{\\text{CEM}} = (\\frac{1}{\\alpha_0} - 1) I$, thus linking the sampling strategy of CEM with the $\\alpha$ schedule in MBD. The advances that distinguish MBD from CEM-like methods are (1) the careful",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "6",
+      "source_class": "page-footer",
+      "reason": "Page number 6 in the footer (verified on the preview)."
+    }
+  ]
+}

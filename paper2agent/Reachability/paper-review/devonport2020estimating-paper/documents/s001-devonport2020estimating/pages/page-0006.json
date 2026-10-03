@@ -1,0 +1,84 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "Compared with the 170-dpi render and two 260-dpi crops (the Algorithm 1 box; the prose and 4.2 heading). Algorithm 1: the extractor had split the box into four text items plus a formula image; replaced by one image crop of the whole box (asset algorithm-1, bbox from above the top rule to below the bottom rule, checked on the render) followed by one text item with a line-by-line LaTeX transcription. The box has no printed line numbers, so none were added; the two statements of the forall body are indented with &emsp;. Equation (8) is printed inside the algorithm box and is transcribed inside the algorithm text item with \\tag{8}. AUTHORS' INCONSISTENCIES KEPT AS PRINTED: the Output line prints the set as {x : ||Ax + b||_p <= 1} with a PLUS sign, whereas eq. (6) and eq. (8) use 'Ax - b' / 'Az^{(i)} - b' (confirmed in image and text layer); the sampling line prints 'from X_0 U, and D' with no comma after X_0. The sample-size line N = ceil((1/eps)(e/(e-1))(log(1/delta) + n(n+1)/2 + n)) was read from the 260-dpi crop (the text layer has it as fragments). Prose: the O(1/epsilon) and O(log(1/delta)) sentence was glyph soup and was retyped from the image; n_theta, n(n+1)/2, O(n^2) written in LaTeX. Heading '4.2. Axis-aligned Norm Balls' set to ### (extractor had #). Line-wrap hyphen in 'Algo-rithm' removed; 'over- or under-approximation' kept.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-algorithm1",
+      "kind": "figure",
+      "bbox": [
+        86.0,
+        90.0,
+        527.0,
+        350.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0006-algorithm1-text",
+      "kind": "text",
+      "bbox": [
+        86.0,
+        90.0,
+        527.0,
+        350.0
+      ],
+      "markdown": "**Algorithm 1:** Scenario-based estimate of a reachable set by a $p$-norm ball.\n\n**Input:** Transition function $\\Phi$ of a system with state dimension $n$; random variables $X_0$, $U$ and $D$ supported on $\\mathcal{X}_0$, $\\mathcal{U}$, and $\\mathcal{D}$ respectively; time range $[t_0, t_1]$; norm index $p$; probabilistic guarantee parameters $\\epsilon$ and $\\delta$.\n\n**Output:** Matrix $A$ and vector $b$ representing an $\\epsilon$-accurate reachable set estimate $\\hat{R}_{[t_0,t_1]}(A, b) = \\{x : \\|Ax + b\\|_p \\le 1\\}$, with confidence $1 - \\delta$.\n\nSet number of samples $N = \\left\\lceil \\frac{1}{\\epsilon} \\frac{e}{e-1} \\left( \\log\\frac{1}{\\delta} + n(n+1)/2 + n \\right) \\right\\rceil$;\n\n**forall** $i \\in \\{1, \\dots, N\\}$ **do**\n\n&emsp;&emsp;Take samples $x^{(i)}$, $u^{(i)}$, and $d^{(i)}$ from $X_0$ $U$, and $D$;\n\n&emsp;&emsp;evaluate $z^{(i)} = \\Phi(t_1; t_0, x^{(i)}, u^{(i)}, d^{(i)})$;\n\n**end**\n\nSolve the convex problem\n\n$$\n\\begin{aligned}\n\\arg\\min_{A,b} \\quad & -\\log\\det A \\\\\n\\text{subject to} \\quad & \\|Az^{(i)} - b\\|_p - 1 \\le 0, \\quad i = 1, \\dots, N\n\\end{aligned} \\tag{8}\n$$\n\nand return $A$, $b$;"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        372.0,
+        523.0,
+        423.0
+      ],
+      "markdown": "While Theorem 2 does not guarantee that the reachable set approximation provided by Algorithm 1 is an over- or under-approximation of the true reachable set, it still asserts that the computed reachable set approximation is accurate in a probabilistic sense with respect to the random variables used to compute it.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        426.0,
+        523.0,
+        572.0
+      ],
+      "markdown": "The *sample complexity* of a randomized algorithm is the number of samples needed for the algorithm to run such that its output satisfies a guarantee of correctness. For instance, from the sample bound (5), the sample complexity of an algorithm based on scenario optimization with respect to the probabilistic guarantee parameters is $O(\\frac{1}{\\epsilon})$ and $O(\\log\\frac{1}{\\delta})$. For Algorithm 1, the sample complexity also depends on the state dimension $n$. This dependence can be determined from (5), and depends on how $n$ affects the number $n_\\theta$ of decision variables. In Algorithm 1, the $A$ matrix requires $n(n+1)/2$ decision variables and the $b$ vector requires $n$ decision variables. This means that $n_\\theta = n(n+1)/2 + n$, so the sample complexity of Algorithm 1 is $O(n^2)$. Note that the sample bound of Theorem 2 depends only on the parameters $\\epsilon$ and $\\delta$, and the state dimension $n$. The system may therefore have inputs and disturbances of any dimension without affecting the sample complexity.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        589.0,
+        226.0,
+        600.0
+      ],
+      "markdown": "### 4.2. Axis-aligned Norm Balls",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        609.0,
+        523.0,
+        687.0
+      ],
+      "markdown": "The quadratic sample complexity of the method in the previous section is not scalable to systems of high dimension, or systems for which the transition function takes a long time to evaluate. For these systems, we would like a variant of the method with less than quadratic sample complexity. The source of the quadratic term in the sample complexity is the number of free variables in the $A$ matrix. If we constrain the structure of the $A$ matrix so that it has fewer than $O(n^2)$ free variables, then the sample complexity will be lowered.",
+      "source_class": "text"
+    }
+  ]
+}

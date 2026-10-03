@@ -1,0 +1,254 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and with 220-dpi crops of equation (7) and Table I and a crop of Fig. 5; text and maths checked with 30algo.tex and 40experiments.tex. Equation (7) was a formula image and is now a text item with a $$ block and \\tag{7} (TeX and PDF agree); the \"where $I$ is the identity matrix ...\" paragraph after it is its own item. Inline maths rewritten in LaTeX ($\\Sigma^i_{t+h}$, $N_W=2048$, $H=20$). Split decimals repaired: 3.9, 0.2, 0.05, 0.4 s, 13.4, 107.7%; glued line-wrap compounds restored (DIAL-MPC four times, real-world). Headings: \"IV. EXPERIMENT\" (##) and \"A. Convergence and Coverage\" (###). Table I: all 7 rows x 4 columns compared cell by cell with the crop and the native text lines; cells are strings with printed precision; the arrows of the header are kept as \"↓\"/\"↑\"; \"GCRL∗\" is written \"GCRL*\"; the DIAL-MPC row is bold in print (styling not kept in cells); \"-\" cells are printed hyphens. The asterisk note (\"*GCRL requires offline training ...\") is printed inside the caption and kept there. Fig. 5: the extractor had three picture items (top row, middle row, bottom row); merged into one figure with box [311,298.5,560,487.5] covering the three image rows (313.2,300.5)-(558.0,485.5), checked by crop. Reading order: the paragraph \"To answer the question ... We share the same reward\" at the foot of the left column continues at the top of the right column (\"functions for all methods. ...\", join_previous=space); Table I and Fig. 5 follow that paragraph. Footnote 2 is placed before the last paragraph because that paragraph (\"Convergence of DIAL-MPC. ... Compared\") continues on page 6. TeX versus PDF: footnote 2 is printed \"can be found in A.\" (the TeX source has \"in Appendix \\ref{...}\"); the PDF wording is kept. Cross-references kept as printed (\"Appendix B\", \"table I\"). Units are printed with a thin space (\"10 cm\", \"60 cm\", \"30 kg\", \"15 kg\", \"0.4 s\", \"0.6 m\"). First item continues the last sentence of page 4 (join_previous=space). No page number or running header is printed on this page.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        87.0
+      ],
+      "markdown": "increases, allowing for a larger sampling region for future control actions that have been updated fewer times compared to those at the front of the horizon.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        90.0,
+        299.0,
+        148.0
+      ],
+      "markdown": "Note that (5) and (6) specify only the overall size (i.e., the determinant) of the convolution kernels, leaving flexibility in designing the exact covariance matrices $\\Sigma^i_{t+h}$. As a practical realization of (5) and (6), we assume that each $\\Sigma^i_{t+h}$ is isotropic and define it as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        149.0,
+        299.0,
+        184.0
+      ],
+      "markdown": "$$\n\\Sigma^i_{t+h} = \\exp\\left(-\\frac{N-i}{\\beta_1 N} - \\frac{H-h}{\\beta_2 H} \\right) I. \\tag{7}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        184.0,
+        299.0,
+        230.0
+      ],
+      "markdown": "where $I$ is the identity matrix. This design combines both the outer-loop and inner-loop annealing schedules, adjusting the covariance matrices to ensure appropriate exploration and exploitation at each iteration and horizon step.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        238.0,
+        220.0,
+        246.0
+      ],
+      "markdown": "## IV. EXPERIMENT",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        253.0,
+        299.0,
+        392.0
+      ],
+      "markdown": "In this section, we demonstrate the advantages of DIAL-MPC in terms of: (1) convergence and coverage, (2) efficiency in test-time generalizability, and (3) robustness to real-world model mismatch. We compare DIAL-MPC against MPPI and another sampling-based optimization method, CMA-ES [45]. In addition, we provide goal-conditioned reinforcement learning (GCRL) as a performance reference. Our results show that DIAL-MPC reduces the tracking error by 3.9 times in walking tasks compared to MPPI and outperforms GCRL on all tasks requiring both precision and agility, especially in the presence of significant model mismatch.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        396.0,
+        299.0,
+        526.0
+      ],
+      "markdown": "We design a set of agile locomotion tasks to showcase the performance of DIAL-MPC: (1) Walking Tracking: a quadruped robot$^{2}$ is tasked with tracking a desired linear velocity and a desired yaw rate, requiring precise control of the torso. (2) Sequential Jumping: a quadruped robot must jump onto a series of small circular platforms placed randomly, each with a radius of 10 cm. (3) Crate Climbing: a quadruped robot is tasked with climbing a crate with a height of 60 cm, which is more than twice the height of the robot. We leave the specific details of the tasks’ implementation in Appendix B.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        534.0,
+        180.0,
+        544.0
+      ],
+      "markdown": "### A. Convergence and Coverage",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        549.0,
+        299.0,
+        715.0
+      ],
+      "markdown": "To answer the question of whether DIAL-MPC is a better solver for the legged MPC problems, we compare the performance of DIAL-MPC with vanilla MPPI, CMA-ES and NMPC. Since vanilla MPPI only uses a single kernel size, we tested both MPPI with large kernel size 0.2 (MPPI-explore) and small kernel 0.05 (MPPI-exploit). Compared with DIAL-MPC, CMA-ES optimizes the sampling covariance in an evolutionary way. For all sampling-based MPC methods, we use the same number of samples $N_W=2048$ and optimization steps $H=20$ (0.4 s) to ensure a fair comparison. For NMPC, we use Mujoco MPC [36] as our baseline. As a reference, we also include the performance of GCRL, which is trained using PPO [42] over 500 million steps, which takes approximately 31 minutes. We share the same reward",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        99.0
+      ],
+      "markdown": "functions for all methods. Due to unstable exploration in GCRL, we added two additional reward terms to regularize the policy, whereas DIAL-MPC only requires six reward terms.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "table",
+      "bbox": [
+        322.0,
+        109.0,
+        549.0,
+        187.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 1",
+      "asset_name": "table-1",
+      "rows": [
+        [
+          "",
+          "Walk Track ↓",
+          "Seq Jump ↑",
+          "Crate Climb ↑"
+        ],
+        [
+          "MPPI-explore",
+          "0.190",
+          "0.440",
+          "0.3"
+        ],
+        [
+          "MPPI-exploit",
+          "0.230",
+          "0.450",
+          "0.2"
+        ],
+        [
+          "CMA-ES",
+          "0.544",
+          "0.345",
+          "0.2"
+        ],
+        [
+          "NMPC",
+          "0.055",
+          "-",
+          "-"
+        ],
+        [
+          "GCRL*",
+          "0.119",
+          "0.855",
+          "0.6"
+        ],
+        [
+          "DIAL-MPC",
+          "0.024",
+          "0.885",
+          "0.9"
+        ]
+      ]
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        192.0,
+        559.0,
+        274.0
+      ],
+      "markdown": "TABLE I: Performance comparison of different methods over three tasks. For walk tracking, it represents the tracking error; For sequential jumping, it represents average total contact reward; For crate climbing, it represents success rate out of 10 trials of climbing onto random crates with heights ranging from 0.125 to 0.6 m. $^{*}$GCRL requires offline training so it is not an apple-to-apple baseline.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        298.5,
+        560.0,
+        487.5
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 5",
+      "asset_name": "figure-5"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        493.0,
+        559.0,
+        586.0
+      ],
+      "markdown": "Fig. 5: **Top**: the coverage of DIAL-MPC in crate-climbing and humanoid jogging task. The crate-climbing task requires the robot to climb up a crate more than two times higher than itself. The full-size humanoid jogging task demands DIAL-MPC to handle a higher-dimensional action space of 19. **Middle**: DIAL-MPC controlling a humanoid pushing a 30 kg crate. **Bottom**: DIAL-MPC generates a motion strategy with less effort when reducing the crate’s weight to 15 kg.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        61.0,
+        724.0,
+        272.0,
+        734.0
+      ],
+      "markdown": "Footnote 2: Detailed information of the hardware setup can be found in A.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        605.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "**Convergence of DIAL-MPC.** As shown in table I, DIAL-MPC achieves the best performance across all tasks. Compared with other sampling-based MPC methods (namely MPPI and CMA-ES), DIAL-MPC generates better solutions, with 13.4 times lower tracking error and 107.7% higher contact reward, thanks to its diffusion-inspired annealing process. For the crate climbing task, DIAL-MPC is the only sampling-based MPC that consistently generates feasible solutions, improving the success rate by 3 times compared to the best MPPI scheduling. This highlights the superior coverage of the solution space by DIAL-MPC. Compared",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared preview and all native lines with the items; prose of both columns checked against introduction_v2.tex, related_work.tex and background_v2.tex (the files main.tex includes). Structure: end of Section I (continued from page 2, join_previous=space), '## II. RELATED WORK' with three paragraphs in the left column continuing at the top of the right column (p0003-b005 join_previous=space: 'Some of these | model-based safe RL approaches ...'), '## III. BACKGROUND', '### A. PAC-NMPC' and its first four paragraphs. No figures, tables, display equations or page furniture on this page. Mathematics: the three PAC-NMPC paragraphs (p0003-b010, -b010b, -b010c) were left by the earlier run as HTML sub/sup glyph markup; they are now LaTeX taken from background_v2.tex with the authors' macros expanded (\\bx->\\mathbf{x}, \\bu->\\mathbf{u}, \\bU->\\boldsymbol{\\xi} (policy parameters, printed as bold xi), \\bX->\\boldsymbol{\\tau} (trajectory, printed as bold tau), \\bnu->\\boldsymbol{\\nu}, \\bpi->\\boldsymbol{\\pi}, \\bK->\\mathbf{K}, \\bff->\\mathbf{f}, \\bmu->\\boldsymbol{\\mu}, \\bSigma->\\boldsymbol{\\Sigma}, \\argmin->\\operatorname*{arg\\,min}) and each formula compared with 260-dpi crops of the right column (feedback law u_t = K_t(tau^d(xi,x_0))(x_t^d(xi,x_0) - x_t) + u_t^d(xi); tau^d definition; nominal dynamics x^d_{t+1} = x^d_t + f(x^d_t,u^d_t) Delta t; K_t in R^{N_u x N_x}; xi = [u^d_0{}^T u^d_1{}^T ... u^d_{N_T-1}{}^T]^T; N(xi|mu,Sigma); nu := [mu^T diag(Sigma)^T]^T; nu^* = arg min_nu min_{alpha>0}(J^+_alpha(nu) + gamma C^+_alpha(nu))). No TeX-versus-PDF disagreement found. 'diag' is printed in maths italics and is kept as the authors typed it. Authors' typos kept: unbalanced parenthesis in 'Lyapunov functions (e.g., [38], and backwards reachable sets'; comma in 'Actor Critic Props [44], uses'; 'u_1...,' without comma before the dots in the trajectory sequence. Line-wrap hyphens repaired (encourages, algorithm, learning, potential, methods, navigation); compound hyphens kept (out-of-distribution, RL-policy, discrete-time, non-negative). The last item ends mid-sentence ('where $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$') and is continued by the first item of page 4.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        184.0
+      ],
+      "markdown": "to minimize a bound on the expected terminal costs and constraints derived from this value function. This encourages our receding-horizon NMPC algorithm to assume the long-range behavior of the RL policy, while preserving the statistical safety guarantees afforded by minimizing the sample-complexity bounds derived in [16]. We demonstrate through simulation and hardware experiments that our algorithm can achieve probabilistically safe perception-based navigation, improved sim-to-real transfer, robustness to out-of-distribution scenarios, and scales to complex, nonlinear high-dimensional dynamic systems.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        194.0,
+        220.0,
+        202.0
+      ],
+      "markdown": "## II. RELATED WORK",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        210.0,
+        299.0,
+        339.0
+      ],
+      "markdown": "To enable effective finite horizon NMPC, researchers have investigated the use of learned models to generate waypoints directly from sensor data [17]. Learned waypoints have been used in MPC for drone racing [18], quadrotor navigation in environments with dead-end corridors [19], navigation in real-world cluttered environments [20], and navigation in dynamic environments with other agents [21]. Recently, learned waypoints have been used alongside artificial potential fields [22] and hierarchical reinforcement learning [23] to improve navigation in complex environments when using only immediate sensor information.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        342.0,
+        299.0,
+        471.0
+      ],
+      "markdown": "By contrast, our approach aims to use reinforcement learning to augment the cost function of NMPC directly, which is more closely related to Quasi-Infinite Horizon NMPC [24]. A more recent approach suggested the use of a learned approximate value function [25] to determine the terminal cost. This idea was built upon to update the approximate value function online [26], learn an approximate dynamics model [27], formulate the running cost as an importance sampler of the value function [28], and to weigh the value function against local Q-function approximations along the trajectories [29].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        473.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Safe RL methods aim to generate a policy that can minimize a cost while satisfying safety constraints [30], [31]. Often these problems are posed as Constrained Markov Decision Processes (CMDP) and are solved using Lagrangian methods [32], [33], or via constrained policy gradient methods [34]. Other methods, such as Conservative Safety Critic [35], learn a safety critic, which is used to select safe actions to execute. Safety Editor Policy [36] satisfies constraints by learning an additional policy that maps unsafe actions to safe actions. Control barrier functions (CBF) (e.g., [37]), Lyapunov functions (e.g., [38], and backwards reachable sets (e.g., [39]) are also used for ensuring safety in terms of RL constraint satisfaction. RL-CBF [40] learns a Gaussian Process model for the unknown dynamics to generate a CBF, which is then used as a safety filter on the RL-policy and to improve exploration efficiency. However, this approach assumes the algorithm is provided with a valid safe set, which can be very challenging to compute. Another approach, [41], adds a CBF to the value function and proves that the learned actor and critic will converge to a safe, optimal solution. However, the CBF must be known and included in the augmented reward function. Some of these",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        196.0
+      ],
+      "markdown": "model-based safe RL approaches have been demonstrated in hardware (e.g., CBF methods for autonomous driving in [42] and reachable set methods for legged locomotion [43]). Similar to our method, Actor Critic Props [44], uses sample complexity bounds to provide probabilistic guarantees on the performance and safety of learned policies. Generally, the guarantees produced by this method do not hold outside of the training distribution. Safe RL has also been formulated using robust MPC, rather than neural networks, as the function approximator [45], [46]. Although this inherently generates policies that satisfy constraints, it is limited by the parameterization of the MPC policy.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        199.0,
+        559.0,
+        242.0
+      ],
+      "markdown": "To the best of our knowledge, our approach is the first to combine a learned perception-based stochastic value function with NMPC to achieve probabilistic guarantees for navigation and obstacle avoidance.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "heading",
+      "bbox": [
+        395.0,
+        257.0,
+        476.0,
+        265.0
+      ],
+      "markdown": "## III. BACKGROUND",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        275.0,
+        376.0,
+        282.0
+      ],
+      "markdown": "### A. PAC-NMPC",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        291.0,
+        559.0,
+        337.0
+      ],
+      "markdown": "Probably Approximately Correct NMPC (PAC-NMPC) [7] is a sampling-based SNMPC method which minimizes an upper confidence bound on the expected cost and probability of constraint violation of a local feedback policy.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        338.0,
+        559.0,
+        445.5
+      ],
+      "markdown": "Consider the stochastic dynamical system given by the probability density function $p(\\mathbf{x}_{t+1}|\\mathbf{x}_{t}, \\mathbf{u}_{t})$, where $\\mathbf{x}_{t}\\in\\mathbb{R}^{N_x}$ is a vector of state values and $\\mathbf{u}_{t}\\in\\mathbb{R}^{N_u}$ is a vector of control inputs. PAC-NMPC uses Iterative Stochastic Policy Optimization (ISPO) [16] to formulate the search for a control policy, $\\mathbf{u}_{t}= \\boldsymbol{\\pi}(\\mathbf{x}_t,\\boldsymbol{\\xi})$, as a stochastic optimization problem. This is achieved by sampling the policy parameters, $\\boldsymbol{\\xi}$, from a surrogate distribution given by the probability density function $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$ and defined by hyper-parameters $\\boldsymbol{\\nu}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010b",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        446.0,
+        559.0,
+        662.5
+      ],
+      "markdown": "More specifically, PAC-NMPC optimizes a time-varying local feedback policy of the form $\\mathbf{u}_t =\\mathbf{K}_t(\\boldsymbol{\\tau}^d(\\boldsymbol{\\xi},\\mathbf{x}_0))\\left(\\mathbf{x}_t^d(\\boldsymbol{\\xi},\\mathbf{x}_0) - \\mathbf{x}_t\\right) + \\mathbf{u}_t^d(\\boldsymbol{\\xi})$ where $\\boldsymbol{\\tau}^d\\triangleq\\{\\mathbf{x}_0^d,\\mathbf{u}_0^d, \\mathbf{x}_1^d,\\mathbf{u}_1^d , ... , \\mathbf{u}_{N_T-1}^d, \\mathbf{x}_{N_T}^d\\}$ is the nominal trajectory computed using a nominal deterministic discrete-time dynamics model $\\mathbf{x}_{t+1}^d=\\mathbf{x}_t^d+\\mathbf{f}(\\mathbf{x}_t^d,\\mathbf{u}_t^d)\\Delta t$ over $N_T$ time steps. Here $\\mathbf{x}_t^d\\in \\mathbb{R}^{N_x}$ and $\\mathbf{u}_t^d\\in \\mathbb{R}^{N_u}$ are the nominal states and control inputs at time index $t$ respectively. $\\Delta t$ is the discrete time step and $\\mathbf{K}_t(\\boldsymbol{\\tau}^d(\\boldsymbol{\\xi},\\mathbf{x}_0))\\in\\mathbb{R}^{N_u\\times N_x}$ is a sequence of time-varying feedback gains computed using the finite horizon, discrete, time-varying linear quadratic regulator (TVLQR). The policy is parameterized only by the nominal input sequence, so that $\\boldsymbol{\\xi} = [ {\\mathbf{u}^d_0}^T \\ {\\mathbf{u}^d_1}^T \\ ... \\ {\\mathbf{u}^d_{N_T-1}}^T]^T$. The surrogate distribution, $p(\\boldsymbol{\\xi}|\\boldsymbol{\\nu})$, is parameterized as a multivariate Gaussian, $\\mathcal{N}\\left(\\boldsymbol{\\xi} | \\boldsymbol{\\mu}, \\boldsymbol{\\Sigma} \\right)$, with a mean, $\\boldsymbol{\\mu}$, and a covariance matrix, $\\boldsymbol{\\Sigma}$. Since the covariance matrix is diagonal, the hyperparameters can be written as $\\boldsymbol{\\nu} \\triangleq [\\boldsymbol{\\mu}^T \\ diag(\\boldsymbol{\\Sigma})^T]^T$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010c",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        663.0,
+        559.0,
+        737.0
+      ],
+      "markdown": "For a discrete-time trajectory sequence $\\boldsymbol{\\tau}=\\{\\mathbf{x}_0,\\mathbf{u}_0, \\mathbf{x}_1,\\mathbf{u}_1 ..., \\mathbf{u}_{N_T-1}, \\mathbf{x}_{N_T} \\}$, one can define a non-negative trajectory cost function, $J(\\boldsymbol{\\tau}) \\ge 0$, and a trajectory constraint violation function $C(\\boldsymbol{\\tau}) \\in \\{0, 1\\}$. During each planning interval, PAC-NMPC iteratively optimizes $\\boldsymbol{\\nu}^* = \\operatorname*{arg\\,min}_{\\boldsymbol{\\nu}}\\min_{\\alpha>0} (\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu}) + \\gamma \\mathcal{C}^+_\\alpha(\\boldsymbol{\\nu}))$, where $\\mathcal{J}^+_\\alpha(\\boldsymbol{\\nu})$",
+      "source_class": "text"
+    }
+  ]
+}

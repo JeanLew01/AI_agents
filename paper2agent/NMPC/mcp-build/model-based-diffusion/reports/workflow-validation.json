@@ -1,0 +1,105 @@
+{
+  "validator": "paper2agent-workflow",
+  "schema_version": 1,
+  "success": true,
+  "through": "execution",
+  "errors": [],
+  "passed_assignments": [
+    {
+      "role": "environment",
+      "task": "project",
+      "run_id": "environment-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_car2d",
+      "run_id": "execute-mbd-planner-car2d-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_car2d_demo",
+      "run_id": "execute-mbd-planner-car2d-demo-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_hopper",
+      "run_id": "execute-mbd-planner-hopper-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "run_mbd_seeds_car2d",
+      "run_id": "execute-run-mbd-seeds-car2d-attempt-1"
+    },
+    {
+      "role": "executor",
+      "task": "run_mbd_temp_car2d",
+      "run_id": "execute-run-mbd-temp-car2d-attempt-1"
+    },
+    {
+      "role": "scanner",
+      "task": "project",
+      "run_id": "scanner-attempt-1"
+    }
+  ],
+  "exclusions": [
+    {
+      "kind": "tutorial",
+      "id": "path_integral_hopper_mppi",
+      "reason": "Upstream defect at the pinned commit with the resolved dependency stack: mbd/planners/path_integral.py line 101 calls env.sys.replace(dt=env.dt), which raises TypeError (System.__init__() got an unexpected keyword argument 'dt') with brax 0.10.5 / mujoco-mjx 3.1.6 before any optimisation starts. Reproduced by the executor for hopper+mppi, ant+mppi and hopper+cem (exit status 1, identical traceback). The planner script of the same commit already uses the newer Brax call, so no Brax version satisfies both scripts; upstream source is not patched in this conversion.",
+      "at": "2026-10-02T15:01:29Z",
+      "report": "reports/exclusions/path-integral-hopper-mppi.json",
+      "report_sha256": "6cd0caf5fd0247fbca6808489979b133758b7f1aff56ce159ca55a51b91fdffc"
+    },
+    {
+      "kind": "tool",
+      "id": "mbd_run_baseline_planner",
+      "reason": "Its only upstream implementation (mbd/planners/path_integral.py, MPPI / CEM / CMA-ES baselines) fails at the pinned commit with the resolved Brax version before any computation (see reports/exclusions/path-integral-hopper-mppi.json). Writing a replacement would mean inventing or patching scientific code, which is outside this conversion.",
+      "at": "2026-10-02T15:01:29Z",
+      "report": "reports/exclusions/tool-mbd-run-baseline-planner.json",
+      "report_sha256": "e281ae005a16e353640939b5665485224ba52a9c5afd6c48cdac57dd60bb60c4"
+    }
+  ],
+  "scope": "Validates recorded state and artifact consistency; does not authenticate host identities or establish numerical/scientific correctness.",
+  "expected_assignments": [
+    {
+      "role": "environment",
+      "task": "project"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_car2d"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_car2d_demo"
+    },
+    {
+      "role": "executor",
+      "task": "mbd_planner_hopper"
+    },
+    {
+      "role": "executor",
+      "task": "run_mbd_seeds_car2d"
+    },
+    {
+      "role": "executor",
+      "task": "run_mbd_temp_car2d"
+    },
+    {
+      "role": "scanner",
+      "task": "project"
+    }
+  ],
+  "active_tutorials": [
+    "mbd_planner_car2d",
+    "mbd_planner_car2d_demo",
+    "mbd_planner_hopper",
+    "run_mbd_seeds_car2d",
+    "run_mbd_temp_car2d"
+  ],
+  "active_modules": [
+    "cli_wrapper"
+  ],
+  "project_root": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion",
+  "state": "/home/jixia/AI_agents/paper2agent/NMPC/mcp-build/model-based-diffusion/reports/agent-runs.json"
+}

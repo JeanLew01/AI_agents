@@ -1,0 +1,149 @@
+{
+  "page": 9,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0009-b000"
+  ],
+  "items": [
+    {
+      "id": "p0009-b000",
+      "kind": "text",
+      "bbox": [
+        204.0,
+        41.0,
+        406.0,
+        49.0
+      ],
+      "markdown": "VERIFICATION OF NEURAL REACHABLE TUBES",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0009-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        218.0
+      ],
+      "markdown": "larger _safe_ volumes. Thus, selecting a small _w_ allows us to focus on reducing _optimistic_ errors � _V_ ˜ ( _xi,_ 0) _> Jπ_ ˜( _xi,_ 0)� which are more safety-critical and correspond to outlier safety violations. To avoid overfitting, we select the training checkpoint that performs best on a validation dataset _V_ . The validation metric we use is the maximum learned cost of an empirically unsafe state: max _x∈V {J_<sup>˜</sup> _π_ ˜( _x,_ 0) : _Jπ_ ˜( _x,_ 0) _≤_ 0 _}_ , which one can think of as a proxy for the recoverable safe volume. We demonstrate the efficacy of the proposed outlier-adjusted approach for the highdimensional systems of multi-vehicle collision avoidance and rocket landing with no-go zones. For all case studies, we set _w_ = 10<sup>_−_3</sup> during retraining, fix the confidence parameter _β_ = 10<sup>_−_16</sup> and find a safe volume that satisfies _ϵ ≤_ 10<sup>_−_4</sup> (99 _._ 990% safety) using the robust method in Section 4.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b002",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        235.0,
+        270.0,
+        244.0
+      ],
+      "markdown": "# **6.1. Multi-Vehicle Collision Avoidance**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        249.0,
+        523.0,
+        314.0
+      ],
+      "markdown": "In Figure 4, we compare our outlier-adjusted approach (blue) to the baseline (grey) for a DeepReach solution trained on the multi-vehicle collision avoidance running example in Section 2. A 2 _._ 3% increase in the safe volume is attained, shown by the tightened BRT. Note that the largest visual difference in the BRT is where the third vehicle is between the two others; intuitively, the safety in this region is likely more difficult to model by the baseline approach.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b004",
+      "kind": "figure",
+      "bbox": [
+        85.0,
+        318.0,
+        355.0,
+        434.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure on PDF page 9 (5)",
+      "asset_name": "figure-p0009-004"
+    },
+    {
+      "id": "p0009-b005",
+      "kind": "text",
+      "bbox": [
+        359.0,
+        322.0,
+        523.0,
+        427.0
+      ],
+      "markdown": "Figure 4: Multi-Vehicle Collision Avoidance: outlier-adjusted (blue) and baseline (grey) results. (Left) Slice of the neural BRTs achieving _ϵ_ = 10<sup>_−_4</sup> (99 _._ 990% safety). (Right) The outlier-adjusted approach increases the safe volume from 0 _._ 782 to 0 _._ 8 (2 _._ 3% increase).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b006",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        448.0,
+        187.0,
+        459.0
+      ],
+      "markdown": "# **6.2. Rocket Landing**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        462.0,
+        523.0,
+        636.0
+      ],
+      "markdown": "We now apply our approach to a 6D rocket landing system with position ( _px, py_ ), heading _θ_ , velocity ( _vx, vy_ ), angular velocity _ω_ , and torque controls _τ_ 1 _, τ_ 2 _∈_ [ _−_ 250 _,_ 250]. The dynamics are: _p_ ˙ _x_ = _vx, p_ ˙ _y_ = _vy, θ_<sup>˙</sup> = _ω, ω_ ˙ = 0 _._ 3 _τ_ 1 _, v_ ˙ _x_ = _τ_ 1 cos _θ − τ_ 2 sin _θ, v_ ˙ _y_ = _τ_ 1 sin _θ_ + _τ_ 2 cos _θ − g_ , where _g_ = 9 _._ 81 is acceleration due to gravity. The target set is the set of states where the rocket reaches a rectangular landing zone of side length 20m centered at the origin: _L_ = _{x_ : _|px| <_ 20 _._ 0 _, py <_ 20 _._ 0 _}_ . Note that we want to _reach L_ , so the BRT now represents the safe set. Results are shown in Figure 5. Interestingly, a large 9 _._ 58% increase in the volume of the safe set is recovered using the proposed approach, particularly near the lower-left part of the state space. Further investigation reveals that the trajectories starting from these states exit the training regime south. This highlights a general limitation of computing the value function over a constrained state space where information is propagated via dynamic programming, which affects both learning-based methods and traditional grid-based methods. Nevertheless, in this case, the relative order of the value function levels is still preserved, leading to a high quality safe policy and recovery of a larger safe volume.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b008",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        654.0,
+        275.0,
+        664.0
+      ],
+      "markdown": "# **6.3. Rocket Landing with No-Go Zones**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        668.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "We now consider the rocket landing problem in a constrained airspace where we have no-go zones of height 100m and width 10m to the left of the landing zone and where altitude is below the landing zone. Safety in this case takes the form of a reach-avoid set - the rocket needs to reach the",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "9",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

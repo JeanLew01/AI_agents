@@ -1,0 +1,26 @@
+run2 (replay of `mbd_planner.py --env_name hopper --seed 0`) -- what is on disk and what is missing
+Written by the executor on 2026-10-02 after the machine restart; nothing below was re-run.
+
+Facts
+- run.sh run2 was invoked at 2026-10-02T14:58:06Z (logs/run2.meta.txt); heavy.sh started the command at
+  14:59:53Z with MemAvailable=2211MB, MemoryMax=1511MB (logs/run2.launcher.log, one line only).
+- logs/run2.log (16779 bytes, last written 15:04:32Z) contains the complete upstream output: both header lines,
+  the progress bar up to `99/99 [01:53<00:00, 1.15s/it, rew=1.61e+00]`, and the last statement of the script,
+  `final reward = 1.56e+00`. No traceback.
+- The machine (WSL) froze at about 15:05Z and was restarted. Missing because of that: heavy.sh's
+  `scope memory.peak=...` line (so the Python process had not yet been reaped when the log stopped), heavy.sh's
+  `end ... exit=...` line, and the `exit_status=` / `returned_utc=` lines of logs/run2.meta.txt.
+  => THE EXIT STATUS OF RUN2 WAS NEVER RECORDED. run2 is not counted as a completed run.
+- Upstream had already written both result files into the private source copy before the freeze
+  (logs/run2.files_found_after_freeze.txt): results/hopper/mu_0ts.npy (mtime 15:02:16Z, 59528 bytes) and
+  results/hopper/rollout.html (mtime 15:03:52Z, 13083 bytes). run.sh refuses to start when results/hopper exists
+  and had removed that directory after run1, so these two files can only have been written by run2
+  (both modification times lie between run2's start and the last write of its log).
+- After the restart the executor moved them unchanged (mv, modification times kept) to
+  outputs/run2-interrupted/ and wrote SHA256SUMS there. Completeness checks (compare.py, NumPy only):
+  mu_0ts.npy loads, shape (99, 50, 3), float32, all finite, no zero elements; rollout.html starts with
+  <!DOCTYPE html> and ends with </html>. Both files have the same SHA-256 as run1's.
+
+Use
+- The replay comparison of record is run1 against the coordinator's complete probe run of the same command
+  (tmp/env-probe/coord/hopper-default*). run2-interrupted is reported only as additional, weaker evidence.

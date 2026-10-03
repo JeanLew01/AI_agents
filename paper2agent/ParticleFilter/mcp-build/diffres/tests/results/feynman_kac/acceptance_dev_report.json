@@ -1,0 +1,199 @@
+{
+  "success": true,
+  "mode": "calls",
+  "require_all_tools": true,
+  "server": "/tmp/claude-1000/-home-jixia-AI-agents/ef6b2c1c-3bd8-4cd2-9bf4-2412bb4b0690/scratchpad/fk/server.py",
+  "cwd": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres",
+  "python": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/diffres-env/bin/python",
+  "python_version": "3.11.17",
+  "fastmcp": "4.0.3",
+  "expected": [
+    "diffres_run_lgssm_particle_filter"
+  ],
+  "actual": [
+    "diffres_run_lgssm_particle_filter"
+  ],
+  "missing": [],
+  "unexpected": [],
+  "schemas": {
+    "diffres_run_lgssm_particle_filter": {
+      "input": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "model_path": {
+            "description": "JSON file with LGSSM matrices F (dx,dx), Q (dx,dx), H (dy,dx), R (dy,dy), m0 (dx), P0 (dx,dx): x_k = F x_{k-1} + N(0,Q), y_k = H x_k + N(0,R), x_0 ~ N(m0,P0)",
+            "type": "string"
+          },
+          "observations_path": {
+            "description": ".npz file with 'ys' of shape (T+1, dy); ys[0] is the time-0 observation ((T+1,) is accepted when dy = 1)",
+            "type": "string"
+          },
+          "nparticles": {
+            "default": 32,
+            "description": "Number of particles N (upstream LGSSM experiments use 32, tests 1000)",
+            "type": "integer"
+          },
+          "resampling_method": {
+            "default": "diffusion",
+            "description": "Resampler used inside the SMC",
+            "enum": [
+              "diffusion",
+              "multinomial",
+              "stratified",
+              "systematic",
+              "multinomial_stopped",
+              "ensemble_ot",
+              "soft",
+              "gumbel_softmax"
+            ],
+            "type": "string"
+          },
+          "resampling_threshold": {
+            "default": 1.0,
+            "description": "Resample when ESS < threshold * N; 1.0 (upstream default) resamples at every step, 0 never resamples",
+            "type": "number"
+          },
+          "diffusion_a": {
+            "default": -0.5,
+            "description": "diffusion: negative forward noising coefficient a",
+            "type": "number"
+          },
+          "diffusion_T": {
+            "default": 3.0,
+            "description": "diffusion: terminal time T (default 3 as experiments/lgssm; tests/test_filters.py uses 2)",
+            "type": "number"
+          },
+          "diffusion_steps": {
+            "default": 8,
+            "description": "diffusion: number of integration steps K, ts = linspace(0, T, K+1) (default 8 as experiments/lgssm; tests/test_filters.py uses 7)",
+            "type": "integer"
+          },
+          "diffusion_integrator": {
+            "default": "euler",
+            "description": "diffusion: integrator ('tweedie' needs ode=false, 'diffrax' needs ode=true)",
+            "enum": [
+              "euler",
+              "lord_and_rougemont",
+              "jentzen_and_kloeden",
+              "tweedie",
+              "diffrax"
+            ],
+            "type": "string"
+          },
+          "diffusion_ode": {
+            "default": true,
+            "description": "diffusion: true = probability-flow ODE, false = reverse SDE",
+            "type": "boolean"
+          },
+          "diffusion_jitter": {
+            "default": 0.0,
+            "description": "diffusion: jitter added to the reference variance (gradient demo uses 1e-5)",
+            "type": "number"
+          },
+          "ot_eps": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "ensemble_ot: entropic regulariser; null uses the upstream default 1/log(N)"
+          },
+          "ot_implicit_diff": {
+            "default": false,
+            "description": "ensemble_ot: implicit differentiation of Sinkhorn; default false (unrolled) as experiments/lgssm/ot.py, whereas the upstream function default and tests/test_filters.py use true; forward values are the same",
+            "type": "boolean"
+          },
+          "soft_alpha": {
+            "default": 0.5,
+            "description": "soft: softening parameter alpha in [0, 1] (1 = no softening)",
+            "type": "number"
+          },
+          "gumbel_tau": {
+            "default": 0.5,
+            "description": "gumbel_softmax: positive temperature tau",
+            "type": "number"
+          },
+          "seed": {
+            "default": 0,
+            "description": "Seed for jax.random.PRNGKey(seed)",
+            "type": "integer"
+          },
+          "prng_key": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional raw PRNGKey data (two uint32 values) used instead of seed"
+          },
+          "save_particle_path": {
+            "default": false,
+            "description": "Also save particles and log-weights of all T+1 steps (else final step only)",
+            "type": "boolean"
+          },
+          "compute_gradient": {
+            "default": false,
+            "description": "Also compute the gradient of nll w.r.t. F and H by jax.value_and_grad",
+            "type": "boolean"
+          },
+          "compare_to_kalman": {
+            "default": false,
+            "description": "Also run the exact Kalman filter and compute per-step KL and Bures errors of the particle filtering moments",
+            "type": "boolean"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Base output directory; a fresh subdirectory is created per call"
+          }
+        },
+        "required": [
+          "model_path",
+          "observations_path"
+        ]
+      },
+      "output": {
+        "additionalProperties": true,
+        "type": "object"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "feynman_kac-lgssm-multinomial-kf",
+      "tool": "diffres_run_lgssm_particle_filter",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "feynman_kac-lgssm-multinomial-kf-repeat",
+      "tool": "diffres_run_lgssm_particle_filter",
+      "success": true,
+      "artifacts_checked": 1
+    },
+    {
+      "name": "feynman_kac-error-R-not-pd",
+      "tool": "diffres_run_lgssm_particle_filter",
+      "success": true
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against preview and a 220-dpi crop of the gamma_i inline integral. First item continues page 15's last paragraph ('...remains an open | discussion'): join_previous=space. Running header and page number changed to omit. Headings set to '## D. Elaboration of Remark 1' and '## E. Error analysis of the resampling mapping'. Equations (26)-(30) converted from formula images to LaTeX display blocks taken from main.tex (macros expanded: \\grad->\\nabla, \\diff->\\mathrm{d}, \\refmeasure->\\pi_{\\mathrm{ref}}, \\cond->\\mid, \\coloneqq->:=); (30) is one aligned block with \\tag{30}. All inline maths rewritten as LaTeX (h-function, pi^N, gamma_i(u_T) integral, q-tilde transition). TeX and PDF agree on this page. Removed <sup> damage and glyph soup throughout; 'Radon– Nikodym' line-wrap repaired to 'Radon–Nikodym'. Remaining check diagnostics are all LaTeX-vs-glyph differences (see adjudication note).",
+  "warnings": [
+    "Review possible header/footer: p0016-b000"
+  ],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "omit",
+      "bbox": [
+        231.0,
+        47.0,
+        366.0,
+        56.0
+      ],
+      "markdown": "Diffusion differentiable resampling",
+      "reason": "Running header 'Diffusion differentiable resampling' (short title repeated on every page after the first); page furniture, checked on the page image."
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        70.0,
+        542.0,
+        92.0
+      ],
+      "markdown": "discussion (see, e.g., De Bortoli, 2022; Chen et al., 2023), we opt for a suboptimal bound under assumptions that are simple and easy-to-verify (n.b., we have only assumed $C_e$ to be a positive non-increasing function without specifying any rate).",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0016-b002",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        100.0,
+        542.0,
+        169.0
+      ],
+      "markdown": "The result essentially reveals how we can leverage information from $\\pi_{\\mathrm{ref}}$ to achieve for lower resampling error. Commonly used resampling schemes assume that we only have access to the given samples $\\{(w_i, X_i)\\}_{i=1}^N$. On the contrary, diffusion resampling additionally assumes a sampler for $\\pi_{\\mathrm{ref}}$ that approximates $\\pi$ yielding more information of the target. The diffusion resampling effectively fuses the samples from $\\{(w_i, X_i)\\}_{i=1}^N$ and $\\pi_{\\mathrm{ref}}$ to obtain the re-samples, with the constant $b$ indicating how much we rely on $\\pi_{\\mathrm{ref}}$. With $b=0$, it means that we completely trust the samples from $\\pi_{\\mathrm{ref}}$, and this is indeed optimal when $\\pi_{\\mathrm{ref}}=\\pi$. See Appendix D for more details."
+    },
+    {
+      "id": "p0016-b003",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        186.0,
+        198.0,
+        196.0
+      ],
+      "markdown": "## D. Elaboration of Remark 1"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        207.0,
+        194.0,
+        217.0
+      ],
+      "markdown": "Recall the forward/noising process"
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "text",
+      "bbox": [
+        170.0,
+        223.0,
+        548.0,
+        245.0
+      ],
+      "markdown": "$$\\mathrm{d} X(t) = b^2 \\nabla \\log \\pi_{\\mathrm{ref}}(X(t)) \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\quad X(0) \\sim \\pi, \\tag{26}$$"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        252.0,
+        189.0,
+        262.0
+      ],
+      "markdown": "which corresponds to the reversal"
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "text",
+      "bbox": [
+        116.0,
+        268.0,
+        548.0,
+        291.0
+      ],
+      "markdown": "$$\\mathrm{d} U(t) = b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(U(t)) + 2 \\nabla \\log p_{T - t}(U(t)) \\bigr] \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\quad U(0) \\sim p_T. \\tag{27}$$"
+    },
+    {
+      "id": "p0016-b008",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        297.0,
+        542.0,
+        325.0
+      ],
+      "markdown": "Also recall the associated $h$-function $h(x, t) = \\sum_{i=1}^N w_i \\, p_{t | 0}(x \\mid X_i)$. Now if we instead initialise $X(0)$ at the empirical $\\pi^N := \\sum_{i=1}^N w_i \\, \\delta_{X_i}$, the resulting process $t \\mapsto X^N(t)$ becomes the correspondence of reversal"
+    },
+    {
+      "id": "p0016-b009",
+      "kind": "text",
+      "bbox": [
+        94.0,
+        331.0,
+        548.0,
+        354.0
+      ],
+      "markdown": "$$\\mathrm{d} U^N(t) = b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(U^N(t)) + 2 \\nabla \\log h(U^N(t), T - t) \\bigr] \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\quad U^N(0) \\sim p^N_T, \\tag{28}$$"
+    },
+    {
+      "id": "p0016-b010",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        359.0,
+        544.0,
+        407.0
+      ],
+      "markdown": "where $p_T^N(\\cdot) = h(\\cdot, T)$, and at time $t=T$ we recover $U^N(T) \\sim \\pi^N$. As such, we can see that this empirical forward-reversal pair is essentially a differentiable reparametrisation of multinomial resampling. However, we do not implement this reversal in practice, since sampling from the mixture $p_T^N$ too typically introduces discrete randomness. The actually implementable reversal is"
+    },
+    {
+      "id": "p0016-b011",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        411.0,
+        548.0,
+        435.0
+      ],
+      "markdown": "$$\\mathrm{d} \\widetilde{U}(t) = b^2 \\bigl[-\\nabla \\log \\pi_{\\mathrm{ref}}(\\widetilde{U}(t)) + 2 \\nabla \\log h(\\widetilde{U}(t), T - t) \\bigr] \\, \\mathrm{d} t + \\sqrt{2} \\, b \\, \\mathrm{d} W(t), \\quad \\widetilde{U}(0) \\sim \\pi_{\\mathrm{ref}}. \\tag{29}$$"
+    },
+    {
+      "id": "p0016-b012",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        441.0,
+        543.0,
+        486.0
+      ],
+      "markdown": "At time $t=T$, we obtain $\\widetilde{U}(T) \\sim \\sum_{i=1}^N \\gamma_i \\, \\delta_{X_i}$, where $\\gamma_i \\neq w_i$ depending on $\\pi_{\\mathrm{ref}}$. To arrive at the new weights, let us denote the transition distribution of $U^N$ by $\\widetilde{q}^N_{t | s}$ which is the same for $\\widetilde{U}$. Equations (26) and (27) imply that $p_T^N(u_0) \\, \\widetilde{q}^N_{T|0}(u_T \\mid u_0) = \\pi^N(u_T) \\, p_{T | 0}(u_0 \\mid u_T)$. Therefore, the distribution of $\\widetilde{U}(T)$ is"
+    },
+    {
+      "id": "p0016-b013",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        492.0,
+        548.0,
+        562.0
+      ],
+      "markdown": "$$\\begin{aligned}\n\\widetilde{q}_T(u_T) = \\int \\pi_{\\mathrm{ref}}(u_0) \\, \\widetilde{q}^N_{T|0}(u_T \\mid u_0) \\, \\mathrm{d} u_0 &= \\int \\pi_{\\mathrm{ref}}(u_0) \\, \\widetilde{q}^N_{T|0}(u_T \\mid u_0) \\, \\frac{p_T^N(u_0)}{p_T^N(u_0)} \\, \\mathrm{d} u_0 \\\\\n&= \\int \\frac{\\pi_{\\mathrm{ref}}(u_0) \\, p_{T|0}(u_0 \\mid u_T)}{p_T^N(u_0)} \\, \\pi^N(u_T) \\, \\mathrm{d} u_0 = \\sum_{i=1}^N \\gamma_i(u_T) \\, \\delta_{X_i}(u_T),\n\\end{aligned} \\tag{30}$$"
+    },
+    {
+      "id": "p0016-b014",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        568.0,
+        543.0,
+        644.0
+      ],
+      "markdown": "where the weight $\\gamma_i(u_T) = w_i \\, \\int \\frac{\\pi_{\\mathrm{ref}}(u_0) \\, p_{T|0}(u_0 \\mid u_T)}{p_T^N(u_0)} \\, \\mathrm{d} u_0$ depends on the spatial location, and the integral is the Radon–Nikodym derivative between $\\widetilde{q}_T$ and $\\pi^N$. Clearly, we see that the diffusion resampling is essentially an importance sampling upon $\\pi^N$ similar to soft resampling. However, the crucial difference is that the soft resampling’s importance proposal is completely uninformative about the target while the diffusion resampling is (i.e., the proposal $\\pi_{\\mathrm{ref}}$ and derivative $\\gamma_i$ know information about the target). As a special case, if we choose $\\pi_{\\mathrm{ref}} = p_T^N$ then $\\gamma_i = w_i$, reducing to the target empirical measure."
+    },
+    {
+      "id": "p0016-b015",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        663.0,
+        283.0,
+        675.0
+      ],
+      "markdown": "## E. Error analysis of the resampling mapping"
+    },
+    {
+      "id": "p0016-b016",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        684.0,
+        542.0,
+        718.0
+      ],
+      "markdown": "Previously in our main results (e.g., Corollary 1), we have analysed the error between the resampled distribution and the underlying true continuous distribution. In this section, we forgo the continuous distribution, and purely analyse the resampling mapping, that is, the $L_2$ error between the input and output ensembles."
+    },
+    {
+      "id": "p0016-b017",
+      "kind": "omit",
+      "bbox": [
+        293.0,
+        733.0,
+        304.0,
+        741.0
+      ],
+      "markdown": "16",
+      "reason": "Printed page number '16' in the footer; page furniture."
+    }
+  ]
+}

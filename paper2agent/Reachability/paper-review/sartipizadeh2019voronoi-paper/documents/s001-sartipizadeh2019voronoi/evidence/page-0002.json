@@ -1,0 +1,896 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "In this paper, we reconsider the sampling-based approach, proposed in [4]. Similar sampling-based",
+      "bbox": [
+        73.62899780273438,
+        59.47015380859375,
+        555.3637084960938,
+        70.3792495727539
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approach has been used successfully in robotics [13] and in stochastic optimal control [14–17]. In the",
+      "bbox": [
+        56.692996978759766,
+        73.0191650390625,
+        555.35888671875,
+        83.92826080322266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling-based stochastic reach-avoid problem, we sample the stochastic disturbance to produce a ﬁnite",
+      "bbox": [
+        56.692996978759766,
+        86.56817626953125,
+        555.3260498046875,
+        97.4772720336914
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set of scenarios, and then formulate a mixed-integer linear program (MILP) to maximize the number",
+      "bbox": [
+        56.692996978759766,
+        100.1171875,
+        555.35986328125,
+        111.02628326416016
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of scenarios that satisfy the reach-avoid constraints [4, 13]. As expected, the approximated probability",
+      "bbox": [
+        56.69300079345703,
+        113.66717529296875,
+        555.3587036132812,
+        124.5762710571289
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "will converge to the true terminal time probability as the number of scenarios increases. However, the",
+      "bbox": [
+        56.69300079345703,
+        127.2161865234375,
+        555.3369140625,
+        138.1252899169922
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computational complexity of MILP increases exponentially with the number of binary decision variables",
+      "bbox": [
+        56.69300079345703,
+        140.76519775390625,
+        555.3804931640625,
+        151.67430114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(the number of scenarios) [18, Rem. 1] making the MILP formulation practically intractable.",
+      "bbox": [
+        56.69300079345703,
+        154.314208984375,
+        500.8132629394531,
+        165.2233123779297
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The main contributions of this paper are two-fold. We ﬁrst provide a lower bound on the number of",
+      "bbox": [
+        73.62899780273438,
+        167.86322021484375,
+        555.3966064453125,
+        178.77232360839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scenarios needed to probabilistically guarantee a user-speciﬁed upper bound on the approximation error",
+      "bbox": [
+        56.692996978759766,
+        181.4132080078125,
+        555.3804931640625,
+        192.3223114013672
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with a user-speciﬁed conﬁdence level using concentration techniques. Using Hoeﬀding’s inequality, we",
+      "bbox": [
+        56.692996978759766,
+        194.96221923828125,
+        555.3369140625,
+        205.87132263183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrate that the number of scenarios that need to be considered is inversely proportional to the",
+      "bbox": [
+        56.692996978759766,
+        208.51123046875,
+        555.3587646484375,
+        219.4203338623047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "square of the desired upper bound on the estimate error. Next, we propose a Voronoi-based undersam-",
+      "bbox": [
+        56.692996978759766,
+        222.06024169921875,
+        555.3477783203125,
+        232.96934509277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pling technique that underapproximates the MILP-based solution in a computationally eﬃcient manner.",
+      "bbox": [
+        56.692996978759766,
+        235.6092529296875,
+        555.3804931640625,
+        246.5183563232422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This approach allows us to partially mitigate the exponential computational complexity, and provides",
+      "bbox": [
+        56.692996978759766,
+        249.15924072265625,
+        555.3804931640625,
+        260.0683288574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ﬂexibility to select the number of partitions based on the allowable online computational complexity. We",
+      "bbox": [
+        56.692996978759766,
+        262.708251953125,
+        555.3695678710938,
+        273.6173400878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrate the application of the proposed method in a problem of spacecraft rendezvous and docking.",
+      "bbox": [
+        56.692996978759766,
+        276.25726318359375,
+        555.36962890625,
+        287.1663513183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The organization of the paper is as follows: Problem formulation and preliminary deﬁnitions are stated",
+      "bbox": [
+        73.62899780273438,
+        289.8062744140625,
+        555.3856201171875,
+        300.7153625488281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in Section 2. Lower bound on the required number of scenarios for the prescribed conﬁdence level is given",
+      "bbox": [
+        56.692996978759766,
+        303.35528564453125,
+        555.3695068359375,
+        314.2643737792969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in Section 3.",
+      "bbox": [
+        56.692996978759766,
+        316.904296875,
+        119.21305847167969,
+        327.8133850097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Section 4 presents the proposed partition-based method and the approximate solution",
+      "bbox": [
+        128.72579956054688,
+        316.904296875,
+        555.3696899414062,
+        327.8133850097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reconstruction.",
+      "bbox": [
+        56.692996978759766,
+        330.45428466796875,
+        127.73306274414062,
+        341.3633728027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The performance of the proposed method is investigated on a spacecraft rendezvous",
+      "bbox": [
+        137.1585235595703,
+        330.45428466796875,
+        555.3368530273438,
+        341.3633728027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "maneuvering and docking in Section 5.",
+      "bbox": [
+        56.692996978759766,
+        344.0032958984375,
+        241.9186248779297,
+        354.9123840332031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        56.692996978759766,
+        376.6008605957031,
+        64.76990509033203,
+        389.3403015136719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem formulation",
+      "bbox": [
+        80.90937805175781,
+        376.6008605957031,
+        228.01528930664062,
+        389.3403015136719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We presume R and N are sets of real and natural numbers, with Rn a length n vector of real numbers,",
+      "bbox": [
+        56.692996978759766,
+        398.7682800292969,
+        555.315185546875,
+        413.6363830566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and N[a,b] the set of natural numbers between a and b. For x ∈Rn, x⊤denotes the transpose of x. Vector",
+      "bbox": [
+        56.6929931640625,
+        414.5225524902344,
+        555.3074951171875,
+        434.9308776855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with all elements 1 is denoted 1.",
+      "bbox": [
+        56.692962646484375,
+        429.8262939453125,
+        211.87669372558594,
+        440.7353820800781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.1",
+      "bbox": [
+        56.692962646484375,
+        458.9232177734375,
+        73.89649963378906,
+        469.5394287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "System description",
+      "bbox": [
+        87.34609985351562,
+        458.9232177734375,
+        199.07937622070312,
+        469.5394287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Consider a discrete-time stochastic LTI system,",
+      "bbox": [
+        56.692962646484375,
+        479.63330078125,
+        283.6022644042969,
+        490.5423889160156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "xt+1 = Axt + But + wt",
+      "bbox": [
+        251.10696411132812,
+        504.14129638671875,
+        360.3974609375,
+        516.6864013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        541.367919921875,
+        504.14129638671875,
+        555.3097534179688,
+        515.0504150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with state xt ∈X = Rnx, input ut ∈U ⊆Rnu, disturbance wt ∈W ⊆Rnx at time instant t, and matrices",
+      "bbox": [
+        56.69293212890625,
+        525.686279296875,
+        555.3045043945312,
+        548.9398193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A, B assumed to be of appropriate dimensions. We assume that wk is an independent and identically",
+      "bbox": [
+        56.69293212890625,
+        542.1983032226562,
+        555.3486938476562,
+        554.8843994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distributed (i.i.d) random variable with a PDF ηw. Note that we require ηw only to be a probability",
+      "bbox": [
+        56.692962646484375,
+        555.7472534179688,
+        555.3446044921875,
+        568.2933959960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "density function from which we can draw samples, and do not require it to be Gaussian. The system (1)",
+      "bbox": [
+        56.692962646484375,
+        569.2973022460938,
+        555.358642578125,
+        580.2064208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "over a time horizon with length N can be alternatively written in a “stacked” form,",
+      "bbox": [
+        56.692962646484375,
+        582.8462524414062,
+        457.4962463378906,
+        593.75537109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X(x0, U, W) = Gxx0 + GuU + GwW,",
+      "bbox": [
+        218.33895874023438,
+        607.354248046875,
+        393.6553955078125,
+        619.8994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2)",
+      "bbox": [
+        541.367919921875,
+        607.354248046875,
+        555.3097534179688,
+        618.2633666992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with X = [x⊤",
+      "bbox": [
+        56.69293212890625,
+        630.1074829101562,
+        126.53423309326172,
+        642.7713623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 , · · · , x⊤",
+      "bbox": [
+        119.950927734375,
+        630.1074829101562,
+        165.9142303466797,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N]⊤∈X N, U = [u⊤",
+      "bbox": [
+        159.3309326171875,
+        630.1074829101562,
+        262.5992431640625,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 , · · · , u⊤",
+      "bbox": [
+        256.01593017578125,
+        630.1074829101562,
+        301.9892272949219,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N−1]⊤∈UN, and W = [w⊤",
+      "bbox": [
+        295.4059143066406,
+        630.1074829101562,
+        435.36322021484375,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 , · · · , w⊤",
+      "bbox": [
+        428.4869079589844,
+        630.1074829101562,
+        476.6122131347656,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N−1]⊤∈WN the",
+      "bbox": [
+        469.7348937988281,
+        627.9032592773438,
+        555.30859375,
+        650.5167846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "concatenated state, input, and disturbance vectors over a N-length horizon [15]. The matrices Gx, Gu,",
+      "bbox": [
+        56.69287109375,
+        645.4112548828125,
+        555.3096313476562,
+        656.7752685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and Gw may be obtained from the system matrices in (1) (see [15]). Due to the stochastic nature of wk,",
+      "bbox": [
+        56.692901611328125,
+        658.9602661132812,
+        555.3096313476562,
+        671.50634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the state xk and the concatenated state vector X are random. We deﬁne Px0,U",
+      "bbox": [
+        56.692901611328125,
+        669.8528442382812,
+        425.7415466308594,
+        685.1963500976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        408.74188232421875,
+        678.5948486328125,
+        415.707763671875,
+        685.6723022460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as the probability measure",
+      "bbox": [
+        430.15789794921875,
+        672.5092163085938,
+        555.31787109375,
+        683.4183349609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "associated with the random vector X, which is induced from the probability measure of the concatenated",
+      "bbox": [
+        56.692901611328125,
+        686.0592651367188,
+        555.3521728515625,
+        696.9683837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "disturbance vector PW and (2). By the i.i.d. assumption on wk, PW is characterized by (ηw)N.",
+      "bbox": [
+        56.692901611328125,
+        698.2998046875,
+        510.0455627441406,
+        712.2063598632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20220524162530Z",
+      "modDate": "D:20220524162530Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/sartipizadeh2019voronoi-paper/documents/.pdf-skill-scan-xqgeorjo/review/source.pdf",
+      "page_count": 15,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          56,
+          59,
+          556,
+          166
+        ],
+        "pos": [
+          0,
+          810
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          56,
+          168,
+          556,
+          287
+        ],
+        "pos": [
+          810,
+          1729
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          56,
+          290,
+          556,
+          355
+        ],
+        "pos": [
+          1729,
+          2176
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          56,
+          376,
+          229,
+          387
+        ],
+        "pos": [
+          2176,
+          2206
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          56,
+          403,
+          556,
+          439
+        ],
+        "pos": [
+          2206,
+          2510
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          56,
+          458,
+          200,
+          470
+        ],
+        "pos": [
+          2510,
+          2542
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          56,
+          480,
+          284,
+          491
+        ],
+        "pos": [
+          2542,
+          2592
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          251,
+          504,
+          556,
+          516
+        ],
+        "pos": [
+          2592,
+          2594
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          56,
+          529,
+          556,
+          594
+        ],
+        "pos": [
+          2594,
+          3140
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          218,
+          607,
+          556,
+          619
+        ],
+        "pos": [
+          3140,
+          3142
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          56,
+          630,
+          556,
+          711
+        ],
+        "pos": [
+          3142,
+          4040
+        ]
+      }
+    ],
+    "text": "In this paper, we reconsider the sampling-based approach, proposed in [4]. Similar sampling-based approach has been used successfully in robotics [13] and in stochastic optimal control [14–17]. In the sampling-based stochastic reach-avoid problem, we sample the stochastic disturbance to produce a finite set of _scenarios_ , and then formulate a mixed-integer linear program (MILP) to maximize the number of scenarios that satisfy the reach-avoid constraints [4, 13]. As expected, the approximated probability will converge to the true terminal time probability as the number of scenarios increases. However, the computational complexity of MILP increases exponentially with the number of binary decision variables (the number of scenarios) [18, Rem. 1] making the MILP formulation practically intractable. \n\nThe main contributions of this paper are two-fold. We first provide a lower bound on the number of scenarios needed to probabilistically guarantee a user-specified upper bound on the approximation error with a user-specified confidence level using concentration techniques. Using Hoeffding’s inequality, we demonstrate that the number of scenarios that need to be considered is inversely proportional to the square of the desired upper bound on the estimate error. Next, we propose a Voronoi-based undersampling technique that underapproximates the MILP-based solution in a computationally efficient manner. This approach allows us to partially mitigate the exponential computational complexity, and provides flexibility to select the number of partitions based on the allowable online computational complexity. We demonstrate the application of the proposed method in a problem of spacecraft rendezvous and docking. \n\nThe organization of the paper is as follows: Problem formulation and preliminary definitions are stated in Section 2. Lower bound on the required number of scenarios for the prescribed confidence level is given in Section 3. Section 4 presents the proposed partition-based method and the approximate solution reconstruction. The performance of the proposed method is investigated on a spacecraft rendezvous maneuvering and docking in Section 5. \n\n# **2 Problem formulation** \n\nWe presume R and N are sets of real and natural numbers, with R<sup>_n_</sup> a length _n_ vector of real numbers, and N[ _a,b_ ] the set of natural numbers between _a_ and _b_ . For _x ∈_ R<sup>_n_</sup> , _x_<sup>_⊤_</sup> denotes the transpose of _x_ . Vector with all elements 1 is denoted **1** . \n\n## **2.1 System description** \n\nConsider a discrete-time stochastic LTI system, \n\n\n\nwith state _xt ∈X_ = R<sup>_nx_</sup> , input _ut ∈U ⊆_ R<sup>_nu_</sup> , disturbance _wt ∈W ⊆_ R<sup>_nx_</sup> at time instant _t_ , and matrices _A, B_ assumed to be of appropriate dimensions. We assume that _wk_ is an independent and identically distributed (i.i.d) random variable with a PDF _ηw_ . Note that we require _ηw_ only to be a probability density function from which we can draw samples, and do not require it to be Gaussian. The system (1) over a time horizon with length _N_ can be alternatively written in a “stacked” form, \n\n\n\nwith _X_ = [ _x_<sup>_⊤_</sup> 1<sup>_, · · ·, x⊤_</sup> _N_<sup>]</sup><sup>_⊤∈X N_,</sup><sup>_U_=[</sup><sup>_u_</sup> 0<sup>_⊤, · · ·, u⊤_</sup> _N −_ 1<sup>]</sup><sup>_⊤∈UN_,and</sup><sup>_W_=[</sup><sup>_w_</sup> 0<sup>_⊤, · · ·, w_</sup> _N_<sup>_⊤_</sup> _−_ 1<sup>]</sup><sup>_⊤∈WN_the</sup> concatenated state, input, and disturbance vectors over a _N_ -length horizon [15]. The matrices _Gx_ , _Gu_ , and _Gw_ may be obtained from the system matrices in (1) (see [15]). Due to the stochastic nature of _wk_ , the state _xk_ and the concatenated state vector _X_ are random. We define P<sup>_x_</sup> _X_<sup>0</sup><sup>_,U_</sup> as the probability measure associated with the random vector _X_ , which is induced from the probability measure of the concatenated disturbance vector P _W_ and (2). By the i.i.d. assumption on _wk_ , P _W_ is characterized by ( _ηw_ )<sup>_N_</sup> . \n\n"
+  }
+}

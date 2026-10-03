@@ -1,0 +1,46 @@
+from pagelib import *
+
+items = [
+    header(9),
+    text("p0009-b001", [90.0, 94.0, 523.0, 124.0],
+         r"larger *safe* volumes. Thus, selecting a small $w$ allows us to focus on reducing *optimistic* errors $\left(" + V + r"(x_i,0) > " + J + r"(x_i,0)\right)$ which are more safety-critical and correspond to outlier safety violations.",
+         join_previous="space"),
+    text("p0009-b001b", [90.0, 125.0, 523.0, 218.0],
+         r"To avoid overfitting, we select the training checkpoint that performs best on a validation dataset $\mathcal{V}$. The validation metric we use is the maximum learned cost of an empirically unsafe state: $\max_{x\in \mathcal{V}}\{" + JT + r"(x,0): " + J + r"(x,0) \le 0\}$, which one can think of as a proxy for the recoverable safe volume. We demonstrate the efficacy of the proposed outlier-adjusted approach for the high-dimensional systems of multi-vehicle collision avoidance and rocket landing with no-go zones. For all case studies, we set $w=10^{-3}$ during retraining, fix the confidence parameter $\beta = 10^{-16}$ and find a safe volume that satisfies $\epsilon \le 10^{-4}$ (99.990% safety) using the robust method in Section 4."),
+    heading("p0009-b002", [89.0, 235.0, 270.0, 244.0], "### 6.1. Multi-Vehicle Collision Avoidance"),
+    text("p0009-b003", [89.0, 249.0, 523.0, 314.0],
+         "In Figure 4, we compare our outlier-adjusted approach (blue) to the baseline (grey) for a DeepReach solution trained on the multi-vehicle collision avoidance running example in Section 2. A 2.3% increase in the safe volume is attained, shown by the tightened BRT. Note that the largest visual difference in the BRT is where the third vehicle is between the two others; intuitively, the safety in this region is likely more difficult to model by the baseline approach."),
+    figure("p0009-b004", [85.0, 318.0, 355.0, 434.0], "Figure 4", "figure-4"),
+    caption("p0009-b005", [359.0, 322.0, 523.0, 427.0],
+            r"Figure 4: Multi-Vehicle Collision Avoidance: outlier-adjusted (blue) and baseline (grey) results. (Left) Slice of the neural BRTs achieving $\epsilon=10^{-4}$ (99.990% safety). (Right) The outlier-adjusted approach increases the safe volume from 0.782 to 0.8 (2.3% increase)."),
+    heading("p0009-b006", [90.0, 448.0, 187.0, 459.0], "### 6.2. Rocket Landing"),
+    text("p0009-b007", [90.0, 462.0, 523.0, 636.0],
+         r"We now apply our approach to a 6D rocket landing system with position $(p_{x}, p_{y})$, heading $\theta$, velocity $(v_{x}, v_{y})$, angular velocity $\omega$, and torque controls $\tau_1, \tau_2\in [-250, 250]$. The dynamics are: $\dot{p_x} = v_x, \ \dot{p_y} = v_y, \ \dot{\theta} = \omega, \ \dot{\omega} = 0.3\tau_1, \ \dot{v_x} = \tau_1 \cos{\theta} - \tau_2 \sin{\theta}, \ \dot{v_y} = \tau_1 \sin{\theta} + \tau_2 \cos{\theta} - g$, where $g = 9.81$ is acceleration due to gravity. The target set is the set of states where the rocket reaches a rectangular landing zone of side length 20m centered at the origin: $\mathcal{L} = \{x: |p_x| < 20.0, p_y < 20.0\}$. Note that we want to *reach* $\mathcal{L}$, so the BRT now represents the safe set. Results are shown in Figure 5. Interestingly, a large 9.58% increase in the volume of the safe set is recovered using the proposed approach, particularly near the lower-left part of the state space. Further investigation reveals that the trajectories starting from these states exit the training regime south. This highlights a general limitation of computing the value function over a constrained state space where information is propagated via dynamic programming, which affects both learning-based methods and traditional grid-based methods. Nevertheless, in this case, the relative order of the value function levels is still preserved, leading to a high quality safe policy and recovery of a larger safe volume."),
+    heading("p0009-b008", [90.0, 654.0, 275.0, 664.0], "### 6.3. Rocket Landing with No-Go Zones"),
+    text("p0009-b009", [90.0, 668.0, 523.0, 706.0],
+         "We now consider the rocket landing problem in a constrained airspace where we have no-go zones of height 100m and width 10m to the left of the landing zone and where altitude is below the landing zone. Safety in this case takes the form of a reach-avoid set - the rocket needs to reach the"),
+    pageno(9, "p0009-b010", [303.0, 726.0, 309.0, 733.0]),
+]
+
+save(9, items, r"""
+Compared the whole page with the 130 dpi render, with 200-210 dpi crops of the top of the page, of Figure 4 (with a
+margin, to check the crop edges) and of Section 6.2, and with sections/outlier-adjusted_approach.tex. The first item
+continues the last sentence of page 8 (join_previous 'space'). The extractor had merged the first two paragraphs and left a
+replacement character for the large parenthesis; they are now two items. All mathematics was rewritten in LaTeX from the
+TeX source and checked on the crops; TeX and PDF agree: the optimistic-error condition (\tilde{V}(x_i,0) >
+J_{\tilde{\pi}}(x_i,0)), the validation metric max_{x in \mathcal{V}} {\tilde{J}_{\tilde{\pi}}(x,0) : J_{\tilde{\pi}}(x,0)
+<= 0}, w = 10^{-3}, beta = 10^{-16}, eps <= 10^{-4}, the torque range [-250, 250], g = 9.81, and the target set
+{x : |p_x| < 20.0, p_y < 20.0}. In the rocket dynamics the authors put the dot over the whole symbol (\dot{p_x},
+\dot{v_x}, ...), which is kept; their TeX ties between the six equations are written as '\ ' (a tilde could be read as
+Markdown strikethrough). Percentages and plain numbers are written as plain text (99.990%, 2.3%, 9.58%, 0.782, 0.8).
+Figure 4 is one image with panels (a) and (b) left of its caption; its box contains the panel titles ('theta_1 = -1.57',
+'Fixed N = ~3.7M'), legends, axis labels, tick labels and the annotations 'Vol. = 0.782', 'Vol. = 0.8', '99.990% safety'.
+The caption is a separate item; it prints '0.8' (not 0.800) and '2.3% increase'. Headings 6.1, 6.2, 6.3 are level 3 (the
+extractor had level 1). Kept as printed: 'side length 20m' next to bounds of 20.0, 'height 100m and width 10m', 'high
+quality safe policy', the single hyphen in 'reach-avoid set - the rocket'. Line-wrap hyphen removed
+('in-creases' in the caption); real hyphens kept (safety-critical, outlier-adjusted, multi-vehicle, no-go, lower-left,
+learning-based, grid-based, reach-avoid, No-Go; 'high-' at a line end is the real hyphen of high-dimensional). Figure 5 belongs to Section 6.2 but is
+printed at the top of page 10, in the middle of the last sentence of this page; in plan.json reading_order it is placed
+after the Section 6.2 paragraph, and the first text item of page 10 ('landing zone while avoiding ...') continues this
+page's last sentence with join_previous 'space'. Omitted: running header and page number.
+""")

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "name": "ganai2023iterative-paper",
+  "title": "Iterative Reachability Estimation for Safe Reinforcement Learning",
+  "source": {
+    "path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/ganai2023iterative-paper/originals/s001-ganai2023iterative.pdf",
+    "sha256": "90ca8fbf46a0d87ab48dba9ba413a7b57d1cb4148269136e5eccf10cd76818ca",
+    "normalized_sha256": "c5deaa4be7042f5798e07e91466897e774009a891aa8290bcda1f4e1ed4a3186",
+    "pages": 33
+  },
+  "notes": [
+    "Source version: arXiv:2309.13528v1 [cs.LG], 24 Sep 2023; authors Milan Ganai, Zheng Gong, Chenning Yu, Sylvia Herbert and Sicun Gao (UC San Diego). The PDF is in the NeurIPS 2023 style and carries the first-page footer '37th Conference on Neural Information Processing Systems (NeurIPS 2023).' (omitted as page furniture together with the arXiv stamp and the page numbers). 33 pages: main text pages 1-10 (Sections 1-8), references pages 11-13 (60 entries), appendix pages 14-33 (A Notation, B Gradient estimates, C Proofs, D Complete Experiment Details and Analysis).",
+    "Mathematics was transcribed to LaTeX from the authors' arXiv TeX source (main.tex) and checked against the PDF pages (150-170 dpi page renders, 200-260 dpi crops of the long proof displays). The authors' private macros were expanded: the expectation operator is written `\\mathbb{E}` with an ordinary subscript (in displays the PDF prints the subscript underneath the E), the indicator and the naturals/reals typed with the bbm font are written `\\mathbb{1}`, `\\mathbb{N}`, `\\mathbb{R}`, and superscript asterisks are written `\\ast`. A script check found every one of the 606 math snippets identical, after whitespace removal, to the macro-expanded source. TeX source and PDF agree everywhere; no formula is kept as an image only. Unnumbered multi-line displays are written as one `aligned` block.",
+    "Equation tags as printed: three displays carry a name instead of a number, (CMDP) in Section 3.2, (RCRL) in Section 4.2 and (RESPO) in Section 5.2, and the text refers to them as 'Equation RCRL', 'Equation RESPO'. Numbered equations: (1) infeasible-part objective, (2) feasible-part problem, (3) unified deterministic problem (all Section 5.1), (4) full Lagrangian objective with the learned REF p (Section 5.3); in the appendix the counter continues: (5), (6) in the proof of Proposition 2 (C.3), (7) projected ODE for the policy parameters, (8) limiting optimization in Step 3, (9) projected ODE for the multiplier parameters (all C.4.3), (10) and (11) the hard-and-soft-constraint Lagrangians (D.8). All other displays are unnumbered, including the definition of the REF (Definition 3), its Bellman recursion (Theorem 1), the REF update rule for p in Section 5.3, the step-size conditions of assumption A1, and the REF Bellman operator with its contraction chain in C.4.3.",
+    "Theorem-like statements keep the printed numbering: Definitions 1-5, Theorem 1, Propositions 1-2, Theorem 2 and the assumptions A1 (Step size), A2 (Strict Feasibility), A3 (Differentiability and Lipschitz Continuity), which are printed as three bulleted lines in Section 5.4. In the appendix the statements are repeated and the PDF numbers them with the running counters: 'Theorem 3' in C.1 is Theorem 1, 'Proposition 3' in C.2 is Proposition 1, 'Proposition 4' in C.3 is Proposition 2 and 'Theorem 4' in C.4 is Theorem 2 (the headings say 'Theorem 1 with Proof', 'Proposition 1 with Proof', 'Proposition 2 with Proof', 'Theorem 2 with Proof'). The proof of the convergence theorem (C.4.3) is organised in 'Step 1' to 'Step 4' and contains five informal run-in lemmas, 'Lemma 1' to 'Lemma 5', printed in italics; they are written with bold labels. Statement bodies are printed upright; where a statement ends was taken from the TeX environments and is recorded in the external review notes. 'Proof.' (printed in italics) is written in bold and the end-of-proof box as a square symbol.",
+    "Algorithm 1 (RESPO Actor Critic) is given as an image crop (assets/figure/algorithm-1) followed by a transcription with the printed line numbers 1-11, one paragraph per printed line and two em-spaces per nesting level. Figures 1-6 (main text) are image crops in assets/figure; the appendix figures keep their printed labels 'Figure 7' to 'Figure 14' and are stored as supplementary-figure-7 to supplementary-figure-14 in assets/supp_figs. The two tables are both in the appendix: 'Table 1' (notation) and 'Table 2' (hyperparameters), stored as supplementary-table-1 and supplementary-table-2 in assets/supp_table; their cells use plain Unicode characters, a header row 'Symbol | Meaning' was added to Table 1, and a paragraph marked 'Conversion note ... (not part of the paper)' under each table gives the LaTeX forms. A third paragraph marked in the same way, after Equation (10), lists the colours in which the PDF prints the terms of Equations (10) and (11); the colour commands were not copied into the formulas.",
+    "Placement of floats: items were reordered only within their page. Algorithm 1 and Figure 1 are printed at the top of page 7; Figure 1 is placed after the heading '6 Experiments' (where the source declares it). Figures 3, 4 and 5 are printed at the top of page 9 and Figure 6 at the top of page 10, each in the middle of a running sentence; here the sentence continues first, Figure 3 follows the Section 6.2 paragraph that discusses it, Figures 4 and 5 follow the first paragraph of Section 6.3, and Figure 6 follows the paragraph that discusses it. Figure 7 is printed above the heading C.4.1 and is placed after the C.4.1 paragraph. The underlined group labels 'CMDP Approaches' and 'Hard Constraints Approaches' in D.1 are plain one-line paragraphs, not headings.",
+    "Training-curve figures (Figures 2, 4, 5, 6, 9, 10, 11, 13, 14) are kept as image crops only; curve values were not digitised. Text that exists only inside figures: the curve legends (Figures 2, 4, 9, 10, 11: PPOLag, RCRL, FAC, RESPO (ours), CBF, Vanilla PPO, CRPO, P3O, PCPO; Figures 5, 13: RESPO w/ lr*0.01, lr*0.1, RESPO, lr*10, lr*100; Figures 6, 14: 'PPOLag, chi = 0', 'RCRL with REF', 'RESPO (ours)'); the panel titles of Figures 3 and 12 (RESPO (ours), PPOLag, RCRL, FAC) with colour bars 'Trajectory Step Number'; in Figure 7 the region letters W, X, Y, Z and the legend (red circle S_pI, blue circle S_hI, black frame S_I); in Figure 8 the labels 'Feasible Set', 'Infeasible Set', 'Start' and the legend 'RESPO (ours)', 'RCRL', 'Safe set boundry'.",
+    "The text and formulas are kept as printed. The following are in the source and are not conversion errors: the optimal policy for the optimal REF is defined with the cost value function, arg min over V_c (Section 4.1), while Section 4.2 uses arg min over V_h for RCRL; the feasible set and the violation set are printed with an italic S in several places (S^pi_f in Proposition 2, S_I in the RESPO problem, S_v in the REF update and in the appendix proofs) and with a calligraphic S elsewhere; the REF gradient in Appendix B is written with subscript eta on the nabla; 'h(s_t|s_0 = 0, pi) = 0' in the proof of Proposition 3; the second Bellman operator in C.4.3 is printed without the subscript c; 'Q_h' in the list of bounds of Lemma 1; 'Q^{pi_theta_k}(s_i)' with one argument in Lemma 2; the unbalanced bracket in the definition of Upsilon_Theta[M(theta]; a capital subscript in nabla_Omega after Equation (9); 'the gradient for Equation is:' without a number in Step 4; one more closing bracket than opened at the end of the delta-omega display; 'Assumption 1' in Section 6.3 for assumption A1; spelling and grammar such as 'feasibilty', 'Feasibile Actor-Critic', 'aproach', 'timecale', 'mininum', 'will convergence', 'the the', 'of of', 'rewrad', 'We performance Ablation study', 'boundry' (inside Figure 8), lower-case 'lagrange', 'lagrangian', 'bellman', 'gaussian'.",
+    "References: the list is typeset from a bibliography embedded in the TeX source; the 60 entries were generated from it (italic venue names kept as italics, the URL of [59] as a code span) and each was compared with the PDF text layer by script and read on the page renders. Citation lists are given in the printed order, e.g. '[8, 10, 53, 27]' and '[56, 17, 18, 11, 57, 58]'."
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "file": "pages/page-0001.json"
+    },
+    {
+      "page": 2,
+      "file": "pages/page-0002.json"
+    },
+    {
+      "page": 3,
+      "file": "pages/page-0003.json"
+    },
+    {
+      "page": 4,
+      "file": "pages/page-0004.json"
+    },
+    {
+      "page": 5,
+      "file": "pages/page-0005.json"
+    },
+    {
+      "page": 6,
+      "file": "pages/page-0006.json"
+    },
+    {
+      "page": 7,
+      "file": "pages/page-0007.json"
+    },
+    {
+      "page": 8,
+      "file": "pages/page-0008.json"
+    },
+    {
+      "page": 9,
+      "file": "pages/page-0009.json"
+    },
+    {
+      "page": 10,
+      "file": "pages/page-0010.json"
+    },
+    {
+      "page": 11,
+      "file": "pages/page-0011.json"
+    },
+    {
+      "page": 12,
+      "file": "pages/page-0012.json"
+    },
+    {
+      "page": 13,
+      "file": "pages/page-0013.json"
+    },
+    {
+      "page": 14,
+      "file": "pages/page-0014.json"
+    },
+    {
+      "page": 15,
+      "file": "pages/page-0015.json"
+    },
+    {
+      "page": 16,
+      "file": "pages/page-0016.json"
+    },
+    {
+      "page": 17,
+      "file": "pages/page-0017.json"
+    },
+    {
+      "page": 18,
+      "file": "pages/page-0018.json"
+    },
+    {
+      "page": 19,
+      "file": "pages/page-0019.json"
+    },
+    {
+      "page": 20,
+      "file": "pages/page-0020.json"
+    },
+    {
+      "page": 21,
+      "file": "pages/page-0021.json"
+    },
+    {
+      "page": 22,
+      "file": "pages/page-0022.json"
+    },
+    {
+      "page": 23,
+      "file": "pages/page-0023.json"
+    },
+    {
+      "page": 24,
+      "file": "pages/page-0024.json"
+    },
+    {
+      "page": 25,
+      "file": "pages/page-0025.json"
+    },
+    {
+      "page": 26,
+      "file": "pages/page-0026.json"
+    },
+    {
+      "page": 27,
+      "file": "pages/page-0027.json"
+    },
+    {
+      "page": 28,
+      "file": "pages/page-0028.json"
+    },
+    {
+      "page": 29,
+      "file": "pages/page-0029.json"
+    },
+    {
+      "page": 30,
+      "file": "pages/page-0030.json"
+    },
+    {
+      "page": 31,
+      "file": "pages/page-0031.json"
+    },
+    {
+      "page": 32,
+      "file": "pages/page-0032.json"
+    },
+    {
+      "page": 33,
+      "file": "pages/page-0033.json"
+    }
+  ]
+}

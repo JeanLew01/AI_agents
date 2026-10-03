@@ -1,0 +1,161 @@
+{
+  "page": 22,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0022.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the page preview and a 300-dpi crop of Algorithm 1. Warning resolved: b010 is the journal footer and is omitted, as is the running header b000 (\"746 · Basescu et al.\"). Algorithm 1 is printed at the top of the page (above heading 7.2); the extractor had classified it as text; it is kept as an image crop (algorithm-1, title line and both rules inside the bbox) and emitted after the third paragraph of Section 7.2, which introduces it (\"Our method is outlined in Algorithm 1\"), followed by a new text item p0022-alg1-text with a line-by-line transcription. The printed algorithm has no line numbers; nesting shown by the printed vertical bars is rendered with em-space indentation; keywords bold and conditions italic as printed. The transcription follows the print exactly, including \"x_goal <- x_f <- x_goal.FIND_CLOSEST(f)\" and the absence of end-for/end-if lines. Headings \"### 7.2. Dynamic RRT Generation\" and \"### 7.3. Collision Constraints for Trajectory Optimization\". Prose has no mathematics; citations \"(Umari and Mukhopadhyay, 2017)\" and \"(Polevoy et al., 2022)\" and the spelling \"Nanomap\" (lower-case m in 7.3) as printed. Page 21 ends with a complete paragraph, so no join at the top; the last paragraph continues on page 23.",
+  "warnings": [
+    "Review possible header/footer: p0022-b010"
+  ],
+  "items": [
+    {
+      "id": "p0022-b000",
+      "kind": "omit",
+      "bbox": [
+        88.0,
+        51.0,
+        163.0,
+        59.0
+      ],
+      "markdown": "**746** · Basescu et al.",
+      "source_class": "text",
+      "reason": "Running header (short title or author line plus the printed page number); repeated page furniture, not article content."
+    },
+    {
+      "id": "p0022-b002",
+      "kind": "heading",
+      "bbox": [
+        88.0,
+        312.0,
+        238.0,
+        323.0
+      ],
+      "markdown": "### 7.2. Dynamic RRT Generation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0022-b003",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        330.0,
+        519.0,
+        400.0
+      ],
+      "markdown": "In Section 5, a rapidly-exploring random tree (RRT) was used to generate global paths to the goal for horizon point selection. The RRT was expanded until the goal point was connected to the tree, and the path from the current position to the goal position was extracted. This path was iteratively pruned, smoothed with Bézier curves, and parameterized in terms of time. We refer to this final smoothed path as the smoothed RRT path, and it is used to select a receding horizon point for trajectory generation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b004",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        402.0,
+        519.0,
+        458.0
+      ],
+      "markdown": "This strategy poses a problem for planning in unknown environments; the horizon point may be in or behind an unobserved obstacle. This is undesirable since the direct trajectory optimization problem is warm started with the previously generated trajectory. If a previously generated trajectory becomes intersected by newly obtained map data, the optimizer will often be unable to find a feasible solution.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b005",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        462.0,
+        519.0,
+        544.0
+      ],
+      "markdown": "To avoid this, the RRT path is constrained to known regions of the map using a method similar to that proposed in (Umari and Mukhopadhyay, 2017). Our method is outlined in Algorithm 1. As the tree expands, a list of frontier nodes (which exist in unknown space and connect to nodes in known space) is maintained. A node is in a known region of the map if the NanoMap query returns a field of view status indicating that the query point is in free space. If the goal point is not connected to the tree, or if the goal point is in an unknown region of the map, then the frontier node closest to the goal position is used as the goal instead.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b001",
+      "kind": "figure",
+      "bbox": [
+        86.0,
+        75.5,
+        520.5,
+        290.5
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0022-alg1-text",
+      "kind": "text",
+      "bbox": [
+        86.0,
+        75.5,
+        520.5,
+        290.5
+      ],
+      "markdown": "**Algorithm 1.** RRT($x_{init}$, $x_{goal}$, $\\Delta x$, map, $K$, $\\Delta t$).  \n$\\tau$.init($x_{init}$), $f \\leftarrow [\\,]$  \n**for** $k = 1$ *to* $K$ **do**  \n&emsp;$x_{rand} \\leftarrow$ RANDOM\\_STATE()  \n&emsp;$x_{near} \\leftarrow$ NEAREST\\_NEIGHBOR($x_{rand}$, $\\tau$)  \n&emsp;$u \\leftarrow$ SELECT\\_INPUT($x_{rand}$, $x_{near}$)  \n&emsp;$x_{new} \\leftarrow$ NEW\\_STATE($x_{near}$,$u$,$\\Delta t$)  \n&emsp;**if** *PATH\\_OBST\\_FREE($x_{near}$,$x_{new}$, map)* **then**  \n&emsp;&emsp;$\\tau$.add\\_vertex($x_{new}$)  \n&emsp;&emsp;$\\tau$.add\\_edge($x_{near}$,$x_{new}$,$u$)  \n&emsp;&emsp;**if** *DISTANCE($x_{new}$, $x_{goal}$) $\\leq \\Delta x$* **then**  \n&emsp;&emsp;&emsp;$x_{goal} \\leftarrow x_{new}$  \n&emsp;&emsp;&emsp;break  \n&emsp;&emsp;**if** *IS\\_FRONTIER\\_NODE($x_{new}$, map)* **then**  \n&emsp;&emsp;&emsp;$f$.add($x_{new}$)  \n**if** *$x_{goal}$ not in $\\tau$ or IN\\_UNKNOWN($x_{goal}$, map)* **then**  \n&emsp;$x_{goal} \\leftarrow x_f \\leftarrow x_{goal}$.FIND\\_CLOSEST($f$)  \nReturn $\\tau$, $x_{goal}$"
+    },
+    {
+      "id": "p0022-b006",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        546.0,
+        519.0,
+        602.0
+      ],
+      "markdown": "At each control iteration, a truncated version of the prior RRT path is used to initialize the RRT. This truncation takes into consideration both the updated vehicle state and any newly detected obstacles. The beginning of the RRT path is truncated to minimize the distance between the start of the path and the vehicle state; the end is truncated to ensure that the path does not intersect with obstacles.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b007",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        605.0,
+        519.0,
+        639.0
+      ],
+      "markdown": "Reuse of the prior path reduces RRT computation time and also provides a more gradual evolution of the RRT path. This leads to a more incremental update of the receding horizon goal point and a reduced computational burden for the warm-started trajectory optimization routine.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b008",
+      "kind": "heading",
+      "bbox": [
+        88.0,
+        657.0,
+        350.0,
+        668.0
+      ],
+      "markdown": "### 7.3. Collision Constraints for Trajectory Optimization",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0022-b009",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        675.0,
+        519.0,
+        698.0
+      ],
+      "markdown": "In (Polevoy et al., 2022), we explored several Nanomap collision constraints in simulation. We found that a distance-to-obstacles collision constraint with noise compensation via covariance inflation",
+      "source_class": "text"
+    },
+    {
+      "id": "p0022-b010",
+      "kind": "omit",
+      "bbox": [
+        88.0,
+        714.0,
+        230.0,
+        722.0
+      ],
+      "markdown": "Field Robotics, May, 2023 · 3:725–765",
+      "source_class": "page-footer",
+      "reason": "Running footer \"Field Robotics, May, 2023 · 3:725–765\"; repeated on every page, not article content."
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "page": 8,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was still raw extraction. Compared preview and four 230-280 dpi crops (Algorithm 2, equations (11)-(13) with their paragraphs, Section 5 text and footnote) with the rebuilt items; maths from 30algo.tex with macros expanded, checked on the crops. Reading order: Algorithm 2 is printed as a top float above the continuation of the page-7 paragraph; items now start with that continuation ('cess. Rather, ...', join_previous=none because the word 'pro|cess' is split across the pages), then Algorithm 2. Algorithm 2: image crop (figure item, asset algorithm-2, bbox [106,70.5,506,191]) followed by a line-by-line LaTeX transcription with the printed line numbers 1-8; printed references 'Eq. (10d)', 'Eq. (13)', 'Eq. (10c)', 'Eq. (6)'; line 3 uses $\\bar{\\alpha}_{i-1}$ as printed. Equations (11), (12) (cases), (13) (max over a two-row array, final period printed) converted from formula images to LaTeX text items with \\tag. Authors' typo kept: 'seperating'. Footnote marker written '[^3]'; Footnote 3 is placed after equation (13), at the end of Section 4.3, because the last item of the page continues on page 9. Headings fixed to '## 5 Experimental Results' and '### 5.1 MBD for Planning in Contact-rich Tasks'. TeX vs PDF: the sentence 'To further extend MBD to closed-loop control, ... further improving the performance of MBD by 9.6% in terms of reward.' exists only in the camera-ready PDF and was transcribed from the crop. Text repairs: split decimal '9 . 6%' -> '9.6%'; 'blackbox' -> 'black-box' (the hyphen at the line end is the compound hyphen, as in 40experiments.tex 'black-box'); numbers 59%, 10%, 23%, 800d, 28K, 86%, 2s, 93%, 9.6% and citations [23, 18, 56, 42, 41, 44], [2] checked on the crop. Last item ('... The locomotion') continues on page 9 (join_previous=space there). Page number 8 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0008-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        208.0,
+        504.0,
+        243.0
+      ],
+      "markdown": "cess. Rather, we assess $Y^{(0)}$ using $p(Y_{\\text{demo}} \\mid Y^{(0)})$, employing a similar technique to interchange the distribution’s parameter with the random variable, as demonstrated in Eq. (8), to establish $p_{\\text{demo}}(Y^{(0)}) \\propto p(Y_{\\text{demo}} \\mid Y^{(0)}) \\propto \\mathcal{N}(Y^{(0)} \\mid Y_{\\text{demo}}, \\sigma^2 I)$.",
+      "source_class": "text",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0008-b000",
+      "kind": "figure",
+      "bbox": [
+        106.0,
+        70.5,
+        506.0,
+        191.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0008-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        73.0,
+        505.0,
+        188.0
+      ],
+      "markdown": "**Algorithm 2** Model-based Diffusion for Trajectory Optimization  \n1: **Input:** $Y^{(N)} \\sim \\mathcal{N}(\\mathbf{0}, I)$  \n2: **for** $i = N$ to $1$ **do**  \n3: Sample $\\mathcal{Y}^{(i)} \\sim \\mathcal{N}(\\frac{Y^{(i)}}{\\sqrt{\\bar{\\alpha}_{i-1}}}, (\\frac{1}{\\bar{\\alpha}_{i-1}} - 1) I)$  \n4: Get dynamically feasible samples: $\\mathcal{Y}^{(i)}_d \\leftarrow \\text{rollout}(\\mathcal{Y}^{(i)})$  \n5: Calculate $\\bar{Y}^{(0)}$ with Eq. (10d) (model only) or Eq. (13) (model $+$ demonstration)  \n6: Estimate the score Eq. (10c): $\\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})} \\approx -\\frac{Y^{(i)}}{1-\\bar{\\alpha}_i} + \\frac{\\sqrt{\\bar{\\alpha}_i}}{1-\\bar{\\alpha}_i} \\bar{Y}^{(0)}$  \n7: Monte Carlo score ascent Eq. (6): $Y^{(i-1)} \\leftarrow \\frac{1}{\\sqrt{\\alpha_i}} \\left(Y^{(i)} + (1-\\bar{\\alpha}_i) \\nabla_{Y^{(i)}} \\log{p_i(Y^{(i)})}\\right)$  \n8: **end for**",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        249.0,
+        504.0,
+        274.0
+      ],
+      "markdown": "To accommodate demonstrations of varying qualities, instead of fixing target to $p_0(Y^{(0)}) p(Y_{\\text{demo}} \\mid Y^{(0)})$, we propose seperating the $p_0(Y^{(0)})$ from $p_{\\text{demo}}(Y^{(0)})$ to form a new target distribution[^3]:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "text",
+      "bbox": [
+        123.0,
+        274.0,
+        510.0,
+        298.0
+      ],
+      "markdown": "$$\np'_0(Y^{(0)}) \\propto (1-\\eta) p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)}) + \\eta p_{\\text{demo}}(Y^{(0)}) p_J(Y_{\\text{demo}}) p_g(Y_{\\text{demo}}) \\tag{11}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        298.0,
+        505.0,
+        343.0
+      ],
+      "markdown": "where $\\eta$ is a constant to balance the model and the demonstration. Here, we have introduced two extra constant terms $p_J(Y_{\\text{demo}})$ and $p_g(Y_{\\text{demo}})$ to ensure that the demonstration likelihood is properly scaled to match the model likelihood $p_0(Y^{(0)})$. With these preparations, we propose to adaptively determine the significance of the demonstration by choosing $\\eta$ as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "text",
+      "bbox": [
+        153.0,
+        344.0,
+        510.0,
+        380.0
+      ],
+      "markdown": "$$\n\\eta = \\begin{cases} 1 & p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)}) < p_{\\text{demo}}(Y^{(0)}) p_J(Y_{\\text{demo}}) p_g(Y_{\\text{demo}}) \\\\ 0 & p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)}) \\ge p_{\\text{demo}}(Y^{(0)}) p_J(Y_{\\text{demo}}) p_g(Y_{\\text{demo}}). \\end{cases} \\tag{12}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0008-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        381.0,
+        506.0,
+        414.0
+      ],
+      "markdown": "When samples have a high model-likelihood $p_0$, we ignore the demonstration and sample from the model. Otherwise, we trust the demonstration. With the demonstration-augmented target distribution, we modify the way to calculate $\\bar{Y}^{(0)}$ in Eq. (10d) as follows to obtain the score estimate:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b008",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        415.0,
+        510.0,
+        459.0
+      ],
+      "markdown": "$$\n\\bar{Y}^{(0)} = \\frac{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} Y^{(0)} w(Y^{(0)})}{\\sum_{Y^{(0)} \\in \\mathcal{Y}^{(i)}_d} w(Y^{(0)})}, \\quad w(Y^{(0)}) = \\max{\\left\\{ \\begin{array}{c} p_d(Y^{(0)}) p_J(Y^{(0)}) p_g(Y^{(0)}), \\\\ p_{\\text{demo}}(Y^{(0)}) p_J(Y_{\\text{demo}}) p_g(Y_{\\text{demo}}) \\end{array} \\right\\}}. \\tag{13}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0008-b014",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        702.0,
+        505.0,
+        722.0
+      ],
+      "markdown": "Footnote 3: A comparison between the demonstration-augmented MBD and the vanilla MBD is illustrated in Fig. 6 with detailed breakdowns in Appendix A.4.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0008-b009",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        468.0,
+        236.0,
+        480.0
+      ],
+      "markdown": "## 5 Experimental Results",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0008-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        493.0,
+        505.0,
+        546.0
+      ],
+      "markdown": "The experimental section will focus on demonstrating the capabilities of MBD in: (1) its effectiveness as a zeroth-order solver for high-dimensional, non-convex, and non-smooth trajectory optimization problems, and (2) its flexibility in utilizing dynamically infeasible data to enhance performance and regularize solutions. Our benchmark shows that MBD outperforms PPO by 59% in various control tasks with 10% computational time.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b011",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        553.0,
+        506.0,
+        639.0
+      ],
+      "markdown": "Beyond control problems, in Appendix A.3, we also show that MBD significantly improves sampling efficiency by an average of 23% over leading baselines in high-dimensional (up to 800d) black-box optimization testbeds [23, 18, 56, 42, 41, 44]. We also apply MBD to optimize an MLP network with 28K parameters in a *gradient-free* manner, achieving 86% accuracy within 2s for the MNIST classification task [2], which is comparable to the gradient-based optimizer (SGD with momentum, 93% accuracy). To further extend MBD to closed-loop control, we employ receding horizon strategy to MBD in Appendix A.6 to update control sequence at each timestep, further improving the performance of MBD by 9.6% in terms of reward.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b012",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        653.0,
+        304.0,
+        663.0
+      ],
+      "markdown": "### 5.1 MBD for Planning in Contact-rich Tasks",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0008-b013",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        673.0,
+        506.0,
+        694.0
+      ],
+      "markdown": "To test the effectiveness of MBD as a trajectory optimizer for systems involving non-smooth dynamics, we run MBD on both locomotion and manipulation tasks detailed in Appendix A.5.1. The locomotion",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b015",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "8",
+      "source_class": "page-footer",
+      "reason": "Page number 8 in the footer (verified on the preview)."
+    }
+  ]
+}

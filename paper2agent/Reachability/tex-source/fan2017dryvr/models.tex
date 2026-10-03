@@ -1,0 +1,79 @@
+A. FHM model with different pulse durations 
+
+==================
+B. Satellites
+- 2 satellites in 2 orbits. Each has 2 variables (see FM paper)
+one of the satellites is on a fixed orbit.
+the other satellite, transitions from orbit 1 -> orbit 2 -> orbit 3 based on some timing. 
+- Safety property show that the 2 satellites are close at the end.
+
+The above 2 are easy to create but lower impact 
+
+==================
+
+C. Cars
+
+We will create models of cars moving on a straight highway or taking turns through intersections. The models will be modular. That is, by putting modules for multiple cars, we will be able to create more complicated models (easily).  
+
+One thing to keep in mind: If we lose the sense of global time in the verification, then does it still make sense to talk about properties that measure distance between two cars $|x(t) - y(t)|$? 
+
+Models. Keep it simple for now, e.g., Dubin's vehicles. Each car automata has the following variables:
+
+x,y: positions
+v: forward velocity
+\theta: heading w.r.t positive x axis
+\omega: speed of turning
+
+Each car has the following parameters:
+
+l: length, w: width
+a1,a2,a0: forward acceleration/braking 
+aw: turn rate control
+
+Each car has the following modes:
+
+S0. straight (no turn, no speed-up could be along and direction)
+\dot x = v cos(\theta)
+\dot y = v sin(\theta)
+\dot v = 0
+\dot \theta = 0
+
+
+S1,2. straight speed-up (no turn,  speed-up fast or slow)
+same as S0 except
+\dot v = a1 or a2
+
+should not be in this mode for too long; upper speed bound
+
+S3. straight slowdown (no turn,  slow-down )
+same as S0 except
+\dot v = a3 < 0
+
+should not be in this mode for too long; lower speed bound
+
+T1,2. simple left and right turns (no speed-up)
+\dot x = v cos(\theta)
+\dot y = v sin(\theta)
+\dot v = 0
+\dot \theta = +/-aw
+
+By doing timed transition across each of these modes we can create 1-car automata modeling following maneuvers
+
+1. straight drive S1/S2/S3
+2. lane shift S1->T1->T2->S1
+3. left turn S1->T1->S1
+4. ...
+
+One we create these modules (nicely), we can then go to town and develop a whole array of interesting composed automata that capture interesting verification scenarios. Combine a couple of cars in a model to create scenario automata. Each of these scenarios can be made safe/unsafe by tweaking 1/2 parameters. Here are a few examples:
+
+1. Car A going straight (constant speed mode S1) with some initial position and velocity range for x1, v1. Then slows down at time t1 (+/- some range) then going constant speed S1 again. Car B starts distance at some x2 behind x1 with some velocity range. Goes constant speed for a while and then starts to brake at time t1 + t2. What is the max t2 that keeps B safe?
+
+2. Same scenario as above, except: Car B tries to switch to a lane at time t1 + t2, to avoid car A.
+
+3. Car A going straight (constant speed S1) with some initial position and velocity range for x1, v1. Car B overtakes car A based on timed switches S1->T1->T2->S2->T2->T1->S1 (like the model we have already). What is the smalled duration of time Car B spends in left-lane?
+
+4. Changing lane between two cars 
+
+5. Taking a right and merging between two cars
+
+6. Taking a left and merging between two cars

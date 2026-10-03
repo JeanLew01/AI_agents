@@ -1,0 +1,243 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Re-examined from the preview and compared paragraph by paragraph with the TeX source (end of Introduction, Section II up to II-B). Text-only page: no figures, tables, display equations or inline mathematics, so nothing had to be converted to LaTeX. First item continues the last paragraph of PDF page 2 (join_previous=space). Column break inside 'ex-pected' (Section II-A): the wrap hyphen is removed from p0003-b011 and p0003-b012 has join_previous=none. Headings: 'II. RELATED WORK' is '## ', 'A. Safe RL' and 'B. Learned NMPC Warm-start' are '### '. Contribution list keeps the printed '1)'...'4)' numbering as separate text items; item 2 has no final period in the source (PDF and TeX agree). Line-end hyphens resolved with the TeX source: real compounds 'Monte-Carlo', 'PAC-NMPC', 'fixed-wing', 'RL-NMPC', 'perception-based' keep the hyphen; 'run-/time' in Section II-B is 'runtime' in the TeX source (the Introduction's 'run-time guarantees' is hyphenated in both); 'per-formance', 'SN-MPC', 'ap-proaches', 'Lya-punov', 'guar-antees' are ordinary word breaks. Citations compared with the page: [6]-[22] as printed ('[14], [15]', '[17], [18]'); 'Def. III.6' is the printed form of \\ref{def:safetyguarantee}. Last item ('... More recently, authors developed') continues on PDF page 4 (join set there). Omitted only the printed page number '2'. check: OK, 113/113 lines, no number differences.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        557.0,
+        24.0,
+        565.0,
+        34.0
+      ],
+      "markdown": "2",
+      "source_class": "page-header",
+      "reason": "Running page number (2) in the top-right corner."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        57.0,
+        301.0,
+        148.0
+      ],
+      "markdown": "we train the RL networks independently and use Monte-Carlo (MC) dropout to approximate the policy and value function distributions. For high-dimensional sensor inputs, we also train a generative sensor network to predict future (unobserved) sensor returns. Given these learned probabilistic models, during deployment, we then warm-start our SNMPC approach using the RL policy distribution and sample terminal SNMPC costs from the value function distribution.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        152.0,
+        301.0,
+        351.0
+      ],
+      "markdown": "By combining SNMPC and RL in this way, our approach achieves three distinct advantages. First, it improves the safety of the RL policy according to Def. III.6 by using PAC-NMPC to provide statistical finite-time run-time guarantees on constraint satisfaction (e.g., local collision avoidance). Second, it also uses PAC-NMPC to provide statistical guarantees on value function improvement over the finite SNMPC horizon and dramatically improves the long-range optimality of the SNMPC policy. Third, by warm-starting the SNMPC policy with the learned actor and using a predictive sensor model, the SNMPC algorithm can be decoupled from the RL policy during training and thus remove the computational burden of an inner NMPC optimization loop. We demonstrate the performance improvements of our approach through simulation and hardware experiments and evaluate our method on the particularly challenging problem of vision-based collision-free navigation with an agile fixed-wing aerial robot.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        353.0,
+        301.0,
+        434.0
+      ],
+      "markdown": "This manuscript substantially extends the work in [6], which introduced an approach for combining PAC-NMPC with a learned stochastic value function. In this paper, we significantly advance this approach to scale to higher state and measurement spaces and three-dimensional environments, and to provide finite-time guarantees in unknown environments. Our key contributions are as follows:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        437.0,
+        301.0,
+        471.0
+      ],
+      "markdown": "1) A constrained PAC-based framework for combining SNMPC with RL to enable both long-horizon planning and enforcement of statistical safety guarantees.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        472.0,
+        301.0,
+        504.0
+      ],
+      "markdown": "2) A learned model to predict future sensor measurements, for which closed form dynamics are unavailable in unknown environments",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        508.0,
+        301.0,
+        530.0
+      ],
+      "markdown": "3) An RL-based SNMPC policy warm-starting method for scaling to higher dimensional state measurement spaces.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        532.0,
+        301.0,
+        577.0
+      ],
+      "markdown": "4) A hardware evaluation of our approach on a fixed-wing aerial vehicle with an on-board depth camera, demonstrating real-time control of robotic systems with local perception and complex nonlinear dynamics.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "heading",
+      "bbox": [
+        131.0,
+        590.0,
+        218.0,
+        598.0
+      ],
+      "markdown": "## II. RELATED WORK",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        604.0,
+        301.0,
+        697.0
+      ],
+      "markdown": "A number of approaches have been proposed to improve the safety of RL policies or improve the long-range performance of receding-horizon NMPC. In this section, we provide a brief overview of prior related research on safe RL, learned NMPC warm-starting, NMPC with learned waypoints, and hybrid RL-NMPC methods. We also review prior research on perception-based fixed-wing navigation, since we use this unique planning and control problem to evaluate our approach.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        712.0,
+        95.0,
+        722.0
+      ],
+      "markdown": "### A. Safe RL",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        727.0,
+        301.0,
+        749.0
+      ],
+      "markdown": "Safe RL methods aim to improve the safety of RL policies by training and/or deploying learned policies that minimize ex",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        57.0,
+        564.0,
+        114.0
+      ],
+      "markdown": "pected future costs while adhering to safety constraints. These problems are often posed as Constrained Markov Decision Processes (CMDP). In [7], the authors provide an overview of recent safe RL methods and in [8], the authors provide a more general review of learned safe control under uncertainty.",
+      "source_class": "text",
+      "join_previous": "none"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        116.0,
+        564.0,
+        207.0
+      ],
+      "markdown": "Safe policy optimization methods rely on data-driven approaches to learn safe policies. Constrained policy gradient methods [9] modify the policy update in an attempt to maintain satisfaction of expected future constraints. Other approaches use Lagrangian relaxation to approximate the problem as unconstrained optimization [10]. However, once outside of the training distribution, these approaches can no longer guarantee constraint satisfaction.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        211.0,
+        564.0,
+        387.0
+      ],
+      "markdown": "Control theory based methods introduce explicit models to regulate inputs to ensure safety, thus providing stronger assurances. Many approaches require knowledge of a Lyapunov function in advance to guarantee safety [11]. Likewise, control barrier functions (CBFs) are often utilized to guarantee safety [12]. While the CBFs can be learned from data, they assume that safety can be represented completely as a function of the state, which may not be possible when only partial observations of the environment are available. Safety layer methods take possibly unsafe inputs and project them to inputs that satisfy constraints. OptLayer follows this methodology by augmenting the policy with a constrained optimization layer [13]. While this framework is similar to our approach, it only guarantees one-step safety and does not consider dynamics or perception uncertainty.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        389.0,
+        564.0,
+        505.0
+      ],
+      "markdown": "Instead of trying to enforce safety constraints, other approaches aim to provide a statistical performance guarantee for the learned policy. PAC-NMPC takes inspiration from PAC Robust Policy Search [14], [15], which optimizes a PAC guarantee on the expected cost of the policy. However, these guarantees do not necessarily hold outside of the training distribution. PAC-Bayes control [16] provides both PAC guarantees on policy performance and generalization guarantees to novel environments by assuming bounded divergence between the training and testing distributions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        522.0,
+        439.0,
+        530.0
+      ],
+      "markdown": "### B. Learned NMPC Warm-start",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        537.0,
+        564.0,
+        689.0
+      ],
+      "markdown": "Compared to RL, NMPC can more naturally enforce runtime safety constraints. However, the global optimality of these algorithms is typically limited by computational resources and susceptibility to local minima. To improve this long-range performance, researchers have investigated methods that use machine learning to warm-start the NMPC optimization. Many approaches build data sets of optimal trajectories offline and train models to predict policies or trajectories [17], [18]. In [19], the authors used trajectory data to learn warm-starts for sequential convex programming with obstacle avoidance constraints. Researchers have also learned value functions to select from a history of stored controller data while providing stability guarantees [20].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        691.0,
+        564.0,
+        749.0
+      ],
+      "markdown": "Other approaches have focused on initializing not only the control input sequence, but also the associated constraints. In [21], the authors learn a warm start for the active set, and in [22], authors scaled learned primal active set initialization to higher dimensional systems. More recently, authors developed",
+      "source_class": "text"
+    }
+  ]
+}

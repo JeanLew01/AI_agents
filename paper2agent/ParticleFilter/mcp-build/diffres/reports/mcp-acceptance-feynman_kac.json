@@ -1,0 +1,354 @@
+[
+ {
+  "name": "feynman_kac-lgssm-multinomial-kf",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "nparticles": 16,
+   "resampling_method": "multinomial",
+   "seed": 0,
+   "compare_to_kalman": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 16,
+   "nsteps": 32,
+   "dx": 1,
+   "dy": 1,
+   "resampling_method": "multinomial",
+   "resampling_threshold": 1.0,
+   "prng_key": [
+    0,
+    0
+   ],
+   "observation_density": "sum of univariate normals (diagonal R)",
+   "ess": {
+    "nsteps": 32,
+    "resampling_steps": 32
+   },
+   "kalman_comparison": {
+    "kl_all_finite": true
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-lgssm-multinomial-kf-repeat",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "nparticles": 16,
+   "resampling_method": "multinomial",
+   "seed": 0,
+   "compare_to_kalman": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 16,
+   "nsteps": 32,
+   "prng_key": [
+    0,
+    0
+   ]
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-filters-test-diffusion-tweedie",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/filters_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/filters_ys_1d.npz",
+   "nparticles": 1000,
+   "resampling_method": "diffusion",
+   "diffusion_a": -0.5,
+   "diffusion_T": 2.0,
+   "diffusion_steps": 7,
+   "diffusion_integrator": "tweedie",
+   "diffusion_ode": false,
+   "prng_key": [
+    0,
+    666
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 1000,
+   "nsteps": 100,
+   "dx": 1,
+   "dy": 1,
+   "prng_key": [
+    0,
+    666
+   ],
+   "resampling_settings": {
+    "a": -0.5,
+    "T": 2.0,
+    "steps": 7,
+    "integrator": "tweedie",
+    "ode": false,
+    "jitter": 0.0
+   },
+   "ess": {
+    "resampling_steps": 100
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-defaults-diffusion",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 32,
+   "nsteps": 32,
+   "resampling_method": "diffusion",
+   "resampling_settings": {
+    "a": -0.5,
+    "T": 3.0,
+    "steps": 8,
+    "integrator": "euler",
+    "ode": true,
+    "jitter": 0.0
+   },
+   "prng_key": [
+    0,
+    0
+   ]
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-full2d-diffusion-gradient",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/full2d_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/full2d_ys.npz",
+   "nparticles": 64,
+   "resampling_method": "diffusion",
+   "seed": 4,
+   "compute_gradient": true,
+   "compare_to_kalman": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 64,
+   "nsteps": 12,
+   "dx": 2,
+   "dy": 3,
+   "observation_density": "multivariate normal via diffres.tools.logpdf_mvn_chol (full R)",
+   "gradient": {
+    "all_finite": true
+   },
+   "prng_key": [
+    0,
+    4
+   ]
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-graddemo-multinomial-stopped-gradient",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/graddemo_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/graddemo_ys.npz",
+   "nparticles": 8,
+   "resampling_method": "multinomial_stopped",
+   "prng_key": [
+    2482698485,
+    3875352609
+   ],
+   "compute_gradient": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 8,
+   "nsteps": 16,
+   "prng_key": [
+    2482698485,
+    3875352609
+   ],
+   "gradient": {
+    "all_finite": true
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-ensemble-ot-default-eps",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "nparticles": 16,
+   "resampling_method": "ensemble_ot",
+   "seed": 3,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "expected_subset": {
+   "nparticles": 16,
+   "resampling_settings": {
+    "eps_from_upstream_default": true,
+    "implicit_diff": false
+   }
+  },
+  "min_artifacts": 1,
+  "artifact_root": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance",
+  "unique_artifacts": true
+ },
+ {
+  "name": "feynman_kac-error-R-not-pd",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/bad_R_not_pd_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "R must be positive definite"
+ },
+ {
+  "name": "feynman_kac-error-missing-model",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/does_not_exist.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "model_path does not exist"
+ },
+ {
+  "name": "feynman_kac-error-wrong-dy",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/bad_ys_wrong_dy.npz",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "ys must have shape (T+1, 1)"
+ },
+ {
+  "name": "feynman_kac-error-tweedie-ode",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "diffusion_integrator": "tweedie",
+   "diffusion_ode": true,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "'tweedie' only with ode=False"
+ },
+ {
+  "name": "feynman_kac-error-bad-prng-key",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "prng_key": [
+    1,
+    2,
+    3
+   ],
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "prng_key must be exactly two uint32"
+ },
+ {
+  "name": "feynman_kac-error-ot-default-eps-n1",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "nparticles": 1,
+   "resampling_method": "ensemble_ot",
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "needs nparticles >= 2"
+ },
+ {
+  "name": "feynman_kac-error-threshold",
+  "tool": "diffres_run_lgssm_particle_filter",
+  "arguments": {
+   "model_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_model.json",
+   "observations_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tests/data/feynman_kac/lgssm_ys.npz",
+   "resampling_threshold": 1.5,
+   "output_dir": "/home/jixia/AI_agents/paper2agent/ParticleFilter/mcp-build/diffres/tmp/outputs/acceptance"
+  },
+  "required_inputs": [
+   "model_path",
+   "observations_path"
+  ],
+  "error_contains": "resampling_threshold must lie in [0, 1]"
+ }
+]
