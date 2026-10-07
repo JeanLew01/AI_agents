@@ -1,0 +1,159 @@
+{
+  "page": 6,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; mathematics transcribed from 240-dpi crops. Display (9) and the two unnumbered displays ($\\hat p_\\theta(y_n\\mid y_{1:n-1}) = \\frac1N\\sum_k w_n(X_{1:n}^k)$ and the integral for $p_\\theta(y_n\\mid y_{1:n-1})$) converted from 'formula' items to LaTeX; only (9) carries a printed number. Inline maths rewritten in LaTeX throughout ($q_\\theta(x_n\\mid y_n,x_{n-1})$, $x_{n-1:n}$, $T-n$, $p(\\theta,x_{1:T}\\mid y_{1:T})$ ...). Headings: '#### 2.2.2. Design issues and limitations', '### 2.3. Standard Markov chain Monte Carlo methods'. Repaired glued words ('howbesttoselect', 'arewellknown.With'); 'Carpenter' rejoined across the line wrap; compound hyphens 'well-known', 'co-ordinates' kept as printed. Running header omitted. First item joins the last paragraph of page 5 (space); the last paragraph ('... Sampling') continues on page 7.",
+  "warnings": [
+    "Review possible header/footer: p0006-b000"
+  ],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "274 _C. Andrieu, A. Doucet and R. Holenstein_",
+      "reason": "Running header with page number (274, C. Andrieu, A. Doucet and R. Holenstein)"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        56.0,
+        310.0,
+        66.0
+      ],
+      "markdown": "us with an estimate of the marginal likelihood $p_\\theta(y_{1:T})$ given by",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "text",
+      "bbox": [
+        161.0,
+        70.0,
+        444.0,
+        104.0
+      ],
+      "markdown": "$$\\hat{p}_\\theta(y_{1:T}) := \\hat{p}_\\theta(y_1) \\prod_{n=2}^{T} \\hat{p}_\\theta(y_n \\mid y_{1:n-1}) \\tag{9}$$"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        108.0,
+        68.0,
+        116.0
+      ],
+      "markdown": "where"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "text",
+      "bbox": [
+        170.0,
+        117.0,
+        311.0,
+        152.0
+      ],
+      "markdown": "$$\\hat{p}_\\theta(y_n \\mid y_{1:n-1}) = \\frac{1}{N} \\sum_{k=1}^{N} w_n(X_{1:n}^k)$$"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        155.0,
+        195.0,
+        165.0
+      ],
+      "markdown": "is an estimate computed at time $n$ of"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "text",
+      "bbox": [
+        99.0,
+        165.0,
+        382.0,
+        198.0
+      ],
+      "markdown": "$$p_\\theta(y_n \\mid y_{1:n-1}) = \\int w_n(x_{1:n})\\, q_\\theta(x_n \\mid y_n, x_{n-1})\\, p_\\theta(x_{1:n-1} \\mid y_{1:n-1})\\, \\mathrm{d}x_{1:n}.$$"
+    },
+    {
+      "id": "p0006-b007",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        200.0,
+        439.0,
+        234.0
+      ],
+      "markdown": "It follows from equation (7) that $w_n(x_{1:n})$ only depends on $x_{1:n}$ through $x_{n-1:n}$. We have omitted the dependence on $N$ in equations (5), (8) and (9), and will do so in the remainder of this section when confusion is not possible."
+    },
+    {
+      "id": "p0006-b008",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        253.0,
+        195.0,
+        264.0
+      ],
+      "markdown": "#### 2.2.2. Design issues and limitations"
+    },
+    {
+      "id": "p0006-b009",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        265.0,
+        440.0,
+        431.0
+      ],
+      "markdown": "This algorithm requires us to specify $q_\\theta(x_1 \\mid y_1)$ and $\\{q_\\theta(x_n \\mid y_n, x_{n-1}); n = 2, \\ldots, T\\}$. Guidelines on how best to select $\\{q_\\theta(x_n \\mid y_n, x_{n-1})\\}$ are well known. With $p_\\theta(x_n \\mid y_n, x_{n-1}) \\propto f_\\theta(x_n \\mid x_{n-1})\\, g_\\theta(y_n \\mid x_n)$, it is usually recommended to set $q_\\theta(x_n \\mid y_n, x_{n-1}) = p_\\theta(x_n \\mid y_n, x_{n-1})$ whenever possible and to select $q_\\theta(x_n \\mid y_n, x_{n-1})$ as close as possible to $p_\\theta(x_n \\mid y_n, x_{n-1})$ otherwise; see for example Carpenter *et al.* (1999), Cappé *et al.* (2005), Doucet and Johansen (2009), Liu (2001) and Pitt and Shephard (1999). It is often much simpler to design these ‘local’ importance densities than to design a global importance density approximating $p_\\theta(x_{1:T} \\mid y_{1:T})$. An ‘extreme’ case, which was originally suggested in Gordon *et al.* (1993), consists of using the prior density of the latent Markov process $\\{X_n; n \\geqslant 1\\}$ as an importance density; i.e. set $q_\\theta(x_1 \\mid y_1) = \\mu_\\theta(x_1)$ and $q_\\theta(x_n \\mid y_n, x_{n-1}) = f_\\theta(x_n \\mid x_{n-1})$. In scenarios where the observations are not too informative and the dimension of the latent variable not too large, this default strategy can lead to satisfactory performance. It is in fact the only possible practical choice for models where $f_\\theta(x_n \\mid x_{n-1})$ is intractable or too expensive to evaluate pointwise, but easy to sample from; see Ionides *et al.* (2006) for many examples."
+    },
+    {
+      "id": "p0006-b010",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        433.0,
+        439.0,
+        575.0
+      ],
+      "markdown": "Note that SMC methods also suffer from well-known drawbacks. Indeed, when $T$ is too large, the SMC approximation to the joint density $p_\\theta(x_{1:T} \\mid y_{1:T})$ deteriorates as components sampled at any time $n < T$ are not rejuvenated at subsequent time steps. As a result, when $T - n$ is too large the approximation to the marginal $p_\\theta(x_n \\mid y_{1:T})$ is likely to be rather poor as the successive resampling steps deplete the number of distinct particle co-ordinates $x_n$. This is the main reason behind the well-known difficulty of approximating $p(\\theta, x_{1:T} \\mid y_{1:T})$ with SMC algorithms; see Andrieu *et al.* (1999), Fearnhead (2002) and Storvik (2002), for example. We shall see in what follows that, in spite of its reliance on SMC methods as one of its components, PMCMC sampling is much more robust and less likely to suffer from this depletion problem. This stems from the fact that PMCMC methods do not require SMC algorithms to provide a reliable approximation of $p_\\theta(x_{1:T} \\mid y_{1:T})$, but only to return a single sample approximately distributed according to $p_\\theta(x_{1:T} \\mid y_{1:T})$."
+    },
+    {
+      "id": "p0006-b011",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        594.0,
+        269.0,
+        603.0
+      ],
+      "markdown": "### 2.3. Standard Markov chain Monte Carlo methods"
+    },
+    {
+      "id": "p0006-b012",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        606.0,
+        439.0,
+        629.0
+      ],
+      "markdown": "A popular choice to sample from $p(\\theta, x_{1:T} \\mid y_{1:T})$ with MCMC methods consists of alternately updating the state components $x_{1:T}$ conditional on $\\theta$ and $\\theta$ conditional on $x_{1:T}$. Sampling"
+    }
+  ]
+}

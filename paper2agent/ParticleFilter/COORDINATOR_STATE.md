@@ -38,3 +38,24 @@ dist/particle-filter-agent/{skill,mcp}/, mcp-build/diffres/ (Paper2MCP project),
 - 2026-10-03T01:47:49Z WSL stopped abruptly (journal ends; reboot 01:54Z) as the feynman_kac verifier started an MCP acceptance dry run under heavy.sh (1200 MB scope). Cause unknown. heavy.sh tightened (avail >= limit+2500, limit <= 1500), one heavy agent at a time. 01:58Z feynman_kac verifier resumed alone; resampling verifier (stopped, tests written, production file repaired to 29667bd6...) to resume after it.
 - 02:04Z verification gate passed (resampling 99/99, feynman_kac 66/66, gaussian_filters 58/58 tests). Integration: src/diffres_mcp.py, 5 tools; project-env stdio acceptance 47/47 (peak 1214 MB); artifact contents match executor references (bitwise; notebook diffusion 1.8e-13). mcp_integration_done.
 - 02:15Z runtime validation (clean env 47/47) and delivery (extracted ZIP in path with space, 47/47 + changed-input bitwise checks, independent delivery verifier) passed; workflow gate 'complete' passed; delivery_done. ZIP staged at dist/particle-filter-agent/mcp/ (files identical). ALL DONE.
+
+## Batch 2 (2026-10-05): robust / set-membership / box-particle literature
+User asked for more agents from a 10-paper reading list. Source search report: logs/source-search-batch2.md.
+Paper skills only (no MCP: no runnable official code except R/Stan for raices-cruz, not requested).
+| id | pages | source | TeX |
+| --- | --- | --- | --- |
+| benavoli-piga-2016-paper | 20 | arXiv:1505.01034v2 | yes |
+| greco-vasile-2022-paper | 44 | Strathprints accepted manuscript | no |
+| raices-cruz-robust-is-mcmc-2022-paper | 19 | arXiv:2206.08728v1 | yes |
+| andrieu-pmcmc-2010-paper | 74 | journal PDF from Doucet's page, incl. discussion | no |
+| benavoli-lower-previsions-2011-paper | 15 | author manuscript | no |
+| gning-box-bernoulli-2012-paper | 15 | Lancaster EPrints manuscript | no |
+| haj-chhade-box-messages-2014-paper | 24 | Springer OA (Mathematics in Computer Science) | no |
+Not available: abdallah-box-pf-2008, combastel-ezgkf-2016 (paywalled). On hold: legland-oudjane-2003 (only bitmap-font INRIA report downloaded; published SPA version is free but bot-blocked -> user to download).
+- Wave 1 reviewers launched: benavoli-piga 1-10/11-20, raices-cruz 1-10/11-19, benavoli-lp 1-8/9-15, gning 1-8/9-15.
+- Pending waves: haj-chhade 1-8/9-16/17-24; greco 1-11/12-22/23-33/34-44; andrieu 1-9/10-18/19-27/28-36/37-46/47-56/57-65/66-74. Then per-paper: meta JSON, final.sh staging, fresh verifier(s), fixes, final build to dist, symlink.
+- Batch 2 progress: raices-cruz DELIVERED (verifier 0 errors/3 minors fixed; dist + symlink). Staging s1 strict OK + verifier running: gning, benavoli-lower-previsions, benavoli-piga, haj-chhade. Greco reviewers running (1-11, 12-22, 23-33, 34-44). Andrieu (74 pp) reviewers not yet launched (8 ranges: 1-9,10-18,19-27,28-36,37-46,47-56,57-65,66-74).
+- Helpers: _coord/automet.py PAPER _coord/spec/PAPER.json (auto navigation + meta, optional reading_order_moves), _coord/fixlinks.py PAPER ("](" in maths -> "]{}("), then _coord/final.sh PAPER [staging path]. After verifier: fix pages, final.sh PAPER (-> dist), ln -sfn into ~/.claude/skills.
+- Batch 2: DELIVERED (dist + symlink; each verified, 0 errors): raices-cruz, benavoli-lower-previsions, benavoli-piga, haj-chhade, gning. Greco: all 44 pages reviewed, staging s1 strict OK, two verifiers running (1-22, 23-44) -> then fix + final.sh greco-vasile-2022-paper + symlink. Andrieu: all eight reviewers launched (shared notes paper-review/_tools/ANDRIEU_ASSIGNMENT.md); when all 74 pages are [v2]: write _coord/spec/andrieu-pmcmc-2010-paper.json, fixlinks, automet, final.sh to staging, 4 verifiers (~18 pages each), fix, final, symlink. Then update README.md with the batch-2 table and the three missing PDFs.
+- 2026-10-05T21:32Z greco DELIVERED (verifier: 1 error bold-chi symbol fixed). Andrieu: all 74 pages reviewed, staging s1 strict OK (reading_order moves for full-page figs), four verifiers running (1-18, 19-36, 37-55, 56-74). README updated (ANDRIEU_STATUS placeholder to fill).
+- 2026-10-05T21:41Z andrieu DELIVERED (four verifiers: 1 error = Fig. 9 crop, fixed; maths 0 errors; Figs 9-10, 19, 20 re-placed). Batch 2 complete: 7 skills in dist + symlinks. Outstanding: legland-oudjane (needs published PDF from user), abdallah-box-pf-2008 and combastel-ezgkf-2016 (paywalled). New files not yet committed to git.

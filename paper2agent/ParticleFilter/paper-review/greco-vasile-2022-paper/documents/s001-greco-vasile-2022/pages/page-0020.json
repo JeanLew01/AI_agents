@@ -1,0 +1,147 @@
+{
+  "page": 20,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0020.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the 170-dpi page render and 250-dpi crops with all items. First paragraph continues from page 19 (join_previous space); the last paragraph continues on page 21 (join set there). Equations (31) and (32) (extractor 'formula' images) transcribed as LaTeX display blocks with printed tags; headings: '6. Lipschitz constant estimation' as ####, 'III. Numerical Experiments' as ##. As printed: in the paragraph 'Let n_lambda ...' the domain is written $\\Omega_\\lambda$ with a non-bold lambda subscript; (31) has C with upright subscript RPF, the ceiling of the base-$2/\\sqrt{3}$ logarithm of $\\sigma_0/\\delta$, and $C_{pSIS}$; (32) uses $\\nabla_{\\boldsymbol{\\lambda}}$ and the sample set $\\boldsymbol{\\mathcal{X}}_{0:k}$ inside a norm; 'yield' (for 'yields') is the authors' wording; citation range '[37–39]' kept with en dash. [coordinator] 1 occurrence(s) of \\boldsymbol{\\mathcal{X}} corrected to \\boldsymbol{\\chi} (bold chi as printed and as in the Nomenclature; verifier error).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0020-r00",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        72.0,
+        541.0,
+        103.0
+      ],
+      "markdown": "but not on the number of epistemic ones. Thus the only part of the filter whose complexity is directly affected by the number of epistemic parameters is the global optimisation algorithm.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0020-r01",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        112.0,
+        541.0,
+        263.0
+      ],
+      "markdown": "Let $n_\\lambda$ be the number of epistemic variables. The initial number $N_0$ of simplexes in $\\mathcal{L}_0$ covering the $n_\\lambda$-dimensional epistemic space depends on the rule employed to partition $\\Omega_\\lambda$. We currently use a standard algorithm for triangulation of a hyper-box into $N_0 = n_\\lambda!$ simplexes [32]. Nonetheless, a more convenient decomposition that yields a lower number of initial simplexes could be employed. Among them, an initial circumscribing simplex with a fitness penalisation for points outside the domain yield $N_0 = 1$ regardless of $n_\\lambda$ [33, 34], a minimum-cardinality triangulation can be achieved by means of linear programming [35], or covering with intersecting simplexes could be employed in place of triangulation [36]. Therefore, in our complexity analysis we will retain $N_0 = N_0(n_\\lambda)$ without making such dependence explicit."
+    },
+    {
+      "id": "p0020-r02",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        272.0,
+        541.0,
+        323.0
+      ],
+      "markdown": "In the first iteration, at most $N_0(n_\\lambda + 1)$ evaluations of the pSIS estimator are required. For each LEB branching step, only one estimator evaluation is needed at the new common vertex $\\boldsymbol{\\lambda}^*_{ij}$. By using the maximum number of branching steps $K$ from Eq. (29), the upper bound on the filter complexity is"
+    },
+    {
+      "id": "p0020-r03",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        340.0,
+        541.0,
+        368.0
+      ],
+      "markdown": "$$C_{\\text{RPF}}(n_\\lambda) = 2\\,[N_0(n_\\lambda + 1) + K]\\,C_{pSIS} = 2\\bigg[N_0 + N_0\\, n_\\lambda \\Big(1 + \\Big\\lceil \\log_{\\frac{2}{\\sqrt{3}}} \\frac{\\sigma_0}{\\delta} \\Big\\rceil\\Big)\\bigg] C_{pSIS}, \\tag{31}$$"
+    },
+    {
+      "id": "p0020-r04",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        385.0,
+        541.0,
+        436.0
+      ],
+      "markdown": "where $C_{pSIS}$ was defined in Eq. (15). Therefore, the complexity upper bound is linear with the number of epistemic variables if $N_0$ is independent of $n_\\lambda$, e.g. [33], otherwise it scales as $n_\\lambda N_0(n_\\lambda)$. By pruning the simplexes, as the B&B proceeds with the search, the actual filter complexity is significantly reduced from this conservative estimate."
+    },
+    {
+      "id": "p0020-r05",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        458.0,
+        541.0,
+        470.0
+      ],
+      "markdown": "#### 6. Lipschitz constant estimation"
+    },
+    {
+      "id": "p0020-r06",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        478.0,
+        541.0,
+        530.0
+      ],
+      "markdown": "The Lipschitz constant is estimated as the maximum of the estimator gradient evaluated on the vertexes of the simplexes. Specifically, at a generic iteration $k$, the domain is partitioned in disjoint simplexes $\\mathcal{S}_k^{(i)}$ each with vertexes $[\\boldsymbol{\\lambda}_0^{(i)}, \\ldots, \\boldsymbol{\\lambda}_n^{(i)}]$. The Lipschitz constant is set to"
+    },
+    {
+      "id": "p0020-r07",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        550.0,
+        541.0,
+        574.0
+      ],
+      "markdown": "$$L = \\max_{i,j} \\big\\| \\nabla_{\\boldsymbol{\\lambda}}\\, \\hat{\\theta}(\\boldsymbol{\\chi}_{0:k}, \\boldsymbol{\\lambda}_j^{(i)}) \\big\\|. \\tag{32}$$"
+    },
+    {
+      "id": "p0020-r08",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        591.0,
+        541.0,
+        642.0
+      ],
+      "markdown": "This is an adaptive, although lower, approximation of the true Lipschitz constant. Therefore, it could lead to over-pruning potentially optimal simplexes. However, lower approximations are often employed in literature and have proven to be efficient on a large number of test cases [37–39]."
+    },
+    {
+      "id": "p0020-r09",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        668.0,
+        541.0,
+        682.0
+      ],
+      "markdown": "## III. Numerical Experiments"
+    },
+    {
+      "id": "p0020-r10",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        690.0,
+        541.0,
+        721.0
+      ],
+      "markdown": "This section presents an assessment of the performance of the filter and of its ability to compute tight bounds on the probability of collision between two objects in space, in the presence of epistemic uncertainty. First, the"
+    },
+    {
+      "id": "p0020-b011",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "20",
+      "source_class": "page-footer",
+      "reason": "Page number footer (\"20\"), verified against the page image."
+    }
+  ]
+}

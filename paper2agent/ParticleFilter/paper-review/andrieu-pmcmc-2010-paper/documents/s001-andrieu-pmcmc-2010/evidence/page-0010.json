@@ -1,0 +1,1203 @@
+{
+  "page": 10,
+  "lines": [
+    {
+      "text": "278",
+      "bbox": [
+        42.70989990234375,
+        39.52751922607422,
+        57.665863037109375,
+        47.82143783569336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C. Andrieu, A. Doucet and R. Holenstein",
+      "bbox": [
+        78.57550048828125,
+        39.52751922607422,
+        237.29876708984375,
+        47.82143783569336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.4.3.",
+      "bbox": [
+        42.70989990234375,
+        56.66524124145508,
+        65.7533950805664,
+        65.8308334350586
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Particle Gibbs sampler",
+      "bbox": [
+        75.71599578857422,
+        56.66524124145508,
+        168.63714599609375,
+        65.8308334350586
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "An alternative to the MMH algorithm to sample from p.θ,x1:T |y1:T / consists of using the Gibbs",
+      "bbox": [
+        42.70989990234375,
+        67.88313293457031,
+        438.2303771972656,
+        79.49478149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampler which samples iteratively from p.θ|y1:T , x1:T / and pθ.x1:T |y1:T /. It is often possible to",
+      "bbox": [
+        42.710174560546875,
+        79.83833312988281,
+        438.2276916503906,
+        91.5595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sample from p.θ|y1:T , x1:T / and thus the potentially tedious design of a proposal density for θ",
+      "bbox": [
+        42.711456298828125,
+        91.79353332519531,
+        437.9490966796875,
+        103.5147705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that is necessary in the MMH update can be bypassed. Again, sampling from pθ.x1:T |y1:T / is",
+      "bbox": [
+        42.7098388671875,
+        103.74873352050781,
+        438.2315673828125,
+        115.36038208007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "typically impossible and we investigate the possibility of using a particle approximation to this",
+      "bbox": [
+        42.711395263671875,
+        116.54072570800781,
+        438.2284851074219,
+        125.77606201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithm. Clearly the naive particle approximation to the Gibbs sampler where sampling from",
+      "bbox": [
+        42.711395263671875,
+        128.49586486816406,
+        438.2325744628906,
+        137.731201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ.x1:T |y1:T / is replaced by sampling from an SMC approximation ˆpθ.x1:T |y1:T / does not admit",
+      "bbox": [
+        42.711395263671875,
+        139.6143341064453,
+        438.22894287109375,
+        151.53952026367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p.θ, x1:T |y1:T / as invariant density.",
+      "bbox": [
+        42.71075439453125,
+        151.56947326660156,
+        187.2464141845703,
+        163.18099975585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A valid particle approximation to the Gibbs sampler requires the use of a special type of",
+      "bbox": [
+        52.67264175415039,
+        164.3615264892578,
+        438.22418212890625,
+        173.59686279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "PMCMC update called the conditional SMC update. This update is similar to a standard SMC",
+      "bbox": [
+        42.71004104614258,
+        176.31666564941406,
+        438.2321472167969,
+        185.552001953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithm but is such that a prespeciﬁed path X1:T with ancestral lineage B1:T is ensured to",
+      "bbox": [
+        42.710052490234375,
+        188.2717742919922,
+        438.23065185546875,
+        199.15618896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "survive all the resampling steps, whereas the remaining N −1 particles are generated as usual.",
+      "bbox": [
+        42.71148681640625,
+        199.39002990722656,
+        438.2315979003906,
+        209.46221923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The algorithm is as follows.",
+      "bbox": [
+        42.71147155761719,
+        212.18199157714844,
+        158.35733032226562,
+        221.41732788085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Step 1: let X1:T = .XB1",
+      "bbox": [
+        52.674072265625,
+        227.1825408935547,
+        147.5570068359375,
+        241.06402587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 , XB2",
+      "bbox": [
+        139.3997039794922,
+        227.1825408935547,
+        168.47659301757812,
+        242.76760864257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 , . . . ,XBT−1",
+      "bbox": [
+        160.31930541992188,
+        226.6863555908203,
+        215.25924682617188,
+        242.76760864257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T−1 , XBT",
+      "bbox": [
+        198.33880615234375,
+        227.4514617919922,
+        236.41790771484375,
+        242.76760864257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T / be a path that is associated with the ancestral",
+      "bbox": [
+        228.02149963378906,
+        230.2892608642578,
+        438.2283630371094,
+        240.32479858398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lineage B1:T .",
+      "bbox": [
+        52.672821044921875,
+        242.24436950683594,
+        105.5378646850586,
+        253.12881469726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Step 2: for n=1,",
+      "bbox": [
+        52.672325134277344,
+        253.3627166748047,
+        122.40853118896484,
+        263.4349060058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(a) for k̸ =B1, sample Xk",
+      "bbox": [
+        62.56319046020508,
+        269.5303649902344,
+        169.1906280517578,
+        281.6902770996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 ∼qθ.·|y1/ and",
+      "bbox": [
+        165.65771484375,
+        270.4736022949219,
+        230.52110290527344,
+        283.6790771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(b) compute w1.Xk",
+      "bbox": [
+        62.56462097167969,
+        281.4855651855469,
+        144.56503295898438,
+        293.6454772949219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1/ by using equation (6) and normalize the weights Wk",
+      "bbox": [
+        141.03211975097656,
+        281.4855651855469,
+        369.464111328125,
+        295.2393493652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 ∝w1.Xk",
+      "bbox": [
+        364.9544677734375,
+        281.48565673828125,
+        406.3009033203125,
+        295.63427734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1/.",
+      "bbox": [
+        402.76800537109375,
+        283.2657775878906,
+        413.4676208496094,
+        295.23944091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Step 3: for n=2, . . . ,T,",
+      "bbox": [
+        52.674041748046875,
+        299.5396728515625,
+        150.55459594726562,
+        309.61187744140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(a) for k̸ =Bn, sample Ak",
+      "bbox": [
+        62.564918518066406,
+        315.7071838378906,
+        169.2125244140625,
+        326.7226867675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n−1 ∼F.·|Wn−1/,",
+      "bbox": [
+        165.6992950439453,
+        316.6504821777344,
+        236.6519012451172,
+        329.85589599609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(b) for k̸ =Bn, sample Xkn ∼q.·|yn, Xn−1",
+      "bbox": [
+        62.56443786621094,
+        329.1037292480469,
+        228.68527221679688,
+        342.3576965332031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ak",
+      "bbox": [
+        216.0331268310547,
+        325.62225341796875,
+        224.33340454101562,
+        332.55096435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n−1/ and",
+      "bbox": [
+        221.55979919433594,
+        329.940673828125,
+        255.6519012451172,
+        339.1759948730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(c) compute wn.Xk",
+      "bbox": [
+        62.56475830078125,
+        340.11578369140625,
+        144.90573120117188,
+        351.131103515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:n/ by using equation (7) and normalize the weights Wk",
+      "bbox": [
+        141.37281799316406,
+        340.2488708496094,
+        375.9833068847656,
+        353.86956787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n ∝wn.Xk",
+      "bbox": [
+        371.4736633300781,
+        340.11578369140625,
+        413.16070556640625,
+        353.7017517089844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:n/.",
+      "bbox": [
+        409.6278076171875,
+        341.8959655761719,
+        426.50592041015625,
+        353.86956787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For further clarity we illustrate this update on a toy example. Fig. 1 displays ancestral lineages",
+      "bbox": [
+        52.67431640625,
+        360.00299072265625,
+        438.23187255859375,
+        369.2383117675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that were generated by a standard SMC method in a situation where N =5 and T =3: Consider",
+      "bbox": [
+        42.71171569824219,
+        371.1212158203125,
+        438.2329406738281,
+        381.19342041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X2",
+      "bbox": [
+        42.712738037109375,
+        381.9590148925781,
+        54.08729934692383,
+        391.0464172363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:3 =.X3",
+      "bbox": [
+        50.28181076049805,
+        381.8681335449219,
+        85.73279571533203,
+        396.2818908691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1,X4",
+      "bbox": [
+        81.92731475830078,
+        381.9590148925781,
+        101.80259704589844,
+        395.8869323730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2,X2",
+      "bbox": [
+        97.99711608886719,
+        381.9590148925781,
+        117.91029357910156,
+        395.886962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3/ whose ancestral lineage is B2",
+      "bbox": [
+        114.10481262207031,
+        381.9590148925781,
+        242.08419799804688,
+        395.886962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:3 =.3,4,2/. A conditional SMC update leaving",
+      "bbox": [
+        238.15908813476562,
+        383.0763854980469,
+        438.2295837402344,
+        396.2818908691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X2",
+      "bbox": [
+        42.71046447753906,
+        393.9142150878906,
+        54.08729934692383,
+        403.0015869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:3 (the lighter path in Fig. 1) identical generates four new paths consistent with both X2",
+      "bbox": [
+        50.28181076049805,
+        393.9142150878906,
+        413.8019104003906,
+        408.3466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:3 and",
+      "bbox": [
+        409.9964294433594,
+        395.86846923828125,
+        438.231201171875,
+        408.3466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B2",
+      "bbox": [
+        42.71099853515625,
+        405.86932373046875,
+        53.4098014831543,
+        414.956787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:3. One could, for example, obtain the set of new paths that is presented in Fig. 2.",
+      "bbox": [
+        49.484683990478516,
+        407.82366943359375,
+        393.3233947753906,
+        419.7972717285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A computationally more efﬁcient way to implement the conditional SMC update is presented",
+      "bbox": [
+        52.67223358154297,
+        419.7787780761719,
+        438.2228088378906,
+        429.01409912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in Appendix A—this is, however, not required to present our particle version of the Gibbs",
+      "bbox": [
+        42.709632873535156,
+        431.73388671875,
+        438.2297668457031,
+        440.9692077636719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampler, the PG sampler, as follows.",
+      "bbox": [
+        42.709632873535156,
+        443.6889953613281,
+        195.71522521972656,
+        452.92431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Step 1: initialization, i=0—set θ.0/, X1:T .0/ and B1:T .0/ arbitrarily.",
+      "bbox": [
+        52.67223358154297,
+        460.95916748046875,
+        337.49627685546875,
+        472.17626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Step 2: for iteration i⩾1,",
+      "bbox": [
+        52.67356872558594,
+        472.91473388671875,
+        158.3727569580078,
+        482.9869384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(a) sample θ.i/∼p{·|y1:T , X1:T .i−1/},",
+      "bbox": [
+        62.56443786621094,
+        490.025390625,
+        227.90052795410156,
+        501.74658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(b) run a conditional SMC algorithm targeting pθ.i/.x1:T |y1:T / conditional on X1:T .i−1/",
+      "bbox": [
+        62.56422424316406,
+        501.9805908203125,
+        438.2303161621094,
+        513.5921630859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and B1:T .i−1/, and",
+      "bbox": [
+        79.57272338867188,
+        513.935791015625,
+        163.54798889160156,
+        525.1524658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(c) sample X1:T .i/∼ˆpθ.i/.·|y1:T / (and hence B1:T .i/ is also implicitly sampled).",
+      "bbox": [
+        62.56409454345703,
+        525.8909912109375,
+        393.6888427734375,
+        537.8162231445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In theorem 5 in Section 4.5, it is shown that this algorithm admits p.θ,x1:T |y1:T / as invariant",
+      "bbox": [
+        52.673095703125,
+        543.998046875,
+        438.23095703125,
+        555.6096801757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "density and is ergodic under mild assumptions.",
+      "bbox": [
+        42.7117919921875,
+        556.7901000976562,
+        239.90151977539062,
+        566.0254516601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.5.",
+      "bbox": [
+        42.7117919921875,
+        582.6729125976562,
+        59.32941436767578,
+        591.8883056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Improvements and extensions",
+      "bbox": [
+        68.69425964355469,
+        582.6729125976562,
+        200.88795471191406,
+        591.8883056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.5.1.",
+      "bbox": [
+        42.7117919921875,
+        594.74755859375,
+        65.75528717041016,
+        603.9131469726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Advanced particle ﬁltering and sequential Monte Carlo techniques",
+      "bbox": [
+        75.71788787841797,
+        594.74755859375,
+        346.4912109375,
+        603.9131469726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For ease of presentation, we have limited our discussion in this section to one of the sim-",
+      "bbox": [
+        42.7117919921875,
+        606.8023071289062,
+        438.2308349609375,
+        616.0376586914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "plest implementations of SMC algorithms. However, over the past 15 years numerous more",
+      "bbox": [
+        42.7117919921875,
+        618.7574462890625,
+        438.22393798828125,
+        627.9927978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Particle Markov chain Monte Carlo methods",
+      "author": "Sci Publ Svcs (Chennai India) 4507 2000 Jan 05 15:06:23",
+      "subject": "TeX output 2010.05.08:1134",
+      "keywords": "",
+      "creator": "DVIPSONE 2.2.0  http://www.YandY.com",
+      "producer": "PDFlib PLOP 2.0.0p6 (SunOS)/Acrobat Distiller 7.0 (Windows)",
+      "creationDate": "D:20100508113500Z",
+      "modDate": "D:20100520110917-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/andrieu-pmcmc-2010-paper/documents/.pdf-skill-scan-om9ufjhc/review/source.pdf",
+      "page_count": 74,
+      "page_number": 10
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          42,
+          39,
+          238,
+          48
+        ],
+        "pos": [
+          0,
+          48
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          42,
+          56,
+          169,
+          66
+        ],
+        "pos": [
+          48,
+          84
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          42,
+          68,
+          439,
+          162
+        ],
+        "pos": [
+          84,
+          839
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          42,
+          164,
+          439,
+          222
+        ],
+        "pos": [
+          839,
+          1241
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          52,
+          226,
+          439,
+          252
+        ],
+        "pos": [
+          1241,
+          1435
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          52,
+          254,
+          123,
+          264
+        ],
+        "pos": [
+          1435,
+          1459
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          62,
+          269,
+          414,
+          294
+        ],
+        "pos": [
+          1459,
+          1658
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          52,
+          300,
+          151,
+          310
+        ],
+        "pos": [
+          1658,
+          1694
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          62,
+          315,
+          427,
+          353
+        ],
+        "pos": [
+          1694,
+          1696
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          42,
+          359,
+          439,
+          419
+        ],
+        "pos": [
+          1696,
+          2264
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          42,
+          419,
+          439,
+          453
+        ],
+        "pos": [
+          2264,
+          2483
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          52,
+          461,
+          338,
+          483
+        ],
+        "pos": [
+          2483,
+          2598
+        ]
+      },
+      {
+        "index": 12,
+        "class": "list-item",
+        "bbox": [
+          62,
+          490,
+          228,
+          501
+        ],
+        "pos": [
+          2598,
+          2657
+        ]
+      },
+      {
+        "index": 13,
+        "class": "list-item",
+        "bbox": [
+          62,
+          502,
+          439,
+          524
+        ],
+        "pos": [
+          2657,
+          2780
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          62,
+          526,
+          394,
+          538
+        ],
+        "pos": [
+          2780,
+          2875
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          42,
+          544,
+          439,
+          567
+        ],
+        "pos": [
+          2875,
+          3027
+        ]
+      },
+      {
+        "index": 16,
+        "class": "section-header",
+        "bbox": [
+          42,
+          582,
+          201,
+          592
+        ],
+        "pos": [
+          3027,
+          3066
+        ]
+      },
+      {
+        "index": 17,
+        "class": "section-header",
+        "bbox": [
+          42,
+          594,
+          347,
+          605
+        ],
+        "pos": [
+          3066,
+          3145
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          42,
+          606,
+          439,
+          629
+        ],
+        "pos": [
+          3145,
+          3324
+        ]
+      }
+    ],
+    "text": "278 _C. Andrieu, A. Doucet and R. Holenstein_ \n\n# _2.4.3. Particle Gibbs sampler_ \n\nAn alternative to the MMH algorithm to sample from p. _θ_ , x1:T |y1:T / consists of using the Gibbs sampler which samples iteratively from p. _θ_ |y1:T , x1:T / and p _θ_ .x1:T |y1:T /. It is often possible to sample from p. _θ_ |y1:T , x1:T / and thus the potentially tedious design of a proposal density for _θ_ that is necessary in the MMH update can be bypassed. Again, sampling from p _θ_ .x1:T |y1:T / is typically impossible and we investigate the possibility of using a particle approximation to this algorithm. Clearly the naive particle approximation to the Gibbs sampler where sampling from p _θ_ .x1:T |y1:T / is replaced by sampling from an SMC approximation pˆ _θ_ .x1:T |y1:T / does not admit p. _θ_ , x1:T |y1:T / as invariant density. \n\nA valid particle approximation to the Gibbs sampler requires the use of a special type of PMCMC update called the _conditional SMC_ update. This update is similar to a standard SMC algorithm but is such that a prespecified path X1:T with ancestral lineage B1:T is ensured to survive all the resampling steps, whereas the remaining N − 1 particles are generated as usual. The algorithm is as follows. \n\n_Step 1_ : let X1:T = .X1<sup>B1, X</sup> 2<sup>B2, . . . ,X</sup> T<sup>BT</sup> −<sup>−</sup> 1<sup>1, X</sup> T<sup>BT/ be a path that is associated with the ancestral</sup> lineage B1:T . \n\n_Step 2_ : for n = 1, \n\n(a) for k̸ = B1, sample X1<sup>k∼q</sup><sup>_θ_.·|y1/ and</sup> (b) compute _w_ 1.X1<sup>k/ by using equation (6) and normalize the weights W</sup> 1<sup>k∝</sup><sup>_w_1.X</sup> 1<sup>k/.</sup> \n\n_Step 3_ : for n = 2, . . . , T , \n\n\n\nFor further clarity we illustrate this update on a toy example. Fig. 1 displays ancestral lineages that were generated by a standard SMC method in a situation where N = 5 and T = 3: Consider X1:3<sup>2=.X</sup> 1<sup>3,X</sup> 2<sup>4,X</sup> 3<sup>2/ whose ancestral lineage is B</sup> 1:3<sup>2=.3,4,2/. A conditional SMC update leaving</sup> X1:3<sup>2(the lighter path in Fig. 1) identical generates four new paths consistent with both X</sup> 1:3<sup>2and</sup> B1:3<sup>2. One could, for example, obtain the set of new paths that is presented in Fig. 2.</sup> \n\nA computationally more efficient way to implement the conditional SMC update is presented in Appendix A—this is, however, not required to present our particle version of the Gibbs sampler, the PG sampler, as follows. \n\n_Step 1_ : initialization, i = 0—set _θ_ .0/, X1:T .0/ and B1:T .0/ arbitrarily. _Step 2_ : for iteration i ⩾ 1, \n\n- (a) sample _θ_ .i/ ∼ p _{_ ·|y1:T , X1:T .i − 1/ _}_ , \n\n- (b) run a conditional SMC algorithm targeting p _θ_ .i/.x1:T |y1:T / conditional on X1:T .i − 1/ and B1:T .i − 1/, and \n\n- (c) sample X1:T .i/ ∼ pˆ _θ_ .i/.·|y1:T / (and hence B1:T .i/ is also implicitly sampled). \n\nIn theorem 5 in Section 4.5, it is shown that this algorithm admits p. _θ_ , x1:T |y1:T / as invariant density and is ergodic under mild assumptions. \n\n# _2.5. Improvements and extensions_ \n\n# _2.5.1. Advanced particle filtering and sequential Monte Carlo techniques_ \n\nFor ease of presentation, we have limited our discussion in this section to one of the simplest implementations of SMC algorithms. However, over the past 15 years numerous more \n\n"
+  }
+}

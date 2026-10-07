@@ -1,0 +1,137 @@
+{
+  "page": 12,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0012.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220 dpi crops (no TeX). Header omitted. '### 3.1. A non-linear state space model'; the extractor's second 'heading' ('Consider the SSM') is ordinary text. Equations (14) and (15) were formula images: transcribed as LaTeX display items with \\tag (14 ends with a comma, 15 has no punctuation, as printed). Inline maths in LaTeX; '~^IID' is printed as a tilde with raised IID. Printed 'p_theta(x_n|y_n, x_n)' in the sentence on local linearization (probably meant x_{n-1}) kept as printed. '50 000' is printed with a thin space, written 50000. Fig. 3 is printed at the bottom after the paragraph that continues onto page 13; the figure and caption were moved before that paragraph ('Determining a sensible trade-off ... = 10, we'), which is now the last item. Figure 3 bbox [38,449,443,606] checked with a crop: both panels with axis labels, ticks and '(a)'/'(b)' included, caption excluded. Caption: the marker for T = 10 is printed as a vertical bar '|' (the plotted marker is '+'); kept as printed; markers written as $|$, $\\times$, $\\ast$, $\\square$.",
+  "warnings": [
+    "Review possible header/footer: p0012-b000"
+  ],
+  "items": [
+    {
+      "id": "p0012-b000",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "280 _C. Andrieu, A. Doucet and R. Holenstein_",
+      "source_class": "page-header",
+      "reason": "Running header: page number 280 and author names."
+    },
+    {
+      "id": "p0012-b001",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        56.0,
+        207.0,
+        66.0
+      ],
+      "markdown": "### 3.1. A non-linear state space model",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0012-b002",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        68.0,
+        121.0,
+        77.0
+      ],
+      "markdown": "Consider the SSM",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0012-b003",
+      "kind": "text",
+      "bbox": [
+        141.0,
+        81.0,
+        444.0,
+        117.0
+      ],
+      "markdown": "$$X_n = \\frac{X_{n-1}}{2} + 25 \\frac{X_{n-1}}{1 + X_{n-1}^2} + 8\\cos(1.2n) + V_n, \\tag{14}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0012-b004",
+      "kind": "text",
+      "bbox": [
+        205.0,
+        123.0,
+        444.0,
+        157.0
+      ],
+      "markdown": "$$Y_n = \\frac{X_n^2}{20} + W_n \\tag{15}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0012-b005",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        160.0,
+        439.0,
+        232.0
+      ],
+      "markdown": "where $X_1 \\sim \\mathcal{N}(0, 5)$, $V_n \\sim^{\\text{IID}} \\mathcal{N}(0, \\sigma_V^2)$ and $W_n \\sim^{\\text{IID}} \\mathcal{N}(0, \\sigma_W^2)$; here $\\mathcal{N}(m, \\sigma^2)$ denotes the Gaussian distribution of mean $m$ and variance $\\sigma^2$ and IID stands for independent and identically distributed. We set $\\theta = (\\sigma_V, \\sigma_W)$. This example is often used in the literature to assess the performance of SMC methods. The posterior density $p_\\theta(x_{1:T}|y_{1:T})$ for this non-linear model is highly multimodal as there is uncertainty about the sign of the state $X_n$ which is only observed through its square.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b006",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        232.0,
+        439.0,
+        385.0
+      ],
+      "markdown": "We generated two sets of observations $y_{1:100}$ according to model (14)–(15) with $\\sigma_V^2 = \\sigma_W^2 = 10$, and $\\sigma_V^2 = 10$ and $\\sigma_W^2 = 1$. We display in Fig. 3 the average acceptance rate of the PIMH algorithm when sampling from $p_\\theta(x_{1:T}|y_{1:T})$ as a function of $T$ and $N$. This was computed using 50000 iterations of the PIMH sampler. We used the most basic resampling scheme, i.e. the multinomial resampling that was described in Section 2.2.1. We also used the simplest possible proposal for SMC sampling, i.e. $q_\\theta(x_1) = \\mu_\\theta(x_1)$ and $q_\\theta(x_n|y_n, x_{n-1}) = f_\\theta(x_n|x_{n-1})$ for $n = 2, \\ldots, T$. The acceptance probabilities are higher when $\\sigma_V^2 = \\sigma_W^2 = 10$ than when $\\sigma_V^2 = 10$ and $\\sigma_W^2 = 1$. This is to be expected as in this latter scenario the observations are more informative and our SMC algorithm only samples particles from a rather diffuse prior. Better performance could be obtained by using an approximation of $p_\\theta(x_n|y_n, x_n)$ based on local linearization as a proposal distribution $q_\\theta(x_n|y_n, x_{n-1})$ (Cappé *et al.* (2005), page 230), and a more sophisticated resampling scheme. However, our aim here is to show that even this off-the-shelf choice can provide satisfactory results in difficult scenarios.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0012-b008",
+      "kind": "figure",
+      "bbox": [
+        38.0,
+        449.0,
+        443.0,
+        606.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0012-b009",
+      "kind": "caption",
+      "bbox": [
+        42.0,
+        608.0,
+        439.0,
+        628.0
+      ],
+      "markdown": "Fig. 3. Average acceptance rate of the PIMH sampler as a function of $N$ and $T$ for (a) $\\sigma_V^2 = 10$ and $\\sigma_W^2 = 10$ and (b) $\\sigma_V^2 = 10$ and $\\sigma_W^2 = 1$; $|$, $T = 10$; $\\times$, $T = 25$; $\\ast$, $T = 50$; $\\square$, $T = 100$",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0012-b007",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        389.0,
+        439.0,
+        436.0
+      ],
+      "markdown": "Determining a sensible trade-off between the average acceptance rate of the PIMH update and the number of particles seems to be difficult. Indeed, whereas a high expected acceptance probability is theoretically desirable in the present case, this does not take into account the computational complexity. For example, in the scenario where $T = 100$ and $\\sigma_V^2 = \\sigma_W^2 = 10$, we",
+      "source_class": "text"
+    }
+  ]
+}

@@ -3,7 +3,8 @@
 You help convert research PDFs into agent-readable "paper skills" with the Paper2Agent `paper2skill`
 workflow. A Claude agent will later use the package to answer detailed technical questions about the
 paper (assumptions, theorem statements, bounds, constants, algorithms, experiments). The reader is a
-control/robotics researcher working on particle filters and diffusion models, so **the mathematics must come out readable and exact**.
+control/robotics researcher working on particle filters, set-membership estimation and imprecise
+probabilities (sets of posteriors, robust Bayes), so **the mathematics must come out readable and exact**.
 
 A coordinator owns the builds. You own a contiguous range of page plans of one paper and nothing else.
 Its conventions match the sibling collections in `~/AI_agents/paper2agent/Reachability` and

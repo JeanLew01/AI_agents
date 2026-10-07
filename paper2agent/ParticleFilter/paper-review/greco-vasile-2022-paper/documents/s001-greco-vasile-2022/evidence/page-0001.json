@@ -1,0 +1,921 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Robust Bayesian Particle Filter for Space Object Tracking",
+      "bbox": [
+        93.13099670410156,
+        71.99188995361328,
+        518.8579711914062,
+        87.36488342285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Under Severe Uncertainty",
+      "bbox": [
+        204.18899536132812,
+        93.90985870361328,
+        394.3975524902344,
+        109.28285217285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Cristian Greco∗and Massimiliano Vasile†",
+      "bbox": [
+        222.4119873046875,
+        134.8617706298828,
+        389.0889892578125,
+        141.635986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University of Strathclyde, Glasgow, Scotland, G1 1XJ, United Kingdom",
+      "bbox": [
+        164.15199279785156,
+        146.816162109375,
+        447.8587341308594,
+        155.6433868408203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper introduces a robust Bayesian particle ﬁlter that can handle epistemic uncertainty",
+      "bbox": [
+        122.9439926147461,
+        189.57452392578125,
+        504.2682189941406,
+        198.4714813232422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in the measurements, dynamics, and initial conditions. The robust ﬁlter returns robust bounds",
+      "bbox": [
+        107.99999237060547,
+        209.5035400390625,
+        504.0195007324219,
+        218.40049743652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on the output quantity of interest, rather than a crisp value. Particles are generated with an",
+      "bbox": [
+        107.99999237060547,
+        229.43353271484375,
+        504.01959228515625,
+        238.3304901123047
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "importance sampling technique and propagated only one time during the estimation process.",
+      "bbox": [
+        107.99999237060547,
+        249.362548828125,
+        505.76300048828125,
+        258.2594909667969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The proposal distribution is constructed by running a parallel Unscented Kalman Filter to drive",
+      "bbox": [
+        107.67098999023438,
+        269.29156494140625,
+        504.0194091796875,
+        278.1885070800781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "particles in regions of high expected likelihood and achieve a high eﬀective sample size. The",
+      "bbox": [
+        107.99999237060547,
+        289.2215576171875,
+        504.01959228515625,
+        298.1184997558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "bounds are then computed by an inexpensive tuning of the importance weights via numerical",
+      "bbox": [
+        107.99999237060547,
+        309.15057373046875,
+        504.0195617675781,
+        318.0475158691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimisation. A Branch & Bound algorithm over simplexes with a Lipschitz bounding function",
+      "bbox": [
+        107.99999237060547,
+        329.07958984375,
+        504.0195617675781,
+        337.9765319824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is employed to achieve guaranteed convergence to the lower and upper bounds in a ﬁnite",
+      "bbox": [
+        107.99999237060547,
+        349.00958251953125,
+        504.01959228515625,
+        357.9065246582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "number of steps. The ﬁlter is applied to the robust computation of the collision probability of",
+      "bbox": [
+        107.99999237060547,
+        368.9385986328125,
+        504.0193786621094,
+        377.8355407714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SENTINEL 2B with a FENGYUN 1C debris in diﬀerent operational instances, all characterised",
+      "bbox": [
+        107.99999237060547,
+        388.86761474609375,
+        504.0196533203125,
+        397.7645568847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by a mix of aleatory and epistemic uncertainty on initial conditions and observation likelihoods.",
+      "bbox": [
+        107.99999237060547,
+        408.797607421875,
+        505.7631530761719,
+        417.6945495605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Nomenclature",
+      "bbox": [
+        269.96099853515625,
+        445.28509521484375,
+        342.03765869140625,
+        455.9609069824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "b",
+      "bbox": [
+        72.0,
+        473.9077453613281,
+        76.27412414550781,
+        482.7549133300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.8389892578125,
+        476.308837890625,
+        144.45811462402344,
+        480.82208251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mixture weight",
+      "bbox": [
+        154.42111206054688,
+        476.308837890625,
+        214.72720336914062,
+        480.82208251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C, c",
+      "bbox": [
+        71.99999237060547,
+        489.8507385253906,
+        88.00061798095703,
+        498.6979064941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.8389892578125,
+        492.2518310546875,
+        144.45811462402344,
+        496.76507568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computational complexities",
+      "bbox": [
+        154.42111206054688,
+        492.2518310546875,
+        264.492431640625,
+        496.76507568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D, d",
+      "bbox": [
+        71.99999237060547,
+        505.7947692871094,
+        91.57038879394531,
+        514.6419067382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.8389892578125,
+        508.19586181640625,
+        144.45811462402344,
+        512.7091064453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "static parameters’ random variable and its realisation",
+      "bbox": [
+        154.42111206054688,
+        508.19586181640625,
+        364.6605529785156,
+        512.7091064453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "E, E, E",
+      "bbox": [
+        71.99999237060547,
+        524.0291748046875,
+        101.88136291503906,
+        528.652099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83900451660156,
+        524.1387329101562,
+        144.4581298828125,
+        528.6519775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "expectation, lower and upper expectations",
+      "bbox": [
+        154.42112731933594,
+        524.1387329101562,
+        321.0226135253906,
+        528.6519775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "F, eF",
+      "bbox": [
+        72.00000762939453,
+        537.123779296875,
+        92.06547546386719,
+        550.5737915039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        540.082763671875,
+        144.45814514160156,
+        544.5960083007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "set of propagated states and its truncated polynomial representation",
+      "bbox": [
+        154.421142578125,
+        540.082763671875,
+        422.4261169433594,
+        544.5960083007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "f",
+      "bbox": [
+        72.0000228881836,
+        553.6246948242188,
+        76.87193298339844,
+        562.4718017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        556.0257568359375,
+        144.45814514160156,
+        560.5390014648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "equations of motion",
+      "bbox": [
+        154.421142578125,
+        556.0257568359375,
+        234.02560424804688,
+        560.5390014648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h",
+      "bbox": [
+        72.0000228881836,
+        569.5687255859375,
+        77.73870849609375,
+        578.4158325195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        571.9697875976562,
+        144.45814514160156,
+        576.4830322265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "observation model",
+      "bbox": [
+        154.421142578125,
+        571.9697875976562,
+        228.25694274902344,
+        576.4830322265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "IC",
+      "bbox": [
+        72.0000228881836,
+        585.51171875,
+        82.09072875976562,
+        595.2739868164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        587.9127807617188,
+        144.45814514160156,
+        592.426025390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "collision’s indicator function",
+      "bbox": [
+        154.421142578125,
+        587.9127807617188,
+        268.69683837890625,
+        592.426025390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "K",
+      "bbox": [
+        72.0000228881836,
+        601.4556884765625,
+        80.45861053466797,
+        610.3027954101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        603.8567504882812,
+        144.45814514160156,
+        608.3699951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "branching steps",
+      "bbox": [
+        154.421142578125,
+        603.8567504882812,
+        216.38111877441406,
+        608.3699951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        72.0000228881836,
+        616.8407592773438,
+        78.86453247070312,
+        626.2457885742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        619.7997436523438,
+        144.45814514160156,
+        624.31298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "list of simplexes",
+      "bbox": [
+        154.421142578125,
+        619.7997436523438,
+        218.94158935546875,
+        624.31298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        72.0000228881836,
+        633.3426513671875,
+        78.77486419677734,
+        642.1897583007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        635.7437133789062,
+        144.45814514160156,
+        640.2569580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lipschitz constant",
+      "bbox": [
+        154.421142578125,
+        635.7437133789062,
+        226.90203857421875,
+        640.2569580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lk",
+      "bbox": [
+        72.0000228881836,
+        649.28564453125,
+        83.01323699951172,
+        659.0479125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        138.83901977539062,
+        651.6867065429688,
+        144.45814514160156,
+        656.199951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lower bound of minimum within simplexes",
+      "bbox": [
+        154.421142578125,
+        651.6867065429688,
+        325.5457763671875,
+        656.199951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Presented as conference paper AAS 19-845 at the 2019 AAS/AIAA Astrodynamics Specialist Conference, Portland, ME, August 11-15, 2019.",
+      "bbox": [
+        89.93299865722656,
+        678.30859375,
+        539.99609375,
+        681.9190063476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "∗PhD Candidate, Aerospace Centre of Excellence, Department of Mechanical and Aerospace Engineering, James Weir Building, University of",
+      "bbox": [
+        86.3499984741211,
+        685.8629760742188,
+        539.9949340820312,
+        691.3829956054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Strathclyde, c.greco@strath.ac.uk.",
+      "bbox": [
+        72.0,
+        695.4284057617188,
+        181.81088256835938,
+        702.4898681640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "†Professor, Aerospace Centre of Excellence, Department of Mechanical and Aerospace Engineering, James Weir Building, University of",
+      "bbox": [
+        86.44599914550781,
+        705.0139770507812,
+        539.9930419921875,
+        710.5350341796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Strathclyde, massimiliano.vasile@strath.ac.uk (Corresponding author). Member AIAA.",
+      "bbox": [
+        72.0,
+        714.5794067382812,
+        352.57769775390625,
+        721.640869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Robust Bayesian particle filter for space object tracking under severe uncertainty",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20211010080747Z",
+      "modDate": "D:20211013145301+01'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/greco-vasile-2022-paper/documents/.pdf-skill-scan-ik9epn5h/review/source.pdf",
+      "page_count": 44,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "title",
+        "bbox": [
+          93,
+          71,
+          519,
+          110
+        ],
+        "pos": [
+          0,
+          91
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          222,
+          133,
+          390,
+          142
+        ],
+        "pos": [
+          91,
+          156
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          164,
+          146,
+          448,
+          156
+        ],
+        "pos": [
+          156,
+          229
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          189,
+          506,
+          418
+        ],
+        "pos": [
+          229,
+          1355
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          269,
+          445,
+          343,
+          454
+        ],
+        "pos": [
+          1355,
+          1377
+        ]
+      },
+      {
+        "index": 5,
+        "class": "list-item",
+        "bbox": [
+          71,
+          473,
+          326,
+          659
+        ],
+        "pos": [
+          1377,
+          1883
+        ]
+      },
+      {
+        "index": 6,
+        "class": "list-item",
+        "bbox": [
+          138,
+          505,
+          365,
+          515
+        ],
+        "pos": [
+          1883,
+          1947
+        ]
+      },
+      {
+        "index": 7,
+        "class": "list-item",
+        "bbox": [
+          138,
+          537,
+          423,
+          547
+        ],
+        "pos": [
+          1947,
+          2025
+        ]
+      },
+      {
+        "index": 8,
+        "class": "footnote",
+        "bbox": [
+          72,
+          676,
+          540,
+          703
+        ],
+        "pos": [
+          2025,
+          2335
+        ]
+      },
+      {
+        "index": 9,
+        "class": "footnote",
+        "bbox": [
+          72,
+          703,
+          540,
+          722
+        ],
+        "pos": [
+          2335,
+          2555
+        ]
+      }
+    ],
+    "text": "# **Robust Bayesian Particle Filter for Space Object Tracking Under Severe Uncertainty** \n\nCristian Greco<sup>∗</sup> and Massimiliano Vasile<sup>†</sup> \n\n_University of Strathclyde, Glasgow, Scotland, G1 1XJ, United Kingdom_ \n\n**This paper introduces a robust Bayesian particle filter that can handle epistemic uncertainty in the measurements, dynamics, and initial conditions. The robust filter returns robust bounds on the output quantity of interest, rather than a crisp value. Particles are generated with an importance sampling technique and propagated only one time during the estimation process. The proposal distribution is constructed by running a parallel Unscented Kalman Filter to drive particles in regions of high expected likelihood and achieve a high effective sample size. The bounds are then computed by an inexpensive tuning of the importance weights via numerical optimisation. A Branch & Bound algorithm over simplexes with a Lipschitz bounding function is employed to achieve guaranteed convergence to the lower and upper bounds in a finite number of steps. The filter is applied to the robust computation of the collision probability of SENTINEL 2B with a FENGYUN 1C debris in different operational instances, all characterised by a mix of aleatory and epistemic uncertainty on initial conditions and observation likelihoods.** \n\n## **Nomenclature** \n\n- _b_ = mixture weight = \n\n- _C, c_ computational complexities = \n\n- **D** _,_ **d** static parameters’ random variable and its realisation E, <u>E,</u> E = expectation, lower and upper expectations = \n\n- _F , F_<sup>�</sup> set of propagated states and its truncated polynomial representation = \n\n- _f_ equations of motion _h_ = observation model _IC_ = collision’s indicator function _K_ = branching steps _L_ = list of simplexes _L_ = Lipschitz constant _Lk_ = lower bound of minimum within simplexes \n\n   - = static parameters’ random variable and its realisation \n\n   - = set of propagated states and its truncated polynomial representation \n\n> Presented as conference paper AAS 19-845 at the 2019 AAS/AIAA Astrodynamics Specialist Conference, Portland, ME, August 11-15, 2019. ∗PhD Candidate, Aerospace Centre of Excellence, Department of Mechanical and Aerospace Engineering, James Weir Building, University of Strathclyde, _c.greco@strath.ac.uk_ . \n\n> †Professor, Aerospace Centre of Excellence, Department of Mechanical and Aerospace Engineering, James Weir Building, University of Strathclyde, _massimiliano.vasile@strath.ac.uk_ (Corresponding author). Member AIAA. \n\n"
+  }
+}

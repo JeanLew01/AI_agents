@@ -1,0 +1,114 @@
+{
+  "page": 11,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0011.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and a 230 dpi crop of the region with Eqs. (12), (13). First item joins the page-10 paragraph (join_previous=space). Two extractor formula images replaced by LaTeX displays (12) and (13) (sum printed with lower index j and upper limit N_pi; bold mu and Sigma with superscripts (j) and (i,j)); the damaged 'where mu_y^{(j)} = ...' sentence and 'where sum_j b_j = 1.' retyped; N, N_pi, b_j as LaTeX. As printed: 'here in Line 2 of Algorithm 1', 'see Section II.B.4', and the sentence 'First, we approximate the generic likelihood with a normal' runs directly into Eq. (12). Last paragraph ('With this approach ... Furthermore,') continues on page 12 (other reviewer: first item of page 12 needs join_previous=space).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0011-r000",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        75.0,
+        542.0,
+        204.0
+      ],
+      "markdown": "an Unscented Kalman Filter (here in Line 2 of Algorithm 1). Starting from a set of particles generated with a given proposal, one would apply a UKF to each particle and do conditioning with the likelihood of the expected measurements. The main computational advantage of a UKF-based proposal in this method is that the sigma points can be propagated inexpensively through the surrogate polynomial expansion approximating the dynamical flow (see Section II.B.4). The posterior of this process is a new proposal that includes information about the last observation resulting in more particles distributed in regions of higher expected likelihood, a crucial step to ensure a satisfactory effective sample size even without resampling.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0011-r001",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        214.0,
+        541.0,
+        284.0
+      ],
+      "markdown": "In the case in which measurements are affected by epistemic uncertainty, this approach presents two challenges: 1) approximate the likelihood with a normal distribution such that the UKF can be applied; 2) construct a posterior which takes into account that the statistical moments of the likelihood are set-valued. We address these two challenges with the following solutions. First, we approximate the generic likelihood with a normal"
+    },
+    {
+      "id": "p0011-r002",
+      "kind": "text",
+      "bbox": [
+        218.0,
+        301.0,
+        546.0,
+        330.0
+      ],
+      "markdown": "$$p(\\mathbf{y}_k | \\mathbf{x}_k; \\boldsymbol{\\lambda}_y^{(j)}) \\approx \\mathcal{N}\\left(\\mathbf{y}_k | \\mathbf{x}_k; \\boldsymbol{\\mu}_y^{(j)}, \\boldsymbol{\\Sigma}_y^{(j)}\\right) \\tag{12}$$"
+    },
+    {
+      "id": "p0011-r003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        343.0,
+        541.0,
+        417.0
+      ],
+      "markdown": "where $\\boldsymbol{\\mu}_y^{(j)} = \\boldsymbol{\\mu}_y^{(j)}(\\boldsymbol{\\lambda}_y^{(j)})$ and $\\boldsymbol{\\Sigma}_y^{(j)} = \\boldsymbol{\\Sigma}_y^{(j)}(\\boldsymbol{\\lambda}_y^{(j)})$ are the parameterised mean and covariance. In the case of distributions with undefined or infinite mean or covariance, e.g. Lévy or Cauchy distributions, the location and scale parameters could be used as substitutes for the mean and covariance. The second challenge is addressed by constructing the proposal as a convex combination of UKF posteriors, each resulting from a different likelihood in the epistemic set"
+    },
+    {
+      "id": "p0011-r004",
+      "kind": "text",
+      "bbox": [
+        197.0,
+        429.0,
+        546.0,
+        471.0
+      ],
+      "markdown": "$$\\pi(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{k-1}^{(i)}, \\mathbf{y}_{1:k}) = \\sum_{j}^{N_\\pi} b_j \\, \\mathcal{N}\\left(\\mathbf{x}_k; \\boldsymbol{\\mu}_k^{(i,j)}, \\boldsymbol{\\Sigma}_k^{(i,j)}\\right), \\tag{13}$$"
+    },
+    {
+      "id": "p0011-r005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        483.0,
+        145.0,
+        496.0
+      ],
+      "markdown": "where $\\sum_j b_j = 1$."
+    },
+    {
+      "id": "p0011-r006",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        504.0,
+        541.0,
+        693.0
+      ],
+      "markdown": "The overall approach is described in Algorithm 3. Right arrows represent input to output relationships for the corresponding line in the algorithm. The initial proposal is constructed as a convex combination of multiple distributions in the initial epistemic set (Line 1). $N$ particles are drawn from the proposal (Line 2), and for each of them the mean and covariance of the parallel UKFs are initialised (Line 3). For each observation instance, the UKF distributions are propagated forward in time with the Unscented Transform (UT) [26] (Line 4). Then, $N_\\pi$ likelihoods are selected within their epistemic set according to a low-discrepancy sequence, and approximated with normal distributions (Line 5) according to the rule discussed above (see Eq. (12)). For each normal likelihood, the UKF Bayes’ update is performed to compute the posterior mean and covariance (Line 6). From here, the proposal is constructed as the collection of UKF posteriors (Line 7). The weights $b_j$, which sum to one, could be used to express the belief on the relative likelihood of each epistemic parameter."
+    },
+    {
+      "id": "p0011-r007",
+      "kind": "text",
+      "bbox": [
+        86.0,
+        703.0,
+        542.0,
+        713.0
+      ],
+      "markdown": "With this approach, the proposal is constructed to cover the support of each density in the epistemic set. Furthermore,"
+    },
+    {
+      "id": "p0011-b008",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        750.0
+      ],
+      "markdown": "11",
+      "source_class": "page-footer",
+      "reason": "Printed page number 11 (page footer)."
+    }
+  ]
+}

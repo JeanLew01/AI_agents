@@ -1,0 +1,214 @@
+{
+  "page": 9,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; mathematics transcribed from 240-dpi crops. The star superscript (extracted as 'Å') is written '^*' ($\\theta^*$, $x_{1:T}^*$, $X_{1:T}^*$, $p_{\\theta^*}$, $\\hat p_{\\theta^*}$). The unnumbered proposal-density display and displays (12), (13) converted from 'formula' items to LaTeX; the journal's braces for function arguments are kept as printed ($q\\{(\\theta^*,x_{1:T}^*)\\mid(\\theta,x_{1:T})\\}$, $p\\{\\theta(i-1)\\}$, $q\\{\\cdot\\mid\\theta(i-1)\\}$). (13) has no trailing punctuation in print. PMMH sampler kept as text, one item per printed step: Step 1; (a); (b); Step 2; (a); (b); (c); display (13); continuation of (c) ('set $\\theta(i) = \\theta^*$, ...') as its own item. Extractor list dashes ('- (a)') and <sup>/glued-word damage removed. Heading '#### 2.4.2. Particle marginal Metropolis–Hastings sampler'. Running header omitted. First item joins page 8 (space). The page ends with a complete paragraph ('... as $N \\to \\infty$.'); nothing continues onto page 10.",
+  "warnings": [
+    "Review possible header/footer: p0009-b000"
+  ],
+  "items": [
+    {
+      "id": "p0009-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "markdown": "_Particle Markov Chain Monte Carlo Methods_ 277",
+      "reason": "Running header with page number (Particle Markov Chain Monte Carlo Methods, 277)"
+    },
+    {
+      "id": "p0009-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        56.0,
+        444.0,
+        90.0
+      ],
+      "markdown": "in addition that, as expected, the acceptance probability in equation (11) converges to 1 when $N \\to \\infty$ since both $\\hat{p}_\\theta(y_{1:T})^*$ and $\\hat{p}_\\theta(y_{1:T})(i-1)$ are, again under mild assumptions, consistent estimates of $p_\\theta(y_{1:T})$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-b002",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        106.0,
+        277.0,
+        117.0
+      ],
+      "markdown": "#### 2.4.2. Particle marginal Metropolis–Hastings sampler"
+    },
+    {
+      "id": "p0009-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        118.0,
+        444.0,
+        177.0
+      ],
+      "markdown": "Consider now the scenario where we are interested in sampling from $p(\\theta, x_{1:T} \\mid y_{1:T})$ defined in equation (4). We focus here on an approach which jointly updates $\\theta$ and $x_{1:T}$. Assume for the time being that sampling from the conditional density $p_\\theta(x_{1:T} \\mid y_{1:T})$ for any $\\theta \\in \\Theta$ is feasible and recall the standard decomposition $p(\\theta, x_{1:T} \\mid y_{1:T}) = p(\\theta \\mid y_{1:T})\\, p_\\theta(x_{1:T} \\mid y_{1:T})$. In such situations it is natural to suggest the following form of proposal density for an MH update:"
+    },
+    {
+      "id": "p0009-b004",
+      "kind": "text",
+      "bbox": [
+        144.0,
+        178.0,
+        346.0,
+        200.0
+      ],
+      "markdown": "$$q\\{(\\theta^*, x_{1:T}^*) \\mid (\\theta, x_{1:T})\\} = q(\\theta^* \\mid \\theta)\\, p_{\\theta^*}(x_{1:T}^* \\mid y_{1:T}),$$"
+    },
+    {
+      "id": "p0009-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        202.0,
+        444.0,
+        237.0
+      ],
+      "markdown": "for which the proposed $x_{1:T}^*$ is perfectly ‘adapted’ to the proposed $\\theta^*$, and the only degree of freedom of the algorithm (which will affect its performance) is $q(\\theta^* \\mid \\theta)$. The resulting MH acceptance ratio is given by"
+    },
+    {
+      "id": "p0009-b006",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        239.0,
+        449.0,
+        275.0
+      ],
+      "markdown": "$$\\frac{p(\\theta^*, x_{1:T}^* \\mid y_{1:T})}{p(\\theta, x_{1:T} \\mid y_{1:T})}\\, \\frac{q\\{(\\theta, x_{1:T}) \\mid (\\theta^*, x_{1:T}^*)\\}}{q\\{(\\theta^*, x_{1:T}^*) \\mid (\\theta, x_{1:T})\\}} = \\frac{p_{\\theta^*}(y_{1:T})\\, p(\\theta^*)}{p_\\theta(y_{1:T})\\, p(\\theta)}\\, \\frac{q(\\theta \\mid \\theta^*)}{q(\\theta^* \\mid \\theta)}. \\tag{12}$$"
+    },
+    {
+      "id": "p0009-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        277.0,
+        444.0,
+        383.0
+      ],
+      "markdown": "The expression for this ratio suggests that the algorithm effectively targets the marginal density $p(\\theta \\mid y_{1:T}) \\propto p_\\theta(y_{1:T})\\, p(\\theta)$, justifying the MMH terminology. This idea has also been exploited in Andrieu and Roberts (2009) and Beaumont (2003) for example and might be appealing since the difficult problem of sampling from $p(\\theta, x_{1:T} \\mid y_{1:T})$ is reduced to that of sampling from $p(\\theta \\mid y_{1:T})$, which is typically defined on a much smaller space. It is natural to propose a particle approximation to the MMH update where, whenever a sample from $p_\\theta(x_{1:T} \\mid y_{1:T})$ and the expression for the marginal likelihood $p_\\theta(y_{1:T})$ are needed, their SMC approximation counterparts are used instead in the PMMH update. The resulting PMMH sampler is as follows (note the change of indexing notation for $\\hat{p}_\\theta(y_{1:T})$ compared with the PIMH case)."
+    },
+    {
+      "id": "p0009-b008",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        390.0,
+        169.0,
+        400.0
+      ],
+      "markdown": "*Step 1*: initialization, $i = 0$,"
+    },
+    {
+      "id": "p0009-b009",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        407.0,
+        180.0,
+        418.0
+      ],
+      "markdown": "(a) set $\\theta(0)$ arbitrarily and"
+    },
+    {
+      "id": "p0009-b010",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        419.0,
+        444.0,
+        443.0
+      ],
+      "markdown": "(b) run an SMC algorithm targeting $p_{\\theta(0)}(x_{1:T} \\mid y_{1:T})$, sample $X_{1:T}(0) \\sim \\hat{p}_{\\theta(0)}(\\cdot \\mid y_{1:T})$ and let $\\hat{p}_{\\theta(0)}(y_{1:T})$ denote the marginal likelihood estimate."
+    },
+    {
+      "id": "p0009-b011",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        451.0,
+        164.0,
+        461.0
+      ],
+      "markdown": "*Step 2*: for iteration $i \\geqslant 1$,"
+    },
+    {
+      "id": "p0009-b012",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        468.0,
+        192.0,
+        479.0
+      ],
+      "markdown": "(a) sample $\\theta^* \\sim q\\{\\cdot \\mid \\theta(i-1)\\}$,"
+    },
+    {
+      "id": "p0009-b013",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        479.0,
+        444.0,
+        503.0
+      ],
+      "markdown": "(b) run an SMC algorithm targeting $p_{\\theta^*}(x_{1:T} \\mid y_{1:T})$, sample $X_{1:T}^* \\sim \\hat{p}_{\\theta^*}(\\cdot \\mid y_{1:T})$ and let $\\hat{p}_{\\theta^*}(y_{1:T})$ denote the marginal likelihood estimate, and"
+    },
+    {
+      "id": "p0009-b014",
+      "kind": "text",
+      "bbox": [
+        66.0,
+        504.0,
+        153.0,
+        514.0
+      ],
+      "markdown": "(c) with probability"
+    },
+    {
+      "id": "p0009-b015",
+      "kind": "text",
+      "bbox": [
+        156.0,
+        513.0,
+        449.0,
+        550.0
+      ],
+      "markdown": "$$1 \\wedge \\frac{\\hat{p}_{\\theta^*}(y_{1:T})\\, p(\\theta^*)}{\\hat{p}_{\\theta(i-1)}(y_{1:T})\\, p\\{\\theta(i-1)\\}}\\, \\frac{q\\{\\theta(i-1) \\mid \\theta^*\\}}{q\\{\\theta^* \\mid \\theta(i-1)\\}} \\tag{13}$$"
+    },
+    {
+      "id": "p0009-b016",
+      "kind": "text",
+      "bbox": [
+        83.0,
+        551.0,
+        444.0,
+        576.0
+      ],
+      "markdown": "set $\\theta(i) = \\theta^*$, $X_{1:T}(i) = X_{1:T}^*$ and $\\hat{p}_{\\theta(i)}(y_{1:T}) = \\hat{p}_{\\theta^*}(y_{1:T})$; otherwise set $\\theta(i) = \\theta(i-1)$, $X_{1:T}(i) = X_{1:T}(i-1)$ and $\\hat{p}_{\\theta(i)}(y_{1:T}) = \\hat{p}_{\\theta(i-1)}(y_{1:T})$."
+    },
+    {
+      "id": "p0009-b017",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        582.0,
+        444.0,
+        627.0
+      ],
+      "markdown": "Theorem 4 in Section 4.4 establishes that the PMMH update leaves $p(\\theta, x_{1:T} \\mid y_{1:T})$ invariant and that under weak assumptions the PMMH sampler is ergodic. Also note that under mild assumptions given in Section 4.1 the acceptance probability (13) converges to equation (12) as $N \\to \\infty$."
+    }
+  ]
+}

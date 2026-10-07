@@ -1,0 +1,191 @@
+{
+  "page": 4,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; mathematics transcribed from 220/330-dpi crops. Section title '2.2.1. A sequential Monte Carlo algorithm' (printed on its own line) split from the paragraph and made a '####' heading. The unnumbered identity display and displays (6), (7) converted from 'formula' image items to LaTeX; (6) is one aligned block holding both printed lines ($w_1$ and $W_1^k$) under the single printed tag. The printed SMC pseudocode is kept as text, one item per step line (Step 1, (a), (b), Step 2, (a), (b), (c)). Equation (7) is split by the page break: this page carries its first printed line with tag (7); the continuation lines ('= f g / q,' and '$W_n^k := ...$') are the first item of page 5. Printed peculiarities kept verbatim: step 2(b) prints '$q(\\cdot\\mid y_n, X_{n-1}^{A_{n-1}^k})$' without the subscript $\\theta$; the weights are written '$\\{W_{1:n}^k\\}$' in the first paragraph; the sum in the last sentence before Step 1 is printed with an upright capital sigma ($\\Sigma_{k=1}^m p_k = 1$). Repaired <sup> damage, glued words ('whichtakeintoaccount...'), '(IS)is'. The first item is not joined to page 3 because page 3 ends with display (5). The page ends with the first line of display (7).",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "272 _C. Andrieu, A. Doucet and R. Holenstein_",
+      "reason": "Running header with page number (272, C. Andrieu, A. Doucet and R. Holenstein)"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        54.0,
+        439.0,
+        78.0
+      ],
+      "markdown": "where $W_n^k$ is a so-called importance weight associated with particle $X_{1:n}^k$. We now briefly describe how such sample-based approximations can be propagated efficiently in time."
+    },
+    {
+      "id": "p0004-r01",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        98.0,
+        300.0,
+        110.0
+      ],
+      "markdown": "#### 2.2.1. A sequential Monte Carlo algorithm"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        98.0,
+        439.0,
+        192.0
+      ],
+      "markdown": "The simplest SMC algorithm propagates the particles $\\{X_{1:n}^k\\}$ and updates the weights $\\{W_{1:n}^k\\}$ as follows. At time 1 of the procedure, importance sampling (IS) is used to approximate $p_\\theta(x_1 \\mid y_1)$ by using an importance density $q_\\theta(x_1 \\mid y_1)$. In effect, $N$ particles $\\{X_1^k\\}$ are generated from $q_\\theta(x_1 \\mid y_1)$ and ascribed importance weights $\\{W_1^k\\}$ which take into account the discrepancy between the two densities. To produce $N$ particles approximately distributed according to $p_\\theta(x_1 \\mid y_1)$ we sample $N$ times from the IS approximation $\\hat{p}_\\theta(\\mathrm{d}x_1 \\mid y_1)$ of $p_\\theta(x_1 \\mid y_1)$; this is known as the resampling step. At time 2 we aim to use IS to approximate $p_\\theta(x_{1:2} \\mid y_{1:2})$. The identity"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        145.0,
+        197.0,
+        336.0,
+        217.0
+      ],
+      "markdown": "$$p_\\theta(x_{1:2} \\mid y_{1:2}) \\propto p_\\theta(x_1 \\mid y_1)\\, f_\\theta(x_2 \\mid x_1)\\, g_\\theta(y_2 \\mid x_2)$$"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        221.0,
+        439.0,
+        315.0
+      ],
+      "markdown": "suggests reusing the samples obtained at time 1 as a source of samples approximately distributed according to $p_\\theta(x_1 \\mid y_1)$ and extending each such particle through an IS density $q_\\theta(x_2 \\mid y_2, x_1)$ to produce samples approximately distributed according to $p_\\theta(x_1 \\mid y_1)\\, q_\\theta(x_2 \\mid y_2, x_1)$. Again importance weights $\\{W_2^k\\}$ need to be computed since our target is $p_\\theta(x_{1:2} \\mid y_{1:2})$ and a resampling step produces samples approximately distributed according to $p_\\theta(x_{1:2} \\mid y_{1:2})$. This procedure is then repeated until time $T$. The resampling procedure of the SMC algorithm prevents an accumulation of errors by eliminating unpromising samples: this can be both demonstrated practically and quantified theoretically (see Section 4.1 for a discussion)."
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        317.0,
+        439.0,
+        400.0
+      ],
+      "markdown": "Pseudocode of the SMC algorithm that was outlined above is provided below. To alleviate the notational burden we adopt below the convention that whenever the index $k$ is used we mean ‘for all $k \\in \\{1, \\ldots, N\\}$’, and we also omit the dependence of the importance weights on $\\theta$—we shall do so in the remainder of the paper when confusion is not possible. We also use the notation $\\mathbf{W}_n := (W_n^1, \\ldots, W_n^N)$ for the normalized importance weights at time $n$ and $\\mathcal{F}(\\cdot \\mid \\mathbf{p})$ for the discrete probability distribution on $\\{1, \\ldots, m\\}$ of parameter $\\mathbf{p} = (p_1, \\ldots, p_m)$ with $p_k \\geqslant 0$ and $\\Sigma_{k=1}^{m}\\, p_k = 1$, for some $m \\in \\mathbb{N}$."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        47.0,
+        400.0,
+        145.0,
+        421.0
+      ],
+      "markdown": "*Step 1*: at time $n = 1$,"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        59.0,
+        417.0,
+        234.0,
+        451.0
+      ],
+      "markdown": "(a) sample $X_1^k \\sim q_\\theta(\\cdot \\mid y_1)$ and"
+    },
+    {
+      "id": "p0004-r02",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        435.5,
+        229.0,
+        445.5
+      ],
+      "markdown": "(b) compute and normalize the weights"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        151.0,
+        447.0,
+        444.0,
+        529.0
+      ],
+      "markdown": "$$\\begin{aligned} w_1(X_1^k) &:= \\frac{p_\\theta(X_1^k, y_1)}{q_\\theta(X_1^k \\mid y_1)} = \\frac{\\mu_\\theta(X_1^k)\\, g_\\theta(y_1 \\mid X_1^k)}{q_\\theta(X_1^k \\mid y_1)}, \\\\ W_1^k &:= \\frac{w_1(X_1^k)}{\\sum_{m=1}^{N} w_1(X_1^m)}. \\end{aligned} \\tag{6}$$"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        535.0,
+        172.0,
+        545.0
+      ],
+      "markdown": "*Step 2*: at times $n = 2, \\ldots, T$,"
+    },
+    {
+      "id": "p0004-r03",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        549.0,
+        191.0,
+        562.0
+      ],
+      "markdown": "(a) sample $A_{n-1}^k \\sim \\mathcal{F}(\\cdot \\mid \\mathbf{W}_{n-1})$,"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        59.0,
+        546.0,
+        333.0,
+        593.0
+      ],
+      "markdown": "(b) sample $X_n^k \\sim q(\\cdot \\mid y_n, X_{n-1}^{A_{n-1}^k})$ and set $X_{1:n}^k := (X_{1:n-1}^{A_{n-1}^k}, X_n^k)$, and"
+    },
+    {
+      "id": "p0004-r04",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        577.5,
+        229.0,
+        587.5
+      ],
+      "markdown": "(c) compute and normalize the weights"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        141.0,
+        588.0,
+        444.0,
+        632.0
+      ],
+      "markdown": "$$w_n(X_{1:n}^k) := \\frac{p_\\theta(X_{1:n}^k, y_{1:n})}{p_\\theta(X_{1:n-1}^{A_{n-1}^k}, y_{1:n-1})\\, q_\\theta(X_n^k \\mid y_n, X_{n-1}^{A_{n-1}^k})} \\tag{7}$$"
+    }
+  ]
+}

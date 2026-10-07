@@ -1,0 +1,135 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with 190 dpi crops of the whole page. Headings set to '### B. Expectation Estimator' and '#### 1. Precomputed Sequential Importance Sampling' (were '#'). Extractor formula images replaced by LaTeX: Eq. (7) (one line, two integrals) and the three-line aligned Eq. (8) with its single printed number; the garbled inline expectation in Sec. II.B rewritten. Prose references kept as printed ('expectation (5)', 'tracking problem (4)'). Last paragraph ('Also, the proposal') continues on page 8.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-r000",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        75.0,
+        541.0,
+        164.0
+      ],
+      "markdown": "Hence, we propose a Robust Particle Filter (RPF) to efficiently compute bounds on the expectation of a given quantity of interest by exploiting a precomputation of the particles. Given the sequential nature of this filter, when a new observation is available, the bounds can be updated by still exploiting the precomputations performed at the previous step. The filter is characterised by two fundamental stages: the precomputation step; the bound computation one. These two fundamental steps will be discussed in greater detail in the next two sections."
+    },
+    {
+      "id": "p0007-r001",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        188.0,
+        180.0,
+        198.0
+      ],
+      "markdown": "### B. Expectation Estimator"
+    },
+    {
+      "id": "p0007-r002",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        208.0,
+        541.0,
+        259.0
+      ],
+      "markdown": "If no specific assumption or parameterisation is imposed on the posterior distribution, the expectation has no closed-form solution, and numerical techniques are required. In this paper we employ a precomputed Sequential Importance Sampling (pSIS) to construct an estimator for the expectation $\\mathbb{E}\\big[\\phi\\big(\\mathbf{X}_{0:k}\\big) \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda}\\big]$."
+    },
+    {
+      "id": "p0007-r003",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        282.0,
+        269.0,
+        292.0
+      ],
+      "markdown": "#### 1. Precomputed Sequential Importance Sampling"
+    },
+    {
+      "id": "p0007-r004",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        302.0,
+        541.0,
+        352.0
+      ],
+      "markdown": "One of the main difficulties in computing the expectation (5) is that in most applications it is impractical to draw samples directly from the posterior distribution $p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda})$, although it is possible to evaluate its density. To overcome this challenge, the integral in Eq. (5) is written by using a proposal distribution as"
+    },
+    {
+      "id": "p0007-r005",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        366.0,
+        545.0,
+        413.0
+      ],
+      "markdown": "$$\\mathbb{E}\\big[\\phi\\big(\\mathbf{X}_{0:k}\\big) \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda}\\big] = \\int \\phi(\\mathbf{x}_{0:k}) \\, \\frac{p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda})}{\\pi(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k})} \\, \\pi(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}) \\, d\\mathbf{x}_{0:k} = \\int \\phi(\\mathbf{x}_{0:k}) \\, w(\\mathbf{x}_{0:k}) \\, \\pi(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}) \\, d\\mathbf{x}_{0:k}, \\tag{7}$$"
+    },
+    {
+      "id": "p0007-r006",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        417.0,
+        541.0,
+        468.0
+      ],
+      "markdown": "under the condition that $\\pi$, the so-called *proposal* distribution, has a larger support than $p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda})$. The function $w(\\mathbf{x}_{0:k})$ is the ratio between the target distribution and the proposal one functioning as a weight measuring their deviations. The proposal distribution should be chosen such that it is simple to draw samples from it."
+    },
+    {
+      "id": "p0007-r007",
+      "kind": "text",
+      "bbox": [
+        86.0,
+        478.0,
+        538.0,
+        488.0
+      ],
+      "markdown": "Furthermore, in order to exploit the sequential nature of tracking problem (4), the posterior can be decomposed as"
+    },
+    {
+      "id": "p0007-r008",
+      "kind": "text",
+      "bbox": [
+        142.0,
+        506.0,
+        546.0,
+        573.0
+      ],
+      "markdown": "$$\\begin{aligned} p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k}; \\boldsymbol{\\lambda}) &\\propto p(\\mathbf{y}_k \\,|\\, \\mathbf{x}_{0:k}, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda}) \\; p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda}) \\\\ &= p(\\mathbf{y}_k \\,|\\, \\mathbf{x}_k; \\boldsymbol{\\lambda}) \\; p(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{0:k-1}, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda}) \\; p(\\mathbf{x}_{0:k-1} \\,|\\, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda}) \\\\ &= p(\\mathbf{y}_k \\,|\\, \\mathbf{x}_k; \\boldsymbol{\\lambda}_y) \\; p(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{k-1}; \\boldsymbol{\\lambda}_x) \\; p(\\mathbf{x}_{0:k-1} \\,|\\, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda}), \\end{aligned} \\tag{8}$$"
+    },
+    {
+      "id": "p0007-r009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        588.0,
+        542.0,
+        678.0
+      ],
+      "markdown": "with initial condition $p(\\mathbf{x}_{0:0} \\,|\\, \\mathbf{y}_{1:0}; \\boldsymbol{\\lambda}) = p(\\mathbf{x}_0; \\boldsymbol{\\lambda}_0)$. The first relationship stems from unnormalised Bayes’ inference, where the normalisation constant $p(\\mathbf{y}_k \\,|\\, \\mathbf{y}_{1:k-1})$ is not computed as too expensive to evaluate. The second one results from the conditional independence of the observation $\\mathbf{y}_k$ given the state $\\mathbf{x}_k$, and from writing the joint distribution $p(\\mathbf{x}_{0:k} \\,|\\, \\mathbf{y}_{1:k-1}; \\boldsymbol{\\lambda})$ in terms of the conditional one. The last relation comes from the Markov property of the dynamical system, that is, conditional independence on the previous history of $\\mathbf{x}_k$ once $\\mathbf{x}_{k-1}$ is given. Also, the proposal"
+    },
+    {
+      "id": "p0007-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "7",
+      "source_class": "page-footer",
+      "reason": "Printed page number 7 (page footer)."
+    }
+  ]
+}

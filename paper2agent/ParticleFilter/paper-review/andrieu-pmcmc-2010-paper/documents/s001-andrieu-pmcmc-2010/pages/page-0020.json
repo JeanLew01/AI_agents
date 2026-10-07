@@ -1,0 +1,116 @@
+{
+  "page": 20,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0020.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the preview and a 230-dpi crop of Section 4.1 with the items. First item continues the paragraph that ends page 17 ('...we believe that the PMCMC methodology') across the two full-page figures (Figs 6 and 7 on pages 18-19): join_previous='space' is set, but the item directly before it in file order is the Fig. 7 caption, so the coordinator must add a plan.json reading_order that moves the two figures after this paragraph (or drop the join). Headings set to '## 4. ...' and '### 4.1. ...' (the extractor had both as '#'). All inline mathematics rewritten in LaTeX from the crop (p_theta(x_{1:n}|y_{1:n}), {X^n}, pi_n, gamma_n, Z_n, M_n, r(.|w), script F, bold A_n, A_{n-1}^k, X_{1:n}^k); removed <sup> tags and emphasis markers; rejoined the line-wrap hyphens 'implementa-tion', 'res-ample-move' (printed 'resample–move' with an en dash), 'inter-pretation', 'meth-ods', 'probabil-ity', 'nota-tion'. Inline products are printed with an upright capital Pi (written \\Pi). Running header and page number 288 omitted. The last paragraph is complete; the algorithm steps follow on page 21.",
+  "warnings": [
+    "Review possible header/footer: p0020-b000"
+  ],
+  "items": [
+    {
+      "id": "p0020-r00",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        60.0,
+        48.0
+      ],
+      "markdown": "288",
+      "reason": "Printed page number in the running header."
+    },
+    {
+      "id": "p0020-r01",
+      "kind": "omit",
+      "bbox": [
+        64.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "C. Andrieu, A. Doucet and R. Holenstein",
+      "reason": "Running header (author names) on even pages."
+    },
+    {
+      "id": "p0020-r02",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        56.0,
+        444.0,
+        78.0
+      ],
+      "markdown": "is less demanding as we could design reasonably fast mixing MCMC algorithms with little user input.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0020-r03",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        101.0,
+        444.0,
+        111.0
+      ],
+      "markdown": "## 4. A generic framework for particle Markov chain Monte Carlo methods"
+    },
+    {
+      "id": "p0020-r04",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        119.0,
+        444.0,
+        225.0
+      ],
+      "markdown": "For ease of exposition we have so far considered one of the simplest implementations of the SMC methodology that is used in our PMCMC algorithms (see Section 2). This implementation does not exploit any of the possible standard improvements that were mentioned in Section 2.5 and might additionally suggest that the PMCMC methodology is only applicable to the sole SSM framework. In this section, we consider a more general and abstract framework for PMCMC algorithms which relies on more general SMC algorithms that are not specialized to the SSM scenario. This allows us to consider inference in a much wider class of statistical models but also to consider the use of advanced SMC techniques in a unified framework. This can be understood by the following simple arguments."
+    },
+    {
+      "id": "p0020-r05",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        227.0,
+        444.0,
+        333.0
+      ],
+      "markdown": "First note that the SMC algorithm for SSMs that was described in Section 2.2.1 aims to produce sequentially approximate samples from the family of posterior densities $\\{p_\\theta(x_{1:n}|y_{1:n}); n=1,\\ldots,T\\}$ defined on the sequence of spaces $\\{\\mathcal{X}^n; n=1,\\ldots,T\\}$. It should be clear that this algorithm can be straightforwardly modified to sample approximately from any sequence of densities $\\{\\pi_n(x_{1:n}); n=1,\\ldots,P\\}$ defined on $\\{\\mathcal{X}^n; n=1,\\ldots,P\\}$ for any $P\\geqslant 1$. This points to the applicability of SMC, and hence PMCMC, methods beyond the sole framework of inference in SSMs to other statistical models. This includes models which naturally have a sequential structure (e.g. Liu (2001)), but also models which do not have such a structure and for which the user induces such a structure (e.g. Chopin (2002) and Del Moral *et al.* (2006))."
+    },
+    {
+      "id": "p0020-r06",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        334.0,
+        444.0,
+        439.0
+      ],
+      "markdown": "Second, as described in Doucet and Johansen (2009), the introduction of advanced SMC techniques for SSMs such as the auxiliary particle filter (Pitt and Shephard, 1999) or the resample–move algorithm (Gilks and Berzuini, 2001) can be naturally interpreted as introducing additional intermediate, and potentially artificial, target densities between, say, $p_\\theta(x_{1:n}|y_{1:n})$ and $p_\\theta(x_{1:n+1}|y_{1:n+1})$. These additional intermediate densities might not have a physical interpretation but are usually chosen to help to bridge samples from $p_\\theta(x_{1:n}|y_{1:n})$ to samples from $p_\\theta(x_{1:n+1}|y_{1:n+1})$. Such strategies can therefore be recast into the problem of using SMC methods to sample sequentially from a sequence of densities $\\{\\pi_n(x_{1:n}); n=1,\\ldots,P\\}$ for some integer $P\\geqslant T$."
+    },
+    {
+      "id": "p0020-r07",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        462.0,
+        444.0,
+        473.0
+      ],
+      "markdown": "### 4.1. A generic sequential Monte Carlo algorithm"
+    },
+    {
+      "id": "p0020-r08",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        474.0,
+        444.0,
+        630.0
+      ],
+      "markdown": "Consider the problem of using SMC methods to sample from a sequence of densities $\\{\\pi_n(x_{1:n}); n=1,\\ldots,P\\}$ such that for $n=1,\\ldots,P$ the density $\\pi_n(x_{1:n})$ is defined on $\\mathcal{X}^n$. Each density is only assumed known up to a normalizing constant, i.e. for $\\pi_n(x_{1:n})=\\gamma_n(x_{1:n})/Z_n$ where $\\gamma_n:\\mathcal{X}^n\\to\\mathbb{R}^+$ can be evaluated pointwise but the normalizing constant $Z_n$ is unknown. We shall use the notation $Z$ for $Z_P$. For the simple SMC algorithm for SSMs in Section 2, we have $\\gamma_n(x_{1:n}) := p_\\theta(x_{1:n},y_{1:n})$ and $Z_n := p_\\theta(y_{1:n})$. An SMC algorithm also requires us to specify an importance density $M_1(x_1)$ on $\\mathcal{X}$ and a family of transition kernels with associated densities $\\{M_n(x_n|x_{1:n-1}); n=2,\\ldots,P\\}$ to extend $x_{1:n-1}\\in\\mathcal{X}^{n-1}$ by sampling $x_n\\in\\mathcal{X}$ conditional on $x_{1:n-1}$ at time instants $n=2,\\ldots,P$. To describe the resampling step, we introduce a family of probability distributions on $\\{1,\\ldots,N\\}^N$, $\\{r(\\cdot|\\mathbf{w}); \\mathbf{w}\\in[0,1]^N\\}$. In Section 2.2 the sampling distributions are $M_n(x_n|x_{1:n-1}) := q_\\theta(x_n|y_n,x_{n-1})$ and $r(\\cdot|\\mathbf{w}) := \\Pi_{i=1}^{N}\\mathcal{F}(\\cdot|\\mathbf{w})$. As in Section 2.2 we use the notation $\\mathbf{A}_n := (A_n^1,\\ldots,A_n^N)$ where the variable $A_{n-1}^k$ indicates the index of the ‘parent’ at time $n-1$ of particle $X_{1:n}^k$ for $n=2,\\ldots,P$. The generic SMC algorithm proceeds as follows."
+    }
+  ]
+}

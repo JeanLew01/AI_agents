@@ -1,0 +1,222 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the preview with all items. Running header (extracted as a list item) omitted. Equations (24)-(26) converted from formula images to LaTeX from the authors' TeX (\\coloneqq -> ':='), checked against the page with printed numbers as \\tag; (26) is printed with the hat over the underlined E, written \\underline{\\widehat{\\mathrm{E}}} as in the TeX. Garbled inline fractions restored ($\\frac{\\mathrm{ESS_{MCMC}}}{N}$, $w_t(x) := \\frac{c p_t(x)}{q(x)}$). The five-step procedure is a printed description list, not a float: Steps 1-5 are separate text items with the printed bold labels 'Step n:'; the extractor had fused Steps 3-5 into glyph soup, now rewritten from TeX and checked against the page. \\cref resolved to the printed 'eq. (23)', 'eq. (6)', 'eq. (24)', 'eq. (7)'. Kept as printed: 'step 2 and step 4' in lower case, '(i.e. exceed a specified threshold)', '10 000' with thin space as a plain space. Section heading '## 4. ...'. Last paragraph continues on page 7 ('for importance | sampling with correlated samples'). [coordinator] removed a duplicated word \"sampling\" at the page 6/7 join (verifier minor).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0006-r00",
+      "kind": "omit",
+      "bbox": [
+        110.0,
+        76.0,
+        503.0,
+        82.0
+      ],
+      "markdown": "",
+      "reason": "Running header (short title \"ITERATIVE IMPORTANCE SAMPLING WITH MARKOV CHAIN MONTE CARLO SAMPLING\") with page number 6; page furniture."
+    },
+    {
+      "id": "p0006-r01",
+      "kind": "text",
+      "bbox": [
+        122.0,
+        97.0,
+        539.0,
+        108.0
+      ],
+      "markdown": "Substituting eq. (23) into eq. (6), we finally obtain the following estimate for the combined $\\mathrm{ESS}$"
+    },
+    {
+      "id": "p0006-r02",
+      "kind": "text",
+      "bbox": [
+        105.0,
+        107.0,
+        539.0,
+        139.0
+      ],
+      "markdown": "$$\n\\mathrm{ESS} \\approx \\frac{\\mathrm{ESS_{MCMC}}}{N} \\cdot \\mathrm{ESS_{IS}}. \\tag{24}\n$$"
+    },
+    {
+      "id": "p0006-r03",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        138.0,
+        539.0,
+        174.0
+      ],
+      "markdown": "So, what is new in eq. (24) with respect to eq. (7) is the factor $\\frac{\\mathrm{ESS_{MCMC}}}{N}$ which accounts for a reduction in effective sample size due to the correlation of the MCMC samples (a reduction since it is very unlikely that the correlation will be negative)."
+    },
+    {
+      "id": "p0006-r04",
+      "kind": "heading",
+      "bbox": [
+        162.0,
+        185.0,
+        487.0,
+        193.0
+      ],
+      "markdown": "## 4. Importance sampling over a set of probability distributions"
+    },
+    {
+      "id": "p0006-r05",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        201.0,
+        539.0,
+        237.0
+      ],
+      "markdown": "Let $\\mathcal{M} \\subset \\mathbb{R}^d$ be a compact set and $p_t(\\cdot) = \\{p(\\cdot|t)| t \\in \\mathcal{M}\\}$ be a probability density function parameterized by $t$ (i.e. hyperparameters). The lower expectation of a function $f$ with respect to $p_t$ for all $t \\in \\mathcal{M}$ is assumed to exist and is estimated by"
+    },
+    {
+      "id": "p0006-r06",
+      "kind": "text",
+      "bbox": [
+        105.0,
+        236.0,
+        539.0,
+        269.0
+      ],
+      "markdown": "$$\n\\underline{\\mathrm{E}}(f) := \\min_{t \\in \\mathcal{M}} \\int f(x)p_t(x) dx. \\tag{25}\n$$"
+    },
+    {
+      "id": "p0006-r07",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        269.0,
+        539.0,
+        303.0
+      ],
+      "markdown": "In practice, one can search for the minimum using numerical methods. For instance, an iterative version of standard importance sampling has been used to estimate bounds on expectations in robust Bayesian analysis [14, 41, 42, 43]."
+    },
+    {
+      "id": "p0006-r08",
+      "kind": "text",
+      "bbox": [
+        122.0,
+        305.0,
+        411.0,
+        315.0
+      ],
+      "markdown": "Using importance sampling, the lower expectation is estimated by"
+    },
+    {
+      "id": "p0006-r09",
+      "kind": "text",
+      "bbox": [
+        105.0,
+        314.0,
+        539.0,
+        353.0
+      ],
+      "markdown": "$$\n\\underline{\\widehat{\\mathrm{E}}}(f) \\approx \\min_{t \\in \\mathcal{M}} \\frac{\\sum_{i=1}^N f(X_i)w_t(X_i)}{\\sum_{i=1}^N w_t(X_i)}, \\tag{26}\n$$"
+    },
+    {
+      "id": "p0006-r10",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        353.0,
+        206.0,
+        369.0
+      ],
+      "markdown": "where $w_t(x) := \\frac{c p_t(x)}{q(x)}$."
+    },
+    {
+      "id": "p0006-r11",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        369.0,
+        539.0,
+        486.0
+      ],
+      "markdown": "Iterative importance sampling estimates the lower expectation of a function $f$ by moving the sampling distribution, $q$, towards the optimal distribution [14, 41]. The stopping criterion is that the effective sample size of importance sampling should be close enough to the desired independent sample size (denoted by $\\mathrm{ESS_{target}}$) that is fixed in advance. In this paper, we adapt iterative importance sampling introduced in [14, 41, 42]. Our contribution is the effective sample size of importance sampling with correlated MCMC samples which allows us to combine iterative importance sampling with MCMC sampling, thus allowing for robust analysis of more complex models. It is important to highlight that how large the sample size for MCMC samples should be and $\\mathrm{ESS_{target}}$ in step 2 and step 4 respectively, are values fixed in advance (i.e. they are inputs to the procedure). The method goes as follows:"
+    },
+    {
+      "id": "p0006-r12",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        489.0,
+        431.0,
+        501.0
+      ],
+      "markdown": "**Step 1:** Set $t = t^0$ where $t^0$ is an initial value in the feasible region."
+    },
+    {
+      "id": "p0006-r13",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        502.0,
+        539.0,
+        525.0
+      ],
+      "markdown": "**Step 2:** Generate samples from $q(x) = p_t(x)$ using MCMC sampling until the effective sample size for the MCMC sample is large enough (i.e. exceed a specified threshold)."
+    },
+    {
+      "id": "p0006-r14",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        525.0,
+        493.0,
+        542.0
+      ],
+      "markdown": "**Step 3:** Find $t_* = \\arg \\min_{t \\in \\mathcal{M}} \\frac{\\sum_{i=1}^N f(X_i)w_t(X_i)}{\\sum_{i=1}^N w_t(X_i)}$ using an optimization algorithm."
+    },
+    {
+      "id": "p0006-r15",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        543.0,
+        493.0,
+        554.0
+      ],
+      "markdown": "**Step 4:** If $\\mathrm{ESS} > \\mathrm{ESS_{target}}$, or maximum number of iterations reached, then stop."
+    },
+    {
+      "id": "p0006-r16",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        555.0,
+        493.0,
+        566.0
+      ],
+      "markdown": "**Step 5:** Set $t = t_*$ and go to Step 2."
+    },
+    {
+      "id": "p0006-r17",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        570.0,
+        539.0,
+        604.0
+      ],
+      "markdown": "The convergence of the method depends on the distributions and the parameter space. We have set a maximum number of iterations (i.e. in our case, 10 000) to stop the algorithm when it does not converge."
+    },
+    {
+      "id": "p0006-r18",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        606.0,
+        539.0,
+        653.0
+      ],
+      "markdown": "The condition of a large enough sample size is added in Step 2 to ensure that the optimization in Step 3 is based on a reliable sample. For example, in the application below, we first specify the $\\mathrm{ESS_{target}}$ and then we require the effective sample size for the MCMC samples to be 20% greater than the $\\mathrm{ESS_{target}}$. The stopping criterion in Step 4 uses the effective sample size for importance"
+    }
+  ]
+}

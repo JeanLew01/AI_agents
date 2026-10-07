@@ -1,0 +1,181 @@
+{
+  "page": 8,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; mathematics transcribed from 240-dpi crops. The star superscript (extracted as 'Å') is written '^*' ($X_{1:T}^*$, $\\hat p_\\theta(y_{1:T})^*$). Two unnumbered displays (IMH acceptance probability; $q_\\theta(\\mathrm{d}x_{1:T}\\mid y_{1:T}) = \\mathbb{E}\\{\\hat p_\\theta(\\mathrm{d}x_{1:T}\\mid y_{1:T})\\}$) and display (11) converted from 'formula' items to LaTeX. PIMH sampler kept as text, one item per printed step: Step 1; Step 2; (a); (b); display (11); the continuation of (b) ('set $X_{1:T}(i) = ...$') as its own item after the display (no join onto a display). The extractor had merged 'Step 2' into the Step 1 item: split. Heading '#### 2.4.1. Particle independent Metropolis–Hastings sampler'. Printed as is and kept: 'in Section 4.5 we present ... the particle Gibbs (PG) algorithm' (the PG sampler is in Section 2.4.3; cross-reference kept verbatim), lower-case 'theorem 3'. Repaired glued words and <sup> damage in several lines; line wraps 'inter-est', 'sug-gests', 'equa-tion', 'distri-bution' rejoined. Running header omitted. First item joins page 7 (space); last paragraph ('... is ergodic. Note') continues on page 9.",
+  "warnings": [
+    "Review possible header/footer: p0008-b000"
+  ],
+  "items": [
+    {
+      "id": "p0008-b000",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "276 _C. Andrieu, A. Doucet and R. Holenstein_",
+      "reason": "Running header with page number (276, C. Andrieu, A. Doucet and R. Holenstein)"
+    },
+    {
+      "id": "p0008-b001",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        56.0,
+        439.0,
+        162.0
+      ],
+      "markdown": "emphasize at this point that we do not believe that the resulting PIMH sampler that is presented below is on its own a serious competitor to standard SMC approximations to $p_\\theta(x_{1:T} \\mid y_{1:T})$. However, as is the case with standard IMH-type updates, the PIMH update might be of interest when used in combination with other MCMC transitions. In Section 2.4.2, we describe the *particle marginal Metropolis–Hastings* (PMMH) algorithm which can be thought of as an exact approximation of a ‘marginal Metropolis–Hastings’ (MMH) update targeting directly the marginal density $p(\\theta \\mid y_{1:T})$ of $p(\\theta, x_{1:T} \\mid y_{1:T})$. Finally, in Section 4.5 we present a particle approximation to a Gibbs sampler targeting $p(\\theta, x_{1:T} \\mid y_{1:T})$, called hereafter the *particle Gibbs* (PG) algorithm.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0008-b002",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        178.0,
+        284.0,
+        188.0
+      ],
+      "markdown": "#### 2.4.1. Particle independent Metropolis–Hastings sampler"
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        190.0,
+        439.0,
+        224.0
+      ],
+      "markdown": "A standard IMH update leaving $p_\\theta(x_{1:T} \\mid y_{1:T})$ invariant requires us to choose a proposal density $q_\\theta(x_{1:T} \\mid y_{1:T})$ to propose candidates $X_{1:T}^*$ which, given a current state $X_{1:T}$, are accepted with probability"
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "text",
+      "bbox": [
+        167.0,
+        223.0,
+        312.0,
+        260.0
+      ],
+      "markdown": "$$1 \\wedge \\frac{p_\\theta(X_{1:T}^* \\mid y_{1:T})}{p_\\theta(X_{1:T} \\mid y_{1:T})}\\, \\frac{q_\\theta(X_{1:T} \\mid y_{1:T})}{q_\\theta(X_{1:T}^* \\mid y_{1:T})},$$"
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        262.0,
+        439.0,
+        345.0
+      ],
+      "markdown": "where $a \\wedge b := \\min\\{a, b\\}$. The optimal choice for $q_\\theta(x_{1:T} \\mid y_{1:T})$ is $q_\\theta(x_{1:T} \\mid y_{1:T}) = p_\\theta(x_{1:T} \\mid y_{1:T})$, but in practice this ideal choice is impossible in most scenarios. Our discussion of SMC methods suggests exploring the idea of using the SMC approximation of $p_\\theta(x_{1:T} \\mid y_{1:T})$ as a proposal density, i.e. draw our proposed sample from equation (8). As indicated earlier, sampling $X_{1:T}^*$ from equation (8) is straightforward *given* a realization of the weighted samples $\\{W_T^k, X_{1:T}^k; k = 1, \\ldots, N\\}$, but computing the acceptance probability above requires the expression for the *marginal* distribution of $X_{1:T}^*$, which turns out to be intractable. Indeed this distribution is given by"
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "text",
+      "bbox": [
+        161.0,
+        347.0,
+        318.0,
+        368.0
+      ],
+      "markdown": "$$q_\\theta(\\mathrm{d}x_{1:T} \\mid y_{1:T}) = \\mathbb{E}\\{\\hat{p}_\\theta(\\mathrm{d}x_{1:T} \\mid y_{1:T})\\},$$"
+    },
+    {
+      "id": "p0008-b007",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        370.0,
+        439.0,
+        464.0
+      ],
+      "markdown": "where the expectation is here with respect to all the random variables generated by the SMC algorithm to sample the random probability measure $\\hat{p}_\\theta(\\mathrm{d}x_{1:T} \\mid y_{1:T})$ in equation (8). Although this expression for $q_\\theta(\\mathrm{d}x_{1:T} \\mid y_{1:T})$ does not admit a simple analytical expression, it naturally suggests the use of the standard ‘auxiliary variables trick’ by embedding the sampling from $p_\\theta(x_{1:T} \\mid y_{1:T})$ into that of sampling from an appropriate distribution defined on an extended space including all the random variables underpinning the expectation above. The resulting PIMH sampler can be shown to take the following extremely simple form, with $\\hat{p}_\\theta(y_{1:T})$ as in equation (9)."
+    },
+    {
+      "id": "p0008-b008",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        470.0,
+        439.0,
+        504.0
+      ],
+      "markdown": "*Step 1*: initialization, $i = 0$—run an SMC algorithm targeting $p_\\theta(x_{1:T} \\mid y_{1:T})$, sample $X_{1:T}(0) \\sim \\hat{p}_\\theta(\\cdot \\mid y_{1:T})$ and let $\\hat{p}_\\theta(y_{1:T})(0)$ denote the corresponding marginal likelihood estimate."
+    },
+    {
+      "id": "p0008-r01",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        493.0,
+        200.0,
+        504.0
+      ],
+      "markdown": "*Step 2*: for iteration $i \\geqslant 1$,"
+    },
+    {
+      "id": "p0008-b009",
+      "kind": "text",
+      "bbox": [
+        61.0,
+        509.0,
+        440.0,
+        532.0
+      ],
+      "markdown": "(a) run an SMC algorithm targeting $p_\\theta(x_{1:T} \\mid y_{1:T})$, sample $X_{1:T}^* \\sim \\hat{p}_\\theta(\\cdot \\mid y_{1:T})$ and let $\\hat{p}_\\theta(y_{1:T})^*$ denote the corresponding marginal likelihood estimate, and"
+    },
+    {
+      "id": "p0008-b010",
+      "kind": "text",
+      "bbox": [
+        61.0,
+        533.0,
+        147.0,
+        544.0
+      ],
+      "markdown": "(b) with probability"
+    },
+    {
+      "id": "p0008-b011",
+      "kind": "text",
+      "bbox": [
+        199.0,
+        539.0,
+        444.0,
+        574.0
+      ],
+      "markdown": "$$1 \\wedge \\frac{\\hat{p}_\\theta(y_{1:T})^*}{\\hat{p}_\\theta(y_{1:T})(i-1)}, \\tag{11}$$"
+    },
+    {
+      "id": "p0008-b012",
+      "kind": "text",
+      "bbox": [
+        76.0,
+        576.0,
+        439.0,
+        599.0
+      ],
+      "markdown": "set $X_{1:T}(i) = X_{1:T}^*$ and $\\hat{p}_\\theta(y_{1:T})(i) = \\hat{p}_\\theta(y_{1:T})^*$; otherwise set $X_{1:T}(i) = X_{1:T}(i-1)$ and $\\hat{p}_\\theta(y_{1:T})(i) = \\hat{p}_\\theta(y_{1:T})(i-1)$."
+    },
+    {
+      "id": "p0008-b013",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        606.0,
+        439.0,
+        629.0
+      ],
+      "markdown": "Theorem 2 in Section 4.2 establishes that the PIMH update leaves $p_\\theta(x_{1:T} \\mid y_{1:T})$ invariant and theorem 3 establishes that under weak assumptions the PIMH sampler is ergodic. Note"
+    }
+  ]
+}

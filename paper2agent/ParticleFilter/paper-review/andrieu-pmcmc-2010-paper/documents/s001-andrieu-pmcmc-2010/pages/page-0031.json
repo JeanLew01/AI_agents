@@ -1,0 +1,251 @@
+{
+  "page": 31,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0031.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and 330 dpi crops (no TeX source). Running header omitted. Headings: Acknowledgements, Appendix A, Appendix B as ##; 'B.1. Proof of theorem 2' as ###. Appendix A: steps (a),(b) split into two items; the extractor's formula image covering 'To sample from ...' and three unnumbered displays (with the stray 'where'/'with' items inside its box) was replaced by text items in reading order; the multinomial procedure line ('Sample O_{n-1} ~ M(N-1, W_{n-1}); then set ...') is now text. Display (41) (four-line chain) transcribed as one aligned block. Printed as is: step (a) prints an italic non-bold O_{n-1} while the surrounding text uses bold O_{n-1}; 'To sample from s(.|w_{n-1}, b_{n-1}^K)' has capital K whereas the displays use lower-case k; 'the set of' appears with backslash set difference. Last paragraph continues on page 32.",
+  "warnings": [
+    "Review possible header/footer: p0031-b000"
+  ],
+  "items": [
+    {
+      "id": "p0031-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "source_class": "page-header",
+      "markdown": "Particle Markov Chain Monte Carlo Methods 299",
+      "reason": "Running header with page number (page furniture)."
+    },
+    {
+      "id": "p0031-b001",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        56.0,
+        142.0,
+        66.0
+      ],
+      "source_class": "section-header",
+      "markdown": "## Acknowledgements"
+    },
+    {
+      "id": "p0031-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        74.0,
+        444.0,
+        132.0
+      ],
+      "source_class": "text",
+      "markdown": "The authors thank the referees and the Research Section Committee for their valuable comments which have helped to improve the manuscript. We thank Paul Fearnhead for pointing out an error in Appendix A of an earlier version of the manuscript. Christophe Andrieu’s research is supported by an Engineering and Physical Sciences Research Council Advanced Research Fellowship."
+    },
+    {
+      "id": "p0031-b003",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        147.0,
+        354.0,
+        158.0
+      ],
+      "source_class": "section-header",
+      "markdown": "## Appendix A: Conditional sequential Monte Carlo implementation"
+    },
+    {
+      "id": "p0031-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        165.0,
+        444.0,
+        204.0
+      ],
+      "source_class": "text",
+      "markdown": "The delicate step in practice to implement the conditional SMC procedure is that of sampling from $r(\\cdot|\\mathbf{W}_{n-1},B_{n-1}^K)$. As discussed in Section 4.1, the resampling procedure is usually defined in terms of the number of offspring $\\mathbf{O}_{n-1}$ of the parent particles from iteration $n$. In this case, a generic algorithm consists of the following two steps."
+    },
+    {
+      "id": "p0031-b005",
+      "kind": "text",
+      "bbox": [
+        58.0,
+        209.0,
+        404.0,
+        219.0
+      ],
+      "source_class": "list-item",
+      "markdown": "(a) Sample the numbers of offspring $O_{n-1}\\sim s(\\cdot|\\mathbf{W}_{n-1},B_{n-1}^K)$."
+    },
+    {
+      "id": "p0031-r001",
+      "kind": "text",
+      "markdown": "(b) Sample the indices of the $N-1$ ‘free’ offspring uniformly on the set $\\{1,\\ldots,N\\}\\backslash\\{B_{n-1}^K\\}$.",
+      "bbox": [
+        58.0,
+        219.0,
+        404.0,
+        229.0
+      ]
+    },
+    {
+      "id": "p0031-r002",
+      "kind": "text",
+      "markdown": "To sample from $s(\\cdot|\\mathbf{w}_{n-1},b_{n-1}^K)$, we can use the fact that",
+      "bbox": [
+        52.0,
+        229.0,
+        361.0,
+        241.0
+      ]
+    },
+    {
+      "id": "p0031-b006",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        241.0,
+        361.0,
+        262.0
+      ],
+      "source_class": "formula",
+      "markdown": "$$s(o_{n-1}|\\mathbf{w}_{n-1},b_{n-1}^k)=s(o_{n-1}^{b_{n-1}^k}|\\mathbf{w}_{n-1},b_{n-1}^k)\\;s(o_{n-1}^{-b_{n-1}^k}|\\mathbf{w}_{n-1},o_{n-1}^{b_{n-1}^k})$$"
+    },
+    {
+      "id": "p0031-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        264.0,
+        71.0,
+        271.0
+      ],
+      "source_class": "text",
+      "markdown": "where"
+    },
+    {
+      "id": "p0031-r003",
+      "kind": "text",
+      "markdown": "$$s(o_{n-1}^{b_{n-1}^k}|\\mathbf{w}_{n-1},b_{n-1}^k)\\propto s(b_{n-1}^k|\\mathbf{w}_{n-1},o_{n-1}^{b_{n-1}^k})\\;s(o_{n-1}^{b_{n-1}^k}|\\mathbf{w}_{n-1})$$",
+      "bbox": [
+        52.0,
+        271.0,
+        361.0,
+        290.0
+      ]
+    },
+    {
+      "id": "p0031-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        290.0,
+        65.0,
+        297.0
+      ],
+      "source_class": "text",
+      "markdown": "with"
+    },
+    {
+      "id": "p0031-r004",
+      "kind": "text",
+      "markdown": "$$s(b_{n-1}^k|\\mathbf{w}_{n-1},o_{n-1}^{b_{n-1}^k})=o_{n-1}^{b_{n-1}^k}/N.$$",
+      "bbox": [
+        52.0,
+        297.0,
+        361.0,
+        317.0
+      ]
+    },
+    {
+      "id": "p0031-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        320.0,
+        444.0,
+        339.0
+      ],
+      "source_class": "text",
+      "markdown": "In the multinomial resampling case, denoting $\\mathcal{M}(a,b)$ the multinomial distribution, this is equivalent to the following procedure."
+    },
+    {
+      "id": "p0031-b010",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        336.0,
+        292.0,
+        361.0
+      ],
+      "source_class": "formula",
+      "markdown": "Sample $\\mathbf{O}_{n-1}\\sim\\mathcal{M}(N-1,\\mathbf{W}_{n-1})$; then set $O_{n-1}^{B_{n-1}^K}=O_{n-1}^{B_{n-1}^K}+1$."
+    },
+    {
+      "id": "p0031-b011",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        372.0,
+        141.0,
+        382.0
+      ],
+      "source_class": "section-header",
+      "markdown": "## Appendix B: Proofs"
+    },
+    {
+      "id": "p0031-b012",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        390.0,
+        158.0,
+        398.0
+      ],
+      "source_class": "section-header",
+      "markdown": "### B.1. Proof of theorem 2"
+    },
+    {
+      "id": "p0031-b013",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        400.0,
+        444.0,
+        440.0
+      ],
+      "source_class": "text",
+      "markdown": "We can easily check that equations (30) and (31) sum to 1. Note that the factor $1/N^P$ corresponds to the uniform distribution on the set $\\{1,\\ldots,N\\}^P$ for the random variables $K,A_1^{B_2^K},\\ldots,A_{P-1}^{B_P^K}$. Now the acceptance ratio of an IMH algorithm is known to depend on the following importance weight which is well defined because of assumption 1:"
+    },
+    {
+      "id": "p0031-b014",
+      "kind": "text",
+      "bbox": [
+        99.0,
+        441.0,
+        449.0,
+        605.0
+      ],
+      "source_class": "formula",
+      "markdown": "$$\\begin{aligned}\\frac{\\tilde\\pi^N(k,\\bar{\\mathbf{x}}_1,\\ldots,\\bar{\\mathbf{x}}_P,\\mathbf{a}_1,\\ldots,\\mathbf{a}_{P-1})}{q^N(k,\\bar{\\mathbf{x}}_1,\\ldots,\\bar{\\mathbf{x}}_P,\\mathbf{a}_1,\\ldots,\\mathbf{a}_{P-1})}&=\\frac{N^{-P}\\pi(x_{1:P}^k)}{w_P^k\\,M_1(x_1^{b_1^k})\\prod_{n=2}^{P}r(b_{n-1}^k|\\mathbf{w}_{n-1})\\,M_n(x_n^{b_n^k}|x_{1:n-1}^{b_{n-1}^k})}\\\\&=\\frac{N^{-P}\\pi(x_{1:P}^k)}{M_1(x_1^{b_1^k})\\prod_{n=2}^{P}M_n(x_n^{b_n^k}|x_{1:n-1}^{b_{n-1}^k})\\prod_{n=1}^{P}w_n^{b_n^k}}\\\\&=\\frac{\\pi(x_{1:P}^k)N^{-P}\\prod_{n=1}^{P}\\left\\{\\sum_{m=1}^{N}w_n(x_{1:n}^m)\\right\\}}{M_1(x_1^{b_1^k})\\prod_{n=2}^{P}M_n(x_n^{b_n^k}|x_{1:n-1}^{b_{n-1}^k})\\prod_{n=1}^{P}w_n(x_{1:n}^{b_n^k})}\\\\&=\\frac{\\hat Z^N}{Z}\\end{aligned}\\tag{41}$$"
+    },
+    {
+      "id": "p0031-b015",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        606.0,
+        444.0,
+        628.0
+      ],
+      "source_class": "text",
+      "markdown": "where $\\hat Z^N$ is given in equation (21). In the manipulations above we have used assumption 2 on the second line whereas the final result is obtained thanks to the definitions of the incremental weights (20) and of"
+    }
+  ]
+}

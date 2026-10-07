@@ -1,0 +1,121 @@
+{
+  "page": 9,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with 200 dpi crops of both algorithm boxes and a 170 dpi crop of Fig. 1; the three float crops were rendered and checked (rules of the algorithm boxes and all three panels (a)-(c) with axis labels 0 and k inside; caption excluded). Algorithm 1 and Algorithm 2 kept as image crops (algorithm-1, algorithm-2) each followed by a line-by-line LaTeX transcription (extractor had turned 'Given:'/'end for' into headings and scrambled the superscripts); Figure 1 as one crop (figure-1) with caption. The page's only prose is two lines of one paragraph that runs from page 8 to page 10 and is interrupted by the floats: it is split at a sentence boundary: the first item ('described in Algorithm 2. Its graphical representation is shown in Fig. 2.') joins the page-8 sentence (join_previous=space) and is placed before the floats; 'The pSIS is evaluated by computing the new weights ...' is placed after the floats as the page's last item and continues on page 10. In the source these two pieces are the same paragraph (no paragraph break is printed). As printed in Algorithm 2 line 3: 'updated weights hat-w_k^{(i)}' while the sum uses hat-w_M^{(i)}. [coordinator] appendix heading promoted to ## (appendix sections A-D follow IV. Conclusions and are not subsections of it) and/or page-9 paragraph rejoined across the floats.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0009-r000",
+      "kind": "text",
+      "bbox": [
+        72,
+        465,
+        400,
+        475
+      ],
+      "markdown": "described in Algorithm 2. Its graphical representation is shown in Fig. 2.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-r001",
+      "kind": "figure",
+      "bbox": [
+        70,
+        70,
+        542,
+        278
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0009-r002",
+      "kind": "text",
+      "bbox": [
+        70,
+        70,
+        542,
+        278
+      ],
+      "markdown": "**Algorithm 1** Precomputation for sequential importance sampling estimator.\n\nGiven:\n\n· the estimation problem (4)\n\n· the proposal distributions $\\pi(\\mathbf{x}_0)$ and $\\pi(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{k-1}, \\mathbf{y}_{1:k})$\n\n1: Draw $N$ particles from the initial distribution $\\pi(\\mathbf{x}_0)$ and evaluate density\n\n$\\mathbf{x}_0^{(i)} \\sim \\pi(\\mathbf{x}_0)$ , $\\pi_0^{(i)} = \\pi(\\mathbf{x}_0^{(i)})$\n\n**for** $k = 1 : M$ **do**\n\n2: Draw $N$ particles from the proposal transition and evaluate density\n\n$\\mathbf{x}_k^{(i)} \\sim \\pi(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{k-1}^{(i)}, \\mathbf{y}_{1:k})$ , $\\pi_k^{(i)} = \\pi(\\mathbf{x}_k^{(i)} \\,|\\, \\mathbf{x}_{k-1}^{(i)}, \\mathbf{y}_{1:k})$\n\n**end for**\n\n3: Evaluate function $\\phi$ for each particle path realisation\n\n$\\phi^{(i)} = \\phi(\\mathbf{x}_{0:M}^{(i)})$\n\nSave collection of particles $\\boldsymbol{\\chi}_{0:M}$, densities $\\pi_{0:M}^{(i)}$, and function evaluations $\\phi^{(i)}$."
+    },
+    {
+      "id": "p0009-r003",
+      "kind": "figure",
+      "bbox": [
+        70,
+        286,
+        542,
+        410
+      ],
+      "markdown": "",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0009-r004",
+      "kind": "caption",
+      "bbox": [
+        72.0,
+        420.0,
+        542.0,
+        442.0
+      ],
+      "markdown": "Fig. 1 Representation of precomputation step of sequential importance sampling estimator: a) initial samples, b) propagated samples, c) propagated distribution approximation."
+    },
+    {
+      "id": "p0009-r005",
+      "kind": "figure",
+      "bbox": [
+        70,
+        484,
+        542,
+        683
+      ],
+      "markdown": "",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0009-r006",
+      "kind": "text",
+      "bbox": [
+        70,
+        484,
+        542,
+        683
+      ],
+      "markdown": "**Algorithm 2** Algorithmic scheme for precomputed sequential importance sampling estimator.\n\nGiven:\n\n· the estimation problem (4)\n\n· the precomputed quantities $\\boldsymbol{\\chi}_{0:M}$, $\\pi_{0:M}^{(i)}$ and $\\phi^{(i)}$\n\n· epistemic parameter $\\boldsymbol{\\lambda} = [\\boldsymbol{\\lambda}_0, \\boldsymbol{\\lambda}_x, \\boldsymbol{\\lambda}_y]$ to evaluate\n\n1: Set the weights of the $N$ *precomputed* initial samples $\\boldsymbol{\\chi}_0$ and normalise them\n\n$w_0^{(i)} = p(\\mathbf{x}_0^{(i)}; \\boldsymbol{\\lambda}_0)/\\pi_0^{(i)}/N$\n\n**for** $k = 1 : M$ **do**\n\n2: Update the weights of the *precomputed* samples $\\boldsymbol{\\chi}_k$ and self-normalise them\n\n$w_k^{(i)} = \\hat{w}_{k-1}^{(i)} \\, p(\\mathbf{y}_k \\,|\\, \\mathbf{x}_k^{(i)}; \\boldsymbol{\\lambda}_y) \\; p(\\mathbf{x}_k^{(i)} \\,|\\, \\mathbf{x}_{k-1}^{(i)}; \\boldsymbol{\\lambda}_x)/\\pi_k^{(i)}$ , $\\hat{w}_k^{(i)} = w_k^{(i)} / \\sum_{j=1}^{N} w_k^{(j)}$\n\n**end for**\n\n3: Evaluate the estimator with the updated weights $\\hat{w}_k^{(i)}$\n\n$\\hat{\\theta}\\big(\\boldsymbol{\\chi}_{0:M}\\big) = \\sum_{i=1}^{N} \\hat{w}_M^{(i)} \\, \\phi^{(i)}$"
+    },
+    {
+      "id": "p0009-r007",
+      "kind": "text",
+      "bbox": [
+        71,
+        465,
+        541,
+        714
+      ],
+      "markdown": "The pSIS is evaluated by computing the new weights $\\hat{w}_k^{(i)}(\\boldsymbol{\\lambda})$ for a given $\\boldsymbol{\\lambda}$. By starting from the precomputed initial samples (Fig. 2(a)), the initial distribution with",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0009-b021",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "9",
+      "source_class": "page-footer",
+      "reason": "Printed page number 9 (page footer)."
+    }
+  ]
+}

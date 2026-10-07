@@ -1,0 +1,138 @@
+{
+  "page": 12,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0012.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the 170-dpi page render with all items. Algorithm 3 (float at the top of the page) is kept as an image crop (algorithm-3) plus a line-by-line LaTeX transcription; the parenthetical loop-membership remarks '(inside the loop over ...)' and '(loop over ...)' in the transcription are reviewer annotations replacing the printed indentation, everything else is as printed. The paragraph continuing from page 11 ('the UKF-based proposal ...') was moved in front of the algorithm and joined to page 11 (join_previous space). Extractor headings for the algorithm title and 'end for' removed; '3. Algorithmic Complexity' set as a #### sub-subsection heading. Inline maths ($c_{x_0}$, $c_\\pi$, $c_\\phi$, proposal density) rewritten in LaTeX from the render. Sums in the algorithm are printed with only the index j below and N_pi above (no lower limit value); kept as printed.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0012-r00",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        412.0,
+        541.0,
+        482.0
+      ],
+      "markdown": "the UKF-based proposal concentrates more particles in high-likelihood areas because it explicitly incorporates information on the observations, thus reducing the risk of sample degeneracy. This behaviour is particularly valuable in space applications characterised by multi-dimensional spaces, highly peaked likelihoods (accurate observations), and little overlap between the predicted distribution and the likelihood.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0012-r01",
+      "kind": "figure",
+      "bbox": [
+        70.0,
+        70.0,
+        543.0,
+        391.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0012-r02",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        72.0,
+        541.0,
+        389.0
+      ],
+      "markdown": "**Algorithm 3** Construction of proposal distributions.\n\nGiven the estimation problem (4)\n\n1: Set initial proposal as convex combination of distributions in epistemic set\n$\\pi(\\mathbf{x}_0) = \\sum_j^{N_\\pi} p(\\mathbf{x}_0; \\boldsymbol{\\lambda}_0^{(j)})/N_\\pi$ with $\\boldsymbol{\\lambda}_0^{(j)} \\in \\Omega_{\\boldsymbol{\\lambda}_0}$\n\n2: Draw $N$ particles from the initial proposal $\\pi(\\mathbf{x}_0)$\n$\\mathbf{x}_0^{(i)} \\sim \\pi(\\mathbf{x}_0)$\n\n3: For each particle, initialise UKF mean as particle value and covariance as sample covariance\n$\\boldsymbol{\\mu}_0^{(i)} = \\mathbf{x}_0^{(i)}$, $\\boldsymbol{\\Sigma}_0^{(i)} = \\sum_j (\\mathbf{x}_0^{(j)} - \\boldsymbol{\\mu}_0^{(i)})(\\mathbf{x}_0^{(j)} - \\boldsymbol{\\mu}_0^{(i)})^T/(N-1)$\n\n**for** $k = 1 : M$ **do**\n\n4: (inside the loop over $k$) Propagate UKF mean and covariance with UT\n$\\boldsymbol{\\mu}_{k-1}^{(i)}, \\boldsymbol{\\Sigma}_{k-1}^{(i)} \\rightarrow \\boldsymbol{\\mu}_k^{(i)}, \\boldsymbol{\\Sigma}_k^{(i)}$\n\n**for** $j = 1 : N_\\pi$ **do**\n\n5: (inside the loop over $j$) Select an epistemic parameter $\\boldsymbol{\\lambda}_y^{(j)} \\in \\Omega_{\\boldsymbol{\\lambda}_y}$ and approximate the corresponding likelihood\n$p(\\mathbf{y}_k|\\mathbf{x}_k; \\boldsymbol{\\lambda}_y^{(j)}) \\rightarrow \\mathcal{N}\\left(\\mathbf{y}_k|\\mathbf{x}_k; \\boldsymbol{\\mu}_y^{(j)}, \\boldsymbol{\\Sigma}_y^{(j)}\\right)$\n\n6: (inside the loop over $j$) Update UKF mean and covariance with Bayes’ update\n$\\boldsymbol{\\mu}_k^{(i)}, \\boldsymbol{\\Sigma}_k^{(i)} \\rightarrow \\boldsymbol{\\mu}_k^{(i,j)}, \\boldsymbol{\\Sigma}_k^{(i,j)}$\n\n**end for** (loop over $j$)\n\n7: (inside the loop over $k$) Construct proposal with UKF posteriors\n$\\pi(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{k-1}^{(i)}, \\mathbf{y}_{1:k}) = \\sum_j^{N_\\pi} b_j\\, \\mathcal{N}\\left(\\mathbf{x}_k; \\boldsymbol{\\mu}_k^{(i,j)}, \\boldsymbol{\\Sigma}_k^{(i,j)}\\right)$\n\n**end for** (loop over $k$)"
+    },
+    {
+      "id": "p0012-r03",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        506.0,
+        541.0,
+        516.0
+      ],
+      "markdown": "#### 3. Algorithmic Complexity"
+    },
+    {
+      "id": "p0012-r04",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        526.0,
+        541.0,
+        556.0
+      ],
+      "markdown": "In this section, the algorithmic complexity of evaluating the estimator (10) is assessed. Specifically, the complexities of the precomputation step and the pSIS estimator are analysed separately to pinpoint the main saving of precomputation."
+    },
+    {
+      "id": "p0012-r05",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        565.0,
+        541.0,
+        635.0
+      ],
+      "markdown": "Let $c_{x_0}$ be the complexity of drawing one particle from $\\pi(\\mathbf{x}_0)$, $c_x$ the complexity to sample the proposal $\\pi\\big(\\mathbf{x}_k \\,|\\, \\mathbf{x}_{0:k-1}, \\mathbf{y}_{1:k}\\big)$, $c_\\pi$ the complexity of evaluating each term of the proposal (9) (assumed equal complexity), $c_p$ the complexity of evaluating each of the distributions in problem (4) (assumed equal complexity), and $c_\\phi$ the complexity of evaluating the function $\\phi$."
+    },
+    {
+      "id": "p0012-r06",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        645.0,
+        541.0,
+        655.0
+      ],
+      "markdown": "The complexity of the precomputation step can be assessed by looking at the complexity of each step in Algorithm 1:"
+    },
+    {
+      "id": "p0012-r07",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        664.0,
+        541.0,
+        676.0
+      ],
+      "markdown": "1) $N\\,(c_{x_0} + c_\\pi)$ as $N$ particles are drawn from and evaluated with the initial proposal;"
+    },
+    {
+      "id": "p0012-r08",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        684.0,
+        541.0,
+        695.0
+      ],
+      "markdown": "2) $N\\,(c_x + c_\\pi)$ since $N$ particles are drawn from and evaluated with the transition proposal;"
+    },
+    {
+      "id": "p0012-r09",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        705.0,
+        541.0,
+        716.0
+      ],
+      "markdown": "3) $N c_\\phi$ because there are $N$ evaluations of the function $\\phi$."
+    },
+    {
+      "id": "p0012-b017",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        750.0
+      ],
+      "markdown": "12",
+      "source_class": "page-footer",
+      "reason": "Page number footer (\"12\"), verified against the page image."
+    }
+  ]
+}

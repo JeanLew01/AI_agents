@@ -1,0 +1,231 @@
+{
+  "page": 14,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0014.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the page with the preview and 200-dpi crops (Remark 6, Fig. 4 with the second bullet, section 6.5 start, Theorem 7 and proof start); maths from the authors' TeX with macros expanded (\\xaug -> \\tilde{\\mathbf{x}}, \\relorder -> \\mathbf{d}) and checked against the page. Converted (52), (53) to LaTeX with printed tags. Fig. 4 (top of right column) placed after Example 4, which cites it, with bbox widened slightly to include the axis labels; its caption changed from text to caption. Reading order restored: bullet 1 (left column bottom) then bullet 2 (right column, under the figure). 'Summarizing ...' and 'Note that, in solving (51) ...' are two printed paragraphs (forced line break), kept in one item with a blank line. Heading 6.5 set to ###. Remark 6 and Example 4 are printed in italics (emphasis dropped; bold labels kept). Resolved references as printed: Example 2, Fig. 4, Problems (51), (36), Section 5.1. Authors' wording kept: 'an half-space', 'still include', 'aiming to computing', 'at the same not containing', 'is seeked'. The proof of Theorem 7 continues on page 15.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0014-b000",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        75.0,
+        284.0,
+        108.0
+      ],
+      "markdown": "**Remark 6** As already discussed, Algorithm 2 computes, at each iteration, an half-space $\\mathcal{H}_j : \\boldsymbol{\\omega}_j^{\\top} \\tilde{\\mathbf{x}} - \\nu_j \\leq 0$ containing the set $\\mathcal{X}$ (thus also $\\mathcal{M}$), i.e.,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b001",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        114.0,
+        288.0,
+        140.0
+      ],
+      "markdown": "$$\n\\boldsymbol{\\omega}_j^{\\top} \\tilde{\\mathbf{x}} - \\nu_j \\leq 0 \\quad \\forall\\ \\tilde{\\mathbf{x}} \\in \\mathcal{X}. \\tag{52}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0014-b002",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        145.0,
+        284.0,
+        221.0
+      ],
+      "markdown": "The parameters $\\boldsymbol{\\omega}_j$ and $\\nu_j$ are then computed by solving Problem (50), and replacing the robust constraint (52) with a SOS constraint (see Problem (50)). Note that the same principles of Algorithm 2 and of the SOS-based relaxation discussed in this section can be used to compute, instead of an half-space $\\mathcal{H}_j$, a more complex semialgebraic set (e.g., an ellipsoid) described by the polynomial inequality:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        227.0,
+        288.0,
+        249.0
+      ],
+      "markdown": "$$\n\\boldsymbol{\\omega}^{\\top} \\boldsymbol{q}(\\tilde{\\mathbf{x}}) \\leq 0 \\quad \\forall\\ \\tilde{\\mathbf{x}} \\in \\mathcal{X}, \\tag{53}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0014-b004",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        255.0,
+        284.0,
+        320.0
+      ],
+      "markdown": "with $\\boldsymbol{q}(\\tilde{\\mathbf{x}})$ being a vector of monomials in the variable $\\tilde{\\mathbf{x}}$. The parameters $\\boldsymbol{\\omega}$ can be then computed by properly modifying the SOS-relaxed Problem (50). For instance, in case we are interested in computing an ellipsoidal outer approximation of $\\mathcal{X}$, the function $\\boldsymbol{\\omega}^{\\top} \\boldsymbol{q}(\\tilde{\\mathbf{x}})$ should have a quadratic form, and its Hessian should be enforced to be positive definite.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b005",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        332.0,
+        284.0,
+        572.0
+      ],
+      "markdown": "**Example 4** Let us continue with Example 2. Fig. 4 shows the polytope obtained by applying Algorithm 2 solving Problems (51) instead of the nonconvex optimization in A2.2. The SDP Problems (51) are solved for a degree of the SOS polynomials equal to $2\\mathbf{d} = 4$. The solution is a polytope $\\mathcal{S}$ that outer-bounds $\\mathcal{X}_1$. It can be observed that because of the approximations introduced (SOS and the approximation of the indicator functions), which are necessary to efficiently solve the optimizations, the half-spaces bounding $\\mathcal{X}_1$ are not tangent to it and the computed region $\\mathcal{S}$ still include two black points. Therefore, the computed polytope is not the minimum-volume polytope. However, it is already a very good outer-approximation of it. In the next section, we describe a further refinement of Algorithm 2 aiming to computing a tighter polytope $\\mathcal{S}$. According to the steps A1.1.3 and A1.1.4 of Algorithm 1, we outer-approximate $\\mathcal{M}$ (and so $\\mathcal{X}_1$) with $\\mathcal{S}$. At the next time step ($k = 2$) of the set-membership filter, we repeat the procedure to compute a new polytope outer-bounding $\\mathcal{X}_2$. The difference is now that instead of $h_1(\\cdot)$ in (36), we have the $9$ linear inequalities that define the polytope in Fig. 4. This procedure is repeated recursively in time.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b009",
+      "kind": "figure",
+      "bbox": [
+        343,
+        65,
+        509,
+        223
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 4",
+      "asset_name": "figure-4"
+    },
+    {
+      "id": "p0014-b010",
+      "kind": "caption",
+      "bbox": [
+        336.0,
+        228.0,
+        517.0,
+        238.0
+      ],
+      "markdown": "Fig. 4. Final polytope after running Algorithm 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b006",
+      "kind": "heading",
+      "bbox": [
+        43.0,
+        586.0,
+        183.0,
+        596.0
+      ],
+      "markdown": "### 6.5 Refinement of the polytope $\\mathcal{S}$",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0014-b007",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        610.0,
+        284.0,
+        686.0
+      ],
+      "markdown": "Summarizing, an approximate solution of the robust optimization problem (43) is computed by solving the convex SDP problems (51), and, on the basis of Algorithm 2, the polytopic-outer approximation $\\mathcal{S}$ of the set $\\mathcal{M}$ is then defined as $\\mathcal{S} = \\mathcal{B} \\cap \\mathcal{H}_1 \\cap \\ldots \\cap \\mathcal{H}_J$.\n\nNote that, in solving (51) instead of (43), two different sources of approximation are introduced:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b008",
+      "kind": "text",
+      "bbox": [
+        43.0,
+        697.0,
+        283.0,
+        722.0
+      ],
+      "markdown": "- Approximation of the indicator functions $I_{\\{\\mathcal{H}_j\\}}(p_i)$ with the convex functions $R_{\\{\\mathcal{H}_j\\}}(p_i)$ (see Fig. 3);",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0014-b011",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        245.0,
+        547.0,
+        279.0
+      ],
+      "markdown": "- Approximation of the robust constraint $\\nu - \\boldsymbol{\\omega}^{\\top}\\mathbf{x} \\geq 0 \\ \\ \\forall \\mathbf{x} \\in \\mathcal{X}$ with the convex conservative constraint $\\nu - \\boldsymbol{\\omega}^{\\top}\\mathbf{x} = \\sigma_0(\\tilde{\\mathbf{x}}) - \\sum_{s=1}^m \\sigma_s(\\tilde{\\mathbf{x}}) h_s(\\tilde{\\mathbf{x}})$.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0014-b012",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        290.0,
+        546.0,
+        454.0
+      ],
+      "markdown": "The latter source of approximation can be reduced by increasing the degree $2\\mathbf{d}$ of the SOS polynomials. In fact, as already discussed in Section 5.1, according to the *Putinar's Positivstellensatz* each function $\\nu - \\boldsymbol{\\omega}^{\\top}\\mathbf{x}$ such that $\\nu - \\boldsymbol{\\omega}^{\\top}\\mathbf{x} \\geq 0 \\ \\forall \\mathbf{x} \\in \\mathcal{X}$ can be written as $\\nu - \\boldsymbol{\\omega}^{\\top}\\mathbf{x} = \\sigma_0(\\tilde{\\mathbf{x}}) - \\sum_{s=1}^m \\sigma_s(\\tilde{\\mathbf{x}}) h_s(\\tilde{\\mathbf{x}})$ provided that the degree of the SOS polynomials $\\sigma_0, \\sigma_1, \\ldots, \\sigma_m$ is large enough. On the other hand, there is no theoretical result concerning the accuracy of the approximation of the indicator functions in Problem (43) with the convex functions $R_{\\{\\mathcal{H}_j\\}}(p_i)$ appearing in Problem (51). Because of that, the polytope $\\mathcal{S}$ obtained by solving convex problems (51) (for $j = 1, \\ldots, J$) is not guaranteed to minimize the original nonconvex optimization problem (42). Algorithm 3 can then be used to refine the polytopic outer approximation $\\mathcal{S}$ provided by Algorithm 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b013",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        466.0,
+        547.0,
+        579.0
+      ],
+      "markdown": "The main principle of Algorithm 3 is to process, one by one, all the points belonging to the polytopic outer-approximation $\\mathcal{S}$ initially given by Algorithm 2. For each of such points $p_i$, an half-space $\\mathcal{H}_i : \\boldsymbol{\\omega}_i^{*^\\top} \\tilde{\\mathbf{x}} - \\nu_i^* \\leq 0$ including the set $\\mathcal{X}$ (i.e., $\\mathcal{X} \\subseteq \\mathcal{H}_i$) and at the same not containing the point $p_i$ (i.e., $p_i \\not\\in \\mathcal{H}_i$, or equivalently $-\\boldsymbol{\\omega}_i^{*^\\top} p_i + \\nu_i^* < 0$) is seeked. In this way, all the points $p_i$ which do not belong to the minimum volume polytopic outer approximation of $\\mathcal{X}$ are discarded. Thus, a tighter (but more complex) polytopic outer approximation of $\\mathcal{X}$ is obtained.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b014",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        590.0,
+        546.0,
+        612.0
+      ],
+      "markdown": "An important feature enjoyed by the refined polytope $\\mathcal{S}^{*}$ is given by the following theorem.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b015",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        634.0,
+        546.0,
+        655.0
+      ],
+      "markdown": "**Theorem 7** The polytope $\\mathcal{S}^{*}$ computed with Algorithm 3 is a global minimizer of problem (42).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b016",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        666.0,
+        546.0,
+        720.0
+      ],
+      "markdown": "**Proof:** Let $\\tilde{\\mathcal{S}}$ be a polytope belonging to the set of feasibility of problem (42) (i.e., $\\mathcal{M} \\subseteq \\tilde{\\mathcal{S}}$) which does not minimize (42). This means that there exists a polytope $\\tilde{\\tilde{\\mathcal{S}}}$ such that $\\mathcal{M} \\subseteq \\tilde{\\tilde{\\mathcal{S}}} \\subseteq \\tilde{\\mathcal{S}}$ and a point $\\bar{p}$ given as input of Algorithm 2",
+      "source_class": "text"
+    },
+    {
+      "id": "p0014-b017",
+      "kind": "omit",
+      "bbox": [
+        288.0,
+        750.0,
+        299.0,
+        758.0
+      ],
+      "markdown": "14",
+      "source_class": "page-footer",
+      "reason": "Printed page number 14 in the footer."
+    }
+  ]
+}

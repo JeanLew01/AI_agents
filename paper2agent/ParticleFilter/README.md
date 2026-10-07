@@ -1,9 +1,9 @@
 # 粒子滤波论文智能体（Paper2Agent）
 
-按 [Paper2Agent](https://github.com/jmiao24/Paper2Agent) 的流程（`~/.claude/skills/paper2agent`），把两篇粒子滤波相关论文
+按 [Paper2Agent](https://github.com/jmiao24/Paper2Agent) 的流程（`~/.claude/skills/paper2agent`），把粒子滤波相关论文（第一批 2 篇，第二批 7 篇）
 转换成 Claude Code 可用的“论文技能”，并为有可运行公开代码的一篇（diffres）做了 MCP 工具服务。
 
-## 论文技能（已完成）
+## 第一批论文技能：扩散模型与粒子滤波
 
 位置：`dist/particle-filter-agent/skill/<名称>/`，已链接到 `~/.claude/skills/`，在任何目录启动 Claude Code 都能用。
 
@@ -27,6 +27,31 @@ diffpf-paper 里扩散模型的条件输入 c_t 是怎么构造的？和 diffusi
 后与 PDF 字形的差异，已逐页说明）。之后由独立校验代理把成品与原 PDF 逐页对比：DiffPF 0 个错误；
 diffusion-resampling 发现 2 个错误（脚注吞掉一段正文；表格里 LaTeX 反斜杠被重复）和若干小问题，均已修复并重新构建。
 记录在 `paper-review/<名称>/reports/`。
+
+## 第二批论文技能：鲁棒 / 集员 / 盒粒子滤波（2026-10-05）
+
+来自一份 10 篇的阅读清单；能合法免费获取全文的 7 篇已做成技能（同样的逐页审阅 → 构建 → 独立校验流程），位置和用法同上。
+
+| 技能名 | 论文 | 所用版本 | 独立校验 |
+| --- | --- | --- | --- |
+| `benavoli-piga-2016-paper` | Benavoli & Piga, A probabilistic interpretation of set-membership filtering（Automatica 2016） | arXiv 1505.01034v2（有 TeX） | 0 错误 |
+| `benavoli-lower-previsions-2011-paper` | Benavoli, Zaffalon & Miranda, Robust filtering through coherent lower previsions（IEEE TAC 2011） | 作者稿（2010-10-28） | 0 错误 |
+| `greco-vasile-2022-paper` | Greco & Vasile, Robust Bayesian Particle Filter for Space Object Tracking Under Severe Uncertainty（JGCD 2022） | Strathprints 录用稿，44 页 | 1 个符号错误（已修）|
+| `raices-cruz-robust-is-mcmc-2022-paper` | Raices Cruz 等, Iterative importance sampling with MCMC in robust Bayesian analysis（CSDA 2022） | arXiv 2206.08728v1（有 TeX） | 0 错误 |
+| `gning-box-bernoulli-2012-paper` | Gning, Ristic & Mihaylova, Bernoulli Particle/Box-Particle Filters…（IEEE TSP 2012） | Lancaster EPrints 作者稿 | 0 错误 |
+| `haj-chhade-box-messages-2014-paper` | Haj Chhadé 等, Non Parametric Distributed Inference in Sensor Networks Using Box Particles Messages（Mathematics in Computer Science 2014） | Springer 开放获取版 | 0 错误 |
+| `andrieu-pmcmc-2010-paper` | Andrieu, Doucet & Holenstein, Particle Markov chain Monte Carlo methods（JRSS-B 2010，含讨论与作者答复，74 页） | 期刊排版 PDF（Doucet 主页） | 1 个图裁剪错误（已修），公式 0 错误 |
+
+说明：除两篇有 arXiv TeX 外，其余公式都是从页面图像转写成 LaTeX，再由独立校验代理逐式对照 PDF。作者稿/预印本与正式发表版的编号、措辞可能略有不同，
+每个技能的 Conversion notes 写明了所用版本。区间记号里的 `](` 在公式中写作 `]{}(`（渲染相同，避免被当作链接）。
+
+未做成技能的三篇（需要你提供 PDF，放到 `C:\Users\jixia\OneDrive\Desktop\pf_papers\` 后告诉我即可）：
+
+- Le Gland & Oudjane (2003)，SPA：正式版在 Elsevier 开放存档免费，但网站拦截脚本下载：https://www.sciencedirect.com/science/article/pii/S0304414903000413 （已下载的 INRIA 报告 RR-4431 字体为位图，文字层不可用，暂存于 `papers/legland-oudjane-2003.pdf`）
+- Abdallah, Gning & Bonnifait (2008)，Automatica，doi:10.1016/j.automatica.2007.07.024（付费）
+- Combastel (2016)，Annual Reviews in Control，doi:10.1016/j.arcontrol.2016.07.002（付费）
+
+来源检索记录：`logs/source-search-batch2.md`；各篇来源见 `papers/SOURCES.tsv`。这一批只做论文技能，没有做 MCP（只有 Raices Cruz 一篇有官方 R/Stan 代码）。
 
 ## MCP 工具服务：diffres（diffusion-resampling 论文的代码）
 
@@ -65,5 +90,5 @@ claude mcp add diffres -- "$PWD/.venv/bin/python" "$PWD/src/diffres_mcp.py"
 - `mcp-build/diffres/` diffres 的 Paper2MCP 项目（环境 `diffres-env/` 约 1.1 GB、参考运行 `notebooks/`、工具 `src/`、测试 `tests/`、报告 `reports/`、交付 `dist/`）；`mcp-build/heavy.sh` 是带内存保护的 JAX 任务启动器
 - `COORDINATOR_STATE.md` 进度日志
 
-PDF 版权属于作者和出版方；`~/AI_agents` 有 GitHub 远端，`papers/`、`tex-source/`、`dist/.../skill/`（含论文全文）和
-`mcp-build/diffres/diffres-env/` 不要提交。
+PDF 版权属于作者和出版方。按你的决定，整个文件夹（含论文 PDF、TeX 源码和技能全文）已推送到公开仓库 JeanLew01/AI_agents；
+环境目录、克隆的上游仓库和临时文件由 `~/AI_agents/.gitignore` 排除。

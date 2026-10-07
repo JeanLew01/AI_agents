@@ -1,0 +1,87 @@
+{
+  "page": 17,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0017.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220 dpi crops (no TeX). Header omitted. Pure text page; all inline maths rewritten in LaTeX. First item ('where A = ...') follows display (19) on page 16: no join onto a display. Note the printed definitions differ: A = 2^kappa delta kappa^2 / Gamma(1-kappa) here versus A_0 = 2^kappa delta kappa / Gamma(1-kappa) on page 16; both kept as printed. Extraction damage fixed: decimal points read as colons ('0:50,1:41,2:83, 0:10', '0:5' -> 0.50, 1.41, 2.83, 0.10, 0.5), glued words in 'We assigned the following independent priors ...', lost braces and asterisk in {r_i^*}. Square roots are printed as a bare radical sign without vinculum: written \\surd 50, \\surd 200. Distribution symbols: calligraphic G (\\mathcal{G}), calligraphic B followed by italic e (\\mathcal{B}e). 'Standard & Poors 500' as printed. Last item is the paragraph that continues beyond the full-page Figs 6 and 7 (pages 18 and 19) onto page 20 (broken after 'the PMCMC methodology').",
+  "warnings": [
+    "Review possible header/footer: p0017-b000"
+  ],
+  "items": [
+    {
+      "id": "p0017-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "markdown": "_Particle Markov Chain Monte Carlo Methods_ 285",
+      "source_class": "page-header",
+      "reason": "Running header: journal running title and page number 285."
+    },
+    {
+      "id": "p0017-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        54.0,
+        444.0,
+        102.0
+      ],
+      "markdown": "where $A = 2^\\kappa \\delta\\kappa^2/\\Gamma(1-\\kappa)$. In equation (19), $\\{a_i\\}$, $\\{e_i\\}$, $\\{r_i\\}$, $\\{r_i^*\\}$ and $\\{v_i\\}$ are independent of one another. The $\\{a_i\\}$, $\\{e_i\\}$ and $\\{v_i\\}$ follow the same distributions as in equation (18), the $\\{c_i\\}$ are IID $\\mathcal{G}(1-\\kappa, 1/B)$ where $\\mathcal{G}$ is the gamma distribution and $\\{r_i\\}$ and $\\{r_i^*\\}$ are standard uniform. Finally $N(\\lambda\\Delta)$ is a Poisson random variable of mean $\\lambda\\Delta\\delta\\gamma\\kappa$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        104.0,
+        444.0,
+        282.0
+      ],
+      "markdown": "Performing inference in this context is difficult as the transition prior of the latent process $X_n := (\\sigma^2(n\\Delta), z(\\lambda n\\Delta))$ cannot be expressed analytically. It is actually not even possible to sample exactly from this prior as equations (18) and (19) involve infinite sums. However, it was shown experimentally in Barndorff-Nielsen and Shephard (2001b) that these sums are dominated by the first few terms, ‘although as $\\kappa$ goes to one this becomes less sharp’. Further on, we truncate the infinite sums in equations (18) and (19) to their first 100 terms to obtain a ‘truncated’ prior. We found that increasing the number of terms did not have any effect on our results. In Creal (2008), an SMC method is proposed to sample from $p_\\theta(x_{1:T}|y_{1:T})$ which uses the truncated prior as proposal density, all the hyperparameters $\\theta$ of the model being assumed known. We propose here to use the PMMH algorithm to sample from $p(\\theta, x_{1:T}|y_{1:T})$ where $\\theta = (\\kappa, \\delta, \\gamma, \\lambda)$ and we set $\\mu = \\beta = 0$ as in Creal (2008). Our SMC method to sample from $p_\\theta(x_{1:T}|y_{1:T})$ is similar to Creal (2008) and simply uses the truncated prior as a proposal. We do not know of any realistic alternative in the present context. Indeed, if the truncated prior was not used, it follows from equation (19) that a proposal density on a space of dimension more than 400 would have to be designed.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        283.0,
+        445.0,
+        425.0
+      ],
+      "markdown": "We first simulate $T = 400$ data from the model with $\\Delta = 1$ and $(\\kappa, \\delta, \\gamma, \\lambda) = (0.50, 1.41, 2.83, 0.10)$. We assigned the following independent priors (Gander and Stephens, 2007): $\\kappa \\sim \\mathcal{B}e(10, 10)$, $\\delta \\sim \\mathcal{G}(1, \\surd 50)$, $\\gamma \\sim \\mathcal{G}(1, \\surd 200)$ and $\\lambda \\sim \\mathcal{G}(1, 0.5)$. Here $\\mathcal{B}e$ denotes the beta distribution. We used a normal random-walk MH proposal to update the parameters jointly, the covariance of the proposal being the estimated covariance of the target distribution which was obtained in a preliminary run. It is also possible to use an adaptive MCMC strategy to determine this covariance on the fly (Andrieu and Thoms (2008), section 5.1). The results for $N = 200$ are displayed in Fig. 6. Using $N = 200$ might appear too small for $T = 400$ but it is sufficient in this scenario as the observations are weakly informative. For example, the posterior for $\\kappa$ is almost identical to the prior. We checked that indeed the likelihood function for this data set is extremely flat in $\\kappa$. We also ran the PMMH algorithm for $N = 50, 100, 200$ to monitor the ACF for the four parameters and to check that the ACFs decrease reasonably fast for $N = 200$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        427.0,
+        444.0,
+        509.0
+      ],
+      "markdown": "We now apply our algorithm to the Standard & Poors 500 data from January 12th, 2002 to December 30th, 2005, which have been standardized to have unit variance. We assign the following independent priors (Gander and Stephens, 2007): $\\kappa \\sim \\mathcal{B}e(4, 36)$, $\\delta \\sim \\mathcal{G}(1, \\surd 50)$, $\\gamma \\sim \\mathcal{G}(1, \\surd 200)$ and $\\lambda \\sim \\mathcal{G}(1, 0.5)$. We have $T = 1000$ and we use $N = 1000$ particles. We also use a normal random-walk MH proposal, the covariance of the proposal being the estimated covariance of the target distribution which was obtained in a preliminary run. In this context, 1000 particles appear sufficient to obtain good performance. The results are presented in Fig. 7.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        510.0,
+        444.0,
+        628.0
+      ],
+      "markdown": "Gander and Stephens (2007) proposed an MCMC method to sample from the posterior $p\\{\\theta, \\sigma^2(0), \\eta_{1:T}|y_{1:T}\\}$ which updates one at a time $\\sigma^2(0)$ and the terms $\\eta_n$ by using the truncated prior as a proposal. The algorithm has a computational complexity of order $O(T^2)$ for updating $\\eta_{1:T}$ as it requires recomputing $x_{n:T}$ each time that $\\eta_n$ is modified to evaluate the likelihood of the observations appearing in the MH ratio. For the two scenarios that were discussed above, we also designed MCMC algorithms using such a strategy to update $\\sigma^2(0)$ and $\\eta_{1:T}$. We tried various updating strategies for $\\theta$ but they all proved rather inefficient with the ACF of parameters decreasing much more slowly towards zero than for the PMMH update. It appears to us that designing efficient MCMC algorithms for such models requires considerable model-specific expertise. In this respect, we believe that the PMCMC methodology",
+      "source_class": "text"
+    }
+  ]
+}

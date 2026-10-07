@@ -1,0 +1,831 @@
+{
+  "page": 7,
+  "lines": [
+    {
+      "text": "Hence, we propose a Robust Particle Filter (RPF) to eﬃciently compute bounds on the expectation of a given",
+      "bbox": [
+        86.94400024414062,
+        77.44977569580078,
+        540.0126342773438,
+        81.9630126953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "quantity of interest by exploiting a precomputation of the particles. Given the sequential nature of this ﬁlter, when a new",
+      "bbox": [
+        72.0,
+        97.37879180908203,
+        540.37646484375,
+        101.89202880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "observation is available, the bounds can be updated by still exploiting the precomputations performed at the previous",
+      "bbox": [
+        72.0,
+        117.30774688720703,
+        540.0202026367188,
+        121.82098388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "step. The ﬁlter is characterised by two fundamental stages: the precomputation step; the bound computation one. These",
+      "bbox": [
+        72.0,
+        137.23773193359375,
+        540.0152587890625,
+        141.7509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "two fundamental steps will be discussed in greater detail in the next two sections.",
+      "bbox": [
+        72.0,
+        157.166748046875,
+        395.2199401855469,
+        161.67999267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Expectation Estimator",
+      "bbox": [
+        72.0,
+        188.69049072265625,
+        179.7498779296875,
+        197.5874481201172
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "If no speciﬁc assumption or parameterisation is imposed on the posterior distribution, the expectation has no",
+      "bbox": [
+        86.94400024414062,
+        210.97076416015625,
+        540.017822265625,
+        215.4840087890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "closed-form solution, and numerical techniques are required. In this paper we employ a precomputed Sequential",
+      "bbox": [
+        71.99998474121094,
+        230.9007568359375,
+        540.0125732421875,
+        235.41400146484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Importance Sampling (pSIS) to construct an estimator for the expectation E",
+      "bbox": [
+        72.0,
+        250.72018432617188,
+        373.0013427734375,
+        255.343017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0002",
+      "bbox": [
+        373.00799560546875,
+        246.87449645996094,
+        377.1526184082031,
+        253.2508087158203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φ",
+      "bbox": [
+        377.15899658203125,
+        248.42869567871094,
+        383.08697509765625,
+        257.2758483886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        383.0950012207031,
+        246.87449645996094,
+        387.6580505371094,
+        253.2508087158203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X0:k",
+      "bbox": [
+        387.6610107421875,
+        248.42869567871094,
+        406.783203125,
+        258.19000244140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        407.4519958496094,
+        246.87449645996094,
+        412.0150451660156,
+        253.2508087158203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "| y1:k; λ",
+      "bbox": [
+        413.6780090332031,
+        247.8707733154297,
+        446.38421630859375,
+        258.19000244140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0003",
+      "bbox": [
+        446.39202880859375,
+        246.87449645996094,
+        450.5366516113281,
+        253.2508087158203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".",
+      "bbox": [
+        450.54302978515625,
+        250.82977294921875,
+        453.0337829589844,
+        255.343017578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. Precomputed Sequential Importance Sampling",
+      "bbox": [
+        72.00003051757812,
+        282.44317626953125,
+        268.84906005859375,
+        291.2703857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "One of the main diﬃculties in computing the expectation (5) is that in most applications it is impractical to draw",
+      "bbox": [
+        86.94400024414062,
+        304.634765625,
+        540.3656005859375,
+        309.14801025390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "samples directly from the posterior distribution p(x0:k | y1:k; λ), although it is possible to evaluate its density. To",
+      "bbox": [
+        72.0,
+        321.604736328125,
+        540.0067138671875,
+        332.5038146972656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "overcome this challenge, the integral in Eq. (5) is written by using a proposal distribution as",
+      "bbox": [
+        72.0,
+        344.4927673339844,
+        437.6125183105469,
+        349.0060119628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "E",
+      "bbox": [
+        75.68199920654297,
+        380.920166015625,
+        82.3173599243164,
+        385.5429992675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0002",
+      "bbox": [
+        82.3239974975586,
+        377.0754699707031,
+        86.4686050415039,
+        383.4518127441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φ",
+      "bbox": [
+        86.4749984741211,
+        378.628662109375,
+        92.40298461914062,
+        387.475830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        92.41099548339844,
+        377.0754699707031,
+        96.97405242919922,
+        383.4518127441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X0:k",
+      "bbox": [
+        96.97799682617188,
+        378.628662109375,
+        116.09921264648438,
+        388.3909606933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        116.76799774169922,
+        377.0754699707031,
+        121.3310546875,
+        383.4518127441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "| y1:k; λ",
+      "bbox": [
+        122.9949951171875,
+        378.07073974609375,
+        155.70021057128906,
+        388.3909606933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0003",
+      "bbox": [
+        155.70899963378906,
+        377.0754699707031,
+        159.85360717773438,
+        383.4518127441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        162.6269989013672,
+        378.628662109375,
+        170.36825561523438,
+        387.475830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Z",
+      "bbox": [
+        173.14300537109375,
+        371.58447265625,
+        178.67247009277344,
+        377.9608154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φ(x0:k) p(x0:k | y1:k; λ)",
+      "bbox": [
+        184.76600646972656,
+        371.33172607421875,
+        282.7846374511719,
+        388.3909606933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "π(x0:k | y1:k) π(x0:k | y1:k) dx0:k =",
+      "bbox": [
+        223.5260009765625,
+        378.07073974609375,
+        374.4022521972656,
+        395.8048400878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Z",
+      "bbox": [
+        377.177001953125,
+        371.58447265625,
+        382.70648193359375,
+        377.9608154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "φ(x0:k) w(x0:k) π(x0:k | y1:k) dx0:k,",
+      "bbox": [
+        388.79998779296875,
+        378.07073974609375,
+        536.3096923828125,
+        388.9708251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(7)",
+      "bbox": [
+        528.3829345703125,
+        400.9597473144531,
+        539.9998168945312,
+        405.4729919433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "under the condition that π, the so-called proposal distribution, has a larger support than p(x0:k | y1:k; λ). The function",
+      "bbox": [
+        72.0,
+        417.92974853515625,
+        540.0033569335938,
+        428.8288269042969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "w(x0:k) is the ratio between the target distribution and the proposal one functioning as a weight measuring their",
+      "bbox": [
+        72.0,
+        438.4166564941406,
+        540.1885375976562,
+        448.178955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "deviations. The proposal distribution should be chosen such that it is simple to draw samples from it.",
+      "bbox": [
+        72.0,
+        460.74774169921875,
+        474.1368713378906,
+        465.260986328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Furthermore, in order to exploit the sequential nature of tracking problem (4), the posterior can be decomposed as",
+      "bbox": [
+        86.94400024414062,
+        480.6767578125,
+        537.3961181640625,
+        485.19000244140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p(x0:k | y1:k; λ) ∝p(yk | x0:k, y1:k−1; λ) p(x0:k | y1:k−1; λ)",
+      "bbox": [
+        147.218994140625,
+        511.4297180175781,
+        391.6885986328125,
+        522.3287963867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= p(yk | xk; λ) p(xk | x0:k−1, y1:k−1; λ) p(x0:k−1 | y1:k−1; λ)",
+      "bbox": [
+        214.29696655273438,
+        534.3477783203125,
+        466.4325866699219,
+        545.246826171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= p(yk | xk; λy) p(xk | xk−1; λx) p(x0:k−1 | y1:k−1; λ),",
+      "bbox": [
+        214.2969512939453,
+        557.2658081054688,
+        440.97869873046875,
+        568.164794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(8)",
+      "bbox": [
+        528.3839111328125,
+        535.811767578125,
+        540.0007934570312,
+        540.3250122070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with initial condition p(x0:0 | y1:0; λ) = p(x0; λ0). The ﬁrst relationship stems from unnormalised Bayes’ inference,",
+      "bbox": [
+        71.64099884033203,
+        588.3207397460938,
+        541.257568359375,
+        599.2197875976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where the normalisation constant p(yk | y1:k−1) is not computed as too expensive to evaluate. The second one results",
+      "bbox": [
+        71.64099884033203,
+        608.249755859375,
+        540.0061645507812,
+        619.1497802734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from the conditional independence of the observation yk given the state xk, and from writing the joint distribution",
+      "bbox": [
+        72.0,
+        628.7366943359375,
+        540.006591796875,
+        638.4989624023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p(x0:k | y1:k−1; λ) in terms of the conditional one. The last relation comes from the Markov property of the dynamical",
+      "bbox": [
+        72.0,
+        648.1087646484375,
+        540.01513671875,
+        659.0078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system, that is, conditional independence on the previous history of xk once xk−1 is given. Also, the proposal",
+      "bbox": [
+        72.0,
+        668.595703125,
+        540.0045776367188,
+        678.3579711914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7",
+      "bbox": [
+        303.5090026855469,
+        745.374755859375,
+        308.4905090332031,
+        749.8880004882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Robust Bayesian particle filter for space object tracking under severe uncertainty",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "pdfTeX-1.40.17",
+      "creationDate": "D:20211010080747Z",
+      "modDate": "D:20211013145301+01'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/greco-vasile-2022-paper/documents/.pdf-skill-scan-ik9epn5h/review/source.pdf",
+      "page_count": 44,
+      "page_number": 7
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          72,
+          75,
+          541,
+          164
+        ],
+        "pos": [
+          0,
+          557
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          72,
+          188,
+          180,
+          198
+        ],
+        "pos": [
+          557,
+          590
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          71,
+          208,
+          541,
+          259
+        ],
+        "pos": [
+          590,
+          940
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          72,
+          282,
+          269,
+          292
+        ],
+        "pos": [
+          940,
+          992
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          72,
+          302,
+          541,
+          352
+        ],
+        "pos": [
+          992,
+          1355
+        ]
+      },
+      {
+        "index": 5,
+        "class": "formula",
+        "bbox": [
+          75,
+          371,
+          540,
+          408
+        ],
+        "pos": [
+          1355,
+          1357
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          72,
+          417,
+          541,
+          468
+        ],
+        "pos": [
+          1357,
+          1745
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          86,
+          478,
+          538,
+          488
+        ],
+        "pos": [
+          1745,
+          1862
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          147,
+          511,
+          541,
+          568
+        ],
+        "pos": [
+          1862,
+          1864
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          71,
+          588,
+          542,
+          678
+        ],
+        "pos": [
+          1864,
+          2565
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          750
+        ],
+        "pos": [
+          2565,
+          2569
+        ]
+      }
+    ],
+    "text": "Hence, we propose a Robust Particle Filter (RPF) to efficiently compute bounds on the expectation of a given quantity of interest by exploiting a precomputation of the particles. Given the sequential nature of this filter, when a new observation is available, the bounds can be updated by still exploiting the precomputations performed at the previous step. The filter is characterised by two fundamental stages: the precomputation step; the bound computation one. These two fundamental steps will be discussed in greater detail in the next two sections. \n\n# **B. Expectation Estimator** \n\nIf no specific assumption or parameterisation is imposed on the posterior distribution, the expectation has no closed-form solution, and numerical techniques are required. In this paper we employ a precomputed Sequential Importance Sampling (pSIS) to construct an estimator for the expectation E� _φ_ � **X** 0: _k_ � _|_ **y** 1: _k_ ; **_λ_** �. \n\n# _1. Precomputed Sequential Importance Sampling_ \n\nOne of the main difficulties in computing the expectation (5) is that in most applications it is impractical to draw samples directly from the posterior distribution _p_ ( **x** 0: _k |_ **y** 1: _k_ ; **_λ_** ), although it is possible to evaluate its density. To overcome this challenge, the integral in Eq. (5) is written by using a proposal distribution as \n\n\n\nunder the condition that _π_ , the so-called _proposal_ distribution, has a larger support than _p_ ( **x** 0: _k |_ **y** 1: _k_ ; **_λ_** ). The function _w_ ( **x** 0: _k_ ) is the ratio between the target distribution and the proposal one functioning as a weight measuring their deviations. The proposal distribution should be chosen such that it is simple to draw samples from it. \n\nFurthermore, in order to exploit the sequential nature of tracking problem (4), the posterior can be decomposed as \n\n\n\nwith initial condition _p_ ( **x** 0:0 _|_ **y** 1:0; **_λ_** ) = _p_ ( **x** 0; **_λ_** 0). The first relationship stems from unnormalised Bayes’ inference, where the normalisation constant _p_ ( **y** _k |_ **y** 1: _k−_ 1) is not computed as too expensive to evaluate. The second one results from the conditional independence of the observation **y** _k_ given the state **x** _k_ , and from writing the joint distribution _p_ ( **x** 0: _k |_ **y** 1: _k−_ 1; **_λ_** ) in terms of the conditional one. The last relation comes from the Markov property of the dynamical system, that is, conditional independence on the previous history of **x** _k_ once **x** _k−_ 1 is given. Also, the proposal \n\n7 \n\n"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "page": 7,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; mathematics transcribed from 240/200-dpi crops. Display (10) converted from a 'formula' item to LaTeX; as printed, the first product runs to $n+K$ and the second to $n+K-1$. Inline maths rewritten in LaTeX ($p(\\theta\\mid y_{1:T},x_{1:T})$, $x_{n:n+K-1}$, $f_\\theta(x_k\\mid x_{k-1})$, $N\\geqslant 1$ ...). Heading '### 2.4. Particle Markov chain Monte Carlo methods for state space models'. Printed italics kept for 'for any fixed number ... of particles' and 'particle independent Metropolis–Hastings'. Line wraps checked (particular, Gaussian, idealized, particle, interest rejoined; 'Frühwirth-Schnatter', 'log-concave' keep real hyphens). Running header omitted. First item joins page 6 (space); last paragraph ('... as a proposal. We') continues on page 8.",
+  "warnings": [
+    "Review possible header/footer: p0007-b000"
+  ],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "markdown": "_Particle Markov Chain Monte Carlo Methods_ 275",
+      "reason": "Running header with page number (Particle Markov Chain Monte Carlo Methods, 275)"
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        56.0,
+        444.0,
+        126.0
+      ],
+      "markdown": "from $p(\\theta \\mid y_{1:T}, x_{1:T})$ is often feasible and we do not discuss this here. Sampling exactly from $p_\\theta(x_{1:T} \\mid y_{1:T})$ is possible for two scenarios only: linear Gaussian models and finite state space hidden Markov models (Carter and Kohn, 1994; Frühwirth-Schnatter, 1994). Beyond these particular cases the design of proposal densities is required. A standard practice consists of dividing the $T$ components of $x_{1:T}$ in, say, adjacent blocks of length $K$ and updating each of these blocks in turn. For example we can update $x_{n:n+K-1}$ according to an MCMC step of invariant density",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        95.0,
+        129.0,
+        449.0,
+        164.0
+      ],
+      "markdown": "$$p_\\theta(x_{n:n+K-1} \\mid y_{1:T}, x_{1:n-1}, x_{n+K:T}) \\propto \\prod_{k=n}^{n+K} f_\\theta(x_k \\mid x_{k-1}) \\prod_{k=n}^{n+K-1} g_\\theta(y_k \\mid x_k). \\tag{10}$$"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        167.0,
+        444.0,
+        249.0
+      ],
+      "markdown": "When $K$ is not too large it might be possible to design efficient proposal densities which can be used in a Metropolis–Hastings (MH) update; see Shephard and Pitt (1997) for a generic Gaussian approximation of equation (10) for SSMs with a linear Gaussian prior density $f_\\theta(x_k \\mid x_{k-1})$ and a log-concave density $g_\\theta(y_k \\mid x_k)$. However, as $K$ increases building ‘good’ approximations of equation (10) is typically impossible. This limits the size $K$ of the blocks $x_{n:n+K-1}$ of variables which can be simultaneously updated and can be a serious drawback in practice as this will slow down the exploration of the support of $p_\\theta(x_{1:T} \\mid y_{1:T})$ when its dependence structure is strong."
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        251.0,
+        444.0,
+        321.0
+      ],
+      "markdown": "These difficulties are exacerbated in models where $f_\\theta(x_k \\mid x_{k-1})$ does not admit an analytical expression but can be sampled from; see for example Ionides *et al.* (2006). In such scenarios updating all the components of $x_{1:T}$ simultaneously by using the joint prior distribution as a proposal is the only known strategy. However, the performance of this approach tends to deteriorate rapidly as $T$ increases since the information that is provided by the observations is completely ignored by the proposal."
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        342.0,
+        370.0,
+        353.0
+      ],
+      "markdown": "### 2.4. Particle Markov chain Monte Carlo methods for state space models"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        354.0,
+        444.0,
+        532.0
+      ],
+      "markdown": "In what follows we shall refer to MCMC algorithms targeting the distribution $p(\\theta, x_{1:T} \\mid y_{1:T})$ which rely on sampling exactly from $p_\\theta(x_{1:T} \\mid y_{1:T})$ as ‘idealized’ algorithms. Such algorithms are mostly purely conceptual since they typically cannot be implemented but in many situations are algorithms that we would like to approximate. In the light of Sections 2.2 and 2.3, a natural idea consists of approximating these idealized algorithms by using the output of an SMC algorithm targeting $p_\\theta(x_{1:T} \\mid y_{1:T})$ using $N \\geqslant 1$ particles as a proposal distribution for an MH update. Intuitively this could allow us to approximate with arbitrary precision such idealized algorithms while only requiring the design of low dimensional proposals for the SMC algorithm. A direct implementation of this idea is impossible as the marginal density of a particle that is generated by an SMC algorithm is not available analytically but would be required for the calculation of the MH acceptance ratio. The novel MCMC updates that are presented in this section, PMCMC updates, circumvent this problem by considering target distributions on an extended space which includes all the random variables that are produced by the SMC algorithm; this is detailed in Section 4 and is not required to understand the implementation of such updates."
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        534.0,
+        444.0,
+        592.0
+      ],
+      "markdown": "The key feature of PMCMC algorithms is that they are in fact ‘exact approximations’ to idealized MCMC algorithms targeting either $p_\\theta(x_{1:T} \\mid y_{1:T})$ or $p(\\theta, x_{1:T} \\mid y_{1:T})$ in the sense that *for any fixed number* $N \\geqslant 1$ *of particles* their transition kernels leave the target density of interest invariant. Further they can be interpreted as standard MCMC updates and will lead to convergent algorithms under mild standard assumptions (see Section 4 for details)."
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        594.0,
+        444.0,
+        628.0
+      ],
+      "markdown": "We first introduce in Section 2.4.1 the *particle independent Metropolis–Hastings* (PIMH) update, an exact approximation to a standard independent Metropolis–Hastings (IMH) update targeting $p_\\theta(x_{1:T} \\mid y_{1:T})$, which uses SMC approximations of $p_\\theta(x_{1:T} \\mid y_{1:T})$ as a proposal. We"
+    }
+  ]
+}

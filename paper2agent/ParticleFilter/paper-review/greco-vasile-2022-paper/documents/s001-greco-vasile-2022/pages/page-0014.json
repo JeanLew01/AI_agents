@@ -1,0 +1,168 @@
+{
+  "page": 14,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0014.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the 170-dpi page render and a 300-dpi crop of equations (16)-(17) with all items. Headings: '4. Polynomial propagator' as #### (numbered sub-subsection), 'C. Bound Estimator' as ### (lettered subsection). Equations (16), (17), (18) (extractor 'formula' images) transcribed as LaTeX display blocks with printed tags; text after a display is a separate block (no join). Symbols as printed: bold xi_k, bold x, d; calligraphic F_k^{k+1} with a wide tilde for the surrogate; f in (17) is printed as a non-bold italic f. 'i-th' is printed in maths italic ($i$-$th$). Page starts with a heading and ends with a complete paragraph.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0014-r00",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        72.0,
+        541.0,
+        84.0
+      ],
+      "markdown": "#### 4. Polynomial propagator"
+    },
+    {
+      "id": "p0014-r01",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        92.0,
+        541.0,
+        183.0
+      ],
+      "markdown": "Propagating the particles in time is the most computationally intensive step in space applications as it requires solving the initial value problem in Eq. (1) by numerical integration as many times as the number of particles employed. In this work, a polynomial surrogate of the dynamical flow is employed to speed up the uncertainty propagation step and enable a large number of particles to improve the estimate accuracy. A brief description of the polynomial propagation is provided in this section, while the full description of such procedure is reported in [27]."
+    },
+    {
+      "id": "p0014-r02",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        192.0,
+        541.0,
+        243.0
+      ],
+      "markdown": "The propagation is split into two steps: first, a polynomial representation of all possible states at time $t_{k+1}$ given the states at time $t_k$ is created; then, the particles at time $t_k$ are propagated to time $t_{k+1}$ through the inexpensive polynomial evaluations."
+    },
+    {
+      "id": "p0014-r03",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        251.0,
+        541.0,
+        283.0
+      ],
+      "markdown": "Consider the set $\\Omega_{\\boldsymbol{\\xi}_k}$ of all possible uncertainty realisations $\\boldsymbol{\\xi}_k = [\\mathbf{x}_k, \\mathbf{d}_k]^T$ at time $t_k$. The set $\\mathcal{F}_k^{k+1}$ of compatible states at time $t_{k+1}$ can be defined as"
+    },
+    {
+      "id": "p0014-r04",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        290.0,
+        541.0,
+        306.0
+      ],
+      "markdown": "$$\\mathcal{F}_k^{k+1} = \\{\\mathbf{x}_{k+1}(\\boldsymbol{\\xi}_k) \\,|\\, \\boldsymbol{\\xi}_k \\in \\Omega_{\\boldsymbol{\\xi}_k}\\}\\,, \\tag{16}$$"
+    },
+    {
+      "id": "p0014-r05",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        326.0,
+        541.0,
+        338.0
+      ],
+      "markdown": "where $\\mathbf{x}_{k+1}(\\boldsymbol{\\xi}_k)$ is defined as"
+    },
+    {
+      "id": "p0014-r06",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        333.0,
+        541.0,
+        364.0
+      ],
+      "markdown": "$$\\mathbf{x}_{k+1}(\\boldsymbol{\\xi}_k) = \\mathbf{x}_k + \\int_{t_k}^{t_{k+1}} f(t, \\mathbf{x}, \\mathbf{d}_k)\\; dt\\,. \\tag{17}$$"
+    },
+    {
+      "id": "p0014-r07",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        384.0,
+        541.0,
+        396.0
+      ],
+      "markdown": "A truncated polynomial expansion of finite order $q$ is constructed to approximate this mapping as"
+    },
+    {
+      "id": "p0014-r08",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        412.0,
+        541.0,
+        444.0
+      ],
+      "markdown": "$$\\mathcal{F}_k^{k+1}(\\boldsymbol{\\xi}_k) \\approx \\widetilde{\\mathcal{F}}_k^{k+1}(\\boldsymbol{\\xi}_k) = \\sum_{i=0}^{N_q} \\alpha_{k,i}\\, \\Psi_i(\\boldsymbol{\\xi}_k)\\,, \\tag{18}$$"
+    },
+    {
+      "id": "p0014-r09",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        465.0,
+        541.0,
+        538.0
+      ],
+      "markdown": "where $\\Psi_i$ is the $i$-$th$ multivariate polynomial basis, $\\alpha_{k,i}$ its coefficient, and $N_q$ the number of bases. In this work the coefficients are computed using stochastic collocation [28]: a number of samples $\\mathbf{x}_{k+1}$ is first evaluated over a structured grid of collocation points $\\boldsymbol{\\xi}_k^{(j)}$; then a polynomial approximation $\\widetilde{\\mathcal{F}}_k^{k+1}$ is built to fit the set of $\\mathbf{x}_{k+1}$ vectors. The Smolyak polynomial space variant is used to limit the growth of collocation points with increasing stochastic dimensions."
+    },
+    {
+      "id": "p0014-r10",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        547.0,
+        541.0,
+        598.0
+      ],
+      "markdown": "Intrusive polynomial algebra could be employed in place of non-intrusive alternatives when the dynamical model can be accessed and templated, as it provides good performance and scalability for high-dimensional problems [29] and it proved effective for uncertainty propagation in space applications [30]."
+    },
+    {
+      "id": "p0014-r11",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        620.0,
+        541.0,
+        632.0
+      ],
+      "markdown": "### C. Bound Estimator"
+    },
+    {
+      "id": "p0014-r12",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        641.0,
+        541.0,
+        692.0
+      ],
+      "markdown": "The robust estimation method computes the bounds in Eq. (6) by taking advantage of the efficient estimator constructed above. In the following, only the routine to estimate the lower bound is presented, as the same approach is applicable to the computation of the upper bound."
+    },
+    {
+      "id": "p0014-b012",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        750.0
+      ],
+      "markdown": "14",
+      "source_class": "page-footer",
+      "reason": "Page number footer (\"14\"), verified against the page image."
+    }
+  ]
+}

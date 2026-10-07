@@ -1,0 +1,192 @@
+{
+  "page": 3,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] No TeX source; all mathematics transcribed from 220-dpi crops of the page. Display equations (1)-(5) converted from extractor 'formula' image items to LaTeX text items with printed tags. Inline maths rewritten in LaTeX ($\\{X_n; n\\geqslant 1\\}\\subset\\mathcal{X}^{\\mathbb{N}}$, $\\mu_\\theta(\\cdot)$, $g_\\theta(y\\mid x)$, $z_{i:j}$, $p_\\theta(x_{1:T}\\mid y_{1:T})$ etc.); the PDF's '.' and '/' glyphs are parentheses. Repaired glued words ('knownasahiddenMarkovmodel...'), <sup> tags. Headings 2.1 and 2.2 set to '###'. Running header omitted. First paragraph joins page 2 (space). The page ends with display (5), whose sentence continues on page 4 ('where $W_n^k$ is ...'); no join is set onto a display.",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "markdown": "_Particle Markov Chain Monte Carlo Methods_ 271",
+      "reason": "Running header with page number (Particle Markov Chain Monte Carlo Methods, 271)"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        56.0,
+        444.0,
+        114.0
+      ],
+      "markdown": "subsequently briefly discussed and we then move on to describe standard MCMC strategies for inference in SSMs. Again we briefly discuss their strengths and weaknesses and then show how our novel methodology can address the same inference problems, albeit in a potentially more efficient way. No justification for the validity of the algorithms presented is provided here—this is postponed to Section 4.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        134.0,
+        162.0,
+        144.0
+      ],
+      "markdown": "### 2.1. State space models"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        146.0,
+        445.0,
+        192.0
+      ],
+      "markdown": "Further on, we use the standard convention whereby capital letters denote random variables, whereas lower case letters are used for their values. Consider the following SSM, which is also known as a hidden Markov model. In this context, a hidden Markov state process $\\{X_n; n \\geqslant 1\\} \\subset \\mathcal{X}^{\\mathbb{N}}$ is characterized by its initial density $X_1 \\sim \\mu_\\theta(\\cdot)$ and transition probability density"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        191.0,
+        195.0,
+        449.0,
+        216.0
+      ],
+      "markdown": "$$X_{n+1} \\mid (X_n = x) \\sim f_\\theta(\\cdot \\mid x), \\tag{1}$$"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        218.0,
+        444.0,
+        265.0
+      ],
+      "markdown": "for some static parameter $\\theta \\in \\Theta$ which may be multidimensional. The process $\\{X_n\\}$ is observed, not directly, but through another process $\\{Y_n; n \\geqslant 1\\} \\subset \\mathcal{Y}^{\\mathbb{N}}$. The observations are assumed to be conditionally independent given $\\{X_n\\}$, and their common marginal probability density is of the form $g_\\theta(y \\mid x)$; i.e., for $1 \\leqslant n \\leqslant m$,"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        163.0,
+        267.0,
+        449.0,
+        287.0
+      ],
+      "markdown": "$$Y_n \\mid (X_1, \\ldots, X_n = x, \\ldots, X_m) \\sim g_\\theta(\\cdot \\mid x). \\tag{2}$$"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        290.0,
+        397.0,
+        301.0
+      ],
+      "markdown": "Hereafter for any generic sequence $\\{z_n\\}$ we shall use $z_{i:j}$ to denote $(z_i, z_{i+1}, \\ldots, z_j)$."
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        302.0,
+        444.0,
+        336.0
+      ],
+      "markdown": "Our aim is to perform Bayesian inference in this context, conditional on some observations $y_{1:T}$ for some $T \\geqslant 1$. When $\\theta \\in \\Theta$ is a known parameter, Bayesian inference relies on the posterior density $p_\\theta(x_{1:T} \\mid y_{1:T}) \\propto p_\\theta(x_{1:T}, y_{1:T})$ where"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        132.0,
+        339.0,
+        449.0,
+        374.0
+      ],
+      "markdown": "$$p_\\theta(x_{1:T}, y_{1:T}) = \\mu_\\theta(x_1) \\prod_{n=2}^{T} f_\\theta(x_n \\mid x_{n-1}) \\prod_{n=1}^{T} g_\\theta(y_n \\mid x_n). \\tag{3}$$"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        376.0,
+        444.0,
+        398.0
+      ],
+      "markdown": "If $\\theta$ is unknown, we ascribe a prior density $p(\\theta)$ to $\\theta$ and Bayesian inference relies on the joint density"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        168.0,
+        399.0,
+        449.0,
+        419.0
+      ],
+      "markdown": "$$p(\\theta, x_{1:T} \\mid y_{1:T}) \\propto p_\\theta(x_{1:T}, y_{1:T})\\, p(\\theta). \\tag{4}$$"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        423.0,
+        444.0,
+        493.0
+      ],
+      "markdown": "For non-linear non-Gaussian models, $p_\\theta(x_{1:T} \\mid y_{1:T})$ and $p(\\theta, x_{1:T} \\mid y_{1:T})$ do not usually admit closed form expressions, making inference difficult in practice. It is therefore necessary to resort to approximations. Monte Carlo methods have been shown to provide a flexible framework to carry out inference in such models. It is impossible to provide a thorough review of the area here and instead we briefly review the underlying principles of MCMC and SMC methods for SSM models at a level that is sufficient to understand our novel methodology."
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        512.0,
+        325.0,
+        523.0
+      ],
+      "markdown": "### 2.2. Sequential Monte Carlo algorithm for state space models"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        525.0,
+        444.0,
+        595.0
+      ],
+      "markdown": "In the SSM context, SMC methods are a class of algorithms to approximate sequentially the sequence of posterior densities $\\{p_\\theta(x_{1:n} \\mid y_{1:n}); n \\geqslant 1\\}$ as well as the sequence of marginal likelihoods $\\{p_\\theta(y_{1:n}); n \\geqslant 1\\}$ for a given $\\theta \\in \\Theta$. More precisely such methods aim to approximate first $p_\\theta(x_1 \\mid y_1)$ and $p_\\theta(y_1)$, then $p_\\theta(x_{1:2} \\mid y_{1:2})$ and $p_\\theta(y_{1:2})$ and so on. In the context of SMC methods, the posterior distributions that are associated with such densities are approximated by a set of $N$ weighted random samples called particles, leading for any $n \\geqslant 1$ to the approximation"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        165.0,
+        597.0,
+        449.0,
+        632.0
+      ],
+      "markdown": "$$\\hat{p}_\\theta(\\mathrm{d}x_{1:n} \\mid y_{1:n}) := \\sum_{k=1}^{N} W_n^k\\, \\delta_{X_{1:n}^k}(\\mathrm{d}x_{1:n}), \\tag{5}$$"
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "page": 10,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0010.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and 220/400 dpi crops (no TeX source). Header omitted. Headings set to '#### 2.4.3.', '### 2.5.', '#### 2.5.1.' (italic markers removed). All inline maths rewritten in LaTeX. The conditional SMC algorithm (Steps 1-3) and the PG sampler (Steps 1-2) are text, one item per step/sub-step: the extractor's merged (a)/(b) item was split, its 'formula' image item for Step 3 (a)-(c) was replaced by three transcribed text items, and the merged PG 'Step 1/Step 2' item was split. Step 3(a) prints bold W_{n-1} (\\mathbf{W}_{n-1}); Step 3(b) prints q(.|y_n, X_{n-1}^{A_{n-1}^k}) without a theta subscript on q and with first argument y_n (Step 2(a) has q_theta): kept as printed. No join on the first item (page 9 ends with a complete paragraph). Last item is the paragraph continuing onto page 11 (broken after 'numerous more').",
+  "warnings": [
+    "Review possible header/footer: p0010-b000"
+  ],
+  "items": [
+    {
+      "id": "p0010-b000",
+      "kind": "omit",
+      "bbox": [
+        42.0,
+        39.0,
+        238.0,
+        48.0
+      ],
+      "markdown": "278 _C. Andrieu, A. Doucet and R. Holenstein_",
+      "source_class": "page-header",
+      "reason": "Running header: page number 278 and author names."
+    },
+    {
+      "id": "p0010-b001",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        56.0,
+        169.0,
+        66.0
+      ],
+      "markdown": "#### 2.4.3. Particle Gibbs sampler",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0010-b002",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        68.0,
+        439.0,
+        162.0
+      ],
+      "markdown": "An alternative to the MMH algorithm to sample from $p(\\theta, x_{1:T}|y_{1:T})$ consists of using the Gibbs sampler which samples iteratively from $p(\\theta|y_{1:T}, x_{1:T})$ and $p_\\theta(x_{1:T}|y_{1:T})$. It is often possible to sample from $p(\\theta|y_{1:T}, x_{1:T})$ and thus the potentially tedious design of a proposal density for $\\theta$ that is necessary in the MMH update can be bypassed. Again, sampling from $p_\\theta(x_{1:T}|y_{1:T})$ is typically impossible and we investigate the possibility of using a particle approximation to this algorithm. Clearly the naive particle approximation to the Gibbs sampler where sampling from $p_\\theta(x_{1:T}|y_{1:T})$ is replaced by sampling from an SMC approximation $\\hat p_\\theta(x_{1:T}|y_{1:T})$ does not admit $p(\\theta, x_{1:T}|y_{1:T})$ as invariant density.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b003",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        164.0,
+        439.0,
+        222.0
+      ],
+      "markdown": "A valid particle approximation to the Gibbs sampler requires the use of a special type of PMCMC update called the *conditional SMC* update. This update is similar to a standard SMC algorithm but is such that a prespecified path $X_{1:T}$ with ancestral lineage $B_{1:T}$ is ensured to survive all the resampling steps, whereas the remaining $N-1$ particles are generated as usual. The algorithm is as follows.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b004",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        226.0,
+        439.0,
+        252.0
+      ],
+      "markdown": "*Step 1*: let $X_{1:T} = (X_1^{B_1}, X_2^{B_2}, \\ldots, X_{T-1}^{B_{T-1}}, X_T^{B_T})$ be a path that is associated with the ancestral lineage $B_{1:T}$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b005",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        254.0,
+        123.0,
+        264.0
+      ],
+      "markdown": "*Step 2*: for $n = 1$,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b006",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        269.0,
+        414.0,
+        282.0
+      ],
+      "markdown": "(a) for $k \\neq B_1$, sample $X_1^k \\sim q_\\theta(\\cdot|y_1)$ and",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b006b",
+      "bbox": [
+        62.0,
+        282.0,
+        414.0,
+        294.0
+      ],
+      "kind": "text",
+      "markdown": "(b) compute $w_1(X_1^k)$ by using equation (6) and normalize the weights $W_1^k \\propto w_1(X_1^k)$."
+    },
+    {
+      "id": "p0010-b007",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        300.0,
+        151.0,
+        310.0
+      ],
+      "markdown": "*Step 3*: for $n = 2, \\ldots, T$,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b008",
+      "kind": "text",
+      "bbox": [
+        57.0,
+        312.0,
+        432.0,
+        327.0
+      ],
+      "markdown": "(a) for $k \\neq B_n$, sample $A_{n-1}^k \\sim \\mathcal{F}(\\cdot|\\mathbf{W}_{n-1})$,",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0010-b008b",
+      "bbox": [
+        57.0,
+        327.0,
+        432.0,
+        341.0
+      ],
+      "kind": "text",
+      "markdown": "(b) for $k \\neq B_n$, sample $X_n^k \\sim q(\\cdot|y_n, X_{n-1}^{A_{n-1}^k})$ and"
+    },
+    {
+      "id": "p0010-b008c",
+      "bbox": [
+        57.0,
+        341.0,
+        432.0,
+        356.0
+      ],
+      "kind": "text",
+      "markdown": "(c) compute $w_n(X_{1:n}^k)$ by using equation (7) and normalize the weights $W_n^k \\propto w_n(X_{1:n}^k)$."
+    },
+    {
+      "id": "p0010-b009",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        359.0,
+        439.0,
+        419.0
+      ],
+      "markdown": "For further clarity we illustrate this update on a toy example. Fig. 1 displays ancestral lineages that were generated by a standard SMC method in a situation where $N = 5$ and $T = 3$. Consider $X_{1:3}^2 = (X_1^3, X_2^4, X_3^2)$ whose ancestral lineage is $B_{1:3}^2 = (3, 4, 2)$. A conditional SMC update leaving $X_{1:3}^2$ (the lighter path in Fig. 1) identical generates four new paths consistent with both $X_{1:3}^2$ and $B_{1:3}^2$. One could, for example, obtain the set of new paths that is presented in Fig. 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b010",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        419.0,
+        439.0,
+        453.0
+      ],
+      "markdown": "A computationally more efficient way to implement the conditional SMC update is presented in Appendix A—this is, however, not required to present our particle version of the Gibbs sampler, the PG sampler, as follows.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b011",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        461.0,
+        338.0,
+        472.0
+      ],
+      "markdown": "*Step 1*: initialization, $i = 0$—set $\\theta(0)$, $X_{1:T}(0)$ and $B_{1:T}(0)$ arbitrarily.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b011b",
+      "bbox": [
+        52.0,
+        472.0,
+        338.0,
+        483.0
+      ],
+      "kind": "text",
+      "markdown": "*Step 2*: for iteration $i \\geqslant 1$,"
+    },
+    {
+      "id": "p0010-b012",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        490.0,
+        228.0,
+        501.0
+      ],
+      "markdown": "(a) sample $\\theta(i) \\sim p\\{\\cdot|y_{1:T}, X_{1:T}(i-1)\\}$,",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0010-b013",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        502.0,
+        439.0,
+        524.0
+      ],
+      "markdown": "(b) run a conditional SMC algorithm targeting $p_{\\theta(i)}(x_{1:T}|y_{1:T})$ conditional on $X_{1:T}(i-1)$ and $B_{1:T}(i-1)$, and",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0010-b014",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        526.0,
+        394.0,
+        538.0
+      ],
+      "markdown": "(c) sample $X_{1:T}(i) \\sim \\hat p_{\\theta(i)}(\\cdot|y_{1:T})$ (and hence $B_{1:T}(i)$ is also implicitly sampled).",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0010-b015",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        544.0,
+        439.0,
+        567.0
+      ],
+      "markdown": "In theorem 5 in Section 4.5, it is shown that this algorithm admits $p(\\theta, x_{1:T}|y_{1:T})$ as invariant density and is ergodic under mild assumptions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0010-b016",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        582.0,
+        201.0,
+        592.0
+      ],
+      "markdown": "### 2.5. Improvements and extensions",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0010-b017",
+      "kind": "heading",
+      "bbox": [
+        42.0,
+        594.0,
+        347.0,
+        605.0
+      ],
+      "markdown": "#### 2.5.1. Advanced particle filtering and sequential Monte Carlo techniques",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0010-b018",
+      "kind": "text",
+      "bbox": [
+        42.0,
+        606.0,
+        439.0,
+        629.0
+      ],
+      "markdown": "For ease of presentation, we have limited our discussion in this section to one of the simplest implementations of SMC algorithms. However, over the past 15 years numerous more",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,1005 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "Particle Markov Chain Monte Carlo Methods",
+      "bbox": [
+        232.71949768066406,
+        39.52751922607422,
+        407.94091796875,
+        47.82143783569336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "271",
+      "bbox": [
+        428.84783935546875,
+        39.52751922607422,
+        443.8038024902344,
+        47.82143783569336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "subsequently brieﬂy discussed and we then move on to describe standard MCMC strategies for",
+      "bbox": [
+        48.089698791503906,
+        56.66524124145508,
+        443.6058349609375,
+        65.90057373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inference in SSMs. Again we brieﬂy discuss their strengths and weaknesses and then show how",
+      "bbox": [
+        48.089698791503906,
+        68.62037658691406,
+        443.6129455566406,
+        77.855712890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "our novel methodology can address the same inference problems, albeit in a potentially more",
+      "bbox": [
+        48.089698791503906,
+        80.57551574707031,
+        443.60888671875,
+        89.81085205078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "efﬁcient way. No justiﬁcation for the validity of the algorithms presented is provided here—this",
+      "bbox": [
+        48.089698791503906,
+        92.53065490722656,
+        443.6008605957031,
+        101.7659912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is postponed to Section 4.",
+      "bbox": [
+        48.089698791503906,
+        104.48579406738281,
+        156.8414306640625,
+        113.72113037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.1.",
+      "bbox": [
+        48.089698791503906,
+        134.3536834716797,
+        64.70732116699219,
+        143.569091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "State space models",
+      "bbox": [
+        74.0721664428711,
+        134.3536834716797,
+        161.56370544433594,
+        143.569091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Further on, we use the standard convention whereby capital letters denote random variables,",
+      "bbox": [
+        48.089698791503906,
+        146.42835998535156,
+        443.6087646484375,
+        155.6636962890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "whereas lower case letters are used for their values. Consider the following SSM, which is also",
+      "bbox": [
+        48.089698791503906,
+        158.3834991455078,
+        443.6098327636719,
+        167.61883544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "knownasahiddenMarkovmodel.Inthiscontext,ahiddenMarkovstateprocess{Xn;n⩾1}⊂X N",
+      "bbox": [
+        48.089698791503906,
+        167.4798126220703,
+        444.2561950683594,
+        179.57452392578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is characterized by its initial density X1∼μθ.·/ and transition probability density",
+      "bbox": [
+        48.089698791503906,
+        181.45741271972656,
+        385.3406982421875,
+        192.67420959472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xn+1|.Xn =x/∼fθ.·|x/,",
+      "bbox": [
+        196.0951385498047,
+        199.8023223876953,
+        294.10693359375,
+        211.25921630859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".1/",
+      "bbox": [
+        431.1823425292969,
+        200.63917541503906,
+        443.605712890625,
+        209.87451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for some static parameter θ∈Θ which may be multidimensional. The process {Xn} is observed,",
+      "bbox": [
+        48.090484619140625,
+        218.14710998535156,
+        443.6109619140625,
+        228.21963500976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "not directly, but through another process {Yn;n⩾1}⊂YN. The observations are assumed to be",
+      "bbox": [
+        48.09075927734375,
+        228.0799102783203,
+        443.6106262207031,
+        240.17459106445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditionally independent given {Xn}, and their common marginal probability density is of the",
+      "bbox": [
+        48.09037780761719,
+        242.05751037597656,
+        443.60736083984375,
+        252.12969970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "form gθ.y|x/; i.e., for 1⩽n⩽m,",
+      "bbox": [
+        48.09027099609375,
+        254.0126190185547,
+        179.65673828125,
+        265.08880615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Yn|.X1, . . . ,Xn =x, . . . ,Xm/∼gθ.·|x/:",
+      "bbox": [
+        168.76364135742188,
+        271.56048583984375,
+        322.9324951171875,
+        283.0174255371094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".2/",
+      "bbox": [
+        431.14227294921875,
+        272.3973693847656,
+        443.6054992675781,
+        281.6326904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Hereafter for any generic sequence {zn} we shall use zi:j to denote .zi,zi+1,. . . ,zj/.",
+      "bbox": [
+        48.09027099609375,
+        289.9053039550781,
+        396.1037292480469,
+        301.4718933105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our aim is to perform Bayesian inference in this context, conditional on some observations",
+      "bbox": [
+        58.053802490234375,
+        302.6972961425781,
+        443.6124572753906,
+        311.9326171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "y1:T for some T⩾1. When θ∈Θ is a known parameter, Bayesian inference relies on the posterior",
+      "bbox": [
+        48.09120178222656,
+        313.8157043457031,
+        443.6053161621094,
+        325.5368957519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "density pθ.x1:T |y1:T /∝pθ.x1:T , y1:T / where",
+      "bbox": [
+        48.09013366699219,
+        325.7709045410156,
+        227.28677368164062,
+        337.4920959472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ.x1:T , y1:T /=μθ.x1/",
+      "bbox": [
+        137.8236083984375,
+        350.70440673828125,
+        230.39454650878906,
+        362.4255065917969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T\u0002",
+      "bbox": [
+        234.0532989501953,
+        343.2323913574219,
+        243.45799255371094,
+        353.19500732421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n=2",
+      "bbox": [
+        231.83360290527344,
+        362.0836181640625,
+        245.6517791748047,
+        369.7384948730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fθ.xn|xn−1/",
+      "bbox": [
+        247.12109375,
+        350.7044982910156,
+        295.91925048828125,
+        361.9211730957031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T\u0002",
+      "bbox": [
+        299.5628967285156,
+        343.23248291015625,
+        308.96759033203125,
+        353.1950988769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n=1",
+      "bbox": [
+        297.3583068847656,
+        362.0837097167969,
+        311.1764831542969,
+        369.73858642578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "gθ.yn|xn/:",
+      "bbox": [
+        312.6155090332031,
+        350.7044982910156,
+        353.8735656738281,
+        361.78070068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".3/",
+      "bbox": [
+        431.1823425292969,
+        351.5413818359375,
+        443.605712890625,
+        360.7767028808594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "If θ is unknown, we ascribe a prior density p.θ/ to θ and Bayesian inference relies on the joint",
+      "bbox": [
+        48.090484619140625,
+        375.8889465332031,
+        443.60870361328125,
+        385.9611511230469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "density",
+      "bbox": [
+        48.08949279785156,
+        388.6809387207031,
+        78.2861328125,
+        397.916259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p.θ, x1:T |y1:T /∝pθ.x1:T ,y1:T /p.θ/:",
+      "bbox": [
+        173.20281982421875,
+        403.2001037597656,
+        318.49298095703125,
+        414.9212951660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".4/",
+      "bbox": [
+        431.13214111328125,
+        404.0369873046875,
+        443.60528564453125,
+        413.2723083496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For non-linear non-Gaussian models, pθ.x1:T |y1:T / and p.θ,x1:T |y1:T / do not usually admit",
+      "bbox": [
+        48.090057373046875,
+        422.5412902832031,
+        443.6107482910156,
+        434.1529235839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "closed form expressions, making inference difﬁcult in practice. It is therefore necessary to resort",
+      "bbox": [
+        48.091583251953125,
+        435.3332824707031,
+        443.6056823730469,
+        444.568603515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to approximations. Monte Carlo methods have been shown to provide a ﬂexible framework to",
+      "bbox": [
+        48.091583251953125,
+        447.2884216308594,
+        443.6119384765625,
+        456.52374267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "carry out inference in such models. It is impossible to provide a thorough review of the area",
+      "bbox": [
+        48.091583251953125,
+        459.2435607910156,
+        443.6126403808594,
+        468.4788818359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "here and instead we brieﬂy review the underlying principles of MCMC and SMC methods for",
+      "bbox": [
+        48.091583251953125,
+        471.19866943359375,
+        443.60479736328125,
+        480.4339904785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "SSM models at a level that is sufﬁcient to understand our novel methodology.",
+      "bbox": [
+        48.091583251953125,
+        483.1537780761719,
+        373.66937255859375,
+        492.38909912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.2.",
+      "bbox": [
+        48.091583251953125,
+        513.0216674804688,
+        64.7092056274414,
+        522.237060546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sequential Monte Carlo algorithm for state space models",
+      "bbox": [
+        74.07405090332031,
+        513.0216674804688,
+        324.7530517578125,
+        522.237060546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In the SSM context, SMC methods are a class of algorithms to approximate sequentially the",
+      "bbox": [
+        48.091583251953125,
+        525.0963134765625,
+        443.6066589355469,
+        534.3316650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sequence of posterior densities {pθ.x1:n|y1:n/;n⩾1} as well as the sequence of marginal likeli-",
+      "bbox": [
+        48.091583251953125,
+        536.214599609375,
+        443.6114196777344,
+        547.4317016601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hoods {pθ.y1:n/;n⩾1} for a given θ ∈Θ. More precisely such methods aim to approximate ﬁrst",
+      "bbox": [
+        48.09040832519531,
+        548.1701049804688,
+        443.6045227050781,
+        559.3869018554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ.x1|y1/ and pθ.y1/, then pθ.x1:2|y1:2/ and pθ.y1:2/ and so on. In the context of SMC methods,",
+      "bbox": [
+        48.08930969238281,
+        560.1253662109375,
+        443.61029052734375,
+        571.3421020507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the posterior distributions that are associated with such densities are approximated by a set of",
+      "bbox": [
+        48.09100341796875,
+        572.9173583984375,
+        443.6041259765625,
+        582.1527099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N weighted random samples called particles, leading for any n⩾1 to the approximation",
+      "bbox": [
+        48.09100341796875,
+        584.03564453125,
+        417.44342041015625,
+        594.1078491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ˆpθ.dx1:n|y1:n/:=",
+      "bbox": [
+        170.54429626464844,
+        608.9691162109375,
+        239.47634887695312,
+        620.8943481445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N\u0003",
+      "bbox": [
+        242.31419372558594,
+        601.4970703125,
+        252.83470153808594,
+        611.4596557617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k=1",
+      "bbox": [
+        240.860107421875,
+        620.3483276367188,
+        254.28456115722656,
+        628.003173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Wk",
+      "bbox": [
+        255.72349548339844,
+        607.6607666015625,
+        268.8109130859375,
+        616.939208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nδXk",
+      "bbox": [
+        264.30126953125,
+        608.9691162109375,
+        282.4996337890625,
+        620.2077026367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1:n.dx1:n/,",
+      "bbox": [
+        279.7110595703125,
+        609.8059692382812,
+        319.6588134765625,
+        624.3499755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".5/",
+      "bbox": [
+        431.1821594238281,
+        609.8059692382812,
+        443.60552978515625,
+        619.0413208007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Particle Markov chain Monte Carlo methods",
+      "author": "Sci Publ Svcs (Chennai India) 4507 2000 Jan 05 15:06:23",
+      "subject": "TeX output 2010.05.08:1134",
+      "keywords": "",
+      "creator": "DVIPSONE 2.2.0  http://www.YandY.com",
+      "producer": "PDFlib PLOP 2.0.0p6 (SunOS)/Acrobat Distiller 7.0 (Windows)",
+      "creationDate": "D:20100508113500Z",
+      "modDate": "D:20100520110917-04'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/andrieu-pmcmc-2010-paper/documents/.pdf-skill-scan-om9ufjhc/review/source.pdf",
+      "page_count": 74,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          232,
+          39,
+          444,
+          47
+        ],
+        "pos": [
+          0,
+          50
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          48,
+          56,
+          444,
+          114
+        ],
+        "pos": [
+          50,
+          455
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          48,
+          134,
+          162,
+          144
+        ],
+        "pos": [
+          455,
+          485
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          48,
+          146,
+          445,
+          192
+        ],
+        "pos": [
+          485,
+          863
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          196,
+          200,
+          444,
+          211
+        ],
+        "pos": [
+          863,
+          865
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          48,
+          218,
+          444,
+          265
+        ],
+        "pos": [
+          865,
+          1219
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          168,
+          272,
+          444,
+          282
+        ],
+        "pos": [
+          1219,
+          1221
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          48,
+          290,
+          397,
+          301
+        ],
+        "pos": [
+          1221,
+          1320
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          48,
+          302,
+          444,
+          336
+        ],
+        "pos": [
+          1320,
+          1567
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          137,
+          344,
+          444,
+          369
+        ],
+        "pos": [
+          1567,
+          1569
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          48,
+          376,
+          444,
+          398
+        ],
+        "pos": [
+          1569,
+          1684
+        ]
+      },
+      {
+        "index": 11,
+        "class": "formula",
+        "bbox": [
+          173,
+          404,
+          444,
+          414
+        ],
+        "pos": [
+          1684,
+          1686
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          48,
+          423,
+          444,
+          493
+        ],
+        "pos": [
+          1686,
+          2243
+        ]
+      },
+      {
+        "index": 13,
+        "class": "section-header",
+        "bbox": [
+          48,
+          512,
+          325,
+          523
+        ],
+        "pos": [
+          2243,
+          2310
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          48,
+          525,
+          444,
+          595
+        ],
+        "pos": [
+          2310,
+          2911
+        ]
+      },
+      {
+        "index": 15,
+        "class": "formula",
+        "bbox": [
+          170,
+          602,
+          444,
+          627
+        ],
+        "pos": [
+          2911,
+          2913
+        ]
+      }
+    ],
+    "text": "_Particle Markov Chain Monte Carlo Methods_ 271 \n\nsubsequently briefly discussed and we then move on to describe standard MCMC strategies for inference in SSMs. Again we briefly discuss their strengths and weaknesses and then show how our novel methodology can address the same inference problems, albeit in a potentially more efficient way. No justification for the validity of the algorithms presented is provided here—this is postponed to Section 4. \n\n# _2.1. State space models_ \n\nFurther on, we use the standard convention whereby capital letters denote random variables, whereas lower case letters are used for their values. Consider the following SSM, which is also knownasahiddenMarkovmodel.Inthiscontext,ahiddenMarkovstateprocess _{_ Xn; n⩾1 _}_ ⊂ _X_<sup>N</sup> is characterized by its initial density X1∼ _μθ_ .·/ and transition probability density \n\n\n\nfor some static parameter _θ_ ∈Θ which may be multidimensional. The process _{_ Xn _}_ is observed, not directly, but through another process _{_ Yn; n⩾1 _}_ ⊂ _Y_<sup>N</sup> . The observations are assumed to be conditionally independent given _{_ Xn _}_ , and their common marginal probability density is of the form _gθ_ .y|x/; i.e., for 1 ⩽ n ⩽ m, \n\n\n\nHereafter for any generic sequence _{_ zn _}_ we shall use zi:j to denote .zi, zi+1,. . . , zj/. \n\nOur aim is to perform Bayesian inference in this context, conditional on some observations y1:T for some T ⩾1. When _θ_ ∈Θ is a known parameter, Bayesian inference relies on the posterior density p _θ_ .x1:T |y1:T / ∝ p _θ_ .x1:T , y1:T / where \n\n\n\nIf _θ_ is unknown, we ascribe a prior density p. _θ_ / to _θ_ and Bayesian inference relies on the joint density \n\n\n\nFor non-linear non-Gaussian models, p _θ_ .x1:T |y1:T / and p. _θ_ , x1:T |y1:T / do not usually admit closed form expressions, making inference difficult in practice. It is therefore necessary to resort to approximations. Monte Carlo methods have been shown to provide a flexible framework to carry out inference in such models. It is impossible to provide a thorough review of the area here and instead we briefly review the underlying principles of MCMC and SMC methods for SSM models at a level that is sufficient to understand our novel methodology. \n\n# _2.2. Sequential Monte Carlo algorithm for state space models_ \n\nIn the SSM context, SMC methods are a class of algorithms to approximate sequentially the sequence of posterior densities _{_ p _θ_ .x1:n|y1:n/; n⩾1 _}_ as well as the sequence of marginal likelihoods _{_ p _θ_ .y1:n/; n⩾1 _}_ for a given _θ_ ∈ Θ. More precisely such methods aim to approximate first p _θ_ .x1|y1/ and p _θ_ .y1/, then p _θ_ .x1:2|y1:2/ and p _θ_ .y1:2/ and so on. In the context of SMC methods, the posterior distributions that are associated with such densities are approximated by a set of _N_ weighted random samples called particles, leading for any n ⩾ 1 to the approximation \n\n\n\n"
+  }
+}

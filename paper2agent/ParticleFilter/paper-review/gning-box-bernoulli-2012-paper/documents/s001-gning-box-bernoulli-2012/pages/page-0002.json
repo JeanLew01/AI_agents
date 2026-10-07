@@ -1,0 +1,238 @@
+{
+  "page": 2,
+  "width": 595.0,
+  "height": 842.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the preview (two columns) with all items. Changes: first item joined to page 1; section heading levels fixed (## II, ### A., ### B.); the two extractor 'formula' regions for equations (1) and (2) converted to LaTeX display text with printed tags; equation (3) rewritten as display LaTeX; all inline maths rewritten in LaTeX (bold upright X, x, z, v; bold Upsilon for the measurement set; calligraphic X, Z); the bulleted 'where' list after (2) rebuilt as one item, with the small 'abbr' printed over the equals sign written as \\overset{\\text{abbr}}{=} (the extractor had scattered 'abbr' into separate items). Column break inside the paragraph 'We therefore model ... random | finite set (RFS)' joined. Page ends with equation (3); the sentence continues on page 3 ('where h_k ...').",
+  "warnings": [
+    "Review possible header/footer: p0002-b023"
+  ],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        48.0,
+        80.0,
+        53.0,
+        86.0
+      ],
+      "markdown": "2",
+      "source_class": "page-header",
+      "reason": "Printed page number \"2\" in the top margin."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        108.0,
+        301.0,
+        178.0
+      ],
+      "markdown": "(UGA) measurements. Interval measurements are a special case of UGA measurements, while the most general instance of an UGA measurement is a mixture of fuzzy membership functions [10, Ch.5]. The aforementioned Bernoulli filter has no analytic solution and therefore needs to be implemented numerically.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        180.0,
+        301.0,
+        441.0
+      ],
+      "markdown": "Particle filter (PF) methods [12], [13] have recently emerged as a powerful tool for solving numerically complex dynamic estimation problems involving high nonlinearities. The PF approaches approximate the posterior state pdf by a set of random samples. The efficiency and accuracy of PFs depend significantly on the number of particles and on the proposal functions used for the importance sampling. A high level of uncertainty in the available measurements, as considered in this paper, may require a large number of particles, resulting in high computational complexity which induces real-time implementation issues. In an attempt to overcome these issues, it is of interest to consider an implementation based on *box particles*. A box particle occupies a small and controllable rectangular region of non-zero volume in the target state space. A box-particle filter (Box-PF) has a potential to significantly reduce the number of required particles, without a loss in the error performance. The concept of the Box-PF was first proposed in [14], using the interval analysis framework to propagate weighted boxes in a sequential way. Subsequently, the Box-PF was studied and explained through the Bayesian perspective in [15] by interpreting each box particle as a uniform pdf.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        443.0,
+        301.0,
+        596.0
+      ],
+      "markdown": "In this paper, we develop and compare the performance of two numerical implementations of the Bernoulli filter for detection and tracking using measurements affected by triple uncertainty: the particle filter and the box-particle filter based implementations. The comparison is carried out using statistical criteria for measuring the *inclusion* of the true state and the *volume* of the posterior pdf. The paper shows that both filters perform comparably well when a sufficient number of particles is used: the presence of a target is reliably detected, while the true target state is contained in the support of the spatial density function. The Bernoulli Box-PF, however, appears to be more cost efficient. Preliminary results of this research have been reported in [16] and [17].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        598.0,
+        301.0,
+        702.0
+      ],
+      "markdown": "The rest of the paper is organized as follows. The formal description of the problem is given in Sec. II. The Bernoulli filter for measurements affected by stochastic, set-theoretic and association uncertainty is formulated in Sec. III. The Bernoulli PF implementation and the Bernoulli Box-PF implementation are presented in Secs. IV and V, respectively. The filter performance assessment criteria are described in Sec. VI, with numerical studies presented in Sec. VII. Finally, the conclusions are drawn in Sec. VIII.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "heading",
+      "bbox": [
+        112.0,
+        726.0,
+        237.0,
+        734.0
+      ],
+      "markdown": "## II. PROBLEM FORMULATION",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        741.0,
+        301.0,
+        799.0
+      ],
+      "markdown": "The state vector of the dynamic system (target) at time $t_k$ (discrete-time index $k$) is denoted by $\\mathbf{x}_k$. It takes values from the state space $\\mathcal{X} \\subseteq \\mathbb{R}^{n_x}$. The target, however, may or may not be present in the surveillance region at a particular time $t_k$. We therefore model the object state at discrete-time $k$ by a random",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        108.0,
+        564.0,
+        166.0
+      ],
+      "markdown": "finite set (RFS) $\\mathbf{X}_k$ which can be either empty or a singleton. Mahler’s *finite set statistics* (FISST) provides practical tools for statistical description and mathematical manipulations of finite-set random variables, including the notion of FISST pdf and its integral [10].",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        168.0,
+        564.0,
+        235.0
+      ],
+      "markdown": "A convenient model of target state at time $k$ is the Bernoulli RFS on $\\mathcal{X}$. A Bernoulli RFS has a probability $q$ of being a singleton whose only element is distributed according to the pdf $s(\\mathbf{x})$ defined on $\\mathcal{X}$ and a probability $1 - q$ of being empty. The FISST probability density of a Bernoulli RFS $\\mathbf{X}$ is defined as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        361.0,
+        230.0,
+        569.0,
+        283.0
+      ],
+      "markdown": "$$\nf(\\mathbf{X}) = \\begin{cases} 1 - q, & \\text{if } \\mathbf{X} = \\emptyset, \\\\ q \\cdot s(\\mathbf{x}), & \\text{if } \\mathbf{X} = \\{\\mathbf{x}\\}, \\\\ 0, & \\text{otherwise.} \\end{cases} \\tag{1}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        284.0,
+        564.0,
+        388.0
+      ],
+      "markdown": "The objective of Bayes filtering is to sequentially estimate $\\mathbf{X}_k$ from measurements collected up to time $k$. Assume that the measurement set at time $k$ is denoted by $\\boldsymbol{\\Upsilon}_k$. Then formally the goal is to estimate sequentially the posterior state pdf $f_{k|k}(\\mathbf{X}|\\boldsymbol{\\Upsilon}_{1:k})$ of a Bernoulli random finite process, where $\\boldsymbol{\\Upsilon}_{1:k} = (\\boldsymbol{\\Upsilon}_1, \\ldots, \\boldsymbol{\\Upsilon}_k)$ denotes the sequence of measurement sets up to time $k$. The estimation is based on prior knowledge of two models, the *target dynamic model* and the *measurement model*.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        414.0,
+        420.0,
+        424.0
+      ],
+      "markdown": "### A. Target Dynamic Model",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        429.0,
+        564.0,
+        476.0
+      ],
+      "markdown": "Target dynamic model is defined by the probability density $\\Phi_{k+1|k}(\\mathbf{X}|\\mathbf{X}')$ associated with target transition from state $\\mathbf{X}'$ at time $k$ to $\\mathbf{X}$ at time $k+1$. Since both $\\mathbf{X}'$ and $\\mathbf{X}$ are Bernoulli RFSs, $\\Phi_{k+1|k}(\\mathbf{X}|\\mathbf{X}')$ can be defined as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        306.0,
+        479.0,
+        595.0,
+        554.0
+      ],
+      "markdown": "$$\n\\Phi_{k+1|k}(\\mathbf{X}|\\mathbf{X}') = \\begin{cases} 1 - p_B, & \\text{if } \\mathbf{X}' = \\emptyset, \\mathbf{X} = \\emptyset, \\\\ p_B \\cdot b_{k+1|k}(\\mathbf{x}), & \\text{if } \\mathbf{X}' = \\emptyset, \\mathbf{X} = \\{\\mathbf{x}\\}, \\\\ 1 - p_S(\\mathbf{x}'), & \\text{if } \\mathbf{X}' = \\{\\mathbf{x}'\\}, \\mathbf{X} = \\emptyset, \\\\ p_S(\\mathbf{x}') \\cdot \\pi_{k+1|k}(\\mathbf{x}|\\mathbf{x}'), & \\text{if } \\mathbf{X}' = \\{\\mathbf{x}'\\}, \\mathbf{X} = \\{\\mathbf{x}\\}, \\end{cases} \\tag{2}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        552.0,
+        564.0,
+        658.0
+      ],
+      "markdown": "where\n\n- $p_B \\overset{\\text{abbr}}{=} p_{B,k+1|k}$ is the probability of target *birth* during the time interval from $k$ to $k + 1$;\n- $b_{k+1|k}(\\mathbf{x})$ is the spatial distribution of target birth during the time interval from $k$ to $k + 1$;\n- $p_S(\\mathbf{x}') \\overset{\\text{abbr}}{=} p_{S,k+1|k}(\\mathbf{x}')$ is the probability that a target with state $\\mathbf{x}'$ at time $k$ will survive until time $k + 1$;\n- $\\pi_{k+1|k}(\\mathbf{x}|\\mathbf{x}')$ is the target transition density from time $k$ to $k + 1$.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "heading",
+      "bbox": [
+        311.0,
+        683.0,
+        409.0,
+        691.0
+      ],
+      "markdown": "### B. Measurement Model",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        699.0,
+        564.0,
+        780.0
+      ],
+      "markdown": "In general, target detection is imperfect. A target may not be detected at scan $k$, whereas a set of non-existent objects may be detected and reported (false detections or clutter). Let the measurement space be denoted as $\\mathcal{Z} \\subseteq \\mathbb{R}^{n_z}$. If the target exists, *i.e.* $\\mathbf{X}_k = \\{\\mathbf{x}\\}$, and has been detected, the conventional point measurement $\\mathbf{z} \\in \\mathcal{Z}$ is related to the target state *via* a nonlinear equation:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b023",
+      "kind": "text",
+      "bbox": [
+        405.0,
+        789.0,
+        564.0,
+        800.0
+      ],
+      "markdown": "$$\n\\mathbf{z} = h_k(\\mathbf{x}) + \\mathbf{v}, \\tag{3}\n$$",
+      "source_class": "page-footer",
+      "join_previous": "space"
+    }
+  ]
+}

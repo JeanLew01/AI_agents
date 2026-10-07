@@ -1,0 +1,304 @@
+{
+  "page": 7,
+  "width": 595.0,
+  "height": 842.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared the preview and an overlay with all items; read 240/250-dpi crops of the left-column paragraphs, the whole Algorithm 2 box, and equations (26)-(32). Changes: Algorithm 2 (left column, lines 1-14 with two bullets under step 9) was split by the extractor into text/heading fragments ('measurements', 'Time Update', 'Measurement Update' wrongly headings); it is now one image item algorithm-2 (bbox from top rule to bottom rule, checked with crops) plus a line-by-line transcription, placed between the complete paragraph '... then is N' = N + N_b.' and heading V-C; extractor formula regions converted to LaTeX display text with printed tags (26)-(32) (extractor labels were wrong); (29) is printed as two lines (left-hand side ending in '=' on the first line, right-hand side on the second), kept as one aligned block; heading level fixed (### C.); reading order: the paragraph under heading C at the bottom of the left column continues at the top of the right column ('... measurement noise v) | is small ...'), joined; garbled inline maths rewritten from the crops; noise support written [\\varepsilon] as printed; footnote 6 marker written [^6] and the footnote placed before the paragraph 'Each term inside the summation ...' because the chain from there to equation (32) is joined and continues on page 8. As printed: algorithm step 10 refers to '(8) and (34)'; step 12 normalises \\tilde{w} into \\tilde{w} (same symbol both sides); step 13 resamples from sets indexed to N'(1+m_k) with [x^i_{k+1|k}] (no tilde); step 8 'N' box particle' (singular); 'Fig.1' without space; the set-builder bar in (30) is a plain '|'. [coordinator] 2 occurrence(s) of \"](\" inside mathematics written as \"]{}(\" (empty LaTeX group, same rendering) so that interval notation is not parsed as a markdown link.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "omit",
+      "bbox": [
+        559.0,
+        80.0,
+        564.0,
+        86.0
+      ],
+      "markdown": "7",
+      "source_class": "page-header",
+      "reason": "Printed page number \"7\" in the top margin."
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        105.0,
+        301.0,
+        130.0
+      ],
+      "markdown": "The weights $\\{w_{p,k+1}^i\\}_{i=1}^{N}$ and $\\{w_{b,k+1}^i\\}_{i=1}^{N_b}$ are computed according to (6) in Step 6 of Algorithm 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        132.0,
+        301.0,
+        215.0
+      ],
+      "markdown": "Two sets of predicted weighted box particles, the “persistent” $\\{w_{p,k}^i, [\\mathbf{x}_{p,k}^i]\\}_{i=1}^{N}$ and the “newborn” box particles $\\{w_{b,k}^i, [\\mathbf{x}_{b,k}^i]\\}_{i=1}^{N_b}$, approximate the predicted spatial pdf of (6). The summation of the two terms on the right-hand side of (6) is carried out by the union of these two sets of box particles (Step 7 in Algorithm 2). The number of predicted box particles then is $N' = N + N_b$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "figure",
+      "bbox": [
+        46.0,
+        226.0,
+        303.0,
+        704.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        248.0,
+        301.0,
+        697.0
+      ],
+      "markdown": "**Algorithm 2** The Bernoulli box-particle filter for interval measurements\n\n1: **Input**: $q_{k|k}$, $\\{w_k^i, [\\mathbf{x}_k^i]\\}_{i=1}^{N}$, $\\boldsymbol{\\Upsilon}_k$, $\\boldsymbol{\\Upsilon}_{k+1}$;\n\n***Time Update***\n\n2: Compute $q_{k+1|k}$ using (5)\n\n3: Propagate *persistent* box particles to $k + 1$: $[\\mathbf{x}_{p,k+1}^i] = [\\mathbf{f}_{k+1}]{}([\\mathbf{x}_k^i]) + [\\mathbf{w}_k]$ for $i = 1, \\ldots, N$\n\n4: Create a weighted set of *newborn* box particles $\\{w_{b,k}^i, [\\mathbf{x}_{b,k}^i]\\}_{i=1}^{N_b}$ at $k$ from birth density $b_k(\\mathbf{x})$ defined by (16) using $\\boldsymbol{\\Upsilon}_k$, with $w_{b,k}^i = 1/N_b$;\n\n5: Propagate *newborn* box particles to $k + 1$: $[\\mathbf{x}_{b,k+1}^i] = [\\mathbf{f}_{k+1}]{}([\\mathbf{x}_{b,k}^i]) + [\\mathbf{w}_k]$ for $i = 1, \\ldots, N_b$\n\n6: Compute the box particle prediction weights at $k + 1$:\n\n$$\nw_{p,k+1}^i = p_S\\, q_{k|k}\\, w_k^i / q_{k+1|k}; \\quad \\text{for } i = 1, \\ldots, N\n$$\n\n$$\nw_{b,k+1}^i = p_B\\, (1 - q_{k|k}) w_{b,k}^i / q_{k+1|k}; \\quad \\text{for } i = 1, \\ldots, N_b\n$$\n\n7: Union of weighted box particles: $\\{w_{k+1|k}^i, [\\mathbf{x}_{k+1|k}^i]\\}_{i=1}^{N'} = \\{w_{b,k+1}^i, [\\mathbf{x}_{b,k+1}^i]\\}_{i=1}^{N_b} \\cup \\{w_{p,k+1}^i, [\\mathbf{x}_{p,k+1}^i]\\}_{i=1}^{N}$, where $N' = N + N_b$;\n\n***Measurement Update***\n\n8: Replicate the box particle $[\\mathbf{x}_{k+1|k}^i]$ to obtain $N'$ box particle $[\\tilde{\\mathbf{x}}_{k+1}^i]$ with weights $\\tilde{w}_{k+1}^i = (1 - p_D) w_{k+1|k}^i$\n\n9: For every box particle $[\\mathbf{x}_{k+1|k}^i]$, $i = 1, \\ldots, N'$ and every measurement $[\\mathbf{z}] \\in \\boldsymbol{\\Upsilon}_{k+1}$,\n\n- use a contraction algorithm according to (30) to obtain a new box particle $[\\tilde{\\mathbf{x}}_{k+1}^i]$;\n- compute the weight $\\tilde{w}_{k+1}^i$ of $[\\tilde{\\mathbf{x}}_{k+1}^i]$ according to (32);\n\n10: Compute $\\Delta_{k+1}$ according to (8) and (34);\n\n11: Compute $q_{k+1|k+1}$ according to (7);\n\n12: Normalize weights: $\\tilde{w}_{k+1}^i = \\tilde{w}_{k+1}^i / \\sum_{j=1}^{N'(1+m_k)} \\tilde{w}_{k+1}^j$;\n\n13: Resample $N$ times from $\\{\\tilde{w}_{k+1}^i, [\\mathbf{x}_{k+1|k}^i]\\}_{i=1}^{N'(1+m_k)}$ to obtain $N$ equally weighted box particles $\\{w_{k+1}^i = \\frac{1}{N}, [\\mathbf{x}_{k+1}^i]\\}_{i=1}^{N}$\n\n14: **Output**: $q_{k+1|k+1}$, $\\{w_{k+1}^i, [\\mathbf{x}_{k+1}^i]\\}_{i=1}^{N}$",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0007-b032",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        748.0,
+        171.0,
+        758.0
+      ],
+      "markdown": "### C. Measurement Update Step",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b033",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        765.0,
+        301.0,
+        799.0
+      ],
+      "markdown": "In the update step of the Bernoulli Box-PF, a different expression for the generalized likelihood is used. Assuming that the stochastic uncertainty (due to measurement noise $\\mathbf{v}$)",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b016",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        106.0,
+        528.0,
+        118.0
+      ],
+      "markdown": "is small and can be approximated by a uniform pdf[^6]",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b017",
+      "kind": "text",
+      "bbox": [
+        397.0,
+        122.0,
+        569.0,
+        144.0
+      ],
+      "markdown": "$$\np_{\\mathbf{v}}(\\mathbf{v}) \\approx U_{[\\varepsilon]}(\\mathbf{v}), \\tag{26}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b018",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        146.0,
+        564.0,
+        178.0
+      ],
+      "markdown": "where $[\\varepsilon]$ is the measurement noise support. Substitution of (26) into the definition of the generalized likelihood (10) results in:",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b019",
+      "kind": "text",
+      "bbox": [
+        307.0,
+        180.0,
+        574.0,
+        242.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\ng_k([\\mathbf{z}]|\\mathbf{x}) &\\approx \\int_{[\\mathbf{z}]} U_{[\\varepsilon]}(\\mathbf{z} - h_k(\\mathbf{x}))\\, d\\mathbf{z} = \\int_{[\\mathbf{z}]} U_{[\\varepsilon] + h_k(\\mathbf{x})}(\\mathbf{z})\\, d\\mathbf{z} \\\\\n&= \\frac{|\\, [\\mathbf{z}] \\cap (h_k(\\mathbf{x}) + [\\varepsilon])\\, |}{|[\\varepsilon]|}.\n\\end{aligned} \\tag{27}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b020",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        243.0,
+        564.0,
+        265.0
+      ],
+      "markdown": "Here $|.|$ denotes the Lebesgue measure operator (e.g. the volume for boxes in $\\mathbb{R}^{n_z}$). From (27), it follows that",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b021",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        267.0,
+        569.0,
+        320.0
+      ],
+      "markdown": "$$\ng_k([\\mathbf{z}]|\\mathbf{x}) \\approx \\begin{cases} 1, & \\text{if } (h_k(\\mathbf{x}) + [\\varepsilon]) \\subseteq [\\mathbf{z}] \\\\ 0, & \\text{if } (h_k(\\mathbf{x}) + [\\varepsilon]) \\cap [\\mathbf{z}] = \\emptyset \\\\ \\leq 1, & \\text{otherwise} \\end{cases}\\ . \\tag{28}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b022",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        322.0,
+        564.0,
+        344.0
+      ],
+      "markdown": "This expression describes fairly accurately any generalized likelihood function; compare it for example with Fig.1.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b023",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        346.0,
+        564.0,
+        409.0
+      ],
+      "markdown": "The update equations of the Bernoulli Box-PF are implemented by steps 8-13 of Algorithm 2. Using the box particle approximation $s_{k+1|k}(\\mathbf{x}) \\approx \\sum_{i=1}^{N'} w_{k+1|k}^i\\, U_{[\\mathbf{x}_{k+1|k}^i]}(\\mathbf{x})$ and the generalized likelihood (27), the terms $\\frac{p_D}{c([\\mathbf{z}])} \\cdot g_{k+1}([\\mathbf{z}]|\\mathbf{x}) \\cdot s_{k+1|k}(\\mathbf{x})$ which feature in (9) can be written as:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b024",
+      "kind": "text",
+      "bbox": [
+        308.0,
+        415.0,
+        569.0,
+        486.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n&\\frac{p_D}{c([\\mathbf{z}])} \\cdot g_{k+1}([\\mathbf{z}]|\\mathbf{x}) \\cdot s_{k+1|k}(\\mathbf{x}) = \\\\\n&\\frac{p_D}{c([\\mathbf{z}])} \\cdot \\sum_{i=1}^{N'} w_{k+1|k}^i \\frac{|\\, [\\mathbf{z}] \\cap (h_{k+1}(\\mathbf{x}) + [\\varepsilon_{k+1}])\\, |}{|[\\varepsilon_{k+1}]|} U_{[\\mathbf{x}_{k+1|k}^i]}(\\mathbf{x}).\n\\end{aligned} \\tag{29}\n$$",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b026",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        489.0,
+        564.0,
+        547.0
+      ],
+      "markdown": "Similarly to what is theoretically derived in [15] for the case of point measurements, the supports of the terms inside the summation on the right-hand side of (29) can be approximated using contraction operations briefly discussed in Sec. V-A. The exact supports are the set solutions of :",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b027",
+      "kind": "text",
+      "bbox": [
+        330.0,
+        549.0,
+        569.0,
+        573.0
+      ],
+      "markdown": "$$\n\\{\\mathbf{x} \\in [\\mathbf{x}_{k+1|k}^i] \\,|\\, [\\mathbf{z}] \\cap (h_{k+1}(\\mathbf{x}) + [\\varepsilon_{k+1}]) \\neq \\emptyset\\}. \\tag{30}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b034",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        740.0,
+        563.0,
+        798.0
+      ],
+      "markdown": "Footnote 6: In the general case, $p_{\\mathbf{v}}$ can be approximated more precisely by a mixture of uniform pdfs and the generalized likelihood function can be expressed as a weighted sum of generalized likelihoods for each uniform pdf. For simplicity, we consider here one component.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b028",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        576.0,
+        564.0,
+        613.0
+      ],
+      "markdown": "Each term inside the summation on the right-hand side of (29) is approximated by a weighted single uniform pdf $U_{[\\tilde{\\mathbf{x}}_{k+1}^i]}(\\mathbf{x})$ i.e.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b029",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        615.0,
+        569.0,
+        656.0
+      ],
+      "markdown": "$$\n\\frac{p_D}{c([\\mathbf{z}])} \\cdot g_{k+1}([\\mathbf{z}]|\\mathbf{x}) \\cdot s_{k+1|k}(\\mathbf{x}) \\simeq \\sum_{i=1}^{N'} \\tilde{w}_{k+1}^i U_{[\\tilde{\\mathbf{x}}_{k+1}^i]}(\\mathbf{x}), \\tag{31}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b030",
+      "kind": "text",
+      "bbox": [
+        311.0,
+        659.0,
+        564.0,
+        694.0
+      ],
+      "markdown": "where $[\\tilde{\\mathbf{x}}_{k+1}^i]$ is a box enclosure of the support (30) that can be obtained by a contraction algorithm. The new weights $\\tilde{w}_{k+1}^i$ are obtained from (29) as follows:",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0007-b031",
+      "kind": "text",
+      "bbox": [
+        351.0,
+        695.0,
+        569.0,
+        734.0
+      ],
+      "markdown": "$$\n\\tilde{w}_{k+1}^i = \\frac{p_D}{c([\\mathbf{z}])} \\cdot w_{k+1|k}^i\\, \\kappa_{k+1}^i\\, \\frac{|[\\tilde{\\mathbf{x}}_{k+1}^i]|}{|[\\mathbf{x}_{k+1|k}^i]|}, \\tag{32}\n$$",
+      "source_class": "formula",
+      "join_previous": "space"
+    }
+  ]
+}

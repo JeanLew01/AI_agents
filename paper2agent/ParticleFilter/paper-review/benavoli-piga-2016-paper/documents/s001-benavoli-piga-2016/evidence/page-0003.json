@@ -1,0 +1,1927 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "cedure to determine an outer-bounding polytope S as the",
+      "bbox": [
+        43.68009948730469,
+        71.4693603515625,
+        282.8236389160156,
+        84.759521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "intersection of a pre-speciﬁed number of half-spaces Hj,",
+      "bbox": [
+        43.680084228515625,
+        82.3892822265625,
+        282.8108825683594,
+        95.742431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where each half-space Hj is added to the description of S",
+      "bbox": [
+        43.68022155761719,
+        93.4290771484375,
+        282.0274963378906,
+        108.15948486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "so to minimize the volume of the polytope including M.",
+      "bbox": [
+        43.680084228515625,
+        104.3489990234375,
+        282.80975341796875,
+        117.63916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This allows us to solve the set-membership estimation prob-",
+      "bbox": [
+        43.680084228515625,
+        115.269287109375,
+        282.9175720214844,
+        128.5594482421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lem for polynomial non-linear systems very efﬁciently and",
+      "bbox": [
+        43.680084228515625,
+        126.30908203125,
+        282.78173828125,
+        139.5992431640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "through convex optimization.",
+      "bbox": [
+        43.680084228515625,
+        137.22900390625,
+        161.85098266601562,
+        150.5191650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Finally, by means of a numerical example involving the",
+      "bbox": [
+        43.680084228515625,
+        148.14892578125,
+        282.8231201171875,
+        161.4390869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Lotka Volterra prey-predator model, we show the effective-",
+      "bbox": [
+        43.680084228515625,
+        159.18914794921875,
+        283.0377197265625,
+        172.47930908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ness of our approach.",
+      "bbox": [
+        43.680084228515625,
+        170.10906982421875,
+        130.65084838867188,
+        183.39923095703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        43.680084228515625,
+        197.5589599609375,
+        48.66140365600586,
+        211.3572235107422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem Description",
+      "bbox": [
+        58.56016540527344,
+        197.5589599609375,
+        147.25917053222656,
+        211.3572235107422
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Consider an uncertain non-linear discrete-time dynamical",
+      "bbox": [
+        43.680084228515625,
+        218.948974609375,
+        282.9696960449219,
+        232.2391357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system described by the difference equations:",
+      "bbox": [
+        43.680084228515625,
+        229.98919677734375,
+        227.8901824951172,
+        243.27935791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(",
+      "bbox": [
+        72.23988342285156,
+        253.35235595703125,
+        80.25981140136719,
+        286.1593322753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(k) = ad(x(k −1), k −1) + w(k −1),",
+      "bbox": [
+        82.31998443603516,
+        258.92779541015625,
+        252.71987915039062,
+        269.26226806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "y(k) = cd(x(k), k) + v(k),",
+      "bbox": [
+        82.20022583007812,
+        275.3675842285156,
+        198.35870361328125,
+        285.70245361328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        271.20025634765625,
+        263.22900390625,
+        282.9178161621094,
+        276.5191650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where x(k) = [x1(k), . . . , xn(k)]⊤∈Rn is the state of the",
+      "bbox": [
+        43.68025207519531,
+        294.3091125488281,
+        282.8235778808594,
+        311.57611083984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system at the time k, y(k) ∈Rm is the measured output",
+      "bbox": [
+        43.680084228515625,
+        305.22900390625,
+        282.9697265625,
+        322.23907470703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "vector, w(k −1) ∈Rn is the process noise and v(k) ∈",
+      "bbox": [
+        43.68017578125,
+        316.268798828125,
+        282.7550048828125,
+        333.1589660644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rm is the measurement noise. In this paper, we consider",
+      "bbox": [
+        43.67987060546875,
+        327.1890869140625,
+        282.9173583984375,
+        344.0792541503906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "polynomial non-linearities ad(x(k), k) and cd(x(k), k), i.e.,",
+      "bbox": [
+        43.67987060546875,
+        341.8288879394531,
+        282.8096923828125,
+        355.18206787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ad(x(k −1), k −1) =Ak−1qd(x(k −1)),",
+      "bbox": [
+        76.43995666503906,
+        377.96746826171875,
+        249.95932006835938,
+        388.6231384277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2a)",
+      "bbox": [
+        266.7601623535156,
+        374.94879150390625,
+        282.9176940917969,
+        388.23895263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cd(x(k), k) =Ckqd(x(k)),",
+      "bbox": [
+        111.24015808105469,
+        390.92767333984375,
+        221.99978637695312,
+        401.2621765136719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2b)",
+      "bbox": [
+        266.1604309082031,
+        387.90899658203125,
+        282.91796875,
+        401.19915771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with",
+      "bbox": [
+        43.68043518066406,
+        410.1090087890625,
+        61.381752014160156,
+        423.399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "qd(x) =",
+      "bbox": [
+        45.60035705566406,
+        437.0077819824219,
+        80.70124816894531,
+        447.34228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[1, x1, . . . , xn, x2",
+      "bbox": [
+        48.600379943847656,
+        452.08917236328125,
+        118.32865905761719,
+        464.09625244140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1, x1x2, . . . , xn−1xn, x2",
+      "bbox": [
+        114.36054229736328,
+        452.08917236328125,
+        212.16848754882812,
+        465.17596435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n, . . . , xd",
+      "bbox": [
+        208.2003631591797,
+        452.4797058105469,
+        245.5826416015625,
+        464.8621520996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1, . . . , xd",
+      "bbox": [
+        241.44017028808594,
+        452.4797058105469,
+        278.1029052734375,
+        465.17596435546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "n]⊤",
+      "bbox": [
+        273.96044921875,
+        452.08917236328125,
+        288.4608154296875,
+        464.8621520996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(3)",
+      "bbox": [
+        271.2003479003906,
+        463.1488037109375,
+        282.91790771484375,
+        476.43896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "being the vector of all monomials of degrees less than or",
+      "bbox": [
+        43.68034362792969,
+        474.1889953613281,
+        282.79736328125,
+        487.4791564941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "equal to d, which has dimension s(d) =",
+      "bbox": [
+        43.68034362792969,
+        486.5487976074219,
+        201.181884765625,
+        499.8389587402344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000n+d",
+      "bbox": [
+        204.0002899169922,
+        485.672119140625,
+        223.74276733398438,
+        518.4790649414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "d",
+      "bbox": [
+        214.08038330078125,
+        495.6797180175781,
+        218.2228546142578,
+        501.9422302246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        223.68038940429688,
+        485.6721496582031,
+        228.2432861328125,
+        518.4791259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ", and Ak−1 ∈",
+      "bbox": [
+        228.2401580810547,
+        486.548828125,
+        282.7554016113281,
+        500.9703674316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rn×s(d), Ck ∈Rm×s(d) are known time-variant coefﬁcient",
+      "bbox": [
+        43.680267333984375,
+        496.2687072753906,
+        282.9698181152344,
+        514.2902221679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "matrices. The resulting system will be referred in the paper",
+      "bbox": [
+        43.68016815185547,
+        510.78900146484375,
+        282.9179382324219,
+        524.0791625976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as uncertain time-variant polynomial system of degree d.",
+      "bbox": [
+        43.68016815185547,
+        521.8287963867188,
+        273.81097412109375,
+        535.1189575195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Example 1 Let us consider the discrete-time polynomial",
+      "bbox": [
+        43.68031311035156,
+        544.1184692382812,
+        283.0904541015625,
+        557.916748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system:",
+      "bbox": [
+        43.68031311035156,
+        555.96484375,
+        73.51786804199219,
+        568.1292724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x1(k) = x1(k −1) (2 −x1(k −1)) + w1(k −1),",
+      "bbox": [
+        43.68031311035156,
+        580.1673583984375,
+        245.0400390625,
+        590.8161010742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x2(k) = x1(k −1)x2(k −1) + 0.5x2(k −1) + w2(k −1),",
+      "bbox": [
+        43.68037414550781,
+        593.1275634765625,
+        283.9200744628906,
+        603.7759399414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The output equation is given by: y(k) = x1(k) + x2(k) +",
+      "bbox": [
+        43.68043518066406,
+        613.3250732421875,
+        282.7813415527344,
+        625.9758911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "v(k). We can rewrite this system as in (2a)–(2b):",
+      "bbox": [
+        43.680206298828125,
+        624.3648681640625,
+        242.47752380371094,
+        636.529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "qd(x) = [1, x1, x2, x2",
+      "bbox": [
+        94.08016967773438,
+        648.1690673828125,
+        182.8882293701172,
+        660.6558837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1, x1x2, x2",
+      "bbox": [
+        178.92010498046875,
+        648.1690673828125,
+        222.24842834472656,
+        661.7360229492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2]⊤",
+      "bbox": [
+        218.28030395507812,
+        648.1691284179688,
+        231.7009735107422,
+        661.7360229492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ak−1 =",
+      "bbox": [
+        94.92030334472656,
+        675.2076416015625,
+        129.18118286132812,
+        686.610107421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\"",
+      "bbox": [
+        131.8804168701172,
+        662.3118896484375,
+        137.68862915039062,
+        695.1188354492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 2 0 −1 0 0",
+      "bbox": [
+        137.760498046875,
+        667.7673950195312,
+        202.98170471191406,
+        677.7300415039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 0 0.5 0 1 0",
+      "bbox": [
+        137.760498046875,
+        684.2076416015625,
+        202.98165893554688,
+        694.1702880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "#",
+      "bbox": [
+        203.0401611328125,
+        662.3118896484375,
+        208.84837341308594,
+        695.1188354492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ck−1 =",
+      "bbox": [
+        95.28015899658203,
+        703.6475219726562,
+        129.18089294433594,
+        715.0499877929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h",
+      "bbox": [
+        131.880126953125,
+        696.752197265625,
+        136.58248901367188,
+        729.5591430664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 1 1 0 0 0",
+      "bbox": [
+        136.56021118164062,
+        704.4874267578125,
+        186.42161560058594,
+        714.4500732421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        186.4801025390625,
+        696.752197265625,
+        191.18246459960938,
+        729.5591430664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and therefore n = 2, m = 1, d = 2 and s(d) =",
+      "bbox": [
+        306.7200927734375,
+        72.48524475097656,
+        497.94073486328125,
+        84.64962768554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000n+d",
+      "bbox": [
+        500.6400451660156,
+        70.59197235107422,
+        520.50244140625,
+        103.3989486694336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "d",
+      "bbox": [
+        510.8400573730469,
+        80.59954071044922,
+        514.9825439453125,
+        86.862060546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        520.4400634765625,
+        70.59197235107422,
+        525.0029296875,
+        103.3989486694336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= 6.",
+      "bbox": [
+        527.7603759765625,
+        72.48524475097656,
+        545.8510131835938,
+        84.64962768554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We further assume that the only available information about",
+      "bbox": [
+        306.7203369140625,
+        94.26904296875,
+        546.0100708007812,
+        107.5592041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the initial state x(0) and the noises w(k), v(k) is:",
+      "bbox": [
+        306.7203369140625,
+        105.18896484375,
+        509.4090881347656,
+        118.4791259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(0) ∈X0, w(k) ∈Wk, v(k) ∈Vk,",
+      "bbox": [
+        347.5205078125,
+        134.96746826171875,
+        504.8402404785156,
+        145.61619567871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(4)",
+      "bbox": [
+        534.1204223632812,
+        131.10894775390625,
+        545.8380126953125,
+        144.39910888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where X0, Wk, Vk are compact basic semi-algebraic sets,",
+      "bbox": [
+        306.7204284667969,
+        156.4288330078125,
+        545.7308349609375,
+        171.15924072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i.e., compact sets described by the polynomial inequalities:",
+      "bbox": [
+        306.720458984375,
+        167.46905517578125,
+        545.530029296875,
+        180.75921630859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Wk = {w(k) ∈Rn : hw",
+      "bbox": [
+        310.56048583984375,
+        193.28778076171875,
+        412.9209899902344,
+        208.29022216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i (w(k), k) ≤0, i = 1, . . . , tw} ,",
+      "bbox": [
+        407.16058349609375,
+        196.8878173828125,
+        541.919921875,
+        209.49029541015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(5)",
+      "bbox": [
+        534.1204223632812,
+        206.58905029296875,
+        545.8380126953125,
+        219.87921142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where hw",
+      "bbox": [
+        306.7204284667969,
+        217.50897216796875,
+        346.92108154296875,
+        230.79913330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i (with i = 1, . . . , tw, tw ∈N) are polynomial",
+      "bbox": [
+        341.1606750488281,
+        217.509033203125,
+        546.130126953125,
+        233.43902587890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "functions in the variable w(k). The sets X0, Vk are described",
+      "bbox": [
+        306.7201843261719,
+        228.548828125,
+        545.941650390625,
+        243.27923583984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in a similar manner.",
+      "bbox": [
+        306.72015380859375,
+        239.46875,
+        387.4508972167969,
+        252.7589111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper addresses a set-membership ﬁltering problem,",
+      "bbox": [
+        306.72015380859375,
+        262.26873779296875,
+        546.0911865234375,
+        275.55889892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "which aims at recursively estimating, at each time sample",
+      "bbox": [
+        306.72015380859375,
+        273.18902587890625,
+        545.8639526367188,
+        286.47918701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "k = 1, 2, . . . , To, (an outer approximation of) the state un-",
+      "bbox": [
+        306.72015380859375,
+        284.10931396484375,
+        545.8381958007812,
+        297.77630615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "certainty set Xk, deﬁned as the set of all values x(k) com-",
+      "bbox": [
+        306.7201232910156,
+        295.14910888671875,
+        545.8375244140625,
+        308.5026550292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "patible with the available information, namely the system",
+      "bbox": [
+        306.71990966796875,
+        306.0690002441406,
+        545.7114868164062,
+        319.3591613769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "equations (1), the bounds on the initial state and on the noises",
+      "bbox": [
+        306.71990966796875,
+        316.9892883300781,
+        545.9154663085938,
+        330.2794494628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(4), and the output observations y(1), y(2), . . . , y(To). For-",
+      "bbox": [
+        306.71990966796875,
+        328.0290832519531,
+        545.8377075195312,
+        341.6960754394531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mally, the set-membership ﬁltering problem is deﬁned as",
+      "bbox": [
+        306.72003173828125,
+        338.948974609375,
+        545.7957153320312,
+        352.2391357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "follows.",
+      "bbox": [
+        306.72003173828125,
+        349.8692626953125,
+        338.9706726074219,
+        363.159423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Problem 1 [Set-membership ﬁltering]",
+      "bbox": [
+        306.72003173828125,
+        372.75933837890625,
+        469.1575012207031,
+        386.5575866699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given the system equations (1), the observations, the bound-",
+      "bbox": [
+        306.72003173828125,
+        383.5895690917969,
+        546.0765991210938,
+        396.8797302246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing sets for the noises Wk, Vk and the initial state uncer-",
+      "bbox": [
+        306.72003173828125,
+        394.50946044921875,
+        545.957763671875,
+        409.2394714355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tainty set X0, compute recursively the state uncertainty set",
+      "bbox": [
+        306.72015380859375,
+        405.54925537109375,
+        545.7699584960938,
+        419.21661376953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk deﬁned as:",
+      "bbox": [
+        306.72003173828125,
+        416.46954345703125,
+        365.0496520996094,
+        431.1995544433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk = { x(k)∈Rn: x(k)−ad(x(k −1), k −1)∈Wk−1,",
+      "bbox": [
+        313.0802001953125,
+        444.3203430175781,
+        539.399658203125,
+        456.6907043457031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "y(k) −cd(x(k), k) ∈Vk,",
+      "bbox": [
+        393.1199951171875,
+        461.7279968261719,
+        497.39959716796875,
+        472.0625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x(k −1) ∈Xk−1 }",
+      "bbox": [
+        393.1199645996094,
+        478.16778564453125,
+        471.7813720703125,
+        489.5706481933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for each k = 1, 2, . . ., To.",
+      "bbox": [
+        306.72003173828125,
+        499.7491149902344,
+        410.6107177734375,
+        513.41650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "■",
+      "bbox": [
+        538.080078125,
+        503.39544677734375,
+        545.821044921875,
+        510.2397766113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Note that, in general, the sets Xk might be nonconvex and",
+      "bbox": [
+        306.7200927734375,
+        522.5491333007812,
+        545.8218383789062,
+        537.2794799804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "their representation can become more and more complicated",
+      "bbox": [
+        306.720458984375,
+        533.468994140625,
+        545.9423217773438,
+        546.7591552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as the time index k increases. Under the assumption that",
+      "bbox": [
+        306.720458984375,
+        544.388916015625,
+        545.8903198242188,
+        557.6790771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Xk is bounded, algorithms for computing simple sets (e.g.,",
+      "bbox": [
+        306.720458984375,
+        555.4287109375,
+        545.9708251953125,
+        570.15869140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "boxes, parallelotopes, zonotops or ellipsoidal regions) outer-",
+      "bbox": [
+        306.720458984375,
+        566.3486328125,
+        545.8380126953125,
+        579.6387939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "bounding the state uncertainty sets Xk have been then pro-",
+      "bbox": [
+        306.720458984375,
+        577.2684936523438,
+        545.9580078125,
+        591.9989013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "posed to reduce this complexity. After formulating the set-",
+      "bbox": [
+        306.72039794921875,
+        588.3087158203125,
+        545.718017578125,
+        601.598876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "membership ﬁltering problem in a probabilistic setting, this",
+      "bbox": [
+        306.72039794921875,
+        599.2286376953125,
+        545.7958374023438,
+        612.518798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "paper presents an algorithm for computing (an approxima-",
+      "bbox": [
+        306.72039794921875,
+        610.1485595703125,
+        546.0779418945312,
+        623.438720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion of) the minimum-volume polytope outer-bounding the",
+      "bbox": [
+        306.72039794921875,
+        621.1887817382812,
+        545.86474609375,
+        634.4789428710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sets Xk.",
+      "bbox": [
+        306.72039794921875,
+        632.108642578125,
+        339.0911560058594,
+        645.4618530273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        306.72039794921875,
+        660.2784423828125,
+        311.70172119140625,
+        674.0767211914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A probabilistic framework for set-membership esti-",
+      "bbox": [
+        321.6004943847656,
+        660.2784423828125,
+        545.8380737304688,
+        674.0767211914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mation",
+      "bbox": [
+        321.6004943847656,
+        671.3182373046875,
+        351.6197509765625,
+        685.1165161132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Set-membership estimation is usually formulated in the con-",
+      "bbox": [
+        306.72039794921875,
+        696.1887817382812,
+        545.9579467773438,
+        709.4789428710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "text of set-valued calculus. We will show in the following",
+      "bbox": [
+        306.72039794921875,
+        707.108642578125,
+        545.9423217773438,
+        720.3988037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        290.7605895996094,
+        746.948486328125,
+        295.7419128417969,
+        760.2386474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref package",
+      "producer": "dvips + GPL Ghostscript GIT PRERELEASE 9.22",
+      "creationDate": "D:20211120180351-05'00'",
+      "modDate": "D:20211120180351-05'00'",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/ParticleFilter/paper-review/benavoli-piga-2016-paper/documents/.pdf-skill-scan-1r2042kh/review/source.pdf",
+      "page_count": 20,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          43,
+          74,
+          283,
+          150
+        ],
+        "pos": [
+          0,
+          376
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          43,
+          151,
+          284,
+          183
+        ],
+        "pos": [
+          376,
+          512
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          43,
+          201,
+          148,
+          211
+        ],
+        "pos": [
+          512,
+          542
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          43,
+          222,
+          283,
+          243
+        ],
+        "pos": [
+          542,
+          647
+        ]
+      },
+      {
+        "index": 4,
+        "class": "formula",
+        "bbox": [
+          72,
+          256,
+          283,
+          287
+        ],
+        "pos": [
+          647,
+          649
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          43,
+          299,
+          283,
+          355
+        ],
+        "pos": [
+          649,
+          995
+        ]
+      },
+      {
+        "index": 6,
+        "class": "formula",
+        "bbox": [
+          76,
+          377,
+          283,
+          401
+        ],
+        "pos": [
+          995,
+          997
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          43,
+          413,
+          62,
+          421
+        ],
+        "pos": [
+          997,
+          1004
+        ]
+      },
+      {
+        "index": 8,
+        "class": "formula",
+        "bbox": [
+          45,
+          437,
+          289,
+          476
+        ],
+        "pos": [
+          1004,
+          1006
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          43,
+          477,
+          283,
+          535
+        ],
+        "pos": [
+          1006,
+          1323
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          43,
+          547,
+          284,
+          568
+        ],
+        "pos": [
+          1323,
+          1394
+        ]
+      },
+      {
+        "index": 11,
+        "class": "formula",
+        "bbox": [
+          43,
+          580,
+          284,
+          604
+        ],
+        "pos": [
+          1394,
+          1396
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          43,
+          615,
+          283,
+          637
+        ],
+        "pos": [
+          1396,
+          1509
+        ]
+      },
+      {
+        "index": 13,
+        "class": "formula",
+        "bbox": [
+          94,
+          648,
+          232,
+          718
+        ],
+        "pos": [
+          1509,
+          1511
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          306,
+          72,
+          546,
+          86
+        ],
+        "pos": [
+          1511,
+          1584
+        ]
+      },
+      {
+        "index": 15,
+        "class": "text",
+        "bbox": [
+          306,
+          97,
+          547,
+          119
+        ],
+        "pos": [
+          1584,
+          1699
+        ]
+      },
+      {
+        "index": 16,
+        "class": "formula",
+        "bbox": [
+          347,
+          134,
+          546,
+          145
+        ],
+        "pos": [
+          1699,
+          1701
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          306,
+          160,
+          546,
+          181
+        ],
+        "pos": [
+          1701,
+          1820
+        ]
+      },
+      {
+        "index": 18,
+        "class": "formula",
+        "bbox": [
+          310,
+          196,
+          546,
+          219
+        ],
+        "pos": [
+          1820,
+          1822
+        ]
+      },
+      {
+        "index": 19,
+        "class": "text",
+        "bbox": [
+          306,
+          221,
+          547,
+          251
+        ],
+        "pos": [
+          1822,
+          1979
+        ]
+      },
+      {
+        "index": 20,
+        "class": "text",
+        "bbox": [
+          306,
+          265,
+          547,
+          361
+        ],
+        "pos": [
+          1979,
+          2470
+        ]
+      },
+      {
+        "index": 21,
+        "class": "section-header",
+        "bbox": [
+          306,
+          376,
+          470,
+          386
+        ],
+        "pos": [
+          2470,
+          2515
+        ]
+      },
+      {
+        "index": 22,
+        "class": "text",
+        "bbox": [
+          306,
+          387,
+          547,
+          429
+        ],
+        "pos": [
+          2515,
+          2710
+        ]
+      },
+      {
+        "index": 23,
+        "class": "formula",
+        "bbox": [
+          306,
+          445,
+          546,
+          513
+        ],
+        "pos": [
+          2710,
+          2712
+        ]
+      },
+      {
+        "index": 24,
+        "class": "text",
+        "bbox": [
+          306,
+          526,
+          547,
+          645
+        ],
+        "pos": [
+          2712,
+          3304
+        ]
+      },
+      {
+        "index": 25,
+        "class": "section-header",
+        "bbox": [
+          306,
+          663,
+          546,
+          682
+        ],
+        "pos": [
+          3304,
+          3370
+        ]
+      },
+      {
+        "index": 26,
+        "class": "text",
+        "bbox": [
+          306,
+          699,
+          546,
+          720
+        ],
+        "pos": [
+          3370,
+          3489
+        ]
+      },
+      {
+        "index": 27,
+        "class": "page-footer",
+        "bbox": [
+          290,
+          750,
+          296,
+          758
+        ],
+        "pos": [
+          3489,
+          3493
+        ]
+      }
+    ],
+    "text": "cedure to determine an outer-bounding polytope S as the intersection of a pre-specified number of half-spaces Hj , where each half-space Hj is added to the description of S so to minimize the volume of the polytope including M. This allows us to solve the set-membership estimation problem for polynomial non-linear systems very efficiently and through convex optimization. \n\nFinally, by means of a numerical example involving the Lotka Volterra prey-predator model, we show the effectiveness of our approach. \n\n# **2 Problem Description** \n\nConsider an uncertain non-linear discrete-time dynamical system described by the difference equations: \n\n\n\nwhere x(k) = [x1(k), . . . , xn(k)]<sup>⊤</sup> ∈ R<sup>n</sup> is the state of the system at the time k, y(k) ∈ R<sup>m</sup> is the measured output vector, w(k − 1) ∈ R<sup>n</sup> is the process noise and v(k) ∈ R<sup>m</sup> is the measurement noise. In this paper, we consider polynomial non-linearities ad(x(k), k) and cd(x(k), k), i.e., \n\n\n\nwith \n\n\n\nbeing the vector of all monomials of degrees less than or equal to d, which has dimension s(d) = �n+d d�, and Ak−1 ∈ R<sup>n×s(d)</sup> , Ck ∈ R<sup>m×s(d)</sup> are known time-variant coefficient matrices. The resulting system will be referred in the paper as uncertain time-variant polynomial system of degree d. \n\n**Example 1** _Let us consider the discrete-time polynomial system:_ \n\n\n\n_The output equation is given by:_ y(k) = x1(k) + x2(k) + v(k) _. We can rewrite this system as in (2a)–(2b):_ \n\n\n\n_and therefore_ n = 2 _,_ m = 1 _,_ d = 2 _and_ s(d) = �n+d d� = 6 _._ \n\nWe further assume that the only available information about the initial state x(0) and the noises w(k), v(k) is: \n\n\n\nwhere X0, Wk, Vk are compact basic semi-algebraic sets, i.e., compact sets described by the polynomial inequalities: \n\n\n\nwhere h<sup>w</sup> i<sup>(withi=1, . . . , tw,tw∈N)arepolynomial</sup> functions in the variable w(k). The sets X0, Vk are described in a similar manner. \n\nThis paper addresses a set-membership filtering problem, which aims at recursively estimating, at each time sample k = 1, 2, . . . , To, (an outer approximation of) the state uncertainty set Xk, defined as the set of all values x(k) compatible with the available information, namely the system equations (1), the bounds on the initial state and on the noises (4), and the output observations y(1), y(2), . . . , y(To). Formally, the set-membership filtering problem is defined as follows. \n\n# **Problem 1 [Set-membership filtering]** \n\nGiven the system equations (1), the observations, the bounding sets for the noises Wk, Vk and the initial state uncertainty set X0, compute recursively the state uncertainty set Xk defined as: \n\n\n\nNote that, in general, the sets Xk might be nonconvex and their representation can become more and more complicated as the time index k increases. Under the assumption that Xk is bounded, algorithms for computing simple sets (e.g., boxes, parallelotopes, zonotops or ellipsoidal regions) outerbounding the state uncertainty sets Xk have been then proposed to reduce this complexity. After formulating the setmembership filtering problem in a probabilistic setting, this paper presents an algorithm for computing (an approximation of) the minimum-volume polytope outer-bounding the sets Xk. \n\n# **3 A probabilistic framework for set-membership estimation** \n\nSet-membership estimation is usually formulated in the context of set-valued calculus. We will show in the following \n\n3 \n\n"
+  }
+}

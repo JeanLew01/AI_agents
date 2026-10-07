@@ -1,0 +1,136 @@
+{
+  "page": 15,
+  "width": 484.70001220703125,
+  "height": 697.2999877929688,
+  "mode": "native",
+  "preview": "previews/page-0015.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220/400 dpi crops (no TeX). Header omitted. First item continues the paragraph begun on page 13 ('... where IG is the inverse' / 'gamma distribution ...'): join_previous=space; because the full-page Fig. 5 (page 14) lies in between, plan.json reading_order must place p0014-b001/b002 outside this paragraph (see report). Inline maths in LaTeX; '0:01' extraction damage fixed to 0.01; superscripts sigma_V^{(0)}, sigma_V^{(i)} restored; '50 000' and '10 000' are printed with thin spaces, written 50000 and 10000. Paragraph 'The second model ...' had glued words in the text layer: respaced. '### 3.2. Lévy-driven stochastic volatility model'. The two formula images were transcribed as LaTeX displays: the unnumbered SDE is printed 'dy*(t) = mu + beta sigma^2(t) dt + sigma(t) dB(t)' without braces around 'mu + beta sigma^2(t)' (kept exactly as printed), and equation (16) with \\tag{16}. Printed typo 'Ornstein–Unlenbeck' kept. Last item ends 'We define the integrated volatility' and leads into the display at the top of page 16.",
+  "warnings": [
+    "Review possible header/footer: p0015-b000"
+  ],
+  "items": [
+    {
+      "id": "p0015-b000",
+      "kind": "omit",
+      "bbox": [
+        232.0,
+        39.0,
+        444.0,
+        47.0
+      ],
+      "markdown": "_Particle Markov Chain Monte Carlo Methods_ 283",
+      "source_class": "page-header",
+      "reason": "Running header: journal running title and page number 283."
+    },
+    {
+      "id": "p0015-b001",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        54.0,
+        444.0,
+        210.0
+      ],
+      "markdown": "gamma distribution and $a = b = 0.01$. We simulated $T = 500$ observations with $\\sigma_V^2 = 10$ and $\\sigma_W^2 = 1$. To sample from $p(\\theta, x_{1:T}|y_{1:T})$, we used the PMMH sampler and the PG sampler using for the SMC proposal the prior and stratified resampling with $N = 5000$ particles. The PMMH sampler uses a normal random-walk proposal with a diagonal covariance matrix. The standard deviation was equal to 0.15 for $\\sigma_V$ and 0.08 for $\\sigma_W$. We also compared these algorithms with a standard algorithm where we update the state variables $X_{1:T}$ one at a time by using an MH step of invariant distribution $p_\\theta(x_n|y_n, x_{n-1}, x_{n+1})$ and proposal density $f_\\theta(x_n|x_{n-1})$. In the one at a time algorithm, we updated the state variables $N$ times at each iteration before updating $\\theta$. Hence all the algorithms have approximately the same computational complexity. All the simulations that are presented here are initialized by using $\\sigma_V^{(0)} = \\sigma_W^{(0)} = 10$. We ran the algorithms for 50000 iterations with a burn-in of 10000 iterations. In Fig. 4, we display the estimates of the marginal posterior densities for $\\sigma_V$ and $\\sigma_W$, a scatter plot of the sampled values $(\\sigma_V^{(i)}, \\sigma_W^{(i)})$ and the trace plots that are associated with these two parameters.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0015-b002",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        212.0,
+        444.0,
+        317.0
+      ],
+      "markdown": "For this data set the MH one at a time update appears to mix well as the auto-correlation functions (ACFs) for the parameters $(\\sigma_V, \\sigma_W)$ (which are not shown here) decrease to zero reasonably fast. However, this algorithm tends to become trapped in a local mode of the multimodal posterior distribution. This occurred on most runs when using initializations from the prior for $X_{1:T}$ and results in an overestimation of the true value of $\\sigma_V$. Using the same initial values, the PMMH and the PG samplers never became trapped in this local mode. In practice, we can obviously combine both strategies by only occasionally updating the state variables with a PG update to avoid such traps while using more standard and cheaper updates for a large proportion of the computational time.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0015-b003",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        319.0,
+        444.0,
+        389.0
+      ],
+      "markdown": "We present in Fig. 5 the ACF for $(\\sigma_V, \\sigma_W)$ for the PG and PMMH samplers and various numbers of particles $N$. Clearly the performance improves as $N$ increases. In this scenario, it appears necessary to use at least 2000 particles to make the ACF drop sharply, whereas increasing $N$ beyond 5000 does not improve performance, i.e. for $N > 5000$ we observe that the ACFs (which are not presented here) are very similar to $N = 5000$ and probably very close to that of the corresponding idealized MMH algorithm.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0015-b004",
+      "kind": "heading",
+      "bbox": [
+        48.0,
+        411.0,
+        241.0,
+        421.0
+      ],
+      "markdown": "### 3.2. Lévy-driven stochastic volatility model",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0015-b005",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        423.0,
+        444.0,
+        517.0
+      ],
+      "markdown": "The second model that we discuss is a Lévy-driven stochastic volatility model. These models were recently introduced in Barndorff-Nielsen and Shephard (2001a) and have become extremely popular in financial econometrics; see for example Creal (2008), Frühwirth-Schnatter and Sögner (2008), Gander and Stephens (2007) and Roberts *et al.* (2004). However, performing inference for Lévy-driven stochastic volatility models is a challenging task. We demonstrate here that PMCMC methods can be useful in this context. The model can be described as follows. The logarithm of an asset price $y^*(t)$ is assumed to be determined by the stochastic differential equation",
+      "source_class": "text"
+    },
+    {
+      "id": "p0015-b006",
+      "kind": "text",
+      "bbox": [
+        169.0,
+        518.0,
+        323.0,
+        541.0
+      ],
+      "markdown": "$$\\mathrm{d}y^*(t) = \\mu + \\beta\\,\\sigma^2(t)\\,\\mathrm{d}t + \\sigma(t)\\,\\mathrm{d}B(t)$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0015-b007",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        544.0,
+        444.0,
+        579.0
+      ],
+      "markdown": "where $\\mu$ is the drift parameter, $\\beta$ the risk premium and $B(t)$ is a Brownian motion. The instantaneous latent variance or volatility $\\sigma^2(t)$ is assumed to be stationary and independent from $B(t)$. It is modelled by the Lévy-driven Ornstein–Unlenbeck process",
+      "source_class": "text"
+    },
+    {
+      "id": "p0015-b008",
+      "kind": "text",
+      "bbox": [
+        180.0,
+        580.0,
+        449.0,
+        602.0
+      ],
+      "markdown": "$$\\mathrm{d}\\sigma^2(t) = -\\lambda\\,\\sigma^2(t)\\,\\mathrm{d}t + \\mathrm{d}z(\\lambda t) \\tag{16}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0015-b009",
+      "kind": "text",
+      "bbox": [
+        48.0,
+        606.0,
+        444.0,
+        629.0
+      ],
+      "markdown": "where $\\lambda > 0$ and $z(t)$ is a purely non-Gaussian Lévy process with positive increments and $z(0) = 0$. We define the integrated volatility",
+      "source_class": "text"
+    }
+  ]
+}
