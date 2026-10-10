@@ -44,16 +44,8 @@ Each run lives in `sessions/<date>_<slug>/` with `brief.md`, `cards/`, `ideas/`,
 Start a new Claude Code session, then ask, for example:
 
 ```text
-用 research-brainstorm：结合 NMPC、粒子滤波和可达性论文智能体，改进 ~/overleaf_project/Jixian_TRO_2027 的想法
-Brainstorm with my paper agents how to put reachability verification inside the diffusion process of DIAL-MPC.
+use research-brainstorm: combine NMPC, PF, and Reachability's agents，improve ~/overleaf_project/XXX's ideas. Brainstorm with my paper agents how to put reachability verification inside the diffusion process of DIAL-MPC.
 ```
 
 The skill also works before installation: the orchestrator falls back to `general-purpose` agents and passes them
 the agent files as instructions.
-
-## Sessions
-
-| Session | Question | Outcome |
-|---|---|---|
-| `sessions/2026-10-06_tro2027-diffusion-control/` | Improve the diffusion-control + reachability idea of the TRO 2027 project | loop-law annealing; later judged useless by the user after review and audit; see `report.md` |
-| `sessions/2026-10-07_tro2027-rerun/` | Rerun after the user rejected loop-law annealing; definitions-first cards | no idea survived; common cause = PREDICT generator fidelity / centre-based sets lose to a smooth density in 12-D; see `report.md` |
