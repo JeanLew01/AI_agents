@@ -1,0 +1,1626 @@
+{
+  "page": 21,
+  "lines": [
+    {
+      "text": "Algorithm 5 Low-confidence Remasking Strategy of LLaDA",
+      "bbox": [
+        107.64099884033203,
+        74.77980041503906,
+        353.0994873046875,
+        83.80591583251953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Require: mask predictor pθ, prompt p0, answer length L, sampling steps N",
+      "bbox": [
+        108.0,
+        90.13697814941406,
+        411.9613342285156,
+        99.89796447753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: Set r1 is a fully masked sequence of length L.",
+      "bbox": [
+        112.97898864746094,
+        101.04597473144531,
+        308.26593017578125,
+        111.60596466064453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: for t ←1 down to 1",
+      "bbox": [
+        112.97900390625,
+        110.1062240600586,
+        209.61407470703125,
+        120.95120239257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N step 1",
+      "bbox": [
+        204.0959930419922,
+        110.1062240600586,
+        241.20005798339844,
+        124.38717651367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N do",
+      "bbox": [
+        235.6820068359375,
+        111.99482727050781,
+        256.9465026855469,
+        124.38717651367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        112.97900390625,
+        125.63880157470703,
+        119.95486450195312,
+        133.65475463867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s = t −1",
+      "bbox": [
+        134.8987579345703,
+        122.9552230834961,
+        175.341064453125,
+        133.6507568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N",
+      "bbox": [
+        169.82200622558594,
+        130.31320190429688,
+        176.13330078125,
+        136.5059356689453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4:",
+      "bbox": [
+        112.97900390625,
+        136.54779052734375,
+        119.95486450195312,
+        144.56375122070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for i ←1 to L do",
+      "bbox": [
+        134.8987579345703,
+        135.15505981445312,
+        206.31065368652344,
+        144.7789306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5:",
+      "bbox": [
+        112.97900390625,
+        147.456787109375,
+        119.95486450195312,
+        155.47274780273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "if ri",
+      "bbox": [
+        144.86135864257812,
+        145.08016967773438,
+        161.02841186523438,
+        155.61819458007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t̸ = M then",
+      "bbox": [
+        157.9340057373047,
+        146.6219024658203,
+        204.98226928710938,
+        157.93170166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6:",
+      "bbox": [
+        112.97901153564453,
+        158.36572265625,
+        119.95487213134766,
+        166.38168334960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ri",
+      "bbox": [
+        154.823974609375,
+        155.99014282226562,
+        162.41342163085938,
+        166.377685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 = ri",
+      "bbox": [
+        159.3190155029297,
+        155.99014282226562,
+        184.66043090820312,
+        168.8507080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t, ci = 1",
+      "bbox": [
+        181.5670166015625,
+        153.91590881347656,
+        216.038818359375,
+        168.26087951660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7:",
+      "bbox": [
+        112.97901916503906,
+        169.27471923828125,
+        119.95487976074219,
+        177.29067993164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "else",
+      "bbox": [
+        144.86138916015625,
+        168.47975158691406,
+        160.35325622558594,
+        177.43612670898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8:",
+      "bbox": [
+        112.97901916503906,
+        180.1837158203125,
+        119.95487976074219,
+        188.19967651367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ri",
+      "bbox": [
+        154.823974609375,
+        177.80813598632812,
+        162.41343688964844,
+        188.1956787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 = arg maxri",
+      "bbox": [
+        159.31903076171875,
+        179.34889221191406,
+        217.85105895996094,
+        190.668701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 pθ(ri",
+      "bbox": [
+        214.97604370117188,
+        177.80813598632812,
+        242.00643920898438,
+        192.649658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|p0, rt)",
+      "bbox": [
+        238.9120330810547,
+        178.79098510742188,
+        271.93646240234375,
+        190.08888244628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9:",
+      "bbox": [
+        112.97900390625,
+        193.86370849609375,
+        119.95486450195312,
+        201.87966918945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ci = pθ(ri",
+      "bbox": [
+        154.82395935058594,
+        189.41285705566406,
+        196.7194061279297,
+        202.7898712158203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|p0, rt)ri",
+      "bbox": [
+        193.625,
+        192.47091674804688,
+        233.2220001220703,
+        203.76881408691406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0",
+      "bbox": [
+        230.34698486328125,
+        200.93885803222656,
+        233.7392578125,
+        205.36224365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10:",
+      "bbox": [
+        108.49598693847656,
+        206.17767333984375,
+        119.95504760742188,
+        214.19363403320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end if",
+      "bbox": [
+        144.86154174804688,
+        205.38270568847656,
+        168.94114685058594,
+        214.33908081054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11:",
+      "bbox": [
+        108.49598693847656,
+        217.086669921875,
+        119.95504760742188,
+        225.10263061523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end for",
+      "bbox": [
+        134.89894104003906,
+        216.2917022705078,
+        165.36456298828125,
+        225.24807739257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12:",
+      "bbox": [
+        108.49598693847656,
+        227.99566650390625,
+        119.95504760742188,
+        236.01162719726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nun = ⌊L(1 −s)⌋",
+      "bbox": [
+        134.89894104003906,
+        226.60293579101562,
+        209.5107879638672,
+        237.50164794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "# the number of unmasked tokens is nun in timestep s",
+      "bbox": [
+        285.5652770996094,
+        227.1608428955078,
+        501.5118713378906,
+        237.7208251953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "13:",
+      "bbox": [
+        108.4959716796875,
+        238.9046630859375,
+        119.95503234863281,
+        246.92062377929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for i ←1 to L do",
+      "bbox": [
+        134.89892578125,
+        237.51193237304688,
+        206.31082153320312,
+        247.13580322265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "14:",
+      "bbox": [
+        108.4959716796875,
+        249.81365966796875,
+        119.95503234863281,
+        257.8296203613281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "if ci ∈Lowest −nun",
+      "bbox": [
+        144.86154174804688,
+        244.80593872070312,
+        230.11180114746094,
+        258.73980712890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0000",
+      "bbox": [
+        232.2749786376953,
+        247.42437744140625,
+        236.8378448486328,
+        253.80043029785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "{ci}L",
+      "bbox": [
+        236.84097290039062,
+        247.43807983398438,
+        259.8994445800781,
+        257.82562255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        254.43197631835938,
+        253.52609252929688,
+        258.40704345703125,
+        259.71881103515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\u0001",
+      "bbox": [
+        260.3959655761719,
+        247.42437744140625,
+        264.9588317871094,
+        253.80043029785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "then",
+      "bbox": [
+        267.4529724121094,
+        249.01869201660156,
+        286.2723388671875,
+        257.9750671386719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "15:",
+      "bbox": [
+        108.4959716796875,
+        262.52667236328125,
+        119.95503234863281,
+        270.5426330566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ri",
+      "bbox": [
+        154.82412719726562,
+        260.1510925292969,
+        162.41339111328125,
+        270.53863525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 = M",
+      "bbox": [
+        159.31898498535156,
+        261.6918640136719,
+        185.93324279785156,
+        273.01165771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "# the nun positions with the least confidence are selected for remasking.",
+      "bbox": [
+        217.92315673828125,
+        261.6918640136719,
+        505.74542236328125,
+        272.2528076171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "16:",
+      "bbox": [
+        108.49598693847656,
+        273.4356689453125,
+        119.95504760742188,
+        281.4516296386719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end if",
+      "bbox": [
+        144.86154174804688,
+        272.64068603515625,
+        168.94114685058594,
+        281.5970764160156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "17:",
+      "bbox": [
+        108.49598693847656,
+        284.34466552734375,
+        119.95504760742188,
+        292.3606262207031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end for",
+      "bbox": [
+        134.89894104003906,
+        283.5496826171875,
+        165.36456298828125,
+        292.5060729980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "18:",
+      "bbox": [
+        108.49598693847656,
+        295.253662109375,
+        119.95504760742188,
+        303.2696228027344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rs = r0",
+      "bbox": [
+        134.89894104003906,
+        294.4188537597656,
+        165.40504455566406,
+        304.7606201171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "19: end for",
+      "bbox": [
+        108.49597930908203,
+        305.3686828613281,
+        155.40196228027344,
+        314.3250732421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "20: Return r0",
+      "bbox": [
+        108.49597930908203,
+        316.23785400390625,
+        166.18304443359375,
+        325.998779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Formally, the mask predictor is trained using a cross-entropy loss with masking:",
+      "bbox": [
+        108.0,
+        351.7643737792969,
+        426.992431640625,
+        360.6709289550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L(θ) ≜−Et,x0,xt",
+      "bbox": [
+        200.01998901367188,
+        378.89105224609375,
+        270.742431640625,
+        389.82037353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\"",
+      "bbox": [
+        273.3979797363281,
+        368.9284973144531,
+        279.2061767578125,
+        375.3045654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        280.40496826171875,
+        372.7089538574219,
+        285.3862609863281,
+        381.55572509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t",
+      "bbox": [
+        281.09698486328125,
+        386.282958984375,
+        284.6934814453125,
+        395.1297302246094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        292.7039794921875,
+        369.0701904296875,
+        298.17144775390625,
+        375.2629089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        288.2419738769531,
+        376.49951171875,
+        302.637939453125,
+        382.8755798339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        288.9839782714844,
+        393.2781982421875,
+        301.8924865722656,
+        399.4709167480469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1[xi",
+      "bbox": [
+        304.29296875,
+        377.4101867675781,
+        320.5533752441406,
+        388.4451904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t = M] log pθ(xi",
+      "bbox": [
+        317.7359619140625,
+        377.41015625,
+        384.245361328125,
+        390.75872802734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|xt)",
+      "bbox": [
+        381.4279479980469,
+        378.8909912109375,
+        401.74139404296875,
+        390.1788635253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "#",
+      "bbox": [
+        401.7409362792969,
+        368.9284362792969,
+        407.54913330078125,
+        375.30450439453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        409.21295166015625,
+        379.44891357421875,
+        411.9825439453125,
+        388.2956848144531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(12)",
+      "bbox": [
+        488.0669250488281,
+        379.6083068847656,
+        504.6645812988281,
+        388.5148620605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where x0 is sampled from the training data, t is sampled uniformly from [0, 1], and xt is sampled",
+      "bbox": [
+        107.64099884033203,
+        407.14398193359375,
+        504.0033264160156,
+        417.70391845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from qt|0(xt|x0). The indicator function 1[·] ensures that the cross-entropy loss is computed only for",
+      "bbox": [
+        108.0,
+        417.49505615234375,
+        504.1667175292969,
+        428.1189270019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "masked tokens. In Shi et al. [18], Sahoo et al. [19], Ou et al. [20], it has been proven that the loss",
+      "bbox": [
+        108.0,
+        429.1213684082031,
+        503.9950256347656,
+        438.0279235839844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "function L(θ) is an upper bound on the negative log-likelihood of the model distribution:",
+      "bbox": [
+        108.0,
+        439.31304931640625,
+        462.3494873046875,
+        448.9369201660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−Ex0∼pdata(x0) [log pθ(x0)] ≤L(θ).",
+      "bbox": [
+        235.78298950195312,
+        456.69805908203125,
+        376.2223205566406,
+        469.4593811035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(13)",
+      "bbox": [
+        488.0823974609375,
+        457.4153747558594,
+        504.6800537109375,
+        466.3219299316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In summary, this principled approach trains a generative model by progressively masking tokens",
+      "bbox": [
+        108.0,
+        475.96435546875,
+        503.997314453125,
+        484.87091064453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "during a forward process and learning to recover the data distribution during a reverse process, all",
+      "bbox": [
+        108.0,
+        486.87335205078125,
+        503.9974060058594,
+        495.7799072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "under the (approximate) maximum likelihood estimation framework.",
+      "bbox": [
+        108.0,
+        497.7833557128906,
+        382.32012939453125,
+        506.6899108886719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A.2",
+      "bbox": [
+        108.0,
+        522.0317993164062,
+        122.66494750976562,
+        530.9881591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Inference",
+      "bbox": [
+        132.62754821777344,
+        522.0317993164062,
+        172.83663940429688,
+        530.9881591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The cross-entropy loss in Eq. (12) has several equivalent forms [20]. The first one is given by",
+      "bbox": [
+        107.69100189208984,
+        542.1263427734375,
+        479.32586669921875,
+        551.0328979492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−El∼{1,2,...,L},x0,xl",
+      "bbox": [
+        195.3040008544922,
+        569.2530517578125,
+        274.2970275878906,
+        580.54736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\"",
+      "bbox": [
+        276.95501708984375,
+        559.29052734375,
+        282.7632141113281,
+        565.6665649414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        283.9620056152344,
+        563.0709228515625,
+        290.7465515136719,
+        571.917724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "l",
+      "bbox": [
+        285.76800537109375,
+        576.6449584960938,
+        288.7368469238281,
+        585.4917602539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        298.0610046386719,
+        559.43212890625,
+        303.5284729003906,
+        565.6248779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        293.5979919433594,
+        566.8624877929688,
+        307.99395751953125,
+        573.238525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        294.34100341796875,
+        583.64013671875,
+        307.24951171875,
+        589.8328857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1[xi",
+      "bbox": [
+        309.6490173339844,
+        567.7721557617188,
+        325.909423828125,
+        578.80712890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "l = M] log pθ(xi",
+      "bbox": [
+        323.0920104980469,
+        567.7721557617188,
+        389.41143798828125,
+        581.1207275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|xl)",
+      "bbox": [
+        386.5940246582031,
+        569.2530517578125,
+        406.4574890136719,
+        580.5408935546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "#",
+      "bbox": [
+        406.45703125,
+        559.2904663085938,
+        412.2652282714844,
+        565.66650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        413.92901611328125,
+        569.8109130859375,
+        416.6986083984375,
+        578.65771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(14)",
+      "bbox": [
+        488.0706787109375,
+        569.9703369140625,
+        504.6683349609375,
+        578.8768920898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where l is uniformly sampled from {1, 2, . . . , L}, and xl is obtained by uniformly sampling l tokens",
+      "bbox": [
+        107.64099884033203,
+        596.9480590820312,
+        504.0015869140625,
+        608.06591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "from x0 without replacement for masking. Despite masking exactly l tokens is different from masking",
+      "bbox": [
+        108.0,
+        608.4149169921875,
+        503.99554443359375,
+        618.9758911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "each token independently with probability t, these two masking methods lead to equivalent results in",
+      "bbox": [
+        108.0,
+        619.323974609375,
+        504.0049743652344,
+        628.3899536132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "expectation [20].",
+      "bbox": [
+        108.0,
+        630.392333984375,
+        175.3571319580078,
+        639.2988891601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "While Eq. (12) and Eq. (14) share the same expectation, their variances differ. Intuitively, in Eq. (12),",
+      "bbox": [
+        107.53199768066406,
+        646.7813720703125,
+        505.2418212890625,
+        655.6879272460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we expect xt to have a fraction of t tokens masked. However, the randomness of the forward process",
+      "bbox": [
+        107.64099884033203,
+        657.5309448242188,
+        503.99884033203125,
+        668.0909423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(i.e., Eq. (7)) often causes deviations, especially when xt contains few tokens. In contrast, in Eq. (14),",
+      "bbox": [
+        107.6709976196289,
+        668.43994140625,
+        505.2421569824219,
+        678.9999389648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the fraction of masked tokens in xl is deterministically l",
+      "bbox": [
+        108.0,
+        678.5101318359375,
+        335.8355407714844,
+        690.9189453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L. While a theoretical analysis depends on",
+      "bbox": [
+        331.864990234375,
+        680.5183715820312,
+        503.9972839355469,
+        692.0609130859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the data distribution, empirical results show that Eq. (12) requires over 1000 Monte Carlo estimates",
+      "bbox": [
+        108.0,
+        691.4273681640625,
+        504.0033264160156,
+        700.3339233398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for stable results, whereas Eq. (14) achieves stability with only 128 estimates. In addition, we can",
+      "bbox": [
+        108.0,
+        702.3363647460938,
+        503.99725341796875,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simply modify Eq. (14) to its conditional version (i.e., Eq. (6)) based on Eq. (5).",
+      "bbox": [
+        108.0,
+        713.245361328125,
+        426.9028015136719,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "21",
+      "bbox": [
+        301.01898193359375,
+        743.1333618164062,
+        310.9815673828125,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Large Language Diffusion Models",
+      "author": "Shen Nie; Fengqi Zhu; Zebin You; Xiaolu Zhang; Jingyang Ou; Jun Hu; Jun Zhou; Yankai Lin; Ji-Rong Wen; Chongxuan Li",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:e76afa9)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Diffusion/paper-review/llada-paper/documents/.pdf-skill-scan-wvzsbc47/review/source.pdf",
+      "page_count": 33,
+      "page_number": 21
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          107,
+          74,
+          354,
+          84
+        ],
+        "pos": [
+          0,
+          61
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          108,
+          90,
+          506,
+          325
+        ],
+        "pos": [
+          61,
+          1183
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          108,
+          351,
+          427,
+          361
+        ],
+        "pos": [
+          1183,
+          1266
+        ]
+      },
+      {
+        "index": 3,
+        "class": "formula",
+        "bbox": [
+          200,
+          368,
+          505,
+          399
+        ],
+        "pos": [
+          1266,
+          1268
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          107,
+          406,
+          505,
+          450
+        ],
+        "pos": [
+          1268,
+          1697
+        ]
+      },
+      {
+        "index": 5,
+        "class": "formula",
+        "bbox": [
+          235,
+          456,
+          505,
+          469
+        ],
+        "pos": [
+          1697,
+          1699
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          108,
+          475,
+          504,
+          507
+        ],
+        "pos": [
+          1699,
+          1962
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          108,
+          522,
+          173,
+          530
+        ],
+        "pos": [
+          1962,
+          1984
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          107,
+          542,
+          480,
+          552
+        ],
+        "pos": [
+          1984,
+          2082
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          195,
+          559,
+          505,
+          590
+        ],
+        "pos": [
+          2082,
+          2084
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          107,
+          596,
+          505,
+          640
+        ],
+        "pos": [
+          2084,
+          2432
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          107,
+          646,
+          506,
+          723
+        ],
+        "pos": [
+          2432,
+          3162
+        ]
+      },
+      {
+        "index": 12,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          743,
+          311,
+          750
+        ],
+        "pos": [
+          3162,
+          3167
+        ]
+      }
+    ],
+    "text": "**Algorithm 5** Low-confidence Remasking Strategy of LLaDA \n\n**Require:** mask predictor _pθ_ , prompt _p_ 0, answer length _L_ , sampling steps _N_ 1: Set _r_ 1 is a fully masked sequence of length _L_ . 2: **for** _t ←_ 1 **down to** _N_<sup><u>1</u></sup><sup>**step**</sup> _N_<sup><u>1</u></sup><sup>**do**</sup> 3: _s_ = _t −_<sup><u>1</u></sup> _N_ 4: **for** _i ←_ 1 to _L_ **do** 5: **if** _rt_<sup>_i_</sup> _̸_<sup>= M</sup><sup>**then**</sup> 6: _r_ 0<sup>_i_=</sup><sup>_r_</sup> _t_<sup>_i_,</sup><sup>_ci_= 1</sup> 7: **else** 8: _r_ 0<sup>_i_= arg max</sup> _r_ 0<sup>_ipθ_(</sup><sup>_r_</sup> 0<sup>_i|p_0</sup><sup>_, rt_)</sup> 9: _c_<sup>_i_</sup> = _pθ_ ( _r_ 0<sup>_i|p_0</sup><sup>_, rt_)</sup> _r_ 0<sup>_i_</sup> 10: **end if** 11: **end for** 12: _nun_ = _⌊L_ (1 _− s_ ) _⌋_ # the number of unmasked tokens is _nun_ in timestep _s_ 13: **for** _i ←_ 1 to _L_ **do** 14: **if** _c_<sup>_i_</sup> _∈_ Lowest _− nun_ � _{c_<sup>_i_</sup> _}_ 1<sup>_L_</sup> � **then** 15: _r_ 0<sup>_i_= M</sup> # the _nun_ positions with the least confidence are selected for remasking. 16: **end if** 17: **end for** 18: _rs_ = _r_ 0 19: **end for** 20: **Return** _r_ 0 \n\nFormally, the mask predictor is trained using a cross-entropy loss with masking: \n\n\n\nwhere _x_ 0 is sampled from the training data, _t_ is sampled uniformly from [0 _,_ 1], and _xt_ is sampled from _qt|_ 0( _xt|x_ 0). The indicator function **1** [ _·_ ] ensures that the cross-entropy loss is computed only for masked tokens. In Shi et al. [18], Sahoo et al. [19], Ou et al. [20], it has been proven that the loss function _L_ ( _θ_ ) is an upper bound on the negative log-likelihood of the model distribution: \n\n\n\nIn summary, this principled approach trains a generative model by progressively masking tokens during a forward process and learning to recover the data distribution during a reverse process, all under the (approximate) maximum likelihood estimation framework. \n\n# **A.2 Inference** \n\nThe cross-entropy loss in Eq. (12) has several equivalent forms [20]. The first one is given by \n\n\n\nwhere _l_ is uniformly sampled from _{_ 1 _,_ 2 _, . . . , L}_ , and _xl_ is obtained by uniformly sampling _l_ tokens from _x_ 0 without replacement for masking. Despite masking exactly _l_ tokens is different from masking each token independently with probability _t_ , these two masking methods lead to equivalent results in expectation [20]. \n\nWhile Eq. (12) and Eq. (14) share the same expectation, their variances differ. Intuitively, in Eq. (12), we expect _xt_ to have a fraction of _t_ tokens masked. However, the randomness of the forward process (i.e., Eq. (7)) often causes deviations, especially when _xt_ contains few tokens. In contrast, in Eq. (14), the fraction of masked tokens in _xl_ is deterministically _L_<sup>_<u>l</u>_.While a theoretical analysis depends on</sup> the data distribution, empirical results show that Eq. (12) requires over 1000 Monte Carlo estimates for stable results, whereas Eq. (14) achieves stability with only 128 estimates. In addition, we can simply modify Eq. (14) to its conditional version (i.e., Eq. (6)) based on Eq. (5). \n\n21 \n\n"
+  }
+}

@@ -1,0 +1,910 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. We introduce Diffusion Model Predictive Control (D-MPC), combining multi-step action proposals",
+      "bbox": [
+        95.13500213623047,
+        83.85389709472656,
+        540.1814575195312,
+        93.81649780273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and dynamics models using diffusion models for online MPC.",
+      "bbox": [
+        107.86499786376953,
+        95.80995178222656,
+        375.20135498046875,
+        105.77255249023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. We show D-MPC outperforms existing model-based offline planning methods on D4RL benchmarks,",
+      "bbox": [
+        95.13499450683594,
+        116.08491516113281,
+        541.5489501953125,
+        126.04757690429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and is competitive with SOTA reinforcement learning approaches.",
+      "bbox": [
+        107.86499786376953,
+        128.04090881347656,
+        396.0331726074219,
+        138.00350952148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3. We demonstrate D-MPC can optimize novel reward functions at runtime with a simple sampling-based",
+      "bbox": [
+        95.13499450683594,
+        148.31690979003906,
+        540.1761474609375,
+        158.27951049804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planner, and adapt to novel dynamics through fine-tuning.",
+      "bbox": [
+        107.86499786376953,
+        160.2719268798828,
+        363.80419921875,
+        170.23452758789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4. Through ablations, we validate the benefits of our method’s key components individually and in",
+      "bbox": [
+        95.13499450683594,
+        180.5479278564453,
+        540.19873046875,
+        190.51052856445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "combination.",
+      "bbox": [
+        107.86499786376953,
+        192.50294494628906,
+        164.0640106201172,
+        202.46554565429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        72.0,
+        220.86911010742188,
+        78.57536315917969,
+        231.48532104492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Related work",
+      "bbox": [
+        91.72608184814453,
+        220.86911010742188,
+        163.15841674804688,
+        231.48532104492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Related work can be structured hierarchically as in Table 1. Model-based methods postulate a particular",
+      "bbox": [
+        72.0,
+        245.67591857910156,
+        540.43115234375,
+        255.63851928710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics model, whereas model-free methods, whether more traditional —behavioral cloning (BC), con-",
+      "bbox": [
+        72.0,
+        257.63092041015625,
+        541.843505859375,
+        267.5935363769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "servative Q learning (CQL) (Kumar et al., 2020), implicit Q-learning (IQL) (Kostrikov et al., 2021), etc—",
+      "bbox": [
+        72.0,
+        269.5859375,
+        542.1433715820312,
+        279.5485534667969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "or diffusion based — diffusion policy (DP) (Chi et al., 2023), diffusion BC (DBC) (Pearce et al., 2023)—",
+      "bbox": [
+        72.0,
+        281.5408935546875,
+        542.1380615234375,
+        291.5035095214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simply learn a policy. This can be done either by regressing directly from expert data or with some variant of",
+      "bbox": [
+        72.0,
+        293.49591064453125,
+        540.2212524414062,
+        303.4585266113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Q-leaning. Model-based approaches can be further divided according to how they use the model: Dyna-style",
+      "bbox": [
+        72.0,
+        305.4508972167969,
+        540.2291259765625,
+        315.41351318359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Sutton, 1991) approaches use it to learn a policy, either online or offline, which they can use at runtime,",
+      "bbox": [
+        70.83399963378906,
+        317.40692138671875,
+        541.6021728515625,
+        327.3695373535156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "whereas MPC-style approaches use the full model at runtime for planning, possibly with the guidance of a",
+      "bbox": [
+        71.64099884033203,
+        329.3619079589844,
+        540.2271728515625,
+        339.32452392578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposal distribution.2",
+      "bbox": [
+        72.0,
+        340.8670349121094,
+        169.9490966796875,
+        351.2795104980469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "It is possible to model the dynamics of the model and the proposal jointly using pj(s, a) or as factorized",
+      "bbox": [
+        72.0,
+        359.2499084472656,
+        540.036865234375,
+        370.06689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "distribution pd(s|a)ρ(a). The latter allows for extra flexibility, since both pieces can be fine-tuned or even",
+      "bbox": [
+        72.0,
+        371.20489501953125,
+        540.2017822265625,
+        382.0218811035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "re-learned independently. Finally, we can categorize these models as either single-step (SS) or multi-step",
+      "bbox": [
+        72.0,
+        383.159912109375,
+        540.2481079101562,
+        393.1225280761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(MS). SS methods model the dynamics as pd(st+1|ht, at+1) (where ht = (st−H:t, at−H:t) is the history of",
+      "bbox": [
+        70.83399963378906,
+        395.1148986816406,
+        540.0401611328125,
+        406.572509765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "length H), and the proposal as ρ(at|ht), so we predict (a distribution over) the next time step, conditioned",
+      "bbox": [
+        72.0,
+        407.0699157714844,
+        540.1566772460938,
+        417.8879089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on past observations (and the next action, for the dynamics).",
+      "bbox": [
+        72.0,
+        419.0259094238281,
+        356.73516845703125,
+        428.988525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We extend this to the whole planning",
+      "bbox": [
+        365.12884521484375,
+        419.0259094238281,
+        540.2074584960938,
+        428.988525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "horizon of length F by composing it in an autoregressive form, as a product of one-step conditionals,",
+      "bbox": [
+        72.0,
+        430.98089599609375,
+        541.5471801757812,
+        440.9435119628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i.e., pd(st+1:t+F |s1:t, a1:t+F −1) = Qt+F −1",
+      "bbox": [
+        72.0,
+        440.6666564941406,
+        254.38809204101562,
+        456.8835754394531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t",
+      "bbox": [
+        228.94200134277344,
+        449.05517578125,
+        231.95468139648438,
+        455.2478942871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pd(st+1|st, at, ht). (Note that this might result in compounding",
+      "bbox": [
+        256.54901123046875,
+        442.9359130859375,
+        540.0852661132812,
+        453.7528991699219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "errors, even if ht contains the entire past history, i.e., is non-Markovian.) By contrast, multi-step (MS)",
+      "bbox": [
+        72.0,
+        454.8908996582031,
+        541.3414916992188,
+        466.3475036621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methods model the joint distributions at a trajectory level.",
+      "bbox": [
+        72.0,
+        466.8459167480469,
+        344.4393615722656,
+        476.80853271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Thus the MS dynamics model represents",
+      "bbox": [
+        352.75177001953125,
+        466.8459167480469,
+        540.2278442382812,
+        476.80853271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pd(st+1:t+F |st, ht, at:t+F −1) and the MS proposal represents ρ(at:t+F −1|st, ht).",
+      "bbox": [
+        72.0,
+        478.8009033203125,
+        418.22357177734375,
+        490.19873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Several recent papers follow the SS Dyna framework. Some using traditional dynamics modeling (e.g.,",
+      "bbox": [
+        72.0,
+        496.7339172363281,
+        541.579345703125,
+        506.696533203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MOREL (Kidambi et al., 2020), MOPO (Yu et al., 2020), COMBO (Yu et al., 2021), RAMBO-RL (Rigter",
+      "bbox": [
+        72.0,
+        508.68890380859375,
+        540.2998046875,
+        518.6514892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al., 2022) and Dreamer (Hafner et al., 2020)), and others using diffusion. The latter includes \"Diffusion",
+      "bbox": [
+        72.0,
+        520.6448974609375,
+        540.2008666992188,
+        530.6074829101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for World Modeling\" paper (Alonso et al., 2024) (previously called \"Diffusion World Models” (Alonso et al.,",
+      "bbox": [
+        72.0,
+        532.5999145507812,
+        541.5870971679688,
+        542.5625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2023)), “UniSim” paper (Yang et al., 2024), and the “SynthER” paper (Lu et al., 2024). These are then used",
+      "bbox": [
+        71.7509994506836,
+        544.554931640625,
+        540.1771850585938,
+        554.5175170898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to generate samples from the model at training time in order to train a policy with greater data efficiency than",
+      "bbox": [
+        72.0,
+        556.5098876953125,
+        540.1917724609375,
+        566.4724731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "standard model-free reinforcement learning (RL) methods. Some other recent papers — such as “Diffusion",
+      "bbox": [
+        72.0,
+        568.4649047851562,
+        540.2254638671875,
+        578.427490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "World Model” (Ding et al., 2024), “PolyGRAD” (Rigter et al., 2024) and “Policy-Guided Diffusion” (Jackson",
+      "bbox": [
+        71.49199676513672,
+        580.419921875,
+        540.15234375,
+        590.3825073242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al., 2024) — have proposed to use diffusion for creating joint multi-step (trajectory-level) dynamics models.",
+      "bbox": [
+        72.0,
+        592.3759155273438,
+        542.1346435546875,
+        602.3385009765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, being part of the Dyna framework, they are not able to plan at run-time, like D-MPC does.",
+      "bbox": [
+        72.0,
+        604.3309326171875,
+        516.1425170898438,
+        614.2935180664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "There are many papers with a model-based approach. Probably the closest to our work is “Diffuser” (Janner",
+      "bbox": [
+        71.64099884033203,
+        622.262939453125,
+        540.3943481445312,
+        632.2255249023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al., 2022), which uses diffusion to fit a joint (state, action) multi-step model pj(s1:T , a1:T ) using offline",
+      "bbox": [
+        72.0,
+        634.2188720703125,
+        540.0226440429688,
+        645.6754760742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trajectory data. They then use classifier-guidance to steer the sampling process to generate joint sequences",
+      "bbox": [
+        72.0,
+        646.1738891601562,
+        540.2705078125,
+        656.136474609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that optimize a novel reward at test time. The main difference to our method is that we represent the joint",
+      "bbox": [
+        72.0,
+        658.12890625,
+        540.46630859375,
+        668.0914916992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as a product of two models, the dynamics pd(s1:T |a1:T ) and the policy / action proposal, ρ(a1:T ). As we",
+      "bbox": [
+        72.0,
+        670.0839233398438,
+        540.0114135742188,
+        681.5404663085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "show in Section 4.3, this factorization allows us to easily adapt to changes in the world (e.g., due to hardware",
+      "bbox": [
+        72.0,
+        682.0389404296875,
+        540.20166015625,
+        692.0015258789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "defects) from a small amount of new data, whereas Diffuser struggles in this context. In addition, we propose",
+      "bbox": [
+        72.0,
+        693.993896484375,
+        540.2013549804688,
+        703.9564819335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2Note that a proposal distribution (which we denote by ρ(a)) is different than a policy (which we denote by π(a)), since",
+      "bbox": [
+        83.09200286865234,
+        713.4653930664062,
+        539.9868774414062,
+        721.990966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rather than determining the next best action directly, it helps accelerate the search for one.",
+      "bbox": [
+        72.0,
+        723.4859008789062,
+        411.2792663574219,
+        731.4559936523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        303.385009765625,
+        751.7799072265625,
+        308.3663024902344,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "list-item",
+        "bbox": [
+          95,
+          83,
+          541,
+          106
+        ],
+        "pos": [
+          74,
+          233
+        ]
+      },
+      {
+        "index": 2,
+        "class": "list-item",
+        "bbox": [
+          95,
+          116,
+          542,
+          139
+        ],
+        "pos": [
+          233,
+          394
+        ]
+      },
+      {
+        "index": 3,
+        "class": "list-item",
+        "bbox": [
+          95,
+          149,
+          541,
+          171
+        ],
+        "pos": [
+          394,
+          554
+        ]
+      },
+      {
+        "index": 4,
+        "class": "list-item",
+        "bbox": [
+          95,
+          180,
+          541,
+          201
+        ],
+        "pos": [
+          554,
+          667
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          72,
+          220,
+          164,
+          230
+        ],
+        "pos": [
+          667,
+          690
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          70,
+          246,
+          543,
+          352
+        ],
+        "pos": [
+          690,
+          1570
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          70,
+          359,
+          542,
+          490
+        ],
+        "pos": [
+          1570,
+          3093
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          71,
+          497,
+          543,
+          615
+        ],
+        "pos": [
+          3093,
+          4149
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          71,
+          622,
+          541,
+          705
+        ],
+        "pos": [
+          4149,
+          4982
+        ]
+      },
+      {
+        "index": 10,
+        "class": "footnote",
+        "bbox": [
+          72,
+          713,
+          540,
+          732
+        ],
+        "pos": [
+          4982,
+          5216
+        ]
+      },
+      {
+        "index": 11,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          753,
+          309,
+          760
+        ],
+        "pos": [
+          5216,
+          5220
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\n1. We introduce Diffusion Model Predictive Control (D-MPC), combining multi-step action proposals and dynamics models using diffusion models for online MPC. \n\n2. We show D-MPC outperforms existing model-based offline planning methods on D4RL benchmarks, and is competitive with SOTA reinforcement learning approaches. \n\n3. We demonstrate D-MPC can optimize novel reward functions at runtime with a simple sampling-based planner, and adapt to novel dynamics through fine-tuning. \n\n4. Through ablations, we validate the benefits of our method’s key components individually and in combination. \n\n# **2 Related work** \n\nRelated work can be structured hierarchically as in Table 1. Model-based methods postulate a particular dynamics model, whereas model-free methods, whether more traditional —behavioral cloning (BC), conservative Q learning (CQL) (Kumar et al., 2020), implicit Q-learning (IQL) (Kostrikov et al., 2021), etc— or diffusion based — diffusion policy (DP) (Chi et al., 2023), diffusion BC (DBC) (Pearce et al., 2023)— simply learn a policy. This can be done either by regressing directly from expert data or with some variant of Q-leaning. Model-based approaches can be further divided according to how they use the model: Dyna-style (Sutton, 1991) approaches use it to learn a policy, either online or offline, which they can use at runtime, whereas MPC-style approaches use the full model at runtime for planning, possibly with the guidance of a proposal distribution.<sup>2</sup> \n\nIt is possible to model the dynamics of the model and the proposal jointly using _pj_ ( _s, a_ ) or as factorized distribution _pd_ ( _s|a_ ) _ρ_ ( _a_ ). The latter allows for extra flexibility, since both pieces can be fine-tuned or even re-learned independently. Finally, we can categorize these models as either single-step (SS) or multi-step (MS). SS methods model the dynamics as _pd_ ( **_s_** _t_ +1 _|_ **_h_** _t,_ **_a_** _t_ +1) (where **_h_** _t_ = ( **_s_** _t−H_ : _t,_ **_a_** _t−H_ : _t_ ) is the history of length _H_ ), and the proposal as _ρ_ ( **_a_** _t|_ **_h_** _t_ ), so we predict (a distribution over) the next time step, conditioned on past observations (and the next action, for the dynamics). We extend this to the whole planning horizon of length _F_ by composing it in an autoregressive form, as a product of one-step conditionals, i.e., _pd_ ( **_s_** _t_ +1: _t_ + _F |_ **_s_** 1: _t,_ **_a_** 1: _t_ + _F −_ 1) =<sup>�</sup><sup>_t_</sup> _t_<sup>+</sup><sup>_F −_1</sup> _pd_ ( **_s_** _t_ +1 _|_ **_s_** _t,_ **_a_** _t,_ **_h_** _t_ ). (Note that this might result in compounding errors, even if **_h_** _t_ contains the entire past history, i.e., is non-Markovian.) By contrast, multi-step (MS) methods model the joint distributions at a trajectory level. Thus the MS dynamics model represents _pd_ ( **_s_** _t_ +1: _t_ + _F |_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ : _t_ + _F −_ 1) and the MS proposal represents _ρ_ ( **_a_** _t_ : _t_ + _F −_ 1 _|_ **_s_** _t,_ **_h_** _t_ ). \n\nSeveral recent papers follow the SS Dyna framework. Some using traditional dynamics modeling (e.g., MOREL (Kidambi et al., 2020), MOPO (Yu et al., 2020), COMBO (Yu et al., 2021), RAMBO-RL (Rigter et al., 2022) and Dreamer (Hafner et al., 2020)), and others using diffusion. The latter includes \"Diffusion for World Modeling\" paper (Alonso et al., 2024) (previously called \"Diffusion World Models” (Alonso et al., 2023)), “UniSim” paper (Yang et al., 2024), and the “SynthER” paper (Lu et al., 2024). These are then used to generate samples from the model at training time in order to train a policy with greater data efficiency than standard model-free reinforcement learning (RL) methods. Some other recent papers — such as “Diffusion World Model” (Ding et al., 2024), “PolyGRAD” (Rigter et al., 2024) and “Policy-Guided Diffusion” (Jackson et al., 2024) — have proposed to use diffusion for creating joint multi-step (trajectory-level) dynamics models. However, being part of the Dyna framework, they are not able to plan at run-time, like D-MPC does. \n\nThere are many papers with a model-based approach. Probably the closest to our work is “Diffuser” (Janner et al., 2022), which uses diffusion to fit a joint (state, action) multi-step model _pj_ ( **_s_** 1: _T ,_ **_a_** 1: _T_ ) using offline trajectory data. They then use classifier-guidance to steer the sampling process to generate joint sequences that optimize a novel reward at test time. The main difference to our method is that we represent the joint as a product of two models, the dynamics _pd_ ( **_s_** 1: _T |_ **_a_** 1: _T_ ) and the policy / action proposal, _ρ_ ( **_a_** 1: _T_ ). As we show in Section 4.3, this factorization allows us to easily adapt to changes in the world (e.g., due to hardware defects) from a small amount of new data, whereas Diffuser struggles in this context. In addition, we propose \n\n> 2Note that a proposal distribution (which we denote by _ρ_ ( _a_ )) is different than a policy (which we denote by _π_ ( _a_ )), since rather than determining the next best action directly, it helps accelerate the search for one. \n\n3 \n\n"
+  }
+}

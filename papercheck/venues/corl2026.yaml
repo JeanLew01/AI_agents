@@ -1,0 +1,56 @@
+# CoRL 2026 (10th Conference on Robot Learning, Austin TX, Nov 9-12 2026).
+# Sources (checked 2026-10-11):
+#   [A] https://www.corl.org/contributions/instruction-for-authors
+#   [B] https://www.corl.org/contributions/call-for-papers
+#   [C] OpenReview submission form: robot-learning.org/CoRL/2026/Conference/-/Submission
+#   [E] corl_2026.sty / example.tex in the official camera-ready zip
+#       https://drive.google.com/file/d/19xt72-5YaVqhWRO-ErqRQZ2SPZef8FFe/view
+#   [F] https://www.corl.org/contributions/instruction-for-presentations
+# Per-paper settings (authors, identity_terms, official_path) go in a small file that extends this one:
+#   extends: /home/jixia/AI_agents/papercheck/venues/corl2026.yaml
+#   authors: [...]
+name: CoRL 2026
+template:
+  file: corl_2026.sty
+  # sha256 of corl_2026.sty from the official zip as found in ~/overleaf_project/CoRL_2026/CoRL_2026/
+  # (submission and camera-ready zips ship the same file [E]).
+  sha256: 62f38cd8df7ad718796617595c8230da136fc83ea1d7e1ba80084113409ec957
+  # Measured by compiling the official example.tex with the layout probe (US Letter, 5.5in x 9in text).
+  layout: {paperwidth: 614.295, paperheight: 794.96999, textwidth: 397.48499, textheight: 650.43,
+           oddsidemargin: 36.13501, topmargin: -37.0, headheight: 12.0, headsep: 25.0, footskip: 30.0}
+engine: pdflatex
+page_limit:
+  submission: 8      # [A] 8 pages main paper; Limitations counts toward the limit
+  camera_ready: 9    # [A] 9 pages main text in the final version
+  excluded_sections: [references, acknowledgments, appendix]   # [A]
+review_mode_markers:   # what corl_2026.sty prints without [final] [E]
+  - {kind: pdf_text, pattern: "Anonymous Author", description: "'Anonymous Author(s)' block"}
+  - {kind: pdf_text, pattern: "Do not distribute", description: "'Submitted to ... Do not distribute.' footer"}
+  - {kind: line_numbers}
+final_mode_markers:
+  - {kind: package_option, package: corl_2026, option: final}   # [A][E]
+required_sections:
+  camera-ready:
+    - {name: Limitations, pattern: "limitation"}   # [A][B]
+  submission:
+    - {name: Limitations, pattern: "limitation"}   # [A][C]
+forbidden_sections:
+  submission:
+    - {name: Acknowledgments, pattern: "^acknowledge?ments?$"}   # double-blind [A][C]
+fonts: {require_embedded: true, forbid_type3: true}
+max_file_size_mb: {submission: 50}   # [C]; camera-ready limit not published
+abstract_max_words: 250              # [C] (OpenReview abstract field)
+compliance_notes:
+  - {text: "Camera-ready deadline: 2026-10-12 23:59 AoE [A].", modes: [camera-ready]}
+  - {text: "Upload the signed PMLR licence form, renamed <paperid_firstname_lastname>.pdf, on OpenReview with the PDF [A].", modes: [camera-ready]}
+  - {text: "OpenReview title must equal the PDF title [A].", modes: [camera-ready]}
+  - {text: "Appendix goes at the end of the same PDF, not as a separate file [A].", modes: [camera-ready]}
+  - {text: "PMLR accepts no video/code/data supplements: host them yourself and link from the paper or a project page [A].", modes: [camera-ready]}
+  - {text: "First-page footer: site says '10th Conference on Robot Learning (CoRL 2026), Austin, Texas, USA.' but corl_2026.sty [final] prints 'Austin TX, USA.' -- keep the official .sty unmodified unless the organisers say otherwise.", modes: [camera-ready]}
+  - {text: "Spotlight video due 2026-10-26 AoE: PaperID.mp4, <=250 MB, 1080p, <=3 min, no audio narration [F].", modes: [camera-ready]}
+  - {text: "Supplementary: one ZIP <=250 MB via OpenReview; video <=250 MB, ~3 min [A][C].", modes: [submission]}
+  - {text: "OpenReview form: GenAI-use disclosure, reciprocal-reviewer designation, dual-submission and anonymisation confirmations [C].", modes: [submission]}
+todo:
+  max_file_size_mb.camera_ready: "camera-ready size limit not published (OpenReview camera-ready invitation not public)"
+  fonts: "CoRL/PMLR do not state Type 3 / embedding rules; kept as best practice"
+  template.sha256: "hash taken from the local copy of the official zip; re-check against a fresh download"

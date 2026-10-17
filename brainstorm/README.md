@@ -20,7 +20,7 @@ The `library/` holds what makes the brainstorm more than free association:
   REGIME, BUDGET, CONDITION, DUAL, LOOP, FAIL), each with a test that separates a real combination from glue.
 - `rubric.md`: three gates (evidence, falsifiable claim, nearest work) and six scored axes, with venue notes.
 - `collections.md`: the paper skills by collection and lens.
-- `cards/`: mechanism cards written by scouts, reused by later sessions.
+- `cards/`: mechanism cards written by scouts, reused by later sessions (local, git-ignored).
 
 ## Stages
 
@@ -33,7 +33,7 @@ The `library/` holds what makes the brainstorm more than free association:
 5. **Report** in the session folder, and, when asked, an entry in the project's notes.
 
 Each run lives in `sessions/<date>_<slug>/` with `brief.md`, `cards/`, `ideas/`, `critiques/`, `proposals/`,
-`pilots/` and `report.md`.
+`pilots/` and `report.md`. Sessions are personal and git-ignored; the skill creates the folder on each run.
 
 ## Install and use
 

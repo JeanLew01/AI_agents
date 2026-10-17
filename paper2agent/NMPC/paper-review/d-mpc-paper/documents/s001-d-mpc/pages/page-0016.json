@@ -1,0 +1,188 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was raw extraction (glyph-soup maths, Algorithm 3/4 split into list items with <sup> debris, '#' headings). Compared the preview, a 200-dpi crop of the three Appendix A paragraphs and 260-dpi crops of Algorithm 3 and Algorithm 4 with the rebuilt items; maths taken from appendix.tex with macros expanded (\\vs,\\va,\\vh = \\bm -> \\boldsymbol; \\Dsarsa = \\mathcal{D}'; \\model = \\mathcal{M}; \\dynamics = p_d; \\proposal = \\rho; \\future = F; \\past = H) and checked against the crops. Running header and page number set to omit with reasons. Headings rewritten as '## A Algorithms for model learning' and '## B The MBOP-TrajOpt Algorithm'. Inline maths of the three paragraphs written as LaTeX ($q(x_k | x_{k-1}) = N(x_k; \\sqrt{\\alpha_k}x_{t-1}, (1 - \\alpha_k) \\mathbf{I})$, $p_\\theta(x_{k-1}|x_k)$, $MSE(\\epsilon_k, \\epsilon_\\theta(x_0+\\epsilon_k,k,y))$, $a_{t:t+F-1}$, $s_{t+1:t+f}$ ...); cross-reference printed as 'Appendix E.1' kept. Algorithm 3 and Algorithm 4: the extractor's heading + list items replaced by an image crop each (figure items, assets algorithm-3 [60,410,544,517] and algorithm-4 [60,541,544,654], edges checked on an overlay: top/bottom rules and line numbers inside) followed by a line-numbered LaTeX transcription with the bold printed title. Printed oddities kept as printed: (1) forward process mean '\\sqrt{\\alpha_k}x_{t-1}' (index t instead of k; probably a typo for x_{k-1}); (2) Algorithm 4 line 2 '\\boldsymbol{s}_{t+1:t+f_F}' (f_F; line 3 has t+F); (3) prose 'the future states s_{t+1:t+f}' with lowercase f; (4) 'by minimize the mean-squared-error loss' (grammar); (5) the first sentence says 'In Algorithm 3 and Algorithm 4, we present the multi-step and single-step training' while Algorithm 3 is the one-step and Algorithm 4 the multi-step version (order reversed); (6) Algorithm 3 line 3 conditions p_1 on (s_j, a_j, h_j) in the product but on (s_t, h_t, a_t) in the fitted factor (argument order differs, as printed). The page ends with the complete Appendix B intro sentence; Algorithm 5 follows at the top of page 17 (no join needed). check: 8 missing lines and number differences, all mathematical notation (adjudication note written).",
+  "warnings": [
+    "Review possible header/footer: p0016-b000"
+  ],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research <u>(05/2025)</u>",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page (page furniture)."
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        83.0,
+        257.0,
+        95.0
+      ],
+      "markdown": "## A Algorithms for model learning",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0016-b002",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        110.0,
+        542.0,
+        120.0
+      ],
+      "markdown": "In Algorithm 3 and Algorithm 4, we present the multi-step and single-step training used in our experiments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        127.0,
+        543.0,
+        162.0
+      ],
+      "markdown": "Diffusion models are generative models that define a forward diffusion process and a reverse denoising process. The forward process gradually adds noise to the data, transforming it into a simple Gaussian distribution. The reverse process, which is learned, denoises the data step by step to recover the original data distribution.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        169.0,
+        541.0,
+        252.0
+      ],
+      "markdown": "In D-MPC, we model the action proposals and dynamics models as conditional diffusion models. Formally, let $x_0, y$ be the original data, where $x_0$ represents the data we want to model and $y$ represents the conditioning variable. Let $x_k$ be the data at step $k$ in the diffusion process. The forward process is defined as $q(x_k | x_{k-1}) = N(x_k; \\sqrt{\\alpha_k}x_{t-1}, (1 - \\alpha_k) \\mathbf{I})$ where $\\alpha_k$ determines the variance schedule. The reverse process aims to approximate $p_\\theta(x_{k-1} | x_k) = N(x_{k-1}; \\mu_\\theta(x_k, k, y), \\Sigma_k)$ where $N(\\mu, \\Sigma)$ denotes a Gaussian distribution with mean $\\mu$ and covariance matrix $\\Sigma$. For suitably chosen $\\alpha_k$ and large enough $K$, $x_K \\sim N(0, \\mathbf{I})$. Starting with Gaussian noise, we iteratively denoise to generate the samples.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        259.0,
+        542.0,
+        329.0
+      ],
+      "markdown": "We train diffusion models using the standard denoising score matching loss. Concretely, we start by randomly sampling unmodified original $x_0, y$ from the dataset. For each sample, we randomly select a step $k$ in the diffusion process, and sample the random noise $\\epsilon_k$ with the appropriate variance for the diffusion time step $k$. We train a noise prediction network $\\epsilon_{\\theta}$ by minimize the mean-squared-error loss $MSE(\\epsilon_k, \\epsilon_{\\theta}(x_0 + \\epsilon_k, k, y))$. $p_{\\theta}(x_{k-1} | x_k, y)$ can be calculated as a function of $\\epsilon_{\\theta}(x_k, k, y)$, which allows us to draw samples from the trained conditional diffusion model.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        337.0,
+        542.0,
+        395.0
+      ],
+      "markdown": "In the D-MPC case, for learning the action proposal $\\rho$, the future actions $a_{t:t+F-1}$ are the clean data $x_0$, and the current state $s_t$ and history $h_t$ are the conditioning variable $y$. For learning the multi-step dynamics model $p_d$, the future states $s_{t+1:t+f}$ are the clean data $x_0$, and the current state $s_t$, the history $h_t$ and the future actions $a_{t:t+F-1}$ are the conditioning variable $y$. In both cases, the noise prediction network $\\epsilon_\\theta$ is a transformer. Details of the transformer are given in Appendix E.1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "figure",
+      "bbox": [
+        60.0,
+        410.0,
+        544.0,
+        517.0
+      ],
+      "markdown": "",
+      "source_class": "section-header",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0016-b008",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        414.0,
+        499.0,
+        512.0
+      ],
+      "markdown": "**Algorithm 3:** Model learning (one step models).  \n1 Def $\\mathcal{M} = \\text{train}(\\mathcal{D}, F, H)$ :  \n2 Create dataset of tuples: $\\mathcal{D}' = \\{(\\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t, \\boldsymbol{s}_{t+1}, r_t, G_t)\\},\\; \\boldsymbol{h}_t = (\\boldsymbol{s}_{t-H:t-1}, \\boldsymbol{a}_{t-H:t-1}),\\; G_t = \\sum_{j=t}^T r_j$  \n3 Fit $p_1(\\boldsymbol{s}_{t+1} | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t)$ using MLE on $\\mathcal{D}'$, set $p_d = \\prod_{j=t}^{t+F-1} p_1(\\boldsymbol{s}_{j+1} | \\boldsymbol{s}_j, \\boldsymbol{a}_j, \\boldsymbol{h}_j)$  \n4 Fit $\\rho_1(\\boldsymbol{a}_t | \\boldsymbol{s}_t, \\boldsymbol{h}_t)$ using MLE on $\\mathcal{D}'$, set $\\rho = \\prod_{j=t}^{t+F-1} \\rho_1(\\boldsymbol{a}_j | \\boldsymbol{s}_j, \\boldsymbol{h}_j)$  \n5 Fit $R = E(r_t | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t)$ using regression on $\\mathcal{D}'$  \n6 Fit $V = E(G_t | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t)$ using regression on $\\mathcal{D}'$",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0016-b012",
+      "kind": "figure",
+      "bbox": [
+        60.0,
+        541.0,
+        544.0,
+        654.0
+      ],
+      "markdown": "",
+      "source_class": "section-header",
+      "label": "Algorithm 4",
+      "asset_name": "algorithm-4"
+    },
+    {
+      "id": "p0016-b013",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        545.0,
+        499.0,
+        649.0
+      ],
+      "markdown": "**Algorithm 4:** Model learning (multi-step models).  \n1 Def $\\mathcal{M} = \\text{train}(\\mathcal{D}, F, H)$ :  \n2 Create dataset of tuples:  \n&emsp;$\\mathcal{D}' = \\{(\\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_{t:t+F-1}, \\boldsymbol{s}_{t+1:t+f_F}, r_t, G_t)\\},\\; \\boldsymbol{h}_t = (\\boldsymbol{s}_{t-H:t-1}, \\boldsymbol{a}_{t-H:t-1}),\\; G_t = \\sum_{j=t}^T r_j$  \n3 Fit $p_d(\\boldsymbol{s}_{t+1:t+F} | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_{t:t+F-1})$ using diffusion on $\\mathcal{D}'$  \n4 Fit $\\rho(\\boldsymbol{a}_{t:t+F-1} | \\boldsymbol{s}_t, \\boldsymbol{h}_t)$ using diffusion on $\\mathcal{D}'$  \n5 Fit $R = E(r_t | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t)$ using regression on $\\mathcal{D}'$  \n6 Fit $V = E(G_t | \\boldsymbol{s}_t, \\boldsymbol{h}_t, \\boldsymbol{a}_t)$ using regression on $\\mathcal{D}'$",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0016-b020",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        683.0,
+        264.0,
+        695.0
+      ],
+      "markdown": "## B The MBOP-TrajOpt Algorithm",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0016-b021",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        710.0,
+        542.0,
+        732.0
+      ],
+      "markdown": "In Algorithm 5, we include the complete MBOP-TrajOpt algorithm from Argenson & Dulac-Arnold (2021) adapted to our notations as reference.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b022",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        753.0,
+        311.0,
+        760.0
+      ],
+      "markdown": "16",
+      "source_class": "page-footer",
+      "reason": "Page number '16' (page furniture)."
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 # NMPC 论文智能体（Paper2Agent）
 
-按 [Paper2Agent](https://github.com/jmiao24/Paper2Agent) 的流程（技能版本 8c2d059），把七篇采样式 NMPC 相关论文
-转换成可供 Claude Code 使用的“论文技能”，并为其中两篇有公开代码的论文准备 MCP 工具服务。
+按 [Paper2Agent](https://github.com/jmiao24/Paper2Agent) 的流程（技能版本 8c2d059），把十一篇采样式/扩散式 NMPC 相关论文
+转换成可供 Claude Code 使用的“论文技能”，并为有公开代码的论文准备 MCP 工具服务（目前只做了两篇的前期工作，见下）。
 
-## 现在可以用的：七个论文技能
+## 现在可以用的：十一个论文技能
 
 位置：`dist/nmpc-agent/skill/<名称>/`，并已链接到 `~/.claude/skills/`，在任何目录启动 Claude Code 都能用。
 
@@ -16,6 +16,10 @@
 | `rl-guided-pac-nmpc-paper` | RL-Guided PAC-NMPC | arXiv 2609.39854v1 |
 | `post-stall-navigation-paper` | Post-Stall Navigation with Fixed-Wing UAVs using Onboard Vision | arXiv 2201.01186v1（ICRA 2022） |
 | `urban-swarm-fixed-wing-paper` | Agile Fixed-Wing UAVs for Urban Swarm Operations | Field Robotics 3:725-765（2023） |
+| `d-mpc-paper` | Diffusion Model Predictive Control (D-MPC) | arXiv 2410.05364v2（TMLR 2025）；2026-10-12 加入 |
+| `alp-mbd-paper` | Adaptive Linear Path Model-Based Diffusion (LP-MBD / ALP-MBD) | arXiv 2602.02831v1；2026-10-12 加入 |
+| `whole-body-mppi-paper` | Real-Time Whole-Body Control of Legged Robots with MPPI | arXiv 2409.10469v1；2026-10-12 加入 |
+| `generative-predictive-control-paper` | Generative Predictive Control: Flow Matching Policies (GPC) | arXiv 2502.13406v3；2026-10-12 加入 |
 
 用法：直接提问，Claude 会自动调用对应技能；也可以点名，例如
 
@@ -27,7 +31,7 @@
 每个技能包含 `references/paper.md`（全文，公式为 LaTeX）、`references/index.md`（章节导航）、
 `assets/figure/`（图和算法框）、`assets/table/`（表格 CSV）。文末 “Conversion notes” 记录了来源版本和转换时的注意事项。
 
-质量状态：七个技能都通过了 `paper_bundle.py verify --strict`（状态 `reviewed_with_limitations`，
+质量状态：十一个技能都通过了 `paper_bundle.py verify --strict`（状态 `reviewed_with_limitations`，
 “limitations” 指公式改写成 LaTeX 后与 PDF 字形流的差异，已逐页说明）；每篇都由独立的校验代理把成品与原 PDF
 逐页对比，正文、公式、表格、参考文献未发现错误。审阅与校验记录在 `paper-review/<名称>/reports/`。
 
@@ -37,11 +41,14 @@
 | --- | --- |
 | LeCAR-Lab/model-based-diffusion @c1eb913 | 环境、工具筛选完成；参考执行部分完成；工具封装和校验未做 |
 | LeCAR-Lab/dial-mpc @871c84f | 环境、工具筛选完成；GPU 线性代数库版本问题已定位；仿真一次未跑成 |
+| vincekurtz/gpc @21a5e06（MIT；JAX CUDA + MuJoCo MJX） | 工具筛选完成（5 个工具），环境已装；JAX/GPU/渲染检查与仿真等待内存决定 |
+| jrapudg/RTWholeBodyMPPI @55e6dc3（MIT；MuJoCo CPU） | 工具筛选完成（2 个工具，仅仿真部分），环境已装；MuJoCo 检查与仿真等待内存决定 |
+| purewater0901/adaptive_linear_path_model_based_diffusion @6c2b004（无许可证；论文中的匿名仓库已过期） | 工具筛选完成（7 个命令行工具），环境已装（CPU 版 PyTorch）；运行检查与仿真等待内存决定 |
 
 卡点是内存：本机 WSL 只有约 7.5 GB，VS Code 常驻约 3.5-4 GB，JAX 仿真与多个代理并行时两次把 WSL 拖死。
 `mcp-build/HEAVY_JOBS_DISABLED` 存在期间，所有仿真任务都被 `mcp-build/heavy.sh` 拒绝。
 建议在 Windows 的 `C:\Users\<用户名>\.wslconfig` 中提高内存后再继续（见 `COORDINATOR_STATE.md`）。
-PAC-NMPC 系列五篇没有公开代码，只有论文技能。
+PAC-NMPC 系列五篇和 D-MPC（Google DeepMind）没有公开代码，只有论文技能。
 
 ## 目录
 

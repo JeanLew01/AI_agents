@@ -1,0 +1,1457 @@
+{
+  "page": 3,
+  "lines": [
+    {
+      "text": "Fig. 3.",
+      "bbox": [
+        54.0,
+        152.65028381347656,
+        76.30033111572266,
+        159.7755584716797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Keyframes from the Unitree Go1 robot climbing up and down a box of its own height with the MPPI policy on hardware (top row) and",
+      "bbox": [
+        87.39471435546875,
+        152.65028381347656,
+        557.9970703125,
+        159.7755584716797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "corresponding MuJoCo states (bottom row). The robot is tasked to reach the consecutive goals (yellow spheres) specified in the task.",
+      "bbox": [
+        54.0,
+        161.6172637939453,
+        491.8055114746094,
+        168.74253845214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1 MPPI Control Algorithm",
+      "bbox": [
+        54.0,
+        177.67579650878906,
+        212.66436767578125,
+        186.701904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Require: Initial state x0, control parameters (µ0, Σ0), num-",
+      "bbox": [
+        54.0,
+        191.64894104003906,
+        298.7975158691406,
+        201.40992736816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ber of samples N, time horizon T, temperature param-",
+      "bbox": [
+        70.93600463867188,
+        203.6039581298828,
+        298.80242919921875,
+        212.669921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "eter λ",
+      "bbox": [
+        70.93600463867188,
+        215.55897521972656,
+        95.16519927978516,
+        224.62493896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ensure: Optimal control input u",
+      "bbox": [
+        54.000003814697266,
+        227.5139923095703,
+        190.09857177734375,
+        236.5799560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: Initialize control trajectory mean µt and covariance Σt",
+      "bbox": [
+        59.753997802734375,
+        239.46900939941406,
+        295.5947265625,
+        250.02996826171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: Initialize sample trajectory cost Ln = 0",
+      "bbox": [
+        59.7540283203125,
+        250.86709594726562,
+        232.619140625,
+        261.9849853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3: for each sample n = 1, . . . , N do",
+      "bbox": [
+        59.7540283203125,
+        263.3800354003906,
+        209.82749938964844,
+        272.44598388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4:",
+      "bbox": [
+        59.75401306152344,
+        276.8453369140625,
+        65.95475006103516,
+        283.9705810546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for each timestep t = 0, 1, . . . do",
+      "bbox": [
+        85.88001251220703,
+        275.33502197265625,
+        223.81849670410156,
+        284.4009704589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5:",
+      "bbox": [
+        59.753997802734375,
+        288.8003234863281,
+        65.9547348022461,
+        295.9255676269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sample action sequence: ut ∼N(µt, Σt)",
+      "bbox": [
+        100.8239974975586,
+        286.7320861816406,
+        269.3314208984375,
+        297.63177490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6:",
+      "bbox": [
+        59.75396728515625,
+        300.75531005859375,
+        65.95470428466797,
+        307.88055419921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Simulate forward for T timesteps using un",
+      "bbox": [
+        100.82396697998047,
+        299.2449951171875,
+        277.28045654296875,
+        309.0069274902344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7:",
+      "bbox": [
+        59.75396728515625,
+        312.7102966308594,
+        65.95470428466797,
+        319.8355407714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Compute the resulting cost and add it to Ln",
+      "bbox": [
+        100.82396697998047,
+        310.6420593261719,
+        282.20245361328125,
+        320.9619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8:",
+      "bbox": [
+        59.75396728515625,
+        324.6662902832031,
+        65.95470428466797,
+        331.7915344238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end for",
+      "bbox": [
+        85.87996673583984,
+        323.19580078125,
+        117.34185791015625,
+        332.1521911621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9: end for",
+      "bbox": [
+        59.75396728515625,
+        335.1507873535156,
+        102.39785766601562,
+        344.107177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10: Compute weights ωn for each sample using Equation 1",
+      "bbox": [
+        55.76896667480469,
+        347.0659484863281,
+        298.6195983886719,
+        357.6258850097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11: Update control trajectory mean µt using Equation 2",
+      "bbox": [
+        55.76897430419922,
+        359.02093505859375,
+        284.15191650390625,
+        369.5818786621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12: Select the control input for the system: u = µt[0]",
+      "bbox": [
+        55.76898193359375,
+        370.9759216308594,
+        273.82843017578125,
+        380.73785400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "13: Apply control input u",
+      "bbox": [
+        55.768951416015625,
+        382.9319152832031,
+        160.7195281982422,
+        391.99786376953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "14: Shift control mean: µt ←shifted(µt)",
+      "bbox": [
+        55.768959045410156,
+        394.3289794921875,
+        222.732421875,
+        405.2276611328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "λ increases the influence of the best-performing trajectory,",
+      "bbox": [
+        54.0,
+        436.1249694824219,
+        298.79638671875,
+        445.19091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "while a higher value distributes the weight more uniformly",
+      "bbox": [
+        54.0,
+        448.2393493652344,
+        298.80096435546875,
+        457.1459045410156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "across all samples [6]. Finally, the process is repeated in a re-",
+      "bbox": [
+        54.0,
+        460.1943359375,
+        298.801025390625,
+        469.10089111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ceding horizon approach. MPPI is summarized in Algorithm",
+      "bbox": [
+        54.0,
+        472.1493225097656,
+        298.80096435546875,
+        481.0558776855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1.",
+      "bbox": [
+        54.0,
+        484.1053161621094,
+        61.47195053100586,
+        493.0118713378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Driven by significant advancements in parallel computa-",
+      "bbox": [
+        63.9630012512207,
+        496.8423156738281,
+        298.8014221191406,
+        505.7488708496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion on modern GPUs and its downstream effects on mas-",
+      "bbox": [
+        54.0,
+        508.79730224609375,
+        298.801025390625,
+        517.703857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sively parallel simulation, MPPI has seen growing popularity",
+      "bbox": [
+        54.0,
+        520.7523193359375,
+        298.8008728027344,
+        529.6588745117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and success in recent years [7], [24]. In off-road autonomous",
+      "bbox": [
+        54.0,
+        532.707275390625,
+        298.8009948730469,
+        541.6138305664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "driving [7], [24] domains where environment dynamics are",
+      "bbox": [
+        54.0,
+        544.6622924804688,
+        298.801025390625,
+        553.56884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "difficult to model analytically, MPPI naturally incorporates",
+      "bbox": [
+        54.0,
+        556.6182861328125,
+        298.801025390625,
+        565.5248413085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "learned black-box models from real-world data thanks to its",
+      "bbox": [
+        54.0,
+        568.5733032226562,
+        298.8009948730469,
+        577.4798583984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "derivative-free nature, which is difficult for gradient-based",
+      "bbox": [
+        54.0,
+        580.5283203125,
+        298.8009948730469,
+        589.4348754882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPC. However, so far, MPPI is mainly successfully deployed",
+      "bbox": [
+        54.0,
+        592.4832763671875,
+        298.8010559082031,
+        601.3898315429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in low-dimensional control tasks (e.g., driving and drone",
+      "bbox": [
+        54.0,
+        604.4382934570312,
+        298.80096435546875,
+        613.3448486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "flight) due to the curse of dimensionality for sampling-based",
+      "bbox": [
+        54.0,
+        616.393310546875,
+        298.80096435546875,
+        625.2998657226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms.",
+      "bbox": [
+        54.0,
+        628.3493041992188,
+        99.11063385009766,
+        637.255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Recent work [25] proposes a simple yet effective modifi-",
+      "bbox": [
+        63.9630012512207,
+        641.0863037109375,
+        298.80145263671875,
+        649.9928588867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cation better scale MPPI to higher-dimensional tasks (e.g.,",
+      "bbox": [
+        54.0,
+        653.041259765625,
+        298.801025390625,
+        661.9478149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "quadruped locomotion or dexterous manipulation): sample",
+      "bbox": [
+        54.0,
+        664.9962768554688,
+        298.8009948730469,
+        673.90283203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "over the control points of a polynomial spline and calculate",
+      "bbox": [
+        54.0,
+        676.9512939453125,
+        298.801025390625,
+        685.8578491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the remaining controls via spline interpolation. While this",
+      "bbox": [
+        54.0,
+        688.9063110351562,
+        298.80096435546875,
+        697.8128662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approach yielded impressive behaviors in simulation [25],",
+      "bbox": [
+        54.0,
+        700.8623046875,
+        298.80096435546875,
+        709.7688598632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "closing the sim-to-real gap in real-world systems remains",
+      "bbox": [
+        54.0,
+        712.8173217773438,
+        298.801025390625,
+        721.723876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an open problem. Alternatively, [26] deploys MPPI on a",
+      "bbox": [
+        54.0,
+        724.7722778320312,
+        298.801025390625,
+        733.6788330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "quadruped robot by learning a sampling distribution offline",
+      "bbox": [
+        313.20001220703125,
+        180.0972900390625,
+        558.0009765625,
+        189.00384521484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "but only considers a kinodynamic robot model with foot",
+      "bbox": [
+        313.20001220703125,
+        192.05230712890625,
+        558.0009155273438,
+        200.9588623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "contacts. Our work considers the whole-body dynamics and",
+      "bbox": [
+        313.20001220703125,
+        204.00732421875,
+        558.0008544921875,
+        212.91387939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "collision model, enabling automatic planning over contact",
+      "bbox": [
+        313.20001220703125,
+        215.96234130859375,
+        558.0009155273438,
+        224.868896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "strategies while solving locomotion and manipulation tasks",
+      "bbox": [
+        313.20001220703125,
+        227.9183349609375,
+        558.0009155273438,
+        236.82489013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "without offline precomputation.",
+      "bbox": [
+        313.20001220703125,
+        239.87335205078125,
+        441.4085998535156,
+        248.7799072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Rather than innovating over the MPPI algorithm itself,",
+      "bbox": [
+        323.16302490234375,
+        251.8543701171875,
+        558.0012817382812,
+        260.76092529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "our work instead focuses on the system-level considerations",
+      "bbox": [
+        313.20001220703125,
+        263.80938720703125,
+        558.0009155273438,
+        272.7159423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and integration necessary to deploy this sampling-based",
+      "bbox": [
+        313.20001220703125,
+        275.7643737792969,
+        558.0009765625,
+        284.6709289550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control strategy on real-world legged robots that are high-",
+      "bbox": [
+        313.20001220703125,
+        287.7193603515625,
+        558.0008544921875,
+        296.62591552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dimensional, highly agile, and must reason about making",
+      "bbox": [
+        313.20001220703125,
+        299.6743469238281,
+        558.0010375976562,
+        308.5809020996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and breaking contact with the environment.",
+      "bbox": [
+        313.20001220703125,
+        311.6303405761719,
+        490.992431640625,
+        320.5368957519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "III. SAMPLING-BASED MPC FOR LEGGED ROBOTS",
+      "bbox": [
+        326.8990173339844,
+        330.5283508300781,
+        544.310791015625,
+        339.4349060058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This section discusses key implementation details and",
+      "bbox": [
+        323.16302490234375,
+        345.7753601074219,
+        558.0014038085938,
+        354.6819152832031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "design considerations for deploying sampling-based MPC on",
+      "bbox": [
+        313.20001220703125,
+        357.7303466796875,
+        558.0009155273438,
+        366.63690185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "real-world legged robot hardware. A diagram of the overall",
+      "bbox": [
+        313.20001220703125,
+        369.6853332519531,
+        558.0009765625,
+        378.5918884277344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "system is illustrated in Fig. 2.",
+      "bbox": [
+        313.20001220703125,
+        381.6413269042969,
+        435.8096618652344,
+        390.5478820800781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. MuJoCo Physics Engine",
+      "bbox": [
+        313.20001220703125,
+        400.6289978027344,
+        426.4548645019531,
+        409.2167663574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Robotics simulators are increasingly accessible and per-",
+      "bbox": [
+        323.16302490234375,
+        415.72235107421875,
+        558.0014038085938,
+        424.62890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formant. In particular, Drake [27] and Dojo [28] focus on",
+      "bbox": [
+        313.20001220703125,
+        427.6773376464844,
+        558.0009765625,
+        436.5838928222656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "physical accuracy for algorithm verification and model-based",
+      "bbox": [
+        313.20001220703125,
+        439.63232421875,
+        558.0009765625,
+        448.53887939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control but pay the price of high computation costs and",
+      "bbox": [
+        313.20001220703125,
+        451.5873107910156,
+        558.000732421875,
+        460.4938659667969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cannot generate simulation data at scale. Isaac [20] and",
+      "bbox": [
+        313.20001220703125,
+        463.5433044433594,
+        558.0010986328125,
+        472.4498596191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MuJoCo [5], [21] provide mature parallel implementations",
+      "bbox": [
+        313.20001220703125,
+        475.498291015625,
+        558.0008544921875,
+        484.40484619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and, as a result, have become popular choices for data-hungry",
+      "bbox": [
+        313.20001220703125,
+        487.4532775878906,
+        558.0011596679688,
+        496.3598327636719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms like RL. For sampling-based MPC, the simula-",
+      "bbox": [
+        313.20001220703125,
+        499.40826416015625,
+        558.0010375976562,
+        508.3148193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tor of choice must generate large numbers of simulation",
+      "bbox": [
+        313.20001220703125,
+        511.36328125,
+        558.0009765625,
+        520.2698364257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "samples in parallel while providing fast enough individual",
+      "bbox": [
+        313.20001220703125,
+        523.3182373046875,
+        558.0009765625,
+        532.2247924804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rollouts to close the real-time feedback control loop. With",
+      "bbox": [
+        313.20001220703125,
+        535.2742309570312,
+        558.0010375976562,
+        544.1807861328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this consideration in mind, we use the MuJoCo physics",
+      "bbox": [
+        313.20001220703125,
+        547.229248046875,
+        558.0009155273438,
+        556.1358032226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "engine and parallelize the rollouts on a multi-core CPU.",
+      "bbox": [
+        313.20001220703125,
+        559.1842041015625,
+        558.0010375976562,
+        568.0907592773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "While Isaac and MJX [21] (MuJoCo on GPU or TPU)",
+      "bbox": [
+        313.20001220703125,
+        571.1392211914062,
+        558.0010375976562,
+        580.0457763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are capable of simulating hundreds to thousands of parallel",
+      "bbox": [
+        313.20001220703125,
+        583.09423828125,
+        558.0009765625,
+        592.0007934570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rollouts compared to dozens for the CPU-based MuJoCo, the",
+      "bbox": [
+        313.20001220703125,
+        595.0492553710938,
+        558.0010375976562,
+        603.955810546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "individual rollout speeds are insufficient to close the real-",
+      "bbox": [
+        313.20001220703125,
+        607.0052490234375,
+        558.0009155273438,
+        615.9118041992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time feedback loop. In practice, we find that 30-50 parallel",
+      "bbox": [
+        313.20001220703125,
+        618.80078125,
+        558.0009155273438,
+        627.8667602539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rollouts in MuJoCo on a high-end CPU with strong per-",
+      "bbox": [
+        313.2000427246094,
+        630.9152221679688,
+        558.0009155273438,
+        639.82177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "core performance (e.g. recent Intel Core-i9) are sufficient to",
+      "bbox": [
+        313.2000427246094,
+        642.8702392578125,
+        558.0009765625,
+        651.7767944335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "solve the locomotion and manipulation tasks considered in",
+      "bbox": [
+        313.2000427246094,
+        654.8252563476562,
+        558.0009765625,
+        663.7318115234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this paper.",
+      "bbox": [
+        313.2000427246094,
+        666.7802734375,
+        355.15252685546875,
+        675.6868286132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B. Representing Controls as a Cubic Spline",
+      "bbox": [
+        313.2000427246094,
+        685.7689208984375,
+        493.3735656738281,
+        694.356689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Directly sampling in the robot joint space can be chal-",
+      "bbox": [
+        323.1630554199219,
+        700.8622436523438,
+        558.00146484375,
+        709.768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lenging for MPPI, especially when planning over medium",
+      "bbox": [
+        313.2000427246094,
+        712.8172607421875,
+        558.0010375976562,
+        721.7238159179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to long horizons. Following [25], we reduce the size of",
+      "bbox": [
+        313.2000427246094,
+        724.772216796875,
+        558.0009155273438,
+        733.6787719726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20240917014626Z",
+      "modDate": "D:20240917014626Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/whole-body-mppi-paper/documents/.pdf-skill-scan-jt_q56hi/review/source.pdf",
+      "page_count": 7,
+      "page_number": 3
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "picture",
+        "bbox": [
+          54,
+          50,
+          558,
+          141
+        ],
+        "pos": [
+          0,
+          2
+        ]
+      },
+      {
+        "index": 1,
+        "class": "list-item",
+        "bbox": [
+          54,
+          152,
+          558,
+          343
+        ],
+        "pos": [
+          2,
+          1588
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          313,
+          180,
+          559,
+          249
+        ],
+        "pos": [
+          1588,
+          1911
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          313,
+          251,
+          559,
+          321
+        ],
+        "pos": [
+          1911,
+          2241
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          313,
+          345,
+          559,
+          391
+        ],
+        "pos": [
+          2241,
+          2447
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          55,
+          347,
+          299,
+          405
+        ],
+        "pos": [
+          2447,
+          2699
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          313,
+          400,
+          427,
+          410
+        ],
+        "pos": [
+          2699,
+          2730
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          313,
+          415,
+          559,
+          676
+        ],
+        "pos": [
+          2730,
+          3950
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          54,
+          436,
+          299,
+          491
+        ],
+        "pos": [
+          3950,
+          4198
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          54,
+          496,
+          299,
+          638
+        ],
+        "pos": [
+          4198,
+          4861
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          54,
+          640,
+          299,
+          734
+        ],
+        "pos": [
+          4861,
+          5326
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          313,
+          685,
+          494,
+          695
+        ],
+        "pos": [
+          5326,
+          5375
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          700,
+          559,
+          734
+        ],
+        "pos": [
+          5375,
+          5542
+        ]
+      }
+    ],
+    "text": "\n\n- Fig. 3. Keyframes from the Unitree Go1 robot climbing up and down a box of its own height with the MPPI policy on hardware (top row) and corresponding MuJoCo states (bottom row). The robot is tasked to reach the consecutive goals (yellow spheres) specified in the task. **Algorithm 1** MPPI Control Algorithm quadruped robot by learning a sampling distribution offline **Require:** Initial state _x_ 0, control parameters ( _µ_ 0 _,_ Σ0), numbut only considers a kinodynamic robot model with foot ber of samples _N_ , time horizon _T_ , temperature paramcontacts. Our work considers the whole-body dynamics and eter _λ_ collision model, enabling automatic planning over contact \n\n- **Ensure:** Optimal control input _u_ strategies while solving locomotion and manipulation tasks 1: Initialize control trajectory mean _µt_ and covariance Σ _t_ without offline precomputation. 2: Initialize sample trajectory cost _Ln_ = 0 Rather than innovating over the MPPI algorithm itself, 3: **for** each sample _n_ = 1 _, . . . , N_ **do** our work instead focuses on the system-level considerations 4: **for** each timestep _t_ = 0 _,_ 1 _, . . ._ **do** and integration necessary to deploy this sampling-based 5: Sample action sequence: _ut ∼N_ ( _µt,_ Σ _t_ ) control strategy on real-world legged robots that are high6: Simulate forward for _T_ timesteps using _un_ dimensional, highly agile, and must reason about making 7: Compute the resulting cost and add it to _Ln_ and breaking contact with the environment. 8: **end for** III. SAMPLING-BASED MPC FOR LEGGED ROBOTS \n\n- 9: **end for** \n\nquadruped robot by learning a sampling distribution offline but only considers a kinodynamic robot model with foot contacts. Our work considers the whole-body dynamics and collision model, enabling automatic planning over contact strategies while solving locomotion and manipulation tasks without offline precomputation. \n\nRather than innovating over the MPPI algorithm itself, our work instead focuses on the system-level considerations and integration necessary to deploy this sampling-based control strategy on real-world legged robots that are highdimensional, highly agile, and must reason about making and breaking contact with the environment. \n\nThis section discusses key implementation details and design considerations for deploying sampling-based MPC on real-world legged robot hardware. A diagram of the overall system is illustrated in Fig. 2. \n\n10: Compute weights _ωn_ for each sample using Equation 1 11: Update control trajectory mean _µt_ using Equation 2 12: Select the control input for the system: _u_ = _µt_ [0] 13: Apply control input _u_ 14: Shift control mean: _µt ←_ shifted( _µt_ ) \n\n# _A. MuJoCo Physics Engine_ \n\nRobotics simulators are increasingly accessible and performant. In particular, Drake [27] and Dojo [28] focus on physical accuracy for algorithm verification and model-based control but pay the price of high computation costs and cannot generate simulation data at scale. Isaac [20] and MuJoCo [5], [21] provide mature parallel implementations and, as a result, have become popular choices for data-hungry algorithms like RL. For sampling-based MPC, the simulator of choice must generate large numbers of simulation samples in parallel while providing fast enough individual rollouts to close the real-time feedback control loop. With this consideration in mind, we use the MuJoCo physics engine and parallelize the rollouts on a multi-core CPU. While Isaac and MJX [21] (MuJoCo on GPU or TPU) are capable of simulating hundreds to thousands of parallel rollouts compared to dozens for the CPU-based MuJoCo, the individual rollout speeds are insufficient to close the realtime feedback loop. In practice, we find that 30-50 parallel rollouts in MuJoCo on a high-end CPU with strong percore performance (e.g. recent Intel Core-i9) are sufficient to solve the locomotion and manipulation tasks considered in this paper. \n\n_λ_ increases the influence of the best-performing trajectory, while a higher value distributes the weight more uniformly across all samples [6]. Finally, the process is repeated in a receding horizon approach. MPPI is summarized in Algorithm 1. \n\nDriven by significant advancements in parallel computation on modern GPUs and its downstream effects on massively parallel simulation, MPPI has seen growing popularity and success in recent years [7], [24]. In off-road autonomous driving [7], [24] domains where environment dynamics are difficult to model analytically, MPPI naturally incorporates learned black-box models from real-world data thanks to its derivative-free nature, which is difficult for gradient-based MPC. However, so far, MPPI is mainly successfully deployed in low-dimensional control tasks (e.g., driving and drone flight) due to the curse of dimensionality for sampling-based algorithms. \n\nRecent work [25] proposes a simple yet effective modification better scale MPPI to higher-dimensional tasks (e.g., quadruped locomotion or dexterous manipulation): sample over the control points of a polynomial spline and calculate the remaining controls via spline interpolation. While this approach yielded impressive behaviors in simulation [25], closing the sim-to-real gap in real-world systems remains an open problem. Alternatively, [26] deploys MPPI on a \n\n# _B. Representing Controls as a Cubic Spline_ \n\nDirectly sampling in the robot joint space can be challenging for MPPI, especially when planning over medium to long horizons. Following [25], we reduce the size of \n\n"
+  }
+}

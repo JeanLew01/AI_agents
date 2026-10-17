@@ -1,0 +1,246 @@
+{
+  "page": 25,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0025.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against the preview and a 220-dpi crop of Tables 9 and 10, with TeX (tab:ablation-remasking, tab:ablation-length, B.4/B.5 text); no TeX/PDF disagreement. Order: the page prints Tables 9 and 10 at the top, interrupting the sentence that began on page 24 ('... In all settings, one token is generated' / 'per sampling step. ...'). The continuing paragraph is moved to the front of the page with join_previous=space (previous item on page 24 is that text item), followed by the two floats (caption printed above each table, kept before it), then the remaining paragraphs in printed order. Table 9 (table-9, 3 x 6): printed first header cell is 'Length' although the rows are remasking strategies (authors' oddity, kept). Table 10 (table-10, 4 x 6). All cells checked against the crop; bold best values not carried into the CSV. The token is written as plain |EOS| (as printed upright; the TeX source has $|\\text{EOS}|$) in both paragraphs (was '_|_ EOS _|_'). '{64, 256, 512}' kept as printed. Heading changed to '### B.5 Ablation on Generated Length'. The page ends with the complete one-sentence paragraph 'In this section, we conduct ablation studies on the generated length.'; page 26 starts a new paragraph. Page number 25 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0025-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        265.0,
+        505.0,
+        350.0
+      ],
+      "markdown": "per sampling step. For autoregressive and block diffusion sampling, generation terminates when the |EOS| token is produced. For block diffusion LLaDA (i.e., semi-autoregressive remasking) and pure diffusion sampling, the generation length is fixed at 1024 for LLaDA 8B Base, while for LLaDA 8B Instruct, it is tuned from {64, 256, 512} to balance efficiency and performance. Low-confidence remasking is applied to intra-block diffusion sampling in both block diffusion and block diffusion LLaDA, as well as to pure diffusion sampling. We also test different block lengths for LLaDA 8B Base. For LLaDA 8B Instruct, we only evaluate block length 32 for efficiency, as it yields the best results on LLaDA 8B Base.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0025-b000",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        79.0,
+        504.0,
+        100.0
+      ],
+      "markdown": "Table 9: **Analysis on Random and Low-confidence Remasking Strategies.** The low-confidence remasking consistently outperforms the random remasking.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0025-b001",
+      "kind": "table",
+      "bbox": [
+        137.0,
+        105.0,
+        473.0,
+        154.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 9",
+      "asset_name": "table-9",
+      "rows": [
+        [
+          "Length",
+          "BBH",
+          "GSM8K",
+          "Math",
+          "HumanEval",
+          "MBPP"
+        ],
+        [
+          "Random Remasking",
+          "32.1",
+          "21.3",
+          "9.2",
+          "11.6",
+          "21.0"
+        ],
+        [
+          "Low-confidence Remasking",
+          "45.0",
+          "70.0",
+          "30.3",
+          "32.9",
+          "40.2"
+        ]
+      ]
+    },
+    {
+      "id": "p0025-b002",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        171.0,
+        504.0,
+        181.0
+      ],
+      "markdown": "Table 10: **Ablation on Generation Length.** The results are not sensitive to the length hyperparameter.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0025-b003",
+      "kind": "table",
+      "bbox": [
+        179.0,
+        185.0,
+        431.0,
+        243.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 10",
+      "asset_name": "table-10",
+      "rows": [
+        [
+          "Length",
+          "BBH",
+          "GSM8K",
+          "Math",
+          "HumanEval",
+          "MBPP"
+        ],
+        [
+          "256",
+          "45.0",
+          "70.0",
+          "30.3",
+          "32.9",
+          "40.2"
+        ],
+        [
+          "512",
+          "50.4",
+          "70.8",
+          "30.9",
+          "32.9",
+          "39.2"
+        ],
+        [
+          "1024",
+          "49.7",
+          "70.3",
+          "31.4",
+          "35.4",
+          "40.0"
+        ]
+      ]
+    },
+    {
+      "id": "p0025-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        357.0,
+        505.0,
+        423.0
+      ],
+      "markdown": "Additionally, for LLaDA 8B Instruct, due to heavy padding of |EOS| tokens in the SFT data (as detailed in Sec. B.1), we observe that under pure diffusion sampling, the proportion of |EOS| tokens in model outputs becomes very high. This leads to extremely short generations and degrades model performance. To mitigate this issue, for HumanEval, MBPP, GSM8K, Math, and GPQA, we set the confidence score of the |EOS| token to zero during pure diffusion sampling. This adjustment helps maintain an appropriate ratio of |EOS| tokens during generation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        429.0,
+        504.0,
+        461.0
+      ],
+      "markdown": "Finally, we conduct ablation studies to analyze the effects of random and low-confidence remasking strategies using the pure diffusion sampling. For efficiency, we use LLaDA 8B Base with generation length and sampling steps set to 256 in this analysis.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b007",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        467.0,
+        505.0,
+        521.0
+      ],
+      "markdown": "**Results.** As shown in Tab. 7, for block diffusion sampling, overall performance improves as the block length increases. Moreover, both Tab. 7 and Tab. 8 show that block diffusion sampling consistently outperforms autoregressive sampling, and block diffusion LLaDA sampling further improves upon standard block diffusion sampling. Finally, pure diffusion sampling achieves the best overall performance.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        527.0,
+        505.0,
+        570.0
+      ],
+      "markdown": "In addition, Tab. 9 shows that the low-confidence remasking strategy consistently outperforms the random remasking strategy. We hypothesize that low-confidence remasking functions similarly to the annealed sampling method used by default in ARMs, improving accuracy by reducing the diversity of generated sentences.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        576.0,
+        506.0,
+        652.0
+      ],
+      "markdown": "We discover that autoregressive sampling leads to very poor performance for LLaDA 8B Instruct. This is because each SFT data is a complete sentence, so given a sequence length, LLaDA 8B Instruct tends to generate a full sentence within that length. In contrast, LLaDA 8B Base does not suffer from this issue, as the pre-training data consists of truncated documents (as detailed in Appendix B.1) and the model is trained with random sequence lengths (as detailed in Sec. 2.2). As a result, when given a short sequence length, LLaDA 8B Base tends to generate only part of a sentence, which can then be used as a prefix to continue generation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b010",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        658.0,
+        476.0,
+        668.0
+      ],
+      "markdown": "Setting the block length to 8 in Tab. 8 further improves the GSM8K score from 77.5 to 78.6.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b011",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        690.0,
+        263.0,
+        700.0
+      ],
+      "markdown": "### B.5 Ablation on Generated Length",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0025-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        713.0,
+        378.0,
+        723.0
+      ],
+      "markdown": "In this section, we conduct ablation studies on the generated length.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0025-b013",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "25",
+      "source_class": "page-footer",
+      "reason": "Printed page number \"25\" at the bottom centre (verified on the preview)."
+    }
+  ]
+}

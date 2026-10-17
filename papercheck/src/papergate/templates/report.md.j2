@@ -1,0 +1,96 @@
+# papergate report: {{ h.venue_name }} ({{ h.mode }})
+
+**Verdict: {{ h.verdict }}** · BLOCKER {{ h.counts.get('BLOCKER', 0) }} · WARN {{ h.counts.get('WARN', 0) }} · INFO {{ h.counts.get('INFO', 0) }}
+
+| | |
+|---|---|
+| Paper | `{{ h.paper_dir }}` |
+| Main file | `{{ h.main_file or '-' }}` |
+| Venue config | `{{ h.venue_config }}` (hash `{{ h.venue_config_hash }}`) |
+| Mode | {{ h.mode }} |
+| Source tree hash | `{{ h.source_tree_hash }}` |
+| Tool | {{ h.tool }} {{ h.tool_version }} |
+| Model | {{ h.model or 'none (LLM stages skipped)' }} |
+| Read-only verification | {% if h.read_only.verified %}PASSED: {{ h.read_only.files_hashed }} files hashed before and after, unchanged{% else %}**FAILED**: {{ h.read_only.changes | join('; ') }}{% endif %} |
+| Run | {{ h.started }} → {{ h.finished }} |
+{% if L.manual_checklist %}
+
+## Manual checklist
+
+{% for n in L.manual_checklist %}
+- [ ] {{ n }}
+{% endfor %}
+{% endif %}
+{% if h.unconfirmed_config %}
+
+## Venue values not yet confirmed against the call for papers
+
+{% for k, v in h.unconfirmed_config.items() %}
+- `{{ k }}`: {{ v }}
+{% endfor %}
+{% endif %}
+{% for sev in severities %}
+{% set items = by_sev.get(sev, []) %}
+
+## {{ sev }} ({{ items | length }})
+{% if not items %}
+
+None.
+{% endif %}
+{% for f in items %}
+
+### {{ f.id }} · `{{ f.check_id }}` · {{ f.location }}
+
+{{ f.message }}
+{% if f.quote %}
+
+> {{ f.quote | mdcode }}
+{% endif %}
+{% if f.why_it_matters %}
+
+*Why it matters:* {{ f.why_it_matters }}
+{% endif %}
+{% if f.fix.kind == 'patch' and f.fix.patch %}
+
+*Fix (patch, apply with `papergate apply <paper_dir> <report_dir> --findings {{ f.id }}`):*{% if f.fix.instructions %} {{ f.fix.instructions }}{% endif %}
+
+
+```diff
+{{ f.fix.patch.rstrip() }}
+```
+{% elif f.fix.instructions %}
+
+*Fix (manual):* {{ f.fix.instructions }}
+{% endif %}
+
+<sub>stage {{ f.stage }} ({{ stages.get(f.stage, '') }}) · {{ f.source }} · fingerprint `{{ f.fingerprint }}`</sub>
+{% endfor %}
+{% endfor %}
+{% if L.metrics %}
+
+## Metrics
+
+```json
+{{ L.metrics | tojson(indent=2) }}
+```
+{% endif %}
+
+## Coverage
+
+- Checks run: {{ h.checks_run | length }}
+{% if h.checks_skipped %}
+- Checks skipped:
+{% for s in h.checks_skipped %}
+  - `{{ s.check_id }}`: {{ s.reason }}
+{% endfor %}
+{% endif %}
+{% if h.checks_crashed %}
+- Checks crashed:
+{% for s in h.checks_crashed %}
+  - `{{ s.check_id }}`: {{ s.error }}
+{% endfor %}
+{% endif %}
+- Discarded unverifiable LLM findings: {{ h.discarded_unverifiable | length }}
+{% for d in h.discarded_unverifiable %}
+  - `{{ d.check_id }}` ({{ d.reason }}): {{ d.quote | mdcode }}
+{% endfor %}

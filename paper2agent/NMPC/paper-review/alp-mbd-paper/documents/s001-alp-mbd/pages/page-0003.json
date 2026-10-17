@@ -1,0 +1,332 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview, the native lines and 200-dpi crops of both equation columns ((5)-(8) left, (11)-(14) right), with main.tex as an aid. Left column: continuation 'as VP-MBD, in order to distinguish ...' (join_previous=space to the last paragraph of page 2), score paragraph, (5), Bayes paragraph, (6), 'where w(Y) ...', (7), shooting paragraph, (8), tuning paragraph, '### B. Linear Path Model-Based Diffusion', (9), grid paragraph, (10). Right column: endpoint paragraph, (11), 'where the score function is', (12), proposal sentence, (13), substitution sentence, (14), truncation paragraph, (15), 'When t_i = t_max ...', (16), last paragraph of III-B. All twelve extractor 'formula' items converted to text with $$ ... \\tag{n} $$ LaTeX from main.tex (multi-line (5), (6), (12) as one aligned block with one tag; the \\underbrace{...}_{\\text{(importance-weighted average)}} kept in (6) and (12); the extractor's separate '(importance-weighted average)' text item under (12) deleted after confirming it is inside the (12) block); boxes tightened to the native equation lines. Verified against the crop: (5) second line has 1/\\sqrt{\\alpha_i} without bar; (7) and (8) use \\bar\\alpha; \\mathcal{Y}^{(i)}_{\\text{VP-MBD}} / \\mathcal{Y}^{(i)}_{\\text{LP-MBD}} calligraphic. Inline maths rewritten in LaTeX. Repairs: 'MonteCarlo' -> 'Monte-Carlo', 'trialand-error' -> 'trial-and-error' (real hyphens at line wraps); italic 'linear probability path' kept as *...*. Kept as printed: 'score-ascent–type' (en dash) in the left column vs 'score-ascent-type' (hyphen) in the right column; authors' notation slip: the VP schedule is described by the triplet (β0, β1, T) with T 'the total number of diffusion steps', although (3)-(4) index the diffusion steps by N (and T is the trajectory horizon in (1)). Page ends with a complete paragraph (end of III-B). Remaining diagnostics are category (a) only (adjudication note).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        77.0
+      ],
+      "markdown": "as VP-MBD, in order to distinguish it from the proposed approach.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        78.0,
+        299.0,
+        124.0
+      ],
+      "markdown": "Unlike model-free diffusion planners that learn the score from data, MBD exploits known objectives and dynamics to estimate the score $\\nabla_{Y^{(i)}}\\log p_i(Y^{(i)})$ and performs a Monte-Carlo score-ascent–type denoising step:"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        60.0,
+        124.0,
+        300.0,
+        178.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\nY^{(i-1)} &= \\frac{c_{i-1, 0}}{c_{i, 0}} \\Big(Y^{(i)} + c_{i, 1}^2\\,\\nabla_{Y^{(i)}}\\log p_i\\!\\big(Y^{(i)}\\big)\\Big) \\\\\n&= \\frac{1}{\\sqrt{\\alpha_i}} \\Big(Y^{(i)} + (1-\\bar\\alpha_i)\\,\\nabla_{Y^{(i)}}\\log p_i\\!\\big(Y^{(i)}\\big)\\Big)\n\\end{aligned}\n\\tag{5}\n$$"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        182.0,
+        299.0,
+        228.0
+      ],
+      "markdown": "The score can be written (via Bayes’ rule and the forward kernel) as an expectation over “clean” trajectories $Y^{(0)}$ sampled from a Gaussian proposal and reweighted by the model-based target:"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        55.0,
+        231.0,
+        300.0,
+        300.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n& \\nabla_{Y^{(i)}}\\log p_i\\!\\big(Y^{(i)}\\big) ~\\approx~ \\\\\n& \\; -\\frac{Y^{(i)}}{1-\\bar\\alpha_i} +\\frac{\\sqrt{\\bar\\alpha_i}}{1-\\bar\\alpha_i}\\ \\underbrace{\\frac{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{VP-MBD}}} Y^{(0)}\\, w(Y^{(0)})}{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{VP-MBD}}} w(Y^{(0)})}}_{\\text{(importance-weighted average)}}\n\\end{aligned}\n\\tag{6}\n$$"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        305.0,
+        299.0,
+        330.0
+      ],
+      "markdown": "where $w(Y)=p_J(Y)\\,p_g(Y)$ and $\\mathcal{Y}^{(i)}_{\\text{VP-MBD}}$ follows a Gaussian distribution:"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        110.0,
+        331.0,
+        300.0,
+        360.0
+      ],
+      "markdown": "$$\n\\mathcal{Y}^{(i)}_{\\text{VP-MBD}} \\sim \\mathcal{N}\\Big(\\frac{Y^{(i)}}{\\sqrt{\\bar\\alpha_i}}, \\frac{1-\\bar\\alpha_i}{\\bar\\alpha_i}\\Big) \\tag{7}\n$$"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        363.0,
+        299.0,
+        400.0
+      ],
+      "markdown": "For TO, candidate $Y^{(0)}=[x_{1:T};u_{1:T}]$ are made dynamically feasible by rolling out $x_{t+1}=f_t(x_t,u_t)$ (shooting), and then scored via $w(Y)$. Substituting Eq. (6) into Eq. (5), we get"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        80.0,
+        400.0,
+        300.0,
+        441.0
+      ],
+      "markdown": "$$\nY^{(i-1)} = \\sqrt{\\bar\\alpha_{i-1}} \\frac{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{VP-MBD}}} Y^{(0)}\\, w(Y^{(0)})}{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{VP-MBD}}} w(Y^{(0)})} \\tag{8}\n$$"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        442.0,
+        299.0,
+        607.0
+      ],
+      "markdown": "Although VP-MBD attains strong performance, tuning the noise scheduling parameters remains challenging. In the variance-preserving (VP) formulation with simple linear scheduling, the schedule is specified by the triplet $(\\beta_0,\\beta_1,T)$, which jointly determine $\\{\\alpha_i\\}$ and the cumulative noise levels $\\{\\bar\\alpha_i\\}$. In particular, the maximum noise level is not controlled solely by the endpoints $\\beta_0$ and $\\beta_1$, but is also influenced by the total number of diffusion steps $T$. As a result, these parameters interact in a nontrivial manner to shape the effective noise scale at each step. This interdependence complicates the tuning process, as the impact of each parameter on the exploration–refinement trade-off is highly indirect and task-dependent, often requiring extensive trial-and-error to obtain satisfactory performance."
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        614.0,
+        213.0,
+        624.0
+      ],
+      "markdown": "### B. Linear Path Model-Based Diffusion"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        629.0,
+        299.0,
+        664.0
+      ],
+      "markdown": "Motivated by flow matching, we adopt a *linear probability path* between a clean trajectory $Y^{(0)}$ and a standard Gaussian $\\varepsilon \\!\\sim\\!\\mathcal{N}(0,I)$:"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        88.0,
+        664.0,
+        300.0,
+        683.0
+      ],
+      "markdown": "$$\nY_t \\;=\\; (1-t)\\,Y^{(0)} \\;+\\; t\\,\\varepsilon,\\qquad t\\in[0,1]. \\tag{9}\n$$"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        687.0,
+        299.0,
+        720.0
+      ],
+      "markdown": "Discretizing $t$ on a uniform grid $t_i=\\tfrac{i}{N}$, $i=0,\\dots,N$, yields a schedule that increases the noise level linearly in “time.”"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        112.0,
+        717.0,
+        300.0,
+        737.0
+      ],
+      "markdown": "$$\nY^{(i)} \\;=\\; (1-t_i)\\,Y^{(0)} \\;+\\; t_i\\,\\varepsilon \\tag{10}\n$$"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        134.0
+      ],
+      "markdown": "This corresponds to Eq. (3) when $c_{i,0} = 1-t_i$ and $c_{i,1} = t_i$. At the endpoints, $i=0$ ($t_i=0$) gives $Y^{(i)}=Y^{(0)}$ (clean trajectory), while $i=N$ ($t_i=1$) yields $Y^{(N)}=\\varepsilon$ (standard Gaussian noise). Thus, the linear probability path recovers the clean sample at one endpoint and pure noise at the other, providing a clear and interpretable interpolation between the two distributions."
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        139.0,
+        559.0,
+        161.0
+      ],
+      "markdown": "We use the same Monte-Carlo score-ascent-type denoising step:"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        320.0,
+        167.0,
+        560.0,
+        196.0
+      ],
+      "markdown": "$$\nY^{(i-1)} = \\frac{1-t_{i-1}}{1-t_i} \\Big(Y^{(i)} + t_i^2\\,\\nabla_{Y^{(i)}}\\log p_i\\!\\big(Y^{(i)}\\big)\\Big) \\tag{11}\n$$"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        203.0,
+        425.0,
+        211.0
+      ],
+      "markdown": "where the score function is"
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        219.0,
+        560.0,
+        290.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n& \\nabla_{Y^{(i)}}\\log p_i\\!\\big(Y^{(i)}\\big) ~\\approx~ \\\\\n& \\; -\\frac{Y^{(i)}}{t_i^2} +\\frac{1-t_i}{t_i^2}\\ \\underbrace{\\frac{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}} Y^{(0)}\\, w(Y^{(0)})}{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}} w(Y^{(0)})}}_{\\text{(importance-weighted average)}}\n\\end{aligned}\n\\tag{12}\n$$"
+    },
+    {
+      "id": "p0003-b021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        299.0,
+        558.0,
+        321.0
+      ],
+      "markdown": "Similar to VP-MBD, we sample $Y^{(0)}$ from the following Gaussian distribution"
+    },
+    {
+      "id": "p0003-b022",
+      "kind": "text",
+      "bbox": [
+        360.0,
+        326.0,
+        560.0,
+        358.0
+      ],
+      "markdown": "$$\n\\mathcal{Y}^{(i)}_{\\text{LP-MBD}} \\sim \\mathcal{N}\\Big(\\frac{Y^{(i)}}{1-t_i}, \\frac{t_i^2}{(1-t_i)^2}\\Big) \\tag{13}\n$$"
+    },
+    {
+      "id": "p0003-b023",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        367.0,
+        502.0,
+        377.0
+      ],
+      "markdown": "By substituting Eq. (12) into Eq. (11), we get"
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        382.0,
+        560.0,
+        423.0
+      ],
+      "markdown": "$$\nY^{(i-1)} = (1-t_{i-1}) \\frac{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}} Y^{(0)}\\, w(Y^{(0)})}{\\sum_{Y^{(0)}\\in\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}} w(Y^{(0)})} \\tag{14}\n$$"
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        430.0,
+        559.0,
+        585.0
+      ],
+      "markdown": "Although LP-MBD uses an intuitive noise schedule, the Gaussian proposal in Eq. (13) has a standard deviation $\\sigma_i=\\tfrac{t_i}{1-t_i}$, which diverges as $t_i\\to 1$. This implies that the initial backward denoising step samples the entire trajectory space, which is theoretically valid but practically unnecessary. In trajectory optimization, control inputs are typically bounded by system constraints, so sampling from an unbounded domain is inefficient. Constraining the noise schedule to natural limits improves efficiency without loss of correctness, motivating a bounded scheduling strategy. Instead of extending the interpolation to $t_i=1.0$, we truncate the schedule at a maximum value $t_{\\max}<1$, ensuring that the variance of $\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}$ remains finite:"
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        370.0,
+        594.0,
+        560.0,
+        610.0
+      ],
+      "markdown": "$$\nt_i \\in [0,\\,t_{\\max}], \\qquad t_{\\max}<1. \\tag{15}\n$$"
+    },
+    {
+      "id": "p0003-b027",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        620.0,
+        558.0,
+        643.0
+      ],
+      "markdown": "When $t_i = t_{\\max}$, the standard deviation of the Gaussian distribution $\\mathcal{Y}^{(i)}_{\\text{LP-MBD}}$ reaches its maximum value."
+    },
+    {
+      "id": "p0003-b028",
+      "kind": "text",
+      "bbox": [
+        315.0,
+        650.0,
+        560.0,
+        688.0
+      ],
+      "markdown": "$$\n\\sigma_{\\max} \\;=\\; \\frac{t_{\\max}}{1-t_{\\max}} \\quad \\left( \\text{equivalently, } t_{\\max}=\\frac{\\sigma_{\\max}}{1+\\sigma_{\\max}} \\right) \\tag{16}\n$$"
+    },
+    {
+      "id": "p0003-b029",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "In practice, $\\sigma_{\\max}$ can be determined from the admissible range of control inputs, which provides a direct and interpretable way to set the exploration limit. Therefore, $t_{\\max}$ can be computed from Eq. (16)."
+    }
+  ]
+}

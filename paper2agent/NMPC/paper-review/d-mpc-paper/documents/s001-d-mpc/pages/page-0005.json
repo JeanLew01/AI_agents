@@ -1,0 +1,186 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and 200-220-dpi crops of the dataset definition, equation (2) and Algorithm 1; maths taken from method2.tex and checked against the crops. Headings '## 3 Method', '### 3.1 Model predictive control', '### 3.2 Model learning' (extractor had '#'/'##'). Inline maths in LaTeX: $p_{s|a}$, $\\pi$, $J$, the dataset $\\mathcal{D}=\\{\\boldsymbol{s}_{1:T_1}^1, \\ldots\\}$ (extraction had scattered it into <sup> fragments and glued '}.We'), $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t}, \\boldsymbol{a}_{t:t+F-1})$, $\\rho(\\boldsymbol{a}_{t:t+F-1}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t})$, $\\gamma$, $V(s)$, $R$, $(\\boldsymbol{s}_{t:t+F}, \\boldsymbol{a}_{t:t+F-1})$. Equation (2) converted from formula image (formula-p0005-008) to a $$ block with \\tag{2} (V(s_{t+F}) has a non-bold s as printed). Printed as is and kept (likely author slips, not corrected): in $\\mathcal{D}$ the reward superscripts read $r_{1:T_1}^2$ and $r_{1:T_2}^m$ (instead of 1 and 2) and there is no comma before \\ldots; Section 3.1 calls the action proposal $\\pi$ and the dynamics $p_{s|a}$ (elsewhere rho and p_d). Algorithm 1: the extractor's 10 list/text fragments replaced by one image crop (figure, asset algorithm-1, bbox [60,517,543,655] including the title bar, both rules and the line numbers, checked at 200 dpi) plus a line-numbered transcription (lines 1-9 as printed, loop body 6-9 indented; algorithm2e prints no 'end for'). Algorithm sits between complete paragraphs. Header and page number omitted. check: 16 missing lines, all containing the inline/display maths above (category a); number differences: 5 U+2212 vs '-' in F-1 subscripts, and extras 1-9, 0, +1 that come from the Algorithm 1 transcription whose source lines are inside the excluded figure crop (category a). Coordinator (2026-10-12): algorithm body indentation changed from spaces to one &emsp; per nesting level, matching Algorithms 3-5 on pages 16-17; text otherwise unchanged.",
+  "warnings": [
+    "Review possible header/footer: p0005-b000"
+  ],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research (05/2025)",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page."
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        83.0,
+        135.0,
+        93.0
+      ],
+      "markdown": "## 3 Method",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        111.0,
+        541.0,
+        146.0
+      ],
+      "markdown": "We will now describe our new D-MPC method. Our approach can be seen as a multi-step diffusion extension of the model-based offline planning (MBOP) paper (Argenson & Dulac-Arnold, 2021), with a few other modifications and simplifications.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        167.0,
+        209.0,
+        177.0
+      ],
+      "markdown": "### 3.1 Model predictive control",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        189.0,
+        541.0,
+        236.0
+      ],
+      "markdown": "D-MPC first learns the dynamics model $p_{s|a}$, action proposal $\\pi$ and heuristic value function $J$ (see below), in an offline phase, as we discuss in Section 3.2, and then proceeds to alternate between taking an action in the environment with planning the next sequence of actions using a planner, as we discuss in Section 3.3. The overall MPC pseudocode is provided in Algorithm 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        257.0,
+        165.0,
+        267.0
+      ],
+      "markdown": "### 3.2 Model learning",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        280.0,
+        541.0,
+        349.0
+      ],
+      "markdown": "We assume access to an offline dataset of trajectories, consisting of (state, action, reward) triples: $\\mathcal{D}=\\{\\boldsymbol{s}_{1:T_1}^1, \\boldsymbol{a}_{1:T_1}^1, r_{1:T_1}^2, \\boldsymbol{s}_{1:T_2}^2, \\boldsymbol{a}_{1:T_2}^2, r_{1:T_2}^m, \\ldots \\boldsymbol{s}_{1:T_M}^M, \\boldsymbol{a}_{1:T_M}^M, r_{1:T_M}^M\\}$. We then use this to fit a diffusion-based dynamics model $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t}, \\boldsymbol{a}_{t:t+F-1})$ and another diffusion-based action proposal $\\rho(\\boldsymbol{a}_{t:t+F-1}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t})$. To fit these models, we minimize the denoising score matching loss in the usual way. We include a detailed review of diffusion model training in Appendix A, and refer the readers to e.g. Karras et al. (2022) for additional discussions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        358.0,
+        541.0,
+        379.0
+      ],
+      "markdown": "We also define a function $J$ that approximates the reward-to-go given any proposed sequence of states and actions:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        172.0,
+        382.0,
+        547.0,
+        422.0
+      ],
+      "markdown": "$$\nJ(\\boldsymbol{s}_{t:t+F}, \\boldsymbol{a}_{t:t+F-1}) = \\mathbb{E}[\\sum_{k=t}^{t+F-1} \\gamma^{k-t} R(\\boldsymbol{s}_k, \\boldsymbol{a}_k) + \\gamma^{F} V(s_{t+F})] \\tag{2}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        432.0,
+        543.0,
+        502.0
+      ],
+      "markdown": "Here $\\gamma$ is the discount factor, and $V(s)$ represents the value function from state $s$ (i.e., estimate of future reward at the leaves of this search process). We also use a transformer to learn $J$ (although we can also just compute $J$ directly, if the reward function $R$ is known, and we use an admissible lower bound (such as 0) on $V$) by regressing from $(\\boldsymbol{s}_{t:t+F}, \\boldsymbol{a}_{t:t+F-1})$ to the discounted future reward in Eq. (2). We use L2 loss for the regression. We use $J$ as the objective function for optimization in MPC, and as a way to specify novel tasks. Refer to Appendix E for additional details on model architectures and hyperparameters.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "figure",
+      "bbox": [
+        60.0,
+        517.0,
+        543.0,
+        655.0
+      ],
+      "markdown": "",
+      "source_class": "text",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        538.0,
+        461.0,
+        645.0
+      ],
+      "markdown": "**Algorithm 1:** Main MPC loop.  \n1 Input: $\\mathcal{D} =$ offline dataset, $N =$ num. samples, $F =$ forecast horizon, $H =$ history length  \n2 $(p_{d}, \\rho, J) = \\text{train}(\\mathcal{D})$  \n3 $\\boldsymbol{s}_0 = \\text{env.init()}$  \n4 $\\boldsymbol{h}_0 = (\\boldsymbol{s}_0)$  \n5 **for** $t = 0 : \\infty$ **do**  \n6 &emsp;$\\boldsymbol{a}_t = \\text{planner.plan}(\\boldsymbol{s}_t, \\boldsymbol{h}_t, p_{d}, \\rho, J, N, F, H)$  \n7 &emsp;$(\\boldsymbol{s}_{t+1}, r_{t+1}) = \\text{env.step}(\\boldsymbol{s}_t, \\boldsymbol{a}_t)$  \n8 &emsp;$\\boldsymbol{h}_t = \\text{append}(\\boldsymbol{a}_t, \\boldsymbol{s}_{t+1}, r_{t+1})$  \n9 &emsp;$\\boldsymbol{h}_t = \\text{suffix}(\\boldsymbol{h}_t, H)$",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0005-b020",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        674.0,
+        541.0,
+        732.0
+      ],
+      "markdown": "Note that unlike MBOP (Argenson & Dulac-Arnold, 2021) we do not need to train ensembles, since diffusion models are expressive enough to capture the richness of the respective distributions directly. Also, in contrast to Argenson & Dulac-Arnold (2021), we do not need to train a separate reward function: we estimate our value function at the beginning of the planning horizon, for a given sequence of states and actions along that horizon. In this way, our objective function $J$ already includes the estimated reward along the horizon.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b021",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        753.0,
+        309.0,
+        760.0
+      ],
+      "markdown": "5",
+      "source_class": "page-footer",
+      "reason": "Page number 5 (footer)."
+    }
+  ]
+}

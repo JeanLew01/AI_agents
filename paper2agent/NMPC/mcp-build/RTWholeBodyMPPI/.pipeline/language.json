@@ -1,0 +1,27 @@
+{
+  "language": "python",
+  "requires_gpu": false,
+  "gpu_requirement": "none",
+  "language_reason": "The simulation code is the Python package `whole_body_mppi` in legged_mppi/ (pip install -e .); the documented tutorials are the notebooks legged_mppi/notebooks/MPPI_tasks.ipynb and MPPI_tasks_push.ipynb, which import the package; legged_mppi/scripts/simulate_mppi.py exposes only --task and drives a viewer.",
+  "gpu_reason": "CPU MuJoCo (mujoco==3.1.6) with multi-threaded rollouts; no GPU code path.",
+  "repository": {
+    "url": "https://github.com/jrapudg/RTWholeBodyMPPI",
+    "commit": "55e6dc35d042ed5f175ad6ae312c886282f32529",
+    "path": "repo/RTWholeBodyMPPI",
+    "dirty_files": {}
+  },
+  "requested_filter": "MuJoCo simulation part only (legged_mppi/). The hardware stack (ROS/catkin packages legged_*, unitree_legged_msgs, mocap_optitrack, Docker devcontainer) needs a Unitree Go1, motion capture and ROS and is out of scope.",
+  "route_override": null,
+  "evidence_paths": [
+    "repo/RTWholeBodyMPPI/README.md",
+    "repo/RTWholeBodyMPPI/legged_mppi/setup.py",
+    "repo/RTWholeBodyMPPI/legged_mppi/requirements.txt",
+    "repo/RTWholeBodyMPPI/legged_mppi/scripts/simulate_mppi.py",
+    "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks.ipynb",
+    "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks_push.ipynb"
+  ],
+  "unresolved_prerequisites": [
+    "mujoco-python-viewer is a hard requirement but needs a display; headless execution must avoid the viewer through supported switches.",
+    "MuJoCo imports are heavy jobs and are disabled in this workspace until the user's memory decision (mcp-build/HEAVY_JOBS_DISABLED)."
+  ]
+}

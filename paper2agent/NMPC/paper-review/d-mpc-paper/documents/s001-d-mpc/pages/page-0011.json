@@ -1,0 +1,161 @@
+{
+  "page": 11,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0011.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with preview, a 260-dpi crop of the formula lines, 160-dpi crops of 4.4.4-4.5 and Section 5, and ablations2.tex/distillation.tex/discussions2.tex. First item continues the paragraph from page 10 ('...due to the fact that' / 'the transformer dynamics model...'), join_previous='space'. Inline formula rewritten in LaTeX from the TeX (macro \\dynamics -> p_{d}, \\vs/\\va -> \\boldsymbol{s}/\\boldsymbol{a}, \\future -> F) and checked against the crop: $p_{d}(\\boldsymbol{s}_{t+1:t+F} | \\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1}) = \\prod_{t}^{t+F-1} p_{d}(\\boldsymbol{s}_{t+1} | \\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t-1}, \\boldsymbol{a}_t)$; printed equals TeX. The product is printed with lower limit 't' (no 't='), i.e. the index and the bounds share the symbol t: kept as printed (authors' notation). Bold vectors printed bold italic (TeX \\bm) -> \\boldsymbol{...}, matching pages 2-5; p_{d} written with braces as on pages 2-5. Straight double quotes around \"a-causal\" kept as printed. Headings set as printed: '#### 4.4.4 Necessity of Expressive Models for Multi-Step Prediction', '### 4.5 D-MPC can be distilled into a fast reactive policy for high-frequency control', '## 5 Conclusions'. Numbers verified against the crops: 4096, 65.98 (Table 3b), 50.01, Appendix J, 6 D4RL, 1M steps, 65.08, 65.98, 41.92, citation years 2020/2023/2022. Last paragraph ends complete ('...model-free approaches.'); Section 5 continues on page 12 with a new paragraph. Running header and page number omitted.",
+  "warnings": [
+    "Review possible header/footer: p0011-b000"
+  ],
+  "items": [
+    {
+      "id": "p0011-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research (05/2025)",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page."
+    },
+    {
+      "id": "p0011-b001",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        84.0,
+        542.0,
+        154.0
+      ],
+      "markdown": "the transformer dynamics model represents the sequence level distribution as a product of one-step (albeit non-Markovian) conditionals, i.e., $p_{d}(\\boldsymbol{s}_{t+1:t+F} | \\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1}) = \\prod_{t}^{t+F-1} p_{d}(\\boldsymbol{s}_{t+1} | \\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t-1}, \\boldsymbol{a}_t)$. By contrast, the diffusion dynamics model is an \"a-causal\" joint distribution that goes from noise to clean trajectories, rather than working left to right. We conjecture that this enables diffusion to capture global properties of a signal (e.g., predicting if the final state corresponds to the robot falling over) in a more faithful way than a causal-in-time model.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0011-b002",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        163.0,
+        541.0,
+        233.0
+      ],
+      "markdown": "While some D4RL tasks may not present explicit, immediate penalties for short-term planning, achieving high scores even on benchmarks like Walker2D and Hopper often requires anticipating delayed consequences of actions (e.g., an excessively fast gait leading to later instability). This section demonstrates D-MPC’s ability to mitigate compounding error through accurate long-horizon predictions, a crucial capability for both maximizing performance within D4RL and for tackling more complex, real-world scenarios where long-term planning is essential.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b003",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        249.0,
+        366.0,
+        259.0
+      ],
+      "markdown": "#### 4.4.4 Necessity of Expressive Models for Multi-Step Prediction",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0011-b004",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        269.0,
+        543.0,
+        352.0
+      ],
+      "markdown": "To demonstrate the importance of model expressiveness for effective multi-step prediction, we replaced the multi-step diffusion models within D-MPC (for both action proposal and dynamics) with multi-step MLPs. These MLPs were two-layer networks with 4096 hidden units, using flattened multi-step states and actions as inputs. The D-MPC configuration using diffusion models achieves a normalized score of 65.98 (Table 3b). In contrast, the version using multi-step MLPs for both components only achieved a score of 50.01. This substantial performance drop underscores the necessity of employing expressive models, such as diffusion models, to accurately capture the complex distributions inherent in multi-step planning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b005",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        369.0,
+        447.0,
+        379.0
+      ],
+      "markdown": "### 4.5 D-MPC can be distilled into a fast reactive policy for high-frequency control",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0011-b006",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        391.0,
+        543.0,
+        473.0
+      ],
+      "markdown": "Due to the use of diffusion models, D-MPC has slower runtime. In Appendix J, we include a detailed runtime comparison between D-MPC and other methods. However, if high-frequency control is important, we can distill the D-MPC planner into a fast task-specific MLP policy, similar to what is done in MoREL (Kidambi et al., 2020) or MOPO (Yu et al., 2020). Concretely, we train an MLP policy on offline datasets, using the planned actions from pretrained D-MPC as supervision. We do this for the 6 D4RL locomotion domain and level combinations we use in our ablation studies, and compare performance with both the vanilla MLP policy and D-MPC. We train all models for 1M steps, and evaluate the last checkpoint for the distilled MLP policy.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b007",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        481.0,
+        541.0,
+        539.0
+      ],
+      "markdown": "We observe that the distilled MLP policy achieves an average normalized score of 65.08 across the 6 D4RL locomotion domain and level combinations, which is only slightly worse than D-MPC’s average normalized score of 65.98, and greatly outperforms the vanilla MLP policy’s average normalized score of 41.92. In addition, after distillation we just have an MLP policy, and it runs at the same speed as the vanilla MLP policy.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b008",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        558.0,
+        156.0,
+        568.0
+      ],
+      "markdown": "## 5 Conclusions",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0011-b009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        584.0,
+        541.0,
+        643.0
+      ],
+      "markdown": "We proposed Diffusion Model Predictive Control (D-MPC), which leverages diffusion models to improve MPC by learning multi-step action proposals and multi-step dynamics from offline datasets. D-MPC reduces compounding errors with its multi-step formulation, achieves competitive performance on the D4RL benchmark, and can optimize novel rewards at run time and adapt to new dynamics. Detailed ablation studies illustrate the benefits of different D-MPC components.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b010",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        650.0,
+        543.0,
+        732.0
+      ],
+      "markdown": "One disadvantage of our method (shared by all MPC methods) is the need to replan at each step, which is much slower than using a reactive policy. This is particularly problematic when using diffusion models, which are especially slow to sample from. In the future, we would like to investigate the use of recently developed speedup methods from the diffusion literature, such as distillation (see e.g., Chang et al. (2023)). Furthermore, while our ablation studies demonstrate the surprising effectiveness of our simple sampling-based planner, incorporating guided sampling techniques (as suggested in Janner et al. (2022)) could offer a path towards greater efficiency by combining the strengths of model-based and model-free approaches.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0011-b011",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        753.0,
+        311.0,
+        760.0
+      ],
+      "markdown": "11",
+      "source_class": "page-footer",
+      "reason": "Page number 11 (footer)."
+    }
+  ]
+}

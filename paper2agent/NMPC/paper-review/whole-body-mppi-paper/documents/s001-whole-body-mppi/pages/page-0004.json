@@ -1,0 +1,256 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, the 95 native lines, a 220-dpi crop of the right column around equation (3) and a crop of Figure 4, using methods.tex and results.tex as an aid. First item p0004-b000 \"the search space by ...\" completes the page-3 sentence \"Following [25], we reduce the size of\": join_previous=space. Headings fixed from \"# _X. ..._\" to \"### C. State Estimation\", \"### A. Hardware Implementation\", \"### B. Walking on Flat Terrain\", \"### C. Locomotion Over Challenging Terrains\", \"### D. Box Pushing\", and \"# IV. ...\" -> \"## IV. EXPERIMENTS AND RESULTS\". The centred project URL line \"whole-body-mppi.github.io\" was a \"#\" heading; it is not a heading, now a text item. The paragraph \"We run MPPI on a workstation ...\" ends the left column with \"We publish joint targets from\" and continues below Figure 4 in the right column: p0004-b010 \"MPPI to the robot ...\" has join_previous=space, and Figure 4 + caption are placed after that completed paragraph (before \"B. Walking on Flat Terrain\", where results.tex places the float). Figure 4 (asset figure-4): single photo composite, bbox [311,48,560,190] checked by crop (caption starts at y=200); caption \"Fig. 4. ...\" verbatim. Equation (3) was a formula image item; now one text item with a two-line \\begin{aligned}...\\end{aligned} block and a single \\tag{3} (one printed number for the two lines), from results.tex, checked symbol by symbol against the crop: \\Big[ ... \\Big] brackets, transposes ^T, $u_{\\text{ref}}(t)$, trailing comma. Inline maths in LaTeX: $T = 40$, $x_t$, $u_t$, $t$, $x_{\\text{ref}}$, $u_{\\text{ref}}(t)$, $u_{\\text{ref}}$, $Q$, $R$, $0.36\\text{m}\\times0.36\\text{m}\\times0.36\\text{m}$, $\\ell_1$; plain numbers with units (100 Hz, 500 Hz, 0.01 s, 0.4 s, 30 samples, 20 kHz, 0.24 m, 3.5 kg) kept as plain digits. Wrap repairs: \"bodyvelocity\" -> \"body-velocity\" (results/methods.tex: body-velocity), \"way-points\" -> \"waypoints\"; \"ve-locities\", \"ca-pabilities\", \"loco-motion\" rejoined. Authors' slips kept as printed: \"in Sec. IV-E, we investigate ...\" (lower-case \"in\" opening a sentence), \"Across all hard experiments\" (for \"hardware\"); the em dash in \"0.24 m tall — roughly\" kept. \"website\" is an \\href to whole-body-mppi.github.io in the TeX; kept as plain text as printed. The page ends with the unfinished sentence \"we add an $\\ell_1$-norm cost for the position\"; page 5 must start with its continuation (join_previous=space). check: 8 missing lines, all category (a), see adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        172.0
+      ],
+      "markdown": "the search space by sampling over spline control points and interpolating using a cubic spline (Fig. 2). This spline representation also provides the added benefit of smoothing the controls. While it is possible to use zeroth-order or linear interpolation, we find that cubic splines perform the best in practice and focus on this representation in this paper. Similarly, in many applications, one can further reduce the search space by sampling over a reduced action space. in Sec. IV-E, we investigate the impact of sampling representation on control performance.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        181.0,
+        135.0,
+        189.0
+      ],
+      "markdown": "### C. State Estimation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        196.0,
+        299.0,
+        419.0
+      ],
+      "markdown": "We estimate the full state of the robot (global position, attitude, joint angles, body angular velocity, and joint velocities) by fusing position and attitude measurements from a motion-capture system (100 Hz), onboard IMU (500 Hz), and onboard joint encoders (500 Hz) with an EKF running at 500 Hz, Fig. 2. Specifically, we take body velocity estimation from the single-rigid body EKF [11] and fuse it with the motion-capture measurements. Different from standard locomotion policies [11], [15] focusing on body-velocity estimation and tracking, precise global states are key to correctly resetting the MuJoCo simulation. Admittedly, a mismatched model between planning (whole-body, soft contact) and estimation (single-rigid body, hard contact) is not ideal and can degrade real-world performance. We find that this mismatch can be minimized with estimator tuning (especially the height of the robot, as it directly relates to planned contact forces during locomotion) and plan to further investigate estimation algorithms using MuJoCo dynamics in the future.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "heading",
+      "bbox": [
+        105.0,
+        430.0,
+        248.0,
+        438.0
+      ],
+      "markdown": "## IV. EXPERIMENTS AND RESULTS",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        445.0,
+        299.0,
+        551.0
+      ],
+      "markdown": "In this section, we present results demonstrating the capabilities of our sampling-based MPC implementation on a variety of tasks and describe the implementation details of the hardware system. In particular, we highlight the ability of our system to generate emergent whole-body contacts in real time while solving challenging locomotion and manipulation tasks without any contact pre-specification or offline policy optimization. Experiment videos and code can be found on our project website:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        121.0,
+        559.0,
+        231.0,
+        569.0
+      ],
+      "markdown": "whole-body-mppi.github.io",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        578.0,
+        174.0,
+        587.0
+      ],
+      "markdown": "### A. Hardware Implementation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        593.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "We run MPPI on a workstation computer equipped with an Intel i9-12900KS CPU and 64 GB of memory. This workstation is connected to the robot via Ethernet and communicates using ROS. All hardware experiments are run on a Unitree Go1 quadruped robot. Across all hard experiments, we update the MPPI policy at 100 Hz, discretize the dynamics at 0.01 s, plan over a 0.4 s horizon ($T = 40$ timesteps), and roll out 30 samples. For contact simulation in MuJoCo, we use the default parameters for the contact model and rely on the linearized friction cone for speed. We refer the interested reader to our website for a full list of hyperparameters for each task. We publish joint targets from",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        236.0,
+        559.0,
+        256.0
+      ],
+      "markdown": "MPPI to the robot that are tracked using the Go1’s onboard low-level PD controller at 20 kHz.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "figure",
+      "bbox": [
+        311.0,
+        48.0,
+        560.0,
+        190.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 4",
+      "asset_name": "figure-4"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        200.0,
+        559.0,
+        226.0
+      ],
+      "markdown": "Fig. 4. Go1 robot walking in a clockwise hexagon trajectory under small to moderate model mismatch and external disturbance. More transparent robots represent earlier keyframes.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        268.0,
+        426.0,
+        278.0
+      ],
+      "markdown": "### B. Walking on Flat Terrain",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        283.0,
+        559.0,
+        315.0
+      ],
+      "markdown": "We first verify our implementation on a flat terrain locomotion task. The walking task cost function tracks a state and control reference:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        349.0,
+        317.0,
+        562.0,
+        379.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n\\mathcal{L}_{\\text{walk}} = \\sum_{t=0}^{T} \\Big[ &(x_{\\text{ref}} - x_t)^T Q (x_{\\text{ref}} - x_t) + \\\\\n&(u_{\\text{ref}}(t) - u_t)^T R (u_{\\text{ref}}(t) - u_t) \\Big] ,\n\\end{aligned} \\tag{3}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        380.0,
+        559.0,
+        485.0
+      ],
+      "markdown": "where $x_t$ and $u_t$ are the state and control of the robot at index $t$, respectively. $x_{\\text{ref}}$ includes the desired robot position and attitude. $u_{\\text{ref}}(t)$ represents the joint targets of a walking gait based on the Raibert heuristic [29]. Although we observe various locomotion gaits emerge by setting a time-invariant $u_{\\text{ref}}$ to the standing pose and a goal position for the robot, we find the walking policy is significantly more robust when tracking a gait reference. Finally, $Q$ and $R$ are diagonal weight matrices on states and controls.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        487.0,
+        559.0,
+        531.0
+      ],
+      "markdown": "We successfully deploy the MPPI walking policy by trotting in place and walking to various user-specified waypoints (Fig. 4). Our policy is robust to moderate external disturbances and unmodeled terrain mismatch.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        543.0,
+        488.0,
+        552.0
+      ],
+      "markdown": "### C. Locomotion Over Challenging Terrains",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        558.0,
+        559.0,
+        662.0
+      ],
+      "markdown": "In more challenging locomotion scenarios, we model the terrain geometry in MuJoCo and set waypoints for the robot to track. We successfully deploy the MPPI policy on hardware to climb up a box of up to 0.24 m tall — roughly the height of the robot when standing (Fig. 3). Although we use the same trotting gait reference as when walking on flat ground, we observe the robot leverage unplanned motions such as jumps and contacts with the body to traverse the tall obstacle.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        673.0,
+        380.0,
+        683.0
+      ],
+      "markdown": "### D. Box Pushing",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Next, we showcase the whole-body contact planning capabilities of our MPPI policy to push a 3.5 kg box of size $0.36\\text{m}\\times0.36\\text{m}\\times0.36\\text{m}$, Fig. 1. In addition to the locomotion cost on the robot, we add an $\\ell_1$-norm cost for the position",
+      "source_class": "text"
+    }
+  ]
+}

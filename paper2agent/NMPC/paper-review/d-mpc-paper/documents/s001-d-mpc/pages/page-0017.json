@@ -1,0 +1,290 @@
+{
+  "page": 17,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0017.png",
+  "reviewed": true,
+  "review_notes": "[v2] Page was raw extraction (Algorithm 5 as glyph-soup list items, Table 4 with a broken markdown header, display equations as formula images, the S_k line scrambled, '#' headings). Compared the preview, a 240-dpi crop of Algorithm 5, two 400-dpi crops of Table 4 (left and right halves) and a 260-dpi crop of the Appendix D maths with the rebuilt items; maths from appendix.tex with macros expanded (\\bm -> \\boldsymbol, \\vA -> \\mathbf{A}, {\\bm R} -> \\boldsymbol{R}, \\model -> \\mathcal{M}, \\Nsamples -> N, \\future -> F) and checked on the crops. Header and page number omitted with reasons. Headings '## C Detailed ablation study results', '## D Normalizing state coordinates'. Algorithm 5: image crop (figure, asset algorithm-5, bbox [58,83,544,315], all 15 lines, both rules and the loop bars inside, checked on an overlay) plus a line-numbered transcription (bold printed title; plain line numbers; one '&emsp;' per loop-nesting level, matching the printed bars; no 'end for' lines because none are printed). Printed oddities kept: line 3 '\\mathbf{A}_{N,H} = 0' (H is the history length elsewhere; the horizon is F); K (ensemble size) and \\beta are used but not among the Def arguments; line 14 averages \\mathbf{A}_{n,t+1} for t in [0, F-1]. Table 4: table item (asset table-4, bbox [73,395,540,478]) with 8 rows x 9 columns; the two-level header is flattened by repeating the parent header: 'MS Diff Action Proposal: SS Diff Dynamics', 'MS Diff Action Proposal: SS MLP Dynamics', 'MS Diff Action Proposal: ART Dynamics', 'SS Diff Action Proposal: SS Diff Dynamics', 'SS Diff Action Proposal: SS MLP Dynamics' (conversion note; caption kept verbatim); the 'Average' label spans the Domain Name and Level columns in print and is stored as 'Average' + empty Level cell. Every cell compared with the 400-dpi crops and the TeX: the D-MPC column keeps its inconsistent spacing as printed ('46.00 (±0.17)', '61.24 (±2.30)', '92.49 (±2.23)', '78.81 (±4.19)' without a space; '76.21 (± 2.67)', '41.12 (± 0.31)' with a space); all other columns '(± x)'. Caption is a separate caption item. Appendix D: display equations for \\mathcal{D} and \\hat{F}_k(t) converted from formula images to unnumbered $$...$$ text items (no number printed); the S_k definition is inline in print and written inline with \\bigcup\\limits; '[-1,1]' and '\\mathbf{1}_{Y}' inline. Prose after each display is its own item without join (sibling convention). Printed oddities kept: \\mathcal{D} lists 'r^2_{1:T_1}' and 'r^m_{1:T_2}' (superscripts 2 and m where 1 and 2 are expected) and has no comma after '\\ldots'; 'the the empirical'; 'a a high-level summary'; 'Table 3b' as printed. Page 17/18 boundary: page 17 ends with 'where \\mathbf{1}_Y is the indicator function for event Y.', which ends a paragraph in the TeX (blank line before 'For the state vector'), so page 18 starts a new paragraph and no join is set. check: 12 missing lines and number differences, all category (a) (adjudication note written).",
+  "warnings": [
+    "Review possible header/footer: p0017-b000"
+  ],
+  "items": [
+    {
+      "id": "p0017-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research <u>(05/2025)</u>",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page (page furniture)."
+    },
+    {
+      "id": "p0017-b001",
+      "kind": "figure",
+      "bbox": [
+        58.0,
+        83.0,
+        544.0,
+        315.0
+      ],
+      "markdown": "",
+      "source_class": "section-header",
+      "label": "Algorithm 5",
+      "asset_name": "algorithm-5"
+    },
+    {
+      "id": "p0017-b002",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        87.0,
+        540.0,
+        312.0
+      ],
+      "markdown": "**Algorithm 5:** MBOP-TrajOpt  \n1 Def $\\boldsymbol{a} = \\text{MBOP-TrajOpt}(\\boldsymbol{s}_0, \\boldsymbol{a}^\\text{prev}, \\mathcal{M}, N, F, \\kappa, \\sigma^2)$:  \n2 $\\boldsymbol{R}_N = 0$  \n3 $\\mathbf{A}_{N,H} = 0$  \n4 **for** $n = 1 : N$ **do**  \n5 &emsp;$l = n \\mod K$  \n6 &emsp;$\\boldsymbol{s}_1 = \\boldsymbol{s}_0, \\boldsymbol{a}_0 = \\boldsymbol{a}^\\text{prev}_0, R = 0$  \n7 &emsp;**for** $t = 1 : F$ **do**  \n8 &emsp;&emsp;$\\epsilon \\sim \\mathcal{N}(0, \\sigma^2)$  \n9 &emsp;&emsp;$\\boldsymbol{a}_t = f^l_\\mathrm{prop}(\\boldsymbol{s}_t, \\boldsymbol{a}_{t-1}) + \\epsilon$  \n10 &emsp;&emsp;$\\mathbf{A}_{n,t} = (1 - \\beta)\\boldsymbol{a}_t + \\beta \\boldsymbol{a}^\\text{prev}_{\\min(t, F-1)}$  \n11 &emsp;&emsp;$\\boldsymbol{s}_{t+1} = f^l_\\mathrm{states}(\\boldsymbol{s}_t, \\mathbf{A}_{n,t})$  \n12 &emsp;&emsp;$R = R + \\frac{1}{K} \\sum_{i=1}^K f^i_\\mathrm{reward}(\\boldsymbol{s}_t, \\mathbf{A}_{n,t})$  \n13 &emsp;$\\boldsymbol{R}_n = R + \\frac{1}{K} \\sum_{i=1}^K f^i_\\mathrm{value}(\\boldsymbol{s}_{F+1}, \\mathbf{A}_{n,F})$  \n14 $\\boldsymbol{a}_t = \\frac{\\sum_{n=1}^N e^{\\kappa \\boldsymbol{R}_n} \\mathbf{A}_{n,t+1}}{\\sum_{n=1}^N e^{\\kappa \\boldsymbol{R}_n}}, \\forall t \\in [0, F-1]$  \n15 Return $\\boldsymbol{a}$",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0017-b006",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        338.0,
+        261.0,
+        349.0
+      ],
+      "markdown": "## C Detailed ablation study results",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0017-b007",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        364.0,
+        541.0,
+        386.0
+      ],
+      "markdown": "In Table 4, we present detailed performances of the D-MPC variants studied in Section 4.4. See Table 3b for a a high-level summary.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b008",
+      "kind": "table",
+      "bbox": [
+        73.0,
+        395.0,
+        540.0,
+        478.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 4",
+      "asset_name": "table-4",
+      "rows": [
+        [
+          "Domain Name",
+          "Level",
+          "MBOP",
+          "D-MPC",
+          "MS Diff Action Proposal: SS Diff Dynamics",
+          "MS Diff Action Proposal: SS MLP Dynamics",
+          "MS Diff Action Proposal: ART Dynamics",
+          "SS Diff Action Proposal: SS Diff Dynamics",
+          "SS Diff Action Proposal: SS MLP Dynamics"
+        ],
+        [
+          "halfcheetah",
+          "medium",
+          "44.60",
+          "46.00 (±0.17)",
+          "44.50 (± 0.18)",
+          "44.78 (± 0.13)",
+          "45.17 (± 0.15)",
+          "46.54 (± 0.17)",
+          "44.88 (± 0.18)"
+        ],
+        [
+          "hopper",
+          "medium",
+          "48.80",
+          "61.24 (±2.30)",
+          "53.83 (± 2.38)",
+          "50.66 (± 1.29)",
+          "50.11 (± 1.77)",
+          "46.24 (± 1.66)",
+          "47.12 (± 2.39)"
+        ],
+        [
+          "walker2d",
+          "medium",
+          "41.00",
+          "76.21 (± 2.67)",
+          "72.23 (± 2.49)",
+          "77.09 (± 1.62)",
+          "73.16 (± 2.97)",
+          "75.59 (± 2.85)",
+          "76.44 (± 1.79)"
+        ],
+        [
+          "halfcheetah",
+          "medium-replay",
+          "42.30",
+          "41.12 (± 0.31)",
+          "42.85 (± 0.14)",
+          "41.57 (± 0.16)",
+          "42.40 (± 0.15)",
+          "42.06 (± 0.19)",
+          "40.37 (± 0.35)"
+        ],
+        [
+          "hopper",
+          "medium-replay",
+          "12.40",
+          "92.49 (±2.23)",
+          "74.45 (± 4.44)",
+          "76.38 (± 3.83)",
+          "79.84 (± 3.93)",
+          "70.17 (± 5.55)",
+          "68.31 (± 5.60)"
+        ],
+        [
+          "walker2d",
+          "medium-replay",
+          "9.70",
+          "78.81 (±4.19)",
+          "58.98 (± 4.79)",
+          "52.33 (± 4.85)",
+          "68.28 (± 4.43)",
+          "39.30 (± 5.62)",
+          "40.47 (± 5.51)"
+        ],
+        [
+          "Average",
+          "",
+          "33.13",
+          "65.98",
+          "57.81",
+          "57.14",
+          "59.83",
+          "53.32",
+          "52.93"
+        ]
+      ]
+    },
+    {
+      "id": "p0017-b009",
+      "kind": "caption",
+      "bbox": [
+        83.0,
+        486.0,
+        529.0,
+        506.0
+      ],
+      "markdown": "Table 4: Detailed performances of the D-MPC variants studied in the ablation studies on different D4RL domains and levels. MS = multi-step, SS = single step, Diff = diffusion, ART = auto-regressive transformer.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b010",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        532.0,
+        258.0,
+        544.0
+      ],
+      "markdown": "## D Normalizing state coordinates",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0017-b011",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        558.0,
+        541.0,
+        581.0
+      ],
+      "markdown": "Following Ajay et al. (2023), we normalize the states that are input to our models by using the the empirical cumulative distribution function (CDF) to remap each coordinate to lie uniformly in the range $[-1,1]$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b012",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        587.0,
+        431.0,
+        599.0
+      ],
+      "markdown": "Given an offline dataset of trajectories, consisting of (state, action, reward) triples",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b013",
+      "kind": "text",
+      "bbox": [
+        162.0,
+        604.0,
+        450.0,
+        628.0
+      ],
+      "markdown": "$$\\mathcal{D}=\\{\\boldsymbol{s}_{1:T_1}^1, \\boldsymbol{a}_{1:T_1}^1, r_{1:T_1}^2, \\boldsymbol{s}_{1:T_2}^2, \\boldsymbol{a}_{1:T_2}^2, r_{1:T_2}^m, \\ldots \\boldsymbol{s}_{1:T_M}^M, \\boldsymbol{a}_{1:T_M}^M, r_{1:T_M}^M\\}$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0017-b014",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        634.0,
+        541.0,
+        669.0
+      ],
+      "markdown": "let $\\mathcal{S}_k \\equiv \\left\\{ \\bigcup\\limits_{m=1}^M \\bigcup\\limits_{i=1}^{T_m} {(s_k)}^m_i \\right\\}$ be the accumulated corpus for the $k$-th coordinate of each state. We can define the empirical CDF for the $k$-th coordinate of the state by",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b015",
+      "kind": "text",
+      "bbox": [
+        218.0,
+        676.0,
+        393.0,
+        716.0
+      ],
+      "markdown": "$$\\hat{F}_k(t) = \\frac{1}{N} \\sum_{i=1}^N \\mathbf{1}_{s_k^i \\leq t} \\;\\; \\textrm{for } s_k^{i = 1 \\ldots N} \\in \\mathcal{S}_k$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0017-b016",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        722.0,
+        277.0,
+        732.0
+      ],
+      "markdown": "where $\\mathbf{1}_{Y}$ is the indicator function for event $Y$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0017-b017",
+      "kind": "omit",
+      "bbox": [
+        300.0,
+        753.0,
+        311.0,
+        760.0
+      ],
+      "markdown": "17",
+      "source_class": "page-footer",
+      "reason": "Page number '17' (page furniture)."
+    }
+  ]
+}

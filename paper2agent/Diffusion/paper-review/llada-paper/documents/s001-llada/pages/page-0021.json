@@ -1,0 +1,158 @@
+{
+  "page": 21,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0021.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220/240-dpi crops of Algorithm 5 and equations (12)-(14). Algorithm 5 (Low-confidence Remasking Strategy of LLaDA) is one figure crop (algorithm-5, [106,70,507,331]; rules at y=72.1 and 328.7, the line-15 comment reaches x=504.8) plus a line-by-line transcription of all 20 printed lines with three nesting levels; maths from main.tex checked against the crop; printed forms kept: 'Lowest - n_{un}' written as $\\text{Lowest} - n_{un} \\left(\\{c^i\\}_1^{L}\\right)$, $c^i = p_{\\theta}(r_0^i|p_0, r_t)_{r_0^i}$, '# the $n_{un}$ positions with the least confidence are selected for remasking.' The extractor had put the whole algorithm into one glyph-soup text item; replaced. Equations (12), (13), (14) converted from formula images to $$...$$ with \\tag{12}-\\tag{14}; (13) keeps the printed subscript $x_0 \\sim p_{\\text{data}(x_0)}$ (the '(x_0)' sits inside the subscript in the PDF and in main.tex, an authors' oddity, not repaired). Heading fixed from '# **A.2 Inference**' to '### A.2 Inference'. Inline maths in LaTeX ($\\mathbf{1}[\\cdot]$, $\\mathcal{L}(\\theta)$, $\\{1, 2, \\dots, L\\}$, $\\frac{l}{L}$); the extractor's glued 'deterministically l/L.While a theoretical analysis depends on' repaired. Printed wording kept ('Despite masking exactly $l$ tokens is different from ...'). The algorithm float sits at the top between complete paragraphs (p. 20 ends with a complete paragraph), so printed order is kept. Page ends with a complete paragraph; p. 22 starts 'Any-order autoregressive models ...'. Page number omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0021-b000",
+      "kind": "figure",
+      "bbox": [
+        106,
+        70,
+        507,
+        331
+      ],
+      "markdown": "",
+      "label": "Algorithm 5",
+      "asset_name": "algorithm-5"
+    },
+    {
+      "id": "p0021-b001",
+      "kind": "text",
+      "bbox": [
+        106,
+        70,
+        507,
+        331
+      ],
+      "markdown": "**Algorithm 5** Low-confidence Remasking Strategy of LLaDA\n\n**Require:** mask predictor $p_{\\theta}$, prompt $p_0$, answer length $L$, sampling steps $N$\n\n**1:**&ensp;Set $r_1$ is a fully masked sequence of length $L$.\n\n**2:**&ensp;**for** $t \\gets 1$ **down to** $\\frac{1}{N}$ **step** $\\frac{1}{N}$ **do**\n\n**3:**&ensp;&emsp;&emsp; $s = t - \\frac{1}{N}$\n\n**4:**&ensp;&emsp;&emsp; **for** $i \\gets 1$ to $L$ **do**\n\n**5:**&ensp;&emsp;&emsp;&emsp;&emsp; **if** $r_t^i \\neq \\mathrm{M}$ **then**\n\n**6:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; $r_0^i = r_t^i$, $c^i = 1$\n\n**7:**&ensp;&emsp;&emsp;&emsp;&emsp; **else**\n\n**8:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; $r_0^i = \\arg\\max_{r_0^i} p_{\\theta}(r_0^i|p_0, r_t)$\n\n**9:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; $c^i = p_{\\theta}(r_0^i|p_0, r_t)_{r_0^i}$\n\n**10:**&ensp;&emsp;&emsp;&emsp;&emsp; **end if**\n\n**11:**&ensp;&emsp;&emsp; **end for**\n\n**12:**&ensp;&emsp;&emsp; $n_{un} = \\lfloor L (1 - s) \\rfloor$ &emsp; # the number of unmasked tokens is $n_{un}$ in timestep $s$\n\n**13:**&ensp;&emsp;&emsp; **for** $i \\gets 1$ to $L$ **do**\n\n**14:**&ensp;&emsp;&emsp;&emsp;&emsp; **if** $c^i \\in \\text{Lowest} - n_{un} \\left(\\{c^i\\}_1^{L}\\right)$ **then**\n\n**15:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; $r_0^i = \\mathrm{M}$ &emsp; # the $n_{un}$ positions with the least confidence are selected for remasking.\n\n**16:**&ensp;&emsp;&emsp;&emsp;&emsp; **end if**\n\n**17:**&ensp;&emsp;&emsp; **end for**\n\n**18:**&ensp;&emsp;&emsp; $r_s = r_0$\n\n**19:**&ensp;**end for**\n\n**20:**&ensp;**Return** $r_0$"
+    },
+    {
+      "id": "p0021-b002",
+      "kind": "text",
+      "bbox": [
+        108,
+        350,
+        427,
+        362
+      ],
+      "markdown": "Formally, the mask predictor is trained using a cross-entropy loss with masking:"
+    },
+    {
+      "id": "p0021-b003",
+      "kind": "text",
+      "bbox": [
+        195,
+        363,
+        510,
+        404
+      ],
+      "markdown": "$$ \\mathcal{L}(\\theta) \\triangleq - \\mathbb{E}_{t, x_0, x_t} \\left[\\frac{1}{t} \\sum_{i=1}^{L} \\mathbf{1}[x_t^i = \\mathrm{M}] \\log p_{\\theta}(x_0^i|x_t) \\right], \\tag{12} $$"
+    },
+    {
+      "id": "p0021-b004",
+      "kind": "text",
+      "bbox": [
+        107,
+        406,
+        505,
+        450
+      ],
+      "markdown": "where $x_0$ is sampled from the training data, $t$ is sampled uniformly from $[0, 1]$, and $x_t$ is sampled from $q_{t|0}(x_t|x_0)$. The indicator function $\\mathbf{1}[\\cdot]$ ensures that the cross-entropy loss is computed only for masked tokens. In Shi et al. [18], Sahoo et al. [19], Ou et al. [20], it has been proven that the loss function $\\mathcal{L}(\\theta)$ is an upper bound on the negative log-likelihood of the model distribution:"
+    },
+    {
+      "id": "p0021-b005",
+      "kind": "text",
+      "bbox": [
+        230,
+        451,
+        510,
+        474
+      ],
+      "markdown": "$$ - \\mathbb{E}_{x_0 \\sim p_{\\text{data}(x_0)}} \\left[\\log p_\\theta(x_0) \\right] \\le \\mathcal{L}(\\theta). \\tag{13} $$"
+    },
+    {
+      "id": "p0021-b006",
+      "kind": "text",
+      "bbox": [
+        108,
+        475,
+        504,
+        507
+      ],
+      "markdown": "In summary, this principled approach trains a generative model by progressively masking tokens during a forward process and learning to recover the data distribution during a reverse process, all under the (approximate) maximum likelihood estimation framework."
+    },
+    {
+      "id": "p0021-b007",
+      "kind": "heading",
+      "bbox": [
+        108,
+        521,
+        173,
+        531
+      ],
+      "markdown": "### A.2 Inference"
+    },
+    {
+      "id": "p0021-b008",
+      "kind": "text",
+      "bbox": [
+        107,
+        541,
+        480,
+        552
+      ],
+      "markdown": "The cross-entropy loss in Eq. (12) has several equivalent forms [20]. The first one is given by"
+    },
+    {
+      "id": "p0021-b009",
+      "kind": "text",
+      "bbox": [
+        190,
+        554,
+        510,
+        595
+      ],
+      "markdown": "$$ -\\mathbb{E}_{l\\sim \\{1, 2, \\dots, L\\}, x_0, x_l} \\left[\\frac{L}{l}\\sum_{i=1}^{L} \\mathbf{1}[x_l^i = \\mathrm{M}] \\log p_{\\theta}(x_0^i|x_l) \\right], \\tag{14} $$"
+    },
+    {
+      "id": "p0021-b010",
+      "kind": "text",
+      "bbox": [
+        107,
+        596,
+        505,
+        640
+      ],
+      "markdown": "where $l$ is uniformly sampled from $\\{1, 2, \\dots, L\\}$, and $x_l$ is obtained by uniformly sampling $l$ tokens from $x_0$ without replacement for masking. Despite masking exactly $l$ tokens is different from masking each token independently with probability $t$, these two masking methods lead to equivalent results in expectation [20]."
+    },
+    {
+      "id": "p0021-b011",
+      "kind": "text",
+      "bbox": [
+        107,
+        645,
+        506,
+        723
+      ],
+      "markdown": "While Eq. (12) and Eq. (14) share the same expectation, their variances differ. Intuitively, in Eq. (12), we expect $x_t$ to have a fraction of $t$ tokens masked. However, the randomness of the forward process (i.e., Eq. (7)) often causes deviations, especially when $x_t$ contains few tokens. In contrast, in Eq. (14), the fraction of masked tokens in $x_l$ is deterministically $\\frac{l}{L}$. While a theoretical analysis depends on the data distribution, empirical results show that Eq. (12) requires over 1000 Monte Carlo estimates for stable results, whereas Eq. (14) achieves stability with only 128 estimates. In addition, we can simply modify Eq. (14) to its conditional version (i.e., Eq. (6)) based on Eq. (5)."
+    },
+    {
+      "id": "p0021-b012",
+      "kind": "omit",
+      "bbox": [
+        301,
+        743,
+        311,
+        750
+      ],
+      "markdown": "21",
+      "reason": "Page number 21 (footer)."
+    }
+  ]
+}

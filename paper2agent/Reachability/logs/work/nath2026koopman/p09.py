@@ -1,0 +1,39 @@
+from pagelib import *
+P = 9
+items = [
+    text("p0009-b001", B(P, "p0009-b001"),
+         r"as defined in (11). This enables fast reachable set computation at runtime but may increase conservativeness of the resulting CKRS, since the bounds $\bar e_t$ must now hold uniformly for all references drawn from $P$, rather than for a single fixed reference. The validity of this offline approach relies on the exchangeability of the non-conformity scores, which is met since each score $R^{(i)}$ is a deterministic function of the data pair $(x_{0:T}^{\text{ref},(i)}, x_0^{(i)})$. Each of these pairs is sampled i.i.d. from the joint distribution defined by $x_{0:T}^{\text{ref}} \sim P$ and $x_0 \sim \mathcal{B}_\epsilon(x_{0}^{\text{ref}})$. Hence, the resulting scores are i.i.d. and thus exchangeable, ensuring that the standard CP guarantee $\mathbb{P}\big( \bigwedge_{t=0}^T x_t^{(0)} \in \overline{\mathcal{X}}_t^{1-\delta} \big) \ge 1-\delta$ holds.",
+         join_previous="space"),
+    heading("p0009-b002", B(P, "p0009-b002"), "## 6. Experiments"),
+    text("p0009-b003", B(P, "p0009-b003"),
+         r"We first compare our method against reachability baselines and then evaluate it on reachability analysis for a unicycle (3D), planar quadcopter (6D), 3D quadcopter (12D), MuJoCo (Todorov et al., 2012) hopper (11D), and MuJoCo swimmer (28D). All experiments are run on a desktop with an Intel i9-14900K CPU, 64 GB RAM, and an NVIDIA RTX 4090 GPU. For the MuJoCo examples, we set the planner $P$ to be an expert PPO (Schulman et al., 2017) policy; for the other systems, we use a trajectory optimizer on the analytical dynamics to serve as $P$. We report four key metrics: (i) *reachability runtime* (s), where lower is better; (ii) *average log-volume of reachable sets*, where lower indicates less conservativeness; (iii) *safety rate over rollouts*, where higher is better; and (iv) *coverage variability for CP-based verification*, where lower Beta-posterior variance of empirical coverage across calibration sizes indicates more stable coverage. Some metrics apply only to specific baselines (e.g., safety filters report safety rate only). Comprehensive results are presented in Table 1."),
+    text("p0009-base", [89.0, 395.0, 523.0, 501.0],
+         r"**Baselines** We select baselines to highlight four gaps in data-driven reachability. (i) Learned reachability estimators (Bansal and Tomlin, 2021) lack overapproximation guarantees, motivating formal NN verification. (ii) Existing hybrid CP-NNV (CP-NNV) (Hashemi et al., 2024) methods struggle to scale to high-dimensional, nonlinear dynamics and long horizons, motivating the Koopman lift. (iii) Pure CP-based reachability approaches (Lindemann et al., 2024) suffer coverage degradation as calibration data or sample budgets shrink, motivating sample-efficient reachability analysis that remains reliable under limited data. (iv) Pure NNV-based RSOA computation (Nath et al., 2025) provides deterministic guarantees but can be slow, motivating fast Koopman-based linear reachability."),
+    text("p0009-unsafe", [89.0, 504.0, 541.0, 597.0],
+         r"*Unsafe behavior from learned reachability estimators.* Under unicycle dynamics (12), a value-function-based safety filter (Bansal and Tomlin, 2021) – an approximate reachability method – fails to consistently enforce reach-avoid safety, with only 70% of 250 rollouts satisfying the constraint (Fig. 5). Because the learned value function is an approximate neural PDE solution, small errors in the value and its gradient can cause safety violations, and the method lacks formal guarantees. In contrast, our method provides calibrated probabilistic guarantees that the closed-loop system remains in the CKRS computed via (11) (100% in our experiments) while preserving goal-reaching."),
+    text("p0009-purecp", [89.0, 599.0, 523.0, 706.0],
+         r"*Pure CP based verification.* Because our learned Koopman lift closely matches the training dynamics, the resulting KRS are already tight; conformalization then serves only to absorb the small residual model error. We compare to a pure SNSA baseline (Lindemann et al., 2024), which aggregates all heterogeneous trajectory and state errors into a single nonconformity score. As the horizon or state dimension grows, this forces the baseline to either inflate its sets or require much larger calibration sets to achieve the target $\delta$, causing it to suffer from slow convergence to the target coverage level. At practical data budgets (e.g., 1000 samples), a large coverage variance remains, e.g., as much as 5% under-coverage of the true system trajectories (Fig. 3), which can compromise"),
+    run_header(P),
+    page_number(P),
+]
+save(P, items, r"""
+Compared with a 170 dpi render of PDF page 9 and with methodology.tex/experiments.tex. First paragraph: continuation
+of the 'At runtime, ...' paragraph from page 8 (join_previous 'space'), starting with 'as defined in (11).' as printed
+(the CKRS display is (10) on page 8; the duplicate TeX label resolves to (11)); mathematics rewritten from the TeX
+(the extractor had glyph soup with <sup>); 'conser-vativeness', 'deter-ministic' closed up. Heading '6. Experiments'
+level 2 (extractor had level 1). Experiments intro: prose checked on the render; the planner $P$ is math (the
+extractor's _P_ was math italic, not emphasis); italic metric names as printed; '64 GB RAM' (thin space in the TeX)
+kept plain; 'anal-ysis', 'In-tel', 'reach-ability', 'cov-erage' closed up; real compounds 'log-volume', 'CP-based',
+'Beta-posterior' kept. Run-in bold title 'Baselines' kept inside its item; citations (Bansal and Tomlin, 2021),
+(Hashemi et al., 2024), (Lindemann et al., 2024), (Nath et al., 2025), (Todorov et al., 2012), (Schulman et al.,
+2017). The two run-in titles 'Unsafe behavior from learned reachability estimators.' and 'Pure CP based
+verification.' are printed underlined and italic (the contour package draws the text 16 times, which is why the
+extractor repeated the words three times and the PDF text layer lists the line many times); each starts a new
+unindented paragraph and is written in italics inside its text item (no <u>). The extractor had merged Baselines and
+both run-in paragraphs into one item; split into three items as printed. 'value-function-/based' is a real compound
+(restored as 'value-function-based'); the en dashes around 'an approximate reachability method' as printed; '70% of
+250 rollouts', '(100% in our experiments)', '5% under-coverage', '1000 samples' as printed; '(11)' and '(12)' as
+printed. The 'Pure CP based verification.' paragraph continues on page 10 after Table 1 and Figure 3 ('system
+safety. In contrast, ...'), joined there with join_previous 'space'. Omitted: running header (short title) and page
+number 9.
+""")

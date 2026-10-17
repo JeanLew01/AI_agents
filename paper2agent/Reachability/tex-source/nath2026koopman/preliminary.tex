@@ -1,0 +1,37 @@
+\section{Preliminaries}
+\label{preliminary}
+We consider unknown, black-box nonlinear systems, either in open-loop \eqref{eq:open_loop_dynamics} or closed-loop \eqref{eq:closed_loop_dynamics}:
+
+\vspace{-20pt}
+\begin{subequations}%\label{eq:open_loop_dynamics}
+\begin{align}
+    x_{t+1} &= f(x_t, u_t),
+    \label{eq:open_loop_dynamics}
+\end{align}
+
+\vspace{-30pt}
+\begin{align}
+    x_{t+1} &= f(x_t, \pi(x_t, t)) \doteq \tilde f(x_t),
+    \label{eq:closed_loop_dynamics}
+\end{align}
+\end{subequations}
+\vspace{-20pt}
+
+\noindent with timestep $t \in \{0, \dots, T\} \doteq \mathcal{T}$, state $x_t \in \stateSpace \subseteq \stateSpaceDim$, control $u_t \in \ctrlSpace \subseteq \ctrlSpaceDim$, and feedback control law $\pi: \mathcal{X} \times \mathcal{T} \rightarrow \mathcal{U}$. The initial state $x_0$ lies in set $\mathcal{X}_0 \subseteq \stateSpace$. Denote $\textsf{Int}(\underline{a}, \overline{a}) = \{a \mid \underline{a} \le a \le \overline{a}\}$, as an interval, where $\underline{a}, \overline{a} \in \mathbb{R}^A$ and inequalities hold element-wise, i.e., $\underline{a}_i \le a_i \le \overline{a}_i$, $1 \le i \le A$. Denote the $a$-ball as $\B_a(c) \doteq \{ x \mid \Vert x - c \Vert_\infty \le a\}$ and sequence $q_{1:Q} \doteq \{q_1, q_2, \ldots, q_Q\} = \{q_i\}_{i=1}^Q$. We use $\oplus$ and $\ominus$ to denote the Minkowski sum and difference, respectively. %\glen{Unless mentioned otherwise, we use subscripts to represent time indices and superscripts are used as descriptors. }
+
+\looseness-1
+\paragraph{Koopman Operators} As our work relies on Koopman operators, we discuss the basic concepts here. Consider autonomous discrete-time nonlinear dynamics $x_{t+1} = f(x_t)$. A Koopman operator $\infKoop$ is an infinite-dimensional linear operator that evolves the observables $\enc^\infty$ of the state $\infKoop \enc^\infty(x) = \enc^\infty \circ f(x)$ according to $\enc^\infty(x_{t+1}) = \infKoop \enc^\infty(x_t)$, where $\circ$ denotes function composition. As infinite-dimensional Koopman operators are intractable to obtain in practice, we define an approximation to $\infKoop$ using a finite-dimensional lifting function $\enc: \mathcal{X} \rightarrow \mathcal{Z} \subseteq \mathbb{R}^{l}$ and matrix $\ka \in \mathbb{R}^{l \times l}$, which define lifted dynamics $z_{t+1} = \ka z_{t}$,  where $z_t = \enc(x_t)$ is the lifted state and $z_{t} \in \mathcal{Z} \subseteq \mathbb{R}^{l}$. Here, $l$ can be arbitrarily selected by the choice of the lifting function $\enc$. For systems with control input \eqref{eq:open_loop_dynamics}, the lifted dynamics can be similarly written as $z_{t+1} = \ka z_{t} + \kb u_t$, where $\kb \in \mathbb{R}^{l \times m}$. In practice, $\enc$, $K_A$, and $K_B$ can be learned from data, with the lifting function $g$ parameterized using polynomials or NNs \citep{koop_survey}. In this work, we utilize an NN-based autoencoder architecture, where the encoder $\enc: \mathcal{X} \rightarrow \mathcal{Z}$ defines the lifting function and the decoder $\dec: \mathcal{Z} \rightarrow \hat{\mathcal{X}}$ defines its learned inverse, i.e., $\dec(\enc(x)) \approx x$; if $\dec$ is a perfect inverse, $\dec(\enc(x)) = x$ and $\hat{\mathcal{X}} = \mathcal{X}$. 
+
+\paragraph{Reachability via NN Verification (NNV)} We use NNV to compute reachable sets for closed-loop systems involving NN-based lifting and inverse functions. NNV tools represent an NN as a computational graph (CG) -- a directed acyclic graph encoding the sequence of operations applied to an input \citep{Rober2024CARV}. For some CG $G$ with input set $\mathcal{S} \subseteq \mathbb{R}^{n_i}$ and output $G(\mathcal{S}) \subseteq \mathbb{R}^{n_o}$, we can compute a guaranteed overapproximation of its image $G(\mathcal{S})$ using CROWN-based \citep{Zhang2018CROWN} tools like \texttt{auto\_LiRPA} \citep{Xu2020AutoLiRPA}. These tools provide guaranteed affine lower and upper bounds, $\underline{G}$ and $\overline{G}$, on the output $G(\mathcal{S})$ for any interval $\mathcal{S}$, formalized in this proposition:% from \cite{Rober2024CARV}.
+
+\begin{proposition}[CG Robustness \citep{Xu2020AutoLiRPA}]
+\label{thm:cg_robustness}
+\looseness-1For some CG $G$ and interval $\mathcal{S} \doteq \{s \in \mathbb{R}^{n_i} \mid \underline{s} \le s \le \overline{s}\}$, there are affine functions $\underline{G}$, $\overline{G}$ such that $\forall s \in \mathcal{S}$, $\underline{G}(s) \leq G(s) \leq \overline{G}(s)$. 
+The inequalities hold element-wise and $\underline{G}(s) = \Psi s + \alpha$,  $\overline{G}(s) = \Phi s + \beta$, with $\Psi, \Phi \in \mathbb{R}^{n_o \times n_i}$ and $\alpha, \beta \in \mathbb{R}^{n_o}$.
+\end{proposition}
+
+\looseness-1
+\noindent Given controller $\pi$, dynamics \eqref{eq:open_loop_dynamics}, and initial set $\mathcal{X}_0$, the $T$-timestep exact reachable set is denoted as $\mathcal{X}_{0:T} \doteq \{\mathcal{X}_0, f(\mathcal{X}_t, \pi(\mathcal{X}_t,t)) \}_{t=0}^{T-1}\}$. While exact reachability analysis is generally intractable for nonlinear systems \citep{DBLP:journals/arcras/AlthoffFG21}, it is often feasible to compute a reachable set overapproximation (RSOA) $\overline{\mathcal{X}}_{0:T}$, which satisfies $\mathcal{X}_t \subseteq \overline{\mathcal{X}}_t$ for all $t \in \{0,\ldots,T\}$. To obtain $\overline{\mathcal{X}}_{0:T}$, Prop. \ref{thm:cg_robustness} can be applied to the CG $F$ of the $T$-step composition ${\tilde f^{T}}(\cdot) \doteq \tilde{f} \circ \dotsb \circ \tilde{f}(\cdot)$ of the closed-loop dynamics $\tilde f$ \eqref{eq:closed_loop_dynamics}, i.e., $F(x_0) \doteq \{\tilde f(x_t) \doteq f(x_t, \pi(x_t, t)) \}_{t=0}^{T}$, with \texttt{auto\_LiRPA} computing the RSOA.
+
+\paragraph{Conformal Prediction (CP)}
+Our RSOA computations also rely on CP. In this work, we adopt split CP, which partitions i.i.d.\ input-output pairs $(v^{(i)}, y^{(i)}) \in \mathcal{V}\times\mathcal{Y}$ from a dataset $\mathcal{D} \doteq\{(v^{(i)}, y^{(i)})\}_{i=1}^{L+K}$ into a size-$L$ training set $\mathcal{D}_T$ and a size-$K$ calibration set $\mathcal{D}_C$. For a given prediction function $\mu:\mathcal{V}\!\to\!\mathcal{Y}$, we compute a nonconformity score $R^{(i)}\!\doteq s(y^{(i)},\mu(v^{(i)}))$ for each of the $K$ calibration pairs in $\mathcal{D}_C$, where $s: \mathcal{Y}\times \mathcal{Y} \rightarrow \mathbb{R}_{\ge 0}$ is a chosen nonconformity score function. As an example, we can express the $\ell_2$ prediction error of a learned dynamics model $\hat f$ in this framework by defining $v = (x_t, u_t)$, $y = x_{t+1}$, $\mu(v) = \hat f(v)$, and $s(y, \mu(v)) = \Vert y - \mu(v)\Vert_2$. Given a miscoverage level $\delta\in(0,1)$, a threshold $C$ is defined as the ($1-\delta$)-quantile of the calibration scores, $C \doteq \text{Quantile}_{1-\delta}(R^{(1)},\dots,R^{(K)},\infty)$. This threshold defines the prediction set $\mathcal{Y}(v) \doteq \{\,y\in\mathcal{Y} \mid s(y,\mu(v))\le C \,\}$, which satisfies the marginal coverage guarantee $\mathbb{P}(y^{(0)}\in\mathcal{Y}(v^{(0)})) \ge 1-\delta$ for an unseen data-point $(y^{(0)}, v^{(0)})$ that is exchangeable with $\mathcal{D}$ \citep{cp_survey}. 

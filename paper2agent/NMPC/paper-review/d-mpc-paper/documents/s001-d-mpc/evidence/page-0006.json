@@ -1,0 +1,1011 @@
+{
+  "page": 6,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.3",
+      "bbox": [
+        72.0,
+        84.90992736816406,
+        86.00741577148438,
+        93.75672149658203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Planning",
+      "bbox": [
+        96.96627807617188,
+        84.90992736816406,
+        136.5476837158203,
+        93.75672149658203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D-MPC is compatible with any planning algorithm. When the action space is discrete, we can solve this",
+      "bbox": [
+        72.0,
+        105.46791076660156,
+        540.2073974609375,
+        115.43051147460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimization problem using Monte Carlo Tree Search, as used in the MuZero algorithm (Schrittwieser et al.,",
+      "bbox": [
+        72.0,
+        117.42292785644531,
+        541.595703125,
+        127.38552856445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2020). Here we will only consider continuous action spaces.",
+      "bbox": [
+        71.7509994506836,
+        129.37794494628906,
+        330.3502197265625,
+        139.34054565429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We propose a simple sampling-based planner, depicted as Algorithm 2. In order to plan, given the current",
+      "bbox": [
+        71.49199676513672,
+        147.31092834472656,
+        540.4935302734375,
+        157.27352905273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state st and history ht, we use our diffusion action proposal ρ to sample N action sequences, we predict the",
+      "bbox": [
+        72.0,
+        159.2659454345703,
+        540.0922241210938,
+        170.72354125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "corresponding state sequences using ps|a, we score these state/action sequences with the objective function",
+      "bbox": [
+        72.0,
+        171.22193908691406,
+        540.1732177734375,
+        182.34291076660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "J, we rank them to pick the best sequence, and finally we return the first action in the best sequence, and",
+      "bbox": [
+        72.0,
+        183.17689514160156,
+        540.2587890625,
+        193.13949584960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "repeat the whole process. We show empirically that this outperforms more complex methods such as the",
+      "bbox": [
+        72.0,
+        195.1319122314453,
+        540.2174682617188,
+        205.09451293945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Trajectory Optimization method used in the MBOP paper, which we describe in detail in the Appendix",
+      "bbox": [
+        71.64099884033203,
+        207.08692932128906,
+        540.478515625,
+        217.04953002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Algorithm 5). We believe this is because the diffusion model already reasons at the trajectory level, and can",
+      "bbox": [
+        70.83399963378906,
+        219.0419464111328,
+        540.235595703125,
+        229.00454711914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "natively generate a diverse set of plausible candidates without the need for additional machinery.",
+      "bbox": [
+        72.0,
+        230.9969024658203,
+        495.9684143066406,
+        240.95950317382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3.4",
+      "bbox": [
+        72.0,
+        258.3309631347656,
+        86.00741577148438,
+        267.177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Adaptation",
+      "bbox": [
+        96.96627807617188,
+        258.3309631347656,
+        147.2674560546875,
+        267.177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "As with all MPC approaches, our proposed D-MPC is more computationally expensive than methods that",
+      "bbox": [
+        71.62100219726562,
+        278.8879089355469,
+        540.4606323242188,
+        288.85052490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "use a reactive policy without explicit planning. However, one of the main advantages of using planning-based",
+      "bbox": [
+        72.0,
+        290.8439025878906,
+        540.2211303710938,
+        300.8065185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methods in the offline setting is that they can easily be adapted to novel reward functions, which can be",
+      "bbox": [
+        72.0,
+        302.7989196777344,
+        540.2276611328125,
+        312.76153564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "different from those optimized by the behavior policy that generated the offline data. In D-MPC, we can",
+      "bbox": [
+        72.0,
+        314.75390625,
+        540.1870727539062,
+        324.7165222167969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "easily incorporate novel rewards by replacing Vn in Alg. 2 by Vn = κJ(s1:F , An,1:F )+ ˜κ ˜J(s1:F , An,1:F ), where",
+      "bbox": [
+        72.0,
+        324.1908874511719,
+        540.013427734375,
+        338.16552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the novel objective ˜J(s1:F , An,1:F ) = 1",
+      "bbox": [
+        72.0,
+        337.8119201660156,
+        241.8311004638672,
+        351.78753662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "F",
+      "bbox": [
+        236.78599548339844,
+        346.89617919921875,
+        241.8419952392578,
+        353.0888977050781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "PF",
+      "bbox": [
+        245.76699829101562,
+        338.4512023925781,
+        261.3389892578125,
+        346.8055725097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=1 fnovel(st, An,t), fnovel is a novel reward function, and κ, ˜κ are",
+      "bbox": [
+        256.2829895019531,
+        340.32989501953125,
+        540.009033203125,
+        353.22174072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "weights of the original and novel objectives, respectively. We demonstrate this approach in Section 4.2. Of",
+      "bbox": [
+        71.64099884033203,
+        352.284912109375,
+        540.2449340820312,
+        362.2475280761719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "course, if the new task is very different from anything the agent has seen before, then the action proposal",
+      "bbox": [
+        72.0,
+        364.24090576171875,
+        540.2457275390625,
+        374.2035217285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "may be low quality, and more search may be needed.",
+      "bbox": [
+        72.0,
+        376.1958923339844,
+        303.0028076171875,
+        386.15850830078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "If the dynamics of the world changes, we can use supervised fine tuning of ps|a on a small amount of exploratory",
+      "bbox": [
+        72.0,
+        394.12890625,
+        540.4094848632812,
+        405.8895263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "“play” from the new distribution, and then use MPC as before. We demonstrate this in Section 4.3.",
+      "bbox": [
+        70.58499908447266,
+        406.0838928222656,
+        507.45489501953125,
+        416.0465087890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        72.0,
+        434.88409423828125,
+        78.57536315917969,
+        445.50030517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Experiments",
+      "bbox": [
+        91.72608184814453,
+        434.88409423828125,
+        159.12948608398438,
+        445.50030517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we conduct various experiments to evaluate the effectiveness of D-MPC. Specifically we seek",
+      "bbox": [
+        72.0,
+        459.9529113769531,
+        540.5029296875,
+        469.91552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to answer the following questions with our experiments:",
+      "bbox": [
+        72.0,
+        471.90789794921875,
+        315.67523193359375,
+        481.8705139160156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1. Does our proposed D-MPC improve performance over existing MPC approaches (which learn the",
+      "bbox": [
+        95.13500213623047,
+        499.5308837890625,
+        540.2011108398438,
+        509.4935302734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model offline), and can it perform competitively with standard model-based and model-free offline",
+      "bbox": [
+        107.86499786376953,
+        511.48590087890625,
+        540.1726684570312,
+        521.448486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "RL methods?",
+      "bbox": [
+        107.86499786376953,
+        523.44091796875,
+        166.3255157470703,
+        533.4035034179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2. Can D-MPC optimize novel rewards and quickly adapt to new environment dynamics at run time?",
+      "bbox": [
+        95.13499450683594,
+        544.52490234375,
+        539.9550170898438,
+        554.4874877929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3. How do the different components of D-MPC contribute to its improved performance?",
+      "bbox": [
+        95.13499450683594,
+        565.60888671875,
+        480.47833251953125,
+        575.5714721679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4. Can we distill D-MPC into a fast reactive policy for high-frequency control?",
+      "bbox": [
+        95.13499450683594,
+        586.6929321289062,
+        440.3190612792969,
+        596.655517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 2: Sampling-based planner with learned multi-step diffusion action proposals",
+      "bbox": [
+        71.56500244140625,
+        621.8779296875,
+        462.650634765625,
+        631.8405151367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 Def a = Planner(s0, h0, pd, ρ, J, N, F, H):",
+      "bbox": [
+        62.505001068115234,
+        636.9659423828125,
+        250.81161499023438,
+        647.7828979492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 for n = 1 : N do",
+      "bbox": [
+        62.5050048828125,
+        648.9208984375,
+        146.3216094970703,
+        658.8834838867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        62.90399932861328,
+        663.9434204101562,
+        67.41604614257812,
+        670.1989135742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an,1:F ∼ρ(·|s0, h0)",
+      "bbox": [
+        87.34199523925781,
+        660.8759155273438,
+        170.81744384765625,
+        672.2737426757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        62.90398406982422,
+        675.8984375,
+        67.41603088378906,
+        682.1539306640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s1:F ∼pd(·|s0, h0, an,1:F )",
+      "bbox": [
+        87.34197998046875,
+        672.8309326171875,
+        197.8944091796875,
+        684.2885131835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5",
+      "bbox": [
+        62.90394592285156,
+        687.8533935546875,
+        67.4159927368164,
+        694.10888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Vn = J(s1:F , an,1:F )",
+      "bbox": [
+        87.34194946289062,
+        684.785888671875,
+        175.10940551757812,
+        696.2434692382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6 ˆn = arg maxn Vn",
+      "bbox": [
+        62.505001068115234,
+        700.5718994140625,
+        143.43551635742188,
+        711.96875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7 Return aˆn,1",
+      "bbox": [
+        62.5050048828125,
+        712.5269165039062,
+        123.49210357666016,
+        723.3439331054688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6",
+      "bbox": [
+        303.5090026855469,
+        751.7799072265625,
+        308.49029541015625,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 6
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          72,
+          84,
+          137,
+          94
+        ],
+        "pos": [
+          74,
+          96
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          71,
+          106,
+          542,
+          140
+        ],
+        "pos": [
+          96,
+          367
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          70,
+          148,
+          541,
+          242
+        ],
+        "pos": [
+          367,
+          1238
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          72,
+          258,
+          148,
+          268
+        ],
+        "pos": [
+          1238,
+          1262
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          279,
+          541,
+          387
+        ],
+        "pos": [
+          1262,
+          2405
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          70,
+          394,
+          541,
+          417
+        ],
+        "pos": [
+          2405,
+          2620
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          72,
+          434,
+          160,
+          446
+        ],
+        "pos": [
+          2620,
+          2642
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          72,
+          459,
+          541,
+          482
+        ],
+        "pos": [
+          2642,
+          2809
+        ]
+      },
+      {
+        "index": 9,
+        "class": "list-item",
+        "bbox": [
+          95,
+          500,
+          541,
+          532
+        ],
+        "pos": [
+          2809,
+          3014
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          95,
+          545,
+          540,
+          555
+        ],
+        "pos": [
+          3014,
+          3111
+        ]
+      },
+      {
+        "index": 11,
+        "class": "list-item",
+        "bbox": [
+          95,
+          565,
+          481,
+          576
+        ],
+        "pos": [
+          3111,
+          3197
+        ]
+      },
+      {
+        "index": 12,
+        "class": "list-item",
+        "bbox": [
+          95,
+          587,
+          441,
+          597
+        ],
+        "pos": [
+          3197,
+          3279
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          71,
+          621,
+          463,
+          632
+        ],
+        "pos": [
+          3279,
+          3386
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          62,
+          637,
+          251,
+          648
+        ],
+        "pos": [
+          3386,
+          3468
+        ]
+      },
+      {
+        "index": 15,
+        "class": "footnote",
+        "bbox": [
+          62,
+          649,
+          147,
+          658
+        ],
+        "pos": [
+          3468,
+          3503
+        ]
+      },
+      {
+        "index": 16,
+        "class": "text",
+        "bbox": [
+          62,
+          661,
+          171,
+          672
+        ],
+        "pos": [
+          3503,
+          3567
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          62,
+          673,
+          198,
+          684
+        ],
+        "pos": [
+          3567,
+          3652
+        ]
+      },
+      {
+        "index": 18,
+        "class": "text",
+        "bbox": [
+          62,
+          685,
+          176,
+          696
+        ],
+        "pos": [
+          3652,
+          3712
+        ]
+      },
+      {
+        "index": 19,
+        "class": "footnote",
+        "bbox": [
+          62,
+          701,
+          144,
+          711
+        ],
+        "pos": [
+          3712,
+          3745
+        ]
+      },
+      {
+        "index": 20,
+        "class": "footnote",
+        "bbox": [
+          62,
+          713,
+          124,
+          724
+        ],
+        "pos": [
+          3745,
+          3779
+        ]
+      },
+      {
+        "index": 21,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          753,
+          309,
+          760
+        ],
+        "pos": [
+          3779,
+          3783
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\n## **3.3 Planning** \n\nD-MPC is compatible with any planning algorithm. When the action space is discrete, we can solve this optimization problem using Monte Carlo Tree Search, as used in the MuZero algorithm (Schrittwieser et al., 2020). Here we will only consider continuous action spaces. \n\nWe propose a simple sampling-based planner, depicted as Algorithm 2. In order to plan, given the current state **_s_** _t_ and history **_h_** _t_ , we use our diffusion action proposal _ρ_ to sample _N_ action sequences, we predict the corresponding state sequences using _ps|a_ , we score these state/action sequences with the objective function _J_ , we rank them to pick the best sequence, and finally we return the first action in the best sequence, and repeat the whole process. We show empirically that this outperforms more complex methods such as the Trajectory Optimization method used in the MBOP paper, which we describe in detail in the Appendix (Algorithm 5). We believe this is because the diffusion model already reasons at the trajectory level, and can natively generate a diverse set of plausible candidates without the need for additional machinery. \n\n## **3.4 Adaptation** \n\nAs with all MPC approaches, our proposed D-MPC is more computationally expensive than methods that use a reactive policy without explicit planning. However, one of the main advantages of using planning-based methods in the offline setting is that they can easily be adapted to novel reward functions, which can be different from those optimized by the behavior policy that generated the offline data. In D-MPC, we can easily incorporate novel rewards by replacing _Vn_ in Alg. 2 by _Vn_ = _κJ_ ( **_s_** 1: _F ,_ **A** _n,_ 1: _F_ )+ ˜ _κJ_<sup>˜</sup> ( **_s_** 1: _F ,_ **A** _n,_ 1: _F_ ), where the novel objective _J_<sup>˜</sup> ( **_s_** 1: _F ,_ **A** _n,_ 1: _F_ ) = _F_<sup><u>1</u></sup> � _Ft_ =1<sup>_f_novel(</sup><sup>**_s_**</sup><sup>_t,_</sup><sup>**A**</sup><sup>_n,t_),</sup><sup>_f_novelisanovelrewardfunction,and</sup><sup>_κ_,</sup><sup>_κ_˜are</sup> weights of the original and novel objectives, respectively. We demonstrate this approach in Section 4.2. Of course, if the new task is very different from anything the agent has seen before, then the action proposal may be low quality, and more search may be needed. \n\nIf the dynamics of the world changes, we can use supervised fine tuning of _ps|a_ on a small amount of exploratory “play” from the new distribution, and then use MPC as before. We demonstrate this in Section 4.3. \n\n# **4 Experiments** \n\nIn this section, we conduct various experiments to evaluate the effectiveness of D-MPC. Specifically we seek to answer the following questions with our experiments: \n\n1. Does our proposed D-MPC improve performance over existing MPC approaches (which learn the model offline), and can it perform competitively with standard model-based and model-free offline RL methods? \n\n2. Can D-MPC optimize novel rewards and quickly adapt to new environment dynamics at run time? \n\n3. How do the different components of D-MPC contribute to its improved performance? \n\n4. Can we distill D-MPC into a fast reactive policy for high-frequency control? \n\n**Algorithm 2:** Sampling-based <u>planner</u> with learned multi-step diffusion action <u>proposals</u> \n\n- **1** Def **_a_** = Planner( **_s_** 0 _,_ **_h_** 0 _, pd, ρ, J, N, F, H_ ): \n\n> **2 for** _n_ = 1 : _N_ **do** \n\n**3** **_a_** _n,_ 1: _F ∼ ρ_ ( _·|_ **_s_** 0 _,_ **_h_** 0) \n\n**4** **_s_** 1: _F ∼ pd_ ( _·|_ **_s_** 0 _,_ **_h_** 0 _,_ **_a_** _n,_ 1: _F_ ) \n\n**5** _Vn_ = _J_ ( **_s_** 1: _F ,_ **_a_** _n,_ 1: _F_ ) \n\n> **6** _n_ ˆ = arg max _n Vn_ \n\n> **7** Return **_a_** _n,_ ˆ 1 \n\n6 \n\n"
+  }
+}

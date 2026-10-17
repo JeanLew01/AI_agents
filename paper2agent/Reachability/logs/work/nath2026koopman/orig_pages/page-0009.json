@@ -1,0 +1,87 @@
+{
+  "page": 9,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0009.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0009-b000"
+  ],
+  "items": [
+    {
+      "id": "p0009-b000",
+      "kind": "text",
+      "bbox": [
+        126.0,
+        41.0,
+        484.0,
+        49.0
+      ],
+      "markdown": "SCALABLE KOOPMAN REACHABILITY WITH CONFORMAL COVERAGE GUARANTEES",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0009-b001",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        94.0,
+        523.0,
+        192.0
+      ],
+      "markdown": "as defined in (11). This enables fast reachable set computation at runtime but may increase conservativeness of the resulting CKRS, since the bounds _e_ ¯ _t_ must now hold uniformly for all references drawn from _P_ , rather than for a single fixed reference. The validity of this offline approach relies on the exchangeability of the non-conformity scores, which is met since each score _R_<sup>(</sup><sup>_i_)</sup> is a deterministic function of the data pair ( _x_<sup>ref</sup> 0: _T_<sup>_,_(</sup><sup>_i_)</sup> _, x_<sup>(</sup> 0<sup>_i_)).Each of these pairs is sampled i.i.d.from the joint</sup> distribution defined by _x_<sup>ref</sup> 0: _T_<sup>_∼P_and</sup><sup>_x_0</sup><sup>_∼Bϵ_(</sup><sup>_x_</sup> 0<sup>ref).Hence, the resulting scores are i.i.d.and thus</sup> ~~1~~ _−δ_ exchangeable, ensuring that the standard CP guarantee P�� _tT_ =0<sup>_x_</sup> _t_<sup>(0)</sup> _∈ X t_ � _≥_ 1 _− δ_ holds.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b002",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        214.0,
+        171.0,
+        226.0
+      ],
+      "markdown": "# **6. Experiments**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0009-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        237.0,
+        523.0,
+        383.0
+      ],
+      "markdown": "We first compare our method against reachability baselines and then evaluate it on reachability analysis for a unicycle (3D), planar quadcopter (6D), 3D quadcopter (12D), MuJoCo (Todorov et al., 2012) hopper (11D), and MuJoCo swimmer (28D). All experiments are run on a desktop with an Intel i9-14900K CPU, 64 GB RAM, and an NVIDIA RTX 4090 GPU. For the MuJoCo examples, we set the planner _P_ to be an expert PPO (Schulman et al., 2017) policy; for the other systems, we use a trajectory optimizer on the analytical dynamics to serve as _P_ . We report four key metrics: (i) _reachability runtime_ (s), where lower is better; (ii) _average log-volume of reachable sets_ , where lower indicates less conservativeness; (iii) _safety rate over rollouts_ , where higher is better; and (iv) _coverage variability for CP-based verification_ , where lower Beta-posterior variance of empirical coverage across calibration sizes indicates more stable coverage. Some metrics apply only to specific baselines (e.g., safety filters report safety rate only). Comprehensive results are presented in Table 1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        395.0,
+        541.0,
+        706.0
+      ],
+      "markdown": "**Baselines** We select baselines to highlight four gaps in data-driven reachability. (i) Learned reachability estimators (Bansal and Tomlin, 2021) lack overapproximation guarantees, motivating formal NN verification. (ii) Existing hybrid CP-NNV (CP-NNV) (Hashemi et al., 2024) methods struggle to scale to high-dimensional, nonlinear dynamics and long horizons, motivating the Koopman lift. (iii) Pure CP-based reachability approaches (Lindemann et al., 2024) suffer coverage degradation as calibration data or sample budgets shrink, motivating sample-efficient reachability analysis that remains reliable under limited data. (iv) Pure NNV-based RSOA computation (Nath et al., 2025) provides deterministic guarantees but can be slow, motivating fast Koopman-based linear reachability. **_<u>UnsafeUnsafeUnsafe behaviorbehaviorbehavior fromfromfrom learnedlearnedlearned reachabilityreachabilityreachability estimators.estimators.estimators.</u>_** Under unicycle dynamics (12), a value-functionbased safety filter (Bansal and Tomlin, 2021) – an approximate reachability method – fails to consistently enforce reach-avoid safety, with only 70% of 250 rollouts satisfying the constraint (Fig. 5). Because the learned value function is an approximate neural PDE solution, small errors in the value and its gradient can cause safety violations, and the method lacks formal guarantees. In contrast, our method provides calibrated probabilistic guarantees that the closed-loop system remains in the CKRS computed via (11) (100% in our experiments) while preserving goal-reaching. **_<u>PurePurePure CPCPCP basedbasedbased verifverifverif</u>_** _i_ **_<u>cation.</u>_** _i_ **_<u>cation.</u>_** _i_ **_<u>cation.</u>_** Because our learned Koopman lift closely matches the training dynamics, the resulting KRS are already tight; conformalization then serves only to absorb the small residual model error. We compare to a pure SNSA baseline (Lindemann et al., 2024), which aggregates all heterogeneous trajectory and state errors into a single nonconformity score. As the horizon or state dimension grows, this forces the baseline to either inflate its sets or require much larger calibration sets to achieve the target _δ_ , causing it to suffer from slow convergence to the target coverage level. At practical data budgets (e.g., 1000 samples), a large coverage variance remains, e.g., as much as 5% under-coverage of the true system trajectories (Fig. 3), which can compromise",
+      "source_class": "text"
+    },
+    {
+      "id": "p0009-b005",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "9",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

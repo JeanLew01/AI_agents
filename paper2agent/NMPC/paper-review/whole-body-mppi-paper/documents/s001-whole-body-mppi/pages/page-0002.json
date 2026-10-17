@@ -1,0 +1,183 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 220-dpi crop of Figure 2 and a 220-dpi crop of the lower right column (equations (1)-(2)), and with the native lines, using background.tex and intro.tex as an aid. Figure 2 (asset figure-2): the system diagram spanning both columns is one item; all 17 native in-diagram labels (MPPI, Unitree Go1, PD, 20 kHz, joint targets, tau, encoders, 100 Hz x2, 500 Hz x2, IMU, encoders, state, EKF, MoCap, position, orientation, user specified goal, cost) plus the non-text \"u\" and \"t\" axis glyphs lie inside the crop; bbox set to [64,47,549,232] and checked on all four edges (right edge widened from the extractor's box so the Go1 frame is not clipped; caption starts at y=242). The extractor's picture-text dump in the figure markdown was removed (ignored for figures anyway). Caption \"Fig. 2. ...\" verbatim with \"(u)\" written as ($u$). Headings: \"II. BACKGROUND AND RELATED WORK\" was a text item -> \"## II. ...\"; subsection headings were \"# _A. ..._\"/\"# _B. ..._\" -> \"### A. Locomotion and Manipulation for Legged Robots\", \"### B. Model-Predictive Path Integral Control\". Wrap repairs (checked against background.tex): \"fullbody\" -> \"full-body\", \"locomanipulation\" -> \"loco-manipulation\", \"taskspecific\" -> \"task-specific\", \"sim-toreal\" -> \"sim-to-real\", \"[19]– [21]\" -> \"[19]–[21]\", \"realtime computation\" -> \"real-time computation\", \"wholebody motion-planning\" -> \"whole-body motion-planning\", \"realtime motion planning\" -> \"real-time motion planning\"; italics \"offline\"/\"without\" kept as *...*. The paragraph \"On the other hand, ...\" continues from the bottom of the left column to the top of the right column: p0002-b007 join_previous=space. Maths: inline $N$, $u_t \\sim \\mathcal{N}(\\mu_t, \\Sigma_t)$, $\\mu_t$, $t$, $\\Sigma_t$, $\\mathcal{L}_n$, $n$, $\\omega_n$, $\\lambda$ rewritten in LaTeX from background.tex. Equations (1) and (2) were formula image items; now text items with $$...\\tag{1}$$ and $$...\\tag{2}$$ from background.tex (eq:mppi_weights, eq:mppi_mu_update), checked symbol by symbol against the crop (including the trailing commas and \\mathcal{L}_{\\min}). As printed, (2) reads $\\mu_t = \\sum_{n=1}^{N} \\omega_n u_{t}$ with no sample index on $u_t$, and the summation index n is reused in the denominator of (1); both transcribed as printed (authors' notation, not changed). The \"where ...\" paragraph after (2) is its own item without a join (collection convention, keeps the $$ block on its own lines). The page ends with the unfinished sentence \"... A lower value of\"; page 3 must start with its continuation (join_previous=space there). check: 7 missing lines, all category (a), see adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "figure",
+      "bbox": [
+        64.0,
+        47.0,
+        549.0,
+        232.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        242.0,
+        558.0,
+        284.0
+      ],
+      "markdown": "Fig. 2. System diagram for deploying the MPPI policy on a Unitree Go1 robot. Joint target controls ($u$) are sampled at the evenly distributed knot points (black dots) and represented as a cubic spline over the planning horizon. A cost from each sample is evaluated based on the user-specified goal (yellow ball) and cost function. The first control from the control sequence with the lowest total cost (opaque orange line) is applied to the robot and repeated in a receding-horizon fashion. The robot’s state is estimated using an EKF from motion-captured position and orientation, robot onboard IMU, and joint encoder measurements.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        295.0,
+        262.0,
+        302.0
+      ],
+      "markdown": "## II. BACKGROUND AND RELATED WORK",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        309.0,
+        299.0,
+        331.0
+      ],
+      "markdown": "This section reviews related algorithms for legged robot locomotion and manipulation and relevant literature on MPPI.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        339.0,
+        270.0,
+        349.0
+      ],
+      "markdown": "### A. Locomotion and Manipulation for Legged Robots",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        354.0,
+        299.0,
+        603.0
+      ],
+      "markdown": "Current algorithms for legged robot locomotion and manipulation generally fall into two categories: gradient-based model-predictive control (MPC) [8]–[11] and gradient-free reinforcement learning (RL) [12]–[15]. MPC policies leverage first or second-order gradient information from the model to achieve real-time policy optimization without any offline computation. Despite the obvious pitfalls of relying on simplified models, MPC has been a staple for real-world deployment of legged robots and demonstrates impressive generalization to different robots and surprising robustness to model mismatch, even on challenging terrains. However, due to real-time and onboard computation requirements for these algorithms, simplified models are often employed and only contacts between the feet and the terrain are considered [11], [16], preventing these model-based policies from taking full advantage of the robot’s dynamics and leveraging full-body contact to solve complicated locomotion or manipulation tasks. Existing approaches for model-based loco-manipulation require introducing manually designed task-specific contact pairs to the model [17], [18], significantly limiting generalization capabilities when facing new tasks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        605.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "On the other hand, simulation-based RL has shown impressive progress in recent years thanks to improved sim-to-real transfer via domain randomization techniques [12], [14] and efficient parallel simulation on modern hardware [19]–[21]. The fundamental difference between simulation-based RL and MPC is that RL attempts to learn a neural network policy *offline* through large-scale trial-and-error in simulation. In this offline policy optimization regime without real-time computation constraints, it is standard to train policies by simulating whole-body robot dynamics and collision geometries from all parts of the robot and its environment,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        294.0,
+        559.0,
+        388.0
+      ],
+      "markdown": "enabling discovery of non-trivial contact modes while solving complicated locomotion and manipulation tasks [22], [23]. In the online setting, the optimized policy network can be evaluated at real-time rates on onboard computers [14], [15]. Compared to online MPC, one downside of this offline policy optimization approach is the significant computation and time required to find performant reward functions and hyperparameters for each task.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        390.0,
+        559.0,
+        448.0
+      ],
+      "markdown": "In this paper, we aim to combine the benefits of both online MPC and simulation-based RL by solving whole-body motion-planning and control problems in real time by directly sampling over whole-body dynamics and collision models, *without* any offline policy optimization.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        458.0,
+        487.0,
+        468.0
+      ],
+      "markdown": "### B. Model-Predictive Path Integral Control",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        473.0,
+        559.0,
+        601.0
+      ],
+      "markdown": "Model-predictive path integral (MPPI) control is a gradient-free sampling-based algorithm often applied to real-time motion planning and control. MPPI samples $N$ control trajectories from a multivariate Gaussian distribution $u_t \\sim \\mathcal{N}(\\mu_t, \\Sigma_t)$, where $\\mu_t$ is the mean at time $t$ and $\\Sigma_t$ is the covariance matrix. Each control trajectory is then simulated to compute a corresponding state trajectory, and a cost function is evaluated for each state-input trajectory sample. The control input to the system is then calculated through the exponentially weighted average of the samples based on their cost:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        366.0,
+        602.0,
+        562.0,
+        642.0
+      ],
+      "markdown": "$$\n\\omega_n = \\frac{\\exp\\left(-\\frac{\\mathcal{L}_n - \\mathcal{L}_{\\min}}{\\lambda}\\right)}{\\sum_{n=1}^{N} \\exp\\left(-\\frac{\\mathcal{L}_n - \\mathcal{L}_{\\min}}{\\lambda}\\right)} , \\tag{1}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        399.0,
+        646.0,
+        562.0,
+        686.0
+      ],
+      "markdown": "$$\n\\mu_t = \\sum_{n=1}^{N} \\omega_n u_{t}, \\tag{2}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        688.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "where $\\mathcal{L}_n$ represents the cost of the $n$-th trajectory, $\\omega_n$ denotes the corresponding trajectory weight, and $\\lambda$ is the temperature parameter that determines the controller’s sensitivity to differences in trajectory cost. A lower value of",
+      "source_class": "text"
+    }
+  ]
+}

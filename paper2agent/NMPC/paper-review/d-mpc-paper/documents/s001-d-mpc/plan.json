@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "name": "d-mpc-paper",
+  "title": "Diffusion Model Predictive Control",
+  "source": {
+    "path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/originals/s001-d-mpc.pdf",
+    "sha256": "4cea93a6de0298703314f906a0317092692412b2aeeaa45da6631a2fc365df03",
+    "normalized_sha256": "071d90165766b9a569bd630b2b4a64bdacc242ab487d55c645f7a8693f739a3b",
+    "pages": 21
+  },
+  "notes": [
+    "Source: arXiv:2410.05364v2 (21 pages; byte-identical to the arXiv v2 PDF), published in Transactions on Machine Learning Research (05/2025), reviewed on OpenReview (forum id pvtgffHtJm). Authors: Guangyao Zhou, Sivaramakrishnan Swaminathan, Rajkumar Vasudeva Raju, J. Swaroop Guntupalli, Wolfgang Lehrach, Joseph Ortiz, Antoine Dedieu, Miguel Lázaro-Gredilla, Kevin Murphy (Google DeepMind). The paper gives no code link, and no official code release was found. The appendices A-J are part of the same PDF and follow the references in this file; no 'Appendix' heading is printed.",
+    "Mathematics is transcribed to LaTeX from the authors' arXiv TeX source and checked against the PDF; no disagreement between TeX and PDF was found. Only equations (1), (2) and (3) are numbered (\\tag{...}); the displays in Appendix D are unnumbered. Bold italic vectors are written \\boldsymbol{s}, \\boldsymbol{a}, \\boldsymbol{h}; the upright bold action-sequence matrix is \\mathbf{A}; the dynamics model is p_{d}. The authors' notation varies between sections and is kept as printed: the dynamics model is written p_{s|a} in Sections 3.1, 3.3, 3.4 and 4.3 and p_{d} elsewhere; the action proposal is written \\pi in Section 3.1 and \\pi_a in Section 4.3, \\rho elsewhere.",
+    "Authors' typos and slips are kept as printed, for example 'Q-leaning' (Section 2), 'Diffuson Policy' and 'Imitiating Humans' (Table 1 caption), superscripts r^2_{1:T_1} and r^m_{1:T_2} in the dataset definition (Section 3.2, Appendix D), the product written \\prod_t^{t+F-1} (Sections 2 and 4.4.3), x_{t-1} instead of x_{k-1} in the forward process (Appendix A), s_{t+1:t+f_F} (Algorithm 4), \\mathbf{A}_{N,H} (Algorithm 5), p(s_t+1|s_t,a_t) (Appendix E.1), 'the the', 'a a high-level summary', 'by minimize', 'uses EMA', 'adaptions', and the Zhu et al. reference without a year. The paper itself gives two values for Diffuser on the original (defect-free) Walker2d hardware: 72.91 (± 3.47) in the text of Section 4.3 and 79.60 in Table 3(a); both are kept as printed.",
+    "Algorithms 1-5 are kept as images, each followed by a line-numbered text transcription with LaTeX maths; nesting is shown with one '&emsp;' per level, and printed errors are preserved.",
+    "Table 1 is stored as CSV with its three header levels repeated in combined column names joined by ' / ' (for example 'Factored: $p_{d}(s|a)\\,\\rho(a)$ / MPC / (multi-step)'); check marks and crosses are the printed symbols, empty cells are empty. Table 2 is one float with one caption but three printed sub-tables, stored as table-2-locomotion, table-2-adroit and table-2-kitchen; their 'Average' rows span the Domain and Level columns in print and are stored with the label in Domain and an empty Level cell. Table 3 is stored as table-3a and table-3b; Table 3(b) flattens its two-level header into 'Dynamics Model: SS Diff' etc. Table 4 flattens its header into 'MS Diff Action Proposal: SS Diff Dynamics' etc. Spacing inside '(±x)' is kept as printed and is not uniform.",
+    "Bold in the tables carries meaning and cannot be stored in CSV. Table 2 bolds scores within 5% of the maximum per task (only the mean, not the standard error): locomotion: halfcheetah/medium D-MPC 46.00, IQL 47.40; hopper/medium MOReL 95.40; walker2d/medium MOReL 77.80, D-MPC 76.21, Diffuser 79.70, IQL 78.30; halfcheetah/medium-replay CQL 45.50, IQL 44.20; hopper/medium-replay MOReL 93.60, D-MPC 92.49, Diffuser 96.80, CQL 95.00, IQL 94.70; walker2d/medium-replay D-MPC 78.81; Locomotion Average MOReL 66.48, D-MPC 65.98, CQL 65.45, IQL 67.47. Adroit: pen IQL 114.05; door D-MPC 16.36; hammer D-MPC 12.27; Adroit Average IQL 44.90. Kitchen: mixed D-MPC 67.50; partial D-MPC 73.33; Kitchen Average D-MPC 70.42. Table 3(b) bolds 65.98 (MS Diff proposal with MS Diff dynamics).",
+    "Table 7 cells are written as printed with the superscript exponent as '× 10^-1', '× 10^0', '× 10^1', '× 10^2' (ASCII caret, PDF minus as ASCII hyphen); the unit is milliseconds per environment step.",
+    "Text inside figures (axis labels, legends, panel titles, snapshot labels) exists only in the image crops of Figures 1 and 2. Footnotes are separate paragraphs starting 'Footnote 1:', 'Footnote 2:' and 'Footnote ∗:' (corresponding author), with markers [^1], [^2], [^*] in the text. Typography not carried over: bold table cells (listed above), the bold final 's' marking 'DWMS' in the Table 1 caption, the right-aligned e-mail layout of the author block.",
+    "In the Markdown copies of tables, the builder escapes backslashes and vertical bars as GitHub-flavoured Markdown requires, so the Table 1 header reads $p_{d}(s\\|a)\\\\,\\\\rho(a)$ in raw text and renders as $p_{d}(s|a)\\,\\rho(a)$; the CSV files contain the unescaped LaTeX. Floats are placed at paragraph boundaries near their printed position, so Table 3(a) and 3(b) and Figure 2 (all printed on page 10) sit under 4.4.3 although Table 3(a) belongs to Section 4.3 and Table 3(b) summarises Section 4.4; search for 'Table 3' or 'Figure 2' to find them."
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "file": "pages/page-0001.json"
+    },
+    {
+      "page": 2,
+      "file": "pages/page-0002.json"
+    },
+    {
+      "page": 3,
+      "file": "pages/page-0003.json"
+    },
+    {
+      "page": 4,
+      "file": "pages/page-0004.json"
+    },
+    {
+      "page": 5,
+      "file": "pages/page-0005.json"
+    },
+    {
+      "page": 6,
+      "file": "pages/page-0006.json"
+    },
+    {
+      "page": 7,
+      "file": "pages/page-0007.json"
+    },
+    {
+      "page": 8,
+      "file": "pages/page-0008.json"
+    },
+    {
+      "page": 9,
+      "file": "pages/page-0009.json"
+    },
+    {
+      "page": 10,
+      "file": "pages/page-0010.json"
+    },
+    {
+      "page": 11,
+      "file": "pages/page-0011.json"
+    },
+    {
+      "page": 12,
+      "file": "pages/page-0012.json"
+    },
+    {
+      "page": 13,
+      "file": "pages/page-0013.json"
+    },
+    {
+      "page": 14,
+      "file": "pages/page-0014.json"
+    },
+    {
+      "page": 15,
+      "file": "pages/page-0015.json"
+    },
+    {
+      "page": 16,
+      "file": "pages/page-0016.json"
+    },
+    {
+      "page": 17,
+      "file": "pages/page-0017.json"
+    },
+    {
+      "page": 18,
+      "file": "pages/page-0018.json"
+    },
+    {
+      "page": 19,
+      "file": "pages/page-0019.json"
+    },
+    {
+      "page": 20,
+      "file": "pages/page-0020.json"
+    },
+    {
+      "page": 21,
+      "file": "pages/page-0021.json"
+    }
+  ]
+}

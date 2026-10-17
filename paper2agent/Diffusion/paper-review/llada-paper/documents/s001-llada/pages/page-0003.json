@@ -1,0 +1,219 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and the native lines; Figure 2 edges checked with 200-dpi and 300-dpi crops. Figure 2 (panels (a) pre-training, (b) SFT, (c) sampling with the 'An intermediate step' bracket, t = 1 / t = 0 labels, red time arrow, and the legend box Mask token / Non-mask token / Remask / Random mask) is one figure item 'figure-2', bbox [105,67,497,182]; the bottom edge was moved up from 186 to 182 so that the first caption line (top 183.3) is excluded while the red arrowhead (tip about 179 pt) stays inside. Caption kind set to 'caption' with $t \\sim U[0, 1]$, $t = 1$, $t = 0$. Reading order: the page starts with bullets 2-4 of the contribution list continuing from p. 2, then Figure 2 and caption (placed before Section 2 as in the PDF), then '## 2 Approach' and '### 2.1 Probabilistic Formulation' (extractor had '#'/'##' with bold). Footnote 6 marker [^6] after 'probabilistic formulation'; 'Footnote 6: ...' placed directly before the last paragraph ('Notably, LLaDA employs ... as shown in'), which continues on p. 4 (join_previous=space set on p. 4's first item). Equations (3) and (4) converted from formula images to $$...$$ with \\tag{3}/\\tag{4}, taken from main.tex (\\textbf{1} -> \\mathbf{1}, \\textrm{M} -> \\mathrm{M}, \\textrm{data} -> \\text{data}) and checked against the page: (3) has \\triangleq, -\\mathbb{E}_{t,x_0,x_t}, 1/t, sum i=1..L, \\mathbf{1}[x_t^i = \\mathrm{M}] \\log p_\\theta(x_0^i|x_t), trailing comma; (4) ends with a period. Inline maths rewritten ($p_\\theta(x_0)$, $t \\in (0, 1)$, $1 - t$, $p_\\theta(\\cdot|x_t)$, $\\mathbf{1}[\\cdot]$). TeX and PDF agree on this page. Page number 3 omitted. check: 28/37 lines; the 9 missing lines all contain inline or display maths (category a); no number differences.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        245.0,
+        504.0,
+        277.0
+      ],
+      "markdown": "- The pre-trained LLaDA 8B Base surpasses LLaMA2 7B Base [21] on nearly all 15 standard zero/few-shot learning tasks while performing on par with LLaMA3 8B Base [6], showcasing effective in-context learning capability.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        280.0,
+        504.0,
+        300.0
+      ],
+      "markdown": "- LLaDA significantly enhances the ability to follow instructions after SFT, as demonstrated in case studies such as multi-turn dialogue.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        303.0,
+        505.0,
+        324.0
+      ],
+      "markdown": "- LLaDA effectively breaks the reversal curse [15] with consistent performance across forward and reversal tasks. Notably, it outperforms GPT-4o in a reversal poem completion task.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b000",
+      "kind": "figure",
+      "bbox": [
+        105.0,
+        67.0,
+        497.0,
+        182.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "caption",
+      "bbox": [
+        108.0,
+        184.0,
+        505.0,
+        226.0
+      ],
+      "markdown": "Figure 2: **Overview of LLaDA.** (a) Pre-training. LLaDA is trained on text with random masks applied independently to all tokens at the same ratio $t \\sim U[0, 1]$. (b) SFT. Only response tokens are possibly masked. (c) Sampling. LLaDA simulates a diffusion process from $t = 1$ (fully masked) to $t = 0$ (unmasked), predicting all masks simultaneously at each step with flexible remask strategies.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        345.0,
+        177.0,
+        357.0
+      ],
+      "markdown": "## 2 Approach",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        368.0,
+        504.0,
+        390.0
+      ],
+      "markdown": "In this section, we introduce the probabilistic formulation[^6], along with the pre-training, supervised fine-tuning, and inference procedures for LLaDA, as illustrated in Fig. 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        405.0,
+        241.0,
+        413.0
+      ],
+      "markdown": "### 2.1 Probabilistic Formulation",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        424.0,
+        505.0,
+        478.0
+      ],
+      "markdown": "Unlike ARMs in Eq. (2), LLaDA defines a model distribution $p_\\theta(x_0)$ through a *forward process* and a *reverse process* [16–20]. The forward process gradually masks tokens independently in $x_0$ until the sequence is fully masked at $t = 1$. For $t \\in (0, 1)$, the sequence $x_t$ is partially masked, with each being masked with probability $t$ or remaining unmasked with probability $1 - t$. The reverse process recovers the data distribution by iteratively predicting masked tokens as $t$ moves from $1$ to $0$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        484.0,
+        504.0,
+        516.0
+      ],
+      "markdown": "The core of LLaDA is a *mask predictor*, a parametric model $p_\\theta(\\cdot|x_t)$ that takes $x_t$ as input and predicts all masked tokens (denoted as M) simultaneously. It is trained using a cross-entropy loss computed only on the masked tokens [18–20]:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        195.0,
+        519.0,
+        506.0,
+        560.0
+      ],
+      "markdown": "$$\n\\mathcal{L}(\\theta) \\triangleq -\\mathbb{E}_{t, x_0, x_t} \\left[\\frac{1}{t} \\sum_{i=1}^{L} \\mathbf{1}[x_t^i = \\mathrm{M}] \\log p_{\\theta}(x_0^i|x_t) \\right], \\tag{3}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        561.0,
+        505.0,
+        594.0
+      ],
+      "markdown": "where $x_0$ is a training sample, $t$ is a continuous random variable drawn uniformly from $[0, 1]$, $x_t$ is sampled from the forward process and $L$ is the sequence length. The indicator function $\\mathbf{1}[\\cdot]$ ensures that the loss is computed only for masked tokens.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        600.0,
+        505.0,
+        643.0
+      ],
+      "markdown": "Once trained, we can simulate a reverse process (see Sec. 2.4 for details) parameterized by the mask predictor and define the model distribution $p_\\theta(x_0)$ as the marginal distribution induced at $t = 0$. The loss function in Eq. (3) has been proven to be an upper bound on the negative log-likelihood of the model distribution, making it a principled objective for generative modeling:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        237.0,
+        645.0,
+        506.0,
+        667.0
+      ],
+      "markdown": "$$\n-\\mathbb{E}_{p_{\\text{data}}(x_0)} \\left[\\log p_\\theta(x_0) \\right] \\le \\mathcal{L}(\\theta). \\tag{4}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        702.0,
+        505.0,
+        721.0
+      ],
+      "markdown": "Footnote 6: Here, we focus on the approach of LLaDA. A rigorous formulation of MDM is provided in Appendix A for interested readers.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        673.0,
+        505.0,
+        694.0
+      ],
+      "markdown": "Notably, LLaDA employs a masking ratio that varies randomly between 0 and 1 while BERT [22] uses a fixed ratio. The subtle differences have significant implications, especially at scale: as shown in",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page number 3 at the bottom centre (checked against the preview)."
+    }
+  ]
+}

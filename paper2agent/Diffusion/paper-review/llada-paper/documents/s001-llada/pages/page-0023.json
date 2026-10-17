@@ -1,0 +1,288 @@
+{
+  "page": 23,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0023.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against the preview and 220-dpi crops of both tables; TeX (main.tex B.2-B.3, tables table:8b and tab:ablation-cfg) used for maths and cells, no TeX/PDF disagreement. Page starts with two floats (Table 5, Table 6) printed at the top; page 22 ends with a complete paragraph (B.1 '... |EOS| padding strategy.'), so no join is needed and the floats sit between complete paragraphs. Captions are printed above the tables and are kept before them. Table 5 (table-5, 9 rows x 6 cols, header row with empty first cell) and Table 6 (table-6, 3 x 7) checked cell by cell against the crops; bold best values in Table 6 removed from the cells (bold not carried into CSV). Boxes tightened to [106,104,506,224] and [133,253,476,300]. Headings changed from '# **B.2 ...**' / '# **B.3 ...**' to '### B.2 Details about Model Training' and '### B.3 Ablation on Classifier-free Guidance'. Maths rewritten in LaTeX: $4 \\times 10^{-4}$, $4.2 \\times 10^{-4}$ (repaired split decimal '4 _._ 2'), $6ND$, $N$, $D$, $\\{0.5, 1, 1.5, 2\\}$. Prose otherwise compared line by line with the preview; unchanged. Page number 23 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0023-b000",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        79.0,
+        505.0,
+        99.0
+      ],
+      "markdown": "Table 5: **Model Architecture.** We report the architectural configurations for our 1B and 7B ARM baselines, the 1B and 8B LLaDA models, and the 8B LLaMA3 model.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0023-b001",
+      "kind": "table",
+      "bbox": [
+        106.0,
+        104.0,
+        506.0,
+        224.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 5",
+      "asset_name": "table-5",
+      "rows": [
+        [
+          "",
+          "Our ARM Baseline 1B",
+          "LLaDA 1B",
+          "Our ARM Baseline 7B",
+          "LLaDA 8B",
+          "LLaMA3 8B"
+        ],
+        [
+          "Layers",
+          "22",
+          "22",
+          "28",
+          "32",
+          "32"
+        ],
+        [
+          "Model dimension",
+          "2048",
+          "2048",
+          "4096",
+          "4096",
+          "4096"
+        ],
+        [
+          "Attention heads",
+          "32",
+          "32",
+          "32",
+          "32",
+          "32"
+        ],
+        [
+          "Vocabulary size",
+          "126,464",
+          "126,464",
+          "126,464",
+          "126,464",
+          "128,000"
+        ],
+        [
+          "FFN dimension",
+          "5634",
+          "5634",
+          "13,440",
+          "12,288",
+          "14,336"
+        ],
+        [
+          "Key/Value heads",
+          "4",
+          "4",
+          "8",
+          "32",
+          "8"
+        ],
+        [
+          "Total parameters",
+          "1.49 B",
+          "1.49 B",
+          "6.83 B",
+          "8.02 B",
+          "8.03 B"
+        ],
+        [
+          "Non-embedding parameters",
+          "0.97 B",
+          "0.97 B",
+          "5.80 B",
+          "6.98 B",
+          "6.98 B"
+        ]
+      ]
+    },
+    {
+      "id": "p0023-b002",
+      "kind": "caption",
+      "bbox": [
+        137.0,
+        239.0,
+        475.0,
+        249.0
+      ],
+      "markdown": "Table 6: **Ablation on CFG.** CFG consistently improves the performance of LLaDA.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0023-b003",
+      "kind": "table",
+      "bbox": [
+        133.0,
+        253.0,
+        476.0,
+        300.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 6",
+      "asset_name": "table-6",
+      "rows": [
+        [
+          "",
+          "ARC-C",
+          "Hellaswag",
+          "TruthfulQA",
+          "WinoGrande",
+          "GPQA",
+          "PIQA"
+        ],
+        [
+          "w/o CFG",
+          "45.9",
+          "70.5",
+          "46.1",
+          "74.8",
+          "25.2",
+          "73.6"
+        ],
+        [
+          "w/ CFG",
+          "47.9",
+          "72.5",
+          "46.4",
+          "74.8",
+          "26.1",
+          "74.4"
+        ]
+      ]
+    },
+    {
+      "id": "p0023-b004",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        319.0,
+        258.0,
+        329.0
+      ],
+      "markdown": "### B.2 Details about Model Training",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0023-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        341.0,
+        472.0,
+        351.0
+      ],
+      "markdown": "This section provides the training details of LLaDA and the corresponding ARM baselines.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        357.0,
+        505.0,
+        411.0
+      ],
+      "markdown": "Firstly, for efficiency, we trained an ARM and an MDM, both with 1.5B parameters and identical architectures. Additionally, we scaled the MDM to 8B parameters. Due to computational resource constraints, we did not train an 8B autoregressive model with the same architecture. Instead, we utilized our previously trained 7B autoregressive model for comparison. These four models are utilized in the scalability analysis in Sec. 3.1.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        417.0,
+        504.0,
+        460.0
+      ],
+      "markdown": "We adopted a Transformer architecture similar to LLaMA [6, 21] for the ARMs and MDMs we trained. Specifically, we employ RMSNorm [105] to stabilize training, use SwiGLU [106] as the activation function to enhance non-linearity, and integrate RoPE [107] for more expressive positional encoding. Tab. 5 provides an overview of the model architectures.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        466.0,
+        506.0,
+        553.0
+      ],
+      "markdown": "For the 1B and 7B ARM baselines, as well as the 1B and 8B LLaDA models, we utilized the AdamW optimizer [29] with a weight decay of 0.1 and adopted the Warmup-Stable-Decay [28] learning rate scheduler. The learning rate was linearly increased from 0 to the maximum value over the first 2000 iterations and then held constant. For LLaDA 8B, to ensure stable training, the learning rate was reduced once during pre-training, as detailed in Sec. 2.2. For the 1B ARM baseline and both the 1B and 8B LLaDA models, the maximum learning rate is set to $4 \\times 10^{-4}$ with a batch size of 1280, without any hyperparameter tuning. For the 7B ARM baseline, the maximum learning rate is set to $4.2 \\times 10^{-4}$ with a batch size of 4224, both selected via grid search.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        559.0,
+        504.0,
+        600.0
+      ],
+      "markdown": "Additionally, we employ the widely used $6ND$ formulation [108, 109] to calculate the training FLOPs in Fig. 3, where $N$ represents the number of non-embedding parameters, and $D$ denotes the total number of training tokens. The detailed results corresponding to Fig. 3 are provided in Tab. 18 and Tab. 19.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b010",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        620.0,
+        288.0,
+        630.0
+      ],
+      "markdown": "### B.3 Ablation on Classifier-free Guidance",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0023-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        642.0,
+        505.0,
+        663.0
+      ],
+      "markdown": "This section presents an ablation study on classifier-free guidance (CFG). Theoretical details about CFG can be found in the Appendix A.2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b012",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        669.0,
+        506.0,
+        723.0
+      ],
+      "markdown": "For simplicity, we select six representative benchmarks, including ARC-C, HellaSwag, TruthfulQA, WinoGrande, PIQA, and GPQA, and conduct experiments using LLaDA 8B Base. We search the CFG scale in $\\{0.5, 1, 1.5, 2\\}$ for each task and report the best result. As shown in Tab. 6, CFG consistently improves the performance of LLaDA. We emphasize that, to ensure a fair comparison with ARMs, CFG is not used in the main results reported in the paper.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0023-b013",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        751.0
+      ],
+      "markdown": "23",
+      "source_class": "page-footer",
+      "reason": "Printed page number \"23\" at the bottom centre (verified on the preview)."
+    }
+  ]
+}

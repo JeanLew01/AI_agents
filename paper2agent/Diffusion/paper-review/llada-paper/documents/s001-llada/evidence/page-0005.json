@@ -1,0 +1,1069 @@
+{
+  "page": 5,
+  "lines": [
+    {
+      "text": "masked version xt. The process is identical to pre-training, with the only difference being that all",
+      "bbox": [
+        108.0,
+        75.04896545410156,
+        503.9974365234375,
+        84.80995178222656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "masked tokens happen to appear in the r0 portion.",
+      "bbox": [
+        108.0,
+        85.95796203613281,
+        307.4085388183594,
+        96.51795196533203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The LLaDA 8B model undergoes SFT on a dataset comprising 4.5 million pairs. Consistent with the",
+      "bbox": [
+        107.69100189208984,
+        102.50537109375,
+        503.9989318847656,
+        111.41193389892578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pre-training process, both data preparation and training follow the SFT protocols utilized in existing",
+      "bbox": [
+        108.0,
+        113.41436767578125,
+        504.0042419433594,
+        122.32093048095703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LLMs [25, 26], without introducing any additional techniques to optimize LLaDA’s performance.",
+      "bbox": [
+        108.0,
+        124.3233642578125,
+        505.7408752441406,
+        133.22991943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The dataset spans multiple domains, including code, mathematics, and instruction-following. We",
+      "bbox": [
+        107.69100189208984,
+        135.23333740234375,
+        504.00335693359375,
+        144.139892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "append |EOS| tokens to the end of short pairs in each mini-batch to ensure equal lengths across all",
+      "bbox": [
+        108.0,
+        145.42501831054688,
+        504.00396728515625,
+        155.04888916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data. We treat |EOS| as a normal token during training and remove it during sampling, enabling",
+      "bbox": [
+        108.0,
+        156.33407592773438,
+        503.9946594238281,
+        165.95794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LLaDA to control the response length automatically. Please refer to Appendix B.1 for more details.",
+      "bbox": [
+        108.0,
+        167.96038818359375,
+        504.05316162109375,
+        176.866943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We train for 3 epochs on the SFT data using a similar schedule to the pre-training phase. The learning",
+      "bbox": [
+        107.53199768066406,
+        184.348388671875,
+        504.0021667480469,
+        193.25494384765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rate is linearly increased from 0 to 2.5 × 10−5 over the first 50 iterations and then kept constant.",
+      "bbox": [
+        108.0,
+        191.64239501953125,
+        505.742431640625,
+        204.1639404296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "During the final 10% of iterations, it is linearly reduced to 2.5 × 10−6. Additionally, we set the",
+      "bbox": [
+        108.0,
+        204.07562255859375,
+        503.9951171875,
+        215.07391357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "weight decay to 0.1, the global batch size to 256, and the local batch size to 2 per GPU. The SFT",
+      "bbox": [
+        107.64099884033203,
+        216.9169464111328,
+        504.31329345703125,
+        225.98291015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "experiment was executed once, without any hyperparameter tuning.",
+      "bbox": [
+        108.0,
+        227.9853515625,
+        377.01007080078125,
+        236.89190673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.4",
+      "bbox": [
+        108.0,
+        254.59278869628906,
+        120.4532470703125,
+        263.5491638183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Inference",
+      "bbox": [
+        130.4158477783203,
+        254.59278869628906,
+        170.62493896484375,
+        263.5491638183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "As a generative model, LLaDA can sample new text and evaluate the likelihood of candidate text in a",
+      "bbox": [
+        107.64099884033203,
+        275.5953674316406,
+        504.0037841796875,
+        284.5019226074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion manner instead of the left-to-right autoregressive fashion.",
+      "bbox": [
+        108.0,
+        286.5043640136719,
+        375.12713623046875,
+        295.4109191894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We begin with the reverse generation process. As illustrated in Fig. 2 (c), given a prompt p0, we",
+      "bbox": [
+        107.53199768066406,
+        302.7339782714844,
+        504.0037841796875,
+        312.4949035644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "discretize the reverse process to sample from the model distribution pθ(r0|p0), starting from a fully",
+      "bbox": [
+        108.0,
+        313.0850524902344,
+        504.35076904296875,
+        323.4039001464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "masked response. The total number of sampling steps is a hyperparameter, which naturally provides",
+      "bbox": [
+        108.0,
+        324.71136474609375,
+        504.0013122558594,
+        333.617919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LLaDA with a trade-off between efficiency and sample quality, as analyzed in Sec. 3.3. We employ",
+      "bbox": [
+        108.0,
+        335.620361328125,
+        504.3465270996094,
+        344.52691650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "uniformly distributed timesteps by default. In addition, the generation length is also treated as a",
+      "bbox": [
+        108.0,
+        346.52935791015625,
+        503.9973449707031,
+        355.4359130859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hyperparameter, specifying the length of the fully masked sentence at the beginning of the sampling",
+      "bbox": [
+        108.0,
+        357.4383544921875,
+        504.00408935546875,
+        366.34490966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "process. After generation, tokens appearing after the |EOS| token are discarded. As detailed in",
+      "bbox": [
+        108.0,
+        367.6300354003906,
+        503.99993896484375,
+        377.25390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Appendix B.5, since both pre-training and SFT are conducted using datasets with variable lengths,",
+      "bbox": [
+        107.64099884033203,
+        379.25634765625,
+        505.24676513671875,
+        388.16290283203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the final results are insensitive to this length hyperparameter.",
+      "bbox": [
+        108.0,
+        390.1653747558594,
+        349.6727600097656,
+        399.0719299316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "At an intermediate step from time t ∈(0, 1] to s ∈[0, t), we feed both p0 and rt into the mask",
+      "bbox": [
+        107.64099884033203,
+        405.8370361328125,
+        504.24798583984375,
+        416.95489501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "predictor and predict all masked tokens simultaneously. Subsequently, we remask s",
+      "bbox": [
+        108.0,
+        415.4552001953125,
+        438.2738952636719,
+        426.3699035644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t of the predicted",
+      "bbox": [
+        434.8900146484375,
+        417.4633483886719,
+        503.99676513671875,
+        429.805908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tokens in expectation to obtain rs, ensuring that the transition of the reverse process aligns with",
+      "bbox": [
+        108.0,
+        428.2129821777344,
+        503.9947204589844,
+        437.97491455078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the forward process for accurate sampling [18–20]. In principle, the remasking strategy should be",
+      "bbox": [
+        108.0,
+        439.2813720703125,
+        503.9977722167969,
+        448.18792724609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "purely random. However, inspired by the annealing tricks of sampling in LLMs [4, 30], we adopt",
+      "bbox": [
+        108.0,
+        450.19036865234375,
+        504.00445556640625,
+        459.096923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a low-confidence remasking strategy, where s",
+      "bbox": [
+        108.0,
+        459.0921936035156,
+        294.8108825683594,
+        470.00592041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t of predicted tokens with the lowest confidence are",
+      "bbox": [
+        291.427001953125,
+        461.099365234375,
+        503.99700927734375,
+        473.4419250488281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "remarked based on the predictions, same as the approach of Chang et al. [23].",
+      "bbox": [
+        108.0,
+        472.0093688964844,
+        417.21917724609375,
+        480.9159240722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We mention that LLaDA enables flexible sampling. In particular, it supports autoregressive and block",
+      "bbox": [
+        107.53199768066406,
+        488.3973693847656,
+        504.2462158203125,
+        497.3039245605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion [31] sampling directly after the pre-training or SFT processes described above, without",
+      "bbox": [
+        108.0,
+        499.3063659667969,
+        504.00030517578125,
+        508.2129211425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "requiring any further modifications or training. We provide a detailed analysis in Appendix B.4.",
+      "bbox": [
+        108.0,
+        510.21533203125,
+        505.74517822265625,
+        519.1218872070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Nevertheless, the diffusion sampling (i.e., the reverse generation process) yields the best performance",
+      "bbox": [
+        108.0,
+        521.1243896484375,
+        504.0014343261719,
+        530.0309448242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and is adopted as the default throughout this paper, especially for all experiments presented in Sec. 3.",
+      "bbox": [
+        108.0,
+        532.0333251953125,
+        505.59039306640625,
+        540.9398803710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For conditional likelihood evaluation, we can naturally utilize the upper bound in Eq. (5). However,",
+      "bbox": [
+        108.0,
+        548.42236328125,
+        505.24505615234375,
+        557.3289184570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we find that the following equivalent form [20] exhibits lower variance and is more stable:",
+      "bbox": [
+        107.64099884033203,
+        559.3313598632812,
+        467.0616455078125,
+        568.2379150390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−El,r0,rl",
+      "bbox": [
+        211.82598876953125,
+        588.9730834960938,
+        247.18601989746094,
+        599.96337890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "\"",
+      "bbox": [
+        249.843994140625,
+        579.010498046875,
+        255.65219116210938,
+        585.3865356445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        256.8509826660156,
+        582.7919311523438,
+        263.6355285644531,
+        591.6387329101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "l",
+      "bbox": [
+        258.6570129394531,
+        596.3649291992188,
+        261.6258544921875,
+        605.2117309570312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L",
+      "bbox": [
+        270.95001220703125,
+        579.1521606445312,
+        276.41748046875,
+        585.3449096679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        266.4880065917969,
+        586.58251953125,
+        280.88397216796875,
+        592.9585571289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        267.2300109863281,
+        603.3601684570312,
+        280.1385192871094,
+        609.5529174804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1[ri",
+      "bbox": [
+        282.53802490234375,
+        587.4921264648438,
+        297.8764343261719,
+        598.5271606445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "l = M] log pθ(ri",
+      "bbox": [
+        294.7820129394531,
+        587.4921264648438,
+        360.4554138183594,
+        600.8406982421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|p0, rl)",
+      "bbox": [
+        357.3609924316406,
+        588.9730834960938,
+        389.9354553222656,
+        600.2608642578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "#",
+      "bbox": [
+        389.93499755859375,
+        579.010498046875,
+        395.7431945800781,
+        585.3865356445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        397.406982421875,
+        589.5309448242188,
+        400.17657470703125,
+        598.3777465820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(6)",
+      "bbox": [
+        493.0578918457031,
+        589.6903686523438,
+        504.67425537109375,
+        598.596923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where L is the sequence length of r0, l is uniformly sampled from {1, 2, . . . , L}, and rl is obtained",
+      "bbox": [
+        107.64099884033203,
+        619.18310546875,
+        504.00201416015625,
+        630.3019409179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by uniformly sampling l tokens from r0 without replacement for masking.",
+      "bbox": [
+        108.0,
+        630.6509399414062,
+        403.6671142578125,
+        641.2109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We present the training and inference algorithms, along with theoretical details, in Appendix A.",
+      "bbox": [
+        107.531982421875,
+        647.1983642578125,
+        488.57147216796875,
+        656.1049194335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3",
+      "bbox": [
+        107.99998474121094,
+        676.366943359375,
+        113.97758483886719,
+        687.1146850585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Experiments",
+      "bbox": [
+        125.93278503417969,
+        676.366943359375,
+        191.0168914794922,
+        687.1146850585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We evaluate the scalability, instruction-following, and in-context learning capabilities of LLaDA on",
+      "bbox": [
+        107.531982421875,
+        702.3363647460938,
+        504.00347900390625,
+        711.242919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "standard benchmarks, followed by analyses and case studies to provide a comprehensive assessment.",
+      "bbox": [
+        108.0,
+        713.245361328125,
+        505.744140625,
+        722.1519165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5",
+      "bbox": [
+        303.5090026855469,
+        743.1333618164062,
+        308.49029541015625,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Large Language Diffusion Models",
+      "author": "Shen Nie; Fengqi Zhu; Zebin You; Xiaolu Zhang; Jingyang Ou; Jun Hu; Jun Zhou; Yankai Lin; Ji-Rong Wen; Chongxuan Li",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:e76afa9)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Diffusion/paper-review/llada-paper/documents/.pdf-skill-scan-wvzsbc47/review/source.pdf",
+      "page_count": 33,
+      "page_number": 5
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          108,
+          75,
+          504,
+          96
+        ],
+        "pos": [
+          0,
+          159
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          107,
+          102,
+          506,
+          177
+        ],
+        "pos": [
+          159,
+          855
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          107,
+          184,
+          506,
+          237
+        ],
+        "pos": [
+          855,
+          1366
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          108,
+          254,
+          171,
+          262
+        ],
+        "pos": [
+          1366,
+          1389
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          107,
+          275,
+          505,
+          296
+        ],
+        "pos": [
+          1389,
+          1564
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          107,
+          302,
+          506,
+          400
+        ],
+        "pos": [
+          1564,
+          2440
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          107,
+          405,
+          505,
+          481
+        ],
+        "pos": [
+          2440,
+          3190
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          107,
+          488,
+          506,
+          541
+        ],
+        "pos": [
+          3190,
+          3697
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          107,
+          548,
+          506,
+          569
+        ],
+        "pos": [
+          3697,
+          3892
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          211,
+          579,
+          505,
+          609
+        ],
+        "pos": [
+          3892,
+          3894
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          107,
+          619,
+          505,
+          640
+        ],
+        "pos": [
+          3894,
+          4096
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          107,
+          647,
+          489,
+          657
+        ],
+        "pos": [
+          4096,
+          4195
+        ]
+      },
+      {
+        "index": 12,
+        "class": "section-header",
+        "bbox": [
+          107,
+          676,
+          192,
+          688
+        ],
+        "pos": [
+          4195,
+          4217
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          107,
+          702,
+          506,
+          723
+        ],
+        "pos": [
+          4217,
+          4418
+        ]
+      },
+      {
+        "index": 14,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          751
+        ],
+        "pos": [
+          4418,
+          4422
+        ]
+      }
+    ],
+    "text": "masked version _xt_ . The process is identical to pre-training, with the only difference being that all masked tokens happen to appear in the _r_ 0 portion. \n\nThe LLaDA 8B model undergoes SFT on a dataset comprising 4.5 million pairs. Consistent with the pre-training process, both data preparation and training follow the SFT protocols utilized in existing LLMs [25, 26], without introducing any additional techniques to optimize LLaDA’s performance. The dataset spans multiple domains, including code, mathematics, and instruction-following. We append _|_ EOS _|_ tokens to the end of short pairs in each mini-batch to ensure equal lengths across all data. We treat _|_ EOS _|_ as a normal token during training and remove it during sampling, enabling LLaDA to control the response length automatically. Please refer to Appendix B.1 for more details. \n\nWe train for 3 epochs on the SFT data using a similar schedule to the pre-training phase. The learning rate is linearly increased from 0 to 2 _._ 5 _×_ 10<sup>_−_5</sup> over the first 50 iterations and then kept constant. During the final 10% of iterations, it is linearly reduced to 2 _._ 5 _×_ 10<sup>_−_6</sup> . Additionally, we set the weight decay to 0 _._ 1, the global batch size to 256, and the local batch size to 2 per GPU. The SFT experiment was executed once, without any hyperparameter tuning. \n\n## **2.4 Inference** \n\nAs a generative model, LLaDA can sample new text and evaluate the likelihood of candidate text _in a diffusion manner instead of the left-to-right autoregressive fashion_ . \n\nWe begin with the reverse generation process. As illustrated in Fig. 2 (c), given a prompt _p_ 0, we discretize the reverse process to sample from the model distribution _pθ_ ( _r_ 0 _|p_ 0), starting from a fully masked response. The total number of sampling steps is a hyperparameter, which naturally provides LLaDA with a trade-off between efficiency and sample quality, as analyzed in Sec. 3.3. We employ uniformly distributed timesteps by default. In addition, the generation length is also treated as a hyperparameter, specifying the length of the fully masked sentence at the beginning of the sampling process. After generation, tokens appearing after the _|_ EOS _|_ token are discarded. As detailed in Appendix B.5, since both pre-training and SFT are conducted using datasets with variable lengths, the final results are insensitive to this length hyperparameter. \n\nAt an intermediate step from time _t ∈_ (0 _,_ 1] to _s ∈_ [0 _, t_ ), we feed both _p_ 0 and _rt_ into the mask predictor and predict all masked tokens simultaneously. Subsequently, we remask<sup>_<u>s</u>_</sup> _t_<sup>of the predicted</sup> tokens in expectation to obtain _rs_ , ensuring that the transition of the reverse process aligns with the forward process for accurate sampling [18–20]. In principle, the remasking strategy should be purely random. However, inspired by the annealing tricks of sampling in LLMs [4, 30], we adopt a low-confidence remasking strategy, where<sup>_<u>s</u>_</sup> _t_<sup>of predicted tokens with the lowest confidence are</sup> remarked based on the predictions, same as the approach of Chang et al. [23]. \n\nWe mention that LLaDA enables flexible sampling. In particular, it supports autoregressive and block diffusion [31] sampling directly after the pre-training or SFT processes described above, without requiring any further modifications or training. We provide a detailed analysis in Appendix B.4. Nevertheless, the diffusion sampling (i.e., the reverse generation process) yields the best performance and is adopted as the default throughout this paper, especially for all experiments presented in Sec. 3. \n\nFor conditional likelihood evaluation, we can naturally utilize the upper bound in Eq. (5). However, we find that the following equivalent form [20] exhibits lower variance and is more stable: \n\n\n\nwhere _L_ is the sequence length of _r_ 0, _l_ is uniformly sampled from _{_ 1 _,_ 2 _, . . . , L}_ , and _rl_ is obtained by uniformly sampling _l_ tokens from _r_ 0 without replacement for masking. \n\nWe present the training and inference algorithms, along with theoretical details, in Appendix A. \n\n# **3 Experiments** \n\nWe evaluate the scalability, instruction-following, and in-context learning capabilities of LLaDA on standard benchmarks, followed by analyses and case studies to provide a comprehensive assessment. \n\n5 \n\n"
+  }
+}

@@ -1,0 +1,1524 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Generative Predictive Control:",
+      "bbox": [
+        207.2030029296875,
+        74.12357330322266,
+        404.7976379394531,
+        88.37411499023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Flow Matching Policies for Dynamic, Difficult-to-Demonstrate Tasks",
+      "bbox": [
+        79.77799987792969,
+        94.0485610961914,
+        532.224609375,
+        108.29910278320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Vince Kurtz and Joel W. Burdick",
+      "bbox": [
+        230.8280029296875,
+        128.8079071044922,
+        381.17315673828125,
+        138.60516357421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract— Generative control policies have recently unlocked",
+      "bbox": [
+        63.96299743652344,
+        163.4472198486328,
+        298.802001953125,
+        171.5080108642578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "major progress in robotics. These methods produce action",
+      "bbox": [
+        53.999996185302734,
+        173.4102325439453,
+        298.8006286621094,
+        181.4710235595703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sequences via diffusion or flow matching, with training data",
+      "bbox": [
+        53.999996185302734,
+        183.37220764160156,
+        298.8006591796875,
+        191.43299865722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "provided by demonstrations. But existing methods come with",
+      "bbox": [
+        53.999996185302734,
+        193.33522033691406,
+        298.8006591796875,
+        201.39601135253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "two key limitations: they require expert demonstrations, which",
+      "bbox": [
+        53.999996185302734,
+        203.2971954345703,
+        298.8006591796875,
+        211.3579864501953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can be difficult or costly to obtain, and they are limited to",
+      "bbox": [
+        53.999996185302734,
+        213.2602081298828,
+        298.80059814453125,
+        221.3209991455078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "relatively slow, quasi-static tasks. In this paper, we leverage a",
+      "bbox": [
+        53.999996185302734,
+        223.2232208251953,
+        298.8006591796875,
+        231.2840118408203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tight connection between sampling-based predictive control and",
+      "bbox": [
+        53.999996185302734,
+        233.18519592285156,
+        298.80059814453125,
+        241.24598693847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generative modeling to address these issues. In particular, we",
+      "bbox": [
+        53.999996185302734,
+        243.14820861816406,
+        298.80059814453125,
+        251.20899963378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "introduce generative predictive control, a supervised learning",
+      "bbox": [
+        53.999996185302734,
+        253.11122131347656,
+        298.8006591796875,
+        261.1719970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "framework for tasks with fast dynamics that are easy to",
+      "bbox": [
+        53.999996185302734,
+        263.07318115234375,
+        298.8006591796875,
+        271.13397216796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simulate but difficult to demonstrate. We show how trained",
+      "bbox": [
+        53.999996185302734,
+        273.03619384765625,
+        298.8006896972656,
+        281.09698486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "flow-matching policies can be warm-started at inference time,",
+      "bbox": [
+        53.999996185302734,
+        282.99920654296875,
+        298.80059814453125,
+        291.05999755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "maintaining temporal consistency and enabling high-frequency",
+      "bbox": [
+        53.999996185302734,
+        292.9612121582031,
+        298.8006591796875,
+        301.02203369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "feedback. We believe that generative predictive control offers a",
+      "bbox": [
+        53.999996185302734,
+        302.9242248535156,
+        298.80059814453125,
+        310.98504638671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "complementary approach to existing behavior cloning methods,",
+      "bbox": [
+        53.999996185302734,
+        312.8872375488281,
+        298.80059814453125,
+        320.94805908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and hope that it will pave the way toward generalist policies",
+      "bbox": [
+        53.999996185302734,
+        322.8492431640625,
+        298.8005676269531,
+        330.9100341796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that extend beyond quasi-static demonstration-oriented tasks.",
+      "bbox": [
+        53.999996185302734,
+        332.812255859375,
+        295.44720458984375,
+        340.873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION AND RELATED WORK",
+      "bbox": [
+        90.26899719238281,
+        350.9744567871094,
+        262.53857421875,
+        359.8810119628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion and flow matching policies have enabled tremen-",
+      "bbox": [
+        63.96299743652344,
+        366.1024475097656,
+        298.8013610839844,
+        375.0090026855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dous success in behavior cloning for quasi-static manipula-",
+      "bbox": [
+        53.999996185302734,
+        378.05743408203125,
+        298.8009948730469,
+        386.9639892578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion [1]–[4]. Can generative policies also control systems",
+      "bbox": [
+        53.999996185302734,
+        390.0124206542969,
+        298.8010559082031,
+        398.9189758300781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with fast nonlinear dynamics at high control frequencies,",
+      "bbox": [
+        53.999996185302734,
+        401.9684143066406,
+        298.801025390625,
+        410.8749694824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where demonstrations are difficult to come by? In this paper,",
+      "bbox": [
+        53.999996185302734,
+        413.92340087890625,
+        298.80096435546875,
+        422.8299560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we answer this question in the affirmative by introducing",
+      "bbox": [
+        53.999996185302734,
+        425.8783874511719,
+        298.80096435546875,
+        434.7849426269531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "generative predictive control (GPC), a supervised learning",
+      "bbox": [
+        53.999996185302734,
+        437.8333740234375,
+        298.80096435546875,
+        446.73992919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "framework for dynamic and difficult-to-demonstrate tasks.",
+      "bbox": [
+        53.999996185302734,
+        449.7883605957031,
+        291.9068908691406,
+        458.6949157714844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 1 summarizes our approach. GPC alternates between",
+      "bbox": [
+        63.96299743652344,
+        461.7493591308594,
+        298.8013916015625,
+        470.6559143066406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data collection via sampling-based predictive control (SPC)",
+      "bbox": [
+        53.999996185302734,
+        473.7053527832031,
+        298.80096435546875,
+        482.6119079589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and policy training via flow matching. The flow model pro-",
+      "bbox": [
+        53.999996185302734,
+        485.66033935546875,
+        298.8009033203125,
+        494.56689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "vides extra samples for SPC, enabling continual performance",
+      "bbox": [
+        53.999996185302734,
+        497.6153259277344,
+        298.8009338378906,
+        506.5218811035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "improvement while maintaining a supervised learning (e.g.,",
+      "bbox": [
+        53.999996185302734,
+        509.5703125,
+        298.801025390625,
+        518.4768676757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "regression) objective, which stabilizes the learning process.",
+      "bbox": [
+        53.999996185302734,
+        521.5252685546875,
+        296.2705078125,
+        530.4318237304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1) Generative Policies: Diffusion [1] and flow matching",
+      "bbox": [
+        63.96299743652344,
+        533.4893188476562,
+        298.8013610839844,
+        542.3958740234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[2] have recently gained prominence as powerful policy",
+      "bbox": [
+        53.999996185302734,
+        545.4443359375,
+        298.8009033203125,
+        554.3508911132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "representations for robotics. These models typically focus on",
+      "bbox": [
+        53.999996185302734,
+        557.4002685546875,
+        298.8009948730469,
+        566.3068237304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "behavior cloning [3], [4], where expert demonstrations serve",
+      "bbox": [
+        53.999996185302734,
+        569.3552856445312,
+        298.80096435546875,
+        578.2618408203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as training data. Generative policies have the key advantage",
+      "bbox": [
+        53.999996185302734,
+        581.310302734375,
+        298.8009948730469,
+        590.2168579101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of multi-modal expressiveness, allowing multiple “paths”",
+      "bbox": [
+        53.999996185302734,
+        593.2653198242188,
+        298.8009948730469,
+        602.171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to the same goal [1]. They also provide a natural choice",
+      "bbox": [
+        53.999996185302734,
+        605.2203369140625,
+        298.8009948730469,
+        614.1268920898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for handling image data [5]–[7]. Importantly, generative",
+      "bbox": [
+        53.999996185302734,
+        617.17529296875,
+        298.80096435546875,
+        626.0818481445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policies are trained in a supervised manner, with clearly de-",
+      "bbox": [
+        53.999996185302734,
+        629.1312866210938,
+        298.80096435546875,
+        638.037841796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fined regression targets. This improves training stability over",
+      "bbox": [
+        53.999996185302734,
+        641.0863037109375,
+        298.8009338378906,
+        649.9928588867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "unsupervised reinforcement learning [8], [9], but requires",
+      "bbox": [
+        53.999996185302734,
+        653.0413208007812,
+        298.8009948730469,
+        661.9478759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrations. Obtaining sufficient demonstration data is",
+      "bbox": [
+        53.999996185302734,
+        664.996337890625,
+        298.8009948730469,
+        673.9028930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a key challenge, particularly for large generalist policies [2],",
+      "bbox": [
+        53.999996185302734,
+        676.9512939453125,
+        298.8010559082031,
+        685.8578491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[10], [11]. While creative ways to obtain this data are an",
+      "bbox": [
+        53.999996185302734,
+        688.9063110351562,
+        298.8009948730469,
+        697.8128662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "area of active research [12], it is unlikely that demonstrations",
+      "bbox": [
+        53.999996185302734,
+        700.8623046875,
+        298.80096435546875,
+        709.7688598632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "alone will produce the internet-scale data used to train large",
+      "bbox": [
+        53.999996185302734,
+        712.8173217773438,
+        298.8009948730469,
+        721.723876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "vision-language models any time soon. Furthermore, some",
+      "bbox": [
+        53.999996185302734,
+        724.7723388671875,
+        298.8009948730469,
+        733.6788940429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Flow Matching",
+      "bbox": [
+        473.2566833496094,
+        159.0509796142578,
+        539.5270385742188,
+        172.6566925048828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Generative Model",
+      "bbox": [
+        467.41015625,
+        171.05319213867188,
+        542.1766357421875,
+        184.65890502929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sampling-Based",
+      "bbox": [
+        331.28515625,
+        159.56451416015625,
+        401.6067810058594,
+        173.17022705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Predictive Control",
+      "bbox": [
+        326.2162780761719,
+        171.5667266845703,
+        403.4788513183594,
+        185.1724395751953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "training",
+      "bbox": [
+        418.9532775878906,
+        179.79583740234375,
+        455.2612609863281,
+        193.40155029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data",
+      "bbox": [
+        426.1726379394531,
+        191.7980499267578,
+        444.8450622558594,
+        205.4037628173828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "samples",
+      "bbox": [
+        419.2892761230469,
+        235.35499572753906,
+        451.9204406738281,
+        248.96070861816406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 1: Generative predictive control is a supervised learning framework",
+      "bbox": [
+        313.20001220703125,
+        288.3672790527344,
+        558.0018920898438,
+        295.4925231933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for dynamic tasks that are difficult to demonstrate but easy to simulate.",
+      "bbox": [
+        313.20001220703125,
+        297.33428955078125,
+        558.0018310546875,
+        304.45953369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "First, we generate training data with sampling-based predictive control [16],",
+      "bbox": [
+        313.20001220703125,
+        306.30029296875,
+        558.0017700195312,
+        313.425537109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[17], [22], leveraging advances in massively parallel GPU simulation [19]–",
+      "bbox": [
+        313.20001220703125,
+        315.26629638671875,
+        558.001953125,
+        322.39154052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[21]. We then use this data to train a flow matching policy, which in turn",
+      "bbox": [
+        313.20001220703125,
+        324.2333068847656,
+        558.001708984375,
+        331.3585510253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "provides additional high-quality samples. This results in better training data",
+      "bbox": [
+        313.20001220703125,
+        333.1993103027344,
+        558.001708984375,
+        340.3245544433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for subsequent iterations, in a virtuous cycle. Code available: https://",
+      "bbox": [
+        313.20001220703125,
+        342.16632080078125,
+        558.0017700195312,
+        349.29156494140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "github.com/vincekurtz/gpc.",
+      "bbox": [
+        313.20001220703125,
+        351.13232421875,
+        434.744384765625,
+        358.257568359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tasks are simply difficult to demonstrate, particularly for",
+      "bbox": [
+        313.20001220703125,
+        371.400390625,
+        558.0009765625,
+        380.30694580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "robots with fast nonlinear dynamics or unique morphologies.",
+      "bbox": [
+        313.20001220703125,
+        383.3553771972656,
+        558.0009155273438,
+        392.2619323730469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2) Sampling-based Predictive Control (SPC): In parallel,",
+      "bbox": [
+        323.16302490234375,
+        397.3123779296875,
+        558.0013427734375,
+        406.21893310546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a very different trend has been gaining traction in the",
+      "bbox": [
+        313.20001220703125,
+        409.2673645019531,
+        558.0009765625,
+        418.1739196777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear optimal control community. SPC is an alternative",
+      "bbox": [
+        313.20001220703125,
+        421.22235107421875,
+        558.0009765625,
+        430.12890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to gradient-based model predictive control (MPC), where a",
+      "bbox": [
+        313.20001220703125,
+        433.1773376464844,
+        558.0009765625,
+        442.0838928222656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simple sampling procedure is used in place of a sophisticated",
+      "bbox": [
+        313.20001220703125,
+        445.1333312988281,
+        558.0010375976562,
+        454.0398864746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear optimizer [13]–[15]. Algorithms in this family",
+      "bbox": [
+        313.20001220703125,
+        457.08831787109375,
+        558.0007934570312,
+        465.994873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "include model predictive path integral control (MPPI) [16],",
+      "bbox": [
+        313.20001220703125,
+        469.0433044433594,
+        558.0009155273438,
+        477.9498596191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "predictive sampling (PS) [17], and cross-entropy methods",
+      "bbox": [
+        313.20001220703125,
+        480.998291015625,
+        558.0009765625,
+        489.90484619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(CEM) [18]. SPC algorithms are exceedingly easy to im-",
+      "bbox": [
+        313.20001220703125,
+        492.9532775878906,
+        558.0009155273438,
+        501.8598327636719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "plement, and have been studied for some time. But recent",
+      "bbox": [
+        313.20001220703125,
+        504.90826416015625,
+        558.0011596679688,
+        513.8148193359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "advances in simulation speed and parallelism [19]–[21] allow",
+      "bbox": [
+        313.20001220703125,
+        516.8642578125,
+        558.0010375976562,
+        525.7708129882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "them to scale to complex problems like dexterous manipu-",
+      "bbox": [
+        313.20001220703125,
+        528.8192138671875,
+        558.0009765625,
+        537.7257690429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "lation [22], legged locomotion [23] and more [17], [24].",
+      "bbox": [
+        313.20001220703125,
+        540.7742309570312,
+        544.3123779296875,
+        549.6807861328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In many ways, SPC complements generative behavior",
+      "bbox": [
+        323.16302490234375,
+        554.063232421875,
+        558.0015258789062,
+        562.9697875976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cloning: it is agnostic to a robot’s morphology, and can",
+      "bbox": [
+        313.20001220703125,
+        566.0192260742188,
+        558.0009155273438,
+        574.92578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be quite effective on tasks with fast nonlinear dynamics.",
+      "bbox": [
+        313.20001220703125,
+        577.9742431640625,
+        558.0009765625,
+        586.8807983398438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Behavior cloning, on the other hand, has shown success on",
+      "bbox": [
+        313.20001220703125,
+        589.9292602539062,
+        558.0009155273438,
+        598.8358154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tasks involving deformable objects like cloth and food [1]–",
+      "bbox": [
+        313.20001220703125,
+        601.88427734375,
+        558.0010986328125,
+        610.7908325195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[4], which are hard to simulate at speeds sufficient for SPC.",
+      "bbox": [
+        313.20001220703125,
+        613.8392333984375,
+        558.0010375976562,
+        622.7457885742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3) Our Contribution: This paper highlights a deep con-",
+      "bbox": [
+        323.16302490234375,
+        627.7962646484375,
+        558.0012817382812,
+        636.7028198242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nection between generative policies and SPC. This connec-",
+      "bbox": [
+        313.20001220703125,
+        639.751220703125,
+        558.0010986328125,
+        648.6577758789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tion was first identified by [25] in the context of MPPI.",
+      "bbox": [
+        313.20001220703125,
+        651.7062377929688,
+        558.0009155273438,
+        660.61279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "DIAL-MPC [23] used this connection to improve SPC per-",
+      "bbox": [
+        313.20001220703125,
+        663.6622314453125,
+        558.0009155273438,
+        672.5687866210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formance for legged locomotion, but DIAL-MPC is fully",
+      "bbox": [
+        313.20001220703125,
+        675.6172485351562,
+        558.0009155273438,
+        684.5238037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "online and does not include policy training. In this paper, we",
+      "bbox": [
+        313.20001220703125,
+        687.572265625,
+        558.0009765625,
+        696.4788208007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "extend this connection to a general class of SPC algorithms",
+      "bbox": [
+        313.20001220703125,
+        699.5272827148438,
+        558.0009765625,
+        708.433837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and leverage it train flow matching policies.",
+      "bbox": [
+        313.20001220703125,
+        711.4822387695312,
+        493.682373046875,
+        720.3887939453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In particular, we propose GPC, a supervised learning",
+      "bbox": [
+        323.16302490234375,
+        724.7722778320312,
+        558.00146484375,
+        733.6788330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2502.13406v3  [cs.RO]  5 Mar 2026",
+      "bbox": [
+        10.940000534057617,
+        224.9100341796875,
+        37.619998931884766,
+        567.0899658203125
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Generative Predictive Control: Flow Matching Policies for Dynamic and Difficult-to-Demonstrate Tasks",
+      "author": "Vince Kurtz; Joel W. Burdick",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:7b1e169)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/generative-predictive-control-paper/documents/.pdf-skill-scan-x6s_egib/review/source.pdf",
+      "page_count": 10,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          79,
+          74,
+          533,
+          109
+        ],
+        "pos": [
+          0,
+          100
+        ]
+      },
+      {
+        "index": 1,
+        "class": "page-header",
+        "bbox": [
+          18,
+          224,
+          36,
+          568
+        ],
+        "pos": [
+          100,
+          100
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          230,
+          128,
+          382,
+          137
+        ],
+        "pos": [
+          100,
+          134
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          53,
+          163,
+          299,
+          341
+        ],
+        "pos": [
+          134,
+          1256
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          90,
+          351,
+          263,
+          358
+        ],
+        "pos": [
+          1256,
+          1293
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          53,
+          366,
+          299,
+          459
+        ],
+        "pos": [
+          1293,
+          1763
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          53,
+          461,
+          299,
+          531
+        ],
+        "pos": [
+          1763,
+          2118
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          53,
+          533,
+          299,
+          734
+        ],
+        "pos": [
+          2118,
+          3140
+        ]
+      },
+      {
+        "index": 8,
+        "class": "picture",
+        "bbox": [
+          313,
+          157,
+          558,
+          282
+        ],
+        "pos": [
+          3140,
+          3306
+        ]
+      },
+      {
+        "index": 9,
+        "class": "caption",
+        "bbox": [
+          313,
+          288,
+          559,
+          359
+        ],
+        "pos": [
+          3306,
+          3862
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          313,
+          371,
+          559,
+          393
+        ],
+        "pos": [
+          3862,
+          3984
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          313,
+          397,
+          559,
+          550
+        ],
+        "pos": [
+          3984,
+          4737
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          554,
+          559,
+          623
+        ],
+        "pos": [
+          4737,
+          5084
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          313,
+          627,
+          559,
+          721
+        ],
+        "pos": [
+          5084,
+          5531
+        ]
+      },
+      {
+        "index": 14,
+        "class": "text",
+        "bbox": [
+          323,
+          724,
+          559,
+          734
+        ],
+        "pos": [
+          5531,
+          5586
+        ]
+      }
+    ],
+    "text": "Generative Predictive Control: Flow Matching Policies for Dynamic, Difficult-to-Demonstrate Tasks \n\nVince Kurtz and Joel W. Burdick \n\n**_Abstract_ — Generative control policies have recently unlocked major progress in robotics. These methods produce action sequences via diffusion or flow matching, with training data provided by demonstrations. But existing methods come with two key limitations: they require expert demonstrations, which can be difficult or costly to obtain, and they are limited to relatively slow, quasi-static tasks. In this paper, we leverage a tight connection between sampling-based predictive control and generative modeling to address these issues. In particular, we introduce** **_generative predictive control_ , a supervised learning framework for tasks with fast dynamics that are easy to simulate but difficult to demonstrate. We show how trained flow-matching policies can be warm-started at inference time, maintaining temporal consistency and enabling high-frequency feedback. We believe that generative predictive control offers a complementary approach to existing behavior cloning methods, and hope that it will pave the way toward generalist policies that extend beyond quasi-static demonstration-oriented tasks.** \n\n# I. INTRODUCTION AND RELATED WORK \n\nDiffusion and flow matching policies have enabled tremendous success in behavior cloning for quasi-static manipulation [1]–[4]. Can generative policies also control systems with fast nonlinear dynamics at high control frequencies, where demonstrations are difficult to come by? In this paper, we answer this question in the affirmative by introducing generative predictive control (GPC), a supervised learning framework for dynamic and difficult-to-demonstrate tasks. \n\nFig. 1 summarizes our approach. GPC alternates between data collection via sampling-based predictive control (SPC) and policy training via flow matching. The flow model provides extra samples for SPC, enabling continual performance improvement while maintaining a supervised learning (e.g., regression) objective, which stabilizes the learning process. \n\n_1) Generative Policies:_ Diffusion [1] and flow matching [2] have recently gained prominence as powerful policy representations for robotics. These models typically focus on behavior cloning [3], [4], where expert demonstrations serve as training data. Generative policies have the key advantage of multi-modal expressiveness, allowing multiple “paths” to the same goal [1]. They also provide a natural choice for handling image data [5]–[7]. Importantly, generative policies are trained in a _supervised_ manner, with clearly defined regression targets. This improves training stability over unsupervised reinforcement learning [8], [9], but requires demonstrations. Obtaining sufficient demonstration data is a key challenge, particularly for large generalist policies [2], [10], [11]. While creative ways to obtain this data are an area of active research [12], it is unlikely that demonstrations alone will produce the internet-scale data used to train large vision-language models any time soon. Furthermore, some \n\n\n\n<!-- Start of picture text -->\nSampling-Based  Flow Matching<br>Predictive Control Generative Model<br>training<br>data<br>samples<br><!-- End of picture text -->\n\nFig. 1: Generative predictive control is a supervised learning framework for dynamic tasks that are difficult to demonstrate but easy to simulate. First, we generate training data with sampling-based predictive control [16], [17], [22], leveraging advances in massively parallel GPU simulation [19]– [21]. We then use this data to train a flow matching policy, which in turn provides additional high-quality samples. This results in better training data for subsequent iterations, in a virtuous cycle. Code available: https:// github.com/vincekurtz/gpc. \n\ntasks are simply difficult to demonstrate, particularly for robots with fast nonlinear dynamics or unique morphologies. \n\n_2) Sampling-based Predictive Control (SPC):_ In parallel, a very different trend has been gaining traction in the nonlinear optimal control community. SPC is an alternative to gradient-based model predictive control (MPC), where a simple sampling procedure is used in place of a sophisticated nonlinear optimizer [13]–[15]. Algorithms in this family include model predictive path integral control (MPPI) [16], predictive sampling (PS) [17], and cross-entropy methods (CEM) [18]. SPC algorithms are exceedingly easy to implement, and have been studied for some time. But recent advances in simulation speed and parallelism [19]–[21] allow them to scale to complex problems like dexterous manipulation [22], legged locomotion [23] and more [17], [24]. \n\nIn many ways, SPC complements generative behavior cloning: it is agnostic to a robot’s morphology, and can be quite effective on tasks with fast nonlinear dynamics. Behavior cloning, on the other hand, has shown success on tasks involving deformable objects like cloth and food [1]– [4], which are hard to simulate at speeds sufficient for SPC. \n\n_3) Our Contribution:_ This paper highlights a deep connection between generative policies and SPC. This connection was first identified by [25] in the context of MPPI. DIAL-MPC [23] used this connection to improve SPC performance for legged locomotion, but DIAL-MPC is fully online and does not include policy training. In this paper, we extend this connection to a general class of SPC algorithms and leverage it train flow matching policies. \n\nIn particular, we propose GPC, a supervised learning \n\n"
+  }
+}

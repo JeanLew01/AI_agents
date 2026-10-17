@@ -1,0 +1,177 @@
+{
+  "page": 16,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0016.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0016-b000"
+  ],
+  "items": [
+    {
+      "id": "p0016-b000",
+      "kind": "text",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0016-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        90.0,
+        522.0,
+        119.0
+      ],
+      "markdown": "_Step 1: KRS Containment._ By Lemma 1, the decoded closed-loop lifted trajectory _x_ ˆ<sup>(0)</sup> _t,j_<sup>is determin-</sup> istically contained within the hyper-rectangular KRS:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b002",
+      "kind": "formula",
+      "bbox": [
+        170.0,
+        124.0,
+        442.0,
+        152.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 16 (3)",
+      "asset_name": "formula-p0016-002"
+    },
+    {
+      "id": "p0016-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        157.0,
+        523.0,
+        239.0
+      ],
+      "markdown": "_Step 2: Probabilistic Coverage._ The CP guarantee requires exchangeability of the nonconformity scores _{R_<sup>(</sup><sup>_i_)</sup> _}_<sup>_K_</sup> _i_ =0<sup>cal.Inourframework,allcalibrationandtesttrajectoriessharethesamereference</sup> ( _z_ 0:<sup>ref</sup> _T_<sup>_, u_ref</sup> 0: _T −_ 1<sup>) and controller</sup><sup>_Gt_, and their initial states</sup><sup>_x_</sup> 0<sup>(</sup><sup>_i_)are sampled i.i.d.from</sup><sup>_Bϵ_(</sup><sup>_x_</sup> 0<sup>ref).Since</sup> the decoded closed-loop lifted trajectory (8), true closed-loop trajectory (9), and the nonconformity score are deterministic functions of _x_<sup>(</sup> 0<sup>_i_),theresultingscores</sup><sup>_R_(</sup><sup>_i_)arealsoi.i.d.,andhence</sup> exchangeable. By the CP guarantee, the event",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b004",
+      "kind": "formula",
+      "bbox": [
+        246.0,
+        244.0,
+        366.0,
+        271.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 16 (5)",
+      "asset_name": "formula-p0016-004"
+    },
+    {
+      "id": "p0016-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        276.0,
+        522.0,
+        315.0
+      ],
+      "markdown": "occurs with probability at least 1 _− δ_ . _Step 3: Combined Guarantee._ The true state can be decomposed as _x_<sup>(0)</sup> _t,j_<sup>=</sup><sup>_x_ˆ(0)</sup> _t,j_<sup>+</sup><sup>_e_(0)</sup> _t,j_<sup>.When</sup><sup>_E_</sup> occurs, we have",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b006",
+      "kind": "formula",
+      "bbox": [
+        217.0,
+        309.0,
+        395.0,
+        336.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 16 (7)",
+      "asset_name": "formula-p0016-006"
+    },
+    {
+      "id": "p0016-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        337.0,
+        523.0,
+        371.0
+      ],
+      "markdown": "~~1~~ _−δ_ which by definition implies _x_<sup>(0)</sup> _t,j_<sup>_∈_</sup> _X t,j_<sup>.Sincethisholdsforall</sup><sup>_t_and</sup><sup>_j_,thetrajectory</sup><sup>_x_</sup> 0:<sup>(0)</sup> _T_<sup>is</sup> ~~1~~ _−δ_ contained in the CKRS _X_ 0: _T_<sup>with probability at least 1</sup><sup>_−δ_.</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b008",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        398.0,
+        161.0,
+        409.0
+      ],
+      "markdown": "# **8.2. Algorithm**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0016-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        418.0,
+        523.0,
+        564.0
+      ],
+      "markdown": "Algorithm 1 details the procedure for computing the CKRS. The process begins by lifting the planner-provided reference trajectory _x_<sup>ref</sup> 0: _T_<sup>into the latent space to compute the feedforward control</sup> _u_<sup>ref</sup> via least-squares, and synthesizing a time-varying LQR controller to track this reference. To account for the discrepancy between the learned Koopman dynamics and the true system, the algorithm generates calibration data from system rollouts and utilizes SNSA-based conformal prediction to derive statistically-valid error bounds ¯ _et_ . In parallel, the nominal KRS, _X_ 0: _T_ , is computed by constructing a computational graph of the closed-loop tracking dynamics in the lifted Koopman state space and computing reachable sets for the linear Koopman dynamics via auto ~~L~~ iRPA. Finally, the algorithm returns a conformalized Koopman reachable set (CKRS), _X_ 0:<sup>1</sup><sup>_−_</sup> _T_<sup>_δ_, obtained by inflating</sup> the nominal KRS with the derived conformal error bounds via a Minkowski sum. Crucially, the CKRS guarantees coverage of the trajectories generated by the _true system_ with probability 1 _− δ_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b010",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        581.0,
+        337.0,
+        591.0
+      ],
+      "markdown": "# **8.3. Experiment Details and Additional Experiments**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0016-b011",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        600.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "The following section contains the the analytical dynamics we used in this paper (App. 8.3.1) and additional experiment results. In particular, we benchmark our approach with a baseline Koopman dynamics learning approach that leverages polynomial liftings (App. 8.3.2), a baseline learned reachable set prediction method (App. 8.3.3), and a baseline conformal prediction-based reachable set computation method that does not leverage Koopman-based propagation (App. 8.3.4). We also present additional experiment figures, including full reachable set visualizations on a per-state breakdown for the unicycle system (App. 8.3.5), planar quadcopter system (App. 8.3.6), MuJoCo hopper system (App. 8.3.8), and MuJoCo swimmer system (App. 8.3.9).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0016-b012",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        725.0,
+        311.0,
+        733.0
+      ],
+      "markdown": "16",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "title": "Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control",
+  "notes": [
+    "Source: arXiv:2409.10469v1 [cs.RO], 16 Sep 2024 (7 pages; byte-identical to the arXiv PDF). Authors: Juan Alvarez-Padilla, John Z. Zhang, Sofia Kwok, John M. Dolan, Zachary Manchester (Carnegie Mellon University). The page-1 box 'This work has been submitted to the IEEE for possible publication. ...' is kept once. External metadata not printed in the PDF: the project website whole-body-mppi.github.io links the code repository github.com/jrapudg/RTWholeBodyMPPI (MIT licence); website, videos, code and the per-task hyperparameter list are not part of this package.",
+    "Mathematics is transcribed to LaTeX from the authors' arXiv TeX source and checked against the PDF; display equations (1)-(4) carry their printed numbers as \\tag{n}; equation (3) is one two-line aligned block with one number.",
+    "Algorithm 1 (page 3) is kept as an image followed by a line-numbered transcription (nesting shown with '&emsp;'); the authors' pseudocode is reproduced as printed.",
+    "Authors' slips are kept as printed, for example 'modification better scale MPPI' (Section II-B), Algorithm 1 line 6 'using $u_n$' while the loop samples $u_t$, equation (2) without a sample index on $u_t$, equation (1) reusing $n$ as the summation index, the lower-case 'in Sec. IV-E' opening a sentence, 'Across all hard experiments' (hardware), '$\\lambda = \\sim 0.1$' (printed 'λ =∼ 0.1'), 'interactions between the robot body', '(Fig 7)', the run-in title '5) Number samples:', 'can not see'.",
+    "Figures 2, 6 and 7 are vector graphics whose labels, tick values, legends and the ×10^6 / ·10^6 axis multipliers exist only in the image crops; the plotted values of Figs. 6 and 7 are not tabulated in the paper.",
+    "Table I (page 6) is printed with its caption below the table; the two-line column headers ('Offline Training', 'Whole-Body Contact') are joined with a space in one header cell and the first header cell is empty.",
+    "Floats are placed at paragraph boundaries near their printed position (for example Fig. 2 at the end of Section I, Fig. 3 and Algorithm 1 under II-B, Fig. 4 under IV-A, Table I at the end of IV-E); search for 'Fig. N', 'Algorithm 1' or 'TABLE I'. Subsection letters restart in every section, so 'A.' and 'B.' occur several times; the parent section disambiguates them."
+  ],
+  "source_review_notes": "All 7 pages reviewed against page renders by one reviewer agent (reports/review-pages-0001-0007.md): equations (1)-(4) and inline maths transcribed to LaTeX from the authors' TeX and compared with 220 dpi crops; Figures 1-7 checked on all four edges (native labels of Figs. 2, 6, 7 inside the crops); Algorithm 1 kept as a crop with a line-numbered transcription; Table I checked cell by cell; references [1]-[32] reordered and split where the extractor had misplaced or merged them, every third entry checked character by character. Verifier diagnostics on pages 2-7 are LaTeX-notation, algorithm-transcription and one rejoined access date, adjudicated per page.",
+  "navigation": [
+    {
+      "file": "references/paper.md",
+      "heading": "I. INTRODUCTION",
+      "purpose": "Motivation, Fig. 1 (Go1 box pushing, hardware vs MuJoCo), key design choices, three contributions, paper outline; Fig. 2 (system diagram) is placed at the end of this section"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "II. BACKGROUND AND RELATED WORK",
+      "purpose": "Section overview; parent of II-A and II-B (the system diagram Fig. 2 is placed just before this heading)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "A. Locomotion and Manipulation for Legged Robots",
+      "purpose": "Under II: gradient-based MPC vs simulation-based RL for legged robots"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "B. Model-Predictive Path Integral Control",
+      "purpose": "Under II: MPPI sampling, weights (1), mean update (2), temperature, Algorithm 1, Fig. 3 (box climb keyframes), related MPPI work"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "III. SAMPLING-BASED MPC FOR LEGGED ROBOTS",
+      "purpose": "Section overview; parent of III-A to III-C"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "A. MuJoCo Physics Engine",
+      "purpose": "Under III: simulator choice, CPU MuJoCo vs MJX/Isaac, 30-50 parallel rollouts"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "B. Representing Controls as a Cubic Spline",
+      "purpose": "Under III: sampling spline control points and cubic interpolation"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "C. State Estimation",
+      "purpose": "Under III: EKF fusing MoCap, IMU and encoders; planning/estimation model mismatch"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "IV. EXPERIMENTS AND RESULTS",
+      "purpose": "Overview and project website; parent of IV-A to IV-F"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "A. Hardware Implementation",
+      "purpose": "Under IV: workstation, ROS, update rate, time step, horizon T = 40, 30 samples, PD at 20 kHz; Fig. 4"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "B. Walking on Flat Terrain",
+      "purpose": "Under IV: walking cost (3), Raibert-heuristic gait reference, Q and R"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "C. Locomotion Over Challenging Terrains",
+      "purpose": "Under IV: climbing a box up to 0.24 m"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "D. Box Pushing",
+      "purpose": "Under IV: box cost and (4), goal placement, success counts 9/10 and 6/10, Fig. 5"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E. Ablation Studies",
+      "purpose": "Under IV: Fig. 6 sampling representation, Fig. 7 control frequency, temperature, prediction horizon, number of samples; Table I is placed at the end of this subsection"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "F. Comparisons to RL and MPC",
+      "purpose": "Under IV: discussion of Table I (feature comparison; the table itself is placed just before this heading)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "V. CONCLUSIONS AND FUTURE WORK",
+      "purpose": "Summary; parent of V-A and V-B"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "A. Limitations",
+      "purpose": "Under V: myopia beyond the horizon, simulator fidelity"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "B. Future Work",
+      "purpose": "Under V: online contact/friction estimation, better sampling distributions, MJPC integration"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "ACKNOWLEDGMENTS",
+      "purpose": "Thanks"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "REFERENCES",
+      "purpose": "Bibliography [1]-[32]"
+    }
+  ]
+}

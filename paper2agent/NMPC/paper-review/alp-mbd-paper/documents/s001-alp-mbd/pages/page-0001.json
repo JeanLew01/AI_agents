@@ -1,0 +1,181 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview, the native lines and a 220-dpi crop of the abstract's last lines, using main.tex as an aid. Items in order: title (# heading, bold markers removed), author line, affiliation footnote printed without a marker (placed after the author line per collection convention; '_{_ ... _}_' extraction damage repaired to '{purewater0901, tomizuka}@berkeley.edu'), abstract (one text item starting '**Abstract—**'; the abstract is printed in bold, bold not reproduced; the repository URL broken after 'adaptive_l' in print is rejoined without a space as https://anonymous.4open.science/r/adaptive_linear_path_model_based_diffusion-C58C, identical to the \\url in main.tex; no full stop follows the URL in print), heading '## I. INTRODUCTION', introduction paragraphs, 'This paper has three main contributions:', contributions 1) and 2) (list items as text items '1) **run-in title:** ...', the extractor's leading '- ' removed). The paragraph 'However, the performance ...' runs from the foot of the left column to the top of the right column: the right-column part ('frequently leads to ...') has join_previous=space. Repair: 'variancepreserving' -> 'variance-preserving' (line-wrap at a real compound hyphen; TeX has 'variance-preserving'). The rotated arXiv stamp is omitted. Contribution 3) continues at the top of page 2 as a new list item; page 1 ends with a complete item, so no cross-page join. No maths on this page; check reports OK (102/102 lines).",
+  "warnings": [
+    "Review possible header/footer: p0001-b000"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "omit",
+      "bbox": [
+        18.0,
+        226.0,
+        36.0,
+        566.0
+      ],
+      "markdown": "",
+      "reason": "Rotated arXiv identifier stamp in the left margin ('arXiv:2602.02831v1 [cs.RO] 2 Feb 2026'); page furniture added by arXiv, not part of the paper text."
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "heading",
+      "bbox": [
+        148.0,
+        74.0,
+        464.0,
+        89.0
+      ],
+      "markdown": "# Adaptive Linear Path Model-Based Diffusion"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        207.0,
+        108.0,
+        397.0,
+        119.0
+      ],
+      "markdown": "Yutaka Shimizu and Masayoshi Tomizuka"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        708.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Footnote (printed without a marker): Yutaka Shimizu and Masayoshi Tomizuka are with the Department of Mechanical Engineering, University of California, Berkeley, CA 94720, USA {purewater0901, tomizuka}@berkeley.edu"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        151.0,
+        299.0,
+        359.0
+      ],
+      "markdown": "**Abstract—** The interest in combining model-based control approaches with diffusion models has been growing. Although we have seen many impressive robotic control results in difficult tasks, the performance of diffusion models is highly sensitive to the choice of scheduling parameters, making parameter tuning one of the most critical challenges. We introduce Linear Path Model-Based Diffusion (LP-MBD), which replaces the variance-preserving schedule with a flow-matching–inspired linear probability path. This yields a geometrically interpretable and decoupled parameterization that reduces tuning complexity and provides a stable foundation for adaptation. Building on this, we propose Adaptive LP-MBD (ALP-MBD), which leverages reinforcement learning to adjust diffusion steps and noise levels according to task complexity and environmental conditions. Across numerical studies, Brax benchmarks, and mobile-robot trajectory tracking, LP-MBD simplifies scheduling while maintaining strong performance, and ALP-MBD further improves robustness, adaptability, and real-time efficiency. Our code is available through anonymous repository https://anonymous.4open.science/r/adaptive_linear_path_model_based_diffusion-C58C"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "heading",
+      "bbox": [
+        130.0,
+        370.0,
+        223.0,
+        378.0
+      ],
+      "markdown": "## I. INTRODUCTION"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        387.0,
+        299.0,
+        526.0
+      ],
+      "markdown": "Diffusion models have achieved remarkable success in various real-world applications, particularly in image and video generation. Recently, their use has expanded beyond visual domains, with a growing body of work exploring applications in robotic control. Several approaches [1] [2] have been proposed that integrate diffusion models with model-based control to solve complex trajectory optimization problems. These approaches have close relationships with sampling-based optimization methods, and they have been shown to be effective in addressing problems that have nonlinear, non-smooth dynamics and non-convex objectives and constraints."
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        530.0,
+        299.0,
+        696.0
+      ],
+      "markdown": "However, the performance of model-based diffusion critically depends on the design of the noise schedule. In diffusion-based approaches, the sampling process consists of a sequence of diffusion steps, where noise is incrementally injected into trajectories and progressively reduced to produce feasible and improved samples. The scale of the injected noise at each step plays an important role in determining performance, and even in the case of a simple linear parameterization with a variance-preserving schedule [1], we need to tune several parameters to get the optimal solution. These parameters are intricately coupled in shaping the overall noise profile, making it difficult to find optimal values. Moreover, the optimal parameters often vary with the system state and the complexity of the problem, which"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        150.0,
+        559.0,
+        208.0
+      ],
+      "markdown": "frequently leads to overly conservative parameter choices. Even within the same task, the values of the optimal parameters can differ substantially across different conditions. We illustrate this idea by using a self-driving car example shown in Fig. 1.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        210.0,
+        559.0,
+        387.0
+      ],
+      "markdown": "In this paper, we first introduce Linear Path Model-Based Diffusion (LP-MBD), a variant of the original Model-Based Diffusion (MBD) framework that replaces the variance-preserving schedule with a linear probability path inspired by Flow Matching [3][4]. LP-MBD offers several advantages over the original MBD. The linear probability path provides a simple, geometrically interpretable interpolation between prior and target distributions; under common Gaussian assumptions, it can align with optimal transport, offering clear theoretical grounding. More importantly, unlike the variance-preserving schedule, where multiple parameters are intricately coupled to determine the noise magnitude, the linear path formulation eliminates such dependencies. As a result, LP-MBD requires fewer hyperparameters, making the tuning process more straightforward and interpretable."
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        389.0,
+        559.0,
+        530.0
+      ],
+      "markdown": "Building upon this foundation, we further propose Adaptive Linear Path Model-Based Diffusion (ALP-MBD), which extends LP-MBD with a reinforcement learning–based module for dynamic parameter adjustment. ALP-MBD adapts scheduling parameters according to task complexity and environmental conditions. For instance, it can increase the number of diffusion steps in challenging scenarios or enlarge the noise level to promote broader exploration, thereby enabling more flexible and effective control. In contrast, under simple or well-structured conditions, it can reduce both the noise magnitude and the diffusion steps, leading to more efficient sampling without sacrificing solution quality."
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        532.0,
+        559.0,
+        590.0
+      ],
+      "markdown": "We extensively evaluate LP-MBD and ALP-MBD across diverse environments and settings to demonstrate their efficiency and performance. Our experiments include numerical studies, Mujoco-based benchmarks implemented in Brax, and a mobile robot trajectory-tracking task."
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        592.0,
+        489.0,
+        602.0
+      ],
+      "markdown": "This paper has three main contributions:"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        605.0,
+        559.0,
+        672.0
+      ],
+      "markdown": "1) **Linear Path Model-Based Diffusion (LP-MBD):** We introduce a flow-matching–inspired linear path scheduler that yields a geometrically interpretable and decoupled parameterization. This reduces the burden of tuning and provides a stable foundation for adaptive extensions."
+    },
+    {
+      "id": "p0001-b014",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        676.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "2) **Adaptive Linear Path MBD (ALP-MBD):** Building on LP-MBD, we develop an adaptive scheduler that leverages reinforcement learning to adjust diffusion steps and noise levels based on the environment state, enhancing both robustness and efficiency."
+    }
+  ]
+}

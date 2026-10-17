@@ -1,0 +1,900 @@
+{
+  "page": 9,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We demonstrate this on Walker2D. We train the original models on the medium dataset and simulate a",
+      "bbox": [
+        71.49199676513672,
+        83.85389709472656,
+        540.1871948242188,
+        93.81649780273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hardware defect by restricting the torque executed by the actions on a foot joint (action dimension 2). On the",
+      "bbox": [
+        72.0,
+        95.80995178222656,
+        540.2406616210938,
+        105.77255249023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "original hardware, without the defect, trained D-MPC achieves a normalized score of 76.21 (±2.67). When",
+      "bbox": [
+        72.0,
+        107.76490783691406,
+        540.016357421875,
+        117.72750854492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "executing this model on defective hardware, performance drops to only 22.74 (±1.41). Performance of our",
+      "bbox": [
+        72.0,
+        119.71992492675781,
+        540.2487182617188,
+        129.68252563476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "implementation of Diffuser in the same setup when deployed on defective hardware drops from 72.91 (± 3.47)",
+      "bbox": [
+        72.0,
+        131.67494201660156,
+        541.1691284179688,
+        141.63754272460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to 25.85 (±1.08).",
+      "bbox": [
+        72.0,
+        143.62989807128906,
+        146.1715545654297,
+        153.59249877929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To compensate for the changed system dynamics, we collect 100 episodes of “play” data on the defective",
+      "bbox": [
+        71.64099884033203,
+        161.5629425048828,
+        540.224365234375,
+        171.52554321289062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "hardware by deploying the original D-MPC trained on the medium-replay dataset. We use this small dataset",
+      "bbox": [
+        72.0,
+        173.5178985595703,
+        540.4641723632812,
+        183.48049926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to fine-tune our multi-step diffusion dynamics model, while keeping the policy proposal and value model",
+      "bbox": [
+        72.0,
+        185.47291564941406,
+        540.2073974609375,
+        195.43551635742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fixed. Post-finetuning, performance improves to 30.65 (±1.89). Since diffuser jointly models state and action",
+      "bbox": [
+        72.0,
+        197.4289093017578,
+        540.1056518554688,
+        207.39151000976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sequences, there is no way to independently finetune just the dynamics model. We instead fine-tune the full",
+      "bbox": [
+        72.0,
+        209.38392639160156,
+        540.2687377929688,
+        219.34652709960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model with the collected “play” data. After fine-tuning, diffuser performance actually drops to 6.8 (±0.86).",
+      "bbox": [
+        72.0,
+        221.3389434814453,
+        541.9375,
+        231.30154418945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "See Table 3a for a summary.",
+      "bbox": [
+        72.0,
+        233.2938995361328,
+        196.13397216796875,
+        243.25650024414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4.4",
+      "bbox": [
+        72.0,
+        260.6089172363281,
+        86.00741577148438,
+        269.4556884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Ablation studies",
+      "bbox": [
+        96.96627807617188,
+        260.6089172363281,
+        170.19140625,
+        269.4556884765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we conduct a series of detailed ablation studies to illustrate how different components in",
+      "bbox": [
+        72.0,
+        281.1589050292969,
+        540.2378540039062,
+        291.12152099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D-MPC contribute to its good performance. In particular, we investigate the effect of using diffusion for",
+      "bbox": [
+        72.0,
+        293.1148986816406,
+        540.4005126953125,
+        303.0775146484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "action proposals, and the impact of using single-step vs. multi-step models both for the action proposals and",
+      "bbox": [
+        72.0,
+        305.0699157714844,
+        540.2196655273438,
+        315.03253173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for the dynamics models. We evaluate all variants on D4RL locomotion tasks. See Table 3b for a high-level",
+      "bbox": [
+        72.0,
+        317.02490234375,
+        540.1884155273438,
+        326.9875183105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "summary of the results, and Table 4 in the appendix for detailed performances of different D-MPC variants",
+      "bbox": [
+        72.0,
+        328.97991943359375,
+        540.2149047851562,
+        338.9425354003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on individual D4RL domains and levels.",
+      "bbox": [
+        72.0,
+        340.9349060058594,
+        246.94325256347656,
+        350.89752197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4.4.1",
+      "bbox": [
+        72.0,
+        366.9639587402344,
+        94.535400390625,
+        375.81072998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion action proposals improve performance and simplify the planning algorithm",
+      "bbox": [
+        105.4942626953125,
+        366.9639587402344,
+        487.1316223144531,
+        375.81072998046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Existing model-based offline planning methods, such as MBOP, typically use a single-step deterministic MLP",
+      "bbox": [
+        72.0,
+        386.2268981933594,
+        540.2212524414062,
+        396.18951416015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policy for action proposals, an ensemble of single-step deterministic MLP models to emulate a stochastic",
+      "bbox": [
+        72.0,
+        398.1819152832031,
+        540.227783203125,
+        408.14453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics, and rely on trajectory optimization methods for planning. This MBOP method achieves an average",
+      "bbox": [
+        72.0,
+        410.13690185546875,
+        540.2015991210938,
+        420.0995178222656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "score of 33.13 on the locomotion tasks.",
+      "bbox": [
+        72.0,
+        422.0928955078125,
+        241.34425354003906,
+        432.0555114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We can significantly improve on this baseline MBOP score, and simplify the algorithm, by (1) replacing",
+      "bbox": [
+        71.49199676513672,
+        440.02490234375,
+        540.2075805664062,
+        449.9875183105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "their single-step MLP action proposal with a single-step diffusion proposal, and (2) replacing their TrajOpt",
+      "bbox": [
+        72.0,
+        451.98089599609375,
+        540.4808959960938,
+        461.9435119628906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planner with our simpler sampling-based planner. This improves performance to 52.93. Replacing their MLP",
+      "bbox": [
+        72.0,
+        463.9359130859375,
+        540.2017211914062,
+        473.8985290527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics with a single-step diffusion dynamics model further provides a minor improvement, to 53.32.",
+      "bbox": [
+        72.0,
+        475.8908996582031,
+        520.1375732421875,
+        485.853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4.4.2",
+      "bbox": [
+        72.0,
+        501.9189758300781,
+        94.535400390625,
+        510.7657470703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Multi-step diffusion action proposals contribute to improved performance",
+      "bbox": [
+        105.4942626953125,
+        501.9189758300781,
+        439.490478515625,
+        510.7657470703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D-MPC uses multi-step diffusion action proposals. In this section, we illustrate how this further improves",
+      "bbox": [
+        72.0,
+        521.1829223632812,
+        540.2183227539062,
+        531.1455078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "performance when compared with single-step diffusion action proposals.",
+      "bbox": [
+        72.0,
+        533.137939453125,
+        385.80194091796875,
+        543.1005249023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We start with the same single-step MLP dynamics model as in Section 4.4.1. We then replace the single-step",
+      "bbox": [
+        71.49199676513672,
+        551.0709228515625,
+        540.219970703125,
+        561.0335083007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion action proposal with a multi-step diffusion action proposal that jointly samples a chunk of actions.",
+      "bbox": [
+        72.0,
+        563.02587890625,
+        542.1296997070312,
+        572.9884643554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This improves average performance from 52.93 to 57.14. We then repeated this experiment on top of the",
+      "bbox": [
+        71.64099884033203,
+        574.9808959960938,
+        540.1939086914062,
+        584.9434814453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "single-step diffusion dynamics, and improved performance from 53.32 to 57.81.",
+      "bbox": [
+        72.0,
+        586.9359130859375,
+        415.0718994140625,
+        596.8984985351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4.4.3",
+      "bbox": [
+        72.0,
+        612.9639282226562,
+        94.535400390625,
+        621.8107299804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Multi-step diffusion dynamics models contribute to improved performance",
+      "bbox": [
+        105.4942626953125,
+        612.9639282226562,
+        443.2264404296875,
+        621.8107299804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D-MPC uses a multi-step diffusion dynamics model. In this section we illustrate how this reduces compounding",
+      "bbox": [
+        72.0,
+        632.2279052734375,
+        540.2114868164062,
+        642.1904907226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "error in long-horizon dynamics prediction and contributes to improved performance.",
+      "bbox": [
+        72.0,
+        644.1829223632812,
+        439.779296875,
+        654.1455078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We first measure the accuracy of long-horizon dynamics predictions of single-step diffusion, multi-step diffusion",
+      "bbox": [
+        71.49199676513672,
+        662.1159057617188,
+        540.2404174804688,
+        672.0784912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and auto-regressive transformer (ART) dynamics models (described in Appendix E.3), independent of the",
+      "bbox": [
+        72.0,
+        674.0709228515625,
+        540.233642578125,
+        684.0335083007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planning loop. We train the dynamics models on medium datasets from the respective domains, and measure",
+      "bbox": [
+        72.0,
+        686.02587890625,
+        540.2113037109375,
+        695.9884643554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the accuracy of long-horizon dynamics prediction, using state/action sequences sampled from the medium",
+      "bbox": [
+        72.0,
+        697.9808959960938,
+        540.2335815429688,
+        707.9434814453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(training data), medium-replay (lower quality data) and expert (higher quality data) datasets. Concretely, we",
+      "bbox": [
+        70.83399963378906,
+        709.9368896484375,
+        540.1878662109375,
+        719.8994750976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "follow Schubert et al. (2023) and calculate the median root mean square deviation (RMSD) on the non-velocity",
+      "bbox": [
+        72.0,
+        721.8919067382812,
+        540.562744140625,
+        731.8544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9",
+      "bbox": [
+        303.5090026855469,
+        751.7799072265625,
+        308.49029541015625,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 9
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          71,
+          84,
+          542,
+          155
+        ],
+        "pos": [
+          74,
+          634
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          71,
+          162,
+          542,
+          244
+        ],
+        "pos": [
+          634,
+          1311
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          72,
+          260,
+          171,
+          268
+        ],
+        "pos": [
+          1311,
+          1340
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          72,
+          281,
+          541,
+          350
+        ],
+        "pos": [
+          1340,
+          1917
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          72,
+          366,
+          488,
+          376
+        ],
+        "pos": [
+          1917,
+          2014
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          72,
+          386,
+          541,
+          431
+        ],
+        "pos": [
+          2014,
+          2373
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          71,
+          440,
+          541,
+          486
+        ],
+        "pos": [
+          2373,
+          2793
+        ]
+      },
+      {
+        "index": 8,
+        "class": "section-header",
+        "bbox": [
+          72,
+          501,
+          440,
+          511
+        ],
+        "pos": [
+          2793,
+          2880
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          72,
+          521,
+          541,
+          544
+        ],
+        "pos": [
+          2880,
+          3060
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          71,
+          552,
+          543,
+          597
+        ],
+        "pos": [
+          3060,
+          3460
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          72,
+          612,
+          444,
+          622
+        ],
+        "pos": [
+          3460,
+          3546
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          72,
+          632,
+          541,
+          655
+        ],
+        "pos": [
+          3546,
+          3740
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          70,
+          662,
+          541,
+          733
+        ],
+        "pos": [
+          3740,
+          4384
+        ]
+      },
+      {
+        "index": 14,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          753,
+          309,
+          760
+        ],
+        "pos": [
+          4384,
+          4388
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\nWe demonstrate this on Walker2D. We train the original models on the medium dataset and simulate a hardware defect by restricting the torque executed by the actions on a foot joint (action dimension 2). On the original hardware, without the defect, trained D-MPC achieves a normalized score of 76.21 ( _±_ 2.67). When executing this model on defective hardware, performance drops to only 22.74 ( _±_ 1.41). Performance of our implementation of Diffuser in the same setup when deployed on defective hardware drops from 72.91 ( _±_ 3.47) to 25.85 ( _±_ 1.08). \n\nTo compensate for the changed system dynamics, we collect 100 episodes of “play” data on the defective hardware by deploying the original D-MPC trained on the medium-replay dataset. We use this small dataset to fine-tune our multi-step diffusion dynamics model, while keeping the policy proposal and value model fixed. Post-finetuning, performance improves to 30.65 ( _±_ 1.89). Since diffuser jointly models state and action sequences, there is no way to independently finetune just the dynamics model. We instead fine-tune the full model with the collected “play” data. After fine-tuning, diffuser performance actually drops to 6.8 ( _±_ 0.86). See Table 3a for a summary. \n\n# **4.4 Ablation studies** \n\nIn this section, we conduct a series of detailed ablation studies to illustrate how different components in D-MPC contribute to its good performance. In particular, we investigate the effect of using diffusion for action proposals, and the impact of using single-step vs. multi-step models both for the action proposals and for the dynamics models. We evaluate all variants on D4RL locomotion tasks. See Table 3b for a high-level summary of the results, and Table 4 in the appendix for detailed performances of different D-MPC variants on individual D4RL domains and levels. \n\n# **4.4.1 Diffusion action proposals improve performance and simplify the planning algorithm** \n\nExisting model-based offline planning methods, such as MBOP, typically use a single-step deterministic MLP policy for action proposals, an ensemble of single-step deterministic MLP models to emulate a stochastic dynamics, and rely on trajectory optimization methods for planning. This MBOP method achieves an average score of 33.13 on the locomotion tasks. \n\nWe can significantly improve on this baseline MBOP score, and simplify the algorithm, by (1) replacing their single-step MLP action proposal with a single-step diffusion proposal, and (2) replacing their TrajOpt planner with our simpler sampling-based planner. This improves performance to 52.93. Replacing their MLP dynamics with a single-step diffusion dynamics model further provides a minor improvement, to 53.32. \n\n# **4.4.2 Multi-step diffusion action proposals contribute to improved performance** \n\nD-MPC uses multi-step diffusion action proposals. In this section, we illustrate how this further improves performance when compared with single-step diffusion action proposals. \n\nWe start with the same single-step MLP dynamics model as in Section 4.4.1. We then replace the single-step diffusion action proposal with a multi-step diffusion action proposal that jointly samples a chunk of actions. This improves average performance from 52.93 to 57.14. We then repeated this experiment on top of the single-step diffusion dynamics, and improved performance from 53.32 to 57.81. \n\n# **4.4.3 Multi-step diffusion dynamics models contribute to improved performance** \n\nD-MPC uses a multi-step diffusion dynamics model. In this section we illustrate how this reduces compounding error in long-horizon dynamics prediction and contributes to improved performance. \n\nWe first measure the accuracy of long-horizon dynamics predictions of single-step diffusion, multi-step diffusion and auto-regressive transformer (ART) dynamics models (described in Appendix E.3), independent of the planning loop. We train the dynamics models on medium datasets from the respective domains, and measure the accuracy of long-horizon dynamics prediction, using state/action sequences sampled from the medium (training data), medium-replay (lower quality data) and expert (higher quality data) datasets. Concretely, we follow Schubert et al. (2023) and calculate the median root mean square deviation (RMSD) on the non-velocity \n\n9 \n\n"
+  }
+}

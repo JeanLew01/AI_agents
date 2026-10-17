@@ -1,0 +1,194 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and the native lines. First item 'masked version $x_t$. The process is identical ...' continues p. 4's last sentence ('serves as the'): join_previous=space. Inline maths rewritten from the _x_/<sup> soup: $x_t$, $r_0$, $|\\text{EOS}|$ (TeX $|\\text{EOS}|$, three times), $2.5 \\times 10^{-5}$, $2.5 \\times 10^{-6}$, $p_0$, $p_\\theta(r_0|p_0)$, $t \\in (0, 1]$, $s \\in [0, t)$, $r_t$, $r_s$, $\\{1, 2, \\dots, L\\}$, $r_l$. Repaired two broken inline fractions where the extractor had pushed following words into <sup>: 'we remask $\\frac{s}{t}$ of the predicted tokens in expectation' and 'where $\\frac{s}{t}$ of predicted tokens with the lowest confidence are remarked'. 'remarked' (for 'remasked') is printed so in the PDF and the TeX; kept verbatim (author typo). Heading levels: '### 2.4 Inference', '## 3 Experiments'. Italic phrase 'in a diffusion manner instead of the left-to-right autoregressive fashion' kept as *...*. Equation (6) converted from a formula image to $$...$$ with \\tag{6}, from main.tex (\\textbf{1} -> \\mathbf{1}, \\textrm{M} -> \\mathrm{M}); checked against the page: -\\mathbb{E}_{l,r_0,r_l}, \\frac{L}{l}, sum i=1..L, \\mathbf{1}[r_l^i = \\mathrm{M}] \\log p_\\theta(r_0^i|p_0, r_l), trailing comma. TeX and PDF agree. Numbers 4.5 million, 3 epochs, 50 iterations, 10%, 0.1, 256, 2, Sec. 3.3, Appendix B.1/B.4/B.5/A checked against the image. The page ends with the complete Section 3 intro paragraph. Page number 5 omitted. check: 39/51 lines; 12 missing lines all contain maths (category a); number differences only U+2212 vs '-' in 10^{-5}, 10^{-6} (category a).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        75.0,
+        504.0,
+        96.0
+      ],
+      "markdown": "masked version $x_t$. The process is identical to pre-training, with the only difference being that all masked tokens happen to appear in the $r_0$ portion.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        102.0,
+        506.0,
+        177.0
+      ],
+      "markdown": "The LLaDA 8B model undergoes SFT on a dataset comprising 4.5 million pairs. Consistent with the pre-training process, both data preparation and training follow the SFT protocols utilized in existing LLMs [25, 26], without introducing any additional techniques to optimize LLaDA’s performance. The dataset spans multiple domains, including code, mathematics, and instruction-following. We append $|\\text{EOS}|$ tokens to the end of short pairs in each mini-batch to ensure equal lengths across all data. We treat $|\\text{EOS}|$ as a normal token during training and remove it during sampling, enabling LLaDA to control the response length automatically. Please refer to Appendix B.1 for more details.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        184.0,
+        506.0,
+        237.0
+      ],
+      "markdown": "We train for 3 epochs on the SFT data using a similar schedule to the pre-training phase. The learning rate is linearly increased from 0 to $2.5 \\times 10^{-5}$ over the first 50 iterations and then kept constant. During the final 10% of iterations, it is linearly reduced to $2.5 \\times 10^{-6}$. Additionally, we set the weight decay to 0.1, the global batch size to 256, and the local batch size to 2 per GPU. The SFT experiment was executed once, without any hyperparameter tuning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        254.0,
+        171.0,
+        262.0
+      ],
+      "markdown": "### 2.4 Inference",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        275.0,
+        505.0,
+        296.0
+      ],
+      "markdown": "As a generative model, LLaDA can sample new text and evaluate the likelihood of candidate text *in a diffusion manner instead of the left-to-right autoregressive fashion*.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        302.0,
+        506.0,
+        400.0
+      ],
+      "markdown": "We begin with the reverse generation process. As illustrated in Fig. 2 (c), given a prompt $p_0$, we discretize the reverse process to sample from the model distribution $p_\\theta(r_0|p_0)$, starting from a fully masked response. The total number of sampling steps is a hyperparameter, which naturally provides LLaDA with a trade-off between efficiency and sample quality, as analyzed in Sec. 3.3. We employ uniformly distributed timesteps by default. In addition, the generation length is also treated as a hyperparameter, specifying the length of the fully masked sentence at the beginning of the sampling process. After generation, tokens appearing after the $|\\text{EOS}|$ token are discarded. As detailed in Appendix B.5, since both pre-training and SFT are conducted using datasets with variable lengths, the final results are insensitive to this length hyperparameter.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        405.0,
+        505.0,
+        481.0
+      ],
+      "markdown": "At an intermediate step from time $t \\in (0, 1]$ to $s \\in [0, t)$, we feed both $p_0$ and $r_t$ into the mask predictor and predict all masked tokens simultaneously. Subsequently, we remask $\\frac{s}{t}$ of the predicted tokens in expectation to obtain $r_s$, ensuring that the transition of the reverse process aligns with the forward process for accurate sampling [18–20]. In principle, the remasking strategy should be purely random. However, inspired by the annealing tricks of sampling in LLMs [4, 30], we adopt a low-confidence remasking strategy, where $\\frac{s}{t}$ of predicted tokens with the lowest confidence are remarked based on the predictions, same as the approach of Chang et al. [23].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        488.0,
+        506.0,
+        541.0
+      ],
+      "markdown": "We mention that LLaDA enables flexible sampling. In particular, it supports autoregressive and block diffusion [31] sampling directly after the pre-training or SFT processes described above, without requiring any further modifications or training. We provide a detailed analysis in Appendix B.4. Nevertheless, the diffusion sampling (i.e., the reverse generation process) yields the best performance and is adopted as the default throughout this paper, especially for all experiments presented in Sec. 3.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        548.0,
+        506.0,
+        569.0
+      ],
+      "markdown": "For conditional likelihood evaluation, we can naturally utilize the upper bound in Eq. (5). However, we find that the following equivalent form [20] exhibits lower variance and is more stable:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        206.0,
+        574.0,
+        506.0,
+        614.0
+      ],
+      "markdown": "$$\n-\\mathbb{E}_{l, r_0, r_l} \\left[\\frac{L}{l} \\sum_{i=1}^{L} \\mathbf{1}[r_l^i = \\mathrm{M}] \\log p_{\\theta}(r_0^i|p_0, r_l) \\right], \\tag{6}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        619.0,
+        505.0,
+        640.0
+      ],
+      "markdown": "where $L$ is the sequence length of $r_0$, $l$ is uniformly sampled from $\\{1, 2, \\dots, L\\}$, and $r_l$ is obtained by uniformly sampling $l$ tokens from $r_0$ without replacement for masking.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        647.0,
+        489.0,
+        657.0
+      ],
+      "markdown": "We present the training and inference algorithms, along with theoretical details, in Appendix A.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "heading",
+      "bbox": [
+        107.0,
+        676.0,
+        192.0,
+        688.0
+      ],
+      "markdown": "## 3 Experiments",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        702.0,
+        506.0,
+        723.0
+      ],
+      "markdown": "We evaluate the scalability, instruction-following, and in-context learning capabilities of LLaDA on standard benchmarks, followed by analyses and case studies to provide a comprehensive assessment.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "5",
+      "source_class": "page-footer",
+      "reason": "Page number 5 at the bottom centre (checked against the preview)."
+    }
+  ]
+}

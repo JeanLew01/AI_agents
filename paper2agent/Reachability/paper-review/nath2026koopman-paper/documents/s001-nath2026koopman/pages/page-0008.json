@@ -1,0 +1,148 @@
+{
+  "page": 8,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 8, 230-250 dpi crops of displays (8)-(9), the normalization paragraph, the quantile paragraph and Theorem 1, and with methodology.tex (macros expanded: \\ncscore = R, \\ka = K_{A}, \\kb = K_{B}, \\uref = u^{\\text{ref}}, \\zref = z^{\\text{ref}}, \\lqrmat = G, \\enc = \\phi, \\dec = \\psi). The extractor had merged displays (8)-(9) and two paragraphs into one glyph-soup item; rewritten from the TeX. Displays (8) and (9) are printed side by side on one line (two minipages): one text item with one $$ block per printed number, \\tag{8} and \\tag{9} (\\small and \\hspace dropped). Source slip kept as printed in (9): the parenthesis opened by 'f(' is never closed, $\\{f(x_t, u^{\\text{ref}}_t - G_t (\\phi(x_t) - z^{\\text{ref}}_t)\\}_{t=0}^{T-1}$ (checked at 250 dpi; same in the TeX). Normalization paragraph: source slip kept as printed, the normalization set is introduced with M^lambda trajectories indexed K^cal+1, ..., K^cal+M^lambda, but the index set in the definition of e^max_{t,j} reads 'i in {K^cal + 1, ..., K^cal + M}' (M instead of M^lambda; checked at 250 dpi). Quantile paragraph: 'Quantile' upright, ceiling brackets, 'time- and dimension-dependent' keeps the suspended hyphen, 'en-sure' closed up. The unnumbered display (CP guarantee) is its own $$ block without a tag. The sentence before Theorem 1 cites '(11)' as printed (the CKRS display is numbered (10) on this page; its appendix restatement on page 16 carries (11), and the duplicate TeX label resolves to (11)); kept as printed. Theorem 1: bold label 'Theorem 1 (CKRS Coverage Guarantee)' as printed, no trailing punctuation; italic body (not reproduced); the statement consists of the lead-in item, display (10) with \\tag{10}, and the item 'where diag(...) ... >= 1 - delta.', which ends the statement (end of the TeX theorem environment); 'ref' printed italic inside the statement. Offline Calibration (run-in bold title): source slip kept as printed, 'x_t^(i) and x-hat_t^(i) are as defined in (8) and (9), respectively', although (8) defines x-hat and (9) defines x (order swapped). The last paragraph ('At runtime, ...') contains the printed slip 'via (7))' with an extra closing parenthesis (kept) and continues on page 9 with 'as defined in (11). ...' (join_previous 'space'); 'per-formed' closed up. Omitted: running header 'NATH YIN CHOU' and page number 8.",
+  "warnings": [
+    "Review possible header/footer: p0008-b000"
+  ],
+  "items": [
+    {
+      "id": "p0008-eq89",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        98.0,
+        523.0,
+        125.0
+      ],
+      "markdown": "$$\n\\hat{x}_{1:T}^{(i)} = \\bigl\\{\\, \\psi\\bigl(K_{A} z_{t} + K_{B}\\bigl(u^{\\text{ref}}_t - G_t(z_t - z^{\\text{ref}}_t)\\bigr)\\bigr) \\,\\bigr\\}_{t=0}^{T-1} \\tag{8}\n$$\n\n$$\nx_{1:T}^{(i)} = \\{f(x_t, u^{\\text{ref}}_t - G_t (\\phi(x_t) - z^{\\text{ref}}_t)\\}_{t=0}^{T-1} \\tag{9}\n$$"
+    },
+    {
+      "id": "p0008-err",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        117.0,
+        523.0,
+        264.0
+      ],
+      "markdown": "The prediction error for each state dimension $j \\in \\{1, \\dots, n\\}$ at time $t$ is denoted $e_{t,j}^{(i)} = x_{t,j}^{(i)} - \\hat{x}_{t,j}^{(i)}$. This gives a calibration set of error trajectories $\\mathcal{D}_{E} = \\{\\{e_{t}^{(i)}\\}_{t=0}^{T}\\}_{i=1}^{K^{\\text{cal}}}$, where each $e_t^{(i)} \\in \\mathbb{R}^n$. Each error trajectory $e^{(i)}$ is normalized into a single non-conformity score $R^{(i)} = \\max_{t,j} ( \\lambda_{t,j} |e_{t,j}^{(i)}|)$, which is the maximum weighted error over all time steps $t \\in \\{0, \\dots, T\\}$ and state dimensions $j \\in \\{1, \\dots, n\\}$. Here, the normalization constant $\\lambda_{t,j} \\doteq 1 / (e_{t,j}^{\\text{max}} + \\sigma) \\in \\mathbb{R}_{> 0}$ is computed using a separate normalization dataset $\\mathcal{D}_N$. This dataset, $\\mathcal{D}_N$, consists of $M^{\\lambda}$ additional error trajectories, $\\{e^{(i)}\\}_{i=K^{\\text{cal}}+1}^{K^{\\text{cal}}+M^{\\lambda}}$, collected using the same process as the calibration data. Here, $\\sigma$ is a small positive constant to prevent division by zero. The term $e_{t,j}^{\\text{max}}$ is the dimension-wise and time-wise maximum absolute error observed across $\\mathcal{D}_N$, i.e., $e_{t,j}^{\\text{max}} = \\max_{i} |e_{t,j}^{(i)}|$ where $i \\in \\{K^{\\text{cal}}+1, \\dots, K^{\\text{cal}}+M\\}$."
+    },
+    {
+      "id": "p0008-quant",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        257.0,
+        523.0,
+        350.0
+      ],
+      "markdown": "Now, given a user-defined miscoverage rate $\\delta \\in (0, 1)$, we compute the $(1-\\delta)$ quantile of the non-conformity scores $C = \\text{Quantile}_{1-\\delta}(\\{R^{(i)}\\}_{i=1}^{K^{\\text{cal}}} \\cup \\{\\infty\\})$ by finding the $p$-th smallest value of the scores $\\{R^{(i)}\\}_{i=1}^{K^{\\text{cal}}}$, where $p \\equiv \\lceil (K^{\\text{cal}} + 1)(1-\\delta) \\rceil$. The final, time- and dimension-dependent error bound $\\bar e_{t,j} \\in \\mathbb{R}_{\\ge 0}$ is obtained by reversing the normalization $\\bar e_{t,j} = C / \\lambda_{t,j}$. These bounds ensure that for an unseen test data-point $(x_{0:T}^{(0)}, \\hat x_{0:T}^{(0)})$, the true prediction error $|e_{t,j}^{(0)}|$ will be contained within the bound $\\bar e_{t,j}$ for all $t$ and $j$, with probability at least $1-\\delta$, i.e.,"
+    },
+    {
+      "id": "p0008-b002",
+      "kind": "text",
+      "bbox": [
+        170.0,
+        349.0,
+        441.0,
+        376.0
+      ],
+      "markdown": "$$\n\\mathbb{P}\\big( |e_{t,j}^{(0)}| \\le \\bar e_{t,j}, \\forall t \\in \\{0, \\dots, T\\}, \\forall j \\in \\{1, \\dots, n\\} \\big) \\ge 1 - \\delta\n$$"
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        383.0,
+        523.0,
+        407.0
+      ],
+      "markdown": "We use these bounds to inflate the KRS computed in (7) to compute RSOAs for the original closed-loop dynamics (1b) that are valid with probability at least $1-\\delta$, using (11) (proof in App. 8.1):"
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        419.0,
+        570.0,
+        449.0
+      ],
+      "markdown": "**Theorem 1 (CKRS Coverage Guarantee)** Let $\\hat{\\overline{\\mathcal{X}}}_{0:T}$ be the KRS defined in (7) and let $\\bar e_t = [\\bar e_{t,1}, \\ldots, \\bar e_{t,n}]^\\top \\in \\mathbb{R}^n$. Define the conformalized Koopman reachable set (CKRS) as"
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "text",
+      "bbox": [
+        221.0,
+        455.0,
+        528.0,
+        483.0
+      ],
+      "markdown": "$$\n\\overline{\\mathcal{X}}_{0:T}^{1-\\delta} \\equiv \\bigl\\{ \\hat{\\overline{\\mathcal{X}}}_t \\oplus \\mathrm{diag}(\\bar e_t) \\mathcal{B}_1(0) \\bigr\\}_{t=0}^T, \\tag{10}\n$$"
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        482.0,
+        523.0,
+        536.0
+      ],
+      "markdown": "where $\\mathrm{diag}(\\bar e_t) \\in \\mathbb{R}^{n\\times n}$ is a diagonal matrix with $\\bar e_t$ on its diagonal. Then, for a new reference trajectory $x_{0:T}^{\\textrm{ref}, (0)}$ drawn from the same distribution, the CKRS contains the true closed-loop system trajectory generated by (1b) with probability at least $1-\\delta$, i.e., $\\mathbb{P}\\big( \\bigwedge_{t=0}^T x_t^{(0)} \\in \\overline{\\mathcal{X}}_t^{1-\\delta} \\big) \\ge 1-\\delta$."
+    },
+    {
+      "id": "p0008-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        543.0,
+        523.0,
+        657.0
+      ],
+      "markdown": "**Offline Calibration** As discussed so far, the method in Sec. 5.4 is reference-specific, as the calibration trajectories $\\mathcal{D}_C$ and error bounds $\\bar e_t$ hold specifically for a single reference $x_{0:T}^{\\text{ref}}$. We propose an offline approach that pre-computes a single, global set of error bounds $\\bar e_{t,j}$ valid for any reference $x_{0:T}^{\\text{ref}}$ sampled from the planner $P$. This is done by building a larger, more diverse calibration set. We first sample $N^{\\text{ref}}$ reference trajectories $\\{x_{0:T}^{\\text{ref},(i)}\\}_{i=1}^{N^{\\text{ref}}} \\sim P$. For each reference, we generate a calibration trajectory by sampling $x_0^{(i)} \\sim \\mathcal{B}_\\epsilon(x_{0}^{ \\text{ref},(i)})$, yielding an error trajectory $e_t^{(i)} = x_t^{(i)} - \\hat x_{t}^{(i)}$, where $x_t^{(i)}$ and $\\hat x_{t}^{(i)}$ are as defined in (8) and (9), respectively. The SNSA procedure (computing $R^{(i)}$, $C$, and $\\bar e_{t,j}$ via $\\lambda_{t,j}$) is then performed exactly once on this entire aggregated set."
+    },
+    {
+      "id": "p0008-runtime",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        657.0,
+        523.0,
+        715.0
+      ],
+      "markdown": "At runtime, given a new reference $x_{0:T}^{\\text{ref}, (0)}$ sampled from $P$, two efficient computations are performed: 1) we compute the nominal KRS $\\hat{\\overline{\\mathcal{X}}}_{0:T}$ specific to $x_{0:T}^{\\text{ref}, (0)}$ via (7)), and 2) we inflate this set using the pre-computed offline bounds $\\bar e_t$ via the Minkowski sum $\\overline{\\mathcal{X}}_{t}^{1-\\delta} = \\hat{\\overline{\\mathcal{X}}}_{t} \\oplus \\textrm{diag}(\\bar e_{t})\\mathcal{B}_1(0)$,"
+    },
+    {
+      "id": "p0008-b000",
+      "kind": "omit",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "reason": "Running header 'NATH YIN CHOU' (author names, small caps) centred at the top of the page; page furniture, checked on the page image."
+    },
+    {
+      "id": "p0008-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "8",
+      "reason": "Printed page number '8' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

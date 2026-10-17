@@ -1,0 +1,244 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 130-dpi overlay, the native lines, 200-220 dpi crops (upper/lower left column, Algorithm 1, lower right column) and the TeX source (Remark 1 to Sec. V-2). Remark 1 as '**Remark 1.** *...*' (statement italic as printed). Equations (26), (27) and (28) in LaTeX from main.tex; (27), printed on two lines with one number (multline), is one aligned block with one \\tag{27}. Algorithm 1 (extractor: a table item b013 plus a title line and a spurious heading '# **20 end**' b014): b013 made a figure item 'Algorithm 1'/algorithm-1 with bbox [309,51,560,388.5] taken from the box's vector rules (y=53.5 and 386.3, x=313.2-558) plus the line numbers at x=311; b014 deleted (its text is inside the crop and the transcription); b012 now holds the transcription: '**Algorithm 1:** Generative Predictive Control', '**Input:**', '**Output:**', then lines 1-20 with printed numbers, **while**/**for**/**do**/**end** in bold, one &emsp; per nesting level (levels 0/1/2/3 read from the vertical guide lines), maths from the TeX, checked against a 220-dpi crop. Printed slips preserved in the transcription: line 9 samples p_θ(Ū^{(j)}_{k-1} | x^{(j)}_{k-1}) (a sequence as argument), line 11 uses ^{i,j}_{k-1}$ (no parentheses, extra index i), line 15 uses ^{(j)}_{k-1}$ (not defined in the algorithm), line 19 gives $\\mathcal{L}_{GPC}$ five arguments ($\\theta; U_0, \\bar{U}^{(j)}_k, \\bar{U}^{(j)}_{k-1}, x^{(j)}_k, t$) while (27) has four, and lines 8-9 overlap at index N_S ([1,N_S] and [N_S,N]). Algorithm 1 placed after the paragraph that first refers to it ('However, ... outlined in Algorithm 1 ...') and before 'We first sample initial states ...', between complete paragraphs. The extractor's single item for 'We first sample...' + 'GPC benefits from parallelism...' split into two paragraphs (new id p0004-b020). Heading '## V. USING A TRAINED GPC POLICY'; run-ins '1) Warm-Starts:' and '2) Deploying the Policy:' in bold; bold-italic ***GPC*** and ***GPC+*** kept; bold phrase 'directly training a generative model on SPC data is not particularly effective' and bold 'GPC benefits from parallelism' kept. Join: right-column 'problem. A common solution...' (p0004-b015) joins '... (temporal consistency [3])' (p0004-b010) with a space. Footnote 2 as 'Footnote 2: ...' with marker [^2] after 'path'; placed directly before the last paragraph ('2) Deploying the Policy: ... Ordinary GPC does not require'), which continues on page 5. Real compound hyphens kept: partially-trained, receding-horizon, quasi-static, high-frequency, inference-time. check: remaining missing lines are LaTeX maths and the extra numbers are the algorithm line numbers/indices transcribed from inside the figure crop (category a), see adjudication note.",
+  "warnings": [
+    "Table p0004-b013 needs cell review; image fallback is available."
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        53.0,
+        299.0,
+        125.0
+      ],
+      "markdown": "**Remark 1.** *Behavior cloning methods condition on observations $y = h(x)$ (or a history of observations) rather than a full state estimate [1]. While we write $p_\\theta(U \\mid x)$ for notational simplicity, the GPC framework works with observation conditioning. In fact, our implementation uses observations $h(x)$ rather than the full state $x$.*",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        128.0,
+        299.0,
+        167.0
+      ],
+      "markdown": "This is the basic idea behind GPC. We use data ($\\bar{U}_k, x_k$) from running SPC in simulation to train a flow matching model (25). This model is characterized by a vector field",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        143.0,
+        171.0,
+        299.0,
+        187.0
+      ],
+      "markdown": "$$ \\dot{U} = v_\\theta(U, x, t) \\tag{26} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        193.0,
+        299.0,
+        229.0
+      ],
+      "markdown": "that pushes samples from $U_t \\sim \\mathcal{N}(0, I)$ at $t = 0$ to the target distribution (24) at $t = 1$. To learn this vector field, we minimize a conditional flow matching loss similar to (10),",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        62.0,
+        236.0,
+        299.0,
+        273.0
+      ],
+      "markdown": "$$ \\begin{aligned} &\\mathcal{L}_{GPC}(\\theta; U_0, \\bar{U}_k, x_k, t) = \\\\ &\\qquad \\left\\| v_\\theta(t\\bar{U}_k + (1 - t)U_0, x_k, t) - (\\bar{U}_k - U_0) \\right\\|^2, \\end{aligned} \\tag{27} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        273.0,
+        299.0,
+        311.0
+      ],
+      "markdown": "where $(\\bar{U}_k, x_k)$ are data points generated by the SPC controller, $U_0 \\sim \\mathcal{N}(0, I)$ is a sample from the proposal distribution, and $t \\sim \\mathcal{U}(0, 1)$ is sampled along the path[^2].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        311.0,
+        299.0,
+        407.0
+      ],
+      "markdown": "However, **directly training a generative model on SPC data is not particularly effective**, as the training targets are very noisy [35]. To avoid this issue, GPC performs several cycles of SPC simulation and model fitting, as illustrated in Fig. 1 and outlined in Algorithm 1. In each cycle, samples from the partially-trained flow matching policy bootstrap SPC, providing an improved sampling distribution and thus better training data for the next model fitting step.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "figure",
+      "bbox": [
+        309.0,
+        51.0,
+        560.0,
+        388.5
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        318.0,
+        55.0,
+        499.0,
+        65.0
+      ],
+      "markdown": "**Algorithm 1:** Generative Predictive Control  \n**Input:** SPC algorithm $g(U)$, flow matching model $p_\\theta(U \\mid x)$, system model $f(x, u)$.  \n**Output:** Trained flow model parameters $\\theta$.  \n1 **while** *not converged* **do**  \n2 &emsp;**for** $j = 1,...,N_E$ **do**  \n3 &emsp;&emsp;Sample initial conditions (parallel envs):  \n4 &emsp;&emsp;$x^{(j)}_0 \\sim \\mathcal{X}_0$  \n5 &emsp;&emsp;$\\bar{U}^{(j)}_0 \\sim \\mathcal{N}(0, \\sigma^2I)$  \n6 &emsp;&emsp;**for** $k \\in [1, K]$ **do**  \n7 &emsp;&emsp;&emsp;Sample action sequences:  \n8 &emsp;&emsp;&emsp;$U^{(i,j)} \\sim \\mathcal{N}(\\bar{U}^{(j)}_{k-1}, \\sigma^2 I), \\quad i \\in [1, N_S]$  \n9 &emsp;&emsp;&emsp;$U^{(i,j)} \\sim p_\\theta(\\bar{U}_{k-1}^{(j)} \\mid x_{k-1}^{(j)}), \\quad i \\in [N_S, N]$  \n10 &emsp;&emsp;&emsp;Parallel rollouts:  \n11 &emsp;&emsp;&emsp;$J^{(i,j)} \\gets J\\left(U^{(i,j)}; x^{i,j}_{k-1}\\right)$  \n12 &emsp;&emsp;&emsp;Update actions via SPC:  \n13 &emsp;&emsp;&emsp;$\\bar{U}_k^{(j)} \\gets \\bar{U}_{k-1}^{(j)} + \\frac{\\sum_{i=1}^{N} g(J^{(i,j)})(U^{(i,j)} - \\bar{U}^{(j)}_{k-1})}{\\sum_{i=1}^N g(J^{(i,j)})}$  \n14 &emsp;&emsp;&emsp;Advance (parallel) simulations:  \n15 &emsp;&emsp;&emsp;$x_{k}^{(j)} \\gets f\\left(x_{k-1}^{(j)}, u_{k-1}^{(j)}\\right)$  \n16 &emsp;&emsp;**end**  \n17 &emsp;**end**  \n18 &emsp;Fit flow matching model:  \n19 &emsp;$\\min_{\\theta} \\mathbb{E}_{t, U_0, j, k}\\left[\\mathcal{L}_{GPC}\\left(\\theta; U_0, \\bar{U}_k^{(j)}, \\bar{U}_{k-1}^{(j)}, x_k^{(j)}, t\\right)\\right]$  \n20 **end**",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        405.0,
+        299.0,
+        542.0
+      ],
+      "markdown": "We first sample initial states $x_0^{(j)}$ from initial conditions $\\mathcal{X}_0$ for $N_E$ parallel simulations. We then perform SPC in each environment, with $N_S$ samples coming from the Gaussian proposal distribution (line 8) and the remaining samples from the flow matching policy (line 9). The policy samples help improve performance, while the Gaussian samples prevent distribution collapse. After collecting a set of states $x_k^{(j)}$ and action sequences $U_k^{(j)}$, we fit the flow matching model (line 19). The expectation is taken over flow timesteps $t \\in \\mathcal{U}(0, 1)$, initial samples $U_0 \\sim \\mathcal{N}(0, I)$, parallel environments $j = 1,\\dots, N_E$, and simulation steps $k = 1, \\dots, K$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        541.0,
+        299.0,
+        625.0
+      ],
+      "markdown": "**GPC benefits from parallelism** throughout Algorithm 1. In addition to parallel rollouts in the SPC update step (line 11), we parallelize over simulation environments (line 2) and in the model training step (line 19). Our implementation leverages the vectorization and parallelization tools in JAX [36] together with the massively parallel robotics simulation made possible by MuJoCo MJX [19].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "heading",
+      "bbox": [
+        100.0,
+        633.0,
+        253.0,
+        644.0
+      ],
+      "markdown": "## V. USING A TRAINED GPC POLICY",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        648.0,
+        299.0,
+        696.0
+      ],
+      "markdown": "**1) Warm-Starts:** In fast feedback loops, the multi-modal expressiveness of generative models presents a challenge: samples at subsequent timesteps can be drawn from different modes, leading to a “jittering” (*temporal consistency* [3])",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        400.0,
+        559.0,
+        483.0
+      ],
+      "markdown": "problem. A common solution is to roll out several steps of the action sequence before replanning [1]. This forces the controller to “commit” to a particular mode, but is not suitable for highly dynamic tasks. Other alternatives like action inpainting [27] are effective on quasi-static manipulation tasks, but—as we will show—are not particularly helpful for high-frequency feedback.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        484.0,
+        559.0,
+        520.0
+      ],
+      "markdown": "We propose a simple alternative inspired by warm-starts in MPC. Rather than starting the flow generation process from $U_0 \\sim \\mathcal{N}(0, I)$, we start from",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "text",
+      "bbox": [
+        352.0,
+        522.0,
+        559.0,
+        539.0
+      ],
+      "markdown": "$$ U_0 = (1 - \\alpha) \\epsilon + \\alpha \\bar{U}_{k - 1}, \\quad \\epsilon \\sim \\mathcal{N}(0, I) \\tag{28} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        543.0,
+        559.0,
+        639.0
+      ],
+      "markdown": "where $\\alpha \\in [0, 1]$ is the *warm-start level*. With $\\alpha = 1$, the flow process is started from the previous sample $\\bar{U}_{k-1}$, while $\\alpha = 0$ recovers the Gaussian proposal distribution. Because the flow matching vector field drives samples toward a mode of the sampling distribution, flows with a high warm-start level $\\alpha$ tend to stay close to the same mode as the previous sample, $\\bar{U}_{k-1}$. This simple warm-start procedure enables smooth and performant high-frequency control.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        705.0,
+        299.0,
+        735.0
+      ],
+      "markdown": "Footnote 2: To further improve training efficiency, we weigh data points according to cosine similarity with $\\bar{U}_k - \\bar{U}_{k-1}$. This puts greater emphasis on samples similar to $\\bar{U}_{k-1}$, as illustrated by the shading in Fig. 1.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        639.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "**2) Deploying the Policy:** We can use a GPC policy in two ways. A direct application of the policy in receding-horizon fashion, possibly with warm-starts, is simply termed ***GPC***. The second ***GPC+*** strategy uses policy samples to bootstrap SPC, alongside samples from the Gaussian proposal distribution. GPC+ leverages inference-time compute for better performance, but requires a state estimate from which to perform the rollouts. Ordinary GPC does not require",
+      "source_class": "text"
+    }
+  ]
+}

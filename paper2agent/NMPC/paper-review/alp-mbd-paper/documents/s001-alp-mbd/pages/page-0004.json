@@ -1,0 +1,246 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview and the native lines, with main.tex as an aid. Left column: '### C. Differences between VP-MBD and LP-MBD' and its two paragraphs, '## IV. ADAPTIVE LINEAR PATH MODEL-BASED DIFFUSION' (small caps rendered upper case) and two paragraphs, '### A. Formulation as a Reinforcement Learning Problem' and the start of its first paragraph. Right column: continuation 'state space, ...' (join_previous=space; the sentence 'Here, S denotes the / state space' crosses the column break), formulation paragraph, (17), 'where phi ...', augmented-reward sentence, (18), 'where r(s_t,u_t) ...', (19), 'with discount factor ...', Fig. 2 (extractor picture item kept as 'figure-2', bbox [313,474,559,615] = the embedded image; a crop with a 5 pt margin showed robot icon, Environment, State s_t, Reward r_t, Adaptive Noise Scheduler, Noise Scheduling Parameters a_t, LP-MBD, Control Input u_t all inside), caption 'Fig. 2. ...' with LaTeX maths, '### B. Implementation Details' and the first sentence of its paragraph. Display maths from main.tex: (17) as one aligned block with one tag (two lines), (18), (19) with \\substack under \\mathbb{E}; the three extractor 'formula' items converted to text and boxed to the native equation lines. The authors' macros \\gS, \\gA, \\gR expanded to \\mathcal{S}, \\mathcal{A}, \\mathcal{R} (math_commands.tex); \\mathcal{P}, \\mathcal{T}, \\mathcal{B} as printed (calligraphic). Inline maths rewritten in LaTeX; italic 'decoupled' kept as *...*. Repair: 'decisionmaking' -> 'decision-making' (real hyphen at a line wrap). The page's last paragraph ('To train the adaptive linear path scheduler, ... and its') continues on page 5 (join set on page 5). Remaining diagnostics are 26 missing lines, all category (a) (adjudication note); no number differences.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        55.0,
+        249.0,
+        65.0
+      ],
+      "markdown": "### C. Differences between VP-MBD and LP-MBD"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        70.0,
+        299.0,
+        187.0
+      ],
+      "markdown": "The primary distinction between VP-MBD and LP-MBD lies in their parameterization and the implications for tuning and adaptation. In the VP-MBD formulation, the noise schedule is governed by three parameters $(\\beta_0, \\beta_1, T)$, where the parameters are tightly coupled: modifying the diffusion horizon $T$ not only changes the discretization but also increases or decreases the maximum noise variance. This interdependence complicates the tuning process and makes it difficult to isolate the effect of each parameter on exploration and refinement."
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        190.0,
+        299.0,
+        367.0
+      ],
+      "markdown": "In contrast, LP-MBD is characterized by only two parameters: the maximum noise scale $\\sigma_{\\max}$ and the number of diffusion steps $T$. These parameters are *decoupled* and possess clear geometric interpretations: $\\sigma_{\\max}$ directly sets the maximum variance of the Gaussian proposal, while $T$ controls the resolution of the interpolation. Importantly, adjusting $T$ does not affect the extrema of the noise scale. This structural simplicity makes the noise schedule not only easier to tune but also more geometrically interpretable, providing an intuitive understanding of the interpolation between clean trajectories and noise. Beyond simplifying tuning, this decoupling also enables the adaptive extension in the next section. With two independent parameters, the parameter adaptation approach can efficiently optimize them, making LP-MBD a solid foundation for ALP-MBD."
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "heading",
+      "bbox": [
+        55.0,
+        376.0,
+        297.0,
+        384.0
+      ],
+      "markdown": "## IV. ADAPTIVE LINEAR PATH MODEL-BASED DIFFUSION"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        391.0,
+        299.0,
+        497.0
+      ],
+      "markdown": "In VP-MBD, the diffusion steps and noise scheduling parameters are fixed once selected and remain unchanged during execution. In practice, however, the difficulty of trajectory optimization can vary substantially even within the same task. For instance, navigation in open space may require a few diffusion steps, while obstacle-rich scenarios demand more refinement and broader exploration. This motivates adapting the diffusion process online to balance robustness and efficiency."
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        499.0,
+        299.0,
+        676.0
+      ],
+      "markdown": "The decoupled and geometrically interpretable parameterization of LP-MBD provides a natural foundation for such adaptation. Unlike VP-MBD, where the parameters $(\\beta_0, \\beta_1, T)$ are tightly coupled and changes in $T$ also influence the effective noise scale, LP-MBD separates the maximum variance $\\sigma_{\\max}$ from the diffusion horizon $T$. This decoupling ensures that adjusting $T$ only refines the discretization without unintentionally changing the exploration range. As a result, the training process of learning optimal parameters of LP-MBD is more stable and simple. In contrast, applying RL to VP-MBD would face instability, since parameter updates may produce unpredictable changes in the underlying noise profile. Thus, LP-MBD is inherently more compatible with adaptive parameter learning, enabling the design of Adaptive LP-MBD (ALP-MBD)."
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        685.0,
+        277.0,
+        695.0
+      ],
+      "markdown": "### A. Formulation as a Reinforcement Learning Problem"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        700.0,
+        299.0,
+        735.0
+      ],
+      "markdown": "Reinforcement learning (RL) aims to optimize decision-making policies in environments modeled as a Markov Decision Process (MDP) $(\\mathcal{S}, \\mathcal{A}, \\mathcal{P}, \\mathcal{R}, \\rho_0, \\gamma)$. Here, $\\mathcal{S}$ denotes the"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        54.0,
+        559.0,
+        113.0
+      ],
+      "markdown": "state space, $\\mathcal{A}$ the action space, $\\mathcal{P}$ the transition dynamics, $\\mathcal{R}$ the reward function, $\\rho_0$ the initial state distribution, and $\\gamma$ the discount factor. At each time step, the agent observes $s \\in \\mathcal{S}$, selects an action $a \\in \\mathcal{A}$, transitions to $s' \\sim \\mathcal{P}(\\cdot|s,a)$, and receives a reward $r(s,a)$.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        114.0,
+        559.0,
+        208.0
+      ],
+      "markdown": "In our formulation, the state space $\\mathcal{S}$ corresponds to the environment state as in standard RL. However, unlike conventional RL where actions directly control the system, the action space $\\mathcal{A}$ consists of the noise scheduling parameters $T$ and $\\sigma_{\\max}$. The actual control signal $u$ applied to the system is subsequently generated by LP-MBD with these estimated parameters. Accordingly, the adaptive noise scheduler serves as a policy that, at each step $t$, outputs"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        345.0,
+        212.0,
+        560.0,
+        244.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n(T_t,\\;\\sigma_{\\max,t}) &\\sim \\pi_\\phi(\\cdot \\mid s_t), \\\\\n\\pi_\\phi(T,\\sigma_{\\max}\\mid s) &= \\pi_T(T \\mid s)\\, \\pi_\\sigma(\\sigma_{\\max}\\mid s),\n\\end{aligned}\n\\tag{17}\n$$"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        248.0,
+        559.0,
+        295.0
+      ],
+      "markdown": "where $\\phi$ denotes the policy parameters, $\\pi_T$ is a categorical distribution over $\\mathcal{T}=\\{T_{\\min}, \\ldots, T_{\\max}\\}$, and $\\pi_\\sigma$ is a Gaussian distribution. The action at time step $t$ is therefore defined as $a_t=(T_t, \\sigma_{\\max,t})$."
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        296.0,
+        559.0,
+        318.0
+      ],
+      "markdown": "To promote efficiency, we augment the reward with a penalty on large diffusion steps:"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "text",
+      "bbox": [
+        358.0,
+        321.0,
+        560.0,
+        349.0
+      ],
+      "markdown": "$$\n\\tilde{r}_t(s_t, a_t, u_t) = r(s_t,u_t) - w_T \\frac{T_t}{T_{\\max}}, \\tag{18}\n$$"
+    },
+    {
+      "id": "p0004-b014",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        353.0,
+        559.0,
+        397.0
+      ],
+      "markdown": "where $r(s_t, u_t)$ is the original environmental reward and $w_T>0$ balances task performance and computational cost. Denoting LP-MBD as $\\pi_{\\text{LP-MBD}}(\\cdot \\mid s_t, a_t)$, the RL objective is"
+    },
+    {
+      "id": "p0004-b015",
+      "kind": "text",
+      "bbox": [
+        344.0,
+        389.0,
+        560.0,
+        429.0
+      ],
+      "markdown": "$$\n\\max_{\\phi} J(\\phi) = \\mathbb{E}_{\\substack{s_t \\sim \\mathcal{B},\\, a_t \\sim \\pi_{\\phi}(\\cdot \\mid s_t), \\\\ u_t \\sim \\pi_{\\text{LP-MBD}}(\\cdot \\mid s_t, a_t)}} \\left[ \\sum_{t=0}^\\infty \\gamma^t \\tilde r_t \\right], \\tag{19}\n$$"
+    },
+    {
+      "id": "p0004-b016",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        433.0,
+        559.0,
+        468.0
+      ],
+      "markdown": "with discount factor $\\gamma \\in (0,1)$ and replay buffer $\\mathcal{B}$. Fig. 2 shows the architecture of the proposed adaptive noise scheduling system."
+    },
+    {
+      "id": "p0004-b017",
+      "kind": "figure",
+      "bbox": [
+        313.0,
+        474.0,
+        559.0,
+        615.0
+      ],
+      "markdown": "",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0004-b018",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        622.0,
+        559.0,
+        664.0
+      ],
+      "markdown": "Fig. 2. Overview of ALP-MBD. The environment provides the current state $s_t$ and reward $r_t$ to the adaptive noise scheduler, which outputs the noise scheduling parameters $a_t = (T_t, \\sigma_{\\max,t})$. These parameters are fed into LP-MBD to generate the control input $u_t$, which is applied to the environment."
+    },
+    {
+      "id": "p0004-b019",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        685.0,
+        422.0,
+        695.0
+      ],
+      "markdown": "### B. Implementation Details"
+    },
+    {
+      "id": "p0004-b020",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        700.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "To train the adaptive linear path scheduler, we employ the Proximal Policy Optimization (PPO) [37] algorithm. PPO is chosen for its stability in on-policy training and its"
+    }
+  ]
+}

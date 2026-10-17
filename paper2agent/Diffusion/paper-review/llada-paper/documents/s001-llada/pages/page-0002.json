@@ -1,0 +1,147 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and the native lines; Figure 1 edges checked with a 150-dpi crop of [100,64,512,243]. Figure 1 (two radar charts, Base and Instruct, with group arcs General Tasks/Mathematics/Code/Chinese and both legends) is one figure item, label 'Figure 1', asset 'figure-1', bbox [103,67,509,241] (all axis labels 112-501 pt wide, 75-234 pt high, inside); the extractor's picture-text soup was cleared. Reading order: the page starts with the continuation 'where $x$ is a sequence of length $L$ ...' of p. 1's sentence (after equation (2), so no join), then Figure 1 and its caption between complete paragraphs. Inline maths $x$, $L$, $x^i$, $i$-th, $10^{23}$; stray _x_ / <sup> markup replaced; italics kept as *...*. Footnote 5 marker written as [^5] after 'Fisher consistency'; 'Footnote 5: ...' is placed before the paragraph 'We adopt the standard pipeline ... contributions:' so that this paragraph and its bullet list (first bullet here, bullets 2-4 on p. 3) stay contiguous across the page break. Page number 2 omitted. check: 37/37 lines; only number difference is $10^{23}$ (printed superscript 1023, category a).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        289.0,
+        505.0,
+        333.0
+      ],
+      "markdown": "where $x$ is a sequence of length $L$, and $x^i$ is the $i$-th token. This paradigm has proven remarkably effective [2–5] and has become the foundation of current LLMs. Despite its widespread adoption, a fundamental question remains unanswered: *Is the autoregressive paradigm the only path to achieving the core capabilities of LLMs, such as scalability, in-context learning, and instruction-following?*",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b000",
+      "kind": "figure",
+      "bbox": [
+        103.0,
+        67.0,
+        509.0,
+        241.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "caption",
+      "bbox": [
+        108.0,
+        243.0,
+        505.0,
+        264.0
+      ],
+      "markdown": "Figure 1: **Zero/Few-Shot Benchmarks.** We scale LLaDA to 8B parameters from scratch and observe competitive zero/few-shot performance compared with strong autoregressive LLMs [6].",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        339.0,
+        506.0,
+        371.0
+      ],
+      "markdown": "We argue that the answer is *not* a simple “yes”. The key insight overlooked previously is: It is the *generative modeling principles* (i.e., Eq. (1)), *rather than the autoregressive formulation* (i.e., Eq. (2)) itself, that fundamentally underpin the essential properties of LLMs.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        378.0,
+        506.0,
+        464.0
+      ],
+      "markdown": "In particular, we argue that *scalability* is primarily a consequence of the interplay between Transformers [7], model size, data size, and *Fisher consistency*[^5] [8] induced by the generative principles in Eq. (1), rather than a unique result of the ARMs in Eq. (2). The success of diffusion transformers [9, 10] on visual data [11] supports this claim. Furthermore, the *instruction-following* and *in-context learning* [4] capabilities appear to be intrinsic properties of all conditional generative models on structurally consistent linguistic tasks, rather than exclusive advantages of ARMs. In addition, while ARMs can be interpreted as a *lossless data compressor* [12, 13], any sufficiently expressive probabilistic model can achieve similar capabilities [14].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        470.0,
+        506.0,
+        502.0
+      ],
+      "markdown": "However, certain inherent limitations of LLMs can be directly attributed to their autoregressive nature. For instance, the left-to-right generation process restricts their ability to handle reversal reasoning tasks [15], highlighting a representative failure in the generalization capabilities of current models.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        508.0,
+        506.0,
+        595.0
+      ],
+      "markdown": "Motivated by these insights, we introduce *LLaDA (Large Language Diffusion with mAsking)* to investigate whether the capabilities exhibited by LLMs can emerge from generative modeling principles beyond ARMs, thereby addressing the fundamental question posed earlier. In contrast to traditional ARMs, LLaDA leverages a masked diffusion model (MDM) [16–20], which incorporates a forward data masking process and trains a *mask predictor* to approximate its reverse process. This design enables LLaDA to construct a model distribution with bidirectional dependencies and optimize a variational lower bound of its log-likelihood, offering a principled and previously unexplored perspective on the core capabilities of LLMs discussed above.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        702.0,
+        505.0,
+        722.0
+      ],
+      "markdown": "Footnote 5: It suggests the ability to recover the true data distribution with infinite data, a sufficiently large network and optimal training.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        601.0,
+        506.0,
+        655.0
+      ],
+      "markdown": "We adopt the standard pipeline of data preparation, pre-training, supervised fine-tuning (SFT), and evaluation, scaling LLaDA to an unprecedented language diffusion of size 8B. In particular, LLaDA 8B was pre-trained from scratch on 2.3 trillion tokens using 0.13 million H800 GPU hours, followed by SFT on 4.5 million pairs. Across diverse tasks, including language understanding, math, code, and Chinese, LLaDA demonstrates the following contributions:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        665.0,
+        505.0,
+        688.0
+      ],
+      "markdown": "- LLaDA scales effectively to a compute budget of $10^{23}$ FLOPs, achieving comparable results to ARM baselines trained on the same data across six tasks, e.g., MMLU and GSM8K.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "2",
+      "source_class": "page-footer",
+      "reason": "Page number 2 at the bottom centre (checked against the preview)."
+    }
+  ]
+}

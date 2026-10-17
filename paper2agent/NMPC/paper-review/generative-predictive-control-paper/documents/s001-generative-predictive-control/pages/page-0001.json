@@ -1,0 +1,198 @@
+{
+  "page": 1,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0001.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 130-dpi overlay, the native lines and the TeX source (main.tex abstract and Sec. I). Title (extracted as page-header text) made the '# ' heading on one line. Rotated arXiv stamp 'arXiv:2502.13406v3 [cs.RO] 5 Mar 2026' omitted with reason. Authors line kept (no affiliation or footnote is printed on this page). Abstract: extractor's bold/italic markup replaced by one item '**Abstract—** ...' with the text not in bold (printed in bold in the IEEE style) and *generative predictive control* kept in italics. Section heading '## I. INTRODUCTION AND RELATED WORK'. Run-in titles '1) Generative Policies:', '2) Sampling-based Predictive Control (SPC):', '3) Our Contribution:' (printed in italics) written in bold inside their text items. Reading order: left column, then the right-column continuation 'tasks are simply difficult to demonstrate...' joined to the left column's '...Furthermore, some' (join_previous=space), then Fig. 1 with its caption between complete paragraphs, then the rest of the right column. Fig. 1 merged into one figure item 'Figure 1'/figure-1, bbox [310,154,561,284] checked on all four edges with a crop (both panels, arrows 'training data'/'samples', and the in-figure labels U*, Ū_k, Ū_{k-1} inside; caption starts at y=287.7, outside). Caption: line-wrap repairs '[19]– [21]' -> '[19]–[21]' and URL rejoined 'https://github.com/vincekurtz/gpc.'; same repair '[1]– [4]' -> '[1]–[4]' in the 'In many ways' paragraph. Authors' slip kept as printed: 'and leverage it train flow matching policies' (missing 'to'). The page ends with 'In particular, we propose GPC, a supervised learning', which continues on page 2. check: OK (91/91 lines).",
+  "warnings": [
+    "Review possible header/footer: p0001-b000",
+    "Review possible header/footer: p0001-b001"
+  ],
+  "items": [
+    {
+      "id": "p0001-b000",
+      "kind": "heading",
+      "bbox": [
+        79.0,
+        74.0,
+        533.0,
+        109.0
+      ],
+      "markdown": "# Generative Predictive Control: Flow Matching Policies for Dynamic, Difficult-to-Demonstrate Tasks",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0001-b002",
+      "kind": "text",
+      "bbox": [
+        230.0,
+        128.0,
+        382.0,
+        137.0
+      ],
+      "markdown": "Vince Kurtz and Joel W. Burdick",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        163.0,
+        299.0,
+        341.0
+      ],
+      "markdown": "**Abstract—** Generative control policies have recently unlocked major progress in robotics. These methods produce action sequences via diffusion or flow matching, with training data provided by demonstrations. But existing methods come with two key limitations: they require expert demonstrations, which can be difficult or costly to obtain, and they are limited to relatively slow, quasi-static tasks. In this paper, we leverage a tight connection between sampling-based predictive control and generative modeling to address these issues. In particular, we introduce *generative predictive control*, a supervised learning framework for tasks with fast dynamics that are easy to simulate but difficult to demonstrate. We show how trained flow-matching policies can be warm-started at inference time, maintaining temporal consistency and enabling high-frequency feedback. We believe that generative predictive control offers a complementary approach to existing behavior cloning methods, and hope that it will pave the way toward generalist policies that extend beyond quasi-static demonstration-oriented tasks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b004",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        351.0,
+        263.0,
+        358.0
+      ],
+      "markdown": "## I. INTRODUCTION AND RELATED WORK",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0001-b005",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        366.0,
+        299.0,
+        459.0
+      ],
+      "markdown": "Diffusion and flow matching policies have enabled tremendous success in behavior cloning for quasi-static manipulation [1]–[4]. Can generative policies also control systems with fast nonlinear dynamics at high control frequencies, where demonstrations are difficult to come by? In this paper, we answer this question in the affirmative by introducing generative predictive control (GPC), a supervised learning framework for dynamic and difficult-to-demonstrate tasks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        461.0,
+        299.0,
+        531.0
+      ],
+      "markdown": "Fig. 1 summarizes our approach. GPC alternates between data collection via sampling-based predictive control (SPC) and policy training via flow matching. The flow model provides extra samples for SPC, enabling continual performance improvement while maintaining a supervised learning (e.g., regression) objective, which stabilizes the learning process.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        533.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "**1) Generative Policies:** Diffusion [1] and flow matching [2] have recently gained prominence as powerful policy representations for robotics. These models typically focus on behavior cloning [3], [4], where expert demonstrations serve as training data. Generative policies have the key advantage of multi-modal expressiveness, allowing multiple “paths” to the same goal [1]. They also provide a natural choice for handling image data [5]–[7]. Importantly, generative policies are trained in a *supervised* manner, with clearly defined regression targets. This improves training stability over unsupervised reinforcement learning [8], [9], but requires demonstrations. Obtaining sufficient demonstration data is a key challenge, particularly for large generalist policies [2], [10], [11]. While creative ways to obtain this data are an area of active research [12], it is unlikely that demonstrations alone will produce the internet-scale data used to train large vision-language models any time soon. Furthermore, some",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        371.0,
+        559.0,
+        393.0
+      ],
+      "markdown": "tasks are simply difficult to demonstrate, particularly for robots with fast nonlinear dynamics or unique morphologies.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0001-b008",
+      "kind": "figure",
+      "bbox": [
+        310.0,
+        154.0,
+        561.0,
+        284.0
+      ],
+      "markdown": "",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0001-b009",
+      "kind": "caption",
+      "bbox": [
+        313.0,
+        288.0,
+        559.0,
+        359.0
+      ],
+      "markdown": "Fig. 1: Generative predictive control is a supervised learning framework for dynamic tasks that are difficult to demonstrate but easy to simulate. First, we generate training data with sampling-based predictive control [16], [17], [22], leveraging advances in massively parallel GPU simulation [19]–[21]. We then use this data to train a flow matching policy, which in turn provides additional high-quality samples. This results in better training data for subsequent iterations, in a virtuous cycle. Code available: https://github.com/vincekurtz/gpc.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0001-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        397.0,
+        559.0,
+        550.0
+      ],
+      "markdown": "**2) Sampling-based Predictive Control (SPC):** In parallel, a very different trend has been gaining traction in the nonlinear optimal control community. SPC is an alternative to gradient-based model predictive control (MPC), where a simple sampling procedure is used in place of a sophisticated nonlinear optimizer [13]–[15]. Algorithms in this family include model predictive path integral control (MPPI) [16], predictive sampling (PS) [17], and cross-entropy methods (CEM) [18]. SPC algorithms are exceedingly easy to implement, and have been studied for some time. But recent advances in simulation speed and parallelism [19]–[21] allow them to scale to complex problems like dexterous manipulation [22], legged locomotion [23] and more [17], [24].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        554.0,
+        559.0,
+        623.0
+      ],
+      "markdown": "In many ways, SPC complements generative behavior cloning: it is agnostic to a robot’s morphology, and can be quite effective on tasks with fast nonlinear dynamics. Behavior cloning, on the other hand, has shown success on tasks involving deformable objects like cloth and food [1]–[4], which are hard to simulate at speeds sufficient for SPC.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b013",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        627.0,
+        559.0,
+        721.0
+      ],
+      "markdown": "**3) Our Contribution:** This paper highlights a deep connection between generative policies and SPC. This connection was first identified by [25] in the context of MPPI. DIAL-MPC [23] used this connection to improve SPC performance for legged locomotion, but DIAL-MPC is fully online and does not include policy training. In this paper, we extend this connection to a general class of SPC algorithms and leverage it train flow matching policies.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b014",
+      "kind": "text",
+      "bbox": [
+        323.0,
+        724.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "In particular, we propose GPC, a supervised learning",
+      "source_class": "text"
+    },
+    {
+      "id": "p0001-b001",
+      "kind": "omit",
+      "bbox": [
+        18.0,
+        224.0,
+        36.0,
+        568.0
+      ],
+      "markdown": "arXiv:2502.13406v3 [cs.RO] 5 Mar 2026",
+      "source_class": "page-header",
+      "reason": "Rotated arXiv identifier stamp in the left margin (arXiv:2502.13406v3 [cs.RO] 5 Mar 2026), added by arXiv, not part of the paper."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "scan_metadata": {
+    "repository_name": "RTWholeBodyMPPI",
+    "repository_url": "https://github.com/jrapudg/RTWholeBodyMPPI",
+    "commit": "55e6dc35d042ed5f175ad6ae312c886282f32529",
+    "source_path": "repo/RTWholeBodyMPPI",
+    "license": "MIT",
+    "paper": "Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control (Alvarez-Padilla et al., arXiv 2409.10469; ICRA 2025)",
+    "scan_date": "2026-10-12",
+    "route": "python",
+    "scope_filter": "MuJoCo simulation part only (path substring 'legged_mppi/'); ROS/catkin hardware stack excluded.",
+    "source_files_evaluated": 26,
+    "source_files_included": 3,
+    "proposed_tool_count": 2,
+    "modules": ["mppi_locomotion", "mppi_locomanipulation"],
+    "success": true,
+    "explanation": "Included sources and their tool assignments. Each tool is assigned once. MPPI_tasks.ipynb is included as a supporting execution/verification source for the mppi_locomotion module and owns no tool. Full candidate review, the headless finding, feasibility and the exclusions are in reports/tutorial-scanner.json. Nothing was executed by the scanner."
+  },
+  "tutorials": [
+    {
+      "id": "simulate_mppi_script",
+      "module": "mppi_locomotion",
+      "path": "legged_mppi/scripts/simulate_mppi.py",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/scripts/simulate_mppi.py",
+      "sha256": "c9bf70f507ef4a434f03ea317771a5fe281ad125b1a908ff8e462bbda42cff74",
+      "title": "simulate_mppi.py (MuJoCo closed-loop MPPI simulation, --task)",
+      "type": "script",
+      "include_in_tools": true,
+      "execution_basis": "Driver calling the same public API as main(): MPPI(task); optional agent.set_params(horizon, lambda_, N); Simulator(agent=agent, viewer=False, T, dt=0.01, timeconst=0.02, dampingratio=1.0, model_path=<pkg>/whole_body_mppi/<sim_path>, ctrl_rate); run(). Do not call plot_trajectory, which writes into the package directory and calls plt.show(). The script itself cannot run headless because VIEWER=True is hard-coded with no CLI flag.",
+      "suggested_tools": [
+        {
+          "tool_name": "whole_body_mppi_simulate_locomotion",
+          "source_section": "simulate_mppi.py main(); whole_body_mppi.interface.simulator.Simulator.__init__/run; whole_body_mppi.control.controllers.mppi_locomotion.MPPI; BaseMPPI.set_params",
+          "description": "Headless closed-loop MuJoCo simulation of the Unitree Go1 under whole-body MPPI (cubic-spline joint-target sampling, threaded MuJoCo rollouts) for a predefined locomotion task. Exposes the per-run hyperparameters the code supports (horizon, temperature, number of samples, controller rate, seed, cubic vs direct sampling) for the paper's ablations.",
+          "primary_input": "task in {walk_straight, walk_octagon, big_box, stairs, stand}; n_steps (Simulator T, default 2000); ctrl_rate_hz with 100/ctrl_rate an integer (default 100); horizon (default 40; <=100 for walk_straight/walk_octagon/stand, <=74 for stairs/big_box); temperature (config lambda, default 0.1); n_samples (default 30); seed (config, default 42); optional sample_type in {cubic, normal} and n_knots (config attributes; coordinator to confirm exposure)",
+          "outputs": "Arrays time (T), qpos (19xT), qvel (18xT), ctrl (12xT) and per-step best-trajectory cost (T; first entry NaN). Summary with goals reached / total, task_success, final base position and resolved parameters. Optional figures: position, orientation and controls as in Simulator.plot_trajectory, and body-frame velocities as in MPPI_tasks.ipynb cell 13.",
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New hyperparameter settings, seeds, run lengths and any of the predefined simulation tasks. New robots, scenes or custom waypoint lists are not supported by an upstream API (tasks come from utils/tasks.py TASKS).",
+          "verification": "Stairs reference from MPPI_tasks.ipynb (1201 updates -> Simulator T=1202, ctrl_rate=100): goals 1..5 reached in order, then 'Task succeeded.'. Plus changed-parameter checks (set_params values applied; ctrl_rate=50 halves the updates; same seed reproduces identical arrays; horizon above the gait-table length fails)."
+        }
+      ]
+    },
+    {
+      "id": "mppi_tasks_notebook",
+      "module": "mppi_locomotion",
+      "path": "legged_mppi/notebooks/MPPI_tasks.ipynb",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks.ipynb",
+      "sha256": "2ab840175219415240c5e664b6bc7862893fe7c3f68d0fd22c93a6a93a0c3051",
+      "title": "MPPI_tasks.ipynb (Legged Locomotion)",
+      "type": "notebook",
+      "include_in_tools": true,
+      "role": "supporting execution and verification source for module mppi_locomotion; owns no separate tool (duplicate of the Simulator loop)",
+      "supports_tools": ["whole_body_mppi_simulate_locomotion"],
+      "execution_basis": "Run headless: keep cells 0 (imports; drop the IPython/animation imports if they are unavailable), 2 (resolve the scene from the package directory instead of /home/ControlUser/...), 3 without the MujocoViewer line, 4, 6-9, and 12 without add_marker/read_pixels/anim_imgs. Then cells 13-24 (plots from x_states/sim_inputs). Skip 5, 10, 11 and 26-28 (rendering/animation). Reference: recorded stdout of cell 12.",
+      "suggested_tools": []
+    },
+    {
+      "id": "mppi_tasks_push_notebook",
+      "module": "mppi_locomanipulation",
+      "path": "legged_mppi/notebooks/MPPI_tasks_push.ipynb",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks_push.ipynb",
+      "sha256": "64edcc659ad1ecd4c597e448a1c48eeeeaee61919916be2ca48a0257111d52ab",
+      "title": "MPPI_tasks_push.ipynb (Legged Locomanipulation, push_box)",
+      "type": "notebook",
+      "include_in_tools": true,
+      "execution_basis": "Run headless: keep cells 0, 2 (package-relative scene path), 3 without the MujocoViewer line, 4, 6-10, 14, and 15 without add_marker/read_pixels/anim_imgs. Then 16-34 (state split and plots). Skip 5, 11-13 and 36-37. Reference: recorded stdout of cell 15. Simulator cannot be used for this controller (single keyframe in the scene vs key_qpos[1]; eval_best_trajectory arity bug).",
+      "suggested_tools": [
+        {
+          "tool_name": "whole_body_mppi_simulate_box_push",
+          "source_section": "MPPI_tasks_push.ipynb cells 3-4, 6, 8-10 (setup) and 15 (closed loop), 16-18 (state split); whole_body_mppi.control.controllers.mppi_locomanipulation.MPPI_box_push",
+          "description": "Headless closed-loop MuJoCo simulation of the Go1 pushing a free box to a planar target with whole-body MPPI. The robot first stands in place, then follows the box (after 300 controller updates), and backs off once the box is within 0.3 m of the target.",
+          "primary_input": "box_target_xy (default [2.0, 1.0] from config box_pos_ref / notebook cell 8); n_steps (default 2601 = 26 s at dt 0.01); optional horizon (<=74), temperature (config 0.12), n_samples (30) via BaseMPPI.set_params; seed (config 42)",
+          "outputs": "Time vector, box trajectory (position, quaternion, velocity), robot base/joint trajectory, joint-target controls. Flags switched_to_follow_box and task_succeeded, first time the box was within 0.3 m of the target, final box-target distance. Optional figures: box position vs time, top-down box and robot paths (correctly labelled), box orientation.",
+          "applicable_to_new_data": true,
+          "applicable_to_new_data_note": "New box targets (the notebook demonstrates changing x_box_ref), run lengths, seeds and MPPI hyperparameters. The box geometry and start pose are fixed by the scene XML.",
+          "verification": "Recorded stdout of cell 15 for target (2, 1), 2601 steps: four 'still working...' lines, then 'Task succeed. Time to back up!'. Changed target: the success flag and distance are computed against the new target."
+        }
+      ]
+    }
+  ]
+}

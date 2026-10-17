@@ -1,0 +1,210 @@
+{
+  "page": 27,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0027.png",
+  "reviewed": true,
+  "review_notes": "[v2] Reviewed against the preview and a 220-dpi crop of Table 11, with TeX (tab:memory, end of B.6, B.7); no TeX/PDF disagreement. Table 11 (table-11, 7 x 5): the 'Input Length' values 512 and 1024 are printed once as vertically merged cells spanning three rows each; the value is repeated on every row it spans (converter choice, CSV cannot merge). All 30 data cells checked against the crop. Caption printed above the table, kept before it. The float is printed at the top; page 26 ends with a complete paragraph and the page continues with a new paragraph ('For the base model, we use ...'), so no join. Text repairs: line-wrap 'lm-evaluation-/harness' restored to the real hyphenated name 'lm-evaluation-harness' (the extractor had glued it to 'lm-evaluationharness'); '_|_ EOS _|_' -> '|EOS|'. Heading changed to '### B.7 Analysis of Sampling Efficiency'. Printed wording 'Tab. 11 compares of memory consumption' kept (authors' grammar). 'Eq. (6)', 'Appendix B.4', '[125]', '[25]' checked. Page ends with a complete paragraph (page 28 starts 'We emphasize that ...'). Page number 27 omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0027-b000",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        79.0,
+        505.0,
+        111.0
+      ],
+      "markdown": "Table 11: **Analysis of Memory Consumption.** Memory is measured in GB. Without any inference optimization techniques (e.g., KV Cache), LLaDA has memory usage comparable to LLaMA3, and slightly higher than LLaMA3 when the latter uses KV Cache.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0027-b001",
+      "kind": "table",
+      "bbox": [
+        106.0,
+        115.0,
+        506.0,
+        203.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 11",
+      "asset_name": "table-11",
+      "rows": [
+        [
+          "Input Length",
+          "Output Length",
+          "LLaDA 8B",
+          "LLaMA3 8B w/o KV-Cache",
+          "LLaMA3 8B w/ KV-Cache"
+        ],
+        [
+          "512",
+          "512",
+          "17.03",
+          "16.70",
+          "16.32"
+        ],
+        [
+          "512",
+          "1024",
+          "17.53",
+          "17.49",
+          "16.43"
+        ],
+        [
+          "512",
+          "2048",
+          "18.52",
+          "20.00",
+          "16.73"
+        ],
+        [
+          "1024",
+          "512",
+          "17.53",
+          "17.16",
+          "16.36"
+        ],
+        [
+          "1024",
+          "1024",
+          "18.01",
+          "18.26",
+          "16.41"
+        ],
+        [
+          "1024",
+          "2048",
+          "19.02",
+          "21.39",
+          "16.74"
+        ]
+      ]
+    },
+    {
+      "id": "p0027-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        224.0,
+        506.0,
+        278.0
+      ],
+      "markdown": "For the base model, we use the widely adopted open-source evaluation framework lm-evaluation-harness [125], except for the HumanEval-FIM metric, which is not supported by the framework. For HumanEval-FIM on the base model and all evaluation metrics on the instruct model, we use an internal evaluation library. We choose the internal library as lm-evaluation-harness shows greater deviation from the LLaMA3 results reported by Yang et al. [25], relative to our internal evaluation.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b003",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        284.0,
+        505.0,
+        327.0
+      ],
+      "markdown": "For benchmarks evaluated via conditional likelihood estimation, we use Monte Carlo estimation to approximate Eq. (6) for LLaDA. Since MMLU, CMMLU, and C-EVAL only require the likelihood of a single token, a single Monte Carlo estimate is sufficient for these benchmarks. For all other benchmarks, we find that 128 Monte Carlo samples are adequate to produce stable results.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        334.0,
+        506.0,
+        409.0
+      ],
+      "markdown": "For benchmarks evaluated using conditional generation, we apply pure diffusion sampling with a low-confidence remasking strategy to both LLaDA Base and LLaDA Instruct. For LLaDA Base, we set both the generation length and the number of sampling steps to 1024. For LLaDA Instruct, the number of sampling steps is set equal to the answer length, which is configured as follows: 3 for MMLU and HellaSwag, 64 for GPQA, 256 for MBPP and MMLU-Pro, and 512 for HumanEval, GSM8K, Math, and ARC-C. As detailed in Appendix B.4, for HumanEval, MBPP, GSM8K, Math, and GPQA, we set the confidence of the |EOS| token to zero during sampling for LLaDA Instruct.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b005",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        429.0,
+        267.0,
+        439.0
+      ],
+      "markdown": "### B.7 Analysis of Sampling Efficiency",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0027-b006",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        451.0,
+        506.0,
+        472.0
+      ],
+      "markdown": "In this section, we first analyze the sampling efficiency of LLaDA, including both sampling speed and memory consumption. We then discuss potential optimizations to further improve its efficiency.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        478.0,
+        506.0,
+        541.0
+      ],
+      "markdown": "We use four representative open-ended generation benchmarks for sampling speed analysis: GSM8K, Math, HumanEval, and MBPP. We use the widely adopted throughput metric to measure generation speed, defined as the number of tokens generated per second. We compare LLaDA 8B Base and LLaMA3 8B Base, both using bfloat16 precision. All experiments in this section were conducted on a single A100-80GB GPU with a batch size of 1. For LLaDA, the output length is fixed to 256 tokens across all four benchmarks.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b008",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        549.0,
+        505.0,
+        622.0
+      ],
+      "markdown": "Fig. 5 shows that LLaDA enables a flexible trade-off between generation quality and speed by adjusting the number of sampling steps. Specifically, on the GSM8K and Math datasets, LLaDA 8B Base achieves comparable performance to LLaMA3 8B Base while delivering 1.5 and 1.8 times higher throughput, even though LLaMA3 uses KV Cache and LLaDA operates without any inference optimization techniques. For the HumanEval benchmark, LLaDA 8B Base performs comparably to LLaMA3 8B Base when the throughput is matched. On the MBPP benchmark, LLaDA 8B Base lags behind LLaMA3 8B Base.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b009",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        631.0,
+        505.0,
+        663.0
+      ],
+      "markdown": "For LLaMA3, the acceleration benefit provided by KV caching is notably weaker on the HumanEval dataset, which can be attributed to its relatively short prompt lengths. Specifically, the average prompt lengths for GSM8K, Math, MBPP, and HumanEval are 894, 680, 628, and 132 tokens, respectively.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b010",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        669.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "Tab. 11 compares of memory consumption between LLaDA 8B Base and LLaMA3 8B Base. To avoid variations in generation length caused by differences in training data, we fix both the input and output token lengths during the memory analysis. For LLaDA, memory usage remains constant regardless of the number of sampling steps. Its memory consumption is comparable to LLaMA3 8B Base without KV cache, but slightly higher than with KV cache.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0027-b011",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        743.0,
+        311.0,
+        750.0
+      ],
+      "markdown": "27",
+      "source_class": "page-footer",
+      "reason": "Printed page number \"27\" at the bottom centre (verified on the preview)."
+    }
+  ]
+}

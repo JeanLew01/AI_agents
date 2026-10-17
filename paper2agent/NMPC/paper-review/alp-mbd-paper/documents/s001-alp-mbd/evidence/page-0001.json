@@ -1,0 +1,1576 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Adaptive Linear Path Model-Based Diffusion",
+      "bbox": [
+        148.16099548339844,
+        74.0442886352539,
+        463.84063720703125,
+        88.3745346069336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Yutaka Shimizu and Masayoshi Tomizuka",
+      "bbox": [
+        207.572998046875,
+        108.99491119384766,
+        396.7565612792969,
+        118.79217529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract— The interest in combining model-based control",
+      "bbox": [
+        63.96299743652344,
+        151.4922637939453,
+        298.8019104003906,
+        159.5530548095703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approaches with diffusion models has been growing. Although",
+      "bbox": [
+        53.999996185302734,
+        161.45423889160156,
+        298.8006896972656,
+        169.51502990722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we have seen many impressive robotic control results in difficult",
+      "bbox": [
+        53.999996185302734,
+        171.41725158691406,
+        298.80059814453125,
+        179.47804260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tasks, the performance of diffusion models is highly sensitive",
+      "bbox": [
+        53.999996185302734,
+        181.38026428222656,
+        298.80059814453125,
+        189.44105529785156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to the choice of scheduling parameters, making parameter",
+      "bbox": [
+        53.999996185302734,
+        191.3422393798828,
+        298.8006591796875,
+        199.4030303955078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tuning one of the most critical challenges. We introduce Linear",
+      "bbox": [
+        53.999996185302734,
+        201.3052520751953,
+        298.80059814453125,
+        209.3660430908203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Path Model-Based Diffusion (LP-MBD), which replaces the",
+      "bbox": [
+        53.999996185302734,
+        211.2682647705078,
+        298.8006286621094,
+        219.3290557861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "variance-preserving schedule with a flow-matching–inspired",
+      "bbox": [
+        53.999996185302734,
+        221.23023986816406,
+        298.80059814453125,
+        229.29103088378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear probability path. This yields a geometrically interpretable",
+      "bbox": [
+        53.999996185302734,
+        231.19325256347656,
+        298.8006591796875,
+        239.25404357910156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and decoupled parameterization that reduces tuning complexity",
+      "bbox": [
+        53.999996185302734,
+        241.15626525878906,
+        298.80059814453125,
+        249.21705627441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and provides a stable foundation for adaptation. Building",
+      "bbox": [
+        53.999996185302734,
+        251.1182403564453,
+        298.80059814453125,
+        259.17901611328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on this, we propose Adaptive LP-MBD (ALP-MBD), which",
+      "bbox": [
+        53.999996185302734,
+        261.08123779296875,
+        298.8006591796875,
+        269.14202880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "leverages reinforcement learning to adjust diffusion steps and",
+      "bbox": [
+        53.999996185302734,
+        271.043212890625,
+        298.80059814453125,
+        279.10400390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "noise levels according to task complexity and environmental",
+      "bbox": [
+        53.999996185302734,
+        281.0062255859375,
+        298.8006286621094,
+        289.0670166015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditions. Across numerical studies, Brax benchmarks, and",
+      "bbox": [
+        53.999996185302734,
+        290.96923828125,
+        298.8006591796875,
+        299.030029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mobile-robot trajectory tracking, LP-MBD simplifies schedul-",
+      "bbox": [
+        53.999996185302734,
+        300.9312438964844,
+        298.8005676269531,
+        308.9920654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ing while maintaining strong performance, and ALP-MBD",
+      "bbox": [
+        53.999996185302734,
+        310.8942565917969,
+        298.8006896972656,
+        318.955078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "further improves robustness, adaptability, and real-time effi-",
+      "bbox": [
+        53.999996185302734,
+        320.8572692871094,
+        298.8006591796875,
+        328.9180908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ciency. Our code is available through anonymous repository",
+      "bbox": [
+        53.999996185302734,
+        330.81927490234375,
+        298.8006591796875,
+        338.88006591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "https://anonymous.4open.science/r/adaptive_l",
+      "bbox": [
+        53.999996185302734,
+        341.383056640625,
+        298.80059814453125,
+        348.098876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "inear_path_model_based_diffusion-C58C",
+      "bbox": [
+        53.999996185302734,
+        351.3460693359375,
+        253.547119140625,
+        358.0618896484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION",
+      "bbox": [
+        130.33799743652344,
+        370.8224792480469,
+        222.46205139160156,
+        379.7290344238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion models have achieved remarkable success in",
+      "bbox": [
+        63.96299743652344,
+        387.303466796875,
+        298.80145263671875,
+        396.21002197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "various real-world applications, particularly in image and",
+      "bbox": [
+        53.999996185302734,
+        399.2584533691406,
+        298.801025390625,
+        408.1650085449219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "video generation. Recently, their use has expanded beyond",
+      "bbox": [
+        53.999996185302734,
+        411.21343994140625,
+        298.8009338378906,
+        420.1199951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "visual domains, with a growing body of work exploring",
+      "bbox": [
+        53.999996185302734,
+        423.1684265136719,
+        298.8008728027344,
+        432.0749816894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applications in robotic control. Several approaches [1] [2]",
+      "bbox": [
+        53.999996185302734,
+        435.1234130859375,
+        298.8009338378906,
+        444.02996826171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have been proposed that integrate diffusion models with",
+      "bbox": [
+        53.999996185302734,
+        447.07940673828125,
+        298.8009948730469,
+        455.9859619140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model-based control to solve complex trajectory optimization",
+      "bbox": [
+        53.999996185302734,
+        459.0343933105469,
+        298.8009338378906,
+        467.9409484863281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "problems. These approaches have close relationships with",
+      "bbox": [
+        53.999996185302734,
+        470.9893798828125,
+        298.8009948730469,
+        479.89593505859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling-based optimization methods, and they have been",
+      "bbox": [
+        53.999996185302734,
+        482.9443664550781,
+        298.80096435546875,
+        491.8509216308594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shown to be effective in addressing problems that have",
+      "bbox": [
+        53.999996185302734,
+        494.89935302734375,
+        298.80096435546875,
+        503.805908203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear, non-smooth dynamics and non-convex objectives",
+      "bbox": [
+        53.999996185302734,
+        506.8543701171875,
+        298.8009033203125,
+        515.7609252929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and constraints.",
+      "bbox": [
+        53.999996185302734,
+        518.810302734375,
+        117.5314712524414,
+        527.7168579101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, the performance of model-based diffusion crit-",
+      "bbox": [
+        63.96299743652344,
+        530.996337890625,
+        298.8013610839844,
+        539.9028930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ically depends on the design of the noise schedule. In",
+      "bbox": [
+        53.999996185302734,
+        542.9513549804688,
+        298.8009338378906,
+        551.85791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion-based approaches, the sampling process consists",
+      "bbox": [
+        53.999996185302734,
+        554.9063720703125,
+        298.8009948730469,
+        563.8129272460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of a sequence of diffusion steps, where noise is incre-",
+      "bbox": [
+        53.999996185302734,
+        566.861328125,
+        298.80096435546875,
+        575.7678833007812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mentally injected into trajectories and progressively reduced",
+      "bbox": [
+        53.999996185302734,
+        578.8173217773438,
+        298.80096435546875,
+        587.723876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to produce feasible and improved samples. The scale of",
+      "bbox": [
+        53.999996185302734,
+        590.7723388671875,
+        298.8009338378906,
+        599.6788940429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the injected noise at each step plays an important role in",
+      "bbox": [
+        53.999996185302734,
+        602.7273559570312,
+        298.80096435546875,
+        611.6339111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "determining performance, and even in the case of a simple",
+      "bbox": [
+        53.999996185302734,
+        614.682373046875,
+        298.8009948730469,
+        623.5889282226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear parameterization with a variance-preserving schedule",
+      "bbox": [
+        53.999996185302734,
+        626.6373291015625,
+        298.8009948730469,
+        635.5438842773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[1], we need to tune several parameters to get the optimal",
+      "bbox": [
+        53.999996185302734,
+        638.5933227539062,
+        298.801025390625,
+        647.4998779296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "solution. These parameters are intricately coupled in shaping",
+      "bbox": [
+        53.999996185302734,
+        650.54833984375,
+        298.801025390625,
+        659.4548950195312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the overall noise profile, making it difficult to find optimal",
+      "bbox": [
+        53.999996185302734,
+        662.5033569335938,
+        298.8009338378906,
+        671.409912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "values. Moreover, the optimal parameters often vary with",
+      "bbox": [
+        53.999996185302734,
+        674.4583740234375,
+        298.8009948730469,
+        683.3649291992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the system state and the complexity of the problem, which",
+      "bbox": [
+        53.999996185302734,
+        686.413330078125,
+        298.80096435546875,
+        695.3198852539062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Yutaka Shimizu and Masayoshi Tomizuka are with the Department of",
+      "bbox": [
+        62.467994689941406,
+        708.1902465820312,
+        298.7974548339844,
+        715.3155517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mechanical Engineering, University of California, Berkeley, CA 94720,",
+      "bbox": [
+        53.99999237060547,
+        717.1572265625,
+        298.8015441894531,
+        724.2825317382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "USA {purewater0901, tomizuka}@berkeley.edu",
+      "bbox": [
+        53.99999237060547,
+        724.8021850585938,
+        275.6203918457031,
+        733.2664794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "frequently leads to overly conservative parameter choices.",
+      "bbox": [
+        313.20001220703125,
+        150.92431640625,
+        558.0009765625,
+        159.83087158203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Even within the same task, the values of the optimal param-",
+      "bbox": [
+        313.20001220703125,
+        162.87933349609375,
+        558.0010375976562,
+        171.785888671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "eters can differ substantially across different conditions. We",
+      "bbox": [
+        313.20001220703125,
+        174.8343505859375,
+        558.0009765625,
+        183.74090576171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "illustrate this idea by using a self-driving car example shown",
+      "bbox": [
+        313.20001220703125,
+        186.78936767578125,
+        558.0009765625,
+        195.6959228515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in Fig. 1.",
+      "bbox": [
+        313.20001220703125,
+        198.745361328125,
+        351.17742919921875,
+        207.65191650390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we first introduce Linear Path Model-Based",
+      "bbox": [
+        323.16302490234375,
+        210.42437744140625,
+        558.00146484375,
+        219.3309326171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion (LP-MBD), a variant of the original Model-Based",
+      "bbox": [
+        313.20001220703125,
+        222.37939453125,
+        558.0009155273438,
+        231.28594970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion (MBD) framework that replaces the variance-",
+      "bbox": [
+        313.20001220703125,
+        234.33441162109375,
+        558.0009765625,
+        243.240966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "preserving schedule with a linear probability path inspired",
+      "bbox": [
+        313.20001220703125,
+        246.2894287109375,
+        558.0008544921875,
+        255.19598388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "by Flow Matching [3][4]. LP-MBD offers several advantages",
+      "bbox": [
+        313.20001220703125,
+        258.24542236328125,
+        558.0010375976562,
+        267.1519775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "over the original MBD. The linear probability path provides",
+      "bbox": [
+        313.20001220703125,
+        270.200439453125,
+        558.0009155273438,
+        279.10699462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a simple, geometrically interpretable interpolation between",
+      "bbox": [
+        313.20001220703125,
+        282.1554260253906,
+        558.0009155273438,
+        291.0619812011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "prior and target distributions; under common Gaussian as-",
+      "bbox": [
+        313.20001220703125,
+        294.11041259765625,
+        558.0009155273438,
+        303.0169677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sumptions, it can align with optimal transport, offering",
+      "bbox": [
+        313.20001220703125,
+        306.0653991699219,
+        558.0010375976562,
+        314.9719543457031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "clear theoretical grounding. More importantly, unlike the",
+      "bbox": [
+        313.20001220703125,
+        318.0203857421875,
+        558.0009155273438,
+        326.92694091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "variance-preserving schedule, where multiple parameters are",
+      "bbox": [
+        313.20001220703125,
+        329.97637939453125,
+        558.0009765625,
+        338.8829345703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "intricately coupled to determine the noise magnitude, the",
+      "bbox": [
+        313.20001220703125,
+        341.9313659667969,
+        558.0009155273438,
+        350.8379211425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "linear path formulation eliminates such dependencies. As a",
+      "bbox": [
+        313.20001220703125,
+        353.8863525390625,
+        558.0007934570312,
+        362.79290771484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "result, LP-MBD requires fewer hyperparameters, making the",
+      "bbox": [
+        313.20001220703125,
+        365.8413391113281,
+        558.0010375976562,
+        374.7478942871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tuning process more straightforward and interpretable.",
+      "bbox": [
+        313.20001220703125,
+        377.79632568359375,
+        534.9971923828125,
+        386.702880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Building upon this foundation, we further propose Adap-",
+      "bbox": [
+        323.16302490234375,
+        389.476318359375,
+        558.0012817382812,
+        398.38287353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tive Linear Path Model-Based Diffusion (ALP-MBD), which",
+      "bbox": [
+        313.20001220703125,
+        401.4313049316406,
+        558.0009765625,
+        410.3378601074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "extends LP-MBD with a reinforcement learning–based mod-",
+      "bbox": [
+        313.20001220703125,
+        413.38629150390625,
+        558.0009765625,
+        422.2928466796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ule for dynamic parameter adjustment. ALP-MBD adapts",
+      "bbox": [
+        313.20001220703125,
+        425.3412780761719,
+        558.0010375976562,
+        434.2478332519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scheduling parameters according to task complexity and",
+      "bbox": [
+        313.20001220703125,
+        437.2962646484375,
+        558.0010375976562,
+        446.20281982421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "environmental conditions. For instance, it can increase the",
+      "bbox": [
+        313.20001220703125,
+        449.2512512207031,
+        558.0010375976562,
+        458.1578063964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "number of diffusion steps in challenging scenarios or enlarge",
+      "bbox": [
+        313.20001220703125,
+        461.2072448730469,
+        558.0010375976562,
+        470.1138000488281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the noise level to promote broader exploration, thereby",
+      "bbox": [
+        313.20001220703125,
+        473.1622314453125,
+        558.0010375976562,
+        482.06878662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "enabling more flexible and effective control. In contrast,",
+      "bbox": [
+        313.20001220703125,
+        485.1172180175781,
+        558.0010375976562,
+        494.0237731933594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "under simple or well-structured conditions, it can reduce both",
+      "bbox": [
+        313.20001220703125,
+        497.07220458984375,
+        558.0009765625,
+        505.978759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the noise magnitude and the diffusion steps, leading to more",
+      "bbox": [
+        313.20001220703125,
+        509.0272216796875,
+        558.0009765625,
+        517.9337768554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "efficient sampling without sacrificing solution quality.",
+      "bbox": [
+        313.20001220703125,
+        520.983154296875,
+        533.1441650390625,
+        529.8897094726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We extensively evaluate LP-MBD and ALP-MBD across",
+      "bbox": [
+        323.16302490234375,
+        532.6621704101562,
+        558.00146484375,
+        541.5687255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diverse environments and settings to demonstrate their effi-",
+      "bbox": [
+        313.20001220703125,
+        544.6171875,
+        558.0009155273438,
+        553.5237426757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ciency and performance. Our experiments include numerical",
+      "bbox": [
+        313.20001220703125,
+        556.5722045898438,
+        558.0009765625,
+        565.478759765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "studies, Mujoco-based benchmarks implemented in Brax,",
+      "bbox": [
+        313.20001220703125,
+        568.5272216796875,
+        558.0010986328125,
+        577.4337768554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and a mobile robot trajectory-tracking task.",
+      "bbox": [
+        313.20001220703125,
+        580.482177734375,
+        490.8330078125,
+        589.3887329101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This paper has three main contributions:",
+      "bbox": [
+        323.16302490234375,
+        592.1622314453125,
+        488.71142578125,
+        601.0687866210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1) Linear Path Model-Based Diffusion (LP-MBD):",
+      "bbox": [
+        323.16302490234375,
+        605.1016235351562,
+        558.0015869140625,
+        614.1277465820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We introduce a flow-matching–inspired linear path",
+      "bbox": [
+        337.43902587890625,
+        617.1762084960938,
+        558.0009765625,
+        626.082763671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scheduler that yields a geometrically interpretable and",
+      "bbox": [
+        337.43902587890625,
+        629.1312255859375,
+        558.0010375976562,
+        638.0377807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "decoupled parameterization. This reduces the burden",
+      "bbox": [
+        337.43902587890625,
+        641.086181640625,
+        558.0010986328125,
+        649.9927368164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of tuning and provides a stable foundation for adaptive",
+      "bbox": [
+        337.43902587890625,
+        653.0411987304688,
+        558.0009765625,
+        661.94775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "extensions.",
+      "bbox": [
+        337.43902587890625,
+        664.9962158203125,
+        381.8423156738281,
+        673.9027709960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2) Adaptive Linear Path MBD (ALP-MBD): Building",
+      "bbox": [
+        323.16302490234375,
+        676.8326416015625,
+        558.00146484375,
+        685.8587646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on LP-MBD, we develop an adaptive scheduler that",
+      "bbox": [
+        337.43902587890625,
+        688.9072265625,
+        558.0010986328125,
+        697.8137817382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "leverages reinforcement learning to adjust diffusion",
+      "bbox": [
+        337.43902587890625,
+        700.8622436523438,
+        558.0009765625,
+        709.768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "steps and noise levels based on the environment state,",
+      "bbox": [
+        337.43902587890625,
+        712.8171997070312,
+        558.0009765625,
+        721.7237548828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "enhancing both robustness and efficiency.",
+      "bbox": [
+        337.43902587890625,
+        724.772216796875,
+        507.0223083496094,
+        733.6787719726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2602.02831v1  [cs.RO]  2 Feb 2026",
+      "bbox": [
+        10.940000534057617,
+        226.5699462890625,
+        37.619998931884766,
+        565.4299926757812
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Adaptive Linear Path Model-Based Diffusion",
+      "author": "Yutaka Shimizu; Masayoshi Tomizuka",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:57610bf)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/alp-mbd-paper/documents/.pdf-skill-scan-qze8slmv/review/source.pdf",
+      "page_count": 8,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          18,
+          226,
+          36,
+          566
+        ],
+        "pos": [
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "class": "title",
+        "bbox": [
+          148,
+          74,
+          464,
+          89
+        ],
+        "pos": [
+          0,
+          51
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          207,
+          108,
+          397,
+          119
+        ],
+        "pos": [
+          51,
+          91
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          53,
+          151,
+          299,
+          359
+        ],
+        "pos": [
+          91,
+          1319
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          130,
+          370,
+          223,
+          378
+        ],
+        "pos": [
+          1319,
+          1340
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          53,
+          387,
+          299,
+          526
+        ],
+        "pos": [
+          1340,
+          1985
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          53,
+          530,
+          299,
+          696
+        ],
+        "pos": [
+          1985,
+          2801
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          53,
+          708,
+          299,
+          734
+        ],
+        "pos": [
+          2801,
+          2988
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          313,
+          150,
+          559,
+          208
+        ],
+        "pos": [
+          2988,
+          3244
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          313,
+          210,
+          559,
+          387
+        ],
+        "pos": [
+          3244,
+          4113
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          313,
+          389,
+          559,
+          530
+        ],
+        "pos": [
+          4113,
+          4805
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          313,
+          532,
+          559,
+          590
+        ],
+        "pos": [
+          4805,
+          5073
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          323,
+          592,
+          489,
+          602
+        ],
+        "pos": [
+          5073,
+          5116
+        ]
+      },
+      {
+        "index": 13,
+        "class": "list-item",
+        "bbox": [
+          323,
+          605,
+          559,
+          672
+        ],
+        "pos": [
+          5116,
+          5397
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          323,
+          676,
+          559,
+          734
+        ],
+        "pos": [
+          5397,
+          5652
+        ]
+      }
+    ],
+    "text": "# **Adaptive Linear Path Model-Based Diffusion** \n\nYutaka Shimizu and Masayoshi Tomizuka \n\n**_Abstract_ — The interest in combining model-based control approaches with diffusion models has been growing. Although we have seen many impressive robotic control results in difficult tasks, the performance of diffusion models is highly sensitive to the choice of scheduling parameters, making parameter tuning one of the most critical challenges. We introduce Linear Path Model-Based Diffusion (LP-MBD), which replaces the variance-preserving schedule with a flow-matching–inspired linear probability path. This yields a geometrically interpretable and decoupled parameterization that reduces tuning complexity and provides a stable foundation for adaptation. Building on this, we propose Adaptive LP-MBD (ALP-MBD), which leverages reinforcement learning to adjust diffusion steps and noise levels according to task complexity and environmental conditions. Across numerical studies, Brax benchmarks, and mobile-robot trajectory tracking, LP-MBD simplifies scheduling while maintaining strong performance, and ALP-MBD further improves robustness, adaptability, and real-time efficiency. Our code is available through anonymous repository https://anonymous.4open.science/r/adaptive_l inear_path_model_based_diffusion-C58C** \n\n## I. INTRODUCTION \n\nDiffusion models have achieved remarkable success in various real-world applications, particularly in image and video generation. Recently, their use has expanded beyond visual domains, with a growing body of work exploring applications in robotic control. Several approaches [1] [2] have been proposed that integrate diffusion models with model-based control to solve complex trajectory optimization problems. These approaches have close relationships with sampling-based optimization methods, and they have been shown to be effective in addressing problems that have nonlinear, non-smooth dynamics and non-convex objectives and constraints. \n\nHowever, the performance of model-based diffusion critically depends on the design of the noise schedule. In diffusion-based approaches, the sampling process consists of a sequence of diffusion steps, where noise is incrementally injected into trajectories and progressively reduced to produce feasible and improved samples. The scale of the injected noise at each step plays an important role in determining performance, and even in the case of a simple linear parameterization with a variance-preserving schedule [1], we need to tune several parameters to get the optimal solution. These parameters are intricately coupled in shaping the overall noise profile, making it difficult to find optimal values. Moreover, the optimal parameters often vary with the system state and the complexity of the problem, which \n\nYutaka Shimizu and Masayoshi Tomizuka are with the Department of Mechanical Engineering, University of California, Berkeley, CA 94720, USA _{_ purewater0901, tomizuka _}_ @berkeley.edu \n\nfrequently leads to overly conservative parameter choices. Even within the same task, the values of the optimal parameters can differ substantially across different conditions. We illustrate this idea by using a self-driving car example shown in Fig. 1. \n\nIn this paper, we first introduce Linear Path Model-Based Diffusion (LP-MBD), a variant of the original Model-Based Diffusion (MBD) framework that replaces the variancepreserving schedule with a linear probability path inspired by Flow Matching [3][4]. LP-MBD offers several advantages over the original MBD. The linear probability path provides a simple, geometrically interpretable interpolation between prior and target distributions; under common Gaussian assumptions, it can align with optimal transport, offering clear theoretical grounding. More importantly, unlike the variance-preserving schedule, where multiple parameters are intricately coupled to determine the noise magnitude, the linear path formulation eliminates such dependencies. As a result, LP-MBD requires fewer hyperparameters, making the tuning process more straightforward and interpretable. \n\nBuilding upon this foundation, we further propose Adaptive Linear Path Model-Based Diffusion (ALP-MBD), which extends LP-MBD with a reinforcement learning–based module for dynamic parameter adjustment. ALP-MBD adapts scheduling parameters according to task complexity and environmental conditions. For instance, it can increase the number of diffusion steps in challenging scenarios or enlarge the noise level to promote broader exploration, thereby enabling more flexible and effective control. In contrast, under simple or well-structured conditions, it can reduce both the noise magnitude and the diffusion steps, leading to more efficient sampling without sacrificing solution quality. \n\nWe extensively evaluate LP-MBD and ALP-MBD across diverse environments and settings to demonstrate their efficiency and performance. Our experiments include numerical studies, Mujoco-based benchmarks implemented in Brax, and a mobile robot trajectory-tracking task. \n\nThis paper has three main contributions: \n\n- 1) **Linear Path Model-Based Diffusion (LP-MBD):** We introduce a flow-matching–inspired linear path scheduler that yields a geometrically interpretable and decoupled parameterization. This reduces the burden of tuning and provides a stable foundation for adaptive extensions. \n\n- 2) **Adaptive Linear Path MBD (ALP-MBD):** Building on LP-MBD, we develop an adaptive scheduler that leverages reinforcement learning to adjust diffusion steps and noise levels based on the environment state, enhancing both robustness and efficiency. \n\n"
+  }
+}

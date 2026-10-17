@@ -1,0 +1,1762 @@
+{
+  "page": 1,
+  "lines": [
+    {
+      "text": "Real-Time Whole-Body Control of Legged Robots",
+      "bbox": [
+        131.06500244140625,
+        74.0442886352539,
+        480.9363708496094,
+        88.3745346069336
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with Model-Predictive Path Integral Control",
+      "bbox": [
+        150.68800354003906,
+        93.96927642822266,
+        461.31463623046875,
+        108.29952239990234
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Juan Alvarez-Padilla1, John Z. Zhang2, Sofia Kwok2, John M. Dolan2, and Zachary Manchester2",
+      "bbox": [
+        86.38400268554688,
+        126.85980224609375,
+        525.1160888671875,
+        138.7171630859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer",
+      "bbox": [
+        55.694000244140625,
+        760.668212890625,
+        556.303955078125,
+        767.7935180664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be accessible.",
+      "bbox": [
+        55.694000244140625,
+        769.6351928710938,
+        100.31063842773438,
+        776.760498046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Abstract— This paper presents a system for enabling real-",
+      "bbox": [
+        70.85800170898438,
+        163.44715881347656,
+        298.80059814453125,
+        171.50794982910156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time synthesis of whole-body locomotion and manipulation",
+      "bbox": [
+        54.000003814697266,
+        173.41017150878906,
+        298.8006286621094,
+        181.47096252441406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policies for real-world legged robots. Motivated by recent",
+      "bbox": [
+        54.000003814697266,
+        183.3721466064453,
+        298.8006286621094,
+        191.4329376220703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "advancements in robot simulation, we leverage the efficient",
+      "bbox": [
+        54.000003814697266,
+        193.3351593017578,
+        298.8006286621094,
+        201.3959503173828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parallelization capabilities of the MuJoCo simulator to achieve",
+      "bbox": [
+        54.000003814697266,
+        203.29713439941406,
+        298.80059814453125,
+        211.35792541503906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fast sampling over the robot state and action trajectories. Our",
+      "bbox": [
+        54.000003814697266,
+        213.26014709472656,
+        298.8006286621094,
+        221.32093811035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "results show surprisingly effective real-world locomotion and",
+      "bbox": [
+        54.000003814697266,
+        223.22315979003906,
+        298.80072021484375,
+        231.28395080566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "manipulation capabilities with a very simple control strategy.",
+      "bbox": [
+        54.000003814697266,
+        233.1851348876953,
+        298.8006591796875,
+        241.2459259033203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We demonstrate our approach on several hardware and sim-",
+      "bbox": [
+        54.000003814697266,
+        243.1481475830078,
+        298.8006591796875,
+        251.2089385986328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ulation experiments: robust locomotion over flat and uneven",
+      "bbox": [
+        54.000003814697266,
+        253.1111602783203,
+        298.8006896972656,
+        261.17193603515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "terrains, climbing over a box whose height is comparable to the",
+      "bbox": [
+        54.000003814697266,
+        263.0731201171875,
+        298.80059814453125,
+        271.1339111328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "robot, and pushing a box to a goal position. To our knowledge,",
+      "bbox": [
+        54.000003814697266,
+        273.0361328125,
+        298.8007507324219,
+        281.096923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this is the first successful deployment of whole-body sampling-",
+      "bbox": [
+        54.000003814697266,
+        282.9991455078125,
+        298.8006286621094,
+        291.0599365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "based MPC on real-world legged robot hardware. Experiment",
+      "bbox": [
+        54.000003814697266,
+        292.9611511230469,
+        298.8006286621094,
+        301.02197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "videos and code can be found at: whole-body-mppi.github.io",
+      "bbox": [
+        54.000003814697266,
+        302.9241638183594,
+        291.68133544921875,
+        310.9849853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I. INTRODUCTION",
+      "bbox": [
+        137.5260009765625,
+        322.6093444824219,
+        215.27879333496094,
+        331.5158996582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Building robots that can gracefully traverse difficult ter-",
+      "bbox": [
+        63.96300506591797,
+        338.8123474121094,
+        298.8014221191406,
+        347.7189025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rains and skillfully manipulate objects like humans and",
+      "bbox": [
+        54.000003814697266,
+        350.767333984375,
+        298.8010559082031,
+        359.67388916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "animals has been a long-standing goal in robotics. For a long",
+      "bbox": [
+        54.000003814697266,
+        362.72332763671875,
+        298.8009338378906,
+        371.6298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time, the topics of robot locomotion [1] and manipulation [2]",
+      "bbox": [
+        54.000003814697266,
+        374.6783142089844,
+        298.8009033203125,
+        383.5848693847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have been studied separately. Recent interest in general-",
+      "bbox": [
+        54.000003814697266,
+        386.63330078125,
+        298.8010559082031,
+        395.53985595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "purpose robot agents (i.e. humanoid robots) in both industry",
+      "bbox": [
+        54.000003814697266,
+        398.5882873535156,
+        298.8008728027344,
+        407.4948425292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and academia has motivated designing control and planning",
+      "bbox": [
+        54.000003814697266,
+        410.54327392578125,
+        298.8009338378906,
+        419.4498291015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "algorithms capable of mastering both locomotion and ma-",
+      "bbox": [
+        54.000003814697266,
+        422.499267578125,
+        298.80096435546875,
+        431.40582275390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nipulation skills in the same embodiment [3], [4]. Despite",
+      "bbox": [
+        54.000003814697266,
+        434.4542541503906,
+        298.801025390625,
+        443.3608093261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this rise in interest, general methods capable of producing",
+      "bbox": [
+        54.000003814697266,
+        446.40924072265625,
+        298.80096435546875,
+        455.3157958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "whole-body behaviors in real time on real-world quadruped",
+      "bbox": [
+        54.000003814697266,
+        458.3642272949219,
+        298.801025390625,
+        467.2707824707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and humanoid robots have so far remained elusive.",
+      "bbox": [
+        54.000003814697266,
+        470.3192138671875,
+        263.2146301269531,
+        479.22576904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this paper, we take advantage of the increasing per-",
+      "bbox": [
+        63.96300506591797,
+        482.459228515625,
+        298.8013916015625,
+        491.36578369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formance of modern-day robotics simulation technology, in",
+      "bbox": [
+        54.000003814697266,
+        494.41522216796875,
+        298.80096435546875,
+        503.32177734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "particular, the MuJoCo physics engine [5], to compute real-",
+      "bbox": [
+        54.000003814697266,
+        506.3702392578125,
+        298.8009338378906,
+        515.2767944335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "time control policies on legged robots using model-predictive",
+      "bbox": [
+        54.000003814697266,
+        518.3251953125,
+        298.8008728027344,
+        527.2317504882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "path integral control (MPPI) [6], [7]. Contrary to the common",
+      "bbox": [
+        54.000003814697266,
+        530.2802124023438,
+        298.801025390625,
+        539.186767578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "belief that sampling approaches in high-dimensional tasks are",
+      "bbox": [
+        54.000003814697266,
+        542.2352294921875,
+        298.8009948730469,
+        551.1417846679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computationally intractable, especially in real-time scenarios,",
+      "bbox": [
+        54.000003814697266,
+        554.190185546875,
+        298.80108642578125,
+        563.0967407226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we find that MPPI can be surprisingly effective at solving",
+      "bbox": [
+        54.000003814697266,
+        566.1461791992188,
+        298.8009948730469,
+        575.052734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "legged robot locomotion and manipulation tasks with a few",
+      "bbox": [
+        54.000003814697266,
+        578.1011962890625,
+        298.8009948730469,
+        587.0077514648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simple design choices. To the best knowledge of the authors,",
+      "bbox": [
+        54.000003814697266,
+        590.0562133789062,
+        298.80096435546875,
+        598.9627685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this work represents the first time sample-based whole-body",
+      "bbox": [
+        54.000003814697266,
+        602.01123046875,
+        298.801025390625,
+        610.9177856445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control has been successfully deployed on real-world legged",
+      "bbox": [
+        54.000003814697266,
+        613.9661865234375,
+        298.8009948730469,
+        622.8727416992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "robots.",
+      "bbox": [
+        54.000003814697266,
+        625.9221801757812,
+        81.39714813232422,
+        634.8287353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "There are several key design choices in our implemen-",
+      "bbox": [
+        63.96300506591797,
+        638.0621948242188,
+        298.8013916015625,
+        646.96875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tation: First, we reduce the size of the search space by",
+      "bbox": [
+        54.000003814697266,
+        650.0172119140625,
+        298.80108642578125,
+        658.9237670898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Juan",
+      "bbox": [
+        62.46800231933594,
+        670.37841796875,
+        81.22819519042969,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Alvarez-Padilla",
+      "bbox": [
+        90.34599304199219,
+        671.9360961914062,
+        140.0475311279297,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "is",
+      "bbox": [
+        149.1653289794922,
+        671.9360961914062,
+        154.48138427734375,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with",
+      "bbox": [
+        163.60714721679688,
+        671.9360961914062,
+        177.77796936035156,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the",
+      "bbox": [
+        186.89576721191406,
+        671.9360961914062,
+        196.63522338867188,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Department",
+      "bbox": [
+        205.75302124023438,
+        671.9360961914062,
+        243.37985229492188,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of",
+      "bbox": [
+        252.49765014648438,
+        671.9360961914062,
+        259.1367492675781,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Electrical",
+      "bbox": [
+        268.26251220703125,
+        671.9360961914062,
+        298.8039855957031,
+        679.0614013671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and",
+      "bbox": [
+        54.000003814697266,
+        680.903076171875,
+        65.50882720947266,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Computer",
+      "bbox": [
+        80.30133056640625,
+        680.903076171875,
+        112.18172454833984,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Engineering,",
+      "bbox": [
+        126.9822006225586,
+        680.903076171875,
+        167.9325408935547,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Carnegie",
+      "bbox": [
+        182.7250518798828,
+        680.903076171875,
+        211.37754821777344,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mellon",
+      "bbox": [
+        226.17005920410156,
+        680.903076171875,
+        249.19566345214844,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University.",
+      "bbox": [
+        263.99615478515625,
+        680.903076171875,
+        298.8016357421875,
+        688.0283813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "jralvare@andrew.cmu.edu",
+      "bbox": [
+        54.000003814697266,
+        689.6688232421875,
+        177.73626708984375,
+        696.5908813476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2John Z. Zhang, Sofia Kwok, John Dolan, and Zachary Manchester",
+      "bbox": [
+        62.46800231933594,
+        697.6663818359375,
+        298.803955078125,
+        706.3494262695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "are",
+      "bbox": [
+        54.000003814697266,
+        708.1901245117188,
+        63.73149490356445,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "with",
+      "bbox": [
+        73.47892761230469,
+        708.1901245117188,
+        87.64976501464844,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the",
+      "bbox": [
+        97.38922882080078,
+        708.1901245117188,
+        107.12869262695312,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Robotics",
+      "bbox": [
+        116.87612915039062,
+        708.1901245117188,
+        145.21778869628906,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Institute,",
+      "bbox": [
+        154.96522521972656,
+        708.1901245117188,
+        183.08370971679688,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Carnegie",
+      "bbox": [
+        192.8231658935547,
+        708.1901245117188,
+        221.4756622314453,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Mellon",
+      "bbox": [
+        231.2230987548828,
+        708.1901245117188,
+        254.2487030029297,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "University.",
+      "bbox": [
+        263.9961242675781,
+        708.1901245117188,
+        298.8016052246094,
+        715.3154296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "johnzhang@cmu.edu, sofiak@andrew.cmu.edu,",
+      "bbox": [
+        54.000003814697266,
+        716.9568481445312,
+        274.5733947753906,
+        723.87890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "jdolan@andrew.cmu.edu, zacm@cmu.edu",
+      "bbox": [
+        54.000003814697266,
+        725.9228515625,
+        242.2943115234375,
+        732.8449096679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 1.",
+      "bbox": [
+        313.20001220703125,
+        268.8533020019531,
+        335.3090515136719,
+        275.9785461425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A Unitree Go1 robot pushing a box to a desired location with",
+      "bbox": [
+        345.84552001953125,
+        268.8533020019531,
+        558.0015869140625,
+        275.9785461425781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPPI on hardware (top row) and corresponding MuJoCo simulation states",
+      "bbox": [
+        313.20001220703125,
+        277.8203125,
+        558.0015258789062,
+        284.945556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(bottom row) on a single sequence. Contact-rich behaviors like body pushes",
+      "bbox": [
+        313.20001220703125,
+        286.78631591796875,
+        558.0016479492188,
+        293.91156005859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and leg kicks emerge in real-time without manual pre-specification or offline",
+      "bbox": [
+        313.20001220703125,
+        295.7523193359375,
+        558.0017700195312,
+        302.8775634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policy training.",
+      "bbox": [
+        313.20001220703125,
+        304.7193298339844,
+        362.5827941894531,
+        311.8445739746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling over the control points of smooth splines in the",
+      "bbox": [
+        313.20001220703125,
+        341.7004089355469,
+        558.0009155273438,
+        350.6069641113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "robot’s joint space and then tracking with low-level PD",
+      "bbox": [
+        313.20001220703125,
+        353.6553955078125,
+        558.0008544921875,
+        362.56195068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "controllers to produce torque commands. Second, we lever-",
+      "bbox": [
+        313.20001220703125,
+        365.61138916015625,
+        558.0009765625,
+        374.5179443359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "age performant multi-threaded robot simulation to achieve",
+      "bbox": [
+        313.20001220703125,
+        377.5663757324219,
+        558.0009155273438,
+        386.4729309082031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "fast real-time sampling and evaluation of simulation roll-",
+      "bbox": [
+        313.20001220703125,
+        389.5213623046875,
+        558.0010375976562,
+        398.42791748046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "outs. Finally, we identify key controller parameters through",
+      "bbox": [
+        313.20001220703125,
+        401.4763488769531,
+        558.0009765625,
+        410.3829040527344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "both empirical observations and a set of ablation studies",
+      "bbox": [
+        313.20001220703125,
+        413.43133544921875,
+        558.0009155273438,
+        422.337890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "in controlled simulation environments. Our real-world and",
+      "bbox": [
+        313.20001220703125,
+        425.3873291015625,
+        558.0009765625,
+        434.29388427734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "simulation results show that a sampling-based controller",
+      "bbox": [
+        313.20001220703125,
+        437.3423156738281,
+        558.0010375976562,
+        446.2488708496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "enabled by a modern physics engine can effectively reason",
+      "bbox": [
+        313.20001220703125,
+        449.29730224609375,
+        558.0010375976562,
+        458.203857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "about whole-body contact-rich behaviors during locomotion",
+      "bbox": [
+        313.20001220703125,
+        461.2522888183594,
+        558.0008544921875,
+        470.1588439941406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and manipulation that are challenging for gradient-based",
+      "bbox": [
+        313.20001220703125,
+        473.207275390625,
+        558.0009155273438,
+        482.11383056640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPC algorithms. Additionally, different from RL approaches",
+      "bbox": [
+        313.20001220703125,
+        485.1622619628906,
+        558.0009765625,
+        494.0688171386719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that require expensive offline training, our controller reasons",
+      "bbox": [
+        313.20001220703125,
+        497.1182556152344,
+        558.0008544921875,
+        506.0248107910156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "about such contact-rich behaviors online in real time.",
+      "bbox": [
+        313.20001220703125,
+        509.0732421875,
+        531.9187622070312,
+        517.9797973632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our specific contributions include:",
+      "bbox": [
+        323.16302490234375,
+        522.6512451171875,
+        464.0340576171875,
+        531.5578002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1) A system for deploying sampling-based predictive con-",
+      "bbox": [
+        323.16302490234375,
+        540.0252685546875,
+        558.0013427734375,
+        548.9318237304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "trollers on legged robots in real time.",
+      "bbox": [
+        337.43902587890625,
+        551.980224609375,
+        490.7533264160156,
+        560.8867797851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2) A set of ablation studies demonstrating the importance",
+      "bbox": [
+        323.16302490234375,
+        563.9362182617188,
+        558.0014038085938,
+        572.8427734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of algorithm hyperparameters that impact system per-",
+      "bbox": [
+        337.43902587890625,
+        575.8912353515625,
+        558.0009765625,
+        584.7977905273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "formance.",
+      "bbox": [
+        337.43902587890625,
+        587.8462524414062,
+        377.5484619140625,
+        596.7528076171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3) A collection of hardware and simulation experiments",
+      "bbox": [
+        323.16302490234375,
+        599.80126953125,
+        558.0013427734375,
+        608.7078247070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "demonstrating our system’s capabilities for solving",
+      "bbox": [
+        337.43902587890625,
+        611.7562255859375,
+        558.0009765625,
+        620.6627807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "high-dimensional, contact-rich, whole-body control",
+      "bbox": [
+        337.43902587890625,
+        623.7112426757812,
+        558.0010375976562,
+        632.6177978515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "problems in real time.",
+      "bbox": [
+        337.43902587890625,
+        635.667236328125,
+        427.8695068359375,
+        644.5737915039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The remainder of this paper is organized as follows:",
+      "bbox": [
+        323.16302490234375,
+        653.041259765625,
+        558.0012817382812,
+        661.9478149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We first review related works on legged robot control and",
+      "bbox": [
+        313.20001220703125,
+        664.9962158203125,
+        558.0009765625,
+        673.9027709960938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MPPI in Section II. Next, we present our system design in",
+      "bbox": [
+        313.20001220703125,
+        676.9512329101562,
+        558.0010375976562,
+        685.8577880859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Section III. Then, we describe real-world results and ablation",
+      "bbox": [
+        313.20001220703125,
+        688.90625,
+        558.0010375976562,
+        697.8128051757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "studies in simulation in Section IV. Finally, we summarize",
+      "bbox": [
+        313.20001220703125,
+        700.8622436523438,
+        558.0009155273438,
+        709.768798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "our conclusions and point to avenues for future research in",
+      "bbox": [
+        313.20001220703125,
+        712.8172607421875,
+        558.0008544921875,
+        721.7238159179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Section V.",
+      "bbox": [
+        313.20001220703125,
+        724.772216796875,
+        356.25836181640625,
+        733.6787719726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "arXiv:2409.10469v1  [cs.RO]  16 Sep 2024",
+      "bbox": [
+        10.940000534057617,
+        211.13995361328125,
+        37.619998931884766,
+        560.0
+      ],
+      "direction": [
+        0.0,
+        -1.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20240917014626Z",
+      "modDate": "D:20240917014626Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/whole-body-mppi-paper/documents/.pdf-skill-scan-jt_q56hi/review/source.pdf",
+      "page_count": 7,
+      "page_number": 1
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          18,
+          211,
+          37,
+          560
+        ],
+        "pos": [
+          0,
+          0
+        ]
+      },
+      {
+        "index": 1,
+        "class": "title",
+        "bbox": [
+          131,
+          74,
+          481,
+          109
+        ],
+        "pos": [
+          0,
+          98
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          86,
+          127,
+          526,
+          139
+        ],
+        "pos": [
+          98,
+          251
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          54,
+          163,
+          299,
+          311
+        ],
+        "pos": [
+          251,
+          1166
+        ]
+      },
+      {
+        "index": 4,
+        "class": "picture",
+        "bbox": [
+          313,
+          157,
+          558,
+          257
+        ],
+        "pos": [
+          1166,
+          1168
+        ]
+      },
+      {
+        "index": 5,
+        "class": "caption",
+        "bbox": [
+          313,
+          268,
+          559,
+          312
+        ],
+        "pos": [
+          1168,
+          1479
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          137,
+          322,
+          216,
+          330
+        ],
+        "pos": [
+          1479,
+          1500
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          54,
+          338,
+          299,
+          478
+        ],
+        "pos": [
+          1500,
+          2196
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          54,
+          482,
+          299,
+          633
+        ],
+        "pos": [
+          2196,
+          2924
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          54,
+          638,
+          299,
+          659
+        ],
+        "pos": [
+          2924,
+          3035
+        ]
+      },
+      {
+        "index": 10,
+        "class": "footnote",
+        "bbox": [
+          54,
+          670,
+          299,
+          697
+        ],
+        "pos": [
+          3035,
+          3176
+        ]
+      },
+      {
+        "index": 11,
+        "class": "footnote",
+        "bbox": [
+          54,
+          697,
+          299,
+          734
+        ],
+        "pos": [
+          3176,
+          3382
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          341,
+          559,
+          516
+        ],
+        "pos": [
+          3382,
+          4254
+        ]
+      },
+      {
+        "index": 13,
+        "class": "text",
+        "bbox": [
+          323,
+          522,
+          465,
+          532
+        ],
+        "pos": [
+          4254,
+          4292
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          323,
+          539,
+          559,
+          561
+        ],
+        "pos": [
+          4292,
+          4391
+        ]
+      },
+      {
+        "index": 15,
+        "class": "list-item",
+        "bbox": [
+          323,
+          563,
+          559,
+          595
+        ],
+        "pos": [
+          4391,
+          4514
+        ]
+      },
+      {
+        "index": 16,
+        "class": "list-item",
+        "bbox": [
+          323,
+          599,
+          559,
+          645
+        ],
+        "pos": [
+          4514,
+          4699
+        ]
+      },
+      {
+        "index": 17,
+        "class": "text",
+        "bbox": [
+          313,
+          652,
+          559,
+          732
+        ],
+        "pos": [
+          4699,
+          5063
+        ]
+      },
+      {
+        "index": 18,
+        "class": "page-footer",
+        "bbox": [
+          55,
+          760,
+          557,
+          776
+        ],
+        "pos": [
+          5063,
+          5231
+        ]
+      }
+    ],
+    "text": "# **Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control** \n\nJuan Alvarez-Padilla<sup>1</sup> , John Z. Zhang<sup>2</sup> , Sofia Kwok<sup>2</sup> , John M. Dolan<sup>2</sup> , and Zachary Manchester<sup>2</sup> \n\n**_Abstract_ — This paper presents a system for enabling realtime synthesis of whole-body locomotion and manipulation policies for real-world legged robots. Motivated by recent advancements in robot simulation, we leverage the efficient parallelization capabilities of the MuJoCo simulator to achieve fast sampling over the robot state and action trajectories. Our results show surprisingly effective real-world locomotion and manipulation capabilities with a very simple control strategy. We demonstrate our approach on several hardware and simulation experiments: robust locomotion over flat and uneven terrains, climbing over a box whose height is comparable to the robot, and pushing a box to a goal position. To our knowledge, this is the first successful deployment of whole-body samplingbased MPC on real-world legged robot hardware. Experiment videos and code can be found at: whole-body-mppi.github.io** \n\n\n\nFig. 1. A Unitree Go1 robot pushing a box to a desired location with MPPI on hardware (top row) and corresponding MuJoCo simulation states (bottom row) on a single sequence. Contact-rich behaviors like body pushes and leg kicks emerge in real-time without manual pre-specification or offline policy training. \n\n## I. INTRODUCTION \n\nBuilding robots that can gracefully traverse difficult terrains and skillfully manipulate objects like humans and animals has been a long-standing goal in robotics. For a long time, the topics of robot locomotion [1] and manipulation [2] have been studied separately. Recent interest in generalpurpose robot agents (i.e. humanoid robots) in both industry and academia has motivated designing control and planning algorithms capable of mastering both locomotion and manipulation skills in the same embodiment [3], [4]. Despite this rise in interest, general methods capable of producing whole-body behaviors in real time on real-world quadruped and humanoid robots have so far remained elusive. \n\nIn this paper, we take advantage of the increasing performance of modern-day robotics simulation technology, in particular, the MuJoCo physics engine [5], to compute realtime control policies on legged robots using model-predictive path integral control (MPPI) [6], [7]. Contrary to the common belief that sampling approaches in high-dimensional tasks are computationally intractable, especially in real-time scenarios, we find that MPPI can be surprisingly effective at solving legged robot locomotion and manipulation tasks with a few simple design choices. To the best knowledge of the authors, this work represents the first time sample-based whole-body control has been successfully deployed on real-world legged robots. \n\nThere are several key design choices in our implementation: First, we reduce the size of the search space by \n\n> 1Juan Alvarez-Padilla is with the Department of Electrical and Computer Engineering, Carnegie Mellon University. jralvare@andrew.cmu.edu \n\n> 2John Z. Zhang, Sofia Kwok, John Dolan, and Zachary Manchester are with the Robotics Institute, Carnegie Mellon University. johnzhang@cmu.edu, sofiak@andrew.cmu.edu, jdolan@andrew.cmu.edu, zacm@cmu.edu \n\nsampling over the control points of smooth splines in the robot’s joint space and then tracking with low-level PD controllers to produce torque commands. Second, we leverage performant multi-threaded robot simulation to achieve fast real-time sampling and evaluation of simulation rollouts. Finally, we identify key controller parameters through both empirical observations and a set of ablation studies in controlled simulation environments. Our real-world and simulation results show that a sampling-based controller enabled by a modern physics engine can effectively reason about whole-body contact-rich behaviors during locomotion and manipulation that are challenging for gradient-based MPC algorithms. Additionally, different from RL approaches that require expensive offline training, our controller reasons about such contact-rich behaviors online in real time. \n\nOur specific contributions include: \n\n- 1) A system for deploying sampling-based predictive controllers on legged robots in real time. \n\n- 2) A set of ablation studies demonstrating the importance of algorithm hyperparameters that impact system performance. \n\n- 3) A collection of hardware and simulation experiments demonstrating our system’s capabilities for solving high-dimensional, contact-rich, whole-body control problems in real time. \n\nThe remainder of this paper is organized as follows: We first review related works on legged robot control and MPPI in Section II. Next, we present our system design in Section III. Then, we describe real-world results and ablation studies in simulation in Section IV. Finally, we summarize our conclusions and point to avenues for future research in Section V. \n\nThis work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible. \n\n"
+  }
+}

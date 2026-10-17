@@ -1,0 +1,899 @@
+{
+  "page": 20,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "G",
+      "bbox": [
+        72.0,
+        83.52706909179688,
+        80.7631607055664,
+        94.14328002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Long-horizon dynamics prediction",
+      "bbox": [
+        93.91387939453125,
+        83.52706909179688,
+        276.93603515625,
+        94.14328002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Following Schubert et al. (2023), we measure prediction errors by the median Root Mean Square Deviation",
+      "bbox": [
+        72.0,
+        108.30592346191406,
+        540.2023315429688,
+        118.26852416992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(RMSD) on the non-velocity coordinates, as depicted in Figure 2. While this metric allows us to directly",
+      "bbox": [
+        70.83399963378906,
+        120.26094055175781,
+        540.5859985351562,
+        130.22354125976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "analyze the effectiveness of the dynamics model, it is a somewhat crude metric of the correctness or usefulness",
+      "bbox": [
+        72.0,
+        132.2158966064453,
+        540.2601928710938,
+        142.17849731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of the prediction. For example, the following predictions would all produce errors ≲1.0 compared to the",
+      "bbox": [
+        72.0,
+        144.17091369628906,
+        540.0328369140625,
+        154.13351440429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "correct ones: treating each walker as a bundle of limbs with the same center-of-mass, predicting states that",
+      "bbox": [
+        72.0,
+        156.1269073486328,
+        540.4911499023438,
+        166.08950805664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "would trigger termination criteria (unreasonable joint angles), or predicting an upside down position for the",
+      "bbox": [
+        71.64099884033203,
+        168.08192443847656,
+        540.2330322265625,
+        178.04452514648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "HalfCheetah (a state from which it cannot recover). This metric is a more effective probe of dynamics model",
+      "bbox": [
+        72.0,
+        180.0369415283203,
+        540.1906127929688,
+        189.99954223632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "quality in the regime where the errors are smaller. We see in Figure 2 that the multi-step diffusion dynamics",
+      "bbox": [
+        72.0,
+        191.9918975830078,
+        540.2177734375,
+        201.95449829101562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model in particular has low prediction errors even for long rollouts, indicating that it performs well in these",
+      "bbox": [
+        72.0,
+        203.94691467285156,
+        540.2257080078125,
+        213.90951538085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "situations.",
+      "bbox": [
+        72.0,
+        215.9019317626953,
+        116.9711685180664,
+        225.86453247070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "H",
+      "bbox": [
+        72.0,
+        244.22012329101562,
+        81.50438690185547,
+        254.83633422851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Generalization to novel rewards",
+      "bbox": [
+        94.65510559082031,
+        244.22012329101562,
+        266.5231018066406,
+        254.83633422851562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For the examples in Fig. 1, we first trained the dynamics, action proposal and value components of D-MPC",
+      "bbox": [
+        72.0,
+        268.9989013671875,
+        540.1923828125,
+        278.9615173339844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "on the Walker2d medium-replay dataset. The leftmost column shows the agent’s height and rewards attained",
+      "bbox": [
+        72.0,
+        280.95391845703125,
+        540.2015380859375,
+        290.9165344238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "during an example episode generated by D-MPC.",
+      "bbox": [
+        72.0,
+        292.9089050292969,
+        287.7898864746094,
+        302.87152099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To incorporate novel rewards, we replaced the the trained value model in the planning loop with a novel",
+      "bbox": [
+        71.64099884033203,
+        310.8419189453125,
+        540.2142333984375,
+        320.8045349121094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "objective based solely on the height of the agent. For this objective, we used fnovel(st, At) = 5 exp(−(ht −",
+      "bbox": [
+        72.0,
+        322.7969055175781,
+        540.0018920898438,
+        334.1947326660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "htarget)2/2σ2), where ht is the dimension of the state st that corresponds to the height of the agent, htarget is",
+      "bbox": [
+        71.99996948242188,
+        334.3020324707031,
+        540.0077514648438,
+        346.2095031738281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the desired target height, σ2 = 5 × 10−4, κ = 0 and ˜κ = 1. The scale factor of 5 in the reward function fnovel",
+      "bbox": [
+        72.0,
+        343.0919189453125,
+        539.4985961914062,
+        357.52490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "was chosen to roughly match the maximum reward attainable in the environment.",
+      "bbox": [
+        71.6409912109375,
+        358.66290283203125,
+        430.65313720703125,
+        368.6255187988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In each episode, the agent starts at a height of 1.25 (with uniform noise in the range of [−5 × 10−4, 5 × 10−4]",
+      "bbox": [
+        72.0,
+        375.71966552734375,
+        540.0022583007812,
+        386.5575256347656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "added for stochasticity).",
+      "bbox": [
+        72.0,
+        388.5509033203125,
+        182.17478942871094,
+        398.5135192871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Figure 1 demonstrates the agent’s behavior for different target heights.",
+      "bbox": [
+        190.41604614257812,
+        388.5509033203125,
+        517.3028564453125,
+        398.5135192871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For",
+      "bbox": [
+        525.5542602539062,
+        388.5509033203125,
+        540.4210815429688,
+        398.5135192871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "htarget = 1.2, which is close to the initial position, the agent maintains the desired height for an extended",
+      "bbox": [
+        72.0,
+        400.50592041015625,
+        540.2124633789062,
+        411.9625244140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "duration. For htarget = 0.9, the agent lowers its torso to achieve the target height, but eventually leans too",
+      "bbox": [
+        72.0,
+        412.4609069824219,
+        540.1651000976562,
+        423.9175109863281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "far forward resulting in early episode termination. For htarget = 1.4, the agent has to jump to achieve the",
+      "bbox": [
+        72.0,
+        424.4158935546875,
+        540.0806274414062,
+        435.87249755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "desired height, which can only be momentarily attained due to the environment’s physics. In the example",
+      "bbox": [
+        72.0,
+        436.37091064453125,
+        540.2312622070312,
+        446.3335266113281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "shown, the agent jumps three times before falling over, leading to early episode termination.",
+      "bbox": [
+        72.0,
+        448.3258972167969,
+        475.2161560058594,
+        458.28851318359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "I",
+      "bbox": [
+        72.0,
+        476.6440734863281,
+        75.95716857910156,
+        487.2602844238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Adaptation to novel dynamics",
+      "bbox": [
+        89.1078872680664,
+        476.6440734863281,
+        252.43983459472656,
+        487.2602844238281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We used D-MPC and our implementation of the diffuser models trained on Walker2D medium dataset as our",
+      "bbox": [
+        71.49199676513672,
+        501.42291259765625,
+        540.3868408203125,
+        511.3855285644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pre-trained models. To simulate defective hardware, we modified the action being executed in the environment.",
+      "bbox": [
+        72.0,
+        513.3779296875,
+        542.1640014648438,
+        523.3405151367188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Specifically, we clip the action component corresponding to the torque applied on the right foot rotor to",
+      "bbox": [
+        72.0,
+        525.3328857421875,
+        540.2177734375,
+        535.2954711914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "[−0.5, 0.5] vs the original [−1, 1].",
+      "bbox": [
+        72.0,
+        537.2879028320312,
+        214.70660400390625,
+        547.25048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To collect the play data on this defective hardware, we run our D-MPC model trained on medium-replay",
+      "bbox": [
+        71.64099884033203,
+        555.2208862304688,
+        540.5597534179688,
+        565.1834716796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dataset, and collect data for 100 episodes. It has a total of 30170 transitions (steps) and an average normalized",
+      "bbox": [
+        72.0,
+        567.1759033203125,
+        540.2017211914062,
+        577.1384887695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "episode reward of 23.14 (± 2.31). Note that the actions in this dataset correspond to the actions output by",
+      "bbox": [
+        72.0,
+        579.1309204101562,
+        540.5232543945312,
+        589.093505859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the model and not the clipped actions.",
+      "bbox": [
+        72.0,
+        591.0869140625,
+        240.95571899414062,
+        601.0494995117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For fine-tuning, we load the pre-trained diffuser and D-MPC models and train them on this dataset with",
+      "bbox": [
+        72.0,
+        609.0189208984375,
+        540.18701171875,
+        618.9815063476562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "same training parameters as the original training. For D-MPC, we only train the dynamics model and freeze",
+      "bbox": [
+        72.0,
+        620.9749145507812,
+        540.1910400390625,
+        630.9375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "other components. For the diffuser, we fine-tune the full model, since it is a joint model. During online",
+      "bbox": [
+        72.0,
+        632.929931640625,
+        540.2176513671875,
+        642.8925170898438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "evaluation, we sampled 256 trajectories in both the models and picked the one with the best value to execute",
+      "bbox": [
+        72.0,
+        644.8848876953125,
+        540.2308349609375,
+        654.8474731445312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the action at each step. We report the maximum scores for both approaches.",
+      "bbox": [
+        72.0,
+        656.8399047851562,
+        408.19793701171875,
+        666.802490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "J",
+      "bbox": [
+        72.0,
+        685.1580810546875,
+        78.21670532226562,
+        695.7743530273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Timing measurements",
+      "bbox": [
+        91.36742401123047,
+        685.1580810546875,
+        212.40185546875,
+        695.7743530273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "To illustrate the differences in run times between different methods, we list in Table 7 the measured wall clock",
+      "bbox": [
+        71.64099884033203,
+        709.9368896484375,
+        540.487060546875,
+        719.8994750976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planning time (along with standard errors) per execution step, on a single A100 GPU, for each algorithm, in",
+      "bbox": [
+        72.0,
+        721.8919067382812,
+        540.1956787109375,
+        731.8544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "20",
+      "bbox": [
+        300.8940124511719,
+        751.7799072265625,
+        310.8565979003906,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 20
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          72,
+          83,
+          277,
+          95
+        ],
+        "pos": [
+          74,
+          117
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          70,
+          108,
+          541,
+          224
+        ],
+        "pos": [
+          117,
+          1110
+        ]
+      },
+      {
+        "index": 3,
+        "class": "section-header",
+        "bbox": [
+          72,
+          244,
+          267,
+          253
+        ],
+        "pos": [
+          1110,
+          1152
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          72,
+          268,
+          541,
+          303
+        ],
+        "pos": [
+          1152,
+          1410
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          311,
+          541,
+          369
+        ],
+        "pos": [
+          1410,
+          2039
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          72,
+          376,
+          541,
+          459
+        ],
+        "pos": [
+          2039,
+          2842
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          72,
+          476,
+          253,
+          488
+        ],
+        "pos": [
+          2842,
+          2881
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          71,
+          501,
+          543,
+          548
+        ],
+        "pos": [
+          2881,
+          3260
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          71,
+          556,
+          541,
+          601
+        ],
+        "pos": [
+          3260,
+          3627
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          72,
+          609,
+          541,
+          667
+        ],
+        "pos": [
+          3627,
+          4128
+        ]
+      },
+      {
+        "index": 11,
+        "class": "section-header",
+        "bbox": [
+          72,
+          685,
+          213,
+          696
+        ],
+        "pos": [
+          4128,
+          4158
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          71,
+          709,
+          541,
+          733
+        ],
+        "pos": [
+          4158,
+          4381
+        ]
+      },
+      {
+        "index": 13,
+        "class": "page-footer",
+        "bbox": [
+          300,
+          753,
+          311,
+          760
+        ],
+        "pos": [
+          4381,
+          4386
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\n# **G Long-horizon dynamics prediction** \n\nFollowing Schubert et al. (2023), we measure prediction errors by the median Root Mean Square Deviation (RMSD) on the non-velocity coordinates, as depicted in Figure 2. While this metric allows us to directly analyze the effectiveness of the dynamics model, it is a somewhat crude metric of the correctness or usefulness of the prediction. For example, the following predictions would all produce errors ≲ 1 _._ 0 compared to the correct ones: treating each walker as a bundle of limbs with the same center-of-mass, predicting states that would trigger termination criteria (unreasonable joint angles), or predicting an upside down position for the HalfCheetah (a state from which it cannot recover). This metric is a more effective probe of dynamics model quality in the regime where the errors are smaller. We see in Figure 2 that the multi-step diffusion dynamics model in particular has low prediction errors even for long rollouts, indicating that it performs well in these situations. \n\n# **H Generalization to novel rewards** \n\nFor the examples in Fig. 1, we first trained the dynamics, action proposal and value components of D-MPC on the Walker2d medium-replay dataset. The leftmost column shows the agent’s height and rewards attained during an example episode generated by D-MPC. \n\nTo incorporate novel rewards, we replaced the the trained value model in the planning loop with a novel objective based solely on the height of the agent. For this objective, we used _f_ novel( **_s_** _t,_ **A** _t_ ) = 5 exp( _−_ ( _ht − h_ target)<sup>2</sup> _/_ 2 _σ_<sup>2</sup> ), where _ht_ is the dimension of the state **_s_** _t_ that corresponds to the height of the agent, _h_ target is the desired target height, _σ_<sup>2</sup> = 5 _×_ 10<sup>_−_4</sup> , _κ_ = 0 and _κ_ ˜ = 1. The scale factor of 5 in the reward function _f_ novel was chosen to roughly match the maximum reward attainable in the environment. \n\nIn each episode, the agent starts at a height of 1.25 (with uniform noise in the range of [ _−_ 5 _×_ 10<sup>_−_4</sup> _,_ 5 _×_ 10<sup>_−_4</sup> ] added for stochasticity). Figure 1 demonstrates the agent’s behavior for different target heights. For _h_ target = 1 _._ 2, which is close to the initial position, the agent maintains the desired height for an extended duration. For _h_ target = 0 _._ 9, the agent lowers its torso to achieve the target height, but eventually leans too far forward resulting in early episode termination. For _h_ target = 1 _._ 4, the agent has to jump to achieve the desired height, which can only be momentarily attained due to the environment’s physics. In the example shown, the agent jumps three times before falling over, leading to early episode termination. \n\n# **I Adaptation to novel dynamics** \n\nWe used D-MPC and our implementation of the diffuser models trained on Walker2D medium dataset as our pre-trained models. To simulate defective hardware, we modified the action being executed in the environment. Specifically, we clip the action component corresponding to the torque applied on the right foot rotor to [ _−_ 0 _._ 5 _,_ 0 _._ 5] vs the original [ _−_ 1 _,_ 1]. \n\nTo collect the play data on this defective hardware, we run our D-MPC model trained on medium-replay dataset, and collect data for 100 episodes. It has a total of 30170 transitions (steps) and an average normalized episode reward of 23.14 ( _±_ 2.31). Note that the actions in this dataset correspond to the actions output by the model and not the clipped actions. \n\nFor fine-tuning, we load the pre-trained diffuser and D-MPC models and train them on this dataset with same training parameters as the original training. For D-MPC, we only train the dynamics model and freeze other components. For the diffuser, we fine-tune the full model, since it is a joint model. During online evaluation, we sampled 256 trajectories in both the models and picked the one with the best value to execute the action at each step. We report the maximum scores for both approaches. \n\n# **J Timing measurements** \n\nTo illustrate the differences in run times between different methods, we list in Table 7 the measured wall clock planning time (along with standard errors) per execution step, on a single A100 GPU, for each algorithm, in \n\n20 \n\n"
+  }
+}

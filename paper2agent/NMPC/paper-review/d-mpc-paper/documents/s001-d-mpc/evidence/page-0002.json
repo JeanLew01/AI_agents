@@ -1,0 +1,922 @@
+{
+  "page": 2,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "F from the current timestep t",
+      "bbox": [
+        72.0,
+        83.85389709472656,
+        202.52349853515625,
+        93.81649780273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "at:t+F −1 = arg max",
+      "bbox": [
+        156.9770050048828,
+        112.21888732910156,
+        241.97311401367188,
+        123.67550659179688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "at:t+F −1",
+      "bbox": [
+        208.8289794921875,
+        123.26412200927734,
+        240.58226013183594,
+        130.07232666015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Epd(st+1:t+F |st,at:t+F −1,ht)",
+      "bbox": [
+        243.79098510742188,
+        115.56631469726562,
+        351.4373779296875,
+        124.34291076660156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "h",
+      "bbox": [
+        351.93804931640625,
+        108.73149871826172,
+        356.6404113769531,
+        115.1075668334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "J(at:t+F −1, st+1:t+F )",
+      "bbox": [
+        356.6430358886719,
+        112.21894836425781,
+        447.5524597167969,
+        123.67556762695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i",
+      "bbox": [
+        447.5509948730469,
+        108.73149871826172,
+        452.25335693359375,
+        115.1075668334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        452.2559814453125,
+        113.27497863769531,
+        455.02557373046875,
+        122.12177276611328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1)",
+      "bbox": [
+        528.4349975585938,
+        112.21894836425781,
+        541.1671752929688,
+        122.18154907226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where ht ≡{s1:t−1, a1:t−1} is the history. MPC thus factorizes the problem that the agent needs to solve",
+      "bbox": [
+        71.64099884033203,
+        145.40589904785156,
+        540.1788330078125,
+        156.8037109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "into two pieces: a modeling problem (representing the dynamics model pd(st+1:t+F |s1:t, a1:t+F −1), which in",
+      "bbox": [
+        72.0,
+        157.3609161376953,
+        540.019287109375,
+        168.75872802734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this paper we learn from offline trajectory data) and a planning problem (finding the best sequence of actions",
+      "bbox": [
+        72.0,
+        169.31593322753906,
+        540.2213134765625,
+        179.27853393554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for a given reward function). Once we have chosen the action sequence, we can execute the first action at (or",
+      "bbox": [
+        72.0,
+        181.2719268798828,
+        540.2037963867188,
+        192.72854614257812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "chunk of actions) and then replan, after observing the resulting next state, thus creating a closed loop policy.",
+      "bbox": [
+        72.0,
+        193.22694396972656,
+        542.1049194335938,
+        203.18954467773438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The advantage of this MPC approach compared to standard policy learning methods is that we can easily",
+      "bbox": [
+        71.64099884033203,
+        211.15992736816406,
+        540.560791015625,
+        221.12252807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "adapt to novel reward functions at test time, simply by searching for state-action trajectories with high reward.",
+      "bbox": [
+        72.0,
+        223.1149444580078,
+        542.154296875,
+        233.07754516601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "This makes the approach more flexible than policy learning methods, which are designed to optimize a fixed",
+      "bbox": [
+        71.64099884033203,
+        235.0699005126953,
+        540.221435546875,
+        245.03250122070312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reward function.1 In addition, learning a dynamics model is often more sample-efficient than learning a policy",
+      "bbox": [
+        72.0,
+        243.40992736816406,
+        540.5286865234375,
+        256.9875183105469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "directly (Zhu et al.). This is because dynamics model training is essentially a supervised regression problem,",
+      "bbox": [
+        72.0,
+        258.97991943359375,
+        541.6455078125,
+        268.9425354003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "predicting the next state given the current state and action—a mapping that is typically well-behaved and",
+      "bbox": [
+        72.0,
+        270.9349365234375,
+        540.2203979492188,
+        280.8975524902344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "near-deterministic. Policy learning, however, involves predicting actions, where the optimal behavior may be",
+      "bbox": [
+        72.0,
+        282.8908996582031,
+        540.2291259765625,
+        292.853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "multimodal (multiple good actions exist) and require accurate long-horizon credit assignment, making it a",
+      "bbox": [
+        72.0,
+        294.8459167480469,
+        540.19580078125,
+        304.80853271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "more complex learning task given the same data budget. Finally, dynamics models can often be adapted",
+      "bbox": [
+        72.0,
+        306.8009033203125,
+        540.2073364257812,
+        316.7635192871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "more easily than policies to novel environments, as we show in our experiments.",
+      "bbox": [
+        72.0,
+        318.75592041015625,
+        421.01971435546875,
+        328.7185363769531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "However, to make MPC effective in practice, we have to tackle two main problems. First, the dynamics",
+      "bbox": [
+        72.0,
+        336.68890380859375,
+        540.1769409179688,
+        346.6515197753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model needs to be accurate to avoid the problem of compounding errors, where errors in next state prediction",
+      "bbox": [
+        72.0,
+        348.6439208984375,
+        540.2308959960938,
+        358.6065368652344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "accumulate over time as the trajectory is rolled out (Venkatraman et al., 2015; Asadi et al., 2019; Xiao et al.,",
+      "bbox": [
+        72.0,
+        360.5989074707031,
+        541.5587158203125,
+        370.5615234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2019; Lambert et al., 2022). To avoid compounding errors, multi-step models are preferable. However, these",
+      "bbox": [
+        71.7509994506836,
+        372.55389404296875,
+        540.183349609375,
+        382.5165100097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "require a model class capable of capturing the complex, multimodal distribution of entire trajectories. This",
+      "bbox": [
+        72.0,
+        384.5089111328125,
+        540.232177734375,
+        394.4715270996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "motivates our use of diffusion models. Second, the planning algorithm needs to be powerful enough to select",
+      "bbox": [
+        72.0,
+        396.46490478515625,
+        540.4909057617188,
+        406.4275207519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a good sequence of actions, avoiding the need to exhaustively search through a large space of possible actions.",
+      "bbox": [
+        72.0,
+        408.419921875,
+        542.1837768554688,
+        418.3825378417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We tackle both problems by using diffusion models to learn joint trajectory-level representations of (1) the",
+      "bbox": [
+        71.49199676513672,
+        426.3529052734375,
+        540.2330932617188,
+        436.3155212402344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "world dynamics, pd(st+1:t+F |st, at:t+F −1, ht), which we learn using offline “play” data (Cui et al., 2023); and",
+      "bbox": [
+        71.64099884033203,
+        438.30792236328125,
+        540.0989379882812,
+        449.7047424316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(2), an action sequence proposal distribution, ρ(at:t+F −1|ht), which we can also learn offline using behavior",
+      "bbox": [
+        70.83399963378906,
+        450.2629089355469,
+        540.288818359375,
+        461.07989501953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "cloning on some demonstration data. Although such a proposal distribution might suggest actions that are",
+      "bbox": [
+        72.0,
+        462.2178955078125,
+        540.2006225585938,
+        472.1805114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "not optimal for solving new rewards that were not seen during training, we show how to compensate for",
+      "bbox": [
+        72.0,
+        474.17291259765625,
+        540.3801879882812,
+        484.1355285644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this using a simple sampling-based planner, a variant of the random shooting method that uses a multi-step",
+      "bbox": [
+        72.0,
+        486.1278991699219,
+        540.1954956054688,
+        496.09051513671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion model trained on offline datasets as the action proposal and a simple alternative to more complex",
+      "bbox": [
+        72.0,
+        498.0838928222656,
+        540.4478149414062,
+        508.0465087890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methods such as trajectory optimization or cross-entropy method. We call our overall approach Diffusion",
+      "bbox": [
+        72.0,
+        510.0389404296875,
+        540.0046997070312,
+        520.0015258789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Model Predictive Control (D-MPC).",
+      "bbox": [
+        71.39900207519531,
+        521.993896484375,
+        228.1797332763672,
+        531.9564819335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We show experimentally (on a variety of state-based continuous control tasks from the D4RL benchmarks",
+      "bbox": [
+        71.49199676513672,
+        539.9268798828125,
+        540.197998046875,
+        549.8894653320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Fu et al., 2020)) that our proposed D-MPC framework significantly outperforms existing model-based offline",
+      "bbox": [
+        70.83399963378906,
+        551.8818969726562,
+        540.177734375,
+        561.844482421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "planning methods, such as MBOP (Argenson & Dulac-Arnold, 2021), which learns a single-step dynamics",
+      "bbox": [
+        72.0,
+        563.8369140625,
+        540.1976928710938,
+        573.7994995117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model and a single-step action proposal, and hence suffers from the compounding error problem. By contrast,",
+      "bbox": [
+        72.0,
+        575.7918701171875,
+        541.597900390625,
+        585.7544555664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D-MPC learns more accurate trajectory-level models, which avoid this issue, and allow our model-based",
+      "bbox": [
+        72.0,
+        587.7468872070312,
+        540.1971435546875,
+        597.70947265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "approach to match (and sometimes exceed) the performance of model-free offline-RL methods. We also show",
+      "bbox": [
+        72.0,
+        599.702880859375,
+        540.5477294921875,
+        609.6654663085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "that our D-MPC method can optimize novel rewards at test time, and that we are able to fine-tune the",
+      "bbox": [
+        72.0,
+        611.6578979492188,
+        540.177001953125,
+        621.6204833984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dynamics model to a new environment (after a simulated motor defect in the robot) using a small amount of",
+      "bbox": [
+        72.0,
+        623.6129150390625,
+        540.1688842773438,
+        633.5755004882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "data. Finally we perform an ablation analysis of our method, and show that the different pieces — namely",
+      "bbox": [
+        72.0,
+        635.56787109375,
+        540.5609741210938,
+        645.5304565429688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the use of stochastic multi-step dynamics, multi-step action proposals, and the sampling-based planner with",
+      "bbox": [
+        72.0,
+        647.5228881835938,
+        540.22412109375,
+        657.4854736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "learned action proposals — are each individually valuable, but produce even more benefits when combined.",
+      "bbox": [
+        72.0,
+        659.4779052734375,
+        540.7999877929688,
+        669.4404907226562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In summary, our key contributions are:",
+      "bbox": [
+        72.0,
+        677.410888671875,
+        242.4899444580078,
+        687.3734741210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1Goal-conditioned reinforcement learning (RL) can increase the flexibility of the policy, but the requested goal (or something",
+      "bbox": [
+        83.09200286865234,
+        704.0014038085938,
+        539.8654174804688,
+        712.5269775390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "very similar to it) needs to have been seen in the training set, so it cannot optimize completely novel reward functions that are",
+      "bbox": [
+        71.77999877929688,
+        714.0208740234375,
+        539.843017578125,
+        721.990966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "specified at run time.",
+      "bbox": [
+        72.0,
+        723.4859008789062,
+        150.82431030273438,
+        731.4559936523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2",
+      "bbox": [
+        303.385009765625,
+        751.7799072265625,
+        308.3663024902344,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 2
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          72,
+          84,
+          203,
+          94
+        ],
+        "pos": [
+          74,
+          110
+        ]
+      },
+      {
+        "index": 2,
+        "class": "formula",
+        "bbox": [
+          156,
+          108,
+          542,
+          130
+        ],
+        "pos": [
+          110,
+          112
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          71,
+          145,
+          543,
+          204
+        ],
+        "pos": [
+          112,
+          756
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          71,
+          212,
+          543,
+          329
+        ],
+        "pos": [
+          756,
+          1816
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          336,
+          543,
+          419
+        ],
+        "pos": [
+          1816,
+          2577
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          70,
+          426,
+          541,
+          533
+        ],
+        "pos": [
+          2577,
+          3573
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          70,
+          540,
+          542,
+          670
+        ],
+        "pos": [
+          3573,
+          4724
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          72,
+          678,
+          243,
+          688
+        ],
+        "pos": [
+          4724,
+          4765
+        ]
+      },
+      {
+        "index": 9,
+        "class": "footnote",
+        "bbox": [
+          71,
+          704,
+          540,
+          732
+        ],
+        "pos": [
+          4765,
+          5049
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          753,
+          309,
+          760
+        ],
+        "pos": [
+          5049,
+          5053
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\n_F_ from the current timestep _t_ \n\n\n\nwhere **_h_** _t ≡{_ **_s_** 1: _t−_ 1 _,_ **_a_** 1: _t−_ 1 _}_ is the history. MPC thus factorizes the problem that the agent needs to solve into two pieces: a modeling problem (representing the dynamics model _pd_ ( **_s_** _t_ +1: _t_ + _F |_ **_s_** 1: _t,_ **_a_** 1: _t_ + _F −_ 1), which in this paper we learn from offline trajectory data) and a planning problem (finding the best sequence of actions for a given reward function). Once we have chosen the action sequence, we can execute the first action **_a_** _t_ (or chunk of actions) and then replan, after observing the resulting next state, thus creating a closed loop policy. \n\nThe advantage of this MPC approach compared to standard policy learning methods is that we can easily adapt to novel reward functions at test time, simply by searching for state-action trajectories with high reward. This makes the approach more flexible than policy learning methods, which are designed to optimize a fixed reward function.<sup>1</sup> In addition, learning a dynamics model is often more sample-efficient than learning a policy directly (Zhu et al.). This is because dynamics model training is essentially a supervised regression problem, predicting the next state given the current state and action—a mapping that is typically well-behaved and near-deterministic. Policy learning, however, involves predicting actions, where the optimal behavior may be multimodal (multiple good actions exist) and require accurate long-horizon credit assignment, making it a more complex learning task given the same data budget. Finally, dynamics models can often be adapted more easily than policies to novel environments, as we show in our experiments. \n\nHowever, to make MPC effective in practice, we have to tackle two main problems. First, the dynamics model needs to be accurate to avoid the problem of compounding errors, where errors in next state prediction accumulate over time as the trajectory is rolled out (Venkatraman et al., 2015; Asadi et al., 2019; Xiao et al., 2019; Lambert et al., 2022). To avoid compounding errors, multi-step models are preferable. However, these require a model class capable of capturing the complex, multimodal distribution of entire trajectories. This motivates our use of diffusion models. Second, the planning algorithm needs to be powerful enough to select a good sequence of actions, avoiding the need to exhaustively search through a large space of possible actions. \n\nWe tackle both problems by using diffusion models to learn joint trajectory-level representations of (1) the world dynamics, _pd_ ( **_s_** _t_ +1: _t_ + _F |_ **_s_** _t,_ **_a_** _t_ : _t_ + _F −_ 1 _,_ **_h_** _t_ ), which we learn using offline “play” data (Cui et al., 2023); and (2), an action sequence proposal distribution, _ρ_ ( **_a_** _t_ : _t_ + _F −_ 1 _|_ **_h_** _t_ ), which we can also learn offline using behavior cloning on some demonstration data. Although such a proposal distribution might suggest actions that are not optimal for solving new rewards that were not seen during training, we show how to compensate for this using a simple sampling-based planner, a variant of the random shooting method that uses a multi-step diffusion model trained on offline datasets as the action proposal and a simple alternative to more complex methods such as trajectory optimization or cross-entropy method. We call our overall approach _Diffusion Model Predictive Control_ (D-MPC). \n\nWe show experimentally (on a variety of state-based continuous control tasks from the D4RL benchmarks (Fu et al., 2020)) that our proposed D-MPC framework significantly outperforms existing model-based offline planning methods, such as MBOP (Argenson & Dulac-Arnold, 2021), which learns a single-step dynamics model and a single-step action proposal, and hence suffers from the compounding error problem. By contrast, D-MPC learns more accurate trajectory-level models, which avoid this issue, and allow our model-based approach to match (and sometimes exceed) the performance of model-free offline-RL methods. We also show that our D-MPC method can optimize novel rewards at test time, and that we are able to fine-tune the dynamics model to a new environment (after a simulated motor defect in the robot) using a small amount of data. Finally we perform an ablation analysis of our method, and show that the different pieces — namely the use of stochastic multi-step dynamics, multi-step action proposals, and the sampling-based planner with learned action proposals — are each individually valuable, but produce even more benefits when combined. \n\nIn summary, our key contributions are: \n\n> 1Goal-conditioned reinforcement learning (RL) can increase the flexibility of the policy, but the requested goal (or something very similar to it) needs to have been seen in the training set, so it cannot optimize completely novel reward functions that are specified at run time. \n\n2 \n\n"
+  }
+}

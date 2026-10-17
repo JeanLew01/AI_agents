@@ -1,0 +1,444 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 130-dpi overlay, the native lines, four 200-220 dpi crops (upper/lower left, upper/lower right) and the TeX source (end of II-B, Sec. III, start of Sec. IV). Headings '## III. SPC IS ONLINE GENERATIVE MODELING' and '## IV. GENERATIVE PREDICTIVE CONTROL' (the latter was mis-extracted as a formula item, b031). Run-in '2) Diffusion:' in bold. All extractor formula items converted to LaTeX display items from main.tex (\\x, \\y expanded to \\mathbf{x}, \\mathbf{y}) and checked symbol by symbol against the crops: (12), (13), (14), (15), (16), the unnumbered q_U(Ũ) ≜ N(Ũ; U, σ²) display, (17), the proof chain (18)-(21) as one item with four 53326 blocks and all four tags, (22), (23) (printed space before the final period kept as '\\ .'), (24), (25). Proposition 1 as '**Proposition 1.** *The score ... (15) is given by*' (statement italic as printed); proof as '**Proof.** ...' ending 'and thus the proposition holds. ∎' where the box is printed. Inline maths rewritten in LaTeX throughout (t ~ U(0,1), x_0 ~ p_0(x), L_FM, ẋ = v_θ(x,t), s_θ(x,σ) ≈ ∇_x log p_σ(x), ε > 0, g(·), p_σ(U|x), ∇_U log q_U(Ũ) = (Ũ−U)/σ², 1/σ², ε ∝ σ², Ū_k, θ). Line-wrap hyphens removed (mod-eling, recommen-dation, pre-dictive, investi-gations); real compound hyphens kept (diffusion-based, easy-to-sample, multi-stage, score-based, algorithm-specific, state-conditioned). Authors' slip kept as printed: 'the mean of the SPC sampling distribution, $\\tilde{U}_k$,' where $\\bar{U}_k$ is meant (TeX also has \\tilde{U}_k). The first item 'The expectation in (10)...' follows display (11) on page 2 and is not joined (it starts a new sentence after a display). Page ends with the complete paragraph after (25). check: remaining missing lines and number differences are all LaTeX notation (category a), see adjudication note. Coordinator (2026-10-12, verifier finding F2): end-of-proof mark written as the printed hollow □ instead of ∎.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        53.0,
+        299.0,
+        137.0
+      ],
+      "markdown": "The expectation in (10) is taken over $t \\sim \\mathcal{U}(0, 1)$, $\\mathbf{x}_0 \\sim p_0(\\mathbf{x})$, and $\\mathbf{x}_1 \\sim p_1(\\mathbf{x})$. Each of these are easy to sample, since we already have data points $\\mathbf{x}_1$, and sampling $p_0(\\mathbf{x})$ is trivial. Intuitively, $\\mathcal{L}_{FM}$ pushes samples in a straight line from $\\mathbf{x}_0$ to $\\mathbf{x}_1$. At inference time, we first sample $\\mathbf{x} \\sim p_0(\\mathbf{x})$, then integrate $\\dot{\\mathbf{x}} = v_\\theta(\\mathbf{x}, t)$ from $t = 0$ to $t = 1$, typically with a simple explicit Euler scheme.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        138.0,
+        299.0,
+        209.0
+      ],
+      "markdown": "**2) Diffusion:** Flow matching is equivalent (under some technical conditions [34]) to diffusion-based generative modeling [5], [6]. Diffusion models also consider a series of probability distributions flowing from an initial Gaussian to the data distribution. But rather than being parameterized by a time $t$, these are typically parameterized by noise $\\sigma$,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        106.0,
+        214.0,
+        299.0,
+        235.0
+      ],
+      "markdown": "$$ p_\\sigma(\\mathbf{x}) = \\int p(\\mathbf{y}) \\mathcal{N}(\\mathbf{x};\\mathbf{y}, \\sigma^2I) d\\mathbf{y}. \\tag{12} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        246.0,
+        299.0,
+        270.0
+      ],
+      "markdown": "For large $\\sigma$, $p_\\sigma(\\mathbf{x})$ approaches an easy-to-sample Gaussian. For small $\\sigma$, $p_\\sigma(\\mathbf{x})$ approaches $p(\\mathbf{x})$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        270.0,
+        299.0,
+        307.0
+      ],
+      "markdown": "Diffusion models learn the score $s_\\theta(\\mathbf{x}, \\sigma) \\approx \\nabla_{\\mathbf{x}} \\log p_\\sigma(\\mathbf{x})$ by removing noise added to the original data [5], [6]. We can then use $s_\\theta$ to sample from $p_\\sigma$ using Langevin dynamics",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        87.0,
+        305.0,
+        299.0,
+        327.0
+      ],
+      "markdown": "$$ \\mathbf{x} \\gets \\mathbf{x} + \\epsilon s_\\theta(\\mathbf{x}, \\sigma) + \\sqrt{2\\epsilon} \\mathbf{z} \\quad \\mathbf{z} \\sim\\mathcal{N}(0, I), \\tag{13} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        335.0,
+        299.0,
+        358.0
+      ],
+      "markdown": "with step size $\\epsilon > 0$. By gradually reducing $\\sigma$, we arrive at samples from the data distribution $p(\\mathbf{x})$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "heading",
+      "bbox": [
+        78.0,
+        368.0,
+        275.0,
+        380.0
+      ],
+      "markdown": "## III. SPC IS ONLINE GENERATIVE MODELING",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        386.0,
+        299.0,
+        469.0
+      ],
+      "markdown": "This section establishes a formal connection between SPC and generative modeling: we show that the SPC update (5) is a Monte Carlo estimate of the score of a noised target distribution. This connection was first identified for the case of MPPI in [25] and used to develop DIAL-MPC, a multi-stage SPC algorithm for legged robots [23]. Here we extend this connection to generic SPC algorithms of the form (5).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        470.0,
+        287.0,
+        481.0
+      ],
+      "markdown": "First, we define a state-conditioned target distribution:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        127.0,
+        489.0,
+        299.0,
+        502.0
+      ],
+      "markdown": "$$ p(U \\mid x) \\propto g(J(U; x)), \\tag{14} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        510.0,
+        299.0,
+        545.0
+      ],
+      "markdown": "which is determined by the algorithm-specific weighting function $g(\\cdot)$ introduced in (5). In the spirit of score-based diffusion [6], we define the noised target distribution",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        551.0,
+        299.0,
+        568.0
+      ],
+      "markdown": "$$ p_\\sigma(U \\mid x) \\propto \\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}[g(\\tilde{U})]. \\tag{15} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b013",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        575.0,
+        281.0,
+        586.0
+      ],
+      "markdown": "The score of this noised target is directly used in SPC:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b014",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        593.0,
+        299.0,
+        616.0
+      ],
+      "markdown": "**Proposition 1.** *The score of the noised target distribution* (15) *is given by*",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b015",
+      "kind": "text",
+      "bbox": [
+        64.0,
+        622.0,
+        299.0,
+        672.0
+      ],
+      "markdown": "$$ \\nabla_U \\log p_\\sigma(U \\mid x) = \\frac{1}{\\sigma^2} \\frac{\\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}\\left[g(\\tilde{U})(\\tilde{U}-U)\\right]}{\\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}\\left[g(\\tilde{U})\\right]}. \\tag{16} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b016",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        679.0,
+        299.0,
+        714.0
+      ],
+      "markdown": "**Proof.** For simplicity of notation, we drop the conditioning on $x$ and write the target distribution as $p_\\sigma(U)$. We also denote the normal density as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b017",
+      "kind": "text",
+      "bbox": [
+        127.0,
+        720.0,
+        226.0,
+        736.0
+      ],
+      "markdown": "$$ q_U(\\tilde{U}) \\triangleq \\mathcal{N}(\\tilde{U}; U, \\sigma^2). $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b018",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        54.0,
+        505.0,
+        65.0
+      ],
+      "markdown": "The score of the target distribution is given by",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b019",
+      "kind": "text",
+      "bbox": [
+        375.0,
+        68.0,
+        559.0,
+        96.0
+      ],
+      "markdown": "$$ \\nabla_U \\log p_\\sigma(U) = \\frac{\\nabla_U p_\\sigma(U)}{p_\\sigma(U)}. \\tag{17} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b020",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        100.0,
+        419.0,
+        111.0
+      ],
+      "markdown": "In the numerator we have",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b021",
+      "kind": "text",
+      "bbox": [
+        328.0,
+        112.0,
+        559.0,
+        218.0
+      ],
+      "markdown": "$$ \\nabla_U p_\\sigma(U) = \\frac{1}{\\eta} \\nabla_U \\int q_U(\\tilde{U})g(\\tilde{U})d\\tilde{U} \\tag{18} $$\n\n$$ = \\frac{1}{\\eta} \\int \\nabla_U q_U(\\tilde{U}) g(\\tilde{U})d\\tilde{U} \\tag{19} $$\n\n$$ = \\frac{1}{\\eta} \\int q_U(\\tilde{U}) \\nabla_U \\log q_U(\\tilde{U})g(\\tilde{U})d\\tilde{U} \\tag{20} $$\n\n$$ = \\frac{1}{\\eta} \\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}\\left[{g(\\tilde{U})\\frac{\\tilde{U} - U}{\\sigma^2}}\\right], \\tag{21} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b023",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        226.0,
+        559.0,
+        250.0
+      ],
+      "markdown": "where $\\eta$ is a normalizing constant and we use the fact that $\\nabla_U \\log q_U(\\tilde{U}) = (\\tilde{U} - U)/\\sigma^2$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b024",
+      "kind": "text",
+      "bbox": [
+        322.0,
+        247.0,
+        520.0,
+        261.0
+      ],
+      "markdown": "Bringing $1 / \\sigma^2$ outside the expectation, we have",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b025",
+      "kind": "text",
+      "bbox": [
+        346.0,
+        265.0,
+        559.0,
+        305.0
+      ],
+      "markdown": "$$ \\frac{\\nabla_U p_\\sigma(U)}{p_\\sigma(U)} = \\frac{\\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}\\left[g(\\tilde{U})(\\tilde{U}-U)\\right]}{\\sigma^2\\mathbb{E}_{\\tilde{U} \\sim \\mathcal{N}(U, \\sigma^2)}\\left[g(\\tilde{U})\\right]} \\tag{22} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b026",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        311.0,
+        559.0,
+        323.0
+      ],
+      "markdown": "and thus the proposition holds. □",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b027",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        329.0,
+        559.0,
+        353.0
+      ],
+      "markdown": "This means that the SPC update (5) provides a Monte Carlo estimate of score ascent, e.g.,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b028",
+      "kind": "text",
+      "bbox": [
+        330.0,
+        357.0,
+        559.0,
+        375.0
+      ],
+      "markdown": "$$ \\bar{U}_k \\gets \\bar{U}_{k-1} + \\sigma^2 \\nabla_{\\bar{U}_{k-1}} \\log p_\\sigma(\\bar{U}_{k-1} \\mid x_{k-1})\\ . \\tag{23} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b029",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        376.0,
+        559.0,
+        426.0
+      ],
+      "markdown": "The additional $\\sigma^2$ term may seem like an annoyance, but in fact Langevin step sizes $\\epsilon \\propto \\sigma^2$ are a standard recommendation in the diffusion literature [5, Algorithm 1]. Here, the step size choice emerges naturally from the SPC update (5).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b030",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        427.0,
+        559.0,
+        546.0
+      ],
+      "markdown": "This connection also sheds light on the benefits of predictive sampling (where we merely choose the best sample) [17]. In particular, the unnoised target distribution for predictive sampling is a Dirac delta concentrating all probability mass at global optima [25, Appendix A], leading to a noised target distribution $p_\\sigma(U \\mid x)$ with modes at globally optimal solutions. For this reason, we focus our numerical investigations primarily on predictive sampling. A more thorough exploration of the advantages and disadvantages of other SPC algorithms is an important topic for future work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b031",
+      "kind": "heading",
+      "bbox": [
+        348.0,
+        553.0,
+        523.0,
+        565.0
+      ],
+      "markdown": "## IV. GENERATIVE PREDICTIVE CONTROL",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b032",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        568.0,
+        559.0,
+        604.0
+      ],
+      "markdown": "The previous section shows that we can think of the mean of the SPC sampling distribution, $\\tilde{U}_k$, as being drawn from the state-conditioned optimal action distribution",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b033",
+      "kind": "text",
+      "bbox": [
+        367.0,
+        608.0,
+        559.0,
+        624.0
+      ],
+      "markdown": "$$ \\bar{U}_k \\sim p(U \\mid x_k) \\propto g\\left(J(U; x_k)\\right). \\tag{24} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b034",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        630.0,
+        559.0,
+        665.0
+      ],
+      "markdown": "This leads to a natural question: can we train a generative model to produce $\\bar{U}_k$ directly? In addition to imitating the SPC update process, such a generative model",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b035",
+      "kind": "text",
+      "bbox": [
+        384.0,
+        672.0,
+        559.0,
+        685.0
+      ],
+      "markdown": "$$ p_\\theta(U \\mid x_k) \\approx p(U \\mid x_k), \\tag{25} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0003-b036",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        691.0,
+        559.0,
+        726.0
+      ],
+      "markdown": "parameterized by network weights $\\theta$, would maintain a structure compatible with the flow matching and diffusion models used in behavior cloning [1]–[4].",
+      "source_class": "text"
+    }
+  ]
+}

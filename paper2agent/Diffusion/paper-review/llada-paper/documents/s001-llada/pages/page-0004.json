@@ -1,0 +1,182 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and the native lines. First item 'Eq. (4), LLaDA is a principled ...' continues the last sentence of p. 3 ('as shown in'): join_previous=space. Repaired the extractor's broken inline fraction '<sup><u>1</u></sup> _t_<sup>term compared to ...</sup>' to 'misses the $\\frac{1}{t}$ term compared to Eq. (3), and lacks a theoretical link to maximum likelihood' (text had been pushed into a superscript). Headings set to '### 2.2 Pre-training' and '### 2.3 Supervised Fine-Tuning' (extractor had '#' with bold). Inline maths: $x_0$, $t \\in [0, 1]$, $x_t$, $[1, 4096]$, learning rates $4 \\times 10^{-4}$, $1 \\times 10^{-4}$, $1 \\times 10^{-5}$, local batch size $4$ (math in the TeX), $(p_0, r_0)$, $p_{\\theta}(r_0|p_0)$, $r_t$, $L'$. '1%', '1.2T', '0.8T', '0.3T', '0.13 million H800 GPU hours', 'batch size of 1280', 'weight decay of 0.1' checked against the image. Equation (5) converted from a formula image to $$...$$ with \\tag{5}, from main.tex (\\textbf{1} -> \\mathbf{1}, \\textrm{M} -> \\mathrm{M}); checked against the page: -\\mathbb{E}_{t,p_0,r_0,r_t}, sum to L', \\mathbf{1}[r_t^i = \\mathrm{M}] \\log p_\\theta(r_0^i|p_0, r_t), trailing comma. TeX and PDF agree. The last paragraph ends mid-sentence ('serves as the') and continues on p. 5 (join set there). Page number 4 omitted. check: 44/52 lines; the 8 missing lines are maths (category a); number differences are only U+2212 vs '-' in 10^{-4} (x4) and 10^{-5} (category a).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        75.0,
+        505.0,
+        139.0
+      ],
+      "markdown": "Eq. (4), LLaDA is a principled generative model with the potential to perform in-context learning and instruction-following naturally, akin to LLMs. Moreover, its generative perspective implies strong scalability with large data and models as discussed in Sec. 1. In addition, MaskGIT [23] adopts a heuristic training objective, which misses the $\\frac{1}{t}$ term compared to Eq. (3), and lacks a theoretical link to maximum likelihood. We emphasize that it is precisely the theoretical foundation of maximum likelihood estimation that motivated us to scale discrete diffusion models for language modeling.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        153.0,
+        183.0,
+        163.0
+      ],
+      "markdown": "### 2.2 Pre-training",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        173.0,
+        505.0,
+        194.0
+      ],
+      "markdown": "LLaDA employs a Transformer [7] as the mask predictor, similar to existing LLMs. However, LLaDA does not use a causal mask, as its formulation allows it to see the entire input for predictions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        201.0,
+        506.0,
+        276.0
+      ],
+      "markdown": "We trained two variants of LLaDA with different sizes: 1B and 8B. We summarize the model architecture of LLaDA 8B and LLaMA3 8B [6] here, and details are provided in Appendix B.2. We have ensured consistency in most hyperparameters while making several necessary modifications. We use vanilla multi-head attention instead of grouped query attention [24] for simplicity, as LLaDA is incompatible with KV caching, resulting in a different number of key and value heads. Consequently, the attention layer has more parameters, and we reduce the FFN dimension to maintain a comparable model size. Additionally, the vocabulary size differs due to a tokenizer [4] adapted on our data.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        283.0,
+        505.0,
+        368.0
+      ],
+      "markdown": "The LLaDA model is pre-trained on a dataset comprising 2.3 trillion (T) tokens, adhering to a data protocol that aligns closely with existing LLMs [25, 26], without the incorporation of any special techniques. The data are derived from online corpora, with low-quality content filtered through manually designed rules and LLM-based approaches. Beyond general text, the dataset encompasses high-quality code, math, and multilingual data. Please refer to Appendix B.1 for more details about datasets. The mixing of data sources and domains is guided by scaled-down ARMs. The pre-training process utilizes a fixed sequence length of 4096 tokens, incurring a total computational cost of 0.13 million H800 GPU hours, similar to ARMs of the same scale and dataset size.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        375.0,
+        505.0,
+        429.0
+      ],
+      "markdown": "For a training sequence $x_0$, we randomly sample $t \\in [0, 1]$, mask each token independently with the same probability $t$ to obtain $x_t$ (see Fig. 2 (a)) and estimate Eq. (3) via the Monte Carlo method for stochastic gradient descent training. In addition, following Nie et al. [27], to enhance the ability of LLaDA to handle variable-length data, we set 1% of the pre-training data to a random length that is uniformly sampled from the range $[1, 4096]$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        435.0,
+        506.0,
+        522.0
+      ],
+      "markdown": "We adopted the Warmup-Stable-Decay [28] learning rate scheduler to monitor the training progress without interrupting continuous training. Specifically, we linearly increased the learning rate from 0 to $4 \\times 10^{-4}$ over the first 2000 iterations and maintained it at $4 \\times 10^{-4}$. After processing 1.2T tokens, we decayed the learning rate to $1 \\times 10^{-4}$ and held it constant for the next 0.8T tokens to ensure stable training. Finally, we linearly reduced the learning rate from $1 \\times 10^{-4}$ to $1 \\times 10^{-5}$ for the last 0.3T tokens. Furthermore, we utilized the AdamW optimizer [29] with a weight decay of 0.1, a batch size of 1280, and a local batch size of $4$ per GPU. The 8B experiment was executed once, without any hyperparameter tuning.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        536.0,
+        233.0,
+        546.0
+      ],
+      "markdown": "### 2.3 Supervised Fine-Tuning",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        556.0,
+        505.0,
+        599.0
+      ],
+      "markdown": "We enhance the capability of LLaDA to follow instructions by supervised fine-tuning (SFT) with paired data $(p_0, r_0)$, where $p_0$ is the prompt and $r_0$ denotes the response. This is the simplest and most basic post-training method for LLMs. Technically, this requires to model the conditional distribution $p_{\\theta}(r_0|p_0)$ instead of $p_{\\theta}(x_0)$ in pre-training.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b009",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        605.0,
+        505.0,
+        637.0
+      ],
+      "markdown": "The implementation is similar to pre-training. As shown in Fig. 2 (b), we leave the prompt unchanged and mask the tokens in the response independently, as done for $x_0$. Then, we feed both the prompt and the masked response $r_t$ to the pre-trained mask predictor to compute the loss for SFT:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b010",
+      "kind": "text",
+      "bbox": [
+        201.0,
+        637.0,
+        506.0,
+        684.0
+      ],
+      "markdown": "$$\n-\\mathbb{E}_{t, p_0, r_0, r_t} \\left[\\frac{1}{t} \\sum_{i=1}^{L'} \\mathbf{1}[r_t^i = \\mathrm{M}] \\log p_{\\theta}(r_0^i|p_0, r_t) \\right], \\tag{5}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0004-b011",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        685.0,
+        506.0,
+        695.0
+      ],
+      "markdown": "where $L'$ denotes a dynamic length specified later, and all other notations remain the same as before.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b012",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        702.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "Note that this approach is fully compatible with pre-training. Essentially, the concatenation of $p_0$ and $r_0$ can be treated as clean pre-training data $x_0$, while the concatenation of $p_0$ and $r_t$ serves as the",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b013",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        750.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page number 4 at the bottom centre (checked against the preview)."
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 130-dpi overlay, the native lines, crops of the left column (160 dpi) and right column (150 dpi), and the TeX source (end of V-2, V-3, VI intro, VI-A). The page opens with the continuation 'a state estimate, as the policy can be conditioned on arbitrary observations.' of page 4's last sentence (join_previous=space). Fig. 2: the extractor's seven picture items (one per system rendering) merged into one figure item 'Figure 2'/figure-2, bbox [52,48,300,109.5] from the seven embedded images (x 54.6-298.2, y 50.1-107.2), checked with a crop; the caption starts at y=113.4. Fig. 2 and its caption moved from the top of the left column to just after the paragraph that cites it ('We simulate GPC on seven systems ... (see Fig. 2) ...'), between complete paragraphs. Equations (29)-(32) in LaTeX from main.tex, checked against a 160-dpi crop. Run-in '3) Risk-Aware Domain Randomization:' in bold. 'VI. SIMULATION STUDIES' was extracted as plain text: made '## VI. SIMULATION STUDIES'; '### A. Policy Performance'. The four questions kept as text items '1) ...'-'4) ...' (extractor '- ' bullets removed). Bold-italic system names (***pendulum***, ***cart-pole***, ***double cart-pole***, ***push-T***, ***walker***, ***crane***, ***humanoid***) and the bold sentence 'GPC and GPC+ perform on par or better than PPO with the same amount of training data' kept; 'hydrax' written in backticks (code font) as printed in typewriter. URLs rejoined: https://github.com/vincekurtz/gpc. and https://youtu.be/mjL7CF877Ow. Line-wrap hyphens removed (random-ization, ran-domization, rea-soning, im-pact, character-istic, di-mension, simu-lations, perfor-mance, signifi-cant, per-formance); real compound hyphens kept (sim-to-real, value-at-risk, high-frequency, cart-pole, randomly-initialized, state-of-the-art). Footnote 3 as 'Footnote 3: ...' with marker [^3] after 'simulation time steps'; placed directly before the last paragraph ('Note that Fig. 3 ... on the walker we find'), which continues on page 6. Authors' slips kept as printed: 'as well highly dynamic tasks' (question 1, missing 'as'), 'other hyperparameters settings' and 'as competitive of performance' (footnote 3). check: 8 remaining missing lines and the −1/-1 number difference are LaTeX maths (category a), see adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        150.0,
+        299.0,
+        174.0
+      ],
+      "markdown": "a state estimate, as the policy can be conditioned on arbitrary observations.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        175.0,
+        299.0,
+        222.0
+      ],
+      "markdown": "**3) Risk-Aware Domain Randomization:** Domain randomization (DR) has emerged as a key ingredient for sim-to-real transfer of policies trained in simulation, particularly for reinforcement learning (RL) [37], [38].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        223.0,
+        299.0,
+        294.0
+      ],
+      "markdown": "GPC and massively parallel simulation enable a range of new DR possibilities. In particular, we can modify the SPC rollouts (4) by simulating each action sequence $U^{(i)}$ in several domains with randomized parameters (e.g., friction coefficients, body masses, etc.). This results in cost values indexed by both sample $i$ and domain $d$, e.g.,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        122.0,
+        297.0,
+        299.0,
+        315.0
+      ],
+      "markdown": "$$ J^{(i, d)} = J(U^{(i)}; x_{k-1}, d). \\tag{29} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        322.0,
+        299.0,
+        345.0
+      ],
+      "markdown": "We then aggregate this cost data across domains before performing the standard SPC update (5).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b013",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        346.0,
+        293.0,
+        357.0
+      ],
+      "markdown": "The simplest choice would be to average over domains,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b014",
+      "kind": "text",
+      "bbox": [
+        135.0,
+        361.0,
+        299.0,
+        380.0
+      ],
+      "markdown": "$$ J^{(i)} = \\mathbb{E}_d \\left[ J^{(i, d)} \\right]. \\tag{30} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b015",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        388.0,
+        299.0,
+        435.0
+      ],
+      "markdown": "This is analogous to the typical RL domain randomization framework, which considers the expected reward over all domains. But GPC allows for other possibilities as well. We can, for instance, use the worst-case cost,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b016",
+      "kind": "text",
+      "bbox": [
+        131.0,
+        439.0,
+        299.0,
+        462.0
+      ],
+      "markdown": "$$ J^{(i)} = \\max_d \\left[ J^{(i, d)} \\right], \\tag{31} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b017",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        466.0,
+        299.0,
+        502.0
+      ],
+      "markdown": "or more sophisticated risk metrics like conditional value-at-risk (CVaR) [39], [40], which takes the expected cost in the $(1 - \\beta)$ tail of the distribution:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b018",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        504.0,
+        299.0,
+        534.0
+      ],
+      "markdown": "$$ J^{(i)} = \\inf_{z \\in \\mathbb{R}} \\mathbb{E}_d \\left[ z + \\frac{\\max(J^{(i, d)} - z, 0)}{1 - \\beta} \\right], \\tag{32} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0005-b019",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        540.0,
+        291.0,
+        552.0
+      ],
+      "markdown": "where $\\beta \\in [0, 1)$ determines the degree of risk sensitivity.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b020",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        553.0,
+        299.0,
+        588.0
+      ],
+      "markdown": "These and other risk strategies for online domain randomization are implemented in `hydrax` [24], making them readily available for GPC training.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b021",
+      "kind": "heading",
+      "bbox": [
+        119.0,
+        597.0,
+        234.0,
+        608.0
+      ],
+      "markdown": "## VI. SIMULATION STUDIES",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b022",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        613.0,
+        262.0,
+        624.0
+      ],
+      "markdown": "In this section, we aim to answer the following:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b023",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        628.0,
+        299.0,
+        663.0
+      ],
+      "markdown": "1) Can GPC perform tasks that require multi-modal reasoning, as well highly dynamic tasks that require high-frequency feedback (Sec. VI-A)?",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0005-b024",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        664.0,
+        299.0,
+        687.0
+      ],
+      "markdown": "2) Does GPC continually improve policy performance over multiple iterations (Sec. VI-B)?",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0005-b025",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        688.0,
+        299.0,
+        711.0
+      ],
+      "markdown": "3) How do different domain randomization strategies impact performance (Sec. VI-C)?",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0005-b026",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        712.0,
+        299.0,
+        735.0
+      ],
+      "markdown": "4) What are the scalability limits of this approach (Sec. VI-D)?",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0005-b027",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        54.0,
+        559.0,
+        125.0
+      ],
+      "markdown": "In short, GPC is effective for systems with fast dynamics at high feedback rates, enjoys the training stability characteristic of supervised learning methods, and enables risk-aware control, but demonstrates scaling limitations on our largest and most difficult example (humanoid standup). We discuss these scalability limits and possible solutions below.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b028",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        126.0,
+        559.0,
+        233.0
+      ],
+      "markdown": "We simulate GPC on seven systems of varying state dimension and task difficulty (see Fig. 2). The ***pendulum***, ***cart-pole***, and ***double cart-pole*** are tasked with balancing upright. In ***push-T***, an actuated finger pushes a block to a goal pose. The ***walker*** aims to move forward at a constant velocity, while the ***crane*** swings its payload to a target position. The ***humanoid*** attempts to stand up from arbitrary initial configurations. Full details are available with the source code: https://github.com/vincekurtz/gpc.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b000",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        48.0,
+        300.0,
+        109.5
+      ],
+      "markdown": "",
+      "label": "Figure 2",
+      "asset_name": "figure-2"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "caption",
+      "bbox": [
+        53.0,
+        112.0,
+        299.0,
+        140.0
+      ],
+      "markdown": "Fig. 2: Systems used to evaluate GPC performance in simulation, from left to right: inverted pendulum, cart-pole, double cart-pole, push-T, planar walker, luffing crane, humanoid standup.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0005-b029",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        234.0,
+        559.0,
+        317.0
+      ],
+      "markdown": "The three smallest examples use a multi-layer perceptron for the flow network $v_\\theta$, while the others use a convolutional network with FiLM conditioning [41], as in [1]. All simulations ran on a desktop computer with an NVIDIA RTX 4070 (12 GB) GPU. When evaluating trained policies, we use MuJoCo CPU (64-bit) rather than MJX (32-bit), resulting in a small sim-to-sim gap.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b030",
+      "kind": "heading",
+      "bbox": [
+        312.0,
+        326.0,
+        407.0,
+        338.0
+      ],
+      "markdown": "### A. Policy Performance",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0005-b031",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        343.0,
+        559.0,
+        522.0
+      ],
+      "markdown": "Footage of closed-loop GPC performance on each of the examples is shown in the accompanying video (https://youtu.be/mjL7CF877Ow). To evaluate performance quantitatively, we perform 100 randomly-initialized simulations and record the average cost per time step as a performance metric. Figure 3a compares our approach (GPC, GPC+) with PPO and SPC baselines. For PPO training, we use the same cost (negative reward), network size, batch size, and total number of simulation time steps[^3] as GPC. SPC and GPC+ both use $N = 128$ rollouts. Interestingly, **GPC and GPC+ perform on par or better than PPO with the same amount of training data**. Of course, further hyperparameter and reward tuning could improve both PPO and GPC performance: a systematic hyperparameter sensitivity comparison is left for future work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b032",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        522.0,
+        559.0,
+        653.0
+      ],
+      "markdown": "Figure 3b compares our warm-start strategy with action inpainting [27], both using the same GPC policy. For action inpainting, we use the soft-masking pseudoinverse guidance strategy of [27, Eq. 2-4]. Interestingly, action inpainting—a state-of-the-art method for temporal consistency enforcement in behavior cloning—degrades performance on these high-frequency tasks. This is likely because action inpainting is designed for relatively slow, quasi-static tasks with significant inference delays. In contrast, GPC inference times range between 1 and 10 milliseconds, resulting in feedback rates between 100-1000 Hz.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0005-b034",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        687.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Footnote 3: Full training details can be found in the open-source implementation. While it is possible that other hyperparameters settings exist that could produce better PPO performance, we took considerable effort via manual hyperparameter tuning to ensure PPO produced as competitive of performance as possible.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0005-b033",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        654.0,
+        559.0,
+        678.0
+      ],
+      "markdown": "Note that Fig. 3 provides some insight into relative performance, but is limited. For instance, on the walker we find",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "page": 4,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0004.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0004-b000"
+  ],
+  "items": [
+    {
+      "id": "p0004-b000",
+      "kind": "text",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0004-b001",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        93.0,
+        523.0,
+        227.0
+      ],
+      "markdown": "_ϕ_<sup>_∞_</sup> _◦ f_ ( _x_ ) according to _ϕ_<sup>_∞_</sup> ( _xt_ +1) = _Kϕ_<sup>_∞_</sup> ( _xt_ ), where _◦_ denotes function composition. As infinitedimensional Koopman operators are intractable to obtain in practice, we define an approximation to _K_ using a finite-dimensional lifting function _ϕ_ : _X →Z ⊆_ R<sup>_l_</sup> and matrix _KA ∈_ R<sup>_l×l_</sup> , which define lifted dynamics _zt_ +1 = _KAzt_ , where _zt_ = _ϕ_ ( _xt_ ) is the lifted state and _zt ∈Z ⊆_ R<sup>_l_</sup> . Here, _l_ can be arbitrarily selected by the choice of the lifting function _ϕ_ . For systems with control input (1a), the lifted dynamics can be similarly written as _zt_ +1 = _KAzt_ + _KBut_ , where _KB ∈_ R<sup>_l×m_</sup> . In practice, _ϕ_ , _KA_ , and _KB_ can be learned from data, with the lifting function _g_ parameterized using polynomials or NNs (Shi et al., 2024). In this work, we utilize an NN-based autoencoder architecture, where the encoder _ϕ_ : _X →Z_ defines the lifting function and the decoder _ψ_ : _Z → X_<sup>ˆ</sup> defines its learned inverse, i.e., _ψ_ ( _ϕ_ ( _x_ )) _≈ x_ ; if _ψ_ is a perfect inverse, _ψ_ ( _ϕ_ ( _x_ )) = _x_ and _X_<sup>ˆ</sup> = _X_ .",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        236.0,
+        523.0,
+        329.0
+      ],
+      "markdown": "**Reachability via NN Verification (NNV)** We use NNV to compute reachable sets for closedloop systems involving NN-based lifting and inverse functions. NNV tools represent an NN as a computational graph (CG) – a directed acyclic graph encoding the sequence of operations applied to an input (Rober and How, 2024). For some CG _G_ with input set _S ⊆_ R<sup>_ni_</sup> and output _G_ ( _S_ ) _⊆_ R<sup>_no_</sup> , we can compute a guaranteed overapproximation of its image _G_ ( _S_ ) using CROWN-based (Zhang et al., 2018) tools like auto LiRPA (Xu et al., 2020). These tools provide guaranteed affine lower and upper bounds, _<u>G</u>_ and _G_ , on the output _G_ ( _S_ ) for any interval _S_ , formalized in this proposition:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        341.0,
+        523.0,
+        380.0
+      ],
+      "markdown": "**Proposition 1 (CG Robustness (Xu et al., 2020))** _For some CG G and interval S_ =<sup>_._</sup> _{s ∈_ R<sup>_ni_</sup> _|_ _<u>s</u> ≤ s ≤_ _~~s~~ }, there are affine functions G, G such that ∀s ∈S, G_ ( _s_ ) _≤ G_ ( _s_ ) _≤ G_ ( _s_ ) _. The inequalities hold element-wise and_ _<u>G</u>_ <u>(</u> _s_ ) = Ψ _s_ + _α, G_ ( _s_ ) = Φ _s_ + _β, with_ Ψ _,_ Φ _∈_ R<sup>_no×ni_</sup> _and α, β ∈_ R<sup>_no_</sup> _._",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b004",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        392.0,
+        523.0,
+        472.0
+      ],
+      "markdown": "Given controller _π_ , dynamics (1a), and initial set _X_ 0, the _T_ -timestep exact reachable set is denoted as _X_ 0: _T_ =<sup>_._</sup> _{X_ 0 _, f_ ( _Xt, π_ ( _Xt, t_ )) _}_<sup>_T_</sup> _t_ =0<sup>_−_1</sup><sup>_}_.While exact reachability analysis is generally intractable for</sup> nonlinear systems (Althoff et al., 2021), it is often feasible to compute a reachable set overapproximation (RSOA) _X_ 0: _T_ , which satisfies _Xt ⊆ X t_ for all _t ∈{_ 0 _, . . . , T }_ . To obtain _X_ 0: _T_ , Prop. 1 can be applied to the CG _F_ of the _T_ -step composition _f_<sup>˜</sup><sup>_T_</sup> ( _·_ ) =<sup>_._</sup> _f_<sup>˜</sup> _◦· · ·◦f_<sup>˜</sup> ( _·_ ) of the closed-loop dynamics _f_ ˜ (1b), i.e., _F_ ( _x_ 0) =<sup>_._</sup> _{f_ ˜( _xt_ ) =<sup>_._</sup> _f_ ( _xt, π_ ( _xt, t_ )) _}_<sup>_T_</sup> _t_ =0<sup>, with auto</sup> ~~L~~ iRPA computing the RSOA.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        481.0,
+        526.0,
+        627.0
+      ],
+      "markdown": "**Conformal Prediction (CP)** Our RSOA computations also rely on CP. In this work, we adopt split CP, which partitions i.i.d. input-output pairs ( _v_<sup>(</sup><sup>_i_)</sup> _, y_<sup>(</sup><sup>_i_)</sup> ) _∈V×Y_ from a dataset _D_ =<sup>_._</sup> _{_ ( _v_<sup>(</sup><sup>_i_)</sup> _, y_<sup>(</sup><sup>_i_)</sup> ) _}_<sup>_L_</sup> _i_ =1<sup>+</sup><sup>_K_</sup> into a size- _L_ training set _DT_ and a size- _K_ calibration set _DC_ . For a given prediction function _µ_ : _V →Y_ , we compute a nonconformity score _R_<sup>(</sup><sup>_i_)</sup> =<sup>_._</sup> _s_ ( _y_<sup>(</sup><sup>_i_)</sup> _, µ_ ( _v_<sup>(</sup><sup>_i_)</sup> )) for each of the _K_ calibration pairs in _DC_ , where _s_ : _Y × Y →_ R _≥_ 0 is a chosen nonconformity score function. As an example, we can express the _ℓ_ 2 prediction error of a learned dynamics model _f_<sup>ˆ</sup> in this framework by defining _v_ = ( _xt, ut_ ), _y_ = _xt_ +1, _µ_ ( _v_ ) = _f_<sup>ˆ</sup> ( _v_ ), and _s_ ( _y, µ_ ( _v_ )) = _∥y − µ_ ( _v_ ) _∥_ 2. Given a miscoverage level _δ ∈_ (0 _,_ 1), a threshold _C_ is defined as the (1 _− δ_ )-quantile of the calibration scores, _C_ =<sup>_._</sup> Quantile1 _−δ_ ( _R_<sup>(1)</sup> _, . . . , R_<sup>(</sup><sup>_K_)</sup> _, ∞_ ). This threshold defines the prediction set _Y_ ( _v_ ) =<sup>_._</sup> _{ y ∈Y | s_ ( _y, µ_ ( _v_ )) _≤ C }_ , which satisfies the marginal coverage guarantee P( _y_<sup>(0)</sup> _∈Y_ ( _v_<sup>(0)</sup> )) _≥_ 1 _− δ_ for an unseen data-point ( _y_<sup>(0)</sup> _, v_<sup>(0)</sup> ) that is exchangeable with _D_ (Lindemann et al., 2024).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b006",
+      "kind": "heading",
+      "bbox": [
+        89.0,
+        646.0,
+        204.0,
+        656.0
+      ],
+      "markdown": "# **4. Problem Statement**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0004-b007",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        668.0,
+        523.0,
+        707.0
+      ],
+      "markdown": "We are given black-box access to _f_ (1a), i.e., we do not know its analytical form and its output can only be estimated via data. We are a planner _P_ : _X →X_<sup>_T_+1</sup> _× U_<sup>_T_</sup> that generates open-loop reference trajectories ( _x_<sup>ref</sup> 0: _T_<sup>_, u_ref</sup> 0: _T −_ 1<sup>) that satisfy (1a), starting from an initial condition</sup><sup>_x_</sup> 0<sup>ref</sup><sup>_∈X_0</sup><sup>_⊖Bϵ_(0)</sup>",
+      "source_class": "text"
+    },
+    {
+      "id": "p0004-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "4",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

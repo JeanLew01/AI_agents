@@ -1,0 +1,256 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview, the native lines and a 160-dpi crop of equations (1a)-(4), with main.tex as an aid. Left column: contribution 3) (list item, extractor's '- ' removed), Fig. 1 (the extractor's two picture items merged into one figure item 'figure-1', bbox [51,127,292,187] checked by crop on all four edges; both road panels inside), caption 'Fig. 1. ...' (verbatim, period after the number as printed), heading '## II. RELATED WORK' and its three paragraphs. Right column: '## III. LINEAR PATH MODEL-BASED DIFFUSION', intro paragraph, '### A. Variance Preserving Model-Based Diffusion', then prose and equations. Display maths from main.tex, checked against the crop: (1a), (1b), (1c) as one $$ block per tag; (2), (3), (4) one block each (all six extractor 'formula' items converted to text and their boxes tightened to the native equation lines). Inline maths rewritten in LaTeX ($x_t \\in \\mathbb{R}^{n_x}$, $Y=[x_{1:T};u_{1:T}]$, $p_J(Y)\\propto\\exp(-J(Y)/\\lambda)$, $\\{\\alpha_i\\}_{i=1}^N$, $\\varepsilon\\sim\\mathcal{N}(0,I)$, $\\mathrm{Var}[Y^{(0)}]=1$, $c_{i,0}^2+c_{i,1}^2=1$, $\\beta_0=1.0\\times10^{-4}$, $\\beta_1=1.0\\times10^{-2}$, $\\alpha_i=1-\\beta_i$). Repairs: 'finitehorizon' -> 'finite-horizon', 'state-of-theart' -> 'state-of-the-art' (real compound hyphens at line wraps); stray '=' in 'the system = dynamics' (extractor artefact of 'Y = [...]') removed. Note for readers: here MBD's linear VP schedule uses beta_0 = 1.0x10^-4 and beta_1 = 1.0x10^-2 (same values as Section V's 'beta_0=0.0001 and beta_1=0.01'); Section V-A later writes beta_0 = 10^{-2}, beta_1 = 10^{-4} (authors' slip, kept as printed on page 6). The last paragraph ('From Eq. (3) ... We denote this specific instantiation of MBD') continues on page 3; page 3's first item carries join_previous=space. Remaining check diagnostics are all category (a) (see adjudication note).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        55.0,
+        299.0,
+        113.0
+      ],
+      "markdown": "3) **Comprehensive evaluation:** We validate LP-MBD and ALP-MBD through numerical studies, Brax benchmarks, and mobile-robot trajectory tracking, demonstrating improved sample efficiency, control quality, and adaptability across diverse settings."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "figure",
+      "bbox": [
+        51.0,
+        127.0,
+        292.0,
+        187.0
+      ],
+      "markdown": "",
+      "label": "Figure 1",
+      "asset_name": "figure-1"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        197.0,
+        299.0,
+        250.0
+      ],
+      "markdown": "Fig. 1. The left figure illustrates a simple scenario in which the red ego vehicle drives in an obstacle-free environment. The right figure depicts a more complex case, where the red ego vehicle attempts to overtake a white vehicle while simultaneously avoiding an approaching car from behind. In the latter scenario, additional safety constraints are imposed, typically requiring more diffusion steps to obtain an optimal trajectory."
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "heading",
+      "bbox": [
+        133.0,
+        282.0,
+        220.0,
+        290.0
+      ],
+      "markdown": "## II. RELATED WORK"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        304.0,
+        299.0,
+        481.0
+      ],
+      "markdown": "Trajectory optimization is a fundamental component of safe and precise robot control. There are two principal approaches: (i) solving the underlying optimization problem directly with gradient-based methods [5], [6], [7], [8], and (ii) employing sampling-based approaches [9], [10] to search for optimal trajectories. This paper focuses on the latter, as it can better accommodate complex dynamics and objective functions. MPPI [11], [12] is among the most widely used sampling algorithms. It can be viewed as a soft-weighted variant of the Cross-Entropy Method (CEM) [13], where samples are weighted smoothly rather than selected by a hard elite set. CEM itself is closely related to CMA-ES [14], but CMA-ES further refines the update by adapting the covariance and step size in a principled way, making it more robust for problems with strong correlations or anisotropy."
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        484.0,
+        299.0,
+        588.0
+      ],
+      "markdown": "Generative models provide powerful tools for capturing complex distributions. Diffusion models [15], [16], [17] and Flow Matching [3], [4] have gained significant attention due to their ability to represent intricate distributions and have been applied to planning problems [18], [19], [20], [21]. Recent works such as [22], [23] explore the link between sampling-based methods and diffusion models, while [2] highlights the connection between diffusion models and MPPI."
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        593.0,
+        299.0,
+        732.0
+      ],
+      "markdown": "Reinforcement Learning (RL) [24] has been applied across diverse domains, including model-based planning in combination with sampling-based planners [25], [26], [27]. These studies demonstrate that integrating RL with sampling methods achieves superior performance compared to state-of-the-art model-free approaches [28], [29], [30], [31], [32]. Beyond planning, RL has also been used to fine-tune diffusion models [33], [34], [35]. For instance, [36] employs RL to optimize the initial noise in diffusion models, enabling mode selection within complex distributions. In this paper, we leverage RL to adaptively determine scheduling parameters conditioned on the environment state."
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "heading",
+      "bbox": [
+        338.0,
+        55.0,
+        534.0,
+        63.0
+      ],
+      "markdown": "## III. LINEAR PATH MODEL-BASED DIFFUSION"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        70.0,
+        559.0,
+        175.0
+      ],
+      "markdown": "In this section, we first review Model-Based Diffusion (MBD) [1] and discuss why the choice of diffusion schedule can become a key practical bottleneck. We subsequently present Linear Path MBD (LP-MBD), which incorporates the linear probability path from Flow Matching. By constructing an optimal transport interpolation between the prior and target distributions, this formulation not only simplifies hyperparameter tuning but also provides a more stable and geometrically interpretable trajectory generation process."
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        184.0,
+        507.0,
+        193.0
+      ],
+      "markdown": "### A. Variance Preserving Model-Based Diffusion"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        199.0,
+        559.0,
+        242.0
+      ],
+      "markdown": "Trajectory optimization (TO) is a fundamental tool for steering a robot toward a desired goal. We consider a finite-horizon problem with states $x_t \\in \\mathbb{R}^{n_x}$ and controls $u_t \\in \\mathbb{R}^{n_u}$:"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        335.0,
+        250.0,
+        560.0,
+        270.0
+      ],
+      "markdown": "$$\n\\min_{x_{1:T},\\,u_{1:T}}~ J(x_{1:T};u_{1:T}) \\tag{1a}\n$$"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        335.0,
+        270.0,
+        560.0,
+        285.0
+      ],
+      "markdown": "$$\n\\text{s.t.}\\quad x_{t+1}=f_t(x_t,u_t), \\tag{1b}\n$$"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        335.0,
+        285.0,
+        560.0,
+        299.0
+      ],
+      "markdown": "$$\n\\qquad\\qquad g_t(x_t,u_t)\\le 0,\\quad t=0,\\dots,T-1, \\tag{1c}\n$$"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        306.0,
+        559.0,
+        361.0
+      ],
+      "markdown": "where $J$ is a user-specified cost, $f_t$ denotes the system dynamics, and $g_t$ is constraints. Let $Y=[x_{1:T};u_{1:T}]$ denote the decision variables. Following [1], we recast TO as a sampling problem from the following target probability distribution"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        366.0,
+        369.0,
+        560.0,
+        384.0
+      ],
+      "markdown": "$$\np_0(Y)\\;\\propto\\; p_d(Y)\\,p_J(Y)\\,p_g(Y), \\tag{2}\n$$"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        390.0,
+        559.0,
+        424.0
+      ],
+      "markdown": "where $p_d$ enforces dynamical feasibility, $p_g$ encodes constraints, and $p_J(Y)\\propto \\exp\\!\\big(-J(Y)/\\lambda\\big)$ biases toward low cost with temperature $\\lambda>0$."
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        426.0,
+        559.0,
+        472.0
+      ],
+      "markdown": "MBD [1] samples decision variables using a diffusion process. A standard forward process gradually perturbs an initial distribution $p_0$ toward an isotropic Gaussian $p_N$ with noise governed by a schedule $\\{\\alpha_i\\}_{i=1}^N$:"
+    },
+    {
+      "id": "p0002-b019",
+      "kind": "text",
+      "bbox": [
+        380.0,
+        474.0,
+        560.0,
+        493.0
+      ],
+      "markdown": "$$\nY^{(i)} = c_{i, 0} \\, Y^{(0)} + c_{i, 1}\\, \\varepsilon, \\tag{3}\n$$"
+    },
+    {
+      "id": "p0002-b020",
+      "kind": "text",
+      "bbox": [
+        325.0,
+        493.0,
+        560.0,
+        527.0
+      ],
+      "markdown": "$$\nc_{i,0} = \\sqrt{\\bar\\alpha_i}, \\quad c_{i,1} = \\sqrt{(1-\\bar\\alpha_i)}, \\quad \\bar\\alpha_i=\\prod_{k=1}^{i}\\alpha_k, \\tag{4}\n$$"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        531.0,
+        559.0,
+        603.0
+      ],
+      "markdown": "where $\\varepsilon \\sim \\mathcal{N}(0, I)$. Here, $Y^{(0)}$ denotes a sample drawn from the initial distribution $p_0$, which corresponds to the original decision variables of the optimization problem before any perturbation is applied. Note that the coefficients $c_{i,0}$ and $c_{i,1}$ define the noise schedule of the forward process and thus critically influence the performance of the diffusion model."
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        605.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "From Eq. (3) and Eq. (4), if the variance of the initial distribution is standardized such that $\\mathrm{Var}[Y^{(0)}]=1$, the variance of $Y^{(i)}$ remains equal to one for all $i$. This invariance arises because the coefficients $c_{i,0}$ and $c_{i,1}$ are chosen to satisfy $c_{i,0}^2 + c_{i,1}^2 = 1$, thereby preserving the overall variance throughout the forward diffusion process. For this reason, the schedule $\\{\\alpha_i\\}$ is referred to as a variance-preserving (VP) noise schedule. In practice, MBD uses a simple linear VP schedule in which $\\beta_i$ is interpolated linearly over $i=1,\\dots,N$ with $\\beta_0=1.0\\times 10^{-4}$ and $\\beta_1=1.0\\times 10^{-2}$, and $\\alpha_i=1-\\beta_i$. We denote this specific instantiation of MBD"
+    }
+  ]
+}

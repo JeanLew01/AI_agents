@@ -21,6 +21,10 @@ section here. The scout lenses in `skill/research-brainstorm/SKILL.md` refer to 
 | `rl-guided-pac-nmpc-paper` | RL-Guided PAC-NMPC for Probabilistically-Safe Perception-Based Navigation in Unknown Environments | learned proposal for PAC-NMPC |
 | `post-stall-navigation-paper` | Post-Stall Navigation with Fixed-Wing UAVs using Onboard Vision | application, hardware |
 | `urban-swarm-fixed-wing-paper` | Agile Fixed-Wing UAVs for Urban Swarm Operations | application, hardware |
+| `d-mpc-paper` | Diffusion Model Predictive Control (D-MPC; learned diffusion dynamics + diffusion action proposal) | learned world model inside MPC |
+| `alp-mbd-paper` | Adaptive Linear Path Model-Based Diffusion | MBD schedule design |
+| `whole-body-mppi-paper` | Real-Time Whole-Body Control of Legged Robots with MPPI | sampling MPC, hardware |
+| `generative-predictive-control-paper` | Generative Predictive Control: Flow Matching Policies for Dynamic, Difficult-to-Demonstrate Tasks | generative policy as MPC proposal |
 
 ## Particle filtering and robust inference (`~/AI_agents/paper2agent/ParticleFilter`)
 
@@ -67,3 +71,15 @@ Sampling, set-based, and safe learning (lens `reach-set`):
 | `selim2022safe-paper` | Safe Reinforcement Learning Using Black-Box Reachability Analysis |
 | `liu2025recurrent-paper` | Recurrent Control Barrier Functions: A Path Towards Nonparametric Safety Verification |
 | `ouyang2026symplectic-paper` | Symplectic Inductive Bias for Data-Driven Target Reachability in Hamiltonian Systems |
+
+## Diffusion language models (`~/AI_agents/paper2agent/Diffusion`)
+
+| Skill | Paper | Lens |
+|---|---|---|
+| `llada-paper` | Large Language Diffusion Models (LLaDA, NeurIPS 2025) | masked discrete diffusion, any-order modelling, remasking samplers, likelihood bound |
+
+## World models for robot learning (`~/AI_agents/paper2agent/World_Model`)
+
+| Skill | Paper | Lens |
+|---|---|---|
+| `hou-2026-world-model-survey-paper` | World model for robot learning: A comprehensive survey (IJRR 2026) | WAM paradigms (IDM, single-backbone, MoT, unified VLA, latent), world model as simulator, benchmarks |

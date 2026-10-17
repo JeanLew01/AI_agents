@@ -1,0 +1,151 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "text",
+      "bbox": [
+        126.0,
+        41.0,
+        484.0,
+        49.0
+      ],
+      "markdown": "SCALABLE KOOPMAN REACHABILITY WITH CONFORMAL COVERAGE GUARANTEES",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        132.0
+      ],
+      "markdown": "mitigate this but raise runtime and memory costs (Chen et al., 2023; Rober and How, 2024; Everett et al., 2021). We instead model the robot with Koopman-linearized dynamics, reducing the number of nonlinearities in the CG and improving scalability (i.e., computation time, conservativeness).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        142.0,
+        523.0,
+        302.0
+      ],
+      "markdown": "**Koopman Reachability** Koopman (Koopman and Neumann, 1932) and Carleman (Amini et al., 2021; Bayer and Leine, 2023) linearizations accelerate reachability but introduce approximation error. Moreover, while error bounds exist, these derivations are limited to quadratic or polynomial dynamics (Liu et al., 2021; Forets and Pouly, 2017; Amini et al., 2021), which do not apply to many robot dynamics models. Prior Koopman reachability methods also lack reachable set coverage calibration (Thapliyal and Hwang, 2022) or guarantee containment only for a finite set of observed trajectories (Kochdumper and Bak, 2022), failing to ensure safety for previously-unseen trajectories of the _true_ system. Prior methods also do not support NN liftings and consider autonomous systems, which corresponds to fixing a single controller. Changing controllers, as often done in robotics, requires repeating the calibration (Forets and Schilling, 2021; Bak et al., 2021, 2025), which is inefficient. In contrast, we support NN liftings, provide probabilistic coverage guarantees for the _true_ dynamics, and integrate control design, enabling data-efficient reachability across multiple controllers.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        312.0,
+        527.0,
+        499.0
+      ],
+      "markdown": "**Data-Driven Reachability** Data-driven reachability uses black-box trajectory data. Some methods adapt Hamilton-Jacobi analysis (Chilakamarri et al., 2024), but this is costly for high-dimensional systems. Others learn reachability functions (Sun and Mitra, 2022) but require dense data to accurately generalize, or yield ellipsoidal RSOAs (Park et al., 2024) assuming privileged system data (e.g., Lipschitz constants). Sampling-based methods (Lew et al., 2022) are limited to short horizons. Scenario optimization provides probabilistic guarantees (Dietrich et al., 2024) but is slower than Koopman-based methods (Bak et al., 2025). Moreover, these methods assume a fixed controller, yet robots often switch controllers to achieve different goals, altering the closed-loop dynamics and forcing reachable sets to be recomputed. Trajectory-tracking reachability provides reusable tracking-error sets across reference trajectories (Herbert et al., 2017; Singh et al., 2018; Knuth et al., 2021). Data-driven variants learn contraction metrics (Chou et al., 2021, 2022; Knuth et al., 2023) for tracking-based reachability of unknown systems, but finding such metrics is generally difficult. We build on this work, yielding Koopman reachable sets that are fast to compute, scalable to long horizons, and reusable for various closed-loop dynamics induced by tracking different trajectories.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        518.0,
+        174.0,
+        528.0
+      ],
+      "markdown": "# **3. Preliminaries**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        540.0,
+        516.0,
+        551.0
+      ],
+      "markdown": "We consider unknown, black-box nonlinear systems, either in open-loop (1a) or closed-loop (1b):",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "formula",
+      "bbox": [
+        262.0,
+        552.0,
+        528.0,
+        573.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (7)",
+      "asset_name": "formula-p0003-006"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "formula",
+      "bbox": [
+        230.0,
+        568.0,
+        528.0,
+        591.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 3 (8)",
+      "asset_name": "formula-p0003-007"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        592.0,
+        523.0,
+        658.0
+      ],
+      "markdown": "with timestep _t ∈{_ 0 _, . . . , T }_ =<sup>_._</sup> _T_ , state _xt ∈X ⊆_ R<sup>_n_</sup> , control _ut ∈U ⊆_ R<sup>_m_</sup> , and feedback control law _π_ : _X × T →U_ . The initial state _x_ 0 lies in set _X_ 0 _⊆X_ . Denote Int( _<u>a,</u>_ _~~a~~_ ) = _{a | a ≤ a ≤_ _~~a~~ }_ , as an interval, where _<u>a,</u>_ _~~a~~ ∈_ R<sup>_A_</sup> and inequalities hold element-wise, i.e., _<u>a</u>_ _~~i~~_<sup>_≤ai≤_</sup> _~~a~~ i_ , 1 _≤ i ≤ A_ . Denote the _a_ -ball as _Ba_ ( _c_ ) =<sup>_._</sup> _{x | ∥x−c∥∞ ≤ a}_ and sequence _q_ 1: _Q_ =<sup>_._</sup> _{q_ 1 _, q_ 2 _, . . . , qQ}_ = _{qi}_<sup>_Q_</sup> _i_ =1<sup>.</sup> We use _⊕_ and _⊖_ to denote the Minkowski sum and difference, respectively.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        668.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "**Koopman Operators** As our work relies on Koopman operators, we discuss the basic concepts here. Consider autonomous discrete-time nonlinear dynamics _xt_ +1 = _f_ ( _xt_ ). A Koopman operator _K_ is an infinite-dimensional linear operator that evolves the observables _ϕ_<sup>_∞_</sup> of the state _Kϕ_<sup>_∞_</sup> ( _x_ ) =",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

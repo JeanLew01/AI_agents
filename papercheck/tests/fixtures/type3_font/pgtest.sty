@@ -1,0 +1,33 @@
+% pgtest.sty -- minimal venue template used by papergate's test fixtures.
+% Review mode (default): anonymous author block, line numbers, "Under review" footer,
+% acknowledgments suppressed. [final]: authors, acknowledgments, proceedings footer.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pgtest}[2026/10/11 v1.0 papergate test template]
+\newif\ifpg@final\pg@finalfalse
+\DeclareOption{final}{\pg@finaltrue}
+\ProcessOptions\relax
+\RequirePackage{lineno}
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11in}
+\ifdefined\pdfpagewidth\pdfpagewidth=\paperwidth\pdfpageheight=\paperheight\fi
+\setlength{\textwidth}{5.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0.5in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{12pt}
+\setlength{\topmargin}{-24pt}
+\setlength{\footskip}{30pt}
+\setlength{\marginparwidth}{0.8in}
+\ifpg@final
+  \def\pg@footer{Proceedings of the Papergate Test Conference (PTC 2026).}
+\else
+  \def\pg@footer{Under review at PTC 2026. Do not distribute.}
+  \AtBeginDocument{\linenumbers\def\@author{Anonymous Author(s)}}
+\fi
+\def\ps@pgfirst{\def\@oddhead{}\def\@evenhead{}%
+  \def\@oddfoot{\hfil\footnotesize\pg@footer\hfil}\let\@evenfoot\@oddfoot}
+\let\pg@maketitle\maketitle
+\renewcommand{\maketitle}{\pg@maketitle\thispagestyle{pgfirst}}
+\newcommand{\acknowledgments}[1]{\ifpg@final\subsubsection*{Acknowledgments}#1\fi}
+\endinput

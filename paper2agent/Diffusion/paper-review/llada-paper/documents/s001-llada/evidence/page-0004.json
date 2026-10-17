@@ -1,0 +1,1068 @@
+{
+  "page": 4,
+  "lines": [
+    {
+      "text": "Eq. (4), LLaDA is a principled generative model with the potential to perform in-context learning and",
+      "bbox": [
+        108.0,
+        75.2083740234375,
+        504.0015563964844,
+        84.11493682861328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "instruction-following naturally, akin to LLMs. Moreover, its generative perspective implies strong",
+      "bbox": [
+        108.0,
+        86.11737060546875,
+        504.003173828125,
+        95.02393341064453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scalability with large data and models as discussed in Sec. 1. In addition, MaskGIT [23] adopts a",
+      "bbox": [
+        108.0,
+        97.0263671875,
+        503.999755859375,
+        105.93292999267578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "heuristic training objective, which misses the 1",
+      "bbox": [
+        108.0,
+        105.92720794677734,
+        291.9510803222656,
+        116.84192657470703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t term compared to Eq. (3), and lacks a theoretical link",
+      "bbox": [
+        288.4570007324219,
+        107.93536376953125,
+        504.2453918457031,
+        120.27692413330078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to maximum likelihood. We emphasize that it is precisely the theoretical foundation of maximum",
+      "bbox": [
+        108.0,
+        118.8443603515625,
+        503.9973449707031,
+        127.75092315673828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "likelihood estimation that motivated us to scale discrete diffusion models for language modeling.",
+      "bbox": [
+        108.0,
+        129.75335693359375,
+        493.73187255859375,
+        138.659912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.2",
+      "bbox": [
+        108.0,
+        153.83778381347656,
+        120.4532470703125,
+        162.79415893554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Pre-training",
+      "bbox": [
+        130.4158477783203,
+        153.83778381347656,
+        182.80917358398438,
+        162.79415893554688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LLaDA employs a Transformer [7] as the mask predictor, similar to existing LLMs. However, LLaDA",
+      "bbox": [
+        108.0,
+        173.932373046875,
+        504.3558044433594,
+        182.83892822265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "does not use a causal mask, as its formulation allows it to see the entire input for predictions.",
+      "bbox": [
+        108.0,
+        184.84136962890625,
+        477.7120056152344,
+        193.7479248046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We trained two variants of LLaDA with different sizes: 1B and 8B. We summarize the model",
+      "bbox": [
+        107.53199768066406,
+        201.2293701171875,
+        503.9967346191406,
+        210.13592529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "architecture of LLaDA 8B and LLaMA3 8B [6] here, and details are provided in Appendix B.2. We",
+      "bbox": [
+        108.0,
+        212.13836669921875,
+        503.9947509765625,
+        221.044921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "have ensured consistency in most hyperparameters while making several necessary modifications. We",
+      "bbox": [
+        108.0,
+        223.04736328125,
+        504.0014343261719,
+        231.95391845703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "use vanilla multi-head attention instead of grouped query attention [24] for simplicity, as LLaDA is",
+      "bbox": [
+        108.0,
+        233.95733642578125,
+        503.9971923828125,
+        242.8638916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "incompatible with KV caching, resulting in a different number of key and value heads. Consequently,",
+      "bbox": [
+        108.0,
+        244.8663330078125,
+        505.2415771484375,
+        253.77288818359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the attention layer has more parameters, and we reduce the FFN dimension to maintain a comparable",
+      "bbox": [
+        108.0,
+        255.775390625,
+        503.9993896484375,
+        264.68194580078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model size. Additionally, the vocabulary size differs due to a tokenizer [4] adapted on our data.",
+      "bbox": [
+        108.0,
+        266.68438720703125,
+        486.8078918457031,
+        275.5909423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The LLaDA model is pre-trained on a dataset comprising 2.3 trillion (T) tokens, adhering to a data",
+      "bbox": [
+        107.69100189208984,
+        283.0723571777344,
+        504.0014343261719,
+        291.9789123535156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "protocol that aligns closely with existing LLMs [25, 26], without the incorporation of any special",
+      "bbox": [
+        108.0,
+        293.9813537597656,
+        504.00433349609375,
+        302.8879089355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "techniques. The data are derived from online corpora, with low-quality content filtered through",
+      "bbox": [
+        108.0,
+        304.891357421875,
+        503.9973449707031,
+        313.79791259765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "manually designed rules and LLM-based approaches. Beyond general text, the dataset encompasses",
+      "bbox": [
+        108.0,
+        315.80035400390625,
+        503.99603271484375,
+        324.7069091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "high-quality code, math, and multilingual data. Please refer to Appendix B.1 for more details about",
+      "bbox": [
+        108.0,
+        326.7093505859375,
+        504.0002136230469,
+        335.61590576171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "datasets. The mixing of data sources and domains is guided by scaled-down ARMs. The pre-training",
+      "bbox": [
+        108.0,
+        337.61834716796875,
+        503.9992370605469,
+        346.52490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "process utilizes a fixed sequence length of 4096 tokens, incurring a total computational cost of 0.13",
+      "bbox": [
+        108.0,
+        348.5273742675781,
+        504.0000915527344,
+        357.4339294433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "million H800 GPU hours, similar to ARMs of the same scale and dataset size.",
+      "bbox": [
+        108.0,
+        359.4363708496094,
+        418.7534484863281,
+        368.3429260253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For a training sequence x0, we randomly sample t ∈[0, 1], mask each token independently with the",
+      "bbox": [
+        108.0,
+        375.1080322265625,
+        504.0030517578125,
+        385.4268798828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "same probability t to obtain xt (see Fig. 2 (a)) and estimate Eq. (3) via the Monte Carlo method for",
+      "bbox": [
+        108.0,
+        386.5749816894531,
+        504.1733093261719,
+        397.1349182128906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "stochastic gradient descent training. In addition, following Nie et al. [27], to enhance the ability of",
+      "bbox": [
+        108.0,
+        397.64337158203125,
+        503.9969177246094,
+        406.5499267578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LLaDA to handle variable-length data, we set 1% of the pre-training data to a random length that is",
+      "bbox": [
+        108.0,
+        408.5523681640625,
+        504.00030517578125,
+        417.45892333984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "uniformly sampled from the range [1, 4096].",
+      "bbox": [
+        108.0,
+        419.3019714355469,
+        284.54718017578125,
+        428.367919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We adopted the Warmup-Stable-Decay [28] learning rate scheduler to monitor the training progress",
+      "bbox": [
+        107.53199768066406,
+        435.849365234375,
+        504.0018615722656,
+        444.75592041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "without interrupting continuous training. Specifically, we linearly increased the learning rate from",
+      "bbox": [
+        107.64099884033203,
+        446.75836181640625,
+        504.00323486328125,
+        455.6649169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 to 4 × 10−4 over the first 2000 iterations and maintained it at 4 × 10−4. After processing 1.2T",
+      "bbox": [
+        108.0,
+        454.0523681640625,
+        504.3045654296875,
+        466.5749206542969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tokens, we decayed the learning rate to 1 × 10−4 and held it constant for the next 0.8T tokens to",
+      "bbox": [
+        108.0,
+        464.96136474609375,
+        504.00018310546875,
+        477.4839172363281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ensure stable training. Finally, we linearly reduced the learning rate from 1 × 10−4 to 1 × 10−5 for",
+      "bbox": [
+        108.0,
+        475.870361328125,
+        504.1689758300781,
+        488.3929138183594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the last 0.3T tokens. Furthermore, we utilized the AdamW optimizer [29] with a weight decay of 0.1,",
+      "bbox": [
+        108.0,
+        490.3953552246094,
+        505.24566650390625,
+        499.3019104003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "a batch size of 1280, and a local batch size of 4 per GPU. The 8B experiment was executed once,",
+      "bbox": [
+        108.0,
+        501.14495849609375,
+        505.2434387207031,
+        510.2109069824219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "without any hyperparameter tuning.",
+      "bbox": [
+        107.64099884033203,
+        512.21337890625,
+        250.21572875976562,
+        521.1199340820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2.3",
+      "bbox": [
+        108.0,
+        536.2968139648438,
+        120.4532470703125,
+        545.253173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Supervised Fine-Tuning",
+      "bbox": [
+        130.4158477783203,
+        536.2968139648438,
+        232.0941162109375,
+        545.253173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We enhance the capability of LLaDA to follow instructions by supervised fine-tuning (SFT) with",
+      "bbox": [
+        107.53199768066406,
+        556.392333984375,
+        503.99688720703125,
+        565.2988891601562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "paired data (p0, r0), where p0 is the prompt and r0 denotes the response. This is the simplest and most",
+      "bbox": [
+        108.0,
+        567.1419677734375,
+        504.00274658203125,
+        577.701904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "basic post-training method for LLMs. Technically, this requires to model the conditional distribution",
+      "bbox": [
+        108.0,
+        578.2103271484375,
+        503.9981689453125,
+        587.1168823242188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ(r0|p0) instead of pθ(x0) in pre-training.",
+      "bbox": [
+        108.0,
+        588.402099609375,
+        280.16571044921875,
+        598.7208862304688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The implementation is similar to pre-training. As shown in Fig. 2 (b), we leave the prompt unchanged",
+      "bbox": [
+        107.69100189208984,
+        605.50732421875,
+        503.9952087402344,
+        614.4138793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and mask the tokens in the response independently, as done for x0. Then, we feed both the prompt",
+      "bbox": [
+        108.0,
+        616.2569580078125,
+        504.00274658203125,
+        626.0189208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and the masked response rt to the pre-trained mask predictor to compute the loss for SFT:",
+      "bbox": [
+        108.0,
+        627.1669311523438,
+        466.5362243652344,
+        637.7269287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−Et,p0,r0,rt",
+      "bbox": [
+        206.05699157714844,
+        655.7440795898438,
+        252.64645385742188,
+        666.67236328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        255.302001953125,
+        642.79248046875,
+        261.9470520019531,
+        649.1685180664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1",
+      "bbox": [
+        255.302001953125,
+        649.5618896484375,
+        268.12030029296875,
+        667.1005249023438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t",
+      "bbox": [
+        263.83099365234375,
+        663.1359252929688,
+        267.427490234375,
+        671.9827270507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "L′",
+      "bbox": [
+        274.09100341796875,
+        644.02001953125,
+        281.7537536621094,
+        652.1149291992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        270.97601318359375,
+        653.3524780273438,
+        285.3719787597656,
+        659.728515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        271.7190246582031,
+        670.1301879882812,
+        284.6275329589844,
+        676.3229370117188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1[ri",
+      "bbox": [
+        287.02703857421875,
+        654.2621459960938,
+        302.36444091796875,
+        665.2981567382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t = M] log pθ(ri",
+      "bbox": [
+        299.2710266113281,
+        654.2621459960938,
+        364.9444274902344,
+        667.6117553710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0|p0, rt)",
+      "bbox": [
+        361.8500061035156,
+        655.7440795898438,
+        394.87445068359375,
+        667.0319213867188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        394.87298583984375,
+        642.7925415039062,
+        401.5180358886719,
+        649.1685791015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ",",
+      "bbox": [
+        394.87298583984375,
+        656.3019409179688,
+        405.944580078125,
+        667.1015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(5)",
+      "bbox": [
+        493.05755615234375,
+        656.4613647460938,
+        504.6739196777344,
+        665.367919921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "where L′ denotes a dynamic length specified later, and all other notations remain the same as before.",
+      "bbox": [
+        107.64099884033203,
+        682.3323974609375,
+        505.7381591796875,
+        694.8539428710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Note that this approach is fully compatible with pre-training. Essentially, the concatenation of p0",
+      "bbox": [
+        108.0,
+        702.1769409179688,
+        503.7040710449219,
+        711.9379272460938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and r0 can be treated as clean pre-training data x0, while the concatenation of p0 and rt serves as the",
+      "bbox": [
+        108.0,
+        713.0859375,
+        504.0037536621094,
+        723.6459350585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        303.5090026855469,
+        743.1333618164062,
+        308.49029541015625,
+        752.0399169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Large Language Diffusion Models",
+      "author": "Shen Nie; Fengqi Zhu; Zebin You; Xiaolu Zhang; Jingyang Ou; Jun Hu; Jun Zhou; Yankai Lin; Ji-Rong Wen; Chongxuan Li",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:e76afa9)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Diffusion/paper-review/llada-paper/documents/.pdf-skill-scan-wvzsbc47/review/source.pdf",
+      "page_count": 33,
+      "page_number": 4
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          108,
+          75,
+          505,
+          139
+        ],
+        "pos": [
+          0,
+          629
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          108,
+          153,
+          183,
+          163
+        ],
+        "pos": [
+          629,
+          654
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          108,
+          173,
+          505,
+          194
+        ],
+        "pos": [
+          654,
+          850
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          107,
+          201,
+          506,
+          276
+        ],
+        "pos": [
+          850,
+          1530
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          107,
+          283,
+          505,
+          368
+        ],
+        "pos": [
+          1530,
+          2296
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          108,
+          375,
+          505,
+          429
+        ],
+        "pos": [
+          2296,
+          2760
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          107,
+          435,
+          506,
+          522
+        ],
+        "pos": [
+          2760,
+          3564
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          108,
+          536,
+          233,
+          546
+        ],
+        "pos": [
+          3564,
+          3599
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          107,
+          556,
+          505,
+          599
+        ],
+        "pos": [
+          3599,
+          3979
+        ]
+      },
+      {
+        "index": 9,
+        "class": "text",
+        "bbox": [
+          107,
+          605,
+          505,
+          637
+        ],
+        "pos": [
+          3979,
+          4274
+        ]
+      },
+      {
+        "index": 10,
+        "class": "formula",
+        "bbox": [
+          206,
+          642,
+          505,
+          679
+        ],
+        "pos": [
+          4274,
+          4276
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          107,
+          685,
+          506,
+          695
+        ],
+        "pos": [
+          4276,
+          4395
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          108,
+          702,
+          505,
+          723
+        ],
+        "pos": [
+          4395,
+          4615
+        ]
+      },
+      {
+        "index": 13,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          743,
+          309,
+          750
+        ],
+        "pos": [
+          4615,
+          4619
+        ]
+      }
+    ],
+    "text": "Eq. (4), LLaDA is a principled generative model with the potential to perform in-context learning and instruction-following naturally, akin to LLMs. Moreover, its generative perspective implies strong scalability with large data and models as discussed in Sec. 1. In addition, MaskGIT [23] adopts a heuristic training objective, which misses the<sup><u>1</u></sup> _t_<sup>term compared to Eq. (3), and lacks a theoretical link</sup> to maximum likelihood. We emphasize that it is precisely the theoretical foundation of maximum likelihood estimation that motivated us to scale discrete diffusion models for language modeling. \n\n# **2.2 Pre-training** \n\nLLaDA employs a Transformer [7] as the mask predictor, similar to existing LLMs. However, LLaDA does not use a causal mask, as its formulation allows it to see the entire input for predictions. \n\nWe trained two variants of LLaDA with different sizes: 1B and 8B. We summarize the model architecture of LLaDA 8B and LLaMA3 8B [6] here, and details are provided in Appendix B.2. We have ensured consistency in most hyperparameters while making several necessary modifications. We use vanilla multi-head attention instead of grouped query attention [24] for simplicity, as LLaDA is incompatible with KV caching, resulting in a different number of key and value heads. Consequently, the attention layer has more parameters, and we reduce the FFN dimension to maintain a comparable model size. Additionally, the vocabulary size differs due to a tokenizer [4] adapted on our data. \n\nThe LLaDA model is pre-trained on a dataset comprising 2.3 trillion (T) tokens, adhering to a data protocol that aligns closely with existing LLMs [25, 26], without the incorporation of any special techniques. The data are derived from online corpora, with low-quality content filtered through manually designed rules and LLM-based approaches. Beyond general text, the dataset encompasses high-quality code, math, and multilingual data. Please refer to Appendix B.1 for more details about datasets. The mixing of data sources and domains is guided by scaled-down ARMs. The pre-training process utilizes a fixed sequence length of 4096 tokens, incurring a total computational cost of 0.13 million H800 GPU hours, similar to ARMs of the same scale and dataset size. \n\nFor a training sequence _x_ 0, we randomly sample _t ∈_ [0 _,_ 1], mask each token independently with the same probability _t_ to obtain _xt_ (see Fig. 2 (a)) and estimate Eq. (3) via the Monte Carlo method for stochastic gradient descent training. In addition, following Nie et al. [27], to enhance the ability of LLaDA to handle variable-length data, we set 1% of the pre-training data to a random length that is uniformly sampled from the range [1 _,_ 4096]. \n\nWe adopted the Warmup-Stable-Decay [28] learning rate scheduler to monitor the training progress without interrupting continuous training. Specifically, we linearly increased the learning rate from 0 to 4 _×_ 10<sup>_−_4</sup> over the first 2000 iterations and maintained it at 4 _×_ 10<sup>_−_4</sup> . After processing 1.2T tokens, we decayed the learning rate to 1 _×_ 10<sup>_−_4</sup> and held it constant for the next 0.8T tokens to ensure stable training. Finally, we linearly reduced the learning rate from 1 _×_ 10<sup>_−_4</sup> to 1 _×_ 10<sup>_−_5</sup> for the last 0.3T tokens. Furthermore, we utilized the AdamW optimizer [29] with a weight decay of 0.1, a batch size of 1280, and a local batch size of 4 per GPU. The 8B experiment was executed once, without any hyperparameter tuning. \n\n# **2.3 Supervised Fine-Tuning** \n\nWe enhance the capability of LLaDA to follow instructions by supervised fine-tuning (SFT) with paired data ( _p_ 0 _, r_ 0), where _p_ 0 is the prompt and _r_ 0 denotes the response. This is the simplest and most basic post-training method for LLMs. Technically, this requires to model the conditional distribution _pθ_ ( _r_ 0 _|p_ 0) instead of _pθ_ ( _x_ 0) in pre-training. \n\nThe implementation is similar to pre-training. As shown in Fig. 2 (b), we leave the prompt unchanged and mask the tokens in the response independently, as done for _x_ 0. Then, we feed both the prompt and the masked response _rt_ to the pre-trained mask predictor to compute the loss for SFT: \n\n\n\nwhere _L_<sup>_′_</sup> denotes a dynamic length specified later, and all other notations remain the same as before. \n\nNote that this approach is fully compatible with pre-training. Essentially, the concatenation of _p_ 0 and _r_ 0 can be treated as clean pre-training data _x_ 0, while the concatenation of _p_ 0 and _rt_ serves as the \n\n4 \n\n"
+  }
+}

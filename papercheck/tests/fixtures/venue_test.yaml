@@ -1,0 +1,43 @@
+# Venue config for the test fixtures (Papergate Test Conference, template pgtest.sty).
+name: PTC 2026 (test venue)
+template:
+  file: pgtest.sty
+  sha256: 07e82ce5183f4970e9ddbb59aa2d2dcaf689e5c40f4478aadd03296750bd754f
+  official_path: _common/pgtest.sty
+  layout: {paperwidth: 614.295, paperheight: 794.96999, textwidth: 397.48499, textheight: 650.43,
+           oddsidemargin: 36.135, topmargin: -24.0, headheight: 12.0, headsep: 12.0, footskip: 30.0}
+engine: pdflatex
+page_limit:
+  submission: 2
+  camera_ready: 3
+  excluded_sections: [references, acknowledgments, appendix]
+review_mode_markers:
+  - {kind: pdf_text, pattern: "Under review", description: "'Under review' footer"}
+  - {kind: pdf_text, pattern: "Anonymous Author", description: "anonymous author block"}
+  - {kind: line_numbers}
+final_mode_markers:
+  - {kind: package_option, package: pgtest, option: final}
+required_sections:
+  camera-ready:
+    - {name: Limitations, pattern: "^Limitations?$", min_words: 60}
+    - {name: Acknowledgments, pattern: "^Acknowledge?ments?$"}
+  submission:
+    - {name: Limitations, pattern: "^Limitations?$", min_words: 60}
+forbidden_sections:
+  submission:
+    - {name: Acknowledgments, pattern: "^Acknowledge?ments?$"}
+fonts: {require_embedded: true, forbid_type3: true}
+max_file_size_mb: 10
+pdf_version: {allowed: ["1.4", "1.5", "1.6", "1.7"]}
+title: Gated Diffusion Planning for Safe Navigation
+authors:
+  - {name: Ada Lovelace, affiliations: [Analytical Engine Lab], email: ada@test.edu}
+  - {name: Alan Turing, affiliations: [Computable Numbers Inst.], email: alan@icn.org}
+  - {name: Grace Hopper, affiliations: [Compiler Research Center], email: grace@crc.org}
+identity_terms: [Ada Lovelace, Alan Turing, Grace Hopper, Analytical Engine Lab, Computable Numbers Inst.,
+                 Compiler Research Center, ada@test.edu, alan@icn.org, grace@crc.org, GRANT-12345]
+compliance_notes:
+  - {text: "Upload the signed licence form.", modes: [camera-ready]}
+  - "Check the supplementary video length."
+checks:
+  build: {overfull_threshold_pt: 2.0}

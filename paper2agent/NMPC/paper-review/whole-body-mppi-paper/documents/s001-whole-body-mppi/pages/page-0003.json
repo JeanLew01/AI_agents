@@ -1,0 +1,196 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, the native lines, a 220-dpi crop of Figure 3 and a 220-dpi crop of the Algorithm 1 box, using background.tex and methods.tex as an aid. The extractor had merged the Fig. 3 caption, the whole Algorithm 1 box and right-column prose into one interleaved list item (p0003-b001) and put algorithm lines 10-14 in a separate item (p0003-b005); it had also lost the heading \"III. SAMPLING-BASED MPC FOR LEGGED ROBOTS\". Rebuilt: p0003-b001 is now only the caption \"Fig. 3. ...\" (verbatim, bbox [54,151,558,169]); new figure item p0003-alg1 (label \"Algorithm 1\", asset algorithm-1, bbox [52,172,301,411], top and bottom rules inside, checked on all edges) followed by p0003-b005 = full transcription of Algorithm 1 from background.tex checked line by line against the crop: title line \"**Algorithm 1** MPPI Control Algorithm\", **Require:**/**Ensure:** lines, printed line numbers 1:-14:, **for**/**do**/**end for** in bold, one &emsp; per nesting level, hard line breaks. Printed slips preserved: line 2 \"$\\mathcal{L}_n$ = 0\" (text-mode equals, as printed), line 6 \"using $u_n$\" (the loop samples $u_t$), lines 10/11 \"using Equation 1\"/\"Equation 2\" (no parentheses, as printed). New heading item p0003-h3 \"## III. SAMPLING-BASED MPC FOR LEGGED ROBOTS\" (bbox from the native line). Subsection headings \"# _A. ..._\"/\"# _B. ..._\" -> \"### A. MuJoCo Physics Engine\", \"### B. Representing Controls as a Cubic Spline\". Figure 3 (asset figure-3): six-keyframe hardware/simulation strip with raster \"t = 0 s ... t = 7 s\" stamps, one item, bbox [52,48,560,143] checked by crop (caption starts at y=152). Order: the page starts with p0003-b008 \"$\\lambda$ increases the influence ...\" which completes the sentence \"A lower value of\" from page 2 (join_previous=space); Figure 3 + caption and Algorithm 1 + transcription follow that complete paragraph; then \"Driven by ...\", \"Recent work [25] ... deploys MPPI on a\" and its right-column continuation p0003-b002 \"quadruped robot ...\" (join_previous=space). Wrap repairs checked against background.tex/methods.tex: \"highdimensional\" -> \"high-dimensional\", \"realtime feedback loop\" -> \"real-time feedback loop\", \"percore\" -> \"per-core\"; \"30-50\" kept with the printed hyphen. Authors' slip kept: \"a simple yet effective modification better scale MPPI\" (missing \"to\"). The page ends with the unfinished sentence \"... we reduce the size of\"; page 4 must start with its continuation (join_previous=space there). check: 1 missing line and extra numbers, all category (a), see adjudication note.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        436.0,
+        299.0,
+        491.0
+      ],
+      "markdown": "$\\lambda$ increases the influence of the best-performing trajectory, while a higher value distributes the weight more uniformly across all samples [6]. Finally, the process is repeated in a receding horizon approach. MPPI is summarized in Algorithm 1.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b000",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        48.0,
+        560.0,
+        143.0
+      ],
+      "markdown": "",
+      "source_class": "picture",
+      "label": "Figure 3",
+      "asset_name": "figure-3"
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "caption",
+      "bbox": [
+        54.0,
+        151.0,
+        558.0,
+        169.0
+      ],
+      "markdown": "Fig. 3. Keyframes from the Unitree Go1 robot climbing up and down a box of its own height with the MPPI policy on hardware (top row) and corresponding MuJoCo states (bottom row). The robot is tasked to reach the consecutive goals (yellow spheres) specified in the task.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-alg1",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        172.0,
+        301.0,
+        411.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        176.0,
+        299.0,
+        406.0
+      ],
+      "markdown": "**Algorithm 1** MPPI Control Algorithm  \n**Require:** Initial state $x_0$, control parameters $(\\mu_0, \\Sigma_0)$, number of samples $N$, time horizon $T$, temperature parameter $\\lambda$  \n**Ensure:** Optimal control input $u$  \n1: Initialize control trajectory mean $\\mu_t$ and covariance $\\Sigma_t$  \n2: Initialize sample trajectory cost $\\mathcal{L}_n$ = 0  \n3: **for** each sample $n = 1, \\dots, N$ **do**  \n4: &emsp;**for** each timestep $t = 0, 1, \\dots$ **do**  \n5: &emsp;&emsp;Sample action sequence: $u_t \\sim \\mathcal{N}(\\mu_t, \\Sigma_t)$  \n6: &emsp;&emsp;Simulate forward for $T$ timesteps using $u_n$  \n7: &emsp;&emsp;Compute the resulting cost and add it to $\\mathcal{L}_n$  \n8: &emsp;**end for**  \n9: **end for**  \n10: Compute weights $\\omega_n$ for each sample using Equation 1  \n11: Update control trajectory mean $\\mu_t$ using Equation 2  \n12: Select the control input for the system: $u = \\mu_t[0]$  \n13: Apply control input $u$  \n14: Shift control mean: $\\mu_t \\gets \\text{shifted}(\\mu_t)$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        496.0,
+        299.0,
+        638.0
+      ],
+      "markdown": "Driven by significant advancements in parallel computation on modern GPUs and its downstream effects on massively parallel simulation, MPPI has seen growing popularity and success in recent years [7], [24]. In off-road autonomous driving [7], [24] domains where environment dynamics are difficult to model analytically, MPPI naturally incorporates learned black-box models from real-world data thanks to its derivative-free nature, which is difficult for gradient-based MPC. However, so far, MPPI is mainly successfully deployed in low-dimensional control tasks (e.g., driving and drone flight) due to the curse of dimensionality for sampling-based algorithms.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        640.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Recent work [25] proposes a simple yet effective modification better scale MPPI to higher-dimensional tasks (e.g., quadruped locomotion or dexterous manipulation): sample over the control points of a polynomial spline and calculate the remaining controls via spline interpolation. While this approach yielded impressive behaviors in simulation [25], closing the sim-to-real gap in real-world systems remains an open problem. Alternatively, [26] deploys MPPI on a",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        180.0,
+        559.0,
+        249.0
+      ],
+      "markdown": "quadruped robot by learning a sampling distribution offline but only considers a kinodynamic robot model with foot contacts. Our work considers the whole-body dynamics and collision model, enabling automatic planning over contact strategies while solving locomotion and manipulation tasks without offline precomputation.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        251.0,
+        559.0,
+        321.0
+      ],
+      "markdown": "Rather than innovating over the MPPI algorithm itself, our work instead focuses on the system-level considerations and integration necessary to deploy this sampling-based control strategy on real-world legged robots that are high-dimensional, highly agile, and must reason about making and breaking contact with the environment.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-h3",
+      "kind": "heading",
+      "bbox": [
+        326.0,
+        329.0,
+        545.0,
+        340.0
+      ],
+      "markdown": "## III. SAMPLING-BASED MPC FOR LEGGED ROBOTS"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        345.0,
+        559.0,
+        391.0
+      ],
+      "markdown": "This section discusses key implementation details and design considerations for deploying sampling-based MPC on real-world legged robot hardware. A diagram of the overall system is illustrated in Fig. 2.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        400.0,
+        427.0,
+        410.0
+      ],
+      "markdown": "### A. MuJoCo Physics Engine",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        415.0,
+        559.0,
+        676.0
+      ],
+      "markdown": "Robotics simulators are increasingly accessible and performant. In particular, Drake [27] and Dojo [28] focus on physical accuracy for algorithm verification and model-based control but pay the price of high computation costs and cannot generate simulation data at scale. Isaac [20] and MuJoCo [5], [21] provide mature parallel implementations and, as a result, have become popular choices for data-hungry algorithms like RL. For sampling-based MPC, the simulator of choice must generate large numbers of simulation samples in parallel while providing fast enough individual rollouts to close the real-time feedback control loop. With this consideration in mind, we use the MuJoCo physics engine and parallelize the rollouts on a multi-core CPU. While Isaac and MJX [21] (MuJoCo on GPU or TPU) are capable of simulating hundreds to thousands of parallel rollouts compared to dozens for the CPU-based MuJoCo, the individual rollout speeds are insufficient to close the real-time feedback loop. In practice, we find that 30-50 parallel rollouts in MuJoCo on a high-end CPU with strong per-core performance (e.g. recent Intel Core-i9) are sufficient to solve the locomotion and manipulation tasks considered in this paper.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "heading",
+      "bbox": [
+        313.0,
+        685.0,
+        494.0,
+        695.0
+      ],
+      "markdown": "### B. Representing Controls as a Cubic Spline",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        700.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Directly sampling in the robot joint space can be challenging for MPPI, especially when planning over medium to long horizons. Following [25], we reduce the size of",
+      "source_class": "text"
+    }
+  ]
+}

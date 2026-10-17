@@ -1,0 +1,197 @@
+{
+  "title": "Diffusion Model Predictive Control",
+  "notes": [
+    "Source: arXiv:2410.05364v2 (21 pages; byte-identical to the arXiv v2 PDF), published in Transactions on Machine Learning Research (05/2025), reviewed on OpenReview (forum id pvtgffHtJm). Authors: Guangyao Zhou, Sivaramakrishnan Swaminathan, Rajkumar Vasudeva Raju, J. Swaroop Guntupalli, Wolfgang Lehrach, Joseph Ortiz, Antoine Dedieu, Miguel Lázaro-Gredilla, Kevin Murphy (Google DeepMind). The paper gives no code link, and no official code release was found. The appendices A-J are part of the same PDF and follow the references in this file; no 'Appendix' heading is printed.",
+    "Mathematics is transcribed to LaTeX from the authors' arXiv TeX source and checked against the PDF; no disagreement between TeX and PDF was found. Only equations (1), (2) and (3) are numbered (\\tag{...}); the displays in Appendix D are unnumbered. Bold italic vectors are written \\boldsymbol{s}, \\boldsymbol{a}, \\boldsymbol{h}; the upright bold action-sequence matrix is \\mathbf{A}; the dynamics model is p_{d}. The authors' notation varies between sections and is kept as printed: the dynamics model is written p_{s|a} in Sections 3.1, 3.3, 3.4 and 4.3 and p_{d} elsewhere; the action proposal is written \\pi in Section 3.1 and \\pi_a in Section 4.3, \\rho elsewhere.",
+    "Authors' typos and slips are kept as printed, for example 'Q-leaning' (Section 2), 'Diffuson Policy' and 'Imitiating Humans' (Table 1 caption), superscripts r^2_{1:T_1} and r^m_{1:T_2} in the dataset definition (Section 3.2, Appendix D), the product written \\prod_t^{t+F-1} (Sections 2 and 4.4.3), x_{t-1} instead of x_{k-1} in the forward process (Appendix A), s_{t+1:t+f_F} (Algorithm 4), \\mathbf{A}_{N,H} (Algorithm 5), p(s_t+1|s_t,a_t) (Appendix E.1), 'the the', 'a a high-level summary', 'by minimize', 'uses EMA', 'adaptions', and the Zhu et al. reference without a year. The paper itself gives two values for Diffuser on the original (defect-free) Walker2d hardware: 72.91 (± 3.47) in the text of Section 4.3 and 79.60 in Table 3(a); both are kept as printed.",
+    "Algorithms 1-5 are kept as images, each followed by a line-numbered text transcription with LaTeX maths; nesting is shown with one '&emsp;' per level, and printed errors are preserved.",
+    "Table 1 is stored as CSV with its three header levels repeated in combined column names joined by ' / ' (for example 'Factored: $p_{d}(s|a)\\,\\rho(a)$ / MPC / (multi-step)'); check marks and crosses are the printed symbols, empty cells are empty. Table 2 is one float with one caption but three printed sub-tables, stored as table-2-locomotion, table-2-adroit and table-2-kitchen; their 'Average' rows span the Domain and Level columns in print and are stored with the label in Domain and an empty Level cell. Table 3 is stored as table-3a and table-3b; Table 3(b) flattens its two-level header into 'Dynamics Model: SS Diff' etc. Table 4 flattens its header into 'MS Diff Action Proposal: SS Diff Dynamics' etc. Spacing inside '(±x)' is kept as printed and is not uniform.",
+    "Bold in the tables carries meaning and cannot be stored in CSV. Table 2 bolds scores within 5% of the maximum per task (only the mean, not the standard error): locomotion: halfcheetah/medium D-MPC 46.00, IQL 47.40; hopper/medium MOReL 95.40; walker2d/medium MOReL 77.80, D-MPC 76.21, Diffuser 79.70, IQL 78.30; halfcheetah/medium-replay CQL 45.50, IQL 44.20; hopper/medium-replay MOReL 93.60, D-MPC 92.49, Diffuser 96.80, CQL 95.00, IQL 94.70; walker2d/medium-replay D-MPC 78.81; Locomotion Average MOReL 66.48, D-MPC 65.98, CQL 65.45, IQL 67.47. Adroit: pen IQL 114.05; door D-MPC 16.36; hammer D-MPC 12.27; Adroit Average IQL 44.90. Kitchen: mixed D-MPC 67.50; partial D-MPC 73.33; Kitchen Average D-MPC 70.42. Table 3(b) bolds 65.98 (MS Diff proposal with MS Diff dynamics).",
+    "Table 7 cells are written as printed with the superscript exponent as '× 10^-1', '× 10^0', '× 10^1', '× 10^2' (ASCII caret, PDF minus as ASCII hyphen); the unit is milliseconds per environment step.",
+    "Text inside figures (axis labels, legends, panel titles, snapshot labels) exists only in the image crops of Figures 1 and 2. Footnotes are separate paragraphs starting 'Footnote 1:', 'Footnote 2:' and 'Footnote ∗:' (corresponding author), with markers [^1], [^2], [^*] in the text. Typography not carried over: bold table cells (listed above), the bold final 's' marking 'DWMS' in the Table 1 caption, the right-aligned e-mail layout of the author block.",
+    "In the Markdown copies of tables, the builder escapes backslashes and vertical bars as GitHub-flavoured Markdown requires, so the Table 1 header reads $p_{d}(s\\|a)\\\\,\\\\rho(a)$ in raw text and renders as $p_{d}(s|a)\\,\\rho(a)$; the CSV files contain the unescaped LaTeX. Floats are placed at paragraph boundaries near their printed position, so Table 3(a) and 3(b) and Figure 2 (all printed on page 10) sit under 4.4.3 although Table 3(a) belongs to Section 4.3 and Table 3(b) summarises Section 4.4; search for 'Table 3' or 'Figure 2' to find them."
+  ],
+  "source_review_notes": "All 21 pages reviewed against page renders by three reviewer agents (reports/review-pages-0001-0007.md, -0008-0015.md, -0016-0021.md): equations (1)-(3) and all inline and Appendix D maths transcribed to LaTeX from the authors' TeX and compared with 220 dpi crops; Figures 1-2 checked as single composite crops; Tables 1, 2 (three parts), 3(a), 3(b), 4, 5, 6, 7 checked cell by cell; Algorithms 1-5 kept as crops with line-numbered transcriptions; 52 reference entries checked. Verifier diagnostics on pages 1-6, 8, 11 and 16-21 are LaTeX-notation, minus-glyph, algorithm-transcription and Table 7 exponent differences, adjudicated per page.",
+  "navigation": [
+    {
+      "file": "references/paper.md",
+      "heading": "Abstract",
+      "purpose": "Summary of D-MPC and headline claims"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "1 Introduction",
+      "purpose": "MPC objective (1), why multi-step diffusion models and a learned action proposal, list of contributions"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "2 Related work",
+      "purpose": "Factored vs joint vs model-free; single-step vs multi-step; Dyna vs MPC; Table 1; Diffuser, Decision Diffuser, TD-MPC, MBOP, MBD, DyDiff"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "3 Method",
+      "purpose": "Section overview; parent of 3.1-3.4"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "3.1 Model predictive control",
+      "purpose": "Under 3 Method: offline training then alternating plan/act; Algorithm 1 (main MPC loop)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "3.2 Model learning",
+      "purpose": "Under 3 Method: offline dataset, diffusion dynamics p_d and action proposal rho, learned objective J (2), why no ensembles or reward model"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "3.3 Planning",
+      "purpose": "Under 3 Method: sampling-based planner, Algorithm 2"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "3.4 Adaptation",
+      "purpose": "Under 3 Method: novel rewards via V_n = kappa J + kappa-tilde J-tilde; fine-tuning the dynamics model on play data"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4 Experiments",
+      "purpose": "The four experimental questions; parent of 4.1-4.5"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.1 For fixed rewards, D-MPC is comparable to other offline RL methods",
+      "purpose": "Under 4 Experiments: D4RL locomotion, Adroit and Kitchen comparison, Table 2"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.2 Generalization to novel rewards",
+      "purpose": "Under 4 Experiments: height-based novel reward on Walker2d, Figure 1, comparison with Diffuser"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.3 Adaptation to novel dynamics",
+      "purpose": "Under 4 Experiments: simulated foot-torque defect on Walker2d, fine-tuning on play data (Table 3(a) is placed under 4.4.3)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.4 Ablation studies",
+      "purpose": "Under 4 Experiments: parent of 4.4.1-4.4.4 (the summary Table 3(b) is placed under 4.4.3)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.4.1 Diffusion action proposals improve performance and simplify the planning algorithm",
+      "purpose": "Under 4.4: MBOP baseline vs single-step diffusion proposal and sampling planner"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.4.2 Multi-step diffusion action proposals contribute to improved performance",
+      "purpose": "Under 4.4: single-step vs multi-step diffusion action proposals"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.4.3 Multi-step diffusion dynamics models contribute to improved performance",
+      "purpose": "Under 4.4: long-horizon prediction error, ART vs multi-step diffusion dynamics in the planning loop; Table 3(a), Table 3(b) and Figure 2 are placed here"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.4.4 Necessity of Expressive Models for Multi-Step Prediction",
+      "purpose": "Under 4.4: multi-step MLPs instead of diffusion models"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "4.5 D-MPC can be distilled into a fast reactive policy for high-frequency control",
+      "purpose": "Under 4 Experiments: distilling the planner into an MLP policy"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "5 Conclusions",
+      "purpose": "Summary, stated limitations (replanning cost, low-dimensional states, offline data coverage), future work"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "References",
+      "purpose": "Bibliography (author-year style)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "A Algorithms for model learning",
+      "purpose": "Appendix: conditional diffusion training, denoising loss, Algorithms 3 (one-step models) and 4 (multi-step models)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "B The MBOP-TrajOpt Algorithm",
+      "purpose": "Appendix: Algorithm 5, the MBOP trajectory optimiser used as baseline"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "C Detailed ablation study results",
+      "purpose": "Appendix: Table 4, per-domain scores of the ablation variants"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "D Normalizing state coordinates",
+      "purpose": "Appendix: empirical-CDF normalisation of state coordinates to [-1, 1] and its inverse"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E Model architectures and training details",
+      "purpose": "Appendix: parent of E.1-E.6"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.1 Diffusion models",
+      "purpose": "Under E: DDIM with cosine schedule, transformer denoisers, token sizes, diffusion steps and layers per model"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.2 One-step MLP dynamics models",
+      "purpose": "Under E: MLP dynamics architecture, Table 5"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.3 Auto-Regressive Transformer dynamics model (ART)",
+      "purpose": "Under E: ART tokens, loss (3), Table 6"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.4 Model architectures for the objective function",
+      "purpose": "Under E: transformer for J, discount factors, termination penalty"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.5 Training setups and hyper-parameters",
+      "purpose": "Under E: optimiser, learning-rate schedule, steps, gradient clipping, EMA"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "E.6 Compute Resources",
+      "purpose": "Under E: A100 GPUs and training time"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "F Hyper-parameters for the sampling-based planner",
+      "purpose": "Appendix: forecast horizon F, number of samples N, history length H"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "G Long-horizon dynamics prediction",
+      "purpose": "Appendix: RMSD metric behind Figure 2 and its limits"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "H Generalization to novel rewards",
+      "purpose": "Appendix: details of the height-based novel reward experiment (Figure 1)"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "I Adaptation to novel dynamics",
+      "purpose": "Appendix: defect simulation, play-data collection, fine-tuning protocol"
+    },
+    {
+      "file": "references/paper.md",
+      "heading": "J Timing measurements",
+      "purpose": "Appendix: wall-clock planning time per step, Table 7, speed-up options"
+    }
+  ]
+}

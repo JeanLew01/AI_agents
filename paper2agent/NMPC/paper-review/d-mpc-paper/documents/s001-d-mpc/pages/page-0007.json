@@ -1,0 +1,338 @@
+{
+  "page": 7,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0007.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and 220-260-dpi crops of the three Table 2 sub-tables. Cells were typed from offline2.tex (the live, uncommented table* float). A script compared all 17 CSV rows with the TeX rows (\\textbf removed) and found no mismatch, and each cell was checked against the crops. Headings '### 4.1 For fixed rewards, D-MPC is comparable to other offline RL methods' and '### 4.2 Generalization to novel rewards' (the extractor used '#'). Table 2 is one float with one caption but three printed sub-tables. The extractor's single mangled markdown table is replaced by three table items: 'Table 2 (locomotion)' (table-2-locomotion, 10 columns x 8 rows, bbox [70,332,542,443]), 'Table 2 (Adroit)' (table-2-adroit, 8 columns x 5 rows, bbox [81,449,532,517]) and 'Table 2 (Kitchen)' (table-2-kitchen, 6 columns x 4 rows, bbox [187,523,425,584]); boxes include the top and bottom rules. The single caption item follows all three. The cell strings are as printed, including the space in '46.00 (±0.17)', the hyphen-minus in '-0.08 (±0.13)', '0.00', and '9.70'. The average rows ('Locomotion Average', 'Adroit Average', 'Kitchen Average') span the Domain and Level columns in print (\\multicolumn{2}). In the CSV the label is in Domain and Level is an empty string. Bold marks scores within 5% of the maximum per task. CSV cannot hold bold, so no markers were added to the cells. The 26 bold cells (all confirmed on the crops) are listed in the reviewer report for the conversion notes. Order: 4.1 paragraphs, the Table 2 items with their caption, 4.2 heading, and last the paragraph 'In Fig. 1, ... Walker2d medium-replay dataset.', which continues on page 8 (the page-8 reviewer has set join_previous=space on p0008-b001). Header and page number omitted. check: OK (lines 155/155, no number differences).",
+  "warnings": [
+    "Review possible header/footer: p0007-b000"
+  ],
+  "items": [
+    {
+      "id": "p0007-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research (05/2025)",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page."
+    },
+    {
+      "id": "p0007-b001",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        84.0,
+        414.0,
+        94.0
+      ],
+      "markdown": "### 4.1 For fixed rewards, D-MPC is comparable to other offline RL methods",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b002",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        105.0,
+        541.0,
+        163.0
+      ],
+      "markdown": "We evaluate the performance of our proposed D-MPC on various D4RL (Fu et al., 2020) tasks. Planning-based approaches are especially beneficial in cases where we do not have access to expert data. As a result, we focus our comparisons on cases where we learn with sub-optimal data. We experiment with locomotion tasks for Halfcheetah, Hopper and Walker2D for levels medium and medium-replay, Adroit tasks for pen, door and hammer with cloned data, and Franka Kitchen tasks with mixed and partial data.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b003",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        170.0,
+        541.0,
+        325.0
+      ],
+      "markdown": "Our results are summarized in Table 2. We see that our method significantly beats MBOP, and a behavior cloning (BC) baseline. It also marginally beats Diffuser, a strong model-based offline RL approach that uses classifier guidance during sampling for planning instead of MPC. In contrast to Diffuser’s single diffusion model for joint state-action sequence generation, our approach decouples the dynamics model and action proposal. We note that the total compute of our two transformers is designed to be roughly equivalent to Diffuser’s single model; we achieve this by using a smaller transformer for the dynamics model, reflecting its relative simplicity. We additionally compare to other popular model-free offline RL methods, like conservative Q-learning (CQL) (Kumar et al., 2020) and implicit Q-learning (IQL) (Kostrikov et al., 2021), as well as model-based RL methods like MOReL (Kidambi et al., 2020), and sequence-models like Decision Transformer (DT) (Chen et al., 2021). These methods cannot adapt to novel rewards at test time (unlike D-MPC, MBOP and Diffuser), but we include them to give a sense of the SOTA performance on this benchmark. We see that our method, despite its extra flexibility, can still match the performance of these existing, but more restrictive, methods.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b004",
+      "kind": "table",
+      "bbox": [
+        70.0,
+        332.0,
+        542.0,
+        443.0
+      ],
+      "markdown": "|Domain|Level||MOReL|MBOP|D-MPC (ours)|Diffuser|DT|BC|CQL|IQL|\n|---|---|---|---|---|---|---|---|---|---|---|\n|halfcheetah|medium||42.10|44.60|**46.00** (±0.17)|44.20|42.60|42.60|44.00|**47.40**|\n|hopper|medium||**95.40**|48.80|61.24 (±2.30)|58.50|67.60|52.90|58.50|66.30|\n|walker2d|medium||**77.80**|41.00|**76.21** (±2.67)|**79.70**|74.00|75.30|72.50|**78.30**|\n|halfcheetah|medium-rep|lay|40.20|42.30|41.12 (±0.31)|42.20|36.60|36.60|**45.50**|**44.20**|\n|hopper|medium-rep|lay|**93.60**|12.40|**92.49** (±2.23)|**96.80**|82.70|18.10|**95.00**|**94.70**|\n|walker2d|medium-rep|lay|49.80|9.70|**78.81** (±4.19)|61.20|66.60|26.00|77.20|73.90|\n|Locomoti|on Average||**66.48**|33.13|**65.98**|63.77|61.68|41.92|**65.45**|**67.47**|\n|Domain|Level|MBOP|D-MPC|(ours)|DT|BC|CQ|L|IQL||\n|adroit-pen|cloned|63.20|89.22 (|±12.57)|71.17 (±2.70)<br>99.1|4 (±12.27)|14.74 (|±2.31)|**114.05** (±|4.78)|\n|adroit-doo|r<br>cloned|0.00|**16.36** (|±2.20)|11.18 (±0.96)<br>3.4|0 (±0.95)|-0.08 (|±0.13)|9.02 (±1|.47)|\n|adroit-hamm|er<br>cloned|4.20|**12.27** (|±3.58)|2.74 (±0.22)<br>8.9|0 (±4.04)|0.32 (±|0.03)|11.63 (±|1.70)|\n|Adroit|Average|22.47|39.|28|28.36|37.15|4.9|9|**44.90**||\n|||Dom|ain<br>Le|vel<br>D-M|PC (ours)<br>BC|CQL|IQL||||\n|||kitc|hen<br>mix|ed<br>**67.**|**50** (±2.09)<br>51.50|52.40|51.00||||\n|||kitc|hen<br>par|tial<br>**73.**|**33** (±1.64)<br>38.00|50.10|46.30||||\n|||Kitc|hen Avera|ge|**70.42**<br>44.75|51.25|48.65||||",
+      "source_class": "table",
+      "label": "Table 2 (locomotion)",
+      "asset_name": "table-2-locomotion",
+      "rows": [
+        [
+          "Domain",
+          "Level",
+          "MOReL",
+          "MBOP",
+          "D-MPC (ours)",
+          "Diffuser",
+          "DT",
+          "BC",
+          "CQL",
+          "IQL"
+        ],
+        [
+          "halfcheetah",
+          "medium",
+          "42.10",
+          "44.60",
+          "46.00 (±0.17)",
+          "44.20",
+          "42.60",
+          "42.60",
+          "44.00",
+          "47.40"
+        ],
+        [
+          "hopper",
+          "medium",
+          "95.40",
+          "48.80",
+          "61.24 (±2.30)",
+          "58.50",
+          "67.60",
+          "52.90",
+          "58.50",
+          "66.30"
+        ],
+        [
+          "walker2d",
+          "medium",
+          "77.80",
+          "41.00",
+          "76.21 (±2.67)",
+          "79.70",
+          "74.00",
+          "75.30",
+          "72.50",
+          "78.30"
+        ],
+        [
+          "halfcheetah",
+          "medium-replay",
+          "40.20",
+          "42.30",
+          "41.12 (±0.31)",
+          "42.20",
+          "36.60",
+          "36.60",
+          "45.50",
+          "44.20"
+        ],
+        [
+          "hopper",
+          "medium-replay",
+          "93.60",
+          "12.40",
+          "92.49 (±2.23)",
+          "96.80",
+          "82.70",
+          "18.10",
+          "95.00",
+          "94.70"
+        ],
+        [
+          "walker2d",
+          "medium-replay",
+          "49.80",
+          "9.70",
+          "78.81 (±4.19)",
+          "61.20",
+          "66.60",
+          "26.00",
+          "77.20",
+          "73.90"
+        ],
+        [
+          "Locomotion Average",
+          "",
+          "66.48",
+          "33.13",
+          "65.98",
+          "63.77",
+          "61.68",
+          "41.92",
+          "65.45",
+          "67.47"
+        ]
+      ]
+    },
+    {
+      "id": "p0007-b004b",
+      "kind": "table",
+      "bbox": [
+        81.0,
+        449.0,
+        532.0,
+        517.0
+      ],
+      "markdown": "|Domain|Level||MOReL|MBOP|D-MPC (ours)|Diffuser|DT|BC|CQL|IQL|\n|---|---|---|---|---|---|---|---|---|---|---|\n|halfcheetah|medium||42.10|44.60|**46.00** (±0.17)|44.20|42.60|42.60|44.00|**47.40**|\n|hopper|medium||**95.40**|48.80|61.24 (±2.30)|58.50|67.60|52.90|58.50|66.30|\n|walker2d|medium||**77.80**|41.00|**76.21** (±2.67)|**79.70**|74.00|75.30|72.50|**78.30**|\n|halfcheetah|medium-rep|lay|40.20|42.30|41.12 (±0.31)|42.20|36.60|36.60|**45.50**|**44.20**|\n|hopper|medium-rep|lay|**93.60**|12.40|**92.49** (±2.23)|**96.80**|82.70|18.10|**95.00**|**94.70**|\n|walker2d|medium-rep|lay|49.80|9.70|**78.81** (±4.19)|61.20|66.60|26.00|77.20|73.90|\n|Locomoti|on Average||**66.48**|33.13|**65.98**|63.77|61.68|41.92|**65.45**|**67.47**|\n|Domain|Level|MBOP|D-MPC|(ours)|DT|BC|CQ|L|IQL||\n|adroit-pen|cloned|63.20|89.22 (|±12.57)|71.17 (±2.70)<br>99.1|4 (±12.27)|14.74 (|±2.31)|**114.05** (±|4.78)|\n|adroit-doo|r<br>cloned|0.00|**16.36** (|±2.20)|11.18 (±0.96)<br>3.4|0 (±0.95)|-0.08 (|±0.13)|9.02 (±1|.47)|\n|adroit-hamm|er<br>cloned|4.20|**12.27** (|±3.58)|2.74 (±0.22)<br>8.9|0 (±4.04)|0.32 (±|0.03)|11.63 (±|1.70)|\n|Adroit|Average|22.47|39.|28|28.36|37.15|4.9|9|**44.90**||\n|||Dom|ain<br>Le|vel<br>D-M|PC (ours)<br>BC|CQL|IQL||||\n|||kitc|hen<br>mix|ed<br>**67.**|**50** (±2.09)<br>51.50|52.40|51.00||||\n|||kitc|hen<br>par|tial<br>**73.**|**33** (±1.64)<br>38.00|50.10|46.30||||\n|||Kitc|hen Avera|ge|**70.42**<br>44.75|51.25|48.65||||",
+      "source_class": "table",
+      "label": "Table 2 (Adroit)",
+      "asset_name": "table-2-adroit",
+      "rows": [
+        [
+          "Domain",
+          "Level",
+          "MBOP",
+          "D-MPC (ours)",
+          "DT",
+          "BC",
+          "CQL",
+          "IQL"
+        ],
+        [
+          "adroit-pen",
+          "cloned",
+          "63.20",
+          "89.22 (±12.57)",
+          "71.17 (±2.70)",
+          "99.14 (±12.27)",
+          "14.74 (±2.31)",
+          "114.05 (±4.78)"
+        ],
+        [
+          "adroit-door",
+          "cloned",
+          "0.00",
+          "16.36 (±2.20)",
+          "11.18 (±0.96)",
+          "3.40 (±0.95)",
+          "-0.08 (±0.13)",
+          "9.02 (±1.47)"
+        ],
+        [
+          "adroit-hammer",
+          "cloned",
+          "4.20",
+          "12.27 (±3.58)",
+          "2.74 (±0.22)",
+          "8.90 (±4.04)",
+          "0.32 (±0.03)",
+          "11.63 (±1.70)"
+        ],
+        [
+          "Adroit Average",
+          "",
+          "22.47",
+          "39.28",
+          "28.36",
+          "37.15",
+          "4.99",
+          "44.90"
+        ]
+      ]
+    },
+    {
+      "id": "p0007-b004c",
+      "kind": "table",
+      "bbox": [
+        187.0,
+        523.0,
+        425.0,
+        584.0
+      ],
+      "markdown": "|Domain|Level||MOReL|MBOP|D-MPC (ours)|Diffuser|DT|BC|CQL|IQL|\n|---|---|---|---|---|---|---|---|---|---|---|\n|halfcheetah|medium||42.10|44.60|**46.00** (±0.17)|44.20|42.60|42.60|44.00|**47.40**|\n|hopper|medium||**95.40**|48.80|61.24 (±2.30)|58.50|67.60|52.90|58.50|66.30|\n|walker2d|medium||**77.80**|41.00|**76.21** (±2.67)|**79.70**|74.00|75.30|72.50|**78.30**|\n|halfcheetah|medium-rep|lay|40.20|42.30|41.12 (±0.31)|42.20|36.60|36.60|**45.50**|**44.20**|\n|hopper|medium-rep|lay|**93.60**|12.40|**92.49** (±2.23)|**96.80**|82.70|18.10|**95.00**|**94.70**|\n|walker2d|medium-rep|lay|49.80|9.70|**78.81** (±4.19)|61.20|66.60|26.00|77.20|73.90|\n|Locomoti|on Average||**66.48**|33.13|**65.98**|63.77|61.68|41.92|**65.45**|**67.47**|\n|Domain|Level|MBOP|D-MPC|(ours)|DT|BC|CQ|L|IQL||\n|adroit-pen|cloned|63.20|89.22 (|±12.57)|71.17 (±2.70)<br>99.1|4 (±12.27)|14.74 (|±2.31)|**114.05** (±|4.78)|\n|adroit-doo|r<br>cloned|0.00|**16.36** (|±2.20)|11.18 (±0.96)<br>3.4|0 (±0.95)|-0.08 (|±0.13)|9.02 (±1|.47)|\n|adroit-hamm|er<br>cloned|4.20|**12.27** (|±3.58)|2.74 (±0.22)<br>8.9|0 (±4.04)|0.32 (±|0.03)|11.63 (±|1.70)|\n|Adroit|Average|22.47|39.|28|28.36|37.15|4.9|9|**44.90**||\n|||Dom|ain<br>Le|vel<br>D-M|PC (ours)<br>BC|CQL|IQL||||\n|||kitc|hen<br>mix|ed<br>**67.**|**50** (±2.09)<br>51.50|52.40|51.00||||\n|||kitc|hen<br>par|tial<br>**73.**|**33** (±1.64)<br>38.00|50.10|46.30||||\n|||Kitc|hen Avera|ge|**70.42**<br>44.75|51.25|48.65||||",
+      "source_class": "table",
+      "label": "Table 2 (Kitchen)",
+      "asset_name": "table-2-kitchen",
+      "rows": [
+        [
+          "Domain",
+          "Level",
+          "D-MPC (ours)",
+          "BC",
+          "CQL",
+          "IQL"
+        ],
+        [
+          "kitchen",
+          "mixed",
+          "67.50 (±2.09)",
+          "51.50",
+          "52.40",
+          "51.00"
+        ],
+        [
+          "kitchen",
+          "partial",
+          "73.33 (±1.64)",
+          "38.00",
+          "50.10",
+          "46.30"
+        ],
+        [
+          "Kitchen Average",
+          "",
+          "70.42",
+          "44.75",
+          "51.25",
+          "48.65"
+        ]
+      ]
+    },
+    {
+      "id": "p0007-b005",
+      "kind": "caption",
+      "bbox": [
+        83.0,
+        592.0,
+        531.0,
+        668.0
+      ],
+      "markdown": "Table 2: Performance comparison of D-MPC with various model-based and model-free offline RL methods across different domains. Baseline results are obtained from existing papers (Ajay et al., 2023; Tarasov et al., 2024). Performance is measured using normalized scores (Fu et al., 2020). For D-MPC, we report the mean and standard error of normalized scores over 30 episodes with different random initial environment conditions. Following (Kostrikov et al., 2021), we highlight in bold scores within 5% of the maximum per task. Baseline numbers from (Ajay et al., 2023) do not have associated standard errors. We include the standard errors for baseline numbers from (Tarasov et al., 2024) when they are present.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b006",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        689.0,
+        241.0,
+        697.0
+      ],
+      "markdown": "### 4.2 Generalization to novel rewards",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0007-b007",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        709.0,
+        543.0,
+        732.0
+      ],
+      "markdown": "In Fig. 1, we demonstrate how novel rewards can be used to generate interesting agent behaviors. We first trained the dynamics, action proposal, and value models for D-MPC on the Walker2d medium-replay dataset.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0007-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        753.0,
+        309.0,
+        760.0
+      ],
+      "markdown": "7",
+      "source_class": "page-footer",
+      "reason": "Page number 7 (footer)."
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "page": 22,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0022.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 240/260-dpi crops of equations (15), (16) and the n-turn dialogue paragraph. Equations (15) and (16) converted from formula images to $$...$$ with \\tag{15}, \\tag{16} (maths from main.tex, checked against the crop: $-\\mathbb{E}_{x_0, \\pi \\sim U_\\pi}[\\sum_{i=1}^{L} \\log p_\\theta(x_0^{\\pi(i)}|x_0^{\\pi(<i)};\\pi)]$ and $\\tilde{p}_{\\theta}(r_0|p_0, r_t) \\propto p_{\\theta}(r_0|p_0, r_t)^{1+w} / p_{\\theta}(r_0|m, r_t)^w$). The n-turn dialogue formula in B.1 (extractor glyph soup with <sup> tags) rewritten as inline LaTeX $(p_0^0, r_0^0, p_0^1, r_0^1, \\dots, p_0^{n-1}, r_0^{n-1})$ and $(p_0^0, r_0^0), (p_0^0r_0^0p_0^1, r_0^1), \\dots, (p_0^0r_0^0p_0^1r_0^1\\dots p_0^{n-1}, r_0^{n-1})$, checked symbol by symbol against the crop. Other inline maths in LaTeX ($\\pi$, $U_\\pi$, $x_0^{\\pi(<i)}$, $\\pi(\\geq i)$, $m$, $w$, $p_0$). Headings fixed: '### A.3 Algorithms', '## B Experiments', '### B.1 Data Collection and Preprocessing' (extractor had '##'/'#' with bold). Repaired 'fixedlength' -> 'fixed-length' (real compound hyphen at the line wrap, as in main.tex) and the wrap hyphen 'au-toregressively' -> 'autoregressively'. '|EOS|' kept as printed plain text (TeX: $|\\text{EOS}|$). Printed wording kept ('Nie et al. [27] introduces'). Page ends with a complete paragraph; p. 23 continues with B.2. Page number omitted.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0022-b000",
+      "kind": "text",
+      "bbox": [
+        107,
+        74,
+        506,
+        130
+      ],
+      "markdown": "Any-order autoregressive models (AO-ARM) [59, 101, 102] characterize the joint distribution autoregressively for all possible orders $\\pi$ of the $L$ variables. To learn such a distribution, an AO-ARM utilizes a weight-sharing neural network to model all univariate conditionals and employs mask tokens to represent absent variables. During training, the expected negative log-likelihood over the uniform distribution of all orders $U_\\pi$ is minimized:"
+    },
+    {
+      "id": "p0022-b001",
+      "kind": "text",
+      "bbox": [
+        214,
+        129,
+        510,
+        169
+      ],
+      "markdown": "$$ -\\mathbb{E}_{x_0, \\pi \\sim U_\\pi}\\left[ \\sum_{i=1}^{L} \\log p_\\theta(x_0^{\\pi(i)}|x_0^{\\pi(<i)};\\pi)\\right]. \\tag{15} $$"
+    },
+    {
+      "id": "p0022-b002",
+      "kind": "text",
+      "bbox": [
+        108,
+        170,
+        506,
+        205
+      ],
+      "markdown": "Intuitively, $x_0^{\\pi(<i)}$ can be understood as a masked token $x_t$ with index in $\\pi(\\geq i)$ being masked. It can be further proved that Eq. (15) is equivalent to Eq. (12). This connection explains the bidirectional reasoning capabilities of LLaDA, even though it was never used explicitly in the inference procedure."
+    },
+    {
+      "id": "p0022-b003",
+      "kind": "text",
+      "bbox": [
+        108,
+        211,
+        505,
+        243
+      ],
+      "markdown": "In addition, Nie et al. [27] introduces unsupervised classifier-free guidance (CFG), a plug-and-play technique that balances alignment with prompts and text diversity. Specifically, unsupervised CFG employs the following modified mask predictor for inference:"
+    },
+    {
+      "id": "p0022-b004",
+      "kind": "text",
+      "bbox": [
+        232,
+        243,
+        510,
+        279
+      ],
+      "markdown": "$$ \\tilde{p}_{\\theta}(r_0|p_0, r_t) \\propto \\frac{p_{\\theta}(r_0|p_0, r_t)^{1+w}}{p_{\\theta}(r_0|m, r_t)^w}, \\tag{16} $$"
+    },
+    {
+      "id": "p0022-b005",
+      "kind": "text",
+      "bbox": [
+        107,
+        278,
+        505,
+        322
+      ],
+      "markdown": "where $m$ is a mask sequence of the same length as $p_0$ and $w$ is a tunable hyperparameter that controls the strength of $p_0$. To ensure a fair comparison with ARMs, we do not apply CFG to LLaDA in the main text. However, as demonstrated in Appendix B.3, LLaDA is fully compatible with CFG and consistently exhibits improved performance when it is applied."
+    },
+    {
+      "id": "p0022-b006",
+      "kind": "heading",
+      "bbox": [
+        108,
+        335,
+        181,
+        346
+      ],
+      "markdown": "### A.3 Algorithms"
+    },
+    {
+      "id": "p0022-b007",
+      "kind": "text",
+      "bbox": [
+        108,
+        355,
+        506,
+        409
+      ],
+      "markdown": "In this section, we present the training and inference algorithms. Specifically, we introduce the pre-training and supervised fine-tuning algorithms in Algorithm 1 and Algorithm 2, respectively. In addition, the likelihood evaluation algorithm is provided in Algorithm 3. Finally, we present the reverse generation process in Algorithm 4 and Algorithm 5, which correspond to the random remasking and the low-confidence [23] remasking strategy, respectively."
+    },
+    {
+      "id": "p0022-b008",
+      "kind": "heading",
+      "bbox": [
+        108,
+        425,
+        194,
+        438
+      ],
+      "markdown": "## B Experiments"
+    },
+    {
+      "id": "p0022-b009",
+      "kind": "heading",
+      "bbox": [
+        108,
+        449,
+        279,
+        460
+      ],
+      "markdown": "### B.1 Data Collection and Preprocessing"
+    },
+    {
+      "id": "p0022-b010",
+      "kind": "text",
+      "bbox": [
+        108,
+        469,
+        505,
+        491
+      ],
+      "markdown": "In this section, we first introduce the data collection and filtering processes for both pre-training and SFT. We then describe how LLaDA leverages these datasets during training."
+    },
+    {
+      "id": "p0022-b011",
+      "kind": "text",
+      "bbox": [
+        107,
+        497,
+        506,
+        573
+      ],
+      "markdown": "Our pre-training corpus is constructed from diverse publicly available sources, including web data, books, academic papers, social media, encyclopedias, mathematics, and code, with approximately 11% Chinese, 61% English, and 28% code. The data cleaning process involves PDF text extraction, deduplication, and harmful content filtering. To further ensure quality, we fine-tune a BERT [22] model for automated data quality annotation, enabling the selection of higher-quality samples. Our SFT dataset consists of 1 million human-annotated samples and 3.5 million synthetic samples, generated using methods similar to those proposed in Xu et al. [103], Wei et al. [104]."
+    },
+    {
+      "id": "p0022-b012",
+      "kind": "text",
+      "bbox": [
+        107,
+        578,
+        506,
+        600
+      ],
+      "markdown": "We concatenate the collected documents in the pre-training corpus and segment the text into fixed-length sequences according to the predefined sequence length."
+    },
+    {
+      "id": "p0022-b013",
+      "kind": "text",
+      "bbox": [
+        107,
+        605,
+        506,
+        671
+      ],
+      "markdown": "For SFT, a dynamic sequence length strategy is employed, where |EOS| tokens are appended to the end of shorter pairs to ensure uniform sequence lengths across all samples within each mini-batch. Notably, the padding |EOS| tokens are treated as part of the response, i.e., masked and included in the training objective. The |EOS| tokens are removed from the generated outputs during sampling. This strategy ensures that the model learns to control the length of its responses by generating |EOS|, enabling the response length to align effectively with the given prompt."
+    },
+    {
+      "id": "p0022-b014",
+      "kind": "text",
+      "bbox": [
+        108,
+        676,
+        505,
+        723
+      ],
+      "markdown": "In addition, for $n$-turn dialogues $(p_0^0, r_0^0, p_0^1, r_0^1, \\dots, p_0^{n-1}, r_0^{n-1})$, we treat it as $n$ single-turn dialogue pairs, i.e., $(p_0^0, r_0^0), (p_0^0r_0^0p_0^1, r_0^1), \\dots, (p_0^0r_0^0p_0^1r_0^1\\dots p_0^{n-1}, r_0^{n-1})$ and randomly sample one. This data partitioning strategy not only equips LLaDA with multi-turn dialogue capabilities but also aligns with the above |EOS| padding strategy."
+    },
+    {
+      "id": "p0022-b015",
+      "kind": "omit",
+      "bbox": [
+        301,
+        743,
+        311,
+        750
+      ],
+      "markdown": "22",
+      "reason": "Page number 22 (footer)."
+    }
+  ]
+}

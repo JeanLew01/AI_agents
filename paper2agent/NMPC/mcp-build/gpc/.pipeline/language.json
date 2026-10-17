@@ -1,0 +1,27 @@
+{
+  "language": "python",
+  "requires_gpu": false,
+  "gpu_requirement": "optional",
+  "language_reason": "The README's extension path is the Python API (`gpc.training.train`, `gpc.policy.Policy` save/load/apply, environments in `gpc.envs`). The example scripts (`examples/<task>.py train|test|sample`) take no parameters, hard-code /tmp save paths, and their `test` mode opens an interactive MuJoCo viewer (`gpc/testing.py` uses mujoco.viewer.launch_passive), so tools must call the library rather than the scripts.",
+  "gpu_reason": "pyproject pins jax[cuda12]==0.4.35 and mujoco-mjx 3.2.4; JAX also runs on CPU, so a GPU is optional, but the paper trains on an RTX 4070 and CPU training of the larger tasks is slow. Device use is checked by the environment manager.",
+  "repository": {
+    "url": "https://github.com/vincekurtz/gpc",
+    "commit": "21a5e069304c09a59f681c9587fa0e73eec8a92d",
+    "path": "repo/gpc",
+    "dirty_files": {}
+  },
+  "requested_filter": "Simulation training/evaluation of the shipped example tasks; interactive viewer functions are out of scope (no display).",
+  "route_override": null,
+  "evidence_paths": [
+    "repo/gpc/README.md",
+    "repo/gpc/pyproject.toml",
+    "repo/gpc/examples/cart_pole.py",
+    "repo/gpc/gpc/training.py",
+    "repo/gpc/gpc/testing.py",
+    "repo/gpc/gpc/policy.py"
+  ],
+  "unresolved_prerequisites": [
+    "hydrax is installed from git tag v0.0.1 (https://github.com/vincekurtz/hydrax); jax[cuda12] wheels must match the installed NVIDIA driver (the DIAL-MPC environment in this workspace hit a cuBLAS/cuSOLVER wheel mismatch).",
+    "All JAX/MuJoCo imports are heavy jobs and are disabled in this workspace until the user's memory decision (mcp-build/HEAVY_JOBS_DISABLED)."
+  ]
+}

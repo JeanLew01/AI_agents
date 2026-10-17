@@ -1,0 +1,1012 @@
+{
+  "page": 16,
+  "lines": [
+    {
+      "text": "Published in Transactions on Machine Learning Research (05/2025)",
+      "bbox": [
+        72.0,
+        27.39893913269043,
+        368.4171447753906,
+        37.36153793334961
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A",
+      "bbox": [
+        72.0,
+        83.52706909179688,
+        80.7631607055664,
+        94.14328002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithms for model learning",
+      "bbox": [
+        93.91387939453125,
+        83.52706909179688,
+        256.56439208984375,
+        94.14328002929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In Algorithm 3 and Algorithm 4, we present the multi-step and single-step training used in our experiments.",
+      "bbox": [
+        72.0,
+        109.77894592285156,
+        541.99072265625,
+        119.74154663085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Diffusion models are generative models that define a forward diffusion process and a reverse denoising process.",
+      "bbox": [
+        72.0,
+        127.71095275878906,
+        542.1739501953125,
+        137.67355346679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The forward process gradually adds noise to the data, transforming it into a simple Gaussian distribution.",
+      "bbox": [
+        71.64099884033203,
+        139.6669464111328,
+        542.1546630859375,
+        149.62954711914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The reverse process, which is learned, denoises the data step by step to recover the original data distribution.",
+      "bbox": [
+        71.64099884033203,
+        151.6219024658203,
+        541.9718627929688,
+        161.58450317382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In D-MPC, we model the action proposals and dynamics models as conditional diffusion models. Formally, let",
+      "bbox": [
+        72.0,
+        169.5539093017578,
+        540.4457397460938,
+        179.51651000976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x0, y be the original data, where x0 represents the data we want to model and y represents the conditioning",
+      "bbox": [
+        72.0,
+        181.50990295410156,
+        540.075927734375,
+        192.96652221679688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "variable. Let xk be the data at step k in the diffusion process. The forward process is defined as q(xk|xk−1) =",
+      "bbox": [
+        71.74099731445312,
+        193.4649200439453,
+        539.998779296875,
+        204.92153930664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "N(xk; √αkxt−1, (1−αk)I) where αk determines the variance schedule. The reverse process aims to approximate",
+      "bbox": [
+        72.0,
+        199.48904418945312,
+        540.1787109375,
+        216.87655639648438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ(xk−1|xk) = N(xk−1; µθ(xk, k, y), Σk) where N(µ, Σ) denotes a Gaussian distribution with mean µ and",
+      "bbox": [
+        72.0,
+        217.37489318847656,
+        540.0088500976562,
+        228.19190979003906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "covariance matrix Σ. For suitably chosen αk and large enough K, xK ∼N(0, I). Starting with Gaussian",
+      "bbox": [
+        72.0,
+        229.3299102783203,
+        540.0443725585938,
+        240.78750610351562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "noise, we iteratively denoise to generate the samples.",
+      "bbox": [
+        72.0,
+        241.28492736816406,
+        302.6541442871094,
+        251.24752807617188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We train diffusion models using the standard denoising score matching loss. Concretely, we start by randomly",
+      "bbox": [
+        71.49199676513672,
+        259.2178955078125,
+        540.58203125,
+        269.1805114746094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sampling unmodified original x0, y from the dataset. For each sample, we randomly select a step k in the",
+      "bbox": [
+        72.0,
+        271.17291259765625,
+        540.012939453125,
+        281.99090576171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion process, and sample the random noise ϵk with the appropriate variance for the diffusion time step k.",
+      "bbox": [
+        72.0,
+        283.12890625,
+        541.9352416992188,
+        294.58551025390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We train a noise prediction network ϵθ by minimize the mean-squared-error loss MSE(ϵk, ϵθ(x0 + ϵk, k, y)).",
+      "bbox": [
+        71.49199676513672,
+        295.0838928222656,
+        541.9351806640625,
+        306.5404968261719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pθ(xk−1|xk, y) can be calculated as a function of ϵθ(xk, k, y), which allows us to draw samples from the trained",
+      "bbox": [
+        72.0,
+        307.0389099121094,
+        540.0820922851562,
+        317.85589599609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conditional diffusion model.",
+      "bbox": [
+        72.0,
+        318.993896484375,
+        192.7666015625,
+        328.9565124511719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In the D-MPC case, for learning the action proposal ρ, the future actions at:t+F −1 are the clean data x0,",
+      "bbox": [
+        72.0,
+        336.9269104003906,
+        541.3870239257812,
+        348.3835144042969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and the current state st and history ht are the conditioning variable y. For learning the multi-step dynamics",
+      "bbox": [
+        72.0,
+        348.88189697265625,
+        540.0682983398438,
+        360.3385009765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "model pd, the future states st+1:t+f are the clean data x0, and the current state st, the history ht and the",
+      "bbox": [
+        72.0,
+        360.8369140625,
+        540.0233154296875,
+        372.29351806640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "future actions at:t+F −1 are the conditioning variable y. In both cases, the noise prediction network ϵθ is a",
+      "bbox": [
+        72.0,
+        372.7919006347656,
+        540.0048828125,
+        384.24951171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "transformer. Details of the transformer are given in Appendix E.1.",
+      "bbox": [
+        72.0,
+        384.7469177246094,
+        363.6351623535156,
+        394.70953369140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 3: Model learning (one step models).",
+      "bbox": [
+        71.56500244140625,
+        414.3009033203125,
+        288.00628662109375,
+        424.2635192871094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 Def M = train(D, F, H) :",
+      "bbox": [
+        62.505001068115234,
+        429.9429016113281,
+        182.5916748046875,
+        439.905517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 Create dataset of tuples: D′ = {(st, ht, at, st+1, rt, Gt)}, ht = (st−H:t−1, at−H:t−1), Gt = PT",
+      "bbox": [
+        62.5050048828125,
+        440.6849060058594,
+        480.5242614746094,
+        458.24755859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=t rj",
+      "bbox": [
+        475.81695556640625,
+        445.3559265136719,
+        498.5945739746094,
+        457.19171142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3 Fit p1(st+1|st, ht, at) using MLE on D′, set pd = Qt+F −1",
+      "bbox": [
+        62.504974365234375,
+        457.1466064453125,
+        323.86004638671875,
+        473.363525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=t",
+      "bbox": [
+        298.41497802734375,
+        465.5351257324219,
+        311.2436828613281,
+        471.72784423828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "p1(sj+1|sj, aj, hj)",
+      "bbox": [
+        326.02197265625,
+        459.41583251953125,
+        405.2964172363281,
+        470.2328186035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4 Fit ρ1(at|st, ht) using MLE on D′, set ρ = Qt+F −1",
+      "bbox": [
+        62.504974365234375,
+        472.2625732421875,
+        296.17608642578125,
+        488.4794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=t",
+      "bbox": [
+        270.73101806640625,
+        480.6501159667969,
+        283.5597229003906,
+        486.84283447265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ρ1(aj|sj, hj)",
+      "bbox": [
+        298.3380126953125,
+        474.5318298339844,
+        353.7454528808594,
+        485.34881591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5 Fit R = E(rt|st, ht, at) using regression on D′",
+      "bbox": [
+        62.5050048828125,
+        487.3656005859375,
+        273.0543518066406,
+        499.058837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6 Fit V = E(Gt|st, ht, at) using regression on D′",
+      "bbox": [
+        62.504974365234375,
+        499.32061767578125,
+        276.7763366699219,
+        511.01385498046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 4: Model learning (multi-step models).",
+      "bbox": [
+        71.56500244140625,
+        545.56689453125,
+        296.0262451171875,
+        555.5294799804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 Def M = train(D, F, H) :",
+      "bbox": [
+        62.505001068115234,
+        561.2078857421875,
+        182.5916748046875,
+        571.1704711914062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2 Create dataset of tuples:",
+      "bbox": [
+        62.5050048828125,
+        573.1638793945312,
+        179.28724670410156,
+        583.12646484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "D′ = {(st, ht, at:t+F −1, st+1:t+fF , rt, Gt)}, ht = (st−H:t−1, at−H:t−1), Gt = PT",
+      "bbox": [
+        76.98101043701172,
+        583.9058837890625,
+        422.4943542480469,
+        601.468505859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "j=t rj",
+      "bbox": [
+        417.78704833984375,
+        588.576904296875,
+        440.56365966796875,
+        600.4127197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3 Fit pd(st+1:t+F |st, ht, at:t+F −1) using diffusion on D′",
+      "bbox": [
+        62.505035400390625,
+        600.3546142578125,
+        304.0304260253906,
+        612.6277465820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4 Fit ρ(at:t+F −1|st, ht) using diffusion on D′",
+      "bbox": [
+        62.50505065917969,
+        612.3096313476562,
+        258.701416015625,
+        624.0029296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5 Fit R = E(rt|st, ht, at) using regression on D′",
+      "bbox": [
+        62.50505065917969,
+        624.265625,
+        273.0544128417969,
+        635.9578857421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6 Fit V = E(Gt|st, ht, at) using regression on D′",
+      "bbox": [
+        62.505035400390625,
+        636.2206420898438,
+        276.7763977050781,
+        647.9138793945312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "B",
+      "bbox": [
+        72.0,
+        683.68505859375,
+        80.7631607055664,
+        694.3013305664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "The MBOP-TrajOpt Algorithm",
+      "bbox": [
+        93.91387939453125,
+        683.68505859375,
+        263.8809814453125,
+        694.3013305664062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In Algorithm 5, we include the complete MBOP-TrajOpt algorithm from Argenson & Dulac-Arnold (2021)",
+      "bbox": [
+        72.0,
+        709.9368896484375,
+        541.3079833984375,
+        719.8994750976562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "adapted to our notations as reference.",
+      "bbox": [
+        72.0,
+        721.8919067382812,
+        237.49867248535156,
+        731.8544921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "16",
+      "bbox": [
+        300.77001953125,
+        751.7799072265625,
+        310.73260498046875,
+        761.7424926757812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "",
+      "author": "",
+      "subject": "",
+      "keywords": "",
+      "creator": "LaTeX with hyperref",
+      "producer": "pdfTeX-1.40.25",
+      "creationDate": "D:20250526001408Z",
+      "modDate": "D:20250526001408Z",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/d-mpc-paper/documents/.pdf-skill-scan-b8rssxdc/review/source.pdf",
+      "page_count": 21,
+      "page_number": 16
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          72,
+          27,
+          369,
+          38
+        ],
+        "pos": [
+          0,
+          74
+        ]
+      },
+      {
+        "index": 1,
+        "class": "section-header",
+        "bbox": [
+          72,
+          83,
+          257,
+          95
+        ],
+        "pos": [
+          74,
+          114
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          72,
+          110,
+          542,
+          120
+        ],
+        "pos": [
+          114,
+          224
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          71,
+          127,
+          543,
+          162
+        ],
+        "pos": [
+          224,
+          558
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          71,
+          169,
+          541,
+          252
+        ],
+        "pos": [
+          558,
+          1375
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          71,
+          259,
+          542,
+          329
+        ],
+        "pos": [
+          1375,
+          1998
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          72,
+          337,
+          542,
+          395
+        ],
+        "pos": [
+          1998,
+          2564
+        ]
+      },
+      {
+        "index": 7,
+        "class": "section-header",
+        "bbox": [
+          71,
+          414,
+          289,
+          425
+        ],
+        "pos": [
+          2564,
+          2627
+        ]
+      },
+      {
+        "index": 8,
+        "class": "list-item",
+        "bbox": [
+          62,
+          430,
+          183,
+          441
+        ],
+        "pos": [
+          2627,
+          2668
+        ]
+      },
+      {
+        "index": 9,
+        "class": "list-item",
+        "bbox": [
+          62,
+          442,
+          499,
+          487
+        ],
+        "pos": [
+          2668,
+          3416
+        ]
+      },
+      {
+        "index": 10,
+        "class": "list-item",
+        "bbox": [
+          62,
+          488,
+          274,
+          499
+        ],
+        "pos": [
+          3416,
+          3526
+        ]
+      },
+      {
+        "index": 11,
+        "class": "list-item",
+        "bbox": [
+          62,
+          500,
+          277,
+          511
+        ],
+        "pos": [
+          3526,
+          3636
+        ]
+      },
+      {
+        "index": 12,
+        "class": "section-header",
+        "bbox": [
+          71,
+          546,
+          297,
+          557
+        ],
+        "pos": [
+          3636,
+          3701
+        ]
+      },
+      {
+        "index": 13,
+        "class": "list-item",
+        "bbox": [
+          62,
+          561,
+          183,
+          572
+        ],
+        "pos": [
+          3701,
+          3742
+        ]
+      },
+      {
+        "index": 14,
+        "class": "list-item",
+        "bbox": [
+          62,
+          574,
+          180,
+          584
+        ],
+        "pos": [
+          3742,
+          3778
+        ]
+      },
+      {
+        "index": 15,
+        "class": "list-item",
+        "bbox": [
+          76,
+          585,
+          441,
+          600
+        ],
+        "pos": [
+          3778,
+          4039
+        ]
+      },
+      {
+        "index": 16,
+        "class": "list-item",
+        "bbox": [
+          62,
+          601,
+          305,
+          612
+        ],
+        "pos": [
+          4039,
+          4180
+        ]
+      },
+      {
+        "index": 17,
+        "class": "list-item",
+        "bbox": [
+          62,
+          613,
+          259,
+          624
+        ],
+        "pos": [
+          4180,
+          4296
+        ]
+      },
+      {
+        "index": 18,
+        "class": "list-item",
+        "bbox": [
+          62,
+          625,
+          274,
+          636
+        ],
+        "pos": [
+          4296,
+          4406
+        ]
+      },
+      {
+        "index": 19,
+        "class": "list-item",
+        "bbox": [
+          62,
+          637,
+          277,
+          648
+        ],
+        "pos": [
+          4406,
+          4516
+        ]
+      },
+      {
+        "index": 20,
+        "class": "section-header",
+        "bbox": [
+          72,
+          683,
+          264,
+          695
+        ],
+        "pos": [
+          4516,
+          4553
+        ]
+      },
+      {
+        "index": 21,
+        "class": "text",
+        "bbox": [
+          72,
+          710,
+          542,
+          732
+        ],
+        "pos": [
+          4553,
+          4693
+        ]
+      },
+      {
+        "index": 22,
+        "class": "page-footer",
+        "bbox": [
+          300,
+          753,
+          311,
+          760
+        ],
+        "pos": [
+          4693,
+          4698
+        ]
+      }
+    ],
+    "text": "Published in Transactions on Machine Learning Research <u>(05/2025)</u> \n\n# **A Algorithms for model learning** \n\nIn Algorithm 3 and Algorithm 4, we present the multi-step and single-step training used in our experiments. \n\nDiffusion models are generative models that define a forward diffusion process and a reverse denoising process. The forward process gradually adds noise to the data, transforming it into a simple Gaussian distribution. The reverse process, which is learned, denoises the data step by step to recover the original data distribution. \n\nIn D-MPC, we model the action proposals and dynamics models as conditional diffusion models. Formally, let _x_ 0 _, y_ be the original data, where _x_ 0 represents the data we want to model and _y_ represents the conditioning variable. Let _xk_ be the data at step _k_ in the diffusion process. The forward process is defined as _q_ ( _xk|xk−_ 1) = _N_ ( _xk_ ;<sup>_√_</sup> _<u>αkxt−</u>_ 1 _,_ (1 _−αk_ ) **I** ) where _αk_ determines the variance schedule. The reverse process aims to approximate _pθ_ ( _xk−_ 1 _|xk_ ) = _N_ ( _xk−_ 1; _µθ_ ( _xk, k, y_ ) _,_ Σ _k_ ) where _N_ ( _µ,_ Σ) denotes a Gaussian distribution with mean _µ_ and covariance matrix Σ. For suitably chosen _αk_ and large enough _K_ , _xK ∼ N_ (0 _,_ **I** ). Starting with Gaussian noise, we iteratively denoise to generate the samples. \n\nWe train diffusion models using the standard denoising score matching loss. Concretely, we start by randomly sampling unmodified original _x_ 0 _, y_ from the dataset. For each sample, we randomly select a step _k_ in the diffusion process, and sample the random noise _ϵk_ with the appropriate variance for the diffusion time step _k_ . We train a noise prediction network _ϵθ_ by minimize the mean-squared-error loss _MSE_ ( _ϵk, ϵθ_ ( _x_ 0 + _ϵk, k, y_ )). _pθ_ ( _xk−_ 1 _|xk, y_ ) can be calculated as a function of _ϵθ_ ( _xk, k, y_ ), which allows us to draw samples from the trained conditional diffusion model. \n\nIn the D-MPC case, for learning the action proposal _ρ_ , the future actions _at_ : _t_ + _F −_ 1 are the clean data _x_ 0, and the current state _st_ and history _ht_ are the conditioning variable _y_ . For learning the multi-step dynamics model _pd_ , the future states _st_ +1: _t_ + _f_ are the clean data _x_ 0, and the current state _st_ , the history _ht_ and the future actions _at_ : _t_ + _F −_ 1 are the conditioning variable _y_ . In both cases, the noise prediction network _ϵθ_ is a transformer. Details of the transformer are given in Appendix E.1. \n\n## **Algorithm 3:** Model learning <u>(one</u> step models). \n\n- **1** Def _M_ = train( _D, F, H_ ) : \n\n- **2** Create dataset of tuples: _D_<sup>_′_</sup> = _{_ ( **_s_** _t,_ **_h_** _t,_ **_a_** _t,_ **_s_** _t_ +1 _, rt, Gt_ ) _},_ **_h_** _t_ = ( **_s_** _t−H_ : _t−_ 1 _,_ **_a_** _t−H_ : _t−_ 1) _, Gt_ =<sup>�</sup><sup>_T_</sup> _j_ = _t_<sup>_rj_</sup> **3** Fit _p_ 1( **_s_** _t_ +1 _|_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ ) using MLE on _D_<sup>_′_</sup> , set _pd_ =<sup>�</sup><sup>_t_</sup> _j_<sup>+</sup> =<sup>_F_</sup> _t_<sup>_−_1</sup> _p_ 1( **_s_** _j_ +1 _|_ **_s_** _j,_ **_a_** _j,_ **_h_** _j_ ) **4** Fit _ρ_ 1( **_a_** _t|_ **_s_** _t,_ **_h_** _t_ ) using MLE on _D_<sup>_′_</sup> , set _ρ_ =<sup>�</sup><sup>_t_</sup> _j_<sup>+</sup> =<sup>_F_</sup> _t_<sup>_−_1</sup> _ρ_ 1( **_a_** _j|_ **_s_** _j,_ **_h_** _j_ ) \n\n- **5** Fit _R_ = _E_ ( _rt|_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ ) using regression on _D_<sup>_′_</sup> \n\n- **6** Fit _V_ = _E_ ( _Gt|_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ ) using regression on _D_<sup>_′_</sup> \n\n## **Algorithm 4:** Model learning <u>(multi-step</u> models). \n\n- **1** Def _M_ = train( _D, F, H_ ) : \n\n- **2** Create dataset of tuples: \n\n   - _D_<sup>_′_</sup> = _{_ ( **_s_** _t,_ **_h_** _t,_ **_a_** _t_ : _t_ + _F −_ 1 _,_ **_s_** _t_ +1: _t_ + _fF , rt, Gt_ ) _},_ **_h_** _t_ = ( **_s_** _t−H_ : _t−_ 1 _,_ **_a_** _t−H_ : _t−_ 1) _, Gt_ =<sup>�</sup><sup>_T_</sup> _j_ = _t_<sup>_rj_</sup> \n\n- **3** Fit _pd_ ( **_s_** _t_ +1: _t_ + _F |_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ : _t_ + _F −_ 1) using diffusion on _D_<sup>_′_</sup> \n\n- **4** Fit _ρ_ ( **_a_** _t_ : _t_ + _F −_ 1 _|_ **_s_** _t,_ **_h_** _t_ ) using diffusion on _D_<sup>_′_</sup> \n\n- **5** Fit _R_ = _E_ ( _rt|_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ ) using regression on _D_<sup>_′_</sup> \n\n- **6** Fit _V_ = _E_ ( _Gt|_ **_s_** _t,_ **_h_** _t,_ **_a_** _t_ ) using regression on _D_<sup>_′_</sup> \n\n# **B The MBOP-TrajOpt Algorithm** \n\nIn Algorithm 5, we include the complete MBOP-TrajOpt algorithm from Argenson & Dulac-Arnold (2021) adapted to our notations as reference. \n\n16 \n\n"
+  }
+}

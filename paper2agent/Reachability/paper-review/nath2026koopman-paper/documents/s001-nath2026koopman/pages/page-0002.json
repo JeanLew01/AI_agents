@@ -1,0 +1,127 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 2 and with introduction.tex/related_work.tex. First paragraph: continuation of the Introduction paragraph that starts on page 1 ('over long horizons (Rober and How, 2024). ...'), joined to it with join_previous 'space'. Second paragraph: method name in bold 'ScaRe-Kro'; in the parenthesis '(Scalable Reachability via Koopman Operators)' the letters 'Sca', 'Re', 'K', 'r' (in 'Operators'), 'o' (in 'Operators') are underlined to spell the acronym; the underline cannot be kept in Markdown (no <u>), the words are written plain (the extractor had broken <u> tags around whole words). Italic phrases as printed: 'safety may not hold for the true system', 'single', 'linear tracking error dynamics', 'true system trajectories', 'true'. '97.5%' kept as printed. Contribution list: printed as an enumerated list 1-4; the extractor had merged items 1 and 2 into one item, split into one item per printed entry. Line-wrap hyphens closed ('reach-able', 'au-tonomous', 'tra-jectories', 'proba-bilistic', 'distribu-tion'); real compounds kept ('data-inefficient', 'closed-loop', 'statistically-valid', 'user-specified', 'Koopman-based', 'CP-based', 'high-dimensional', 'data-driven'). Heading '2. Related Work' set to level 2 (extractor had level 1). Run-in bold paragraph title 'Reachability via Linear Relaxation' kept inside the text item. Citations compared with the render: (Rober and How, 2024), (Park et al., 2024; Bak et al., 2025), (Bak et al., 2019), (Shi et al., 2024), (Bak et al., 2021, 2025), (Althoff et al., 2021), (Zhang et al., 2018), (Zhang et al., 2018; Everett et al., 2021; Jafarpour et al., 2024), (Nath et al., 2025). The last paragraph continues on page 3 ('Symbolic and one-shot methods / mitigate this ...'). No mathematics on this page. Omitted: running header 'NATH YIN CHOU' and page number 2.",
+  "warnings": [
+    "Review possible header/footer: p0002-b000"
+  ],
+  "items": [
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        94.0,
+        523.0,
+        254.0
+      ],
+      "markdown": "over long horizons (Rober and How, 2024). Data-driven reachability (Park et al., 2024; Bak et al., 2025) can be used without analytical models, but can be data-inefficient or lack guarantees that the estimated sets contain all possible trajectories. In contrast, linear reachability scales to long horizons and high dimensions (Bak et al., 2019). The Koopman framework learns linear dynamics in a lifted state space, e.g., via neural networks (NNs), to approximate the nonlinear system (Shi et al., 2024). While computing reachable sets for the Koopman linearization can be more scalable than using the original nonlinear dynamics, existing methods only provide guarantees for the approximate lifted dynamics. Thus, *safety may not hold for the true system* (Bak et al., 2021, 2025). Moreover, existing Koopman reachability methods analyze a *single* dynamical system. However, robots often require multiple controllers to complete different tasks, which forces existing methods to recompute reachable sets from scratch for each new controller, which is inefficient. Reusing previously computed information would enable more efficient reachability analysis across controllers.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        257.0,
+        523.0,
+        444.0
+      ],
+      "markdown": "To close these gaps in scalability, speed, and reusability, we propose **ScaRe-Kro** (Scalable Reachability via Koopman Operators), which uses Koopman theory with an NN lifting function to perform reachability analysis and control. Unlike prior Koopman reachability methods for autonomous systems, we also design a linear controller in this lifted space to track a distribution of reference trajectories, each completing a different task. ScaRe-Kro efficiently computes closed-loop reachable sets under the induced *linear tracking error dynamics* in the lifted Koopman space and maps them to the original state space via NN verification tools. To account for Koopman model error, we apply conformal prediction (CP) to derive statistically-valid error bounds. By inflating the mapped reachable sets with these CP bounds, they are guaranteed to contain the *true system trajectories* with a user-specified probability (e.g., 97.5%). Moreover, as the CP bounds are calibrated across the trajectory distribution, they can be reused across different references and thus closed-loop systems, unlike prior Koopman approaches that certify only a single autonomous system. Overall, using linear reachability and CP, our method enables scalable data-driven probabilistic verification and control, improving both efficiency and conservativeness over prior work. Our contributions are:"
+    },
+    {
+      "id": "p0002-l1",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        462.0,
+        523.0,
+        486.0
+      ],
+      "markdown": "1. A scalable Koopman-based reachability framework for unknown nonlinear dynamics, using NN lifting functions and NN verification to estimate reachable sets in the original state space."
+    },
+    {
+      "id": "p0002-l2",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        489.0,
+        523.0,
+        513.0
+      ],
+      "markdown": "2. An approach for inflating the resulting Koopman reachable sets using CP, to obtain probabilistic guarantees of overapproximation for the *true* dynamics."
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        516.0,
+        522.0,
+        540.0
+      ],
+      "markdown": "3. Control design in the lifted space for closed-loop tracking of a reference trajectory distribution, with CP-based inflation bounds calibrated to be reusable across the distribution."
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        103.0,
+        543.0,
+        522.0,
+        568.0
+      ],
+      "markdown": "4. Extensive evaluation, showing reliable verification for high-dimensional robotic systems (up to 28D), outperforming baselines in safety rate, computation speed, and conservativeness."
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        591.0,
+        177.0,
+        600.0
+      ],
+      "markdown": "## 2. Related Work"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        614.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "**Reachability via Linear Relaxation** While exact reachable set computation for nonlinear systems is typically intractable, reachable set overapproximations (RSOAs) can often be efficiently computed to certify safety (Althoff et al., 2021). When the closed-loop system involves NN components (e.g., learned dynamics or controller), RSOAs can be computed via linear relaxation-based NN verification (NNV) tools (e.g., CROWN (Zhang et al., 2018)) (Zhang et al., 2018; Everett et al., 2021; Jafarpour et al., 2024). Here, conservativeness grows with the number of nonlinearities (Nath et al., 2025) and can be excessive for nonlinear robot dynamics. Symbolic and one-shot methods"
+    },
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "reason": "Running header 'NATH YIN CHOU' (author names, small caps) centred at the top of the page; page furniture, checked on the page image."
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        726.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "2",
+      "reason": "Printed page number '2' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "page": 3,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0003.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and a 220-dpi crop of the second Related-work paragraph (y 356-494). Contribution list items 1-4 (continuing 'In summary, our key contributions are:' from page 2) kept as printed. Heading '# **2 Related work**' -> '## 2 Related work'. Inline maths rewritten in LaTeX from related3.tex (\\joint -> p_{j}, \\dynamics -> p_{d}, \\proposal -> \\rho, \\policy -> \\pi, \\future -> F, \\va/\\vs/\\vh -> \\boldsymbol{a}/\\boldsymbol{s}/\\boldsymbol{h}); the extractor had destroyed the product formula (the ∏ was extracted as a U+FFFD replacement character inside <sup> tags); it is now $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1}) = \\prod_{t}^{t+F-1} p_{d}(\\boldsymbol{s}_{t+1}|\\boldsymbol{s}_t, \\boldsymbol{a}_t, \\boldsymbol{h}_t)$. Printed as is and kept (possible author slips, not corrected): the product's lower limit is just 't' with the same t used in the factors; the SS dynamics is written $p_{d}(\\boldsymbol{s}_{t+1}|\\boldsymbol{h}_t, \\boldsymbol{a}_{t+1})$ (a_{t+1}, not a_t). p_j(s,a), p_d(s|a)rho(a), rho(a), pi(a) are printed non-bold and kept non-bold. Author typo kept: 'some variant of Q-leaning' (printed 'Q-leaning'). Mixed straight/curly quotes in '\"Diffusion for World Modeling\" paper' and '\"Diffusion World Models”' are as printed. Footnote marker <sup>2</sup> -> [^2]; 'Footnote 2: ...' (with $\\rho(a)$, $\\pi(a)$) placed before the last paragraph, which ends mid-sentence 'In addition, we propose' and continues on page 4. Header and page number omitted. check: 10 missing lines, all containing the inline maths above (category a); 4 number differences, U+2212 vs '-' in F-1 subscripts/limits (category a).",
+  "warnings": [
+    "Review possible header/footer: p0003-b000"
+  ],
+  "items": [
+    {
+      "id": "p0003-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research (05/2025)",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page."
+    },
+    {
+      "id": "p0003-b001",
+      "kind": "text",
+      "bbox": [
+        95.0,
+        83.0,
+        541.0,
+        106.0
+      ],
+      "markdown": "1. We introduce Diffusion Model Predictive Control (D-MPC), combining multi-step action proposals and dynamics models using diffusion models for online MPC.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b002",
+      "kind": "text",
+      "bbox": [
+        95.0,
+        116.0,
+        542.0,
+        139.0
+      ],
+      "markdown": "2. We show D-MPC outperforms existing model-based offline planning methods on D4RL benchmarks, and is competitive with SOTA reinforcement learning approaches.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b003",
+      "kind": "text",
+      "bbox": [
+        95.0,
+        149.0,
+        541.0,
+        171.0
+      ],
+      "markdown": "3. We demonstrate D-MPC can optimize novel reward functions at runtime with a simple sampling-based planner, and adapt to novel dynamics through fine-tuning.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b004",
+      "kind": "text",
+      "bbox": [
+        95.0,
+        180.0,
+        541.0,
+        201.0
+      ],
+      "markdown": "4. Through ablations, we validate the benefits of our method’s key components individually and in combination.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0003-b005",
+      "kind": "heading",
+      "bbox": [
+        72.0,
+        220.0,
+        164.0,
+        230.0
+      ],
+      "markdown": "## 2 Related work",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0003-b006",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        246.0,
+        543.0,
+        352.0
+      ],
+      "markdown": "Related work can be structured hierarchically as in Table 1. Model-based methods postulate a particular dynamics model, whereas model-free methods, whether more traditional —behavioral cloning (BC), conservative Q learning (CQL) (Kumar et al., 2020), implicit Q-learning (IQL) (Kostrikov et al., 2021), etc— or diffusion based — diffusion policy (DP) (Chi et al., 2023), diffusion BC (DBC) (Pearce et al., 2023)— simply learn a policy. This can be done either by regressing directly from expert data or with some variant of Q-leaning. Model-based approaches can be further divided according to how they use the model: Dyna-style (Sutton, 1991) approaches use it to learn a policy, either online or offline, which they can use at runtime, whereas MPC-style approaches use the full model at runtime for planning, possibly with the guidance of a proposal distribution.[^2]",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b007",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        359.0,
+        542.0,
+        490.0
+      ],
+      "markdown": "It is possible to model the dynamics of the model and the proposal jointly using $p_{j}(s,a)$ or as factorized distribution $p_{d}(s|a) \\rho(a)$. The latter allows for extra flexibility, since both pieces can be fine-tuned or even re-learned independently. Finally, we can categorize these models as either single-step (SS) or multi-step (MS). SS methods model the dynamics as $p_{d}(\\boldsymbol{s}_{t+1}|\\boldsymbol{h}_t, \\boldsymbol{a}_{t+1})$ (where $\\boldsymbol{h}_t= (\\boldsymbol{s}_{t-H:t},\\boldsymbol{a}_{t-H:t})$ is the history of length $H$), and the proposal as $\\rho(\\boldsymbol{a}_t|\\boldsymbol{h}_t)$, so we predict (a distribution over) the next time step, conditioned on past observations (and the next action, for the dynamics). We extend this to the whole planning horizon of length $F$ by composing it in an autoregressive form, as a product of one-step conditionals, i.e., $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1}) = \\prod_{t}^{t+F-1} p_{d}(\\boldsymbol{s}_{t+1}|\\boldsymbol{s}_t, \\boldsymbol{a}_t, \\boldsymbol{h}_t)$. (Note that this might result in compounding errors, even if $\\boldsymbol{h}_t$ contains the entire past history, i.e., is non-Markovian.) By contrast, multi-step (MS) methods model the joint distributions at a trajectory level. Thus the MS dynamics model represents $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t}, \\boldsymbol{a}_{t:t+F-1})$ and the MS proposal represents $\\rho(\\boldsymbol{a}_{t:t+F-1}|\\boldsymbol{s}_{t}, \\boldsymbol{h}_{t})$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b008",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        497.0,
+        543.0,
+        615.0
+      ],
+      "markdown": "Several recent papers follow the SS Dyna framework. Some using traditional dynamics modeling (e.g., MOREL (Kidambi et al., 2020), MOPO (Yu et al., 2020), COMBO (Yu et al., 2021), RAMBO-RL (Rigter et al., 2022) and Dreamer (Hafner et al., 2020)), and others using diffusion. The latter includes \"Diffusion for World Modeling\" paper (Alonso et al., 2024) (previously called \"Diffusion World Models” (Alonso et al., 2023)), “UniSim” paper (Yang et al., 2024), and the “SynthER” paper (Lu et al., 2024). These are then used to generate samples from the model at training time in order to train a policy with greater data efficiency than standard model-free reinforcement learning (RL) methods. Some other recent papers — such as “Diffusion World Model” (Ding et al., 2024), “PolyGRAD” (Rigter et al., 2024) and “Policy-Guided Diffusion” (Jackson et al., 2024) — have proposed to use diffusion for creating joint multi-step (trajectory-level) dynamics models. However, being part of the Dyna framework, they are not able to plan at run-time, like D-MPC does.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b010",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        713.0,
+        540.0,
+        732.0
+      ],
+      "markdown": "Footnote 2: Note that a proposal distribution (which we denote by $\\rho(a)$) is different than a policy (which we denote by $\\pi(a)$), since rather than determining the next best action directly, it helps accelerate the search for one.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0003-b009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        622.0,
+        541.0,
+        705.0
+      ],
+      "markdown": "There are many papers with a model-based approach. Probably the closest to our work is “Diffuser” (Janner et al., 2022), which uses diffusion to fit a joint (state, action) multi-step model $p_{j}(\\boldsymbol{s}_{1:T}, \\boldsymbol{a}_{1:T})$ using offline trajectory data. They then use classifier-guidance to steer the sampling process to generate joint sequences that optimize a novel reward at test time. The main difference to our method is that we represent the joint as a product of two models, the dynamics $p_{d}(\\boldsymbol{s}_{1:T}|\\boldsymbol{a}_{1:T})$ and the policy / action proposal, $\\rho(\\boldsymbol{a}_{1:T})$. As we show in Section 4.3, this factorization allows us to easily adapt to changes in the world (e.g., due to hardware defects) from a small amount of new data, whereas Diffuser struggles in this context. In addition, we propose",
+      "source_class": "text"
+    },
+    {
+      "id": "p0003-b011",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        753.0,
+        309.0,
+        760.0
+      ],
+      "markdown": "3",
+      "source_class": "page-footer",
+      "reason": "Page number 3 (footer)."
+    }
+  ]
+}

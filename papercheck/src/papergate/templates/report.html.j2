@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>papergate report</title>
+<style>
+:root { --bg:#fbfbfa; --fg:#1d1d1f; --muted:#6b6b70; --card:#ffffff; --line:#e3e3e0;
+  --blocker:#b42318; --warn:#b54708; --info:#175cd3; --pass:#067647; --code:#f3f3f1; }
+@media (prefers-color-scheme: dark) { :root { --bg:#141416; --fg:#ececee; --muted:#9a9aa2; --card:#1c1c1f;
+  --line:#2c2c31; --blocker:#f97066; --warn:#fdb022; --info:#84adff; --pass:#47cd89; --code:#232328; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 22px; margin: 0 0 4px; } h2 { font-size: 18px; margin: 32px 0 12px; }
+.muted { color: var(--muted); }
+.verdict { display:inline-block; font-weight:700; padding:2px 10px; border-radius:6px; color:#fff; }
+.v-PASS { background:var(--pass); } .v-FAIL { background:var(--blocker); } .v-ERROR { background:#7a271a; }
+table.meta { border-collapse: collapse; width:100%; margin-top:12px; font-size:14px; }
+table.meta td { border-top:1px solid var(--line); padding:6px 8px; vertical-align: top; overflow-wrap:anywhere; }
+table.meta td:first-child { color:var(--muted); white-space:nowrap; width: 1%; }
+.card { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--line); border-radius:8px; padding:12px 14px; margin:10px 0; }
+.card.BLOCKER { border-left-color: var(--blocker); } .card.WARN { border-left-color: var(--warn); } .card.INFO { border-left-color: var(--info); }
+.sev { font-weight:700; font-size:12px; letter-spacing:.04em; }
+.sev.BLOCKER { color:var(--blocker); } .sev.WARN { color:var(--warn); } .sev.INFO { color:var(--info); }
+code, pre { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13px; }
+pre { background:var(--code); padding:10px; border-radius:6px; overflow-x:auto; white-space:pre; }
+.quote { background:var(--code); padding:6px 10px; border-radius:6px; overflow-wrap:anywhere; }
+summary { cursor:pointer; color:var(--muted); }
+.counts span { margin-right: 14px; }
+ul.check { list-style: none; padding-left: 0; } ul.check li::before { content: "\2610  "; }
+</style>
+</head>
+<body>
+<main>
+<h1>papergate report: {{ h.venue_name }} <span class="muted">({{ h.mode }})</span></h1>
+<p><span class="verdict v-{{ h.verdict }}">{{ h.verdict }}</span>
+<span class="counts"><span class="sev BLOCKER">BLOCKER {{ h.counts.get('BLOCKER', 0) }}</span>
+<span class="sev WARN">WARN {{ h.counts.get('WARN', 0) }}</span>
+<span class="sev INFO">INFO {{ h.counts.get('INFO', 0) }}</span></span></p>
+<table class="meta">
+<tr><td>Paper</td><td><code>{{ h.paper_dir }}</code></td></tr>
+<tr><td>Main file</td><td><code>{{ h.main_file or '-' }}</code></td></tr>
+<tr><td>Venue config</td><td><code>{{ h.venue_config }}</code> (hash <code>{{ h.venue_config_hash }}</code>)</td></tr>
+<tr><td>Source tree hash</td><td><code>{{ h.source_tree_hash }}</code></td></tr>
+<tr><td>Tool</td><td>{{ h.tool }} {{ h.tool_version }}</td></tr>
+<tr><td>Model</td><td>{{ h.model or 'none (LLM stages skipped)' }}</td></tr>
+<tr><td>Read-only</td><td>{% if h.read_only.verified %}PASSED: {{ h.read_only.files_hashed }} files hashed before and after, unchanged{% else %}<strong class="sev BLOCKER">FAILED</strong>: {{ h.read_only.changes | join('; ') }}{% endif %}</td></tr>
+<tr><td>Run</td><td>{{ h.started }} → {{ h.finished }}</td></tr>
+</table>
+{% if L.manual_checklist %}
+<h2>Manual checklist</h2>
+<ul class="check">{% for n in L.manual_checklist %}<li>{{ n }}</li>{% endfor %}</ul>
+{% endif %}
+{% if h.unconfirmed_config %}
+<h2>Venue values not yet confirmed</h2>
+<ul>{% for k, v in h.unconfirmed_config.items() %}<li><code>{{ k }}</code>: {{ v }}</li>{% endfor %}</ul>
+{% endif %}
+{% for sev in severities %}
+{% set items = by_sev.get(sev, []) %}
+<h2><span class="sev {{ sev }}">{{ sev }}</span> ({{ items | length }})</h2>
+{% if not items %}<p class="muted">None.</p>{% endif %}
+{% for f in items %}
+<div class="card {{ sev }}" id="{{ f.id }}">
+<div><strong>{{ f.id }}</strong> · <code>{{ f.check_id }}</code> · <span class="muted">{{ f.location }}</span></div>
+<p>{{ f.message }}</p>
+{% if f.quote %}<div class="quote"><code>{{ f.quote }}</code></div>{% endif %}
+{% if f.why_it_matters %}<p><em>Why it matters:</em> {{ f.why_it_matters }}</p>{% endif %}
+{% if f.fix.kind == 'patch' and f.fix.patch %}
+<details><summary>Proposed patch (papergate apply … --findings {{ f.id }})</summary><pre>{{ f.fix.patch }}</pre></details>
+{% elif f.fix.instructions %}<p><em>Fix (manual):</em> {{ f.fix.instructions }}</p>{% endif %}
+<div class="muted" style="font-size:12px">stage {{ f.stage }} ({{ stages.get(f.stage, '') }}) · {{ f.source }} · fingerprint {{ f.fingerprint }}</div>
+</div>
+{% endfor %}
+{% endfor %}
+{% if L.metrics %}
+<h2>Metrics</h2>
+<details open><summary>metrics.json</summary><pre>{{ L.metrics | tojson(indent=2) }}</pre></details>
+{% endif %}
+<h2>Coverage</h2>
+<p>Checks run: {{ h.checks_run | length }}. Discarded unverifiable LLM findings: {{ h.discarded_unverifiable | length }}.</p>
+{% if h.checks_skipped %}<details><summary>Skipped checks ({{ h.checks_skipped | length }})</summary><ul>{% for s in h.checks_skipped %}<li><code>{{ s.check_id }}</code>: {{ s.reason }}</li>{% endfor %}</ul></details>{% endif %}
+{% if h.checks_crashed %}<details open><summary>Crashed checks ({{ h.checks_crashed | length }})</summary><ul>{% for s in h.checks_crashed %}<li><code>{{ s.check_id }}</code>: {{ s.error }}</li>{% endfor %}</ul></details>{% endif %}
+{% if h.discarded_unverifiable %}<details><summary>Discarded findings</summary><ul>{% for d in h.discarded_unverifiable %}<li><code>{{ d.check_id }}</code> ({{ d.reason }}): <code>{{ d.quote }}</code></li>{% endfor %}</ul></details>{% endif %}
+</main>
+</body>
+</html>

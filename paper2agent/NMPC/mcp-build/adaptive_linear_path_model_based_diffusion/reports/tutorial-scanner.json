@@ -1,0 +1,590 @@
+{
+  "scan_metadata": {
+    "repository_name": "adaptive_linear_path_model_based_diffusion",
+    "repository_url": "https://github.com/purewater0901/adaptive_linear_path_model_based_diffusion",
+    "commit": "6c2b004132718a1c6fd54fb7946c2705baee6c5c",
+    "source_path": "repo/adaptive_linear_path_model_based_diffusion",
+    "working_tree_clean_at_scan": true,
+    "paper": "Adaptive Linear Path Model-Based Diffusion (Shimizu & Tomizuka), arXiv 2602.02831",
+    "scan_date": "2026-10-12",
+    "scan_finished_at": "2026-10-12T17:21:00Z",
+    "route": "cli",
+    "cli_backend": "python",
+    "module": "cli_wrapper",
+    "requested_filter": null,
+    "evaluated_source_files": 21,
+    "included_source_files": 7,
+    "proposed_exposed_tools": 7,
+    "deferred_commands": 1,
+    "success": true,
+    "explanation": "All 61 tracked files were listed. The READMEs, all 8 entry scripts, the YAML configs and the implementation paths behind the selected commands were read; some controller internals (MPPI, Brax VP/MPPI/CEM/CMA-ES, ActorCritic.evaluate) were read only in outline. Seven documented commands are selected as execution sources and proposed as seven cli_wrapper tools (Figs. 3-6 and Tables I-II of the paper). RL fine-tuning (run_rl_fine_tuning.py) is deferred because of its training cost and because it overwrites the shipped checkpoint. Path generators and module __main__ self-tests are omitted as setup or internal code. No repository code was executed during the scan; all feasibility numbers are estimates unless they quote a workspace measurement.",
+    "provenance_note": "The paper's anonymous repository (anonymous.4open.science/r/adaptive_linear_path_model_based_diffusion-C58C) has expired (HTTP 410). This public repository by the first author has the same name and is used instead. It is not established that it is byte-identical to the paper's artifact.",
+    "licence_note": "The repository has NO licence file (no LICENSE/COPYING among the 61 tracked files at the pinned commit). Redistribution of its code, checkpoint and figures inside a delivered package is not covered by any licence. The coordinator should record this in USAGE.md and decide whether the ZIP references the checkout instead of bundling it.",
+    "heavy_job_gate_note": "mcp-build/HEAVY_JOBS_DISABLED exists (coordinator, 2026-10-02T15:10Z). heavy.sh refuses every command while it exists (exit 75). This blocks the Brax/JAX command now. The PyTorch commands are not JAX jobs, but the machine had about 2.6 GB available at scan time (free -m), so run them one at a time."
+  },
+  "tutorials": [
+    {
+      "id": "tutorial_run_1d_example",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_1d_example.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_1d_example.py",
+      "sha256": "be05adbd64029f3334811610eeff27fcc982ea851ba4ede2c1bf3615aaa1ad79",
+      "title": "1D examples: VP-MBD vs LP-MBD (paper Fig. 3)",
+      "description": "python run_1d_example.py --name {gaussian,gaussian_mixture,sin_mixture}. Runs VP-MBD and LP-MBD on a fixed 1D objective and saves a 3-panel figure (objective, VP trajectories, LP trajectories) to images/1d/<name>_results_1d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 2",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It reproduces the paper's Fig. 3 (one row per --name). The figure is the only output, and the shipped reference images make it verifiable."
+    },
+    {
+      "id": "tutorial_run_2d_example",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_2d_example.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_2d_example.py",
+      "sha256": "31d605e11d7785e3009ab2f539f806b9e4471235748ba2793d9e1e0cc14742d1",
+      "title": "2D examples: VP-MBD vs LP-MBD (paper Fig. 4 for constrained_gaussian_mixture_2d)",
+      "description": "python run_2d_example.py --name {gaussian_2d,constrained_gaussian_2d,gaussian_mixture_2d,constrained_gaussian_mixture_2d}. Saves a 2x3 panel figure (VP top row, LP bottom row) to images/2d/<name>_result.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 3",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. For --name constrained_gaussian_mixture_2d it reproduces Fig. 4: it uses the learned parameters from the Fig. 4 caption (sigma_max=2.1113, beta0=2.8e-5, beta1=0.3609, T=3), and the shipped PNG visually matches Fig. 4. The other three names are additional examples."
+    },
+    {
+      "id": "tutorial_run_alp_mbd",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_alp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_alp_mbd.py",
+      "sha256": "538eca5bf010512cce881839682af6a7d4928353dee4b83c5c80f4027f5d6d5d",
+      "title": "ALP-MBD: learn (sigma_max, T) with REINFORCE on the constrained 2D Gaussian mixture",
+      "description": "python run_alp_mbd.py (no arguments). Runs 30 REINFORCE updates of the ALPMBD tuner around LP-MBD, prints 'sigma_max_opt: <float>, T_opt: <tensor>' and saves images/2d/ALP_MBD_results_2d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 4",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It implements the Sec. V-A adaptive experiment (the Fig. 4 caption reports sigma_max=2.11, T=3 for ALP-MBD after 30 training steps) and is the paper's own method on the toy problem."
+    },
+    {
+      "id": "tutorial_run_avp_mbd",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_avp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_avp_mbd.py",
+      "sha256": "db9a2f5a9e9575da7bc9f43464f19b05edbefb5e89884d7f20025b3ffad545b4",
+      "title": "AVP-MBD baseline: learn (beta0, beta1, T) with REINFORCE on the constrained 2D Gaussian mixture",
+      "description": "python run_avp_mbd.py (no arguments). Runs 30 REINFORCE updates of the AVPMBD tuner around VP-MBD, prints 'beta0_opt: .., beta1_opt: .., T_opt: ..' and saves images/2d/AVP_MBD_results_2d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 4",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It is the Sec. V-A baseline: the Fig. 4 caption reports beta0=0.000028, beta1=0.361, T=3 for AVP-MBD."
+    },
+    {
+      "id": "vehicle_control_run_experiment",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/run_experiment.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_experiment.py",
+      "sha256": "333f341dfaae3b9b82b68c5b4a068df8104a91a52d011bf2e0ec9171ceed19d0",
+      "title": "Path tracking with MPPI / VP-MBD / LP-MBD (paper Table II, VP-MBD and LP-MBD rows)",
+      "description": "From the vehicle_control directory: python run_experiment.py --config config/{mppi,vp_mbd,lp_mbd}_controller.yaml [--seed N] [--device cuda|cpu] [--save_mode True]. Runs one episode of the kinematic-vehicle path-tracking environment and prints the episode reward, the episode length and the average solve time per control step [ms]. It can also write a GIF to ./video/seed_<seed>_<filename>.",
+      "type": "script",
+      "documented_in": "vehicle_control/README.md sections 2-3",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. The shipped vp_mbd/lp_mbd configs carry the Table II settings (T=17, horizon 50, 100 samples, beta 1e-4/1e-2, sigma_max 1.8). Table II averages over 5 seeds via --seed. It accepts a different reference path through the documented ref_path key."
+    },
+    {
+      "id": "vehicle_control_run_rl_evaluation",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/run_rl_evaluation.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_rl_evaluation.py",
+      "sha256": "8327004f740a6e7aa07cff3b360274addc9b6661fe10c6bf87d1583bb5a1345a",
+      "title": "ALP-MBD with the shipped PPO tuner: per-step (T, sigma_max) along the path (paper Figs. 5 and 6)",
+      "description": "python run_rl_evaluation.py --config config/lp_mbd_fine_tuning_evaluation.yaml [--seed N] [--device cuda|cpu]. Loads data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth, runs one LP-MBD episode with per-step parameters from the tuner, prints average sigma_max, diffusion step and calculation time, and saves video/<ref basename>_rl_evaluation.png next to the script.",
+      "type": "script",
+      "documented_in": "vehicle_control/README.md section 5",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command, and the trained tuner ships with the repository. With ref_path=data/path/oval_path.csv (default) it reproduces Fig. 6. With ref_path=data/path/s_bend_path.csv it reproduces Fig. 5. Both reference PNGs ship in vehicle_control/video/."
+    },
+    {
+      "id": "brax_evaluation_main",
+      "module": "cli_wrapper",
+      "path": "brax_evaluation/main.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/brax_evaluation/main.py",
+      "sha256": "66cda1b4774c82272c808fa18334dd5cc0c73c909d2d6a3b7fa8b3f51c98a99a",
+      "title": "Brax comparison of LP-MBD, VP-MBD, MPPI, CEM, CMA-ES (paper Table I)",
+      "description": "python main.py --env_name <env> --controller {lp_mbd,vp_mbd,mppi,cem,cma_es} [--horizon 50] [--sample_size 2000] [--total_diffusion_steps 50] --disable_wandb. Runs seeds 0-4, 50 receding-horizon control steps each, and prints the per-seed average reward plus the final mean and std (Table I format). Writes no files.",
+      "type": "script",
+      "documented_in": "brax_evaluation/README.md",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command, and the only implementation of Table I. Selected but EXECUTION BLOCKED for now: it is a JAX/Brax heavy job and HEAVY_JOBS_DISABLED is set. The default problem size (about 1.2e9 simulated env steps per call) is infeasible here, so a reference run needs the reduced --sample_size/--horizon/--total_diffusion_steps values given in tool_review. The coordinator should record an exclusion if the gate stays closed."
+    },
+    {
+      "id": "vehicle_control_run_rl_fine_tuning",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/run_rl_fine_tuning.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_rl_fine_tuning.py",
+      "sha256": "a3d0db438b1ef986a01248ca7e2a473dc5e7f6aa80e5e36197b5f9ea3fc4d9d3",
+      "title": "PPO training of the ALP-MBD scheduler (paper Sec. IV-B, Algorithm 1)",
+      "description": "python run_rl_fine_tuning.py --config config/lp_mbd_fine_tuning.yaml [--disable_wandb] [--seed] [--device]. Trains the PPO tuner for max_training_steps=1,000,000 control steps and saves it to <script_dir>/data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth.",
+      "type": "script",
+      "documented_in": "vehicle_control/README.md section 4",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "DEFERRED. 1e6 LP-MBD control steps at the documented setting would take about 10-13 h even at the paper's RTX 4090 per-step latency (37-45 ms), and days on CPU. Training length is a YAML key only (no CLI flag). The script overwrites the shipped checkpoint in the source tree unless run on a copy. The result is stochastic, and the paper prints no training curve to compare against. The shipped checkpoint already supports the evaluation tool."
+    },
+    {
+      "id": "vehicle_control_generate_oval_path",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/generate_oval_path.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/generate_oval_path.py",
+      "sha256": "2d1d0ae7c0500c2e1b93159a8996bc96feefad37cd4bc092350b6d5f4c6c44e2",
+      "title": "Oval reference-path generator",
+      "description": "argparse geometry options; writes <script_dir>/data/oval_path.csv (not data/path/, where the shipped CSV lives).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: data-preparation helper that no README documents. Its output already ships as data/path/oval_path.csv."
+    },
+    {
+      "id": "vehicle_control_generate_s_bend_path",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/generate_s_bend_path.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/generate_s_bend_path.py",
+      "sha256": "1034dc81b33b3f4b059c8eceae78df5c2b1f93dc709ca2a46faf22dc2660d480",
+      "title": "S-bend reference-path generator",
+      "description": "No CLI options; writes <script_dir>/data/path/s_bend_path.csv, overwriting the shipped file.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: undocumented data preparation. Its output ships."
+    },
+    {
+      "id": "vehicle_control_generate_straight_path",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/generate_straight_path.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/generate_straight_path.py",
+      "sha256": "a7c9abeafb71aeb34107366d67b73b728e378bb9719de3eb18416cc8d4df39a3",
+      "title": "Straight reference-path generator",
+      "description": "Module-level code; writes data/straight_path.csv relative to cwd (not data/path/).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted: undocumented data preparation. Its output ships as data/path/straight_path.csv."
+    },
+    {
+      "id": "tutorial_alp_mbd_selftest",
+      "module": "cli_wrapper",
+      "path": "tutorial/alp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/alp_mbd.py",
+      "sha256": "403335c5757137d9d2e27f478ffc869add0a485cb0ee8ba4590e8eadda9d06c4",
+      "title": "ALPMBD tuner module (__main__ smoke test)",
+      "description": "Defines the ALPMBD REINFORCE tuner. The __main__ block samples once and prints the result.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal implementation used by run_alp_mbd.py. The __main__ block is a smoke test, not a user task."
+    },
+    {
+      "id": "tutorial_avp_mbd_selftest",
+      "module": "cli_wrapper",
+      "path": "tutorial/avp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/avp_mbd.py",
+      "sha256": "8751b2b88331cac9985c4236c83615ee5d22aeb7ce2f4e8b42c4b46f51f3e570",
+      "title": "AVPMBD tuner module (__main__ smoke test)",
+      "description": "Defines the AVPMBD REINFORCE tuner. The __main__ block samples once and prints the result.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal implementation used by run_avp_mbd.py. The __main__ block is a smoke test."
+    },
+    {
+      "id": "vehicle_control_ppo_tuner_selftest",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/rl_finetuner/ppo_tuner.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/rl_finetuner/ppo_tuner.py",
+      "sha256": "1c80a5d25c6d5b00477346730edbc9b407dfc33611eba341274a417c73d5be6d",
+      "title": "PPOTuner (__main__ dummy-buffer update test)",
+      "description": "python -m vehicle_control.rl_finetuner.ppo_tuner runs one PPO update on random data.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal smoke test on random data, not a user task. Its __main__ policy_params omit 'log_sigma_max_std_init', which PPOTuner.__init__ reads with policy_params[...] (ppo_tuner.py:39), so the self-test is expected to raise KeyError as written. It is unrelated to the shipped checkpoint (state_dim 6 there vs 5 in the environment)."
+    },
+    {
+      "id": "vehicle_control_pathtracking_selftest",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/envs/pathtracking.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/envs/pathtracking.py",
+      "sha256": "ede26acbc14f29a8b39e22677e1f2026c2b94e2b2e6df8d14d51eb44531ec177",
+      "title": "PathTrackingEnv __main__ smoke test",
+      "description": "Builds the environment from data/straight_path.csv, takes one random step and renders it.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal smoke test. It reads data/straight_path.csv, which does not exist (the file is data/path/straight_path.csv), and unpacks 3 values from step(), which returns 4."
+    },
+    {
+      "id": "vehicle_control_obstacle_map_selftest",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/envs/obstacle_map.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/envs/obstacle_map.py",
+      "sha256": "c8282bb82b23a14c4d79ea5952b1460ac18ab343a41a9ac427b189aba8115b8d",
+      "title": "ObstacleMap __main__ render demo",
+      "description": "Renders one circle obstacle and calls plt.show().",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal demo with no scientific output."
+    },
+    {
+      "id": "vehicle_control_path_utils_selftest",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/utils/path_utils.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/utils/path_utils.py",
+      "sha256": "1c521867ab792ef7c35fbb55e31ea823ecd0a7d4a6d443042e6c1e3477e795c9",
+      "title": "path_utils __main__ lateral-offset check",
+      "description": "Prints lateral offsets for hand-picked points against data/straight_path.csv (wrong path, see above).",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Internal helper test with a broken data path."
+    },
+    {
+      "id": "readme_root",
+      "module": "cli_wrapper",
+      "path": "README.md",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/README.md",
+      "sha256": "5411c7ed146d29124abb2f56f4df09b3f2aa48d1f0189876c8ab118a0e853898",
+      "title": "Repository README",
+      "description": "Index of the three sub-projects (tutorial, vehicle_control, brax_evaluation).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Navigation only. The commands are bound through the sub-READMEs and the scripts."
+    },
+    {
+      "id": "readme_tutorial",
+      "module": "cli_wrapper",
+      "path": "tutorial/README.md",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/README.md",
+      "sha256": "49ed13ff4162f27bb34b8d9d28c39eca123b9b6e3c24a90a5ed2417d000de4c8",
+      "title": "Tutorial README",
+      "description": "Documents run_1d_example.py, run_2d_example.py, run_avp_mbd.py and run_alp_mbd.py, the output folders, CPU fallback and seed 42.",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documentation evidence for the four tutorial scripts. Each script is the execution source."
+    },
+    {
+      "id": "readme_vehicle_control",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/README.md",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/README.md",
+      "sha256": "07977c5e350758f50625861080a1842317f52ccb25cb627c4fd10b8b1e0c6c1a",
+      "title": "Vehicle-control README",
+      "description": "Documents run_experiment.py, run_rl_fine_tuning.py and run_rl_evaluation.py, the YAML keys, GIF conditions and path-resolution rules.",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documentation evidence. It contains one statement that disagrees with the code (fine_tuner_model_path, see doc_code_discrepancies)."
+    },
+    {
+      "id": "readme_brax_evaluation",
+      "module": "cli_wrapper",
+      "path": "brax_evaluation/README.md",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/brax_evaluation/README.md",
+      "sha256": "3168b0022ef5f566729e4aef88932ca43e4ffd96dd1c802d00b16a320e09fc7e",
+      "title": "Brax evaluation README",
+      "description": "Documents main.py arguments and examples. Notes that the code is partly from MBD (LeCAR-Lab/model-based-diffusion).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documentation evidence for brax_evaluation/main.py."
+    }
+  ],
+  "tool_review": {
+    "ownership": "All exposed tools belong to one module, src/tools/cli_wrapper.py (one implementer, one separate verifier). Every tool invokes the original script with sys.executable, an argument list and shell=False.",
+    "general_wrapping_requirements": [
+      "OUTPUTS ARE WRITTEN INTO THE SOURCE TREE. tutorial/plot_utils.py saves to dirname(__file__)/images/{1d,2d}. run_rl_evaluation.py saves to <script_dir>/video/ and reads <script_dir>/data/.... run_experiment.py writes the GIF to <cwd>/video/. run_rl_fine_tuning.py overwrites <script_dir>/data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth. Running in place would overwrite the committed reference figures. Every call (executor or wrapper) should therefore run an unmodified per-call copy of the relevant directory (tutorial/ or vehicle_control/, about 1.1 MB without .git) inside the call's output directory, check that the copied .py/.yaml/.pth hashes equal the pinned ones, and use that copy as cwd. Do not edit upstream files.",
+      "Parameters that only exist as YAML keys (ref_path, render, diffusion_steps, ...) are changed in a per-call config copy written next to the copied scripts. These keys are documented in vehicle_control/README.md. run_experiment.py applies YAML keys with setattr after argparse, so a YAML key overrides a CLI flag with the same name. Do not put seed/device/save_mode into the YAML copy.",
+      "Headless use: MPLBACKEND=Agg makes every plt.show() return immediately with a 'FigureCanvasAgg is non-interactive' UserWarning. env.render(mode='human') calls plt.pause(0.001) and plt.cla() on every control step, which draws off-screen and saves nothing. For metric-only runs, set render: False in the config copy. This does not affect control or metrics. For a GIF, set render: True and pass --save_mode True.",
+      "--save_mode is declared type=bool in all three vehicle_control scripts, so any non-empty string (including 'False') becomes True. Pass the literal 'True' to enable it and omit the flag otherwise.",
+      "Device: the tutorial scripts have no device flag and use CUDA whenever torch.cuda.is_available(). With a CUDA build of torch, force CPU through the environment (CUDA_VISIBLE_DEVICES=''). vehicle_control scripts take --device cuda|cpu (default cuda, falls back to cpu if CUDA is unavailable). CPU and GPU use different RNG streams, so numbers and figures differ between devices even with fixed seeds.",
+      "torch.compile: vehicle_control/envs/pathtracking.py (normalize_angle, step, _calc_closest_ref_idx, _calc_lateral_offset) and controller/{lp,vp}_mbd_controller.py (reverse_once, _states_prediction) are decorated with @torch.compile. The first call compiles with Inductor, which needs a C++ compiler on CPU (gcc/g++ are present at /usr/bin) plus Python headers, and Triton on CUDA. Changing diffusion_steps (every step in run_rl_evaluation) can trigger recompiles up to Dynamo's cache limit. Compile time and memory are unmeasured, so executors should record them. Setting TORCHINDUCTOR_CACHE_DIR inside the project avoids sharing /tmp/torchinductor_<user>.",
+      "Capture stdout/stderr and the exit status. All scientific results of the vehicle and Brax commands are stdout lines. Parse only the lines quoted per tool below."
+    ],
+    "candidates": [
+      {
+        "tool_name": "alp_mbd_compare_vp_lp_1d",
+        "decision": "expose",
+        "tutorial_id": "tutorial_run_1d_example",
+        "task_and_io": "Compare VP-MBD and LP-MBD sampling trajectories on one of three fixed 1D objectives. Input: name in {gaussian, gaussian_mixture, sin_mixture} (required). Output: PNG <copy>/images/1d/<name>_results_1d.png (2000x500 px in the shipped version). No stdout results.",
+        "implementation": "tutorial/run_1d_example.py:main (argparse --name, choices as above), which calls tutorial/vp_mbd.py:VPMBD.__call__, tutorial/lp_mbd.py:LPMBD.__call__, tutorial/objective_function.py:{Gaussian,GaussianMixture,SinMixture} and tutorial/plot_utils.py:plot_results_1d (savefig then plt.show).",
+        "command": "<PROJECT_PYTHON> <copy>/run_1d_example.py --name <name>   (cwd=<copy>; imports resolve from the script directory)",
+        "hard_coded_settings": "seed 42 (utils.set_seed plus a per-controller torch.Generator), batch_size 1000, sample_size 500, max_traj_to_plot 100. lam/T: gaussian 0.01/2, gaussian_mixture 0.01/5, sin_mixture 0.05/20. VP beta0=1e-4, beta1=0.1. LP sigma_max=1.8.",
+        "paper_mapping": "Fig. 3, Sec. V-A. Top row = sin_mixture ('the same example as in [1]', T=20). Middle row = gaussian (T=2). Bottom row = gaussian_mixture (T=5).",
+        "verification_source": "Shipped references tutorial/images/1d/{gaussian,gaussian_mixture,sin_mixture}_results_1d.png (sha256 6fd4bf64..., bd663f2b..., 0a3981ed...). Compare image size and panel structure and check visually that the LP trajectories converge to the optima. Pixel identity is not expected (device RNG, matplotlib version). Re-running the same command on the same device should be deterministic.",
+        "feasibility": "Small tensors (1000x500x1). Estimated well under 1 GB and seconds on CPU (unmeasured).",
+        "headless": "Saves before plt.show(); fine under Agg.",
+        "applicable_to_new_data": false,
+        "notes": "beta1=0.1 in code (inline comment '# 1e-2') differs from the paper's beta1=0.01. The shipped gaussian_results_1d.png VP panel visibly differs from paper Fig. 3 (middle row). See doc_code_discrepancies. Keep the code value and report the difference."
+      },
+      {
+        "tool_name": "alp_mbd_compare_vp_lp_2d",
+        "decision": "expose",
+        "tutorial_id": "tutorial_run_2d_example",
+        "task_and_io": "Compare VP-MBD and LP-MBD sample clouds on a fixed 2D objective (optionally constrained). Input: name in {gaussian_2d, constrained_gaussian_2d, gaussian_mixture_2d, constrained_gaussian_mixture_2d} (required). Output: PNG <copy>/images/2d/<name>_result.png (shipped: 1539x971, or 1581x971 for gaussian_mixture_2d). No stdout results.",
+        "implementation": "tutorial/run_2d_example.py:main, which calls VPMBD, LPMBD, objective_function.{Gaussian2D,ConstrainedGaussian2D,GaussianMixture2D,ConstrainedGaussianMixture2D} and plot_utils.plot_results_2d (savefig with bbox tight, then plt.show).",
+        "command": "<PROJECT_PYTHON> <copy>/run_2d_example.py --name <name>   (cwd=<copy>)",
+        "hard_coded_settings": "seed 42, batch 1000, sample 2000, T=3 (7 for gaussian_mixture_2d), lam 0.1, beta 1e-4/1e-2, sigma_max 1.8, max_traj_to_plot 200, 2000x2000 visualisation grid. constrained_gaussian_mixture_2d overrides sigma_max=2.1113, beta0=2.8e-5, beta1=0.3609.",
+        "paper_mapping": "Fig. 4 (constrained_gaussian_mixture_2d: VP row = AVP-MBD with learned beta, LP row = ALP-MBD with learned sigma_max). The shipped constrained_gaussian_mixture_2d_result.png matches paper Fig. 4 visually. The other names do not appear in the paper.",
+        "verification_source": "Shipped references tutorial/images/2d/{gaussian_2d,constrained_gaussian_2d,gaussian_mixture_2d,constrained_gaussian_mixture_2d}_result.png (hashes in implementation_hashes). Compare structure and visual content, e.g. LP samples collapse onto the feasible mode at (2,-1) by step 2 for the constrained mixture.",
+        "feasibility": "4M-point grid tensors (about 32-64 MB each) plus matplotlib imshow/contour on 2000x2000 arrays. Estimated below 1.5 GB and under a minute on CPU (unmeasured).",
+        "headless": "Fine under Agg.",
+        "applicable_to_new_data": false
+      },
+      {
+        "tool_name": "alp_mbd_learn_alp_schedule_2d",
+        "decision": "expose",
+        "tutorial_id": "tutorial_run_alp_mbd",
+        "task_and_io": "Learn the LP-MBD schedule parameters (sigma_max, T in {3..10}) with 30 REINFORCE updates on the constrained 2D Gaussian mixture, then sample with the learned parameters. No inputs. Outputs: stdout 'sigma_max_opt: <float>, T_opt: <int tensor>' (to be parsed) and PNG <copy>/images/2d/ALP_MBD_results_2d.png (shipped 2000x500).",
+        "implementation": "tutorial/run_alp_mbd.py:main, which uses tutorial/alp_mbd.py:ALPMBD (forward, get_optimal_parameters), tutorial/lp_mbd.py:LPMBD.set_parameters/__call__ and plot_utils.plot_single_results_2d.",
+        "command": "<PROJECT_PYTHON> <copy>/run_alp_mbd.py   (cwd=<copy>)",
+        "hard_coded_settings": "seed 42, batch 1000, sample 1000, 30 training steps, Adam lr 0.1, step penalty w_T=1.0, entropy coef 1e-4, lam 0.1, lam_rl 1.0, initial sigma_max 1.0, max_traj_to_plot 500.",
+        "paper_mapping": "Sec. V-A adaptive experiment. The Fig. 4 caption reports sigma_max=2.11, T=3 for ALP-MBD after 30 training steps. The printed values depend on device RNG; the paper used a GPU.",
+        "verification_source": "Shipped tutorial/images/2d/ALP_MBD_results_2d.png (dac989c4...) and the Fig. 4 caption values. Expect T_opt in {3..10} and visual concentration on the feasible mode. Exact equality with 2.11 is not guaranteed.",
+        "feasibility": "30 x (1000x1000x2) samples plus the 4M-point grid plot. Estimated under 1.5 GB and under a minute on CPU (unmeasured).",
+        "headless": "Fine under Agg.",
+        "applicable_to_new_data": false,
+        "notes": "ALPMBD.forward samples sigma_max = min + relu(z), but get_optimal_parameters returns min + softplus(mu) (tutorial/alp_mbd.py lines 51 vs 67). Upstream behaviour; report it, do not change it."
+      },
+      {
+        "tool_name": "alp_mbd_learn_avp_schedule_2d",
+        "decision": "expose",
+        "tutorial_id": "tutorial_run_avp_mbd",
+        "task_and_io": "Baseline: learn VP-MBD schedule parameters (beta0, beta1, T in {3..10}) with the same REINFORCE budget. No inputs. Outputs: stdout 'beta0_opt: <float>, beta1_opt: <float>, T_opt: <int tensor>' and PNG <copy>/images/2d/AVP_MBD_results_2d.png.",
+        "implementation": "tutorial/run_avp_mbd.py:main, which uses tutorial/avp_mbd.py:AVPMBD (max_beta0=0.9, max_beta1=0.999), tutorial/vp_mbd.py:VPMBD.set_parameters/__call__ and plot_utils.plot_single_results_2d.",
+        "command": "<PROJECT_PYTHON> <copy>/run_avp_mbd.py   (cwd=<copy>)",
+        "paper_mapping": "Sec. V-A AVP-MBD baseline. The Fig. 4 caption reports beta0=0.000028, beta1=0.361, T=3.",
+        "verification_source": "Shipped tutorial/images/2d/AVP_MBD_results_2d.png (583e488e...) and the Fig. 4 caption values (device-dependent).",
+        "feasibility": "Same as alp_mbd_learn_alp_schedule_2d.",
+        "headless": "Fine under Agg.",
+        "applicable_to_new_data": false
+      },
+      {
+        "tool_name": "alp_mbd_run_path_tracking_controller",
+        "decision": "expose",
+        "tutorial_id": "vehicle_control_run_experiment",
+        "task_and_io": "Run one closed-loop path-tracking episode (kinematic vehicle, static 10x10 m obstacle at reference row 300) with MPPI, VP-MBD or LP-MBD and report tracking reward and per-step solve time. Proposed inputs: controller in {mppi, vp_mbd, lp_mbd} (selects config/<controller>_controller.yaml); reference_path in {s_bend (config default), oval, straight}, or a user CSV (header line, columns x,y,yaw,v; at least 302 rows because PathTrackingEnv.reset hard-codes the obstacle at row 300 and reads obstacles[0]); seed (int, default 0); device (cuda|cpu); save_gif (bool). Optional documented YAML keys: diffusion_steps, sigma_max (lp), beta0/beta1 (vp), temperature, num_samples, horizon, max_episode_length. The implementer chooses a minimal tested subset. Outputs (stdout): 'episode reward: <tensor>', 'episode length: <int>', 'average solve time: <float>  [ms]', 'average episode reward: <float>', 'average episode length: <float>', plus 'Goal reached' / 'Collision detected' events. With save_gif: <cwd>/video/seed_<seed>_<filename> (filename from the YAML, e.g. lp_mbd_controller.gif).",
+        "implementation": "vehicle_control/run_experiment.py:main, which uses envs/pathtracking.py:PathTrackingEnv, controller/{mppi_controller.MPPI, vp_mbd_controller.VPMBDController, lp_mbd_controller.LPMBDController} and utils/evaluate.py:evaluate(eval_num=1). ref_path = os.path.join(os.getcwd(), cfg.ref_path); an absolute ref_path in the config copy also works because of os.path.join semantics.",
+        "command": "cd <copy of vehicle_control>; <PROJECT_PYTHON> run_experiment.py --config <copy>/config/<controller>_controller.yaml(or edited copy) --seed <n> --device <dev> [--save_mode True]",
+        "paper_mapping": "Table II VP-MBD row (T=17, beta 1e-4/1e-2; reward -3498 +/- 116, 38.3 ms) and LP-MBD row (T=17, sigma_max 1.8; reward -3465 +/- 147, 36.9 ms). Table II reports means over five seeds on an RTX 4090; the seed values are not stated (0-4 is the natural reading). The MPPI config is a repository baseline that is not in Table II.",
+        "verification_source": "No shipped metric logs. Reference = a standalone run of the same command (seed 0 at least; 5 seeds for a Table II comparison if time allows). Compare the parsed reward and length exactly on repeat runs (same device; LP-MBD reseeds a torch.Generator every control step, VP/MPPI use the global seed) and the reward order of magnitude against Table II. Runtime is hardware-dependent. vehicle_control/video/seed_0_mbd_controller.gif (55b9c41e...) shows an oval-path run, but no current config produces that filename (all configs use s_bend and other filenames), so it is not a reproducible reference.",
+        "feasibility": "s-bend reference: 942 points at 0.2 m spacing (about 188 m) at 5 m/s, so an episode is a few hundred control steps (ends at goal within 1 m, collision, or max_episode_length=1000). Per step: diffusion_steps-1 = 16 reverse passes x 100 samples x 50-step rollouts. GPU at the paper's latency is about 37 ms/step, i.e. under a minute plus compile. CPU is unmeasured, probably minutes per episode plus torch.compile time. MEMORY HOTSPOT: utils/path_utils.py:calc_longitudinal_offset_to_segment computes torch.diag(segment_vec @ target_vec.T) over num_samples*horizon points. That is 5000x5000 float32 = 100 MB per cost call at the defaults and grows quadratically (10000 gives 400 MB, 20000 gives 1.6 GB), so cap num_samples*horizon if those keys are exposed. With save_gif, every frame (640x480 ARGB, about 1.2 MB) is held in memory until the end, about 0.5 GB for 400 steps, plus the moviepy write.",
+        "headless": "All three shipped configs have render: True. Without --save_mode, every step calls plt.pause/plt.cla under Agg (wasted drawing, no file). Use render: False in the copy for metric runs.",
+        "applicable_to_new_data": true,
+        "notes": "The GIF frames are ARGB bytes (canvas.tostring_argb) passed to moviepy as RGB(A), and the shipped GIF shows channel-shifted colours (black path drawn red). This is upstream behaviour. tostring_argb exists in matplotlib 3.9.0, 3.10.x and 3.11.2 (checked in local installs)."
+      },
+      {
+        "tool_name": "alp_mbd_evaluate_adaptive_scheduler",
+        "decision": "expose",
+        "tutorial_id": "vehicle_control_run_rl_evaluation",
+        "task_and_io": "Run ALP-MBD (LP-MBD whose T and sigma_max are chosen each step by the shipped PPO tuner) for one episode, and plot the trajectory coloured by diffusion step and sigma_max. Proposed inputs: reference_path in {oval (default config, Fig. 6), s_bend (Fig. 5)}, set through ref_path in a copy of config/lp_mbd_fine_tuning_evaluation.yaml; seed; device. Outputs: PNG <copy>/video/<ref basename>_rl_evaluation.png. stdout lines 'average calculation time: <float>  [ms]', 'Average sigma_max: <float>', 'Average diffusion step: <float>', plus 'average episode reward'/'average episode length' (see caveat).",
+        "implementation": "vehicle_control/run_rl_evaluation.py:main and plot_side_by_side_trajectory, which use rl_finetuner/ppo_tuner.py:PPOTuner.load/get_optimal_action, rl_finetuner/actor_critic.py:ActorCritic.eval_act, controller/lp_mbd_controller.py:LPMBDController.set_parameters/forward and utils/evaluate.py:evaluate_single_episode.",
+        "command": "cd <copy of vehicle_control>; <PROJECT_PYTHON> run_rl_evaluation.py --config <copy>/config/lp_mbd_fine_tuning_evaluation.yaml(or edited copy) --seed <n> --device <dev>",
+        "fixed_inputs": "Checkpoint path is hard-coded as <script_dir>/data/fine_tuner_checkpoints/<policy>_fine_tuner.pth, i.e. the shipped vehicle_control/data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth (47,139 bytes, sha256 3681e9cf..., torch zip state_dict: Linear(5,64) input layer and a 4-entry candidate_time_steps buffer, consistent with step_choices [15,20,25,30] and relative_state_dim 5). The YAML key fine_tuner_model_path is ignored by this script. ref_path is resolved relative to the script directory, not cwd.",
+        "paper_mapping": "Fig. 6 (oval path, generalisation) with the default evaluation config. Fig. 5 (s-bend training path) with ref_path=data/path/s_bend_path.csv. Table II ALP-MBD columns T (16.9 +/- 1.14) and sigma_max (1.82 +/- 0.18) are five-seed averages of the per-step parameters, of which this command gives one seed.",
+        "verification_source": "Shipped vehicle_control/video/oval_path_rl_evaluation.png (6fdd3012..., 1779x607) and s_bend_path_rl_evaluation.png (a4086918..., 1779x566, visually matches paper Fig. 5). Compare panel structure, the colour-bar range of step choices 15-30, and the visual pattern (larger T/sigma_max near the obstacle). Compare 'Average sigma_max'/'Average diffusion step' on repeat runs and against the Table II magnitudes.",
+        "feasibility": "Same per-step cost as LP-MBD with T in {15..30}. Expect recompiles of the torch.compile'd reverse_once as T changes. Oval path: 1006 points, so up to ~1000 steps. CPU time is unmeasured and probably several minutes. Memory is like run_experiment. Figure size 18x9 in.",
+        "headless": "The evaluation config has render: True, so every step calls plt.pause/plt.cla. Set render: False in the copy; the final figure does not depend on it. plt.show() after savefig is harmless under Agg.",
+        "applicable_to_new_data": true,
+        "caveat": "utils/evaluate.py:evaluate_single_episode appends episode_reward and episode_length inside the step loop (lines 202-203). The printed 'average episode reward/length' are therefore means of running partial sums, not episode totals, and are not comparable with Table II rewards. Report them only as raw stdout, or not at all."
+      },
+      {
+        "tool_name": "alp_mbd_compare_controllers_brax",
+        "decision": "expose_if_heavy_jobs_reenabled (currently blocked)",
+        "tutorial_id": "brax_evaluation_main",
+        "task_and_io": "Receding-horizon control of a Brax task with LP-MBD, VP-MBD, MPPI, CEM or CMA-ES, reporting the mean per-step reward over seeds 0-4. Inputs: env_name in {ant, hopper, halfcheetah, walker2d, reacher, pusher, inverted_double_pendulum, inverted_pendulum}; controller in {lp_mbd, vp_mbd, mppi, cem, cma_es}; horizon (int, default 50); sample_size (int, default 2000); total_diffusion_steps (int, default 50). The wrapper always passes --disable_wandb (otherwise wandb.init(mode='online') needs a W&B login and network). Outputs (stdout only): 'Seed <k> Average reward: <float>' x5, 'Final Average reward: <float>', 'Final Reward std: <float>' (std of the 5 per-seed means, as in Table I). No files.",
+        "implementation": "brax_evaluation/main.py:main uses brax.envs.get_environment(env_name, backend='positional') and jax.jit(env.step/reset), with controllers/{lp_mbd.LPMBD, vp_mbd.VPMBD, mppi.MPPI, cem.CEM, cma_es.CMAES}; CEM and CMA-ES subclass MPPI. Each controller call runs total_diffusion_steps-1 jitted reverse_once steps with jax.vmap over sample_size and lax.scan over horizon.",
+        "command": "<heavy.sh --limit-mb N --timeout S --log FILE> -- <PROJECT_PYTHON> <repo>/brax_evaluation/main.py --env_name <env> --controller <c> --horizon <H> --sample_size <N> --total_diffusion_steps <T> --disable_wandb   (cwd irrelevant; writes nothing; can run directly from the pinned checkout)",
+        "hard_coded_settings": "5 seeds (0-4), total_env_steps=50 per seed, lam=0.1, backend 'positional'. LP-MBD sigma_max=2.0 (controllers/lp_mbd.py:37; the paper text says 1.8). VP beta0=1e-4, betaT=1e-2. None of these is exposed on the CLI.",
+        "paper_mapping": "Table I (Ant, Hopper, HalfCheetah, Walker2D, Reacher, Pusher x CEM, MPPI, VP-MBD, LP-MBD; mean +/- std over 5 seeds). The paper does not state the T/H/N used ('same for all'). README defaults are 50/50/2000. cma_es and the two pendulum tasks are extra.",
+        "verification_source": "Standalone run of the same reduced command; repeat-run equality (fixed PRNGKey seeds). The Table I magnitude is only loosely comparable at reduced sizes.",
+        "feasibility": "Blocked: HEAVY_JOBS_DISABLED is set, so heavy.sh refuses with exit 75. Default size is 5 x 50 x 49 x 2000 x 50 = about 1.2e9 simulated env steps per call; for comparison the workspace MBD hopper measurement (about 1e7 env steps) took about 1.2 GB and 4 minutes, so defaults would take hours and are infeasible. The problem-size knobs are --sample_size (memory scales with it through vmap), --horizon and --total_diffusion_steps (time); seeds and env steps cannot be reduced. Suggested reference run: --env_name hopper (or inverted_pendulum) --controller lp_mbd --sample_size 128 --horizon 20 --total_diffusion_steps 10 --disable_wandb, about 5 x 50 x 9 x 128 x 20 = 5.8e6 env steps, expected well within 2.5 GB and a few minutes plus JIT compile (unmeasured). Record the reduction exactly. Use --limit-mb 2500 and a timeout.",
+        "headless": "No plotting. tqdm progress goes to stderr.",
+        "applicable_to_new_data": false
+      },
+      {
+        "tool_name": "alp_mbd_train_adaptive_scheduler_ppo",
+        "decision": "defer",
+        "tutorial_id": "vehicle_control_run_rl_fine_tuning",
+        "task_and_io": "Train the PPO scheduler (Algorithm 1) on the s-bend path and save a new tuner checkpoint.",
+        "implementation": "vehicle_control/run_rl_fine_tuning.py:main uses PPOTuner.select_action/update/save, PPOBuffer and evaluate(agent=...) every 30 episodes. It saves to os.path.join(<script_dir>, fine_tuner_model_path).",
+        "blocker": "Documented setting max_training_steps=1,000,000 (YAML only; no CLI flag), with a PPO update every 2*max_episode_length=2000 steps and K_epochs=40. At the paper's 37-45 ms/step this is about 10-13 h on an RTX 4090 and days on CPU. It overwrites the shipped checkpoint unless run on a copy. It imports wandb at module level (needs --disable_wandb for offline use). It is stochastic, and the paper has no training curve to compare. A bounded smoke run (e.g. max_training_steps 2000 = one PPO update) would be possible through a config copy, but it would not reproduce a paper result. Add it only on request.",
+        "verification_source": "None available that is comparable."
+      },
+      {
+        "tool_name": null,
+        "decision": "omit",
+        "candidates": "vehicle_control/generate_{oval,s_bend,straight}_path.py; __main__ blocks of tutorial/alp_mbd.py, tutorial/avp_mbd.py, vehicle_control/rl_finetuner/ppo_tuner.py, envs/pathtracking.py, envs/obstacle_map.py, utils/path_utils.py",
+        "reason": "Undocumented data preparation whose outputs ship, and internal smoke tests (two of them reference a non-existent data/straight_path.csv). These are not user tasks."
+      }
+    ],
+    "merges": [
+      "The three run_experiment configs (mppi/vp_mbd/lp_mbd) form one tool with a controller enum, because it is one script with a config switch.",
+      "Figs. 5 and 6 form one tool (alp_mbd_evaluate_adaptive_scheduler) with a reference_path enum, because it is the same script and the shipped checkpoint differs only in ref_path.",
+      "run_alp_mbd.py and run_avp_mbd.py stay separate tools. They are separate scripts with different learned parameters, which keeps source ownership one-to-one. The coordinator may merge them into one tool with method={alp,avp} if preferred."
+    ],
+    "paper_coverage": {
+      "Fig. 1, Fig. 2, Algorithm 1": "Illustrations. No code output.",
+      "Fig. 3": "alp_mbd_compare_vp_lp_1d (3 names)",
+      "Fig. 4": "alp_mbd_compare_vp_lp_2d --name constrained_gaussian_mixture_2d (fixed learned parameters). The learned values come from alp_mbd_learn_alp_schedule_2d and alp_mbd_learn_avp_schedule_2d.",
+      "Table I": "alp_mbd_compare_controllers_brax (blocked by the heavy-job gate, reduced sizes only)",
+      "Table II VP-MBD / LP-MBD rows": "alp_mbd_run_path_tracking_controller with controller vp_mbd / lp_mbd over seeds",
+      "Table II ALP-MBD row": "Partial. alp_mbd_evaluate_adaptive_scheduler gives per-step T and sigma_max averages. No documented command prints a comparable ALP-MBD episode reward (run_experiment.py has no tuner option, evaluate(agent=...) is only called inside the deferred training script, and run_rl_evaluation's reward print is a partial-sum mean).",
+      "Fig. 5": "alp_mbd_evaluate_adaptive_scheduler reference_path=s_bend",
+      "Fig. 6": "alp_mbd_evaluate_adaptive_scheduler reference_path=oval"
+    },
+    "doc_code_discrepancies": [
+      "tutorial/run_1d_example.py:39 sets VP beta1=0.1 (comment '# 1e-2'). The paper (Sec. V intro, Eq. (20): VP std [0.1, 0.01] for T=2 and 0.16 for T=5) corresponds to beta1=0.01. The shipped gaussian_results_1d.png VP panel differs visibly from paper Fig. 3 (middle row). The run uses the code value.",
+      "brax_evaluation/controllers/lp_mbd.py:37 hard-codes sigma_max=2.0. The paper says sigma_max=1.8 for LP-MBD 'throughout this experiment'.",
+      "vehicle_control/README.md section 5 says fine_tuner_model_path must point to an existing checkpoint. run_rl_evaluation.py ignores that key and always loads <script_dir>/data/fine_tuner_checkpoints/<policy>_fine_tuner.pth.",
+      "utils/evaluate.py:evaluate_single_episode averages running partial sums (append inside the loop), so the printed 'average episode reward' is not an episode reward.",
+      "--save_mode type=bool in run_experiment.py, run_rl_fine_tuning.py and run_rl_evaluation.py: '--save_mode False' enables GIF saving.",
+      "tutorial/alp_mbd.py samples sigma_max with relu but reports the optimum with softplus.",
+      "Paper Fig. 4 caption calls the top row 'VP-MBD'. Both code and figure plot AVP-MBD (learned beta) in that row, labelled 'VP'.",
+      "brax_evaluation/main.py argparse choices list reacher and pusher twice (harmless).",
+      "generate_oval_path.py writes data/oval_path.csv and generate_straight_path.py writes data/straight_path.csv, while the shipped and used CSVs are under data/path/."
+    ],
+    "dependencies": {
+      "note": "There is no requirements file. Third-party imports were found by reading every .py file. Versions are not pinned by the repository; the paper says Python 3.11 + PyTorch for Sec. V-C.",
+      "python": ">=3.10 required (PEP 604 'int | None' in a function signature in tutorial/plot_utils.py:21,179-182; list[int] annotations in tutorial/alp_mbd.py, avp_mbd.py, rl_finetuner/actor_critic.py). 3.11 recommended (paper).",
+      "per_command": {
+        "tutorial/run_1d_example.py, run_2d_example.py, run_alp_mbd.py, run_avp_mbd.py": {
+          "torch": "all tutorial modules (run_*.py, vp_mbd.py, lp_mbd.py, alp_mbd.py, avp_mbd.py, objective_function.py, model_based_sampling_controller.py, utils.py, plot_utils.py)",
+          "numpy": "tutorial/utils.py, tutorial/plot_utils.py",
+          "matplotlib": "tutorial/run_*.py (pyplot), tutorial/plot_utils.py (pyplot, animation, ticker, colors, gridspec)",
+          "tqdm": "tutorial/lp_mbd.py (imported, unused), tutorial/run_alp_mbd.py, tutorial/run_avp_mbd.py",
+          "not_needed": "jax (tutorial/README: 'You do not need to install Jax')"
+        },
+        "vehicle_control/run_experiment.py": {
+          "torch": "run_experiment.py, controller/*.py, envs/*.py, utils/*.py (uses torch.compile, so it needs torch>=2.0, a C++ compiler for Inductor on CPU, and Triton on CUDA)",
+          "numpy": "run_experiment.py, envs/pathtracking.py, envs/obstacle_map.py, utils/evaluate.py, utils/path_utils.py",
+          "pyyaml": "run_experiment.py (import yaml)",
+          "tqdm": "run_experiment.py, utils/evaluate.py",
+          "matplotlib": "envs/pathtracking.py, envs/obstacle_map.py (pyplot; canvas.tostring_argb for GIF frames)",
+          "moviepy": "envs/pathtracking.py (module-level 'from moviepy.video.io.ImageSequenceClip import ImageSequenceClip', so it is required even without GIF output; that path exists in moviepy 1.0.3 and 2.x; write_gif needs moviepy's imageio/Pillow backends)"
+        },
+        "vehicle_control/run_rl_evaluation.py": {
+          "same_as": "vehicle_control/run_experiment.py",
+          "plus": "matplotlib.collections.LineCollection, matplotlib.colors.BoundaryNorm, matplotlib.ticker.MaxNLocator (run_rl_evaluation.py); torch.load of the shipped state_dict (plain tensors; expected to load with weights_only=True default in torch>=2.6, to be confirmed by the executor)"
+        },
+        "vehicle_control/run_rl_fine_tuning.py (deferred)": {
+          "same_as": "vehicle_control/run_experiment.py",
+          "plus": "wandb (run_rl_fine_tuning.py, module-level import; use --disable_wandb)"
+        },
+        "brax_evaluation/main.py": {
+          "jax/jaxlib": "main.py, controllers/{lp_mbd,vp_mbd,mppi,cem,cma_es}.py",
+          "brax": "main.py (brax.envs.get_environment(..., backend='positional'), env.sys.actuator.ctrl_range, State.pipeline_state, i.e. the brax>=0.9 generalized API). Brings mujoco/mujoco-mjx/flax etc. The sibling workspace project model-based-diffusion uses brax 0.10.5, jax/jaxlib 0.4.30, mujoco/mujoco-mjx 3.1.6, flax 0.8.5. That is a plausible starting pin, unverified for this repo.",
+          "numpy": "main.py, controllers/lp_mbd.py",
+          "tqdm": "main.py",
+          "wandb": "main.py (module-level import; always pass --disable_wandb)"
+        },
+        "omitted path generators": {
+          "pandas": "generate_oval_path.py, generate_s_bend_path.py, generate_straight_path.py",
+          "numpy": "same files"
+        }
+      },
+      "not_imported_anywhere": [
+        "gymnasium",
+        "gym",
+        "stable-baselines3",
+        "scipy",
+        "seaborn",
+        "opencv",
+        "imageio (only indirectly through moviepy)"
+      ],
+      "system": "gcc/g++ for torch.compile (present: /usr/bin/gcc, /usr/bin/g++). Python development headers for Inductor's CPU extension builds (included in uv-managed CPython)."
+    },
+    "execution_plan_hints": [
+      "Run executors serially or at most two light ones at a time. About 2.6 GB was available at scan time and VS Code holds several GB.",
+      "Tutorial executors: copy tutorial/*.py into the executor namespace, run each documented --name (3 + 4) plus run_alp_mbd.py and run_avp_mbd.py, keep the PNGs and stdout, and compare with the shipped PNGs.",
+      "vehicle_control executors: copy vehicle_control/ (scripts, config/, data/), set render: False in config copies, run run_experiment.py for lp_mbd and vp_mbd (seed 0 at least; mppi optional), and run run_rl_evaluation.py for oval and s_bend. Record torch.compile time, wall time per episode, peak RSS, and the device used.",
+      "Brax executor: only if HEAVY_JOBS_DISABLED is removed, run through heavy.sh with the reduced arguments; otherwise report 'not attempted'."
+    ],
+    "implementation_hashes": {
+      "tutorial/lp_mbd.py": "edda141620b8654afea620ceba17fd9e3996822592f60998b036e5c886a1ea9e",
+      "tutorial/vp_mbd.py": "4ad5659ec2ac38c1b8be9bd3d0cf61e25ec9de8a50968f2b33f67229fa8f1636",
+      "tutorial/alp_mbd.py": "403335c5757137d9d2e27f478ffc869add0a485cb0ee8ba4590e8eadda9d06c4",
+      "tutorial/avp_mbd.py": "8751b2b88331cac9985c4236c83615ee5d22aeb7ce2f4e8b42c4b46f51f3e570",
+      "tutorial/objective_function.py": "b31b9d314e7f06de8f6714c855239ffc49128fb82ab12a732c6bd3156a98ccfe",
+      "tutorial/plot_utils.py": "9d498464702cf94a7f0beccda80a2df24b5a499f481a85f44d50d75f4d58e8fa",
+      "tutorial/utils.py": "f44e0cc4a9c785bc6392c57f75451fb8c25c51e5b73a9721a9ef88e286731e7d",
+      "tutorial/model_based_sampling_controller.py": "14c3ca05089388b18f9bd020b6ca802899a67dae8b9f599d47a4608ca51b37a0",
+      "vehicle_control/config/lp_mbd_controller.yaml": "69d8e4988a93c80bd81e8c1980f806adab810429ffa0d80c453c598c3c1620b4",
+      "vehicle_control/config/vp_mbd_controller.yaml": "a8b9874c5b2ccabaa6eea0df24268d9e764feb3a1879d40b216665881eec7226",
+      "vehicle_control/config/mppi_controller.yaml": "5be6fd9a56b0dbcc2f05e2003f83ef95f51861aa9f8519c598efc90609df34e1",
+      "vehicle_control/config/lp_mbd_fine_tuning_evaluation.yaml": "04edd003316aae976a3a9b52602f9784b847b626f263f274e093bef9faa7c319",
+      "vehicle_control/config/lp_mbd_fine_tuning.yaml": "107346260707f7f058836c0c4ab2bc87f63b9bcb1c116083d2a439090a1be019",
+      "vehicle_control/data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth": "3681e9cfc0ff5ba03e3eb9bd027104370fa5706e62e6e96616a3d7feea7e9ed8",
+      "vehicle_control/data/path/oval_path.csv": "53eb026199c2b69ed7ef767444aa0d63bd52dac01ad17a02ff5ccbd7af95f8ac",
+      "vehicle_control/data/path/s_bend_path.csv": "481a864957886599e563caf17457932ee54cc09384257a73ffbdb75148e70f75",
+      "vehicle_control/data/path/straight_path.csv": "89405e71a2e702f01e797faf5d22a5e6398d1898e0f458b1008e9ce597ae3f2c",
+      "reference tutorial/images/1d/gaussian_results_1d.png": "6fd4bf641222be7537ec52399c9181bd624d4e2a7425486eeb990ce95f5d1469",
+      "reference tutorial/images/1d/gaussian_mixture_results_1d.png": "bd663f2bc98d21d0f982caa4f85bfda8f0f1022b2172d14acb772d177a9bdab5",
+      "reference tutorial/images/1d/sin_mixture_results_1d.png": "0a3981ed9aa2d86965a3cab661681f6b41e7416d56714c11b02f8ea29ce683e1",
+      "reference tutorial/images/2d/gaussian_2d_result.png": "16ffc5a31fd0f920a88cf1badceeeac6ecaa7b3b172cef620d9b979ba45f1bc3",
+      "reference tutorial/images/2d/constrained_gaussian_2d_result.png": "11da4e4fcefab7d8d73c147dceefef90c98fba9e94b5e5a99d6cd029be8c5489",
+      "reference tutorial/images/2d/gaussian_mixture_2d_result.png": "c33c8a516878f7e292fcab160f9706521d136d95dc625702a3e054fdf2bed487",
+      "reference tutorial/images/2d/constrained_gaussian_mixture_2d_result.png": "251d4cd13016e276f79cd8a2873b5a0d5e2fdc102586635ee0ac66581c383637",
+      "reference tutorial/images/2d/ALP_MBD_results_2d.png": "dac989c4af46d6f8200fca11be810295df34d5ccb6cc0846dd6431873bc32bfe",
+      "reference tutorial/images/2d/AVP_MBD_results_2d.png": "583e488eac5e20921692734cf008d8db9d3e1e19a4686f865652371c6639037b",
+      "reference vehicle_control/video/oval_path_rl_evaluation.png": "6fdd3012c18b10b790b35fb504cb00d3c725cace6b5f9778902ec3aadca77a6c",
+      "reference vehicle_control/video/s_bend_path_rl_evaluation.png": "a4086918c9c5f3e550c01988e101859f97142351255e46444e91667860584a89",
+      "non-reproducible vehicle_control/video/seed_0_mbd_controller.gif": "55b9c41edd8a1e4f11cb54d2b275e24f5ef1a6f1b6868d93e9ea96fca0d6f56e",
+      "vehicle_control/rl_finetuner/ppo_tuner.py": "1c80a5d25c6d5b00477346730edbc9b407dfc33611eba341274a417c73d5be6d",
+      "vehicle_control/rl_finetuner/actor_critic.py": "5528717777d1e69ac4373daf7dfc6c71720afbf6ce643ac8540ca185fa80f49d",
+      "vehicle_control/rl_finetuner/buffer.py": "28959add0ff4bff54260d261b4871f316fa153f4594c5bfd5e90aa65e0eedf0d",
+      "vehicle_control/envs/pathtracking.py": "ede26acbc14f29a8b39e22677e1f2026c2b94e2b2e6df8d14d51eb44531ec177",
+      "vehicle_control/envs/obstacle_map.py": "c8282bb82b23a14c4d79ea5952b1460ac18ab343a41a9ac427b189aba8115b8d",
+      "vehicle_control/utils/path_utils.py": "1c521867ab792ef7c35fbb55e31ea823ecd0a7d4a6d443042e6c1e3477e795c9",
+      "vehicle_control/utils/evaluate.py": "049676d187606565b212e751a02536fd38d4e8627faa4be6cedc4756860fec62",
+      "vehicle_control/controller/lp_mbd_controller.py": "94c90adb32cff9b9c15143b1e2e8762b76e30c70f4b3ecc65df3798343221a70",
+      "vehicle_control/controller/vp_mbd_controller.py": "e5c3e88a610657d5fec78a69333f5af149994c97a341a6fef5aa54e3e649984e",
+      "vehicle_control/controller/mppi_controller.py": "bd6414dd86008df68a1111838b903ff3cad2810bcfeac25b5f962d0b59a5e593",
+      "brax_evaluation/controllers/lp_mbd.py": "46c01311d6644a09965ecb2785661021729f634b246b3b2d0110ea00c0ecc36e",
+      "brax_evaluation/controllers/vp_mbd.py": "8f93e3e63c75bf2b90737c25522d149e851e56bcdb7baec44d59a1c2d68f3f39",
+      "brax_evaluation/controllers/mppi.py": "36c6fba7eb63c3414db06770de8c5856198d28d1f0530fee8b37914db74bc3be",
+      "brax_evaluation/controllers/cem.py": "b4b61c594912ddfe0f4b05a2198d94c17f43e0b6e9c09417ce1b0096023ffd46",
+      "brax_evaluation/controllers/cma_es.py": "5f1333aceaa1b2071b64d1d546ec5916fdd13c0128d922dfd12c546391a9e6d1"
+    },
+    "workflow_state_tutorials": [
+      {
+        "id": "tutorial_run_1d_example",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_1d_example.py",
+        "sha256": "be05adbd64029f3334811610eeff27fcc982ea851ba4ede2c1bf3615aaa1ad79"
+      },
+      {
+        "id": "tutorial_run_2d_example",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_2d_example.py",
+        "sha256": "31d605e11d7785e3009ab2f539f806b9e4471235748ba2793d9e1e0cc14742d1"
+      },
+      {
+        "id": "tutorial_run_alp_mbd",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_alp_mbd.py",
+        "sha256": "538eca5bf010512cce881839682af6a7d4928353dee4b83c5c80f4027f5d6d5d"
+      },
+      {
+        "id": "tutorial_run_avp_mbd",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_avp_mbd.py",
+        "sha256": "db9a2f5a9e9575da7bc9f43464f19b05edbefb5e89884d7f20025b3ffad545b4"
+      },
+      {
+        "id": "vehicle_control_run_experiment",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_experiment.py",
+        "sha256": "333f341dfaae3b9b82b68c5b4a068df8104a91a52d011bf2e0ec9171ceed19d0"
+      },
+      {
+        "id": "vehicle_control_run_rl_evaluation",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_rl_evaluation.py",
+        "sha256": "8327004f740a6e7aa07cff3b360274addc9b6661fe10c6bf87d1583bb5a1345a"
+      },
+      {
+        "id": "brax_evaluation_main",
+        "module": "cli_wrapper",
+        "source": "repo/adaptive_linear_path_model_based_diffusion/brax_evaluation/main.py",
+        "sha256": "66cda1b4774c82272c808fa18334dd5cc0c73c909d2d6a3b7fa8b3f51c98a99a"
+      }
+    ],
+    "review_attempts": 1,
+    "review_checks": "Missing operations: every documented command is covered (selected, deferred, or omitted with a reason). Duplicate ownership: each tool has one tutorial_id. Scope: no filter was requested. Bindings: every selected source has a hash computed from the pinned checkout (git status clean)."
+  }
+}

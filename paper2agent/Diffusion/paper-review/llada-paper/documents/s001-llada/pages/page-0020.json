@@ -1,0 +1,159 @@
+{
+  "page": 20,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0020.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220-dpi crops of Algorithm 4 and equations (9)-(11). Algorithm 4 (Random Remasking Strategy of LLaDA) is one figure crop (algorithm-4, [106,70,506,260]; rules located at y=72.1 and 257.3) plus a line-by-line transcription of all 14 printed lines with nesting (&emsp;&emsp; per level: for/for/if), maths from main.tex checked against the crop; the comment on line 4 has no maths and is kept as inline code; printed 'Set $r_1$ is a fully masked sequence' kept. Reading order: the printed page starts with the Algorithm 4 float, which interrupted the sentence continuing from p. 19 ('At t = 1, all | tokens are guaranteed ...'); the continuation paragraph now comes first with join_previous 'space', the algorithm follows it, between complete paragraphs. Equations (9), (10) (four-case cases environment) and (11) converted from formula images to $$...$$ with \\tag{9}-\\tag{11}; \\textrm{data}/\\textrm{UM} written as \\text{}. Inline maths rewritten in LaTeX; italics 'data prediction', 'time-free', 'mask predictor' kept. Author wording kept as printed ('analogous to but distinct from, the noise schedule', 'predict all masked tokens'). The page ends with a complete paragraph; p. 21 starts a new paragraph ('Formally, the mask predictor ...'). Page number omitted. [coordinator, after independent verification] Comment of the algorithm transcription written as plain text (no inline code), consistent with the other algorithm comments (1 item).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0020-b002",
+      "kind": "text",
+      "bbox": [
+        107,
+        282,
+        506,
+        337
+      ],
+      "markdown": "tokens are guaranteed to be masked, meaning that $x_1$ follows a Dirac distribution concentrated on a sequence of fully masked tokens. Notably, the linear masking probability is analogous to but distinct from, the noise schedule in continuous diffusion models [38–40]. This linearity is motivated by the assumption that the information in the text is proportional to the number of tokens on average, making it reasonable to lose information linearly during the forward process.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0020-b000",
+      "kind": "figure",
+      "bbox": [
+        106,
+        70,
+        506,
+        260
+      ],
+      "markdown": "",
+      "label": "Algorithm 4",
+      "asset_name": "algorithm-4"
+    },
+    {
+      "id": "p0020-b001",
+      "kind": "text",
+      "bbox": [
+        106,
+        70,
+        506,
+        260
+      ],
+      "markdown": "**Algorithm 4** Random Remasking Strategy of LLaDA\n\n**Require:** mask predictor $p_{\\theta}$, prompt $p_0$, answer length $L$, sampling steps $N$\n\n**1:**&ensp;Set $r_1$ is a fully masked sequence of length $L$.\n\n**2:**&ensp;**for** $t \\gets 1$ **down to** $\\frac{1}{N}$ **step** $\\frac{1}{N}$ **do**\n\n**3:**&ensp;&emsp;&emsp; $s = t - \\frac{1}{N}$\n\n**4:**&ensp;&emsp;&emsp; $r_0 = \\arg\\max_{r_0} p_{\\theta}(r_0|p_0, r_t)$ # we employ greedy sampling when predicting masked tokens\n\n**5:**&ensp;&emsp;&emsp; **for** $i \\gets 1$ to $L$ **do**\n\n**6:**&ensp;&emsp;&emsp;&emsp;&emsp; **if** $r_t^i \\neq \\mathrm{M}$ **then**\n\n**7:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; $r_0^i = r_t^i$\n\n**8:**&ensp;&emsp;&emsp;&emsp;&emsp; **else**\n\n**9:**&ensp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; with probability $\\frac{s}{t}$, $r_0^i$ is set to $\\mathrm{M}$\n\n**10:**&ensp;&emsp;&emsp;&emsp;&emsp; **end if**\n\n**11:**&ensp;&emsp;&emsp; **end for**\n\n**12:**&ensp;&emsp;&emsp; $r_s = r_0$\n\n**13:**&ensp;**end for**\n\n**14:**&ensp;**Return** $r_0$"
+    },
+    {
+      "id": "p0020-b003",
+      "kind": "text",
+      "bbox": [
+        107,
+        342,
+        505,
+        386
+      ],
+      "markdown": "The forward process is not only reversible but also corresponds to a reverse process that is fully factorized across all tokens. The reverse process, from time $t = 1$ to $0$, generates new data from sequences of fully masked tokens. The conditional distribution for the reverse process, for $0 \\leq s < t \\leq 1$, is factorized as:"
+    },
+    {
+      "id": "p0020-b004",
+      "kind": "text",
+      "bbox": [
+        241,
+        390,
+        510,
+        430
+      ],
+      "markdown": "$$ q_{s|t}(x_s|x_t) = \\prod_{i=1}^{L} q_{s|t}(x_s^i|x_t), \\tag{9} $$"
+    },
+    {
+      "id": "p0020-b005",
+      "kind": "text",
+      "bbox": [
+        107,
+        435,
+        314,
+        446
+      ],
+      "markdown": "where the conditional distribution for each token is:"
+    },
+    {
+      "id": "p0020-b006",
+      "kind": "text",
+      "bbox": [
+        195,
+        449,
+        510,
+        509
+      ],
+      "markdown": "$$ q_{s|t}(x_s^i|x_t) = \\begin{cases} 1, & x_t^i \\neq \\mathrm{M}, \\, x_s^i = x_t^i, \\\\ \\frac{s}{t}, & x_t^i = \\mathrm{M}, \\, x_s^i = \\mathrm{M}, \\\\ \\frac{t - s}{t} q_{0|t}(x_s^i|x_t), & x_t^i = \\mathrm{M}, \\, x_s^i \\neq \\mathrm{M}, \\\\ 0, & \\text{otherwise}. \\end{cases} \\tag{10} $$"
+    },
+    {
+      "id": "p0020-b007",
+      "kind": "text",
+      "bbox": [
+        107,
+        515,
+        505,
+        549
+      ],
+      "markdown": "Thus, the key function to estimate is the conditional distribution $q_{0|t}(x_s^i|x_t)$, which predicts the original token if it is masked in the input $x_t$. This is analogous to the *data prediction* form in continuous diffusion models."
+    },
+    {
+      "id": "p0020-b008",
+      "kind": "text",
+      "bbox": [
+        107,
+        555,
+        432,
+        566
+      ],
+      "markdown": "As proven in [20], an equivalent yet *time-free* parameterization can be derived as:"
+    },
+    {
+      "id": "p0020-b009",
+      "kind": "text",
+      "bbox": [
+        195,
+        569,
+        510,
+        592
+      ],
+      "markdown": "$$ q_{0|t}(x_s^i|x_t) = p_{\\text{data}}(x_0^{i}|x_t^{\\text{UM}}), \\quad \\forall i \\text{ such that } x_t^{i} = \\mathrm{M}, \\tag{11} $$"
+    },
+    {
+      "id": "p0020-b010",
+      "kind": "text",
+      "bbox": [
+        107,
+        596,
+        505,
+        652
+      ],
+      "markdown": "where $x_t^{\\text{UM}}$ denotes the collection of unmasked tokens in $x_t$, which is identical to the corresponding tokens in the original data $x_0$ since unmasked tokens are solely determined by $x_0$ and are independent of time $t$. Intuitively, this implies that estimating the data prediction function is equivalent to estimating the conditional distributions on clean data, which is time-invariant. Consequently, the time $t$ need not be provided as input to the parametric model."
+    },
+    {
+      "id": "p0020-b011",
+      "kind": "text",
+      "bbox": [
+        107,
+        657,
+        506,
+        723
+      ],
+      "markdown": "Although the development of masked diffusion is nontrivial, the implementation is straightforward. We first introduce the *mask predictor*, a parametric model $p_{\\theta}(\\cdot|x_t)$ (e.g., a Transformer without causal mask), which takes $x_t$ for any $t$ as input and predict all masked tokens simultaneously. Then, we define the model distribution $p_\\theta(x_0)$ as follows: starting with $x_1$ as a sequence of fully masked tokens, we simulate an approximate reverse process parameterized by $p_{\\theta}(\\cdot|x_t)$ from $t = 1$ to $0$. The marginal distribution induced at $t = 0$ then represents the model distribution $p_\\theta(x_0)$."
+    },
+    {
+      "id": "p0020-b012",
+      "kind": "omit",
+      "bbox": [
+        301,
+        742,
+        311,
+        752
+      ],
+      "markdown": "20",
+      "reason": "Page number 20 (footer)."
+    }
+  ]
+}

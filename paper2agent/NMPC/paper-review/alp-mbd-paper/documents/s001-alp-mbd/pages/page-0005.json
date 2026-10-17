@@ -1,0 +1,158 @@
+{
+  "page": 5,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0005.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the page preview, the native lines and 200-dpi crops of Algorithm 1 and of (20) with the following paragraph, with main.tex as an aid. Left column: continuation 'widespread adoption ...' (join_previous=space to the last paragraph of page 4; citations printed without spaces 'DDPG[31], SAC[29][38][39], or TD3[32]' kept), Algorithm-1 paragraph, Algorithm 1 as an image crop 'algorithm-1' (bbox [52,230,301,429], top and bottom rules and all 13 numbered lines inside, checked by crop) followed by a text transcription (first line '**Algorithm 1** Training ALP-MBD with PPO', one line per printed number, keywords **for**/**do**/**end for** in bold, one &emsp; per nesting level, LaTeX maths; printed line 5 wraps after 'a_t =' and is one transcribed line; the extractor's 'Algorithm 1' heading item merged into the transcription), '## V. EXPERIMENTS' (small caps rendered upper case), experiments intro, '### A. Numerical Experiments', first V-A paragraph. Right column: Fig. 3 paragraph, (20) (extractor 'formula' converted to an aligned LaTeX block with one tag; the TeX spacing \\hspace{5mm}/\\hspace{4mm} written as \\qquad/\\quad so that no spurious numbers enter the text; content unchanged), three paragraphs, the last of which continues on page 6. Inline maths in LaTeX. Repairs: 'VPMBD' -> 'VP-MBD' (three places), 'AVPMBD' -> 'AVP-MBD', 'LPMBD’s' -> 'LP-MBD’s' (real hyphens at line wraps). Kept as printed (authors' slips): in V-A the first-example parameters are written '(β0 = 10^{-2}, β1 = 10^{-4})' although the section intro on this page says β0 = 0.0001 and β1 = 0.01 and page 2 says β0 = 1.0x10^{-4}, β1 = 1.0x10^{-2} (endpoints swapped; verified on the 200-dpi crop); 'ALP-MBD successfully discover' (agreement). Remaining diagnostics are category (a) (adjudication note).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0005-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        55.0,
+        299.0,
+        113.0
+      ],
+      "markdown": "widespread adoption in both control and discrete tasks. Nevertheless, the proposed framework is agnostic to the choice of reinforcement learning algorithm, and other approaches (e.g., DDPG[31], SAC[29][38][39], or TD3[32]) can also be applied without loss of generality.",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0005-b001",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        115.0,
+        299.0,
+        221.0
+      ],
+      "markdown": "We summarize the training procedure in Algorithm 1. At each iteration, the adaptive noise scheduler samples scheduling parameters $(T_t, \\sigma_{\\max,t})$ according to the current state, which are then used by the LP-MBD to generate the control input $u_t$. The environment returns the next state $s_{t+1}$ and reward $r_t$, which is reshaped into $\\tilde{r}_t$ to penalize large diffusion steps. The PPO algorithm then updates the policy parameters $\\phi$ and value function parameters $\\psi$ using collected trajectories from a rollout buffer."
+    },
+    {
+      "id": "p0005-b002",
+      "kind": "figure",
+      "bbox": [
+        52.0,
+        230.0,
+        301.0,
+        429.0
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0005-b003",
+      "kind": "text",
+      "bbox": [
+        52.0,
+        230.0,
+        301.0,
+        429.0
+      ],
+      "markdown": "**Algorithm 1** Training ALP-MBD with PPO  \n1: Initialize policy parameters $\\phi$, value function parameters $\\psi$  \n2: **for** each iteration **do**  \n3: &emsp;**for** each environment step $t$ **do**  \n4: &emsp;&emsp;Observe state $s_t$  \n5: &emsp;&emsp;Sample scheduling parameters $a_t=(T_t,\\sigma_{\\max,t}) \\sim \\pi_\\phi(\\cdot|s_t)$  \n6: &emsp;&emsp;Generate control input $u_t \\sim \\pi_{\\text{LP-MBD}}(\\cdot|s_t,a_t)$  \n7: &emsp;&emsp;Apply $u_t$ to environment, receive $(s_{t+1}, r_t)$  \n8: &emsp;&emsp;Compute modified reward Eq. (18)  \n9: &emsp;&emsp;Store $(s_t, a_t, u_t, \\tilde r_t, s_{t+1})$ in buffer $\\mathcal{B}$  \n10: &emsp;**end for**  \n11: &emsp;Use PPO update to optimize $\\phi, \\psi$ with data from $\\mathcal{B}$  \n12: &emsp;Clear buffer $\\mathcal{B}$  \n13: **end for**"
+    },
+    {
+      "id": "p0005-b004",
+      "kind": "heading",
+      "bbox": [
+        138.0,
+        453.0,
+        215.0,
+        461.0
+      ],
+      "markdown": "## V. EXPERIMENTS"
+    },
+    {
+      "id": "p0005-b005",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        471.0,
+        299.0,
+        623.0
+      ],
+      "markdown": "In this section, we conduct a series of experiments to evaluate the proposed LP-MBD and ALP-MBD. These experiments are designed to validate the following aspects: (i) the behavioral and performance differences between VP-MBD and LP-MBD; (ii) the advantages of LP-MBD in reducing the tuning burden; and (iii) the ability of ALP-MBD to adjust key parameters—primarily the diffusion horizon $T$ and the maximum noise standard deviation $\\sigma_{\\max}$—as functions of the observed state, and the extent to which these adaptations improve efficiency. All experiments were conducted on a single NVIDIA RTX 4090 GPU. Throughout this experiment, we use $\\beta_0=0.0001$ and $\\beta_1=0.01$ for VP-MBD and $\\sigma_{\\max} = 1.8$ for LP-MBD."
+    },
+    {
+      "id": "p0005-b006",
+      "kind": "heading",
+      "bbox": [
+        54.0,
+        636.0,
+        163.0,
+        646.0
+      ],
+      "markdown": "### A. Numerical Experiments"
+    },
+    {
+      "id": "p0005-b007",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        652.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "We first perform simple numerical experiments to evaluate LP-MBD and ALP-MBD and compare with VP-MBD, illustrating their relative advantages in a controlled setting. Our numerical studies (i) show why VP-MBD parameter tuning is harder than LP-MBD and (ii) illustrate how LP-MBD’s simple and independent parameter sets better support adaptive scheduling."
+    },
+    {
+      "id": "p0005-b008",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        55.0,
+        559.0,
+        184.0
+      ],
+      "markdown": "Fig. 3 presents three one-dimensional examples. In the first example from [1], both VP-MBD and LP-MBD reach the optimal solution within 20 steps. However, in the second and third Gaussian objectives, VP-MBD fails to converge, while LP-MBD rapidly reaches the optimum in only a few steps. The performance gap between VP-MBD and LP-MBD can be attributed to differences in their noise scheduling. For instance, consider the second example with diffusion steps $T=2$, where we compare the standard deviations of the Gaussian proposals for VP-MBD (Eq. (7)) and LP-MBD (Eq. (13)):"
+    },
+    {
+      "id": "p0005-b009",
+      "kind": "text",
+      "bbox": [
+        322.0,
+        188.0,
+        560.0,
+        243.0
+      ],
+      "markdown": "$$\n\\begin{aligned}\n&\\text{VP-MBD} \\qquad \\sqrt{\\frac{1-\\bar\\alpha_i}{\\bar\\alpha_i}} = [0.1,\\,0.01] \\quad (i=1,0),\\\\\n&\\text{LP-MBD} \\qquad \\frac{t_i}{1-t_i} = [1.8,\\,0.0] \\quad (i=1,0).\n\\end{aligned}\n\\tag{20}\n$$"
+    },
+    {
+      "id": "p0005-b010",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        246.0,
+        559.0,
+        483.0
+      ],
+      "markdown": "In this case, the maximum standard deviation of LP-MBD is $\\sigma_{\\max}=1.8$, a value that remains unchanged regardless of the diffusion horizon $T$ since $\\sigma_{\\max}$ is determined independently. By contrast, VP-MBD with the same parameters as in the first example ($\\beta_0=10^{-2}$, $\\beta_1=10^{-4}$) yields a Gaussian proposal distribution with extremely small variance, thereby suppressing stochasticity and precluding meaningful exploration. A similar issue arises in the third example with the Gaussian mixture objective and diffusion step $T=5$, where LP-MBD again attains a maximum standard deviation of $1.8$, while VP-MBD is limited to only $0.16$. Consequently, the change of diffusion step $T$ in VP-MBD can drastically influence its noise scale, necessitating additional tuning of $\\beta_0$ and $\\beta_1$ to match the behavior of LP-MBD. This comparison highlights that the proposed LP-MBD provides a more straightforward and intuitive parameterization, simplifying the tuning process relative to VP-MBD. Note that we only change the diffusion step $T$ and keep using the same $\\beta_0$ and $\\beta_1$ for VP-MBD and $\\sigma_{\\max}$ for LP-MBD in these three examples."
+    },
+    {
+      "id": "p0005-b011",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        485.0,
+        559.0,
+        627.0
+      ],
+      "markdown": "We next evaluate ALP-MBD on a simple two-dimensional objective function. Using REINFORCE [40], we jointly optimize the continuous noise cap $\\sigma_{\\max}$ and the diffusion horizon $T$, with a penalty weight $w_T=1.0$ on the step count to discourage unnecessarily large $T$. For comparison, we apply the same reinforcement learning procedure to VP-MBD—optimizing $(\\beta_0,\\beta_1,T)$—and refer to this baseline as Adaptive VP-MBD (AVP-MBD). For fair comparison, both methods are trained for the same number of policy gradient updates (30) under identical hyperparameters and evaluation budgets, and we evaluate each method using its learned parameters."
+    },
+    {
+      "id": "p0005-b012",
+      "kind": "text",
+      "bbox": [
+        313.0,
+        629.0,
+        559.0,
+        734.0
+      ],
+      "markdown": "Figure 4 reports results on a 2D Gaussian mixture objective subject to a linear constraint. At $T=3$, AVP-MBD (top) remains comparatively diffuse, with samples spread across both modes, whereas ALP-MBD (bottom) rapidly concentrates probability mass in the high-value feasible region, forming a compact cluster by step $T=3$. These results indicate that ALP-MBD successfully discover an optimal parameter pair $(\\sigma_{\\max},T)$ that improves both convergence speed and solution quality, while AVP-MBD"
+    }
+  ]
+}

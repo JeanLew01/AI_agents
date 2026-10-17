@@ -1,0 +1,445 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview, a 130-dpi overlay, the native lines, 200-220 dpi crops of equations (1a)-(4), (5)-(9), (10)-(11) and the TeX source (Sec. II). First item 'framework for difficult-to-demonstrate tasks...' continues page 1's last sentence (join_previous=space). Headings '## II. BACKGROUND', '### A. Sampling-based Predictive Control', '### B. Generative Modeling'. All 13 extractor formula items converted to LaTeX display items from main.tex (macro \\x expanded to \\mathbf{x}) and checked symbol by symbol against the crops: (1a)-(1c) as one item with three 50768 blocks and all three tags, (2), (3), (4), (5), (6), (7), (8) (cases), (9), (10), (11). The extractor's formula item b015 actually held the prose '2) Roll out (simulate) each action sequence from the latest state estimate x_{k-1}, recording the costs': made text; the item that mixed 'where θ are learnable parameters ... and' with equation (11) split into a text item and a display item (new id p0002-b037). SPC procedure kept as text items '1) ...', '2) ...', '3) ...', '4) ...' with (3)-(5) in between (removed the extractor's '- ' bullets). Inline maths rewritten in LaTeX (x_τ ∈ R^n, ℓ(·,·), U=[u_0,...,u_T], g: R→R^+, Ū_k, λ>0, Ū, γ, r→1, x, p(x), p_t(x), p_0(x)=N(0,I), v_θ(x,t)). Bold terms MPPI, predictive sampling, CEM, Tsallis-MPPI kept bold; italics 'elite samples', 'probability density path' kept; run-in '1) Flow Matching:' in bold. Real compound hyphens restored where the extractor dropped them at line ends: 'low-temperature', 'lowest-cost' (both hyphenated in the TeX). Footnote 1 (bottom of left column) as 'Footnote 1: ...' with marker [^1] after 'distribution'; placed before the last paragraph ('where θ ... and' + (11)) so the page ends with equation (11); page 3 starts a new sentence 'The expectation in (10)...'. check: remaining missing lines and number differences are all LaTeX notation (category a), see adjudication note. Coordinator (2026-10-12, after the verifier's finding F5): Footnote 1 (p0002-b017) moved to the end of the page so that it no longer splits the sentence between (10) and 'where θ are learnable parameters' and (11).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        54.0,
+        299.0,
+        148.0
+      ],
+      "markdown": "framework for difficult-to-demonstrate tasks. We show how flow-matching policies can be warm-started to encourage temporal consistency, and demonstrate that warm-starts are critical for high-rate feedback. We show that GPC outperforms proximal policy optimization (PPO) [26] in many cases, and that our proposed warm-start scheme is more effective than action inpainting [27] at high-frequency control rates.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        54.0,
+        149.0,
+        299.0,
+        244.0
+      ],
+      "markdown": "To test scalability limits, we train policies on systems ranging from an inverted pendulum to a humanoid robot, and evaluate effectiveness in simulation. Our most difficult task (humanoid standup) exposes current scalability limits: seeding SPC with a GPC policy is effective, but applying the policy directly is not. With this in mind, we provide a detailed discussion of our method’s limitations and directions for future work.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "heading",
+      "bbox": [
+        138.0,
+        250.0,
+        215.0,
+        261.0
+      ],
+      "markdown": "## II. BACKGROUND",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        265.0,
+        299.0,
+        276.0
+      ],
+      "markdown": "We consider optimal control problems of the standard form",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        100.0,
+        288.0,
+        299.0,
+        352.0
+      ],
+      "markdown": "$$ \\min_{u_0, u_1, \\dots, u_T} ~ \\phi(x_{T+1}) + \\sum_{\\tau=0}^{T} \\ell(x_\\tau, u_\\tau), \\tag{1a} $$\n\n$$ \\mathrm{s.t.} ~ x_{\\tau+1} = f(x_\\tau, u_\\tau), \\tag{1b} $$\n\n$$ x_0 = x_{init}, \\tag{1c} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        354.0,
+        299.0,
+        418.0
+      ],
+      "markdown": "where $x_\\tau \\in \\mathbb{R}^n$ represents the system state at time step $\\tau$, $u_\\tau \\in \\mathbb{R}^m$ are control actions, $\\ell(\\cdot, \\cdot)$ and $\\phi(\\cdot)$ are running and terminal costs, and $f(\\cdot, \\cdot)$ captures the system dynamics. For simplicity, we denote the $T$-length action sequence as $U = [u_0, u_1, \\dots, u_T]$ and rewrite (1) in compact form as",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        140.0,
+        422.0,
+        299.0,
+        440.0
+      ],
+      "markdown": "$$ \\min_{U} ~ J(U;x_{init}), \\tag{2} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        443.0,
+        299.0,
+        466.0
+      ],
+      "markdown": "where both the costs and dynamics constraints are incorporated into the (possibly non-convex) objective $J$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "heading",
+      "bbox": [
+        53.0,
+        472.0,
+        210.0,
+        483.0
+      ],
+      "markdown": "### A. Sampling-based Predictive Control",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b011",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        487.0,
+        299.0,
+        546.0
+      ],
+      "markdown": "MPC methods traditionally solve (1) with gradient-based non-convex optimization. But these techniques face significant challenges, particularly when it comes to the stiff and highly nonlinear contact dynamics essential for contact-rich robot locomotion and manipulation [13]–[15], [28].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b012",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        547.0,
+        299.0,
+        605.0
+      ],
+      "markdown": "In response to these challenges, SPC is gaining prominence as a simple and computationally efficient alternative to gradient-based MPC [16], [22], [23], [29], [30]. Instead of relying on complex nonlinear optimization, SPC algorithms perform a variation on the following simple procedure:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b013",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        607.0,
+        299.0,
+        631.0
+      ],
+      "markdown": "1) At step $k$, sample $N$ candidate action sequences from a Gaussian proposal distribution[^1].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b014",
+      "kind": "text",
+      "bbox": [
+        116.0,
+        632.0,
+        299.0,
+        649.0
+      ],
+      "markdown": "$$ U^{(i)} \\sim \\mathcal{N}(\\bar{U}_{k-1}, \\sigma^2), \\quad i \\in [1, N]. \\tag{3} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b015",
+      "kind": "text",
+      "bbox": [
+        63.0,
+        654.0,
+        299.0,
+        679.0
+      ],
+      "markdown": "2) Roll out (simulate) each action sequence from the latest state estimate $x_{k-1}$, recording the costs",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b016",
+      "kind": "text",
+      "bbox": [
+        139.0,
+        681.0,
+        299.0,
+        698.0
+      ],
+      "markdown": "$$ J^{(i)} = J\\left(U^{(i)}; x_{k-1}\\right). \\tag{4} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b018",
+      "kind": "text",
+      "bbox": [
+        322.0,
+        54.0,
+        559.0,
+        77.0
+      ],
+      "markdown": "3) Update the mean action sequence according to some weighting function $g : \\mathbb{R} \\to \\mathbb{R}^+$,",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b019",
+      "kind": "text",
+      "bbox": [
+        351.0,
+        80.0,
+        559.0,
+        115.0
+      ],
+      "markdown": "$$ \\bar{U}_{k} = \\bar{U}_{k-1} + \\frac{\\sum_{i=1}^{N} g(J^{(i)})(U^{(i)} - \\bar{U}_{k-1})}{\\sum_{i=1}^N g(J^{(i)})}. \\tag{5} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b020",
+      "kind": "text",
+      "bbox": [
+        322.0,
+        116.0,
+        559.0,
+        142.0
+      ],
+      "markdown": "4) Apply the first action from $\\bar{U}_k$, and repeat in MPC fashion from the updated state $x_k$.",
+      "source_class": "list-item"
+    },
+    {
+      "id": "p0002-b021",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        145.0,
+        559.0,
+        180.0
+      ],
+      "markdown": "Different SPC algorithms arise from various choices of $g(\\cdot)$. For instance, **MPPI** [16] uses a Boltzmann-like exponentially weighted average,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b022",
+      "kind": "text",
+      "bbox": [
+        379.0,
+        186.0,
+        559.0,
+        200.0
+      ],
+      "markdown": "$$ g_{MPPI}(J) = \\exp\\left(- J / \\lambda \\right), \\tag{6} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b023",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        206.0,
+        559.0,
+        242.0
+      ],
+      "markdown": "where $\\lambda > 0$ is the temperature parameter. A smaller $\\lambda$ gives more weight to the lowest-cost samples. In the low-temperature limit we recover **predictive sampling** [17],",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b024",
+      "kind": "text",
+      "bbox": [
+        376.0,
+        249.0,
+        559.0,
+        268.0
+      ],
+      "markdown": "$$ g_{PS}(J) = \\lim_{\\lambda \\to 0} \\exp\\left(- J/\\lambda\\right), \\tag{7} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b025",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        270.0,
+        559.0,
+        308.0
+      ],
+      "markdown": "where the updated mean $\\bar{U}$ is simply chosen as the lowest-cost sample. Another popular option is **CEM** [18], [22], which weighs the top performing samples equally,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b026",
+      "kind": "text",
+      "bbox": [
+        372.0,
+        312.0,
+        559.0,
+        343.0
+      ],
+      "markdown": "$$ g_{CEM}(J) = \\begin{cases} 1 & \\mathrm{if~} J \\leq \\gamma \\\\ 0 & \\mathrm{otherwise} \\end{cases}. \\tag{8} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b027",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        349.0,
+        559.0,
+        409.0
+      ],
+      "markdown": "The threshold $\\gamma$ is defined implicitly by a user-selected number of *elite samples*. CEM is typically paired with an adaptive update rule for the variance of the proposal distribution. **Tsallis-MPPI** [31] provides a middle ground between MPPI and CEM via a generalized exponential,",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b028",
+      "kind": "text",
+      "bbox": [
+        344.0,
+        413.0,
+        559.0,
+        430.0
+      ],
+      "markdown": "$$ g_{TMPPI}(J) = \\max(1 - (r - 1)J/\\lambda, 0)^{\\frac{1}{r - 1}}, \\tag{9} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b029",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        436.0,
+        541.0,
+        447.0
+      ],
+      "markdown": "where the original MPPI update is recovered as $r \\to 1$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b030",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        448.0,
+        559.0,
+        507.0
+      ],
+      "markdown": "The ability to parallelize rollouts (4) is a key advantage over gradient-based MPC, an advantage that is further reinforced by massively parallel GPU simulators [19]–[21]. Sampling can also reduce the severity of local minima and smooth out stiff dynamics associated with contact [32], [33].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b031",
+      "kind": "heading",
+      "bbox": [
+        312.0,
+        515.0,
+        413.0,
+        527.0
+      ],
+      "markdown": "### B. Generative Modeling",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0002-b032",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        531.0,
+        559.0,
+        578.0
+      ],
+      "markdown": "Generative modeling considers a seemingly different problem: produce a sample $\\mathbf{x}$ from a probability distribution $p(\\mathbf{x})$. In the typical setting, we do not have access to $p(\\mathbf{x})$ in closed form, but we do have samples (training data) from $p(\\mathbf{x})$.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b033",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        579.0,
+        559.0,
+        639.0
+      ],
+      "markdown": "**1) Flow Matching:** Flow matching [7] is based on the idea of a *probability density path* $p_t(\\mathbf{x})$. This path flows from an easy-to-sample distribution $p_0(\\mathbf{x}) = \\mathcal{N}(0, I)$ at $t = 0$ to the data distribution at $t = 1$. Flow matching methods learn a vector field $v_\\theta(\\mathbf{x}, t)$ that moves samples along this path.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b034",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        639.0,
+        559.0,
+        662.0
+      ],
+      "markdown": "The flow network $v_\\theta$ is trained via standard (stochastic) gradient descent methods on",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b035",
+      "kind": "text",
+      "bbox": [
+        367.0,
+        667.0,
+        559.0,
+        687.0
+      ],
+      "markdown": "$$ \\min_{\\theta} \\mathbb{E}_{t, \\mathbf{x}_0, \\mathbf{x}_1} \\left[\\mathcal{L}_{FM}(\\theta; \\mathbf{x}_0, \\mathbf{x}_1, t)\\right], \\tag{10} $$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b036",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        691.0,
+        559.0,
+        703.0
+      ],
+      "markdown": "where $\\theta$ are learnable parameters (e.g., network weights) and",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b037",
+      "kind": "text",
+      "bbox": [
+        312.0,
+        705.0,
+        566.0,
+        734.0
+      ],
+      "markdown": "$$ \\mathcal{L}_{FM}\\left(\\theta; \\mathbf{x}_0, \\mathbf{x}_1, t \\right) = \\left\\| v_\\theta\\big(t \\mathbf{x}_1 + (1-t)\\mathbf{x}_0, t\\big) - (\\mathbf{x}_1 - \\mathbf{x}_0) \\right\\|^2. \\tag{11} $$",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b017",
+      "kind": "text",
+      "bbox": [
+        53.0,
+        705.0,
+        299.0,
+        734.0
+      ],
+      "markdown": "Footnote 1: Some SPC methods use a non-isotropic proposal distribution and update the variance of the proposal distribution along with the mean. We focus on an isotropic Gaussian with fixed variance for simplicity.",
+      "source_class": "text"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "scan_metadata": {
+    "repository_name": "RTWholeBodyMPPI",
+    "repository_url": "https://github.com/jrapudg/RTWholeBodyMPPI",
+    "commit": "55e6dc35d042ed5f175ad6ae312c886282f32529",
+    "source_path": "repo/RTWholeBodyMPPI",
+    "license": "MIT",
+    "paper": "Real-Time Whole-Body Control of Legged Robots with Model-Predictive Path Integral Control (Alvarez-Padilla, Zhang, Kwok, Dolan, Manchester; arXiv 2409.10469; ICRA 2025)",
+    "scan_date": "2026-10-12",
+    "route": "python",
+    "scope_filter": "MuJoCo simulation part only (path substring 'legged_mppi/'); ROS/catkin hardware stack excluded.",
+    "filter_match": "Matched by path substring 'legged_mppi/'. Inside it, the two ROS hardware runner scripts are excluded by the assignment's hardware exclusion. Everything outside legged_mppi/ is outside the filter.",
+    "working_tree": "git status --porcelain empty at scan time (clean checkout of the pinned commit).",
+    "source_files_evaluated": 26,
+    "source_files_evaluated_note": "README.md, directory_structure.txt, legged_mppi/{setup.py, pyproject.toml, requirements.txt, CMakeLists.txt}, 2 notebooks, 3 scripts, interface/simulator.py + configs/simulator.yml, control/controllers/{base_controller.py, mppi_locomotion.py, mppi_locomanipulation.py}, gait_scheduler/scheduler.py, utils/{tasks.py, transforms.py}, 7 controller YAML configs. Scene XMLs (go1_scene_mppi*.xml, go1_mppi*.xml) and gait TSV shapes were inspected as supporting data. The repository has no tests.",
+    "tutorial_entries": 8,
+    "source_files_included": 3,
+    "proposed_tool_count": 2,
+    "success": true,
+    "explanation": "Two tools are proposed. (1) whole_body_mppi_simulate_locomotion is bound to the public Simulator + MPPI API used by scripts/simulate_mppi.py, run headless with Simulator(viewer=False). It is verified against the recorded outputs of notebooks/MPPI_tasks.ipynb. (2) whole_body_mppi_simulate_box_push is extracted from the closed-loop cell of notebooks/MPPI_tasks_push.ipynb with the viewer calls removed. Simulator cannot drive the box-push controller because of two upstream defects, described in tool_review. The paper's ablation knobs that the code really has (horizon, temperature, number of samples, control rate, seed, direct-vs-cubic sampling) become parameters of the locomotion tool. Rendering/animation, the Fig. 6/7 analysis, zeroth-order/linear sampling and the hardware stack are deferred or excluded, with reasons given. Nothing from the repository was executed: the scanner is read-only and heavy jobs are disabled (mcp-build/HEAVY_JOBS_DISABLED). Feasibility statements come from code reading and from the outputs recorded in the upstream notebooks. They are not measurements.",
+    "headless_execution": {
+      "upstream_switch": "Simulator(viewer=False) (whole_body_mppi/interface/simulator.py L34-69): no MujocoViewer is created, and run() skips add_marker/render when self.viewer is None (L145-158). save_frames must stay False because capture_frame needs the viewer (L101-112).",
+      "simulate_mppi_script": "scripts/simulate_mppi.py hard-codes VIEWER = True (L11) and has no CLI flag for it. It then calls plot_trajectory(), which writes a TSV into the package directory and calls plt.show(). The script therefore cannot run headless unmodified. Use a small driver that calls the same API (MPPI(task), Simulator(..., viewer=False), run()) without editing the source.",
+      "notebooks": "Both notebooks create mujoco_viewer.MujocoViewer(model, data, 'offscreen') and use it only for read_pixels/add_marker/animation. The control loop (controller.update -> mj_step -> next_goal) does not depend on the viewer, so the computation runs headless once the viewer calls are dropped. The rendering cells are blocked: as far as is known from the mujoco-python-viewer 0.1.4 implementation, its offscreen mode still calls glfw.init and opens a hidden GLFW window, so it needs a display. This was not inspected locally because the package is not installed in any environment yet; the environment manager should confirm it.",
+      "module_import": "simulator.py imports mujoco_viewer (and therefore glfw) at module level (L3). Importing it is expected not to need a display (GLFW is only initialised when a viewer is constructed). The environment manager must confirm `import whole_body_mppi.interface.simulator` with no display, inside heavy.sh.",
+      "display_observation": "This scanner's shell has DISPLAY=:0, WAYLAND_DISPLAY=wayland-0 and /tmp/.X11-unix/X0 (WSLg). Per the assignment this is treated as unavailable. The proposed headless path does not use it.",
+      "mcp_stdio_note": "Upstream code print()s progress messages ('Task: ...', 'Moved to next goal ...', 'still working...', 'Task succeed...'), and Simulator.run shows a tqdm bar on stderr. A stdio MCP server must redirect stdout around upstream calls."
+    },
+    "feasibility": {
+      "per_update_cost": "Each controller update rolls out n_samples x horizon MuJoCo steps (default 30 x 40 = 1200) in n_workers threads (config n_workers: 5 for the walk/stairs/big_box configs, 15 for push_box), then evaluates the cost in numpy. Simulator.run adds one horizon-length rollout of the selected trajectory per simulation step to log the cost (eval_best_trajectory).",
+      "recorded_upstream_timings": "MPPI_tasks.ipynb, stairs, 1201 steps (12 s simulated), with offscreen rendering every step: CPU 1 min 37 s user, wall 39.2 s. MPPI_tasks_push.ipynb, push_box, 2601 steps (26 s simulated), rendering every other step: CPU 6 min 15 s total, wall 1 min 1 s. The authors' machine is not stated in the notebooks; the paper's hardware section reports an i9-12900KS workstation. Expect the WSL laptop to be several times slower; this must be measured.",
+      "memory_estimate_unmeasured": "Working arrays are tiny: state_rollouts is 30 x 40 x 38 doubles, about 0.36 MB; logged trajectories are (19+18+12) x T doubles, about 0.8 MB for T=2000. Memory is dominated by the Python/numpy/scipy/matplotlib/mujoco imports, two MjModel/MjData pairs and per-thread MjData. Expected well under 1 GB without rendering, but not measured. Suggested: heavy.sh --limit-mb 1500 (<= 2000).",
+      "rendering_memory_hazard": "The notebook offscreen frames are sized to the primary monitor. The recorded animation figure is 384x216 px from figsize=(w/500, h/500) at dpi=100, which implies 1920x1080x3 frames, about 6.2 MB each. That gives about 601 frames, roughly 3.7 GB, for stairs and about 1300 frames, roughly 8 GB, for push_box. This alone rules out the rendering path on this machine.",
+      "short_reference_settings": {
+        "smoke_locomotion": "task=walk_straight, T=200-300 steps (2-3 s simulated), config defaults (horizon 40, lambda 0.1, n_samples 30, ctrl_rate 100). Optionally n_samples=10 and horizon=20 via set_params for an even shorter check.",
+        "reference_locomotion": "task=stairs, T=1202 (gives the notebook's 1201 controller updates; Simulator.run does T-1 updates), ctrl_rate=100, config defaults. Compare the goal sequence 1..5 and 'Task succeeded.' with the notebook's recorded output.",
+        "smoke_box_push": "400 steps (4 s simulated) with defaults. The controller switches to box-following after gait_scheduler.phase_time > 300 updates, so success is not expected in a smoke run.",
+        "reference_box_push": "box target (2, 1), 2601 steps (tfinal = 26 s), defaults. Compare with the recorded four 'still working...' lines and 'Task succeed. Time to back up!'.",
+        "avoid": "walk_octagon needs about 30 s simulated (3000 steps, per the notebook comment). simulate_mppi.py's default T=2000 is also longer than needed for a smoke test."
+      }
+    },
+    "environment_notes_for_coordinator": [
+      "Packaging: setup.py uses find_packages() with no package_data/MANIFEST.in, and control/controllers/ and control/gait_scheduler/ have no __init__.py. A regular (non-editable) install would therefore miss the controller modules (namespace subpackages), the configs/*.yml, gaits/*.tsv and models/*.xml/*.stl that the code loads relative to __file__. Use the README's editable install (pip install -e legged_mppi) or `env PYTHONPATH=<repo>/legged_mppi` plus requirements. An editable install writes whole_body_mppi.egg-info into the source tree (gitignored, untracked).",
+      "requirements.txt pins mujoco==3.1.6, mujoco-python-viewer==0.1.4 and tqdm==4.66.5; numpy, scipy and matplotlib are unpinned. base_controller.py imports yaml (PyYAML) and simulator.py imports PIL (Pillow), but neither is listed. They are probably pulled in transitively (mujoco-python-viewer / matplotlib); the environment manager should confirm.",
+      "Simulator.plot_trajectory() writes mujoco_traj_param_rate_*_h_*_lam_*_n_*_T_*_task_*.tsv into <package>/whole_body_mppi/analysis/, which is inside repo/ for an editable install, and calls plt.show(). Wrappers and drivers should read simulator.time/qpos/qvel/ctrl/cost directly and write outputs to their own directory instead of calling it.",
+      "The notebooks hard-code whole_body_mppi_folder = '/home/ControlUser/legged_ctrl_ws/src/legged_mppi/whole_body_mppi' (cell 2). Resolve scene paths from the installed package directory instead."
+    ],
+    "out_of_scope_paths": {
+      "reason": "Hardware stack: needs a Unitree Go1, OptiTrack motion capture or EKF state estimation, and ROS/catkin (Gazebo for the sim-to-sim checks). Excluded by the assignment.",
+      "paths": [
+        "legged_common/", "legged_control/", "legged_controllers/", "legged_estimation/", "legged_examples/", "legged_gazebo/", "legged_hw/", "legged_interface/", "legged_wbc/",
+        "unitree_legged_msgs/", "mocap_optitrack/", "qpoases_catkin/", "qpos_visualizer/", ".devcontainer/", "Dockerfile_go1", "setup_ros_ws.sh",
+        "legged_mppi/scripts/run_mppi_locomotion.py", "legged_mppi/scripts/run_mppi_locomanipulation.py", "legged_mppi/CMakeLists.txt", "legged_mppi/package.xml"
+      ]
+    },
+    "proposed_workflow_tutorials": [
+      {"id": "simulate_mppi_script", "module": "mppi_locomotion", "source": "repo/RTWholeBodyMPPI/legged_mppi/scripts/simulate_mppi.py", "sha256": "c9bf70f507ef4a434f03ea317771a5fe281ad125b1a908ff8e462bbda42cff74"},
+      {"id": "mppi_tasks_notebook", "module": "mppi_locomotion", "source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks.ipynb", "sha256": "2ab840175219415240c5e664b6bc7862893fe7c3f68d0fd22c93a6a93a0c3051"},
+      {"id": "mppi_tasks_push_notebook", "module": "mppi_locomanipulation", "source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks_push.ipynb", "sha256": "64edcc659ad1ecd4c597e448a1c48eeeeaee61919916be2ca48a0257111d52ab"}
+    ],
+    "proposed_workflow_tutorials_note": "Both locomotion entries map to the single module mppi_locomotion. If the heavy-job budget allows only one locomotion execution, run the stairs reference (mppi_tasks_notebook) through Simulator(viewer=False, T=1202). It exercises the tool's binding and has a recorded upstream outcome to compare with."
+  },
+  "tutorials": [
+    {
+      "id": "simulate_mppi_script",
+      "path": "legged_mppi/scripts/simulate_mppi.py",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/scripts/simulate_mppi.py",
+      "sha256": "c9bf70f507ef4a434f03ea317771a5fe281ad125b1a908ff8e462bbda42cff74",
+      "title": "simulate_mppi.py (MuJoCo closed-loop MPPI simulation, --task)",
+      "description": "Official simulation entry point named in the README. It builds MPPI(task) from the task's YAML config and runs Simulator(agent, viewer, T=2000, dt=0.01, timeconst=0.02, dampingratio=1.0, model_path=<sim scene>, ctrl_rate=100). Then run(), then plot_trajectory(). It shows, commented out, the public call agent.set_params(horizon, lambda_, N) for the hyperparameters the paper ablates.",
+      "type": "script",
+      "module": "mppi_locomotion",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Owning source for whole_body_mppi_simulate_locomotion: it is the documented use of the public Simulator + MPPI API. It runs headless through the upstream constructor switch Simulator(viewer=False), driven by a small driver because VIEWER is hard-coded True with no CLI flag. plot_trajectory is not called (it writes into the package directory and calls plt.show())."
+    },
+    {
+      "id": "mppi_tasks_notebook",
+      "path": "legged_mppi/notebooks/MPPI_tasks.ipynb",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks.ipynb",
+      "sha256": "2ab840175219415240c5e664b6bc7862893fe7c3f68d0fd22c93a6a93a0c3051",
+      "title": "MPPI_tasks.ipynb (Legged Locomotion)",
+      "description": "Locomotion notebook covering the tasks stand, walk_straight, walk_octagon, big_box and stairs; the recorded run uses task='stairs' with tfinal=12 s at dt=0.01. Cell 12 is a closed loop: controller.update(x) every tick, mj_step, then next_goal() when ||body_ref[:3]-qpos[:3]|| < goal_thresh. It is followed by plots of body-frame velocities, angular velocities, orientation, joint angles and joint targets, and an offscreen-rendered animation.",
+      "type": "notebook",
+      "module": "mppi_locomotion",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Supporting example and verification reference for whole_body_mppi_simulate_locomotion (same module; it does not own a second tool). Its loop does the same computation as Simulator.run at ctrl_rate=100: same keyframe-1 start, same per-step update, same goal switching. Simulator.run also logs best-trajectory costs without side effects on the controller. Recorded output gives the reference outcome for stairs: goals 1..5 reached in order and 'Task succeeded.' within 1201 steps. Headless-blocked parts excluded: the MujocoViewer line of cell 3 (keep its model/data/timestep lines), cells 5, 10 and 11, the add_marker/read_pixels/anim_imgs lines of cell 12, and cells 26-28. Cells 13-24 (state/control plots) only need the recorded x_states/sim_inputs."
+    },
+    {
+      "id": "mppi_tasks_push_notebook",
+      "path": "legged_mppi/notebooks/MPPI_tasks_push.ipynb",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/notebooks/MPPI_tasks_push.ipynb",
+      "sha256": "64edcc659ad1ecd4c597e448a1c48eeeeaee61919916be2ca48a0257111d52ab",
+      "title": "MPPI_tasks_push.ipynb (Legged Locomanipulation, push_box)",
+      "description": "Box-pushing notebook: MPPI_box_push('push_box'), box target set in cell 8 (x_box_ref[0]=2, x_box_ref[1]=1), tfinal=26 s at dt=0.01, reset to keyframe 0. Cell 15 is a closed loop: update every tick, mj_step, next_goal() when the robot base is within 0.1 m of body_ref. Cells 16-18 split the state into box and robot parts; cells 19-34 plot box position/top-down trajectory/orientation and robot states/controls; cells 36-37 hold the animation.",
+      "type": "notebook",
+      "module": "mppi_locomanipulation",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Owning source for whole_body_mppi_simulate_box_push, and the only runnable upstream example of the locomanipulation controller. Simulator cannot drive it: the push-box scene defines a single keyframe while Simulator uses key_qpos[1], and MPPI_box_push.eval_best_trajectory calls the 5-argument cost function with 4 arguments. The loop of cell 15 must therefore be extracted with attribution. Excluded as headless-blocked: the MujocoViewer line of cell 3 (keep its model/data/timestep lines), cells 5, 11, 12 and 13, the add_marker/read_pixels/anim_imgs lines of cell 15, and cells 36-37. Recorded stdout gives the reference outcome: four 'still working...' lines and 'Task succeed. Time to back up!'."
+    },
+    {
+      "id": "readme_documentation",
+      "path": "README.md",
+      "project_source": "repo/RTWholeBodyMPPI/README.md",
+      "sha256": "2a5fdc979986c3916b9232446da853ccc9aa414b9735a68e6f7adaaac339b110",
+      "title": "README (Installation, Simulation, Notebooks, Definitions, Hyperparameter Configuration)",
+      "description": "Documents the editable install, the simulation tasks (walk_straight, walk_octagon, big_box, stairs), the notebooks, the task-definition fields in utils/tasks.py and the YAML hyperparameters (dt, horizon, n_samples, noise_sigma, Q/R, lambda).",
+      "type": "documentation",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Documentation only. It supports parameter naming, task enums and the install route; it adds no operation beyond the two selected tools. Its hardware sections are out of scope."
+    },
+    {
+      "id": "run_mppi_locomotion_hw",
+      "path": "legged_mppi/scripts/run_mppi_locomotion.py",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/scripts/run_mppi_locomotion.py",
+      "sha256": "ea5da2183a25ffadeaf6b231381de1dccdcdf3b418d998f97ededa17e738c8ab",
+      "title": "run_mppi_locomotion.py (ROS hardware/Gazebo locomotion runner)",
+      "description": "rospy node at 100 Hz that subscribes to Unitree motor states and odometry (mocap/gazebo/ekf) and publishes MotorCmd from MPPI(task) for tasks stand_hw, walk_octagon_hw, climb_box_hw, ...",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Excluded (hardware stack): requires rospy, unitree_legged_msgs, nav_msgs and a Unitree Go1 with EKF/OptiTrack pose, or the ROS Gazebo bringup. Out of the assignment's scope."
+    },
+    {
+      "id": "run_mppi_locomanipulation_hw",
+      "path": "legged_mppi/scripts/run_mppi_locomanipulation.py",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/scripts/run_mppi_locomanipulation.py",
+      "sha256": "922c8187409fa04ac152a1cb0ddd4b0c42243d3835b8b9e5c1167c208f3c35ab",
+      "title": "run_mppi_locomanipulation.py (ROS hardware box pushing)",
+      "description": "rospy node at 100 Hz for MPPI_box_push with box pose from motion capture.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Excluded (hardware stack): requires ROS, unitree_legged_msgs, a Unitree Go1 and OptiTrack box tracking."
+    },
+    {
+      "id": "simulator_module_main",
+      "path": "legged_mppi/whole_body_mppi/interface/simulator.py",
+      "project_source": "repo/RTWholeBodyMPPI/legged_mppi/whole_body_mppi/interface/simulator.py",
+      "sha256": "83a8253e8cee08c5c413387929a3e36ab8048ec75c7e2c1fc9fe563044b1041f",
+      "title": "simulator.py __main__ demo",
+      "description": "__main__ block: Simulator(T=300, dt=0.002, viewer=True, model_path=models/go1/task_simulate.xml).run().",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Omitted as an example (the Simulator class itself is the binding of the locomotion tool). The demo is broken at the pinned commit: models/go1/task_simulate.xml does not exist, and with agent=None, run() fails in store_trajectory (self.agent.eval_best_trajectory) and at the goal check (self.agent.body_ref). It also needs a viewer."
+    },
+    {
+      "id": "qpos_visualizer_scripts",
+      "path": "qpos_visualizer/scripts/qpos_visualizer_mujoco.py",
+      "project_source": "repo/RTWholeBodyMPPI/qpos_visualizer/scripts/qpos_visualizer_mujoco.py",
+      "sha256": "bd6226719f130a39d6f339c13a11294c33a53521725b4d6564b72de159017b37",
+      "title": "qpos_visualizer (ROS MuJoCo state visualizer; also qpos_visualizer_mujoco_37.py)",
+      "description": "ROS package that visualises robot qpos in a MuJoCo viewer.",
+      "type": "script",
+      "include_in_tools": false,
+      "reason_for_include_or_exclude": "Outside the 'legged_mppi/' filter, part of the ROS hardware tooling, and viewer-only."
+    }
+  ],
+  "tool_review": [
+    {
+      "candidate": "whole_body_mppi_simulate_locomotion",
+      "decision": "expose",
+      "module": "mppi_locomotion",
+      "owning_source": "legged_mppi/scripts/simulate_mppi.py",
+      "task_and_io": "Run a headless closed-loop MuJoCo simulation of the Go1 quadruped under whole-body MPPI for a predefined locomotion task, optionally with the ablation hyperparameters the code exposes. Inputs: task name, number of simulation steps, controller rate, horizon, temperature, number of samples, sampling representation (cubic|normal), knots, seed. Outputs: time series of qpos/qvel/ctrl, the per-step cost of the selected (best) trajectory, goal progress and task-success flag, the resolved parameters, and optional trajectory figures.",
+      "implementation": [
+        "whole_body_mppi.control.controllers.mppi_locomotion.MPPI(task) — mppi_locomotion.py L33-98 (loads task from utils/tasks.py get_task and the YAML config through BaseMPPI.__init__, base_controller.py L16-65)",
+        "BaseMPPI.set_params(horizon, lambda_, N) — base_controller.py L160-179 (call shown commented in simulate_mppi.py L30)",
+        "whole_body_mppi.interface.simulator.Simulator(agent=agent, viewer=False, T=T, dt=0.01, timeconst=0.02, dampingratio=1.0, model_path=<pkg>/whole_body_mppi/<task sim_path>, ctrl_rate=ctrl_rate) — simulator.py L34-80; scene path as in simulate_mppi.py L26",
+        "Simulator.run() — simulator.py L127-165; results in simulator.time, .qpos (nq x T), .qvel (nv x T), .ctrl (nu x T), .cost (1 x T); agent.goal_index, agent.task_success; then agent.shutdown() (base_controller.py L118-120)"
+      ],
+      "parameters": {
+        "task": {"source": "utils/tasks.py TASKS; README 'Available Tasks (Mujoco Simulation)'; notebook cell 1", "allowed": ["walk_straight", "walk_octagon", "big_box", "stairs", "stand"], "default": "walk_straight or stairs (coordinator choice)", "note": "Hardware-tuned tasks (stand_hw, walk_octagon_hw, climb_box_hw) are not offered. walk_straight_hw is in simulate_mppi.py VALID_TASKS but missing from TASKS, so get_task would raise ValueError. push_box needs the other controller (tool 2)."},
+        "n_steps": {"source": "Simulator(T=...) (simulator.py L36,L55); simulate_mppi.py T=2000", "default": 2000, "note": "Simulator.run performs T-1 controller/simulation steps and stores T samples. Keep T small for reference runs (see feasibility)."},
+        "ctrl_rate_hz": {"source": "Simulator(ctrl_rate=...) (L38,L45-46,L135)", "default": 100, "constraint": "With dt=0.01, update_ratio = max(1, 1/(dt*ctrl_rate)) is a float and the controller runs when t % update_ratio == 0. Only rates with an integer update_ratio behave as named (100, 50, 25, 20, 10, 5, 4, 2, 1). Python arithmetic on the upstream expression (no repo code run): 40 Hz gives 20 Hz effective, 60 or 75 Hz gives a single update at t=0, and anything above 100 Hz is clamped to every step (100 Hz). The wrapper should reject other values rather than silently change them.", "caveat": "At lower rates the gait scheduler still rolls one 0.01 s column per update and the MPPI rollout step stays at the config dt (0.01). This is upstream behaviour; do not alter it."},
+        "horizon": {"source": "config 'horizon' (40); set_params(horizon, ...)", "default": 40, "constraint": "joints_ref = gait[:, indices[:horizon]] (mppi_locomotion.py L165) needs horizon <= the gait table length: 100 columns for in_place/walk_fast (walk_straight, walk_octagon, stand), 74 for walk/trot (stairs, big_box). Larger values cause a shape error in calculate_total_cost. The paper's Fig. 7 horizon range 20-100 is reachable only for the FAST-gait tasks."},
+        "temperature": {"source": "config 'lambda'; set_params(lambda_=...)", "default": "0.1 (walk/stairs/big_box configs)"},
+        "n_samples": {"source": "config 'n_samples'; set_params(N=...)", "default": 30},
+        "sample_type": {"source": "config 'sample_type' read into BaseMPPI.sample_type (L46), used on every call in perturb_action (L83-100)", "allowed": ["cubic", "normal"], "default": "cubic", "note": "'normal' samples every horizon step directly, which corresponds to the paper's 'Direct'. The paper's zeroth-order and linear interpolation are NOT implemented at the pinned commit; any other value makes perturb_action return None. There is no constructor argument or setter, so exposing this means assigning the attribute after construction (same semantics as the YAML value). Coordinator decides whether that counts as a supported parameter."},
+        "n_knots": {"source": "config 'n_knots' (4) read into BaseMPPI.n_knots (L47); used only when sample_type='cubic'", "default": 4, "note": "Same attribute-assignment caveat as sample_type."},
+        "seed": {"source": "config 'seed' (42); BaseMPPI.random_generator = np.random.default_rng(params['seed']) (L48)", "default": 42, "note": "Fig. 7 averages 10 seeds per setting. Determinism for a fixed seed is expected (single numpy RNG in the main thread; deterministic chunking of rollouts) but must be confirmed by execution."},
+        "not_exposed": {
+          "timeconst_dampingratio": "Simulator sets model.opt.o_solref (L52), but the override flag line is commented out (L51), so the values do not change the simulation contact model. Keep the defaults and do not advertise them.",
+          "noise_sigma": "Config value is overwritten in MPPI.next_goal (L127-131) with hard-coded per-gait values, starting from the first goal check.",
+          "Q_diag_R_diag_cost_weights": "Config-only scientific weights, not part of the paper's ablations; keep the config defaults.",
+          "sim_dt": "Simulator dt exists, but the controller's internal dt, gait tables (100 Hz) and waiting timers assume 0.01 s. Keep 0.01.",
+          "n_workers": "Config (5); the thread-pool size is fixed in BaseMPPI.__init__. It affects compute only. Keep it internal."
+        }
+      },
+      "outputs": "time (T,), qpos (19,T), qvel (18,T), ctrl (12,T), cost (T,): the best-trajectory cost per step, where cost[0] is NaN because eval_best_trajectory returns None before the first update. Also goal_index reached / number of goals, task_success, final base position, and resolved parameters. Optional figures: position, orientation and controls (as Simulator.plot_trajectory L182-222) and body-frame velocities (notebook cell 13 via utils/transforms.batch_world_to_local_velocity). Any scalar summary of cost (e.g. nansum) must be labelled as a derived value; the paper's exact aggregation for Fig. 6/7 is not in the repository.",
+      "verification_source": "MPPI_tasks.ipynb recorded stdout for task='stairs', tfinal=12 (1201 updates). Expected: 'Moved to next goal 1..5' with gaits walk/walk/walk/walk/in_place, then 'Task succeeded.'. Reproduce through Simulator(viewer=False, T=1202, ctrl_rate=100). The match is qualitative (goal sequence and success); exact numbers were not recorded. Changed-input checks: set_params values appear in agent.horizon/temperature/n_samples; ctrl_rate=50 halves the number of update() calls; the same seed reproduces identical arrays; a different seed changes them; an invalid horizon (>74 on stairs) fails.",
+      "reason": "Main simulation capability of the paper's MuJoCo code and the building block of its ablations. The public API exists, so the wrapper calls it directly (implementation order 1)."
+    },
+    {
+      "candidate": "whole_body_mppi_simulate_box_push",
+      "decision": "expose",
+      "module": "mppi_locomanipulation",
+      "owning_source": "legged_mppi/notebooks/MPPI_tasks_push.ipynb",
+      "task_and_io": "Run a headless closed-loop MuJoCo simulation of the Go1 pushing a free 0.38 m box to a user-chosen planar target with whole-body MPPI. Inputs: box target (x, y), number of steps or duration, optional horizon/temperature/n_samples and seed. Outputs: box and robot trajectories, controls, success flags and the final box-to-target distance.",
+      "implementation": [
+        "whole_body_mppi.control.controllers.mppi_locomanipulation.MPPI_box_push(task='push_box') — mppi_locomanipulation.py L31-99; notebook cell 6 also sets internal_ref=True and calls reset_planner()",
+        "box target: controller.x_box_ref[0], controller.x_box_ref[1] = x, y (notebook cell 8; config default box_pos_ref [2.0, 1.0, 0.3])",
+        "simulation model: mujoco.MjModel.from_xml_path(<pkg>/whole_body_mppi/models/go1/go1_scene_mppi_pyr_push_box_14in.xml), opt.timestep=0.01, mj_resetDataKeyframe(model, data, 0), mj_forward (cells 2-4, 10)",
+        "closed loop extracted from cell 15 without viewer.add_marker/read_pixels: x=concat(qpos,qvel); u=controller.update(x); data.ctrl[:]=u; mj_step; error=||body_ref[:3]-qpos[7:10]||; if error<0.1: controller.next_goal(); record u and x",
+        "state split from cells 16-18: box_state = x[:, 0:7] and x[:, 26:32]; robot_state = x[:, 7:26] and x[:, 32:50]",
+        "optional: BaseMPPI.set_params(horizon, lambda_, N) (public API, not shown in the push notebook)"
+      ],
+      "parameters": {
+        "box_target_xy": {"source": "notebook cell 8 / config box_pos_ref", "default": [2.0, 1.0]},
+        "n_steps": {"source": "cell 9 tvec = linspace(0, tfinal, ceil(tfinal/dt)+1)", "default": 2601, "note": "tfinal=26 s. Box-following starts only after 300 controller updates (next_goal L106)."},
+        "horizon": {"source": "config 40; set_params", "constraint": "<= 74 ('walk' gait table has 74 columns)"},
+        "temperature": {"source": "config lambda 0.12; set_params"},
+        "n_samples": {"source": "config 30; set_params"},
+        "seed": {"source": "config seed 42 -> random_generator (base_controller L48)"},
+        "sample_type_n_knots": "Same config-attribute caveat as the locomotion tool; optional.",
+        "not_exposed": "Q_robot/Q_box/R weights, noise_sigma, n_workers (15) and box_quat_ref (unused in the cost; the box quaternion term is commented out at L225-227)."
+      },
+      "outputs": "Time vector; box position/quaternion/velocity; robot base and joint states; joint-target controls. Flags: switched_to_follow_box, task_succeeded (the controller printed 'Task succeed' and goal_index reached 2; the code's success threshold is 0.3 m between box and target, L117, the same as the paper's trial criterion). Also the first time the box was within 0.3 m and the final distance. Optional figures as in cells 20-22. Note that upstream cell 21 swaps the legend labels (box trajectory labelled 'robot trajectory'); label the plots correctly and do not copy that.",
+      "verification_source": "MPPI_tasks_push.ipynb recorded stdout for target (2, 1), tfinal=26: four 'still working...' lines, then 'Task succeed. Time to back up!'. Recorded plots (cells 20-22) give the box path qualitatively. Changed-input checks: a different box target changes the final box position, and the success flag is computed against the new target.",
+      "reason": "Only locomanipulation example in scope; it represents the paper's box-pushing behaviour in simulation. It is extracted from the notebook (implementation order 3) because the generic Simulator path is broken for this controller.",
+      "upstream_defects_recorded_not_fixed": [
+        "Simulator.__init__ uses model.key_qpos[1] (simulator.py L61), but go1_scene_mppi_pyr_push_box_14in.xml has only keyframe 0 ('sit' and 'tune' are commented out), so an IndexError is expected.",
+        "MPPI_box_push.eval_best_trajectory (L275) calls self.cost_func with 4 positional arguments, but calculate_total_cost(robot_state, box_state, actions, joints_ref, body_ref) takes 5, so a TypeError is expected once obs is set (Simulator.store_trajectory calls it every step)."
+      ]
+    },
+    {
+      "candidate": "offscreen rendering / animation / mp4 export (notebook viewer cells; Simulator(viewer=True), save_frames, capture_frame)",
+      "decision": "defer (blocked)",
+      "reason": "Needs a display: mujoco-python-viewer 'offscreen' still initialises GLFW and opens a hidden window (from the package's implementation; to be confirmed by the environment manager), and no display is available per the assignment. Memory: frames are about 1920x1080x3 (≈6.2 MB); the notebooks collect about 600 (stairs) to 1300 (push) frames, ≈3.7-8 GB, which exceeds the machine. Exporting mp4 also needs ffmpeg. Switching to a different renderer (mujoco.Renderer with EGL/OSMesa) would be a new path not present upstream and is not proposed."
+    },
+    {
+      "candidate": "Simulator.plot_trajectory",
+      "decision": "merge into whole_body_mppi_simulate_locomotion (outputs); do not call directly",
+      "reason": "It writes a cost TSV into <package>/whole_body_mppi/analysis/ (inside the repo for an editable install) and calls plt.show(). Its figures and cost file can be produced from the simulator arrays in the tool's own output directory, keeping the upstream file-naming pattern if useful."
+    },
+    {
+      "candidate": "paper ablation sweeps and aggregated cost plots (Fig. 6 sampling representation; Fig. 7 control frequency, temperature, horizon, samples over 10 seeds; Gazebo sim-to-sim)",
+      "decision": "defer; per-run settings exposed as parameters of whole_body_mppi_simulate_locomotion",
+      "reason": "The analysis code (whole_body_mppi/analysis/, listed in README and directory_structure.txt) is absent at the pinned commit, so the aggregation behind the plotted 'cost' is unknown. Zeroth-order and linear interpolation are not implemented (perturb_action supports only 'normal' and 'cubic'). Control rates above 100 Hz and non-divisors of 100 Hz are not reachable with Simulator at dt=0.01 (see ctrl_rate constraint). The Gazebo comparison needs ROS. Fig. 6's 'trotting forward' and 'box climb' tasks are not named as tasks in TASKS (big_box uses walk/trot gaits on a box; any mapping would be an assumption). A sweep tool would only loop the simulation tool, so it is not added."
+    },
+    {
+      "candidate": "MPPI.update(obs) / MPPI_box_push.update(obs) single control step",
+      "decision": "keep internal",
+      "reason": "Depends on the controller's internal gait scheduler, goal index and warm-started trajectory, so a one-shot call from an arbitrary state has no documented use. No example or test uses it outside the closed loops covered by the two tools."
+    },
+    {
+      "candidate": "utils/tasks.get_task, TASKS, controller YAML configs",
+      "decision": "keep internal",
+      "reason": "Task enums and resolved definitions/hyperparameters are returned in the tools' summaries and documented in their schemas; a separate metadata tool would be filler."
+    },
+    {
+      "candidate": "hardware tasks in TASKS (stand_hw, walk_octagon_hw, climb_box_hw, push_box_hw) and their *_hw configs; walk_straight_hw",
+      "decision": "omit",
+      "reason": "Hardware-tuned settings documented under the README's Hardware section (out of scope). walk_straight_hw is accepted by simulate_mppi.py's argparse choices but is missing from TASKS, so get_task raises ValueError."
+    },
+    {
+      "candidate": "run_mppi_locomotion.py, run_mppi_locomanipulation.py, ROS/catkin packages, mocap_optitrack, unitree_legged_msgs, devcontainer/Docker, qpos_visualizer",
+      "decision": "exclude",
+      "reason": "Need a Unitree Go1, motion capture/EKF and ROS (Gazebo for simulation bringup); out of scope by assignment."
+    },
+    {
+      "candidate": "helpers: GaitScheduler/Timer (scheduler.py), batch_world_to_local_velocity/calculate_orientation_quaternion (transforms.py), BaseMPPI.sample_delta_u, Simulator.step/state_difference/get_state, apply_translation_to_com, controller __main__ blocks",
+      "decision": "keep internal / omit",
+      "reason": "Internal machinery of the selected loops. sample_delta_u, state_difference, get_state and apply_translation_to_com are unused by any upstream workflow. The __main__ blocks only construct a controller."
+    }
+  ]
+}

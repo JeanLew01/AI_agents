@@ -1,0 +1,42 @@
+# ICRA 2027 (IEEE International Conference on Robotics and Automation, Seoul, May 24-28 2027).
+# Sources (checked 2026-10-11):
+#   [I1] https://2027.ieee-icra.org/contribute/call-for-icra-2027-papers-now-accepting-submissions/
+#   [I3] https://ras.papercept.net/conferences/scripts/start.pl  (ICRA 2027 submission page)
+#   [I4] https://ras.papercept.net/conferences/support/tex.php   (ieeeconf.zip, root.tex)
+#   [I5] https://ras.papercept.net/conferences/support/general.php
+#   [I7] https://2026.ieee-icra.org/contribute/final-paper-submission-instructions/  (2026 final rules)
+#   [I8] https://www.ieee-ras.org/publications/rules-for-the-double-anonymous-review-process/
+# Final-version rules for 2027 were not published at the time of writing: camera-ready values below are
+# ICRA 2026's and are listed under `todo:`.
+name: ICRA 2027
+template:
+  file: ieeeconf.cls   # [I4] \documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+  # sha256 and layout: fill in from the official ieeeconf.zip:
+  #   papergate measure-template <unzipped dir> --main root.tex
+engine: pdflatex
+page_limit:
+  submission: 8       # [I1] 8 pages for the complete paper, references and acknowledgments included
+  camera_ready: 8     # [I7] (ICRA 2026) 8 pages including references; over-length papers are rejected
+  excluded_sections: []   # everything counts
+review_mode_markers: []   # ieeeconf has no review mode; anonymise by hand (double-anonymous [I1][I8])
+final_mode_markers: []
+forbidden_sections:
+  submission:
+    - {name: Acknowledgments, pattern: "^acknowledge?ments?$"}   # [I8] only after acceptance
+fonts: {require_embedded: true, forbid_type3: true}   # [I5] all fonts embedded, no Type 3
+pdf_version: {allowed: ["1.4", "1.5", "1.6", "1.7"]}  # [I5] 1.4 preferred
+anonymization_services: [anonymous.4open.science, anonymous.github, anonymousfiles.io, openreview.net/attachment]
+compliance_notes:
+  - {text: "Double-anonymous review: no author names/affiliations, neutral self-citations, no identifying links or video content [I1][I8].", modes: [submission]}
+  - {text: "Video attachment: <=20 MB, mp4/mpeg/mpg, <=180 s, >=480 lines, >=20 fps, progressive; submit with the paper [I1].", modes: [submission]}
+  - {text: "PaperCept runs its own PDF compliance test; for pdflatex add \\pdfminorversion=4 before \\documentclass [I3][I5].", modes: [submission, camera-ready]}
+  - {text: "Final upload window 2027-02-06 to 2027-03-06; at least one author registered (regular, not day) by 2027-03-05 [I1][I7].", modes: [camera-ready]}
+  - {text: "No-show policy: on-site presentation only; papers without an on-site presenter are removed [I1].", modes: [camera-ready]}
+  - {text: "Submit the IEEE copyright form (eCF) via PaperCept.", modes: [camera-ready]}
+  - {text: "The final version must closely match the accepted one; change only what the reviews asked for [I7].", modes: [camera-ready]}
+todo:
+  page_limit.camera_ready: "2027 final-paper rules not yet published; value is ICRA 2026's"
+  template.sha256: "download ieeeconf.zip from PaperCept and record the hash of ieeeconf.cls"
+  template.layout: "run papergate measure-template on the official root.tex"
+  max_file_size_mb: "paper size limit not published"
+  links: "PaperCept's generic list asks for no links/bookmarks in the final PDF [I5]; unclear whether ICRA enforces it"

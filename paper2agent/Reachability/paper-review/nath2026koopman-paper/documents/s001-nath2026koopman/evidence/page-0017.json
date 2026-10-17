@@ -1,0 +1,961 @@
+{
+  "page": 17,
+  "lines": [
+    {
+      "text": "SCALABLE KOOPMAN REACHABILITY WITH CONFORMAL COVERAGE GUARANTEES",
+      "bbox": [
+        126.10299682617188,
+        41.200374603271484,
+        483.1772155761719,
+        50.106937408447266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1 Online Conformalized Koopman Reachable Set (CKRS)",
+      "bbox": [
+        90.0,
+        93.6407470703125,
+        395.9455871582031,
+        103.52439880371094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Input: Koopman model (ϕ, ψ, KA, KB); true dynamics f (simulator); reference trajectory xref",
+      "bbox": [
+        90.0,
+        110.12630462646484,
+        514.622802734375,
+        123.17056274414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T ;",
+      "bbox": [
+        505.7760009765625,
+        112.09270477294922,
+        521.9996948242188,
+        125.16941833496094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "initial set X0 = Bϵ(xref",
+      "bbox": [
+        108.54498291015625,
+        123.67537689208984,
+        213.48779296875,
+        143.5108184814453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 ); RSOA confidence 1 −δ; calibration sizes Mλ, Kcal; cost matrices",
+      "bbox": [
+        204.6409912109375,
+        123.10152435302734,
+        521.9976196289062,
+        143.5108184814453
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Q, R; verification tool auto LiRPA",
+      "bbox": [
+        108.54498291015625,
+        138.4052734375,
+        270.93731689453125,
+        149.3143768310547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Output: Conformalized Koopman reachable set X",
+      "bbox": [
+        90.0,
+        153.26638793945312,
+        313.72119140625,
+        172.19374084472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1−δ",
+      "bbox": [
+        315.3219909667969,
+        149.03128051757812,
+        329.88336181640625,
+        162.8514404296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T (CKRS)",
+      "bbox": [
+        315.3219909667969,
+        154.3245849609375,
+        369.17401123046875,
+        166.7743377685547
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "// 1. Initialization",
+      "bbox": [
+        108.54499816894531,
+        167.87359619140625,
+        184.6577911376953,
+        177.62632751464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: zref",
+      "bbox": [
+        96.11499786376953,
+        179.4572296142578,
+        122.94481658935547,
+        191.54624938964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T ←ϕ(xref",
+      "bbox": [
+        113.61900329589844,
+        179.4572296142578,
+        169.60379028320312,
+        202.61671447753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T ) // encode reference state trajectory",
+      "bbox": [
+        160.75698852539062,
+        180.63818359375,
+        331.15887451171875,
+        194.8712615966797
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: uref",
+      "bbox": [
+        96.11498260498047,
+        193.0063018798828,
+        123.63679504394531,
+        205.09629821777344
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T−1 ←Equation (2) // compute feedforward control sequence",
+      "bbox": [
+        114.78997802734375,
+        193.91452026367188,
+        391.6611328125,
+        216.16578674316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3: G0:T−1 ←LQR(KA, KB) // compute LQR gains",
+      "bbox": [
+        96.11497497558594,
+        207.46353149414062,
+        324.94189453125,
+        228.07984924316406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4: π(·) ←Equation (3) // compute lifted controller using LQR and feedforward inputs",
+      "bbox": [
+        96.11499786376953,
+        221.01254272460938,
+        472.87646484375,
+        239.93983459472656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "// 2. Error bounds ¯et via CP",
+      "bbox": [
+        108.54499816894531,
+        234.83428955078125,
+        229.6530303955078,
+        247.00950622558594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5: DE, DN ←GenerateCalibrationData(Mλ, Kcal)",
+      "bbox": [
+        96.11500549316406,
+        246.62954711914062,
+        363.34063720703125,
+        268.7268371582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6: ¯et ←SNSA(DN, DE)",
+      "bbox": [
+        96.114990234375,
+        261.6605529785156,
+        205.7166290283203,
+        282.2238464355469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "// 3. Nominal KRS ˆX 0:T",
+      "bbox": [
+        108.54499053955078,
+        273.2322998046875,
+        214.65078735351562,
+        296.82574462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7: Γ(·) ←ψ(PropagateLatent(ϕ(·), zref, uref, G)) // define CG",
+      "bbox": [
+        96.11500549316406,
+        290.5402526855469,
+        394.190185546875,
+        310.3747253417969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8: ˆX 0:T ←AutoLiRPA(Γ, X0) // compute KRS via CG",
+      "bbox": [
+        96.11500549316406,
+        303.0201721191406,
+        346.6352233886719,
+        328.302734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9: X",
+      "bbox": [
+        96.114990234375,
+        323.9254455566406,
+        116.32318878173828,
+        342.8527526855469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1−δ",
+      "bbox": [
+        117.92399597167969,
+        319.6893005371094,
+        132.48536682128906,
+        333.50946044921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T ←ˆX 0:T ⊕diag(¯et)B1(0) // 4. combine to obtain CKRS, and return",
+      "bbox": [
+        117.92399597167969,
+        319.2581787109375,
+        430.98321533203125,
+        345.54974365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10: return X",
+      "bbox": [
+        91.63201904296875,
+        339.6644287109375,
+        148.9851837158203,
+        358.5917663574219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1−δ",
+      "bbox": [
+        150.58599853515625,
+        335.4292907714844,
+        165.14735412597656,
+        349.24945068359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T",
+      "bbox": [
+        150.58599853515625,
+        344.83843994140625,
+        162.102783203125,
+        352.80853271484375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8.3.1. DYNAMICS.",
+      "bbox": [
+        90.27300262451172,
+        395.0616455078125,
+        177.88412475585938,
+        404.8143615722656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For unicycle experiments (x ∈R3, u ∈R2), we used the dynamics model, time-discretized via",
+      "bbox": [
+        90.0,
+        427.8984375,
+        521.99658203125,
+        448.3067626953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "forward Euler (dt = 0.1s)",
+      "bbox": [
+        89.99998474121094,
+        443.2021789550781,
+        203.11643981933594,
+        454.11126708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˙x = f(x, u) =",
+      "bbox": [
+        235.2699737548828,
+        493.3111877441406,
+        307.4664306640625,
+        504.37127685546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        310.4819641113281,
+        479.2806396484375,
+        317.7583312988281,
+        486.2624816894531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        310.4819641113281,
+        498.9166259765625,
+        317.7583312988281,
+        505.8984680175781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "u1 cos(x2)",
+      "bbox": [
+        317.7549743652344,
+        479.8951721191406,
+        364.609619140625,
+        492.4412536621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "u1 sin(x2)",
+      "bbox": [
+        318.3609619140625,
+        493.4451599121094,
+        364.00360107421875,
+        505.990234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "u2",
+      "bbox": [
+        335.6929626464844,
+        506.99420166015625,
+        346.1700744628906,
+        518.8045654296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        364.60797119140625,
+        479.2806091308594,
+        371.88433837890625,
+        486.262451171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": ".",
+      "bbox": [
+        364.60797119140625,
+        493.4621276855469,
+        376.731689453125,
+        505.8984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(12)",
+      "bbox": [
+        503.82269287109375,
+        494.2475891113281,
+        521.9972534179688,
+        504.00030517578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "For planar quadcopter experiments (x ∈R6, u ∈R2), we used the parameters m = 0.5kg, g =",
+      "bbox": [
+        89.99996948242188,
+        562.286376953125,
+        522.0042114257812,
+        582.6956787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−9.81m/s2, Iy = 0.01kg · m2 for the dynamics model, and time-discretized with dt = 0.05 s:",
+      "bbox": [
+        89.99996948242188,
+        574.4166259765625,
+        497.3733825683594,
+        596.2446899414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˙x = f(x, u) =",
+      "bbox": [
+        227.99696350097656,
+        661.16015625,
+        300.1933898925781,
+        672.2202758789062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        303.20794677734375,
+        627.4926147460938,
+        310.48431396484375,
+        634.4744262695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        303.20794677734375,
+        646.692626953125,
+        310.48431396484375,
+        693.3843994140625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x4",
+      "bbox": [
+        338.1219482421875,
+        626.4931030273438,
+        348.58905029296875,
+        638.3035278320312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x5",
+      "bbox": [
+        338.1219482421875,
+        640.0421142578125,
+        348.58905029296875,
+        651.8525390625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "x6",
+      "bbox": [
+        338.1219482421875,
+        653.5911254882812,
+        348.58905029296875,
+        665.4024658203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "−u1",
+      "bbox": [
+        316.3089294433594,
+        664.8563232421875,
+        334.5442199707031,
+        685.794677734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "m sin(x3)",
+      "bbox": [
+        326.77099609375,
+        667.1401977539062,
+        370.9036560058594,
+        681.811279296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "g + u1",
+      "bbox": [
+        310.48101806640625,
+        678.4053955078125,
+        339.1603088378906,
+        691.5993041992188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "m cos(x3)",
+      "bbox": [
+        331.385986328125,
+        680.690185546875,
+        376.73162841796875,
+        695.3602905273438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "u2",
+      "bbox": [
+        339.0789794921875,
+        691.9544067382812,
+        347.6343078613281,
+        700.1986694335938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Iy",
+      "bbox": [
+        339.5220031738281,
+        700.2053833007812,
+        346.976806640625,
+        708.3386840820312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        376.72998046875,
+        627.49267578125,
+        384.00634765625,
+        634.4744873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "",
+      "bbox": [
+        376.72998046875,
+        646.6926879882812,
+        384.00634765625,
+        693.3844604492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(13)",
+      "bbox": [
+        503.82598876953125,
+        662.0966186523438,
+        522.0005493164062,
+        671.849365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "17",
+      "bbox": [
+        301.01898193359375,
+        725.995361328125,
+        310.9815673828125,
+        734.9019165039062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Scalable Data-Driven Reachability Analysis and Control via Koopman Operators with Conformal Coverage Guarantees",
+      "author": "Devesh Nath; Haoran Yin; Glen Chou",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:57610bf)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/nath2026koopman-paper/documents/.pdf-skill-scan-c_3m43wm/review/source.pdf",
+      "page_count": 28,
+      "page_number": 17
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          126,
+          41,
+          484,
+          49
+        ],
+        "pos": [
+          0,
+          67
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          90,
+          93,
+          396,
+          104
+        ],
+        "pos": [
+          67,
+          135
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          90,
+          110,
+          522,
+          176
+        ],
+        "pos": [
+          135,
+          558
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          96,
+          179,
+          473,
+          260
+        ],
+        "pos": [
+          558,
+          1040
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          91,
+          261,
+          431,
+          351
+        ],
+        "pos": [
+          1040,
+          1474
+        ]
+      },
+      {
+        "index": 5,
+        "class": "section-header",
+        "bbox": [
+          90,
+          395,
+          178,
+          403
+        ],
+        "pos": [
+          1474,
+          1495
+        ]
+      },
+      {
+        "index": 6,
+        "class": "text",
+        "bbox": [
+          89,
+          428,
+          522,
+          454
+        ],
+        "pos": [
+          1495,
+          1651
+        ]
+      },
+      {
+        "index": 7,
+        "class": "formula",
+        "bbox": [
+          235,
+          479,
+          522,
+          519
+        ],
+        "pos": [
+          1651,
+          1653
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          89,
+          562,
+          523,
+          590
+        ],
+        "pos": [
+          1653,
+          1917
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          227,
+          627,
+          523,
+          709
+        ],
+        "pos": [
+          1917,
+          1919
+        ]
+      },
+      {
+        "index": 10,
+        "class": "page-footer",
+        "bbox": [
+          301,
+          726,
+          311,
+          733
+        ],
+        "pos": [
+          1919,
+          1924
+        ]
+      }
+    ],
+    "text": "SCALABLE KOOPMAN REACHABILITY WITH CONFORMAL COVERAGE GUARANTEES \n\n**Algorithm 1** Online Conformalized Koopman Reachable Set (CKRS) \n\n**Input:** Koopman model ( _ϕ, ψ, KA, KB_ ); true dynamics _f_ (simulator); reference trajectory _x_<sup>ref</sup> 0: _T_<sup>;</sup> initial set _X_ 0 = _Bϵ_ ( _x_<sup>ref</sup> 0<sup>);RSOAconfidence1</sup><sup>_−δ_;calibrationsizes</sup><sup>_Mλ, K_cal;costmatrices</sup> _Q, R_ ; verification tool auto LiRPA ~~1~~ _−δ_ **Output:** Conformalized Koopman reachable set _X_ 0: _T_<sup>(CKRS)</sup> // 1. Initialization \n\n1: _z_ 0:<sup>ref</sup> _T_<sup>_←ϕ_(</sup><sup>_x_ref</sup> 0: _T_<sup>) // encode reference state trajectory</sup> 2: _u_<sup>ref</sup> 0: _T −_ 1<sup>_←_Equation (2) // compute feedforward control sequence</sup> 3: _G_ 0: _T −_ 1 _←_ LQR( _KA, KB_ ) // compute LQR gains 4: _π_ ( _·_ ) _←_ Equation (3) // compute lifted controller using LQR and feedforward inputs // 2. Error bounds ¯ _et_ via CP 5: _DE, DN ←_ GenerateCalibrationData( _M_<sup>_λ_</sup> _, K_<sup>cal</sup> ) \n\n6: _e_ ¯ _t ←_ SNSA( _DN , DE_ ) // 3. Nominal KRS _X_<sup>~~ˆ~~</sup> 0: _T_ 7: Γ( _·_ ) _← ψ_ (PropagateLatent( _ϕ_ ( _·_ ) _, z_<sup>ref</sup> _, u_<sup>ref</sup> _, G_ )) // define CG 8: _X_<sup>~~ˆ~~</sup> 0: _T ←_ AutoLiRPA(Γ _, X_ 0) // compute KRS via CG ~~1~~ _−δ_ 9: _X_ 0: _T_<sup>_←_</sup> _X_<sup>~~ˆ~~</sup> 0: _T ⊕_ diag(¯ _et_ ) _B_ 1(0) // 4. combine to obtain CKRS, and return ~~1~~ _−δ_ 10: **return** _X_ 0: _T_ \n\n# 8.3.1. DYNAMICS. \n\nFor unicycle experiments ( _x ∈_ R<sup>3</sup> , _u ∈_ R<sup>2</sup> ), we used the dynamics model, time-discretized via forward Euler ( _dt_ = 0 _._ 1s) \n\n\n\nFor planar quadcopter experiments ( _x ∈_ R<sup>6</sup> , _u ∈_ R<sup>2</sup> ), we used the parameters _m_ = 0 _._ 5kg, _g_ = _−_ 9 _._ 81m/s<sup>2</sup> , _Iy_ = 0 _._ 01kg _·_ m<sup>2</sup> for the dynamics model, and time-discretized with _dt_ = 0 _._ 05 s: \n\n\n\n17 \n\n"
+  }
+}

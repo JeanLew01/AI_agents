@@ -58,3 +58,10 @@ Still to verify after the three interrupted ones: devonport2021data, dietrich202
 | gruenbacher2022gotube | a8299584a8b3bc4cd | VERIFIED clean |
 | fan2017dryvr | aa892b1ee2fb7b90f | VERIFIED: 1 B + 2 C; notes and index REPAIRED, strict OK (Figure 3(c) image stays a MuPDF render, now described correctly) |
 | ganai2023iterative | ab0334064561cdac6 | VERIFIED: 0 A, 0 B, 1 C (italic max/min subscripts in Table 1 cells; not fixed) |
+
+## Paper 21: nath2026koopman (added 2026-10-12)
+User request: build the paper agent for "Scalable Data-Driven Reachability Analysis and Control via Koopman Operators with Conformal Coverage Guarantees" (Nath, Yin, Chou; arXiv:2601.01076v1, 28 pages, L4DC 2026 style). Key from the TRO 2027 bib (~/overleaf_project/Jixian_TRO_2027/reference.bib), not the CoRL bib. PDF byte-identical to arXiv v1 (papers/SOURCES.tsv, SHA256SUMS updated); TeX in tex-source/nath2026koopman; prep.sh done.
+
+| key | agent id | state at last check |
+|---|---|---|
+| nath2026koopman | a3db2c8d6eac63578 | DONE, linked; VERIFIED (a24764e0a0ac7bdf2): 0 A, 0 B, 1 C (Figure 11 time-axis wording in a plan note); REPAIRED by coordinator, final rebuilt, strict OK |

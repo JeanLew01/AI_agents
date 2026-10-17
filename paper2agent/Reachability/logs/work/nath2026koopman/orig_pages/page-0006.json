@@ -1,0 +1,101 @@
+{
+  "page": 6,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0006.png",
+  "reviewed": false,
+  "review_notes": "",
+  "warnings": [
+    "Review possible header/footer: p0006-b000"
+  ],
+  "items": [
+    {
+      "id": "p0006-b000",
+      "kind": "text",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "source_class": "page-header"
+    },
+    {
+      "id": "p0006-b001",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        90.0,
+        524.0,
+        217.0
+      ],
+      "markdown": "where _KB_<sup>_†_isthepseudo-inverseof</sup><sup>_KB_.Theerrorstates</sup><sup>_δzt_=</sup><sup>_zt−z_</sup> _t_<sup>ref</sup> and controls _δut_ = _ut − u_<sup>ref</sup> _t_ follow linear error dynamics _δzt_ +1 = _KAδzt_ + _KBδut_ , starting from an initial error _δz_ 0 = _ϕ_ ( _x_ 0) _− z_ 0<sup>ref, where</sup><sup>_x_0</sup><sup>_∈Bϵ_(</sup><sup>_x_ref</sup> 0<sup>).We solve an LQR problem, finding the feedback controls</sup> _δu_ 0: _T −_ 1 that minimize the finite-horizon quadratic cost _δzT_<sup>_⊤QT δzT_+�</sup><sup>_T_</sup> _t_ =0<sup>_−_1(</sup><sup>_δz_</sup> _t_<sup>_⊤Qδzt_+</sup><sup>_δu⊤_</sup> _t_<sup>_Rδut_),</sup> subject to the linear dynamics _δzt_ +1 = _KAδzt_ + _KBδut_ , where _Q ≻_ 0, _R ≻_ 0, and _QT ≻_ 0. In particular, we solve a backward Riccati recursion to obtain the optimal feedback gains _G_ 0: _T −_ 1. This yields the tracking control law in the lifted state space (3), which can be applied on the nonlinear system (1a) as (4) by measuring and encoding the state _xt_ : _ut_ = _u_<sup>ref</sup> _t_<sup>_−Gt_(</sup><sup>_zt−z_</sup> _t_<sup>ref)</sup><sup>_,_</sup> (3) _ut_ = _u_<sup>ref</sup> _t_<sup>_−Gt_(</sup><sup>_ϕ_(</sup><sup>_xt_)</sup><sup>_−z_</sup> _t_<sup>ref)</sup><sup>_._</sup> (4)",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b002",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        236.0,
+        389.0,
+        247.0
+      ],
+      "markdown": "# **5.3. Reachability Analysis for Closed-Loop Koopman Dynamics**",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0006-b003",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        258.0,
+        523.0,
+        514.0
+      ],
+      "markdown": "The high computational cost of nonlinear reachability motivates our use of Koopman operators. Standard RSOA computation repeatedly overapproximates nonlinearities at each timestep in both _f_ and _π_ (which typically must be nonlinear to stabilize _f_ ), leading to high conservativeness. A _T_ -step RSOA requires 2 _T_ nonlinear function evaluations, causing reachable sets to become vacuously loose as _T_ increases. To reduce conservativeness, partition-based methods split the input set _X t_ , propagate each partition element, and union the result; however, this incurs computational and memory costs that increases with the cardinality of the partition. In contrast, Koopman-based reachability improves scalability and reduces conservativeness without partitioning overhead by reducing the number of nonlinearities. Mapping to the lifted space _Z_ creates linear dynamics, eliminating the need to bound nonlinearities during propagation. The linear dynamics also permit a linear tracking controller. Consequently, computing an RSOA _X t_ for any timestep _t_ requires bounding only a single application of the nonlinear encoder ( _ϕ_ ) and decoder ( _ψ_ ), reducing the number of nonlinear bounding operations from 2 _T_ to just 2. To apply this insight formally for RSOA computation, we define the Tracking Koopman Feedback Loop (TKFL), denoted Γ, as a CG the describes the closedloop dynamics for tracking _z_ 0:<sup>ref</sup> _T_ = _. {ϕ_ ( _x_ ref _t_<sup>)</sup><sup>_}T_</sup> _t_ =0<sup>in the lifted state space using the feedback control</sup> law (4). Specifically, the TKFL Γ : _X_ 0 _× U_<sup>_T_</sup> _× Z_<sup>_T_+1</sup> _→ X_<sup>ˆ</sup><sup>_T_+1</sup> maps the initial state _x_ 0 _∈Bϵ_ ( _x_<sup>ref</sup> 0<sup>),</sup> the feedforward control trajectory _u_<sup>ref</sup> 0: _T −_ 1<sup>(2), and the lifted reference</sup><sup>_z_</sup> 0:<sup>ref</sup> _T_<sup>to the decoded trajectory</sup> _x_ ˆ0: _T_ =<sup>_._</sup> _{ψ_ ( _zt_ ) _}_<sup>_T_</sup> _t_ =0<sup>representing the predicted closed-loop trajectory (5) in the original state space,</sup> where the lifted states _zt_ are updated via the closed-loop lifted dynamics (6):",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b004",
+      "kind": "formula",
+      "bbox": [
+        181.0,
+        527.0,
+        528.0,
+        576.0
+      ],
+      "markdown": "",
+      "source_class": "formula",
+      "label": "Formula on PDF page 6 (5)",
+      "asset_name": "formula-p0006-004"
+    },
+    {
+      "id": "p0006-b005",
+      "kind": "text",
+      "bbox": [
+        89.0,
+        584.0,
+        523.0,
+        706.0
+      ],
+      "markdown": "To summarize, the CG is constructed as follows (see Fig. 2 for visualization). First, we map the initial state via _ϕ_ into the latent space, computing _z_ 0 = _ϕ_ ( _x_ 0). Second, we unroll the _T_ -fold recursive application of the single-step latent dynamics, _zt_ +1 = _KAzt_ + _KBut_ , where _ut_ is the closedloop tracking control computed using (3), to obtain the latent trajectory _z_ 0: _T_ = _{z_ 0 _, z_ 2 _, · · · , zT }_ . Third, _z_ 0: _T_ is mapped back to the original state space via the decoder _ψ_ to obtain _x_ ˆ0: _T_ . The CG Γ is passed to the auto LiRPA library (Xu et al., 2020), which enables set-based bound propagation through Γ using CROWN (Zhang et al., 2018). auto ~~L~~ iRPA computes vector-valued affine bounding functions, Γ and Γ, which enables us to compute an RSOA _X_<sup>~~ˆ~~</sup> 0: _T_ for the decoded closedloop lifted dynamics (5) by considering specific components of Γ, Γ _~~t~~_<sup>and</sup> Γ _t_ , that bound the states",
+      "source_class": "text"
+    },
+    {
+      "id": "p0006-b006",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        725.0,
+        309.0,
+        733.0
+      ],
+      "markdown": "6",
+      "source_class": "page-footer",
+      "reason": "Page-number-only footer/header; confirm against preview."
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "scan_metadata": {
+    "repository_name": "adaptive_linear_path_model_based_diffusion",
+    "repository_url": "https://github.com/purewater0901/adaptive_linear_path_model_based_diffusion",
+    "commit": "6c2b004132718a1c6fd54fb7946c2705baee6c5c",
+    "source_path": "repo/adaptive_linear_path_model_based_diffusion",
+    "working_tree_clean_at_scan": true,
+    "paper": "Adaptive Linear Path Model-Based Diffusion (Shimizu & Tomizuka), arXiv 2602.02831",
+    "scan_date": "2026-10-12",
+    "scan_finished_at": "2026-10-12T17:21:00Z",
+    "route": "cli",
+    "cli_backend": "python",
+    "module": "cli_wrapper",
+    "requested_filter": null,
+    "evaluated_source_files": 21,
+    "included_source_files": 7,
+    "proposed_exposed_tools": 7,
+    "deferred_commands": 1,
+    "success": true,
+    "explanation": "All 61 tracked files were listed. The READMEs, all 8 entry scripts, the YAML configs and the implementation paths behind the selected commands were read; some controller internals (MPPI, Brax VP/MPPI/CEM/CMA-ES, ActorCritic.evaluate) were read only in outline. Seven documented commands are selected as execution sources and proposed as seven cli_wrapper tools (Figs. 3-6 and Tables I-II of the paper). RL fine-tuning (run_rl_fine_tuning.py) is deferred because of its training cost and because it overwrites the shipped checkpoint. Path generators and module __main__ self-tests are omitted as setup or internal code. No repository code was executed during the scan; all feasibility numbers are estimates unless they quote a workspace measurement.",
+    "provenance_note": "The paper's anonymous repository (anonymous.4open.science/r/adaptive_linear_path_model_based_diffusion-C58C) has expired (HTTP 410). This public repository by the first author has the same name and is used instead. It is not established that it is byte-identical to the paper's artifact.",
+    "licence_note": "The repository has NO licence file (no LICENSE/COPYING among the 61 tracked files at the pinned commit). Redistribution of its code, checkpoint and figures inside a delivered package is not covered by any licence. The coordinator should record this in USAGE.md and decide whether the ZIP references the checkout instead of bundling it.",
+    "heavy_job_gate_note": "mcp-build/HEAVY_JOBS_DISABLED exists (coordinator, 2026-10-02T15:10Z). heavy.sh refuses every command while it exists (exit 75). This blocks the Brax/JAX command now. The PyTorch commands are not JAX jobs, but the machine had about 2.6 GB available at scan time (free -m), so run them one at a time."
+  },
+  "tutorials": [
+    {
+      "id": "tutorial_run_1d_example",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_1d_example.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_1d_example.py",
+      "sha256": "be05adbd64029f3334811610eeff27fcc982ea851ba4ede2c1bf3615aaa1ad79",
+      "title": "1D examples: VP-MBD vs LP-MBD (paper Fig. 3)",
+      "description": "python run_1d_example.py --name {gaussian,gaussian_mixture,sin_mixture}. Runs VP-MBD and LP-MBD on a fixed 1D objective and saves a 3-panel figure (objective, VP trajectories, LP trajectories) to images/1d/<name>_results_1d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 2",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It reproduces the paper's Fig. 3 (one row per --name). The figure is the only output, and the shipped reference images make it verifiable.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_compare_vp_lp_1d",
+          "source_section": "tutorial/run_1d_example.py:main (argparse --name)",
+          "description": "Run VP-MBD and LP-MBD on a fixed 1D objective (gaussian, gaussian_mixture or sin_mixture) and return the 3-panel comparison figure (paper Fig. 3).",
+          "primary_input": "name: one of gaussian | gaussian_mixture | sin_mixture",
+          "outputs": [
+            "images/1d/<name>_results_1d.png (inside the per-call copy of tutorial/)",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": false
+        }
+      ]
+    },
+    {
+      "id": "tutorial_run_2d_example",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_2d_example.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_2d_example.py",
+      "sha256": "31d605e11d7785e3009ab2f539f806b9e4471235748ba2793d9e1e0cc14742d1",
+      "title": "2D examples: VP-MBD vs LP-MBD (paper Fig. 4 for constrained_gaussian_mixture_2d)",
+      "description": "python run_2d_example.py --name {gaussian_2d,constrained_gaussian_2d,gaussian_mixture_2d,constrained_gaussian_mixture_2d}. Saves a 2x3 panel figure (VP top row, LP bottom row) to images/2d/<name>_result.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 3",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. For --name constrained_gaussian_mixture_2d it reproduces Fig. 4: it uses the learned parameters from the Fig. 4 caption (sigma_max=2.1113, beta0=2.8e-5, beta1=0.3609, T=3), and the shipped PNG visually matches Fig. 4. The other three names are additional examples.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_compare_vp_lp_2d",
+          "source_section": "tutorial/run_2d_example.py:main (argparse --name)",
+          "description": "Run VP-MBD and LP-MBD on a fixed 2D objective and return the 2x3 panel figure. constrained_gaussian_mixture_2d reproduces paper Fig. 4 with the learned schedule parameters.",
+          "primary_input": "name: one of gaussian_2d | constrained_gaussian_2d | gaussian_mixture_2d | constrained_gaussian_mixture_2d",
+          "outputs": [
+            "images/2d/<name>_result.png (inside the per-call copy of tutorial/)",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": false
+        }
+      ]
+    },
+    {
+      "id": "tutorial_run_alp_mbd",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_alp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_alp_mbd.py",
+      "sha256": "538eca5bf010512cce881839682af6a7d4928353dee4b83c5c80f4027f5d6d5d",
+      "title": "ALP-MBD: learn (sigma_max, T) with REINFORCE on the constrained 2D Gaussian mixture",
+      "description": "python run_alp_mbd.py (no arguments). Runs 30 REINFORCE updates of the ALPMBD tuner around LP-MBD, prints 'sigma_max_opt: <float>, T_opt: <tensor>' and saves images/2d/ALP_MBD_results_2d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 4",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It implements the Sec. V-A adaptive experiment (the Fig. 4 caption reports sigma_max=2.11, T=3 for ALP-MBD after 30 training steps) and is the paper's own method on the toy problem.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_learn_alp_schedule_2d",
+          "source_section": "tutorial/run_alp_mbd.py:main",
+          "description": "Learn ALP-MBD schedule parameters (sigma_max, T) with 30 REINFORCE updates on the constrained 2D Gaussian mixture. Returns the learned values and a 4-panel sampling figure.",
+          "primary_input": "none (all settings hard-coded; seed 42)",
+          "outputs": [
+            "parsed stdout: sigma_max_opt (float), T_opt (int)",
+            "images/2d/ALP_MBD_results_2d.png",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": false
+        }
+      ]
+    },
+    {
+      "id": "tutorial_run_avp_mbd",
+      "module": "cli_wrapper",
+      "path": "tutorial/run_avp_mbd.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/tutorial/run_avp_mbd.py",
+      "sha256": "db9a2f5a9e9575da7bc9f43464f19b05edbefb5e89884d7f20025b3ffad545b4",
+      "title": "AVP-MBD baseline: learn (beta0, beta1, T) with REINFORCE on the constrained 2D Gaussian mixture",
+      "description": "python run_avp_mbd.py (no arguments). Runs 30 REINFORCE updates of the AVPMBD tuner around VP-MBD, prints 'beta0_opt: .., beta1_opt: .., T_opt: ..' and saves images/2d/AVP_MBD_results_2d.png next to the script.",
+      "type": "script",
+      "documented_in": "tutorial/README.md section 4",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. It is the Sec. V-A baseline: the Fig. 4 caption reports beta0=0.000028, beta1=0.361, T=3 for AVP-MBD.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_learn_avp_schedule_2d",
+          "source_section": "tutorial/run_avp_mbd.py:main",
+          "description": "Baseline: learn AVP-MBD schedule parameters (beta0, beta1, T) with the same REINFORCE budget. Returns the learned values and a 4-panel sampling figure.",
+          "primary_input": "none (all settings hard-coded; seed 42)",
+          "outputs": [
+            "parsed stdout: beta0_opt, beta1_opt (float), T_opt (int)",
+            "images/2d/AVP_MBD_results_2d.png",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": false
+        }
+      ]
+    },
+    {
+      "id": "vehicle_control_run_experiment",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/run_experiment.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_experiment.py",
+      "sha256": "333f341dfaae3b9b82b68c5b4a068df8104a91a52d011bf2e0ec9171ceed19d0",
+      "title": "Path tracking with MPPI / VP-MBD / LP-MBD (paper Table II, VP-MBD and LP-MBD rows)",
+      "description": "From the vehicle_control directory: python run_experiment.py --config config/{mppi,vp_mbd,lp_mbd}_controller.yaml [--seed N] [--device cuda|cpu] [--save_mode True]. Runs one episode of the kinematic-vehicle path-tracking environment and prints the episode reward, the episode length and the average solve time per control step [ms]. It can also write a GIF to ./video/seed_<seed>_<filename>.",
+      "type": "script",
+      "documented_in": "vehicle_control/README.md sections 2-3",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command. The shipped vp_mbd/lp_mbd configs carry the Table II settings (T=17, horizon 50, 100 samples, beta 1e-4/1e-2, sigma_max 1.8). Table II averages over 5 seeds via --seed. It accepts a different reference path through the documented ref_path key.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_run_path_tracking_controller",
+          "source_section": "vehicle_control/run_experiment.py:main with config/{mppi,vp_mbd,lp_mbd}_controller.yaml",
+          "description": "Run one closed-loop path-tracking episode with MPPI, VP-MBD or LP-MBD and report episode reward, episode length and average solve time per step. Optionally writes a GIF. Paper Table II VP/LP rows over seeds.",
+          "primary_input": "controller (mppi|vp_mbd|lp_mbd); reference_path (s_bend|oval|straight or a user CSV x,y,yaw,v with >=302 rows); seed; device (cuda|cpu); save_gif; optional documented YAML keys (diffusion_steps, sigma_max, beta0, beta1, temperature, num_samples, horizon, max_episode_length) via a config copy",
+          "outputs": [
+            "parsed stdout: episode reward, episode length, average solve time [ms], average episode reward/length, goal/collision events",
+            "optional video/seed_<seed>_<filename>.gif in the per-call cwd",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": true
+        }
+      ]
+    },
+    {
+      "id": "vehicle_control_run_rl_evaluation",
+      "module": "cli_wrapper",
+      "path": "vehicle_control/run_rl_evaluation.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/vehicle_control/run_rl_evaluation.py",
+      "sha256": "8327004f740a6e7aa07cff3b360274addc9b6661fe10c6bf87d1583bb5a1345a",
+      "title": "ALP-MBD with the shipped PPO tuner: per-step (T, sigma_max) along the path (paper Figs. 5 and 6)",
+      "description": "python run_rl_evaluation.py --config config/lp_mbd_fine_tuning_evaluation.yaml [--seed N] [--device cuda|cpu]. Loads data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth, runs one LP-MBD episode with per-step parameters from the tuner, prints average sigma_max, diffusion step and calculation time, and saves video/<ref basename>_rl_evaluation.png next to the script.",
+      "type": "script",
+      "documented_in": "vehicle_control/README.md section 5",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command, and the trained tuner ships with the repository. With ref_path=data/path/oval_path.csv (default) it reproduces Fig. 6. With ref_path=data/path/s_bend_path.csv it reproduces Fig. 5. Both reference PNGs ship in vehicle_control/video/.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_evaluate_adaptive_scheduler",
+          "source_section": "vehicle_control/run_rl_evaluation.py:main + plot_side_by_side_trajectory with config/lp_mbd_fine_tuning_evaluation.yaml",
+          "description": "Run ALP-MBD with the shipped PPO noise-schedule tuner for one episode. Returns the trajectory figure coloured by diffusion step and sigma_max (paper Fig. 5 on s_bend, Fig. 6 on oval) and the per-step averages.",
+          "primary_input": "reference_path (oval = default config | s_bend); seed; device. The checkpoint is fixed at data/fine_tuner_checkpoints/lp_mbd_fine_tuner.pth",
+          "outputs": [
+            "video/<ref basename>_rl_evaluation.png (inside the per-call copy of vehicle_control/)",
+            "parsed stdout: average calculation time [ms], Average sigma_max, Average diffusion step (the printed 'average episode reward' is a partial-sum mean, not an episode reward)",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": true
+        }
+      ]
+    },
+    {
+      "id": "brax_evaluation_main",
+      "module": "cli_wrapper",
+      "path": "brax_evaluation/main.py",
+      "source": "repo/adaptive_linear_path_model_based_diffusion/brax_evaluation/main.py",
+      "sha256": "66cda1b4774c82272c808fa18334dd5cc0c73c909d2d6a3b7fa8b3f51c98a99a",
+      "title": "Brax comparison of LP-MBD, VP-MBD, MPPI, CEM, CMA-ES (paper Table I)",
+      "description": "python main.py --env_name <env> --controller {lp_mbd,vp_mbd,mppi,cem,cma_es} [--horizon 50] [--sample_size 2000] [--total_diffusion_steps 50] --disable_wandb. Runs seeds 0-4, 50 receding-horizon control steps each, and prints the per-seed average reward plus the final mean and std (Table I format). Writes no files.",
+      "type": "script",
+      "documented_in": "brax_evaluation/README.md",
+      "include_in_tools": true,
+      "reason_for_include_or_exclude": "Documented command, and the only implementation of Table I. Selected but EXECUTION BLOCKED for now: it is a JAX/Brax heavy job and HEAVY_JOBS_DISABLED is set. The default problem size (about 1.2e9 simulated env steps per call) is infeasible here, so a reference run needs the reduced --sample_size/--horizon/--total_diffusion_steps values given in tool_review. The coordinator should record an exclusion if the gate stays closed.",
+      "suggested_tools": [
+        {
+          "tool_name": "alp_mbd_compare_controllers_brax",
+          "source_section": "brax_evaluation/main.py:main (argparse)",
+          "description": "Receding-horizon control of a Brax task with lp_mbd, vp_mbd, mppi, cem or cma_es over seeds 0-4. Returns per-seed and final mean/std per-step reward (paper Table I). Heavy JAX job: currently blocked by HEAVY_JOBS_DISABLED and only feasible with reduced sample_size/horizon/total_diffusion_steps.",
+          "primary_input": "env_name (ant|hopper|halfcheetah|walker2d|reacher|pusher|inverted_double_pendulum|inverted_pendulum); controller (lp_mbd|vp_mbd|mppi|cem|cma_es); horizon; sample_size; total_diffusion_steps (wrapper always adds --disable_wandb)",
+          "outputs": [
+            "parsed stdout: Seed k Average reward (x5), Final Average reward, Final Reward std",
+            "stdout/stderr log"
+          ],
+          "applicable_to_new_data": false,
+          "execution_status": "blocked: heavy-job gate closed"
+        }
+      ]
+    }
+  ]
+}

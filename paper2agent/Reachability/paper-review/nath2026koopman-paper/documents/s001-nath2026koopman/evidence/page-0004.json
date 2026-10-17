@@ -1,0 +1,842 @@
+{
+  "page": 4,
+  "lines": [
+    {
+      "text": "NATH YIN CHOU",
+      "bbox": [
+        268.7359924316406,
+        41.200374603271484,
+        340.54058837890625,
+        50.106937408447266
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ϕ∞◦f(x) according to ϕ∞(xt+1) = Kϕ∞(xt), where ◦denotes function composition. As infinite-",
+      "bbox": [
+        90.0,
+        91.65335083007812,
+        522.0012817382812,
+        112.29377746582031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "dimensional Koopman operators are intractable to obtain in practice, we define an approximation",
+      "bbox": [
+        90.0,
+        107.97368621826172,
+        522.0,
+        117.72642517089844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to K using a finite-dimensional lifting function ϕ : X →Z ⊆Rl and matrix KA ∈Rl×l, which",
+      "bbox": [
+        90.0,
+        117.56371307373047,
+        521.9974975585938,
+        141.08082580566406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "define lifted dynamics zt+1 = KAzt, where zt = ϕ(xt) is the lifted state and zt ∈Z ⊆Rl. Here,",
+      "bbox": [
+        89.99996948242188,
+        132.53152465820312,
+        522.003173828125,
+        154.5778350830078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "l can be arbitrarily selected by the choice of the lifting function ϕ. For systems with control input",
+      "bbox": [
+        90.0,
+        147.83526611328125,
+        522.0001831054688,
+        158.74436950683594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(1a), the lifted dynamics can be similarly written as zt+1 = KAzt + KBut, where KB ∈Rl×m.",
+      "bbox": [
+        90.0,
+        159.39938354492188,
+        522.0003051757812,
+        181.72779846191406
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In practice, ϕ, KA, and KB can be learned from data, with the lifting function g parameterized",
+      "bbox": [
+        90.0,
+        174.93426513671875,
+        522.0048217773438,
+        187.16148376464844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "using polynomials or NNs (Shi et al., 2024). In this work, we utilize an NN-based autoencoder",
+      "bbox": [
+        90.0,
+        189.26873779296875,
+        522.000244140625,
+        199.02146911621094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "architecture, where the encoder ϕ : X →Z defines the lifting function and the decoder ψ : Z →ˆ",
+      "bbox": [
+        90.0,
+        199.2752685546875,
+        521.5525512695312,
+        220.6868438720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X",
+      "bbox": [
+        512.6210327148438,
+        201.75955200195312,
+        520.3992309570312,
+        220.6868438720703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "defines its learned inverse, i.e., ψ(ϕ(x)) ≈x; if ψ is a perfect inverse, ψ(ϕ(x)) = x and ˆ",
+      "bbox": [
+        90.00003051757812,
+        212.82427978515625,
+        485.0705871582031,
+        234.23585510253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "X = X.",
+      "bbox": [
+        476.1390380859375,
+        215.30856323242188,
+        512.160888671875,
+        234.23585510253906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Reachability via NN Verification (NNV)",
+      "bbox": [
+        90.00003051757812,
+        236.8558349609375,
+        279.0220031738281,
+        246.66311645507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We use NNV to compute reachable sets for closed-",
+      "bbox": [
+        289.93109130859375,
+        236.98675537109375,
+        522.0003051757812,
+        246.73948669433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "loop systems involving NN-based lifting and inverse functions. NNV tools represent an NN as a",
+      "bbox": [
+        90.00003051757812,
+        250.5367431640625,
+        522.000244140625,
+        260.2894592285156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "computational graph (CG) – a directed acyclic graph encoding the sequence of operations applied to",
+      "bbox": [
+        90.00003051757812,
+        264.08575439453125,
+        522.000244140625,
+        273.8384704589844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an input (Rober and How, 2024). For some CG G with input set S ⊆Rni and output G(S) ⊆Rno,",
+      "bbox": [
+        90.00003051757812,
+        274.8907470703125,
+        522.0003051757812,
+        295.5038757324219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we can compute a guaranteed overapproximation of its image G(S) using CROWN-based (Zhang",
+      "bbox": [
+        90.0,
+        290.12554931640625,
+        522.000244140625,
+        309.0528564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "et al., 2018) tools like auto LiRPA (Xu et al., 2020). These tools provide guaranteed affine lower",
+      "bbox": [
+        90.0,
+        304.7326354980469,
+        522.0027465820312,
+        314.4854736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and upper bounds, G and G, on the output G(S) for any interval S, formalized in this proposition:",
+      "bbox": [
+        90.00000762939453,
+        317.22442626953125,
+        519.209228515625,
+        336.1517333984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Proposition 1 (CG Robustness (Xu et al., 2020)) For some CG G and interval S .= {s ∈Rni |",
+      "bbox": [
+        90.0,
+        335.0341796875,
+        522.002685546875,
+        359.87274169921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s ≤s ≤s}, there are affine functions G, G such that ∀s ∈S, G(s) ≤G(s) ≤G(s). The inequali-",
+      "bbox": [
+        89.99996948242188,
+        354.49542236328125,
+        522.0036010742188,
+        373.4227600097656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ties hold element-wise and G(s) = Ψs + α, G(s) = Φs + β, with Ψ, Φ ∈Rno×ni and α, β ∈Rno.",
+      "bbox": [
+        90.0,
+        366.3312683105469,
+        522.0003051757812,
+        386.97174072265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Given controller π, dynamics (1a), and initial set X0, the T-timestep exact reachable set is denoted",
+      "bbox": [
+        90.0,
+        391.7654113769531,
+        521.9920043945312,
+        410.6927185058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "as X0:T .= {X0, f(Xt, π(Xt, t))}T−1",
+      "bbox": [
+        89.99998474121094,
+        399.40411376953125,
+        248.83148193359375,
+        424.2427062988281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=0 }. While exact reachability analysis is generally intractable for",
+      "bbox": [
+        231.9029998779297,
+        405.31536865234375,
+        522.0006713867188,
+        427.3666687011719
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "nonlinear systems (Althoff et al., 2021), it is often feasible to compute a reachable set overapproxi-",
+      "bbox": [
+        90.0,
+        419.9225769042969,
+        522.0001220703125,
+        429.67529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "mation (RSOA) X 0:T , which satisfies Xt ⊆X t for all t ∈{0, . . . , T}. To obtain X 0:T , Prop. 1 can",
+      "bbox": [
+        90.0,
+        432.41339111328125,
+        521.9988403320312,
+        452.97674560546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "be applied to the CG F of the T-step composition ˜fT (·) .= ˜f ◦· · ·◦˜f(·) of the closed-loop dynamics",
+      "bbox": [
+        90.0,
+        440.05120849609375,
+        522.0091552734375,
+        464.8897705078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "˜f (1b), i.e., F(x0) .= { ˜f(xt) .= f(xt, π(xt, t))}T",
+      "bbox": [
+        90.00008392333984,
+        453.6001892089844,
+        302.67657470703125,
+        478.4387512207031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "t=0, with auto LiRPA computing the RSOA.",
+      "bbox": [
+        297.7430725097656,
+        460.56964111328125,
+        502.1562194824219,
+        472.88153076171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Conformal Prediction (CP)",
+      "bbox": [
+        90.0,
+        481.0587158203125,
+        214.985595703125,
+        490.8659973144531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our RSOA computations also rely on CP. In this work, we adopt split",
+      "bbox": [
+        225.8946990966797,
+        481.18963623046875,
+        522.0004272460938,
+        490.9423522949219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "CP, which partitions i.i.d. input-output pairs (v(i), y(i)) ∈V×Y from a dataset D .= {(v(i), y(i))}L+K",
+      "bbox": [
+        90.0,
+        487.7701721191406,
+        525.2819213867188,
+        512.6087036132812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "i=1",
+      "bbox": [
+        505.7950134277344,
+        499.4154052734375,
+        519.49560546875,
+        507.385498046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "into a size-L training set DT and a size-K calibration set DC. For a given prediction function",
+      "bbox": [
+        90.0,
+        507.2303771972656,
+        521.9952392578125,
+        526.1576538085938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "µ : V →Y, we compute a nonconformity score R(i) .= s(y(i), µ(v(i))) for each of the K calibration",
+      "bbox": [
+        90.0,
+        514.8681030273438,
+        522.0017700195312,
+        539.7067260742188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "pairs in DC, where s : Y × Y →R≥0 is a chosen nonconformity score function. As an exam-",
+      "bbox": [
+        90.0,
+        534.3284301757812,
+        522.0056762695312,
+        553.2556762695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ple, we can express the ℓ2 prediction error of a learned dynamics model ˆf in this framework by",
+      "bbox": [
+        89.99998474121094,
+        545.2721557617188,
+        522.007568359375,
+        560.3253173828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "defining v = (xt, ut), y = xt+1, µ(v) = ˆf(v), and s(y, µ(v)) = ∥y −µ(v)∥2. Given a miscov-",
+      "bbox": [
+        90.0,
+        558.8211059570312,
+        521.9983520507812,
+        580.3546752929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "erage level δ ∈(0, 1), a threshold C is defined as the (1 −δ)-quantile of the calibration scores,",
+      "bbox": [
+        89.99996948242188,
+        574.9763793945312,
+        522.0001220703125,
+        593.9036254882812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "C .= Quantile1−δ(R(1), . . . , R(K), ∞). This threshold defines the prediction set Y(v) .= { y ∈Y |",
+      "bbox": [
+        89.99996948242188,
+        582.6140747070312,
+        521.997314453125,
+        607.45263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "s(y, µ(v)) ≤C }, which satisfies the marginal coverage guarantee P(y(0) ∈Y(v(0))) ≥1 −δ for",
+      "bbox": [
+        89.99996948242188,
+        598.1154174804688,
+        522.0005493164062,
+        621.0016479492188
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an unseen data-point (y(0), v(0)) that is exchangeable with D (Lindemann et al., 2024).",
+      "bbox": [
+        89.99996948242188,
+        614.142333984375,
+        468.6125183105469,
+        634.5506591796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4. Problem Statement",
+      "bbox": [
+        89.99996948242188,
+        646.7648315429688,
+        203.3352508544922,
+        657.5125732421875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We are given black-box access to f (1a), i.e., we do not know its analytical form and its output can",
+      "bbox": [
+        89.99996948242188,
+        667.5811157226562,
+        522.0001220703125,
+        678.490234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "only be estimated via data. We are a planner P : X →X T+1 × UT that generates open-loop refer-",
+      "bbox": [
+        89.99996948242188,
+        676.8994140625,
+        522.0029296875,
+        699.78564453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ence trajectories (xref",
+      "bbox": [
+        89.99996948242188,
+        693.4992065429688,
+        182.6497802734375,
+        705.5892333984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T , uref",
+      "bbox": [
+        173.802978515625,
+        693.4992065429688,
+        206.93377685546875,
+        708.9132080078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0:T−1) that satisfy (1a), starting from an initial condition xref",
+      "bbox": [
+        198.08697509765625,
+        693.4992065429688,
+        459.4518127441406,
+        713.79736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "0 ∈X0 ⊖Bϵ(0)",
+      "bbox": [
+        450.60498046875,
+        694.4074096679688,
+        522.0028076171875,
+        716.3486328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4",
+      "bbox": [
+        303.50897216796875,
+        725.9953002929688,
+        308.4902648925781,
+        734.90185546875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Scalable Data-Driven Reachability Analysis and Control via Koopman Operators with Conformal Coverage Guarantees",
+      "author": "Devesh Nath; Haoran Yin; Glen Chou",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:57610bf)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/Reachability/paper-review/nath2026koopman-paper/documents/.pdf-skill-scan-c_3m43wm/review/source.pdf",
+      "page_count": 28,
+      "page_number": 4
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "page-header",
+        "bbox": [
+          268,
+          41,
+          341,
+          49
+        ],
+        "pos": [
+          0,
+          16
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          89,
+          93,
+          523,
+          227
+        ],
+        "pos": [
+          16,
+          1203
+        ]
+      },
+      {
+        "index": 2,
+        "class": "text",
+        "bbox": [
+          90,
+          236,
+          523,
+          329
+        ],
+        "pos": [
+          1203,
+          1935
+        ]
+      },
+      {
+        "index": 3,
+        "class": "text",
+        "bbox": [
+          89,
+          341,
+          523,
+          380
+        ],
+        "pos": [
+          1935,
+          2359
+        ]
+      },
+      {
+        "index": 4,
+        "class": "text",
+        "bbox": [
+          89,
+          392,
+          523,
+          472
+        ],
+        "pos": [
+          2359,
+          3245
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          89,
+          481,
+          526,
+          627
+        ],
+        "pos": [
+          3245,
+          4854
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          89,
+          646,
+          204,
+          656
+        ],
+        "pos": [
+          4854,
+          4883
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          89,
+          668,
+          523,
+          707
+        ],
+        "pos": [
+          4883,
+          5318
+        ]
+      },
+      {
+        "index": 8,
+        "class": "page-footer",
+        "bbox": [
+          303,
+          726,
+          309,
+          733
+        ],
+        "pos": [
+          5318,
+          5322
+        ]
+      }
+    ],
+    "text": "NATH YIN CHOU \n\n_ϕ_<sup>_∞_</sup> _◦ f_ ( _x_ ) according to _ϕ_<sup>_∞_</sup> ( _xt_ +1) = _Kϕ_<sup>_∞_</sup> ( _xt_ ), where _◦_ denotes function composition. As infinitedimensional Koopman operators are intractable to obtain in practice, we define an approximation to _K_ using a finite-dimensional lifting function _ϕ_ : _X →Z ⊆_ R<sup>_l_</sup> and matrix _KA ∈_ R<sup>_l×l_</sup> , which define lifted dynamics _zt_ +1 = _KAzt_ , where _zt_ = _ϕ_ ( _xt_ ) is the lifted state and _zt ∈Z ⊆_ R<sup>_l_</sup> . Here, _l_ can be arbitrarily selected by the choice of the lifting function _ϕ_ . For systems with control input (1a), the lifted dynamics can be similarly written as _zt_ +1 = _KAzt_ + _KBut_ , where _KB ∈_ R<sup>_l×m_</sup> . In practice, _ϕ_ , _KA_ , and _KB_ can be learned from data, with the lifting function _g_ parameterized using polynomials or NNs (Shi et al., 2024). In this work, we utilize an NN-based autoencoder architecture, where the encoder _ϕ_ : _X →Z_ defines the lifting function and the decoder _ψ_ : _Z → X_<sup>ˆ</sup> defines its learned inverse, i.e., _ψ_ ( _ϕ_ ( _x_ )) _≈ x_ ; if _ψ_ is a perfect inverse, _ψ_ ( _ϕ_ ( _x_ )) = _x_ and _X_<sup>ˆ</sup> = _X_ . \n\n**Reachability via NN Verification (NNV)** We use NNV to compute reachable sets for closedloop systems involving NN-based lifting and inverse functions. NNV tools represent an NN as a computational graph (CG) – a directed acyclic graph encoding the sequence of operations applied to an input (Rober and How, 2024). For some CG _G_ with input set _S ⊆_ R<sup>_ni_</sup> and output _G_ ( _S_ ) _⊆_ R<sup>_no_</sup> , we can compute a guaranteed overapproximation of its image _G_ ( _S_ ) using CROWN-based (Zhang et al., 2018) tools like auto LiRPA (Xu et al., 2020). These tools provide guaranteed affine lower and upper bounds, _<u>G</u>_ and _G_ , on the output _G_ ( _S_ ) for any interval _S_ , formalized in this proposition: \n\n**Proposition 1 (CG Robustness (Xu et al., 2020))** _For some CG G and interval S_ =<sup>_._</sup> _{s ∈_ R<sup>_ni_</sup> _|_ _<u>s</u> ≤ s ≤_ _~~s~~ }, there are affine functions G, G such that ∀s ∈S, G_ ( _s_ ) _≤ G_ ( _s_ ) _≤ G_ ( _s_ ) _. The inequalities hold element-wise and_ _<u>G</u>_ <u>(</u> _s_ ) = Ψ _s_ + _α, G_ ( _s_ ) = Φ _s_ + _β, with_ Ψ _,_ Φ _∈_ R<sup>_no×ni_</sup> _and α, β ∈_ R<sup>_no_</sup> _._ \n\nGiven controller _π_ , dynamics (1a), and initial set _X_ 0, the _T_ -timestep exact reachable set is denoted as _X_ 0: _T_ =<sup>_._</sup> _{X_ 0 _, f_ ( _Xt, π_ ( _Xt, t_ )) _}_<sup>_T_</sup> _t_ =0<sup>_−_1</sup><sup>_}_.While exact reachability analysis is generally intractable for</sup> nonlinear systems (Althoff et al., 2021), it is often feasible to compute a reachable set overapproximation (RSOA) _X_ 0: _T_ , which satisfies _Xt ⊆ X t_ for all _t ∈{_ 0 _, . . . , T }_ . To obtain _X_ 0: _T_ , Prop. 1 can be applied to the CG _F_ of the _T_ -step composition _f_<sup>˜</sup><sup>_T_</sup> ( _·_ ) =<sup>_._</sup> _f_<sup>˜</sup> _◦· · ·◦f_<sup>˜</sup> ( _·_ ) of the closed-loop dynamics _f_ ˜ (1b), i.e., _F_ ( _x_ 0) =<sup>_._</sup> _{f_ ˜( _xt_ ) =<sup>_._</sup> _f_ ( _xt, π_ ( _xt, t_ )) _}_<sup>_T_</sup> _t_ =0<sup>, with auto</sup> ~~L~~ iRPA computing the RSOA. \n\n**Conformal Prediction (CP)** Our RSOA computations also rely on CP. In this work, we adopt split CP, which partitions i.i.d. input-output pairs ( _v_<sup>(</sup><sup>_i_)</sup> _, y_<sup>(</sup><sup>_i_)</sup> ) _∈V×Y_ from a dataset _D_ =<sup>_._</sup> _{_ ( _v_<sup>(</sup><sup>_i_)</sup> _, y_<sup>(</sup><sup>_i_)</sup> ) _}_<sup>_L_</sup> _i_ =1<sup>+</sup><sup>_K_</sup> into a size- _L_ training set _DT_ and a size- _K_ calibration set _DC_ . For a given prediction function _µ_ : _V →Y_ , we compute a nonconformity score _R_<sup>(</sup><sup>_i_)</sup> =<sup>_._</sup> _s_ ( _y_<sup>(</sup><sup>_i_)</sup> _, µ_ ( _v_<sup>(</sup><sup>_i_)</sup> )) for each of the _K_ calibration pairs in _DC_ , where _s_ : _Y × Y →_ R _≥_ 0 is a chosen nonconformity score function. As an example, we can express the _ℓ_ 2 prediction error of a learned dynamics model _f_<sup>ˆ</sup> in this framework by defining _v_ = ( _xt, ut_ ), _y_ = _xt_ +1, _µ_ ( _v_ ) = _f_<sup>ˆ</sup> ( _v_ ), and _s_ ( _y, µ_ ( _v_ )) = _∥y − µ_ ( _v_ ) _∥_ 2. Given a miscoverage level _δ ∈_ (0 _,_ 1), a threshold _C_ is defined as the (1 _− δ_ )-quantile of the calibration scores, _C_ =<sup>_._</sup> Quantile1 _−δ_ ( _R_<sup>(1)</sup> _, . . . , R_<sup>(</sup><sup>_K_)</sup> _, ∞_ ). This threshold defines the prediction set _Y_ ( _v_ ) =<sup>_._</sup> _{ y ∈Y | s_ ( _y, µ_ ( _v_ )) _≤ C }_ , which satisfies the marginal coverage guarantee P( _y_<sup>(0)</sup> _∈Y_ ( _v_<sup>(0)</sup> )) _≥_ 1 _− δ_ for an unseen data-point ( _y_<sup>(0)</sup> _, v_<sup>(0)</sup> ) that is exchangeable with _D_ (Lindemann et al., 2024). \n\n# **4. Problem Statement** \n\nWe are given black-box access to _f_ (1a), i.e., we do not know its analytical form and its output can only be estimated via data. We are a planner _P_ : _X →X_<sup>_T_+1</sup> _× U_<sup>_T_</sup> that generates open-loop reference trajectories ( _x_<sup>ref</sup> 0: _T_<sup>_, u_ref</sup> 0: _T −_ 1<sup>) that satisfy (1a), starting from an initial condition</sup><sup>_x_</sup> 0<sup>ref</sup><sup>_∈X_0</sup><sup>_⊖Bϵ_(0)</sup> \n\n4 \n\n"
+  }
+}

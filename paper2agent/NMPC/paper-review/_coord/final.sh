@@ -6,7 +6,7 @@
 set -u
 export PATH="$HOME/.local/bin:$PATH"
 SK=/home/jixia/.claude/skills/paper2agent/paper2skill; N=/home/jixia/AI_agents/paper2agent/NMPC; P="$1"
-OUT="${2:-$N/dist/nmpc-agent/skill/$P}"
+OUT="$(realpath -m "${2:-$N/dist/nmpc-agent/skill/$P}")"   # absolute, because the script cds into paper-review
 cd $N/paper-review || exit 1
 python3 _coord/coord.py meta $P _coord/meta/$P.json || exit 1
 DOC=$(ls -d $N/paper-review/$P/documents/*/)

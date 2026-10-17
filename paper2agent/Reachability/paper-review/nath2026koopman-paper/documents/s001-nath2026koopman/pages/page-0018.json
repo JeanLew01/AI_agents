@@ -1,0 +1,168 @@
+{
+  "page": 18,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0018.png",
+  "reviewed": true,
+  "review_notes": "Compared with a 170 dpi render of PDF page 18, a 220 dpi crop of display (14), a 240 dpi crop of Table 2, and with appendix.tex. 3D quadcopter sentence: mathematics from the TeX (units partly outside math as typed: '$m=1$kg', '$g=-9.81$ m/s$^2$', 'kg·m$^2$' with a middle dot); the inertia vector is written $I_{x,y,z}=[0.5, 0.1, 0.3]$ (a space after the commas, which does not change the rendering, so the numbers are not read as thousands). Display (14): the 12-row right-hand side vector in one $$ block with \\tag{14} (bmatrix; the trailing \\\\ before \\end{bmatrix} of the TeX dropped, layout only); every row compared with the 220 dpi crop. Source slip kept as printed: row 8 reads '(u_1/m) * (cos phi * sin phi - cos phi * sin psi * sin theta)', with the product 'cos phi * sin phi' (probably a typo in the model; transcribed as printed and as in the TeX, not corrected); row 4 prints 'sin(phi)' with parentheses and the other entries without, as in the TeX. Heading '8.3.2. Comparison between neural Koopman liftings and polynomial liftings' is printed in small caps without a final period; level 4, written in the TeX's sentence case. Paragraph: extractor prose checked on the render ('polyno-mial', 'un-stable' closed up; 'polynomial-lifted', 'degree-3', 'open-loop', 'longer-horizon', 'contact-rich', 'reachable-set' kept); 'auto_LiRPA' (typewriter) as a code span; citation (Pan et al., 2024). Table 2: 3 columns x 11 rows plus header; cells as printed, all digits compared one by one with the 240 dpi crop and with the TeX tabular (e.g. 135554800.971296, 0.259034); bold header markers removed. Table caption printed below the table, placed after it, verbatim. Omitted: running header 'NATH YIN CHOU' and page number 18.",
+  "warnings": [
+    "Review possible header/footer: p0018-b000"
+  ],
+  "items": [
+    {
+      "id": "p0018-b001",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        92.0,
+        523.0,
+        119.0
+      ],
+      "markdown": "For 3D quadcopter experiments, we used the parameters $m=1$kg, $g=-9.81$ m/s$^2$, $I_{x,y,z}=[0.5, 0.1, 0.3]$ kg·m$^2$ for the dynamics, with a time-discretization of $dt = 0.025\\,\\mathrm{s}$:"
+    },
+    {
+      "id": "p0018-b002",
+      "kind": "text",
+      "bbox": [
+        167.0,
+        120.0,
+        528.0,
+        296.0
+      ],
+      "markdown": "$$\n\\dot{\\mathbf{x}} \\;=\\; f(\\mathbf{x},\\mathbf{u})=\n\\begin{bmatrix}\n\\dot{x} \\\\\n\\dot{y} \\\\\n\\dot{z} \\\\\nq \\cdot \\sin(\\phi)/\\cos{\\theta}+r\\cdot \\cos{\\phi}/\\cos{\\theta} \\\\\nq \\cdot \\cos{\\phi} - r\\cdot \\sin{\\phi} \\\\\np + q \\cdot \\sin{\\phi}\\cdot \\tan{\\theta} +r\\cdot \\cos{\\phi} \\cdot \\tan{\\theta} \\\\\n\\frac{u_1}{m} \\cdot (\\sin{\\phi} \\cdot \\sin{\\psi} + \\cos{\\phi} \\cdot \\cos{\\psi} \\cdot \\sin{\\theta}) \\\\\n\\frac{u_1}{m} \\cdot (\\cos{\\phi} \\cdot \\sin{\\phi} - \\cos{\\phi} \\cdot \\sin{\\psi} \\cdot \\sin{\\theta}) \\\\\ng + u_1 \\cdot (\\cos{\\phi} \\cdot \\cos{\\theta}) / m\\\\\n((I_y - I_z) / I_x) \\cdot q\\cdot r + \\frac{u_2}{I_x} \\\\\n((I_z - I_x) / I_y) \\cdot p\\cdot r + \\frac{u_3}{I_y} \\\\\n((I_x - I_y) / I_z) \\cdot p\\cdot q + \\frac{u_4}{I_z}\n\\end{bmatrix} \\tag{14}\n$$"
+    },
+    {
+      "id": "p0018-b003",
+      "kind": "heading",
+      "bbox": [
+        90.0,
+        303.0,
+        508.0,
+        312.0
+      ],
+      "markdown": "#### 8.3.2. Comparison between neural Koopman liftings and polynomial liftings"
+    },
+    {
+      "id": "p0018-b004",
+      "kind": "text",
+      "bbox": [
+        90.0,
+        322.0,
+        523.0,
+        482.0
+      ],
+      "markdown": "We compare root mean square error (RMSE) between a polynomial-lifted extended dynamic mode decomposition baseline and our neural lifting approach on the Hopper system. For the polynomial lift, we use PyKoopman (Pan et al., 2024) with degree-3 monomials and identical training data/preprocessing. During open-loop evaluation, the polynomial model becomes numerically unstable, that is, its predictions grow without bound and diverge by the eighth timestep, so we report RMSE only over the first 5 prediction steps in Table 2. In contrast, our neural lifting yields a stable latent dynamics model that tracks accurately across three complete hops, enabling longer-horizon evaluation. These results highlight that for certain systems, e.g., those with strongly nonlinear, contact-rich dynamics (like the MuJoCo hopper), fixed polynomial bases are insufficient, whereas a neural network lifting function captures the necessary structure and remains stable over extended rollouts. Together, these results motivate the development of a Koopman reachable-set computation framework that incorporates neural networks in the loop, which we enable using `auto_LiRPA`."
+    },
+    {
+      "id": "p0018-b005",
+      "kind": "table",
+      "bbox": [
+        186.0,
+        488.0,
+        426.0,
+        658.0
+      ],
+      "markdown": "",
+      "label": "Table 2",
+      "asset_name": "table-2",
+      "rows": [
+        [
+          "State",
+          "Polynomial Lifting",
+          "Ours"
+        ],
+        [
+          "z-coord (height)",
+          "2728.481591",
+          "0.009848"
+        ],
+        [
+          "torso angle",
+          "117.374908",
+          "0.004201"
+        ],
+        [
+          "thigh joint",
+          "2832.025934",
+          "0.013581"
+        ],
+        [
+          "leg joint",
+          "10791.162550",
+          "0.015690"
+        ],
+        [
+          "foot joint",
+          "8063.167273",
+          "0.017901"
+        ],
+        [
+          "vel x-coord",
+          "321013.541866",
+          "0.047526"
+        ],
+        [
+          "vel z-coord",
+          "1691803.060196",
+          "0.059763"
+        ],
+        [
+          "vel torso",
+          "4512148.680118",
+          "0.082879"
+        ],
+        [
+          "vel thigh",
+          "596074.452102",
+          "0.073777"
+        ],
+        [
+          "vel leg",
+          "6164730.041985",
+          "0.164258"
+        ],
+        [
+          "vel foot",
+          "135554800.971296",
+          "0.259034"
+        ]
+      ]
+    },
+    {
+      "id": "p0018-b006",
+      "kind": "caption",
+      "bbox": [
+        90.0,
+        667.0,
+        523.0,
+        692.0
+      ],
+      "markdown": "Table 2: RMSE comparison for the hopper (11D) system on rollouts performed by the learned model and the polynomial fitted model."
+    },
+    {
+      "id": "p0018-b000",
+      "kind": "omit",
+      "bbox": [
+        268.0,
+        41.0,
+        341.0,
+        49.0
+      ],
+      "markdown": "NATH YIN CHOU",
+      "reason": "Running header 'NATH YIN CHOU' (author names, small caps) centred at the top of the page; page furniture, checked on the page image."
+    },
+    {
+      "id": "p0018-b007",
+      "kind": "omit",
+      "bbox": [
+        301.0,
+        726.0,
+        311.0,
+        733.0
+      ],
+      "markdown": "18",
+      "reason": "Printed page number '18' centred at the foot of the page; page furniture, checked on the page image."
+    }
+  ]
+}

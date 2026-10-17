@@ -1,0 +1,136 @@
+{
+  "page": 8,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0008.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared every item with the preview and native lines; Table 3 checked with a 130-dpi crop of the whole table, a 300-dpi crop of the token image and a 300-dpi crop of the Chinese line. First item 'with reinforcement learning (RL), ...' continues p. 7's last sentence ('since we did not perform alignment'): join_previous=space. Table 3 (convention 7): caption 'Table 3: ...' placed before the image as printed; the whole table kept as an image crop (kind figure, label 'Table 3', asset 'table-3', bbox [104,113,509,415] from the top rule at about 117 pt to the bottom rule at about 411 pt, rules end at about 506 pt; the extractor had made it a 2-column table with split italic group labels '_Sampling Proce_'|'_ss_'); followed by a text item 'Transcription of Table 3 (verify against the image above):' with the two groups (*Sampling Process*, *Multi-round Dialogue Case*), every User/LLaDA turn verbatim with internal line breaks joined, and the token-image response read as 'In 4 hours , Lily runs 12 * 4 = 48 kilometers . After 4 hours she runs 6 * 4 = 24 kilometers . In total she runs 48 + 24 = 72 kilometers in 8 hours . Result 72' (colour shading only in the image, stated). Printed quote marks kept as printed: “The Road Not Taken\" (curly open, straight close), ‘The Road Not Taken’, letter “C\", Chinese line closing ”. Chinese '两条路分岔在黄色的树林中，遗憾我不能同时走' checked character by character at 300 dpi (matches TeX). German 'Zwei Wege trennten sich im gelben Wald, und leider konnte ich nicht beide tun.' verbatim. Text repairs: 'AllenZhu' -> 'Allen-Zhu' (line-wrap at the real hyphen of the author name, TeX \\citet{AL2023-knowledge2}); $|\\text{EOS}|$; *reversal curse*; heading '### 3.3 Reversal Reasoning and Analyses'. The page ends with a complete paragraph. Page number 8 omitted. check: 25/26 lines; missing line is the $|\\text{EOS}|$ line (category a); 'extra' numbers (3, 4, 5, 6, 8, 12, 24, 48, 72) all come from the Table 3 transcription of text inside the retained image (category a). [coordinator, after independent verification] Table 3 changed from a figure item to an image-only table (kind table, rows null) so that its JPEG is stored in assets/table/ like the other tables; same bbox, transcription item unchanged.",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0008-b002",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        434.0,
+        506.0,
+        466.0
+      ],
+      "markdown": "with reinforcement learning (RL), our results are slightly behind LLaMA3 8B Instruct, though the gaps in many metrics remain small. Notably, even with only SFT, LLaDA demonstrates impressive instruction-following abilities, as detailed in Sec. 3.4. We leave RL-based alignment for future work.",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0008-b000",
+      "kind": "caption",
+      "bbox": [
+        107.0,
+        72.0,
+        505.0,
+        104.0
+      ],
+      "markdown": "Table 3: **Visualization of the Sampling Process and a Generated Multi-round Dialogue.** In the response of LLaDA, darker colors indicate tokens predicted in the later stages of sampling, while lighter colors correspond to earlier predictions.",
+      "source_class": "caption"
+    },
+    {
+      "id": "p0008-b001",
+      "kind": "table",
+      "bbox": [
+        104.0,
+        113.0,
+        509.0,
+        415.0
+      ],
+      "markdown": "",
+      "source_class": "table",
+      "label": "Table 3",
+      "asset_name": "table-3",
+      "rows": null
+    },
+    {
+      "id": "p0008-t3-transcription",
+      "kind": "text",
+      "bbox": [
+        104.0,
+        113.0,
+        509.0,
+        415.0
+      ],
+      "markdown": "Transcription of Table 3 (verify against the image above):\n\n*Sampling Process*\n\nUser: Lily can run 12 kilometers per hour for 4 hours. After that, she runs 6 kilometers per hour. How many kilometers can she run in 8 hours?\n\nLLaDA (token image; tokens as read from the image, separated by spaces; the colour shading that shows the order in which tokens were predicted is only in the image): In 4 hours , Lily runs 12 * 4 = 48 kilometers . After 4 hours she runs 6 * 4 = 24 kilometers . In total she runs 48 + 24 = 72 kilometers in 8 hours . Result 72\n\n*Multi-round Dialogue Case*\n\nUser: Could you please share with me what the initial two lines of the renowned poem ‘The Road Not Taken’?\n\nLLaDA: Certainly! The initial two lines of the renowned poem “The Road Not Taken\" by Robert Frost are: “Two roads diverged in a yellow wood, And sorry I could not travel both.\" These lines set the stage for the poem, introducing the idea of a speaker facing a choice between two paths.\n\nUser: Please help me translate into Chinese.\n\nLLaDA: Sure! The first two lines of “The Road Not Taken\" by Robert Frost can be translated into Chinese as: “两条路分岔在黄色的树林中，遗憾我不能同时走”\n\nUser: Please translate into German.\n\nLLaDA: Sure! The first two lines of “The Road Not Taken\" by Robert Frost can be translated into German as: “Zwei Wege trennten sich im gelben Wald, und leider konnte ich nicht beide tun.\"\n\nUser: Please also write a poem about life choices. I require 5 sentences, and the first word of each sentence starts with C as the first letter.\n\nLLaDA: Certainly! Here’s a poem about life choices, with each sentence starting with the letter “C\": Choices cascade through life’s journey, Creating connections with each decision, Careful consideration leads to better paths, Courageous choices shape our destiny, Choosing wisely guides us through the years."
+    },
+    {
+      "id": "p0008-b003",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        472.0,
+        506.0,
+        537.0
+      ],
+      "markdown": "All results in Sec. 3 are based on pure diffusion methods, as they achieve better overall performance than approaches incorporating autoregressive components. Specifically, we use Eq. (6) for conditional likelihood estimation and apply low-confidence remasking for sampling. For LLaDA 8B Instruct, block diffusion style sampling performs better on GSM8K and Math, with scores of 78.6 and 42.2, compared to 69.4 and 31.9 in Tab. 2. This gain is due to extensive $|\\text{EOS}|$ token padding in the SFT data, causing early termination in low-confidence remasking. Please refer to Appendix B.4 for details.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b004",
+      "kind": "text",
+      "bbox": [
+        108.0,
+        543.0,
+        505.0,
+        575.0
+      ],
+      "markdown": "Overall, despite the lack of data transparency, we have made every effort to adopt standardized procedures and introduce diverse tasks, we believe they sufficiently demonstrate the extraordinary capabilities of LLaDA, which is the only competitive non-autoregressive model to our knowledge.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b005",
+      "kind": "heading",
+      "bbox": [
+        108.0,
+        589.0,
+        273.0,
+        599.0
+      ],
+      "markdown": "### 3.3 Reversal Reasoning and Analyses",
+      "source_class": "section-header"
+    },
+    {
+      "id": "p0008-b006",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        609.0,
+        506.0,
+        663.0
+      ],
+      "markdown": "To quantify the reversal reasoning [15] ability of models, we follow the protocol established in Allen-Zhu and Li [35]. Specifically, we construct a dataset of 496 famous Chinese poem sentence pairs. Given a sentence from a poem, models are tasked with generating the subsequent line (forward) or the preceding line (reversal) without additional fine-tuning. Examples can be found in Section B.9. This setting provides a straightforward and more realistic evaluation compared to previous studies [27, 36].",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b007",
+      "kind": "text",
+      "bbox": [
+        107.0,
+        669.0,
+        505.0,
+        723.0
+      ],
+      "markdown": "As shown in Tab. 4, LLaDA effectively addresses the *reversal curse* [15], demonstrating consistent zero-shot performance across both forward and reversal tasks. In contrast, both Qwen 2.5 and GPT-4o exhibit a significant gap between the two. The results on forward generation confirm that both ARMs are strong, benefiting from significantly larger datasets and greater computational resources than LLaDA. However, LLaDA outperforms both by a large margin in the reversal task.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0008-b008",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        743.0,
+        309.0,
+        751.0
+      ],
+      "markdown": "8",
+      "source_class": "page-footer",
+      "reason": "Page number 8 at the bottom centre (checked against the preview)."
+    }
+  ]
+}

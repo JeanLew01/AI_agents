@@ -1,0 +1,1912 @@
+{
+  "page": 5,
+  "lines": [
+    {
+      "text": "widespread adoption in both control and discrete tasks. Nev-",
+      "bbox": [
+        54.0,
+        55.282344818115234,
+        298.8009948730469,
+        64.18891143798828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ertheless, the proposed framework is agnostic to the choice",
+      "bbox": [
+        54.0,
+        67.23834228515625,
+        298.80096435546875,
+        76.14490509033203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "of reinforcement learning algorithm, and other approaches",
+      "bbox": [
+        54.0,
+        79.193359375,
+        298.8009948730469,
+        88.09992218017578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(e.g., DDPG[31], SAC[29][38][39], or TD3[32]) can also be",
+      "bbox": [
+        54.0,
+        91.14837646484375,
+        298.80096435546875,
+        100.05493927001953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "applied without loss of generality.",
+      "bbox": [
+        54.0,
+        103.1033935546875,
+        193.20741271972656,
+        112.00995635986328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We summarize the training procedure in Algorithm 1.",
+      "bbox": [
+        63.9630012512207,
+        115.4483642578125,
+        298.8013916015625,
+        124.35492706298828
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "At each iteration, the adaptive noise scheduler samples",
+      "bbox": [
+        54.0,
+        127.40338134765625,
+        298.80096435546875,
+        136.3099365234375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scheduling parameters (Tt, σmax,t) according to the current",
+      "bbox": [
+        54.0,
+        139.19996643066406,
+        298.8003234863281,
+        148.96095275878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "state, which are then used by the LP-MBD to generate the",
+      "bbox": [
+        53.99998474121094,
+        151.31439208984375,
+        298.8009338378906,
+        160.220947265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "control input ut. The environment returns the next state",
+      "bbox": [
+        53.99998474121094,
+        163.11000061035156,
+        298.80450439453125,
+        172.87098693847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "st+1 and reward rt, which is reshaped into ˜rt to penalize",
+      "bbox": [
+        53.99998474121094,
+        175.0650177001953,
+        298.8039245605469,
+        185.625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "large diffusion steps. The PPO algorithm then updates the",
+      "bbox": [
+        54.0,
+        187.179443359375,
+        298.8009338378906,
+        196.08599853515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "policy parameters ϕ and value function parameters ψ using",
+      "bbox": [
+        54.0,
+        198.9750518798828,
+        298.80096435546875,
+        208.041015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "collected trajectories from a rollout buffer.",
+      "bbox": [
+        54.0,
+        211.0904541015625,
+        227.85731506347656,
+        219.99700927734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Algorithm 1 Training ALP-MBD with PPO",
+      "bbox": [
+        54.0,
+        235.7758331298828,
+        235.71775817871094,
+        244.80194091796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1: Initialize policy parameters ϕ, value function parameters",
+      "bbox": [
+        59.75400161743164,
+        249.19496154785156,
+        298.8006591796875,
+        258.26092529296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ψ",
+      "bbox": [
+        70.93600463867188,
+        261.1499938964844,
+        77.4216537475586,
+        269.99676513671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "2: for each iteration do",
+      "bbox": [
+        59.754005432128906,
+        273.1448059082031,
+        155.8472442626953,
+        282.1709289550781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "3:",
+      "bbox": [
+        59.754005432128906,
+        286.5712890625,
+        65.95474243164062,
+        293.696533203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "for each environment step t do",
+      "bbox": [
+        85.87994384765625,
+        285.06097412109375,
+        214.16831970214844,
+        294.1269226074219
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "4:",
+      "bbox": [
+        59.754005432128906,
+        298.5262756347656,
+        65.95474243164062,
+        305.6515197753906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Observe state st",
+      "bbox": [
+        100.82383728027344,
+        297.0159606933594,
+        166.78768920898438,
+        306.7768859863281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "5:",
+      "bbox": [
+        59.754005432128906,
+        310.48126220703125,
+        65.95474243164062,
+        317.60650634765625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Sample",
+      "bbox": [
+        100.82383728027344,
+        309.1303405761719,
+        130.71163940429688,
+        318.0368957519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "scheduling",
+      "bbox": [
+        144.8087158203125,
+        309.1303405761719,
+        187.97665405273438,
+        318.0368957519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parameters",
+      "bbox": [
+        202.0637664794922,
+        309.1303405761719,
+        245.7697296142578,
+        318.0368957519531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "at",
+      "bbox": [
+        259.8668212890625,
+        308.970947265625,
+        268.14569091796875,
+        318.73187255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "=",
+      "bbox": [
+        291.0509948730469,
+        308.970947265625,
+        298.8019104003906,
+        317.8177185058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Tt, σmax,t) ∼πϕ(·|st)",
+      "bbox": [
+        70.93598937988281,
+        320.3680114746094,
+        164.4244384765625,
+        330.6878662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "6:",
+      "bbox": [
+        59.75398254394531,
+        334.3912353515625,
+        65.95471954345703,
+        341.5164794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Generate control input ut ∼πLP-MBD(·|st, at)",
+      "bbox": [
+        100.82382202148438,
+        332.322998046875,
+        285.6294250488281,
+        343.2226867675781
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "7:",
+      "bbox": [
+        59.75396728515625,
+        346.3462219238281,
+        65.95470428466797,
+        353.4714660644531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Apply ut to environment, receive (st+1, rt)",
+      "bbox": [
+        100.82380676269531,
+        344.8359069824219,
+        279.3883972167969,
+        355.3968505859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "8:",
+      "bbox": [
+        59.753936767578125,
+        358.3022155761719,
+        65.95467376708984,
+        365.4274597167969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Compute modified reward Eq. (18)",
+      "bbox": [
+        100.82377624511719,
+        356.9512939453125,
+        244.19552612304688,
+        365.85784912109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "9:",
+      "bbox": [
+        59.753936767578125,
+        370.2572021484375,
+        65.95467376708984,
+        377.3824462890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Store (st, at, ut, ˜rt, st+1) in buffer B",
+      "bbox": [
+        100.82377624511719,
+        368.18896484375,
+        251.8797607421875,
+        378.5078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "10:",
+      "bbox": [
+        55.76893615722656,
+        382.2121887207031,
+        65.95472717285156,
+        389.3374328613281
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "end for",
+      "bbox": [
+        85.87992858886719,
+        380.74169921875,
+        117.3418197631836,
+        389.6980895996094
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "11:",
+      "bbox": [
+        55.76893615722656,
+        394.16717529296875,
+        65.95472717285156,
+        401.29241943359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Use PPO update to optimize ϕ, ψ with data from B",
+      "bbox": [
+        85.87992858886719,
+        392.09893798828125,
+        297.64495849609375,
+        401.7228088378906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "12:",
+      "bbox": [
+        55.76893615722656,
+        406.1221618652344,
+        65.95472717285156,
+        413.2474060058594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Clear buffer B",
+      "bbox": [
+        85.87992858886719,
+        404.0539245605469,
+        144.8684844970703,
+        413.67779541015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "13: end for",
+      "bbox": [
+        55.76893615722656,
+        416.607666015625,
+        102.39791870117188,
+        425.5640563964844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "V. EXPERIMENTS",
+      "bbox": [
+        138.69200134277344,
+        453.6923522949219,
+        214.11695861816406,
+        462.5989074707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this section, we conduct a series of experiments to",
+      "bbox": [
+        63.96300506591797,
+        471.1263427734375,
+        298.8014221191406,
+        480.03289794921875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "evaluate the proposed LP-MBD and ALP-MBD. These ex-",
+      "bbox": [
+        54.000003814697266,
+        483.0813293457031,
+        298.80096435546875,
+        491.9878845214844
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "periments are designed to validate the following aspects:",
+      "bbox": [
+        54.000003814697266,
+        495.03631591796875,
+        298.8009948730469,
+        503.94287109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(i) the behavioral and performance differences between VP-",
+      "bbox": [
+        54.000003814697266,
+        506.9913330078125,
+        298.801025390625,
+        515.8978881835938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MBD and LP-MBD; (ii) the advantages of LP-MBD in",
+      "bbox": [
+        54.000003814697266,
+        518.9462890625,
+        298.80096435546875,
+        527.8528442382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "reducing the tuning burden; and (iii) the ability of ALP-MBD",
+      "bbox": [
+        54.000003814697266,
+        530.9022827148438,
+        298.8010559082031,
+        539.808837890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "to adjust key parameters—primarily the diffusion horizon",
+      "bbox": [
+        54.000003814697266,
+        542.8572998046875,
+        298.8009948730469,
+        551.7638549804688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T and the maximum noise standard deviation σmax—as",
+      "bbox": [
+        54.000003814697266,
+        554.65283203125,
+        298.80047607421875,
+        564.413818359375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "functions of the observed state, and the extent to which",
+      "bbox": [
+        54.000030517578125,
+        566.7672729492188,
+        298.80096435546875,
+        575.673828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "these adaptations improve efficiency. All experiments were",
+      "bbox": [
+        54.000030517578125,
+        578.7222900390625,
+        298.801025390625,
+        587.6288452148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "conducted on a single NVIDIA RTX 4090 GPU. Throughout",
+      "bbox": [
+        54.000030517578125,
+        590.6773071289062,
+        298.8008728027344,
+        599.5838623046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "this experiment, we use β0 = 0.0001 and β1 = 0.01 for VP-",
+      "bbox": [
+        54.000030517578125,
+        602.473876953125,
+        298.801513671875,
+        612.814697265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MBD and σmax = 1.8 for LP-MBD.",
+      "bbox": [
+        54.00004577636719,
+        614.4288330078125,
+        203.6873016357422,
+        624.7696533203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "A. Numerical Experiments",
+      "bbox": [
+        54.00005340576172,
+        636.6729125976562,
+        162.9112091064453,
+        645.2606811523438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We first perform simple numerical experiments to evalu-",
+      "bbox": [
+        63.96305465698242,
+        653.041259765625,
+        298.8014831542969,
+        661.9478149414062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ate LP-MBD and ALP-MBD and compare with VP-MBD,",
+      "bbox": [
+        54.00005340576172,
+        664.9962768554688,
+        298.8010559082031,
+        673.90283203125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "illustrating their relative advantages in a controlled setting.",
+      "bbox": [
+        54.00005340576172,
+        676.9512939453125,
+        298.801025390625,
+        685.8578491210938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Our numerical studies (i) show why VP-MBD parameter",
+      "bbox": [
+        54.00005340576172,
+        688.9063110351562,
+        298.8009948730469,
+        697.8128662109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "tuning is harder than LP-MBD and (ii) illustrate how LP-",
+      "bbox": [
+        54.00005340576172,
+        700.8623046875,
+        298.8010559082031,
+        709.7688598632812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MBD’s simple and independent parameter sets better support",
+      "bbox": [
+        54.00005340576172,
+        712.8173217773438,
+        298.801025390625,
+        721.723876953125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "adaptive scheduling.",
+      "bbox": [
+        54.00005340576172,
+        724.7722778320312,
+        136.5003204345703,
+        733.6788330078125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Fig. 3 presents three one-dimensional examples. In the",
+      "bbox": [
+        323.1630554199219,
+        55.282283782958984,
+        558.00146484375,
+        64.18885040283203
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "first example from [1], both VP-MBD and LP-MBD reach",
+      "bbox": [
+        313.2000427246094,
+        67.23828125,
+        558.0011596679688,
+        76.14484405517578
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the optimal solution within 20 steps. However, in the second",
+      "bbox": [
+        313.2000427246094,
+        79.19329833984375,
+        558.0009155273438,
+        88.09986114501953
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and third Gaussian objectives, VP-MBD fails to converge,",
+      "bbox": [
+        313.2000427246094,
+        91.1483154296875,
+        558.0010375976562,
+        100.05487823486328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "while LP-MBD rapidly reaches the optimum in only a few",
+      "bbox": [
+        313.2000427246094,
+        103.10333251953125,
+        558.0010986328125,
+        112.00989532470703
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "steps. The performance gap between VP-MBD and LP-MBD",
+      "bbox": [
+        313.2000427246094,
+        115.058349609375,
+        558.0011596679688,
+        123.96491241455078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "can be attributed to differences in their noise scheduling. For",
+      "bbox": [
+        313.2000427246094,
+        127.01434326171875,
+        558.0010986328125,
+        135.9208984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "instance, consider the second example with diffusion steps",
+      "bbox": [
+        313.2000427246094,
+        138.9693603515625,
+        558.0010375976562,
+        147.87591552734375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "T = 2, where we compare the standard deviations of the",
+      "bbox": [
+        313.2000427246094,
+        150.7649688720703,
+        558.0010986328125,
+        159.8309326171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Gaussian proposals for VP-MBD (Eq. (7)) and LP-MBD",
+      "bbox": [
+        313.2000427246094,
+        162.87939453125,
+        558.0009765625,
+        171.78594970703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(Eq. (13)):",
+      "bbox": [
+        313.2000427246094,
+        174.83441162109375,
+        356.2483825683594,
+        183.740966796875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "VP-MBD",
+      "bbox": [
+        327.0870361328125,
+        199.76239013671875,
+        365.8315734863281,
+        208.6689453125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "r",
+      "bbox": [
+        380.0050354003906,
+        191.21051025390625,
+        389.9676208496094,
+        197.58656311035156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 −¯αi",
+      "bbox": [
+        391.1629943847656,
+        192.30502319335938,
+        417.51141357421875,
+        202.62391662597656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "¯αi",
+      "bbox": [
+        399.7467041015625,
+        206.43592834472656,
+        408.9324035644531,
+        216.19789123535156
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= [0.1, 0.01]",
+      "bbox": [
+        421.9739990234375,
+        199.60194396972656,
+        474.56646728515625,
+        208.44873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(i = 1, 0),",
+      "bbox": [
+        485.9039001464844,
+        199.60194396972656,
+        527.53759765625,
+        208.44873046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LP-MBD",
+      "bbox": [
+        327.0870056152344,
+        224.22332763671875,
+        364.7257080078125,
+        233.1298828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ti",
+      "bbox": [
+        388.6730041503906,
+        217.3239288330078,
+        395.0884094238281,
+        227.0849151611328
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1 −ti",
+      "bbox": [
+        380.093994140625,
+        230.33901977539062,
+        403.66741943359375,
+        240.6588897705078
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= [1.8, 0.0]",
+      "bbox": [
+        408.1300048828125,
+        224.0639190673828,
+        455.7411804199219,
+        232.91070556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(i = 1, 0).",
+      "bbox": [
+        467.07861328125,
+        224.0639190673828,
+        508.7122802734375,
+        232.91070556640625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "(20)",
+      "bbox": [
+        541.4019775390625,
+        210.79534912109375,
+        557.999755859375,
+        219.701904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "In this case, the maximum standard deviation of LP-MBD is",
+      "bbox": [
+        313.1999816894531,
+        246.411376953125,
+        558.0007934570312,
+        255.31793212890625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "σmax = 1.8, a value that remains unchanged regardless of the",
+      "bbox": [
+        313.1999816894531,
+        258.2079772949219,
+        557.999755859375,
+        268.54876708984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "diffusion horizon T since σmax is determined independently.",
+      "bbox": [
+        313.1999816894531,
+        270.1629943847656,
+        557.9962158203125,
+        280.72296142578125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "By contrast, VP-MBD with the same parameters as in the",
+      "bbox": [
+        313.199951171875,
+        282.2773742675781,
+        558.0009765625,
+        291.1839294433594
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "first example (β0 = 10−2, β1 = 10−4) yields a Gaussian",
+      "bbox": [
+        313.199951171875,
+        292.14166259765625,
+        558.00341796875,
+        304.41473388671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "proposal distribution with extremely small variance, thereby",
+      "bbox": [
+        313.20001220703125,
+        306.1873474121094,
+        558.0009765625,
+        315.0939025878906
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "suppressing stochasticity and precluding meaningful explo-",
+      "bbox": [
+        313.20001220703125,
+        318.142333984375,
+        558.0010375976562,
+        327.04888916015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "ration. A similar issue arises in the third example with the",
+      "bbox": [
+        313.20001220703125,
+        330.09832763671875,
+        558.0010986328125,
+        339.0048828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Gaussian mixture objective and diffusion step T = 5, where",
+      "bbox": [
+        313.20001220703125,
+        341.8939208984375,
+        558.0009765625,
+        350.9598693847656
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "LP-MBD again attains a maximum standard deviation of",
+      "bbox": [
+        313.20001220703125,
+        354.00830078125,
+        558.0010986328125,
+        362.91485595703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "1.8, while VP-MBD is limited to only 0.16. Consequently,",
+      "bbox": [
+        313.20001220703125,
+        365.80389404296875,
+        558.0010375976562,
+        374.8698425292969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the change of diffusion step T in VP-MBD can drastically",
+      "bbox": [
+        313.20001220703125,
+        377.7588806152344,
+        557.9910278320312,
+        386.8248291015625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "influence its noise scale, necessitating additional tuning of β0",
+      "bbox": [
+        313.20001220703125,
+        389.7148742675781,
+        557.5060424804688,
+        399.4757995605469
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and β1 to match the behavior of LP-MBD. This comparison",
+      "bbox": [
+        313.20001220703125,
+        401.66986083984375,
+        557.9959716796875,
+        412.22979736328125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "highlights that the proposed LP-MBD provides a more",
+      "bbox": [
+        313.20001220703125,
+        413.78424072265625,
+        558.0008544921875,
+        422.6907958984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "straightforward and intuitive parameterization, simplifying",
+      "bbox": [
+        313.20001220703125,
+        425.7392272949219,
+        558.0009155273438,
+        434.6457824707031
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "the tuning process relative to VP-MBD. Note that we only",
+      "bbox": [
+        313.20001220703125,
+        437.6942138671875,
+        558.0009155273438,
+        446.60076904296875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "change the diffusion step T and keep using the same β0",
+      "bbox": [
+        313.20001220703125,
+        449.48980712890625,
+        557.5060424804688,
+        459.2517395019531
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "and β1 for VP-MBD and σmax for LP-MBD in these three",
+      "bbox": [
+        313.20001220703125,
+        461.44580078125,
+        558.00439453125,
+        472.0057373046875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "examples.",
+      "bbox": [
+        313.20001220703125,
+        473.5601806640625,
+        353.16998291015625,
+        482.46673583984375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "We next evaluate ALP-MBD on a simple two-dimensional",
+      "bbox": [
+        323.16302490234375,
+        485.5921936035156,
+        558.00146484375,
+        494.4987487792969
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "objective function. Using REINFORCE [40], we jointly",
+      "bbox": [
+        313.20001220703125,
+        497.54718017578125,
+        558.0009155273438,
+        506.4537353515625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "optimize the continuous noise cap σmax and the diffusion",
+      "bbox": [
+        313.20001220703125,
+        509.3428039550781,
+        557.9984130859375,
+        519.9037475585938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "horizon T, with a penalty weight wT = 1.0 on the step",
+      "bbox": [
+        313.20001220703125,
+        521.2977294921875,
+        558.004638671875,
+        531.6395263671875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "count to discourage unnecessarily large T. For comparison,",
+      "bbox": [
+        313.2000427246094,
+        533.2527465820312,
+        558.0010375976562,
+        542.3187255859375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "we apply the same reinforcement learning procedure to VP-",
+      "bbox": [
+        313.2000427246094,
+        545.3681640625,
+        558.0010986328125,
+        554.2747192382812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MBD—optimizing (β0, β1, T)—and refer to this baseline as",
+      "bbox": [
+        313.2000427246094,
+        557.1636962890625,
+        557.9983520507812,
+        566.9246826171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Adaptive VP-MBD (AVP-MBD). For fair comparison, both",
+      "bbox": [
+        313.2000427246094,
+        569.2781372070312,
+        558.0010375976562,
+        578.1846923828125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "methods are trained for the same number of policy gradient",
+      "bbox": [
+        313.2000427246094,
+        581.233154296875,
+        558.0010375976562,
+        590.1397094726562
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "updates (30) under identical hyperparameters and evaluation",
+      "bbox": [
+        313.2000427246094,
+        593.1881713867188,
+        558.0009765625,
+        602.0947265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "budgets, and we evaluate each method using its learned",
+      "bbox": [
+        313.2000427246094,
+        605.1441650390625,
+        558.0010986328125,
+        614.0507202148438
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "parameters.",
+      "bbox": [
+        313.2000427246094,
+        617.09912109375,
+        359.3966369628906,
+        626.0056762695312
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "Figure 4 reports results on a 2D Gaussian mixture ob-",
+      "bbox": [
+        323.1630554199219,
+        629.1311645507812,
+        558.0015258789062,
+        638.0377197265625
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "jective subject to a linear constraint. At T",
+      "bbox": [
+        313.2000427246094,
+        640.9267578125,
+        499.9986267089844,
+        649.9927368164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "= 3, AVP-",
+      "bbox": [
+        508.2775573730469,
+        640.9267578125,
+        558.0008544921875,
+        649.9927368164062
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "MBD (top) remains comparatively diffuse, with samples",
+      "bbox": [
+        313.2000427246094,
+        653.0411376953125,
+        558.0009765625,
+        661.9476928710938
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "spread across both modes, whereas ALP-MBD (bottom)",
+      "bbox": [
+        313.2000427246094,
+        664.9961547851562,
+        558.0011596679688,
+        673.9027099609375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "rapidly concentrates probability mass in the high-value fea-",
+      "bbox": [
+        313.2000427246094,
+        676.951171875,
+        558.0009765625,
+        685.8577270507812
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "sible region, forming a compact cluster by step T = 3.",
+      "bbox": [
+        313.2000427246094,
+        688.7477416992188,
+        558.0010375976562,
+        697.813720703125
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "These results indicate that ALP-MBD successfully discover",
+      "bbox": [
+        313.2000427246094,
+        700.8621826171875,
+        558.001220703125,
+        709.7687377929688
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "an optimal parameter pair (σmax, T) that improves both",
+      "bbox": [
+        313.2000427246094,
+        712.65771484375,
+        558.0040283203125,
+        722.418701171875
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "text": "convergence speed and solution quality, while AVP-MBD",
+      "bbox": [
+        313.2000732421875,
+        724.7721557617188,
+        558.0009155273438,
+        733.6787109375
+      ],
+      "direction": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "layout": {
+    "metadata": {
+      "format": "PDF 1.7",
+      "title": "Adaptive Linear Path Model-Based Diffusion",
+      "author": "Yutaka Shimizu; Masayoshi Tomizuka",
+      "subject": "",
+      "keywords": "",
+      "creator": "arXiv GenPDF (tex2pdf:57610bf)",
+      "producer": "pikepdf 8.15.1",
+      "creationDate": "",
+      "modDate": "",
+      "trapped": "",
+      "encryption": null,
+      "file_path": "/home/jixia/AI_agents/paper2agent/NMPC/paper-review/alp-mbd-paper/documents/.pdf-skill-scan-qze8slmv/review/source.pdf",
+      "page_count": 8,
+      "page_number": 5
+    },
+    "toc_items": [],
+    "page_boxes": [
+      {
+        "index": 0,
+        "class": "text",
+        "bbox": [
+          54,
+          55,
+          299,
+          113
+        ],
+        "pos": [
+          0,
+          273
+        ]
+      },
+      {
+        "index": 1,
+        "class": "text",
+        "bbox": [
+          53,
+          115,
+          299,
+          221
+        ],
+        "pos": [
+          273,
+          805
+        ]
+      },
+      {
+        "index": 2,
+        "class": "section-header",
+        "bbox": [
+          54,
+          235,
+          236,
+          245
+        ],
+        "pos": [
+          805,
+          851
+        ]
+      },
+      {
+        "index": 3,
+        "class": "list-item",
+        "bbox": [
+          55,
+          249,
+          299,
+          424
+        ],
+        "pos": [
+          851,
+          1425
+        ]
+      },
+      {
+        "index": 4,
+        "class": "section-header",
+        "bbox": [
+          138,
+          453,
+          215,
+          461
+        ],
+        "pos": [
+          1425,
+          1444
+        ]
+      },
+      {
+        "index": 5,
+        "class": "text",
+        "bbox": [
+          54,
+          471,
+          299,
+          623
+        ],
+        "pos": [
+          1444,
+          2167
+        ]
+      },
+      {
+        "index": 6,
+        "class": "section-header",
+        "bbox": [
+          54,
+          636,
+          163,
+          646
+        ],
+        "pos": [
+          2167,
+          2198
+        ]
+      },
+      {
+        "index": 7,
+        "class": "text",
+        "bbox": [
+          54,
+          652,
+          299,
+          734
+        ],
+        "pos": [
+          2198,
+          2553
+        ]
+      },
+      {
+        "index": 8,
+        "class": "text",
+        "bbox": [
+          313,
+          55,
+          559,
+          184
+        ],
+        "pos": [
+          2553,
+          3132
+        ]
+      },
+      {
+        "index": 9,
+        "class": "formula",
+        "bbox": [
+          327,
+          191,
+          558,
+          240
+        ],
+        "pos": [
+          3132,
+          3134
+        ]
+      },
+      {
+        "index": 10,
+        "class": "text",
+        "bbox": [
+          313,
+          246,
+          559,
+          483
+        ],
+        "pos": [
+          3134,
+          4314
+        ]
+      },
+      {
+        "index": 11,
+        "class": "text",
+        "bbox": [
+          313,
+          485,
+          559,
+          627
+        ],
+        "pos": [
+          4314,
+          4971
+        ]
+      },
+      {
+        "index": 12,
+        "class": "text",
+        "bbox": [
+          313,
+          629,
+          559,
+          734
+        ],
+        "pos": [
+          4971,
+          5476
+        ]
+      }
+    ],
+    "text": "widespread adoption in both control and discrete tasks. Nevertheless, the proposed framework is agnostic to the choice of reinforcement learning algorithm, and other approaches (e.g., DDPG[31], SAC[29][38][39], or TD3[32]) can also be applied without loss of generality. \n\nWe summarize the training procedure in Algorithm 1. At each iteration, the adaptive noise scheduler samples scheduling parameters ( _Tt, σ_ max _,t_ ) according to the current state, which are then used by the LP-MBD to generate the control input _ut_ . The environment returns the next state _st_ +1 and reward _rt_ , which is reshaped into _r_ ˜ _t_ to penalize large diffusion steps. The PPO algorithm then updates the policy parameters _ϕ_ and value function parameters _ψ_ using collected trajectories from a rollout buffer. \n\n# **Algorithm 1** Training ALP-MBD with PPO \n\n- 1: Initialize policy parameters _ϕ_ , value function parameters _ψ_ \n\n- 2: **for** each iteration **do** 3: **for** each environment step _t_ **do** 4: Observe state _st_ 5: Sample scheduling parameters _at_ = ( _Tt, σ_ max _,t_ ) _∼ πϕ_ ( _·|st_ ) \n\n- 6: Generate control input _ut ∼ π_ LP-MBD( _·|st, at_ ) 7: Apply _ut_ to environment, receive ( _st_ +1 _, rt_ ) 8: Compute modified reward Eq. (18) 9: Store ( _st, at, ut,_ ˜ _rt, st_ +1) in buffer _B_ \n\n- 10: **end for** 11: Use PPO update to optimize _ϕ, ψ_ with data from _B_ 12: Clear buffer _B_ 13: **end for** \n\n# V. EXPERIMENTS \n\nIn this section, we conduct a series of experiments to evaluate the proposed LP-MBD and ALP-MBD. These experiments are designed to validate the following aspects: (i) the behavioral and performance differences between VPMBD and LP-MBD; (ii) the advantages of LP-MBD in reducing the tuning burden; and (iii) the ability of ALP-MBD to adjust key parameters—primarily the diffusion horizon _T_ and the maximum noise standard deviation _σ_ max—as functions of the observed state, and the extent to which these adaptations improve efficiency. All experiments were conducted on a single NVIDIA RTX 4090 GPU. Throughout this experiment, we use _β_ 0 = 0 _._ 0001 and _β_ 1 = 0 _._ 01 for VPMBD and _σ_ max = 1 _._ 8 for LP-MBD. \n\n# _A. Numerical Experiments_ \n\nWe first perform simple numerical experiments to evaluate LP-MBD and ALP-MBD and compare with VP-MBD, illustrating their relative advantages in a controlled setting. Our numerical studies (i) show why VP-MBD parameter tuning is harder than LP-MBD and (ii) illustrate how LPMBD’s simple and independent parameter sets better support adaptive scheduling. \n\nFig. 3 presents three one-dimensional examples. In the first example from [1], both VP-MBD and LP-MBD reach the optimal solution within 20 steps. However, in the second and third Gaussian objectives, VP-MBD fails to converge, while LP-MBD rapidly reaches the optimum in only a few steps. The performance gap between VP-MBD and LP-MBD can be attributed to differences in their noise scheduling. For instance, consider the second example with diffusion steps _T_ = 2, where we compare the standard deviations of the Gaussian proposals for VP-MBD (Eq. (7)) and LP-MBD (Eq. (13)): \n\n\n\nIn this case, the maximum standard deviation of LP-MBD is _σ_ max = 1 _._ 8, a value that remains unchanged regardless of the diffusion horizon _T_ since _σ_ max is determined independently. By contrast, VP-MBD with the same parameters as in the first example ( _β_ 0 = 10<sup>_−_2</sup> , _β_ 1 = 10<sup>_−_4</sup> ) yields a Gaussian proposal distribution with extremely small variance, thereby suppressing stochasticity and precluding meaningful exploration. A similar issue arises in the third example with the Gaussian mixture objective and diffusion step _T_ = 5, where LP-MBD again attains a maximum standard deviation of 1 _._ 8, while VP-MBD is limited to only 0 _._ 16. Consequently, the change of diffusion step _T_ in VP-MBD can drastically influence its noise scale, necessitating additional tuning of _β_ 0 and _β_ 1 to match the behavior of LP-MBD. This comparison highlights that the proposed LP-MBD provides a more straightforward and intuitive parameterization, simplifying the tuning process relative to VP-MBD. Note that we only change the diffusion step _T_ and keep using the same _β_ 0 and _β_ 1 for VP-MBD and _σ_ max for LP-MBD in these three examples. \n\nWe next evaluate ALP-MBD on a simple two-dimensional objective function. Using REINFORCE [40], we jointly optimize the continuous noise cap _σ_ max and the diffusion horizon _T_ , with a penalty weight _wT_ = 1 _._ 0 on the step count to discourage unnecessarily large _T_ . For comparison, we apply the same reinforcement learning procedure to VPMBD—optimizing ( _β_ 0 _, β_ 1 _, T_ )—and refer to this baseline as Adaptive VP-MBD (AVP-MBD). For fair comparison, both methods are trained for the same number of policy gradient updates (30) under identical hyperparameters and evaluation budgets, and we evaluate each method using its learned parameters. \n\nFigure 4 reports results on a 2D Gaussian mixture objective subject to a linear constraint. At _T_ = 3, AVPMBD (top) remains comparatively diffuse, with samples spread across both modes, whereas ALP-MBD (bottom) rapidly concentrates probability mass in the high-value feasible region, forming a compact cluster by step _T_ = 3. These results indicate that ALP-MBD successfully discover an optimal parameter pair ( _σ_ max _, T_ ) that improves both convergence speed and solution quality, while AVP-MBD \n\n"
+  }
+}

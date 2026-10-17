@@ -1,0 +1,149 @@
+{
+  "page": 2,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0002.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared all items with the preview and a 220-dpi crop of equation (1) and the paragraph after it. First item '$F$ from the current timestep $t$' continues the last sentence of page 1 (join_previous=space). Equation (1) converted from the extractor's formula image (formula-p0002-002) to a $$ block with \\tag{1}, maths taken from intro3.tex (\\va,\\vs,\\vh = \\bm{...} -> \\boldsymbol{...}; \\dynamics -> p_{d}; \\future -> F; \\argmax -> \\operatorname*{arg\\,max}) and checked against the crop: inside J(...) a and s are printed non-bold, while the argmax variable, the expectation subscript and the left-hand side are bold. Inline maths rewritten in LaTeX: $\\boldsymbol{h}_t \\equiv \\{\\boldsymbol{s}_{1:t-1}, \\boldsymbol{a}_{1:t-1}\\}$, $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1})$, $\\boldsymbol{a}_t$, $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{a}_{t:t+F-1}, \\boldsymbol{h}_t)$, $\\rho(\\boldsymbol{a}_{t:t+F-1}|\\boldsymbol{h}_t)$. Footnote marker <sup>1</sup> -> [^1]; 'Footnote 1: Goal-conditioned ...' placed before the final line 'In summary, our key contributions are:', which introduces the numbered list on page 3. '(Zhu et al.)' is printed without a year; kept. Emphasis *Diffusion Model Predictive Control* kept (\\emph in TeX). Header and page number omitted. check: 7 missing lines, all containing the maths above (category a); 9 number differences, all U+2212 vs '-' in subscripts F-1 / t-1 (category a).",
+  "warnings": [
+    "Review possible header/footer: p0002-b000"
+  ],
+  "items": [
+    {
+      "id": "p0002-b000",
+      "kind": "omit",
+      "bbox": [
+        72.0,
+        27.0,
+        369.0,
+        38.0
+      ],
+      "markdown": "Published in Transactions on Machine Learning Research (05/2025)",
+      "source_class": "page-header",
+      "reason": "Running header 'Published in Transactions on Machine Learning Research (05/2025)', repeated on every page."
+    },
+    {
+      "id": "p0002-b001",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        84.0,
+        203.0,
+        94.0
+      ],
+      "markdown": "$F$ from the current timestep $t$",
+      "source_class": "text",
+      "join_previous": "space"
+    },
+    {
+      "id": "p0002-b002",
+      "kind": "text",
+      "bbox": [
+        151.0,
+        103.0,
+        547.0,
+        135.0
+      ],
+      "markdown": "$$\n\\boldsymbol{a}_{t:t+F-1} = \\operatorname*{arg\\,max}_{\\boldsymbol{a}_{t:t+F-1}} \\mathbb{E}_{p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{a}_{t:t+F-1}, \\boldsymbol{h}_t)} \\Big[ J(a_{t:t+F-1}, s_{t+1:t+F}) \\Big], \\tag{1}\n$$",
+      "source_class": "formula"
+    },
+    {
+      "id": "p0002-b003",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        145.0,
+        543.0,
+        204.0
+      ],
+      "markdown": "where $\\boldsymbol{h}_t \\equiv \\{\\boldsymbol{s}_{1:t-1}, \\boldsymbol{a}_{1:t-1}\\}$ is the history. MPC thus factorizes the problem that the agent needs to solve into two pieces: a modeling problem (representing the dynamics model $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{1:t}, \\boldsymbol{a}_{1:t+F-1})$, which in this paper we learn from offline trajectory data) and a planning problem (finding the best sequence of actions for a given reward function). Once we have chosen the action sequence, we can execute the first action $\\boldsymbol{a}_t$ (or chunk of actions) and then replan, after observing the resulting next state, thus creating a closed loop policy.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b004",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        212.0,
+        543.0,
+        329.0
+      ],
+      "markdown": "The advantage of this MPC approach compared to standard policy learning methods is that we can easily adapt to novel reward functions at test time, simply by searching for state-action trajectories with high reward. This makes the approach more flexible than policy learning methods, which are designed to optimize a fixed reward function.[^1] In addition, learning a dynamics model is often more sample-efficient than learning a policy directly (Zhu et al.). This is because dynamics model training is essentially a supervised regression problem, predicting the next state given the current state and action—a mapping that is typically well-behaved and near-deterministic. Policy learning, however, involves predicting actions, where the optimal behavior may be multimodal (multiple good actions exist) and require accurate long-horizon credit assignment, making it a more complex learning task given the same data budget. Finally, dynamics models can often be adapted more easily than policies to novel environments, as we show in our experiments.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b005",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        336.0,
+        543.0,
+        419.0
+      ],
+      "markdown": "However, to make MPC effective in practice, we have to tackle two main problems. First, the dynamics model needs to be accurate to avoid the problem of compounding errors, where errors in next state prediction accumulate over time as the trajectory is rolled out (Venkatraman et al., 2015; Asadi et al., 2019; Xiao et al., 2019; Lambert et al., 2022). To avoid compounding errors, multi-step models are preferable. However, these require a model class capable of capturing the complex, multimodal distribution of entire trajectories. This motivates our use of diffusion models. Second, the planning algorithm needs to be powerful enough to select a good sequence of actions, avoiding the need to exhaustively search through a large space of possible actions.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b006",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        426.0,
+        541.0,
+        533.0
+      ],
+      "markdown": "We tackle both problems by using diffusion models to learn joint trajectory-level representations of (1) the world dynamics, $p_{d}(\\boldsymbol{s}_{t+1:t+F}|\\boldsymbol{s}_{t}, \\boldsymbol{a}_{t:t+F-1}, \\boldsymbol{h}_t)$, which we learn using offline “play” data (Cui et al., 2023); and (2), an action sequence proposal distribution, $\\rho(\\boldsymbol{a}_{t:t+F-1}|\\boldsymbol{h}_t)$, which we can also learn offline using behavior cloning on some demonstration data. Although such a proposal distribution might suggest actions that are not optimal for solving new rewards that were not seen during training, we show how to compensate for this using a simple sampling-based planner, a variant of the random shooting method that uses a multi-step diffusion model trained on offline datasets as the action proposal and a simple alternative to more complex methods such as trajectory optimization or cross-entropy method. We call our overall approach *Diffusion Model Predictive Control* (D-MPC).",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b007",
+      "kind": "text",
+      "bbox": [
+        70.0,
+        540.0,
+        542.0,
+        670.0
+      ],
+      "markdown": "We show experimentally (on a variety of state-based continuous control tasks from the D4RL benchmarks (Fu et al., 2020)) that our proposed D-MPC framework significantly outperforms existing model-based offline planning methods, such as MBOP (Argenson & Dulac-Arnold, 2021), which learns a single-step dynamics model and a single-step action proposal, and hence suffers from the compounding error problem. By contrast, D-MPC learns more accurate trajectory-level models, which avoid this issue, and allow our model-based approach to match (and sometimes exceed) the performance of model-free offline-RL methods. We also show that our D-MPC method can optimize novel rewards at test time, and that we are able to fine-tune the dynamics model to a new environment (after a simulated motor defect in the robot) using a small amount of data. Finally we perform an ablation analysis of our method, and show that the different pieces — namely the use of stochastic multi-step dynamics, multi-step action proposals, and the sampling-based planner with learned action proposals — are each individually valuable, but produce even more benefits when combined.",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b009",
+      "kind": "text",
+      "bbox": [
+        71.0,
+        704.0,
+        540.0,
+        732.0
+      ],
+      "markdown": "Footnote 1: Goal-conditioned reinforcement learning (RL) can increase the flexibility of the policy, but the requested goal (or something very similar to it) needs to have been seen in the training set, so it cannot optimize completely novel reward functions that are specified at run time.",
+      "source_class": "footnote"
+    },
+    {
+      "id": "p0002-b008",
+      "kind": "text",
+      "bbox": [
+        72.0,
+        678.0,
+        243.0,
+        688.0
+      ],
+      "markdown": "In summary, our key contributions are:",
+      "source_class": "text"
+    },
+    {
+      "id": "p0002-b010",
+      "kind": "omit",
+      "bbox": [
+        303.0,
+        753.0,
+        309.0,
+        760.0
+      ],
+      "markdown": "2",
+      "source_class": "page-footer",
+      "reason": "Page number 2 (footer)."
+    }
+  ]
+}

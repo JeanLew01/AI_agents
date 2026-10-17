@@ -1,12 +1,13 @@
 # Sampling-based reachability: paper skills
 
-Twenty paper skills, one per paper, built with the Paper2Agent `paper2skill` workflow. Each
+Twenty-one paper skills, one per paper, built with the Paper2Agent `paper2skill` workflow. Each
 skill is a reading package that lets Claude answer detailed questions about one paper
 (assumptions, theorem statements, bounds, algorithms, experiments) from the paper's own text.
 
 The papers are the ones cited as sampling-based or data-driven reachable-set methods in
 "On the Limits of Sampling-Based Reachability" (CoRL 2026); skill names are the bib keys of
-`~/overleaf_project/CoRL_2026/CoRL_2026/example.bib` plus `-paper`.
+`~/overleaf_project/CoRL_2026/CoRL_2026/example.bib` plus `-paper`. The 21st, `nath2026koopman-paper` (added
+2026-10-12), comes from a separate bibliography.
 
 ## Using a skill
 
@@ -42,6 +43,7 @@ page numbers.
 | `ganai2023iterative-paper` | Iterative Reachability Estimation for Safe Reinforcement Learning | arXiv:2309.13528v1 | yes |
 | `liu2025recurrent-paper` | Recurrent Control Barrier Functions: A Path Towards Nonparametric Safety Verification | arXiv:2510.02127v1 | yes |
 | `ouyang2026symplectic-paper` | Symplectic Inductive Bias for Data-Driven Target Reachability in Hamiltonian Systems | arXiv:2604.17213v1 | yes |
+| `nath2026koopman-paper` | Scalable Data-Driven Reachability Analysis and Control via Koopman Operators with Conformal Coverage Guarantees | arXiv:2601.01076v1 | yes |
 
 Exact source URLs and checksums are in `papers/SOURCES.tsv` and `papers/SHA256SUMS`.
 
@@ -78,7 +80,7 @@ Things to know when relying on a package:
    statements, numbered equations, algorithms, table cells, figure crops, completeness).
    Findings: `logs/verify/<key>.md`; per-paper outcome: `logs/STATE.md`.
 
-Outcome of the second pass (2026-10-02, all 20 packages):
+Outcome of the second pass (2026-10-02, the first 20 packages; `nath2026koopman` on 2026-10-12: 0 errors, one imprecise note about the Figure 11 time axis, corrected):
 
 - No error in the mathematics or the text of any package.
 - Two figure issues. `lew2021sampling`: the Figure 6 crop was cut below the axis; repaired.
@@ -96,7 +98,7 @@ Outcome of the second pass (2026-10-02, all 20 packages):
 
 | Path | Content |
 | --- | --- |
-| `papers/` | The 20 PDFs, named by bib key |
+| `papers/` | The 21 PDFs, named by bib key |
 | `tex-source/` | arXiv TeX sources (transcription aid only) |
 | `paper-review/` | Review directories of `paper_bundle.py` (page plans, evidence, adjudications) |
 | `skills/` | The finished packages (linked from `~/.claude/skills/`) |

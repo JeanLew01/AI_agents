@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "papergate"
+version = "0.1.0"
+description = "Read-only pre-submission checker for LaTeX papers (camera-ready and anonymous submission modes)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "typer>=0.12",
+  "pydantic>=2.6",
+  "PyYAML>=6.0",
+  "jinja2>=3.1",
+  "PyMuPDF>=1.24",
+  "bibtexparser>=1.4,<2",
+  "numpy>=1.26",
+  "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# Network access at check time: only used by the LLM stages (5-6), never with --no-llm.
+llm = ["anthropic>=0.69"]
+dev = ["pytest>=8.0", "matplotlib>=3.8"]
+
+[project.scripts]
+papergate = "papergate.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/papergate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["tex: needs a TeX installation (latexmk, pdflatex)"]

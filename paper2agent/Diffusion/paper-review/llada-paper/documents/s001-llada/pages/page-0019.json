@@ -1,0 +1,195 @@
+{
+  "page": 19,
+  "width": 612.0,
+  "height": 792.0,
+  "mode": "native",
+  "preview": "previews/page-0019.png",
+  "reviewed": true,
+  "review_notes": "[v2] Compared with the preview and 220-dpi crops of each algorithm box and of the Appendix A text. Algorithms 1-3 (Pre-training, Supervised Fine-Tuning, Conditional Log-likelihood Evaluation) are now one figure crop each (algorithm-1/2/3; boxes [106,70,506,196], [106,203,506,330], [106,337,506,462] contain the top rule, caption line, all numbered lines and the bottom rule, checked by locating the rules at y=72.1/193.9, 205.3/328.0, 339.5/460.3) plus a line-by-line transcription per the paper convention (bold title, Require line, numbered lines, &emsp;&emsp; per nesting level, comments kept: inline code when no maths, plain text with LaTeX otherwise). Maths taken from main.tex (\\pdata expanded to p_{\\text{data}}, \\textrm{M} -> \\mathrm{M}) and matched to the PDF; printed oddities kept: comment truncated 'the SFT dat' (Alg. 2 line 2), 't * L' / \"t * L'\" in the loss, loop index i reused inside the sum in Alg. 3 line 5. The extractor had split the algorithms into ~20 list-item fragments with glyph soup; all replaced. Order: the printed page has the three algorithm floats above the heading 'A Formulation of Masked Diffusion Models'; the A heading was placed first so the algorithms (defined inside Appendix A in the TeX) sit under Appendix A instead of under References; A.1 heading follows. Headings fixed to '## A Formulation of Masked Diffusion Models' / '### A.1 Training'. Split the extractor's merged paragraph into 'MDMs [16-20] ...' and 'These models introduce ...' (printed as two paragraphs). Equations (7) and (8) converted from formula images to $$...$$ with \\tag{7}, \\tag{8} (cases environment as printed). Last paragraph ends mid-sentence ('At $t = 1$, all') and continues on p. 20. Page number omitted. [coordinator, after independent verification] Comment of the algorithm transcription written as plain text (no inline code), consistent with the other algorithm comments (1 item).",
+  "warnings": [],
+  "items": [
+    {
+      "id": "p0019-b025",
+      "kind": "heading",
+      "bbox": [
+        108,
+        479,
+        340,
+        492
+      ],
+      "markdown": "## A Formulation of Masked Diffusion Models"
+    },
+    {
+      "id": "p0019-b000",
+      "kind": "figure",
+      "bbox": [
+        106,
+        70,
+        506,
+        196
+      ],
+      "markdown": "",
+      "label": "Algorithm 1",
+      "asset_name": "algorithm-1"
+    },
+    {
+      "id": "p0019-b001",
+      "kind": "text",
+      "bbox": [
+        106,
+        70,
+        506,
+        196
+      ],
+      "markdown": "**Algorithm 1** Pre-training of LLaDA\n\n**Require:** mask predictor $p_{\\theta}$, data distribution $p_{\\text{data}}$\n\n**1:**&ensp;**repeat**\n\n**2:**&ensp;&emsp;&emsp; $x_0 \\sim p_{\\text{data}}$ &emsp; # with a probability of 1%, the sequence length of $x_0$ follows $\\text{U}[1, 4096]$\n\n**3:**&ensp;&emsp;&emsp; $t \\sim \\text{U}(0, 1]$\n\n**4:**&ensp;&emsp;&emsp; $x_t \\sim q_{t|0}(x_t|x_0)$ &emsp; # $q_{t|0}$ is defined in Eq. (7)\n\n**5:**&ensp;&emsp;&emsp; Calculate $\\mathcal{L} = -\\frac{1}{t * L} \\sum_{i=1}^{L} \\mathbf{1}[x_t^i = \\mathrm{M}] \\log p_{\\theta}(x_0^i|x_t)$ &emsp; # $L$ is the sequence length of $x_0$\n\n**6:**&ensp;&emsp;&emsp; Calculate $\\nabla_{\\theta} \\mathcal{L}$ and run optimizer.\n\n**7:**&ensp;**until** Converged\n\n**8:**&ensp;**Return** $p_{\\theta}$"
+    },
+    {
+      "id": "p0019-b008",
+      "kind": "figure",
+      "bbox": [
+        106,
+        203,
+        506,
+        330
+      ],
+      "markdown": "",
+      "label": "Algorithm 2",
+      "asset_name": "algorithm-2"
+    },
+    {
+      "id": "p0019-b009",
+      "kind": "text",
+      "bbox": [
+        106,
+        203,
+        506,
+        330
+      ],
+      "markdown": "**Algorithm 2** Supervised Fine-Tuning of LLaDA\n\n**Require:** mask predictor $p_{\\theta}$, pair data distribution $p_{\\text{data}}$\n\n**1:**&ensp;**repeat**\n\n**2:**&ensp;&emsp;&emsp; $p_0, r_0 \\sim p_{\\text{data}}$ &emsp; # please refer to Appendix B.1 for details about the SFT dat\n\n**3:**&ensp;&emsp;&emsp; $t \\sim \\text{U}(0, 1]$\n\n**4:**&ensp;&emsp;&emsp; $r_t \\sim q_{t|0}(r_t|r_0)$ &emsp; # $q_{t|0}$ is defined in Eq. (7)\n\n**5:**&ensp;&emsp;&emsp; Calculate $\\mathcal{L} = -\\frac{1}{t * L'} \\sum_{i=1}^{L'} \\mathbf{1}[r_t^i = \\mathrm{M}] \\log p_{\\theta}(r_0^i|p_0, r_t)$ &emsp; # $L'$ is the sequence length of $r_0$\n\n**6:**&ensp;&emsp;&emsp; Calculate $\\nabla_{\\theta} \\mathcal{L}$ and run optimizer.\n\n**7:**&ensp;**until** Converged\n\n**8:**&ensp;**Return** $p_{\\theta}$"
+    },
+    {
+      "id": "p0019-b018",
+      "kind": "figure",
+      "bbox": [
+        106,
+        337,
+        506,
+        462
+      ],
+      "markdown": "",
+      "label": "Algorithm 3",
+      "asset_name": "algorithm-3"
+    },
+    {
+      "id": "p0019-b019",
+      "kind": "text",
+      "bbox": [
+        106,
+        337,
+        506,
+        462
+      ],
+      "markdown": "**Algorithm 3** Conditional Log-likelihood Evaluation of LLaDA\n\n**Require:** mask predictor $p_{\\theta}$, prompt $p_0$, response $r_0$, the number of Monte Carlo estimations $n_{mc}$\n\n**1:**&ensp;$\\text{log\\_likelihood} = 0$\n\n**2:**&ensp;**for** $i \\gets 1$ to $n_{mc}$ **do**\n\n**3:**&ensp;&emsp;&emsp; $l \\sim \\{1, 2, \\dots, L\\}$ &emsp; # $L$ is the sequence length of $r_0$\n\n**4:**&ensp;&emsp;&emsp; Obtain $r_l$ by uniformly sampling $l$ tokens from $r_0$ without replacement for masking\n\n**5:**&ensp;&emsp;&emsp; $\\text{log\\_likelihood} = \\text{log\\_likelihood} + \\frac{L}{l} \\sum_{i=1}^{L} \\mathbf{1}[r_l^i = \\mathrm{M}] \\log p_{\\theta}(r_0^i|p_0, r_l)$\n\n**6:**&ensp;**end for**\n\n**7:**&ensp;$\\text{log\\_likelihood} = \\text{log\\_likelihood} / n_{mc}$\n\n**8:**&ensp;**Return** log_likelihood"
+    },
+    {
+      "id": "p0019-b026",
+      "kind": "heading",
+      "bbox": [
+        108,
+        511,
+        170,
+        522
+      ],
+      "markdown": "### A.1 Training"
+    },
+    {
+      "id": "p0019-b027",
+      "kind": "text",
+      "bbox": [
+        107,
+        531,
+        506,
+        542
+      ],
+      "markdown": "MDMs [16–20] define the model distribution $p_\\theta(x_0)$ in a manner distinct from autoregressive models."
+    },
+    {
+      "id": "p0019-b027a",
+      "kind": "text",
+      "bbox": [
+        107,
+        547,
+        505,
+        591
+      ],
+      "markdown": "These models introduce a forward process $\\{x_t\\}$ indexed by a time $t \\in [0, 1]$. This process gradually and independently masks all tokens in the sequence $x_0$. At time $t = 0$, the data point $x_0$ is fully observed with no masks, while for $t \\in (0, 1]$, $x_t$ represents latent variables with varying mask ratios in expectation."
+    },
+    {
+      "id": "p0019-b028",
+      "kind": "text",
+      "bbox": [
+        108,
+        597,
+        465,
+        609
+      ],
+      "markdown": "Formally, the conditional distribution of $x_t$ given $x_0$ is defined by a fully factorized form:"
+    },
+    {
+      "id": "p0019-b029",
+      "kind": "text",
+      "bbox": [
+        241,
+        608,
+        510,
+        648
+      ],
+      "markdown": "$$ q_{t|0}(x_t|x_0) = \\prod_{i=1}^{L} q_{t|0}(x_t^i|x_0^i), \\tag{7} $$"
+    },
+    {
+      "id": "p0019-b030",
+      "kind": "text",
+      "bbox": [
+        107,
+        649,
+        351,
+        659
+      ],
+      "markdown": "where the conditional distribution for each token is given by:"
+    },
+    {
+      "id": "p0019-b031",
+      "kind": "text",
+      "bbox": [
+        233,
+        660,
+        510,
+        695
+      ],
+      "markdown": "$$ q_{t|0}(x_t^i|x_0^i) = \\begin{cases} 1 - t, & x_t^i = x_0^i, \\\\ t, & x_t^i = \\mathrm{M}. \\end{cases} \\tag{8} $$"
+    },
+    {
+      "id": "p0019-b032",
+      "kind": "text",
+      "bbox": [
+        107,
+        702,
+        506,
+        723
+      ],
+      "markdown": "Here, $\\mathrm{M}$ denotes the mask token. Intuitively, each token either remains unchanged or is masked, with the probability of being masked increasing linearly as $t$ progresses from $0$ to $1$. At $t = 1$, all"
+    },
+    {
+      "id": "p0019-b033",
+      "kind": "omit",
+      "bbox": [
+        301,
+        743,
+        311,
+        751
+      ],
+      "markdown": "19",
+      "reason": "Page number 19 (footer)."
+    }
+  ]
+}
